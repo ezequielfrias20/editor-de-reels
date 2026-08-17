@@ -1,0 +1,31 @@
+# claves
+.env
+
+# metraje y renders: pesados y regenerables o irrepetibles, fuera del repo
+VIDEOS ORIGINALES/
+VIDEOS EDITADOS/
+out/
+videos/*/output*.mp4
+videos/*/public/input-video.mp4
+videos/*/public/snapshots/
+videos/*/public/fonts/
+videos/*/public/vendor/
+videos/*/public/sfx/
+videos/*/public/gen/
+videos/*/.pf900.ttf
+
+# audio intermedio
+assets/audio/
+*.wav
+*.flac
+
+# assets generados con IA: el ledger SÍ se versiona (reproduce los prompts)
+assets/gen/*
+!assets/gen/ledger.json
+
+node_modules/
+.venv/
+.uv-cache/
+__pycache__/
+cache/
+videos/*/review-snapshots/

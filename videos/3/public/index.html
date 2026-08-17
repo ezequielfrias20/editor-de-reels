@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+@font-face{font-family:'Inter';src:url('fonts/Inter-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-800.woff2') format('woff2');font-weight:800;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-900.woff2') format('woff2');font-weight:900;font-style:normal;font-display:block}
+@font-face{font-family:'JetBrains Mono';src:url('fonts/JetBrainsMono-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'JetBrains Mono';src:url('fonts/JetBrainsMono-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+
+.viz[data-viz-id="viz-mismatch"] .vizbg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+
+.viz[data-viz-id="viz-mismatch"] .hud{position:absolute;inset:0;pointer-events:none;z-index:30}
+.viz[data-viz-id="viz-mismatch"] .hlabel{position:absolute;left:44px;top:96px;display:flex;align-items:center;gap:12px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:23px;letter-spacing:.16em;
+  color:#A7ADBB;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 20px;white-space:nowrap;opacity:0}
+.viz[data-viz-id="viz-mismatch"] .hlabel s{width:11px;height:11px;border-radius:50%;background:#7C5CFF;
+  display:block;text-decoration:none;flex:0 0 11px}
+.viz[data-viz-id="viz-mismatch"] .htick{position:absolute;left:286px;top:96px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:21px;letter-spacing:.18em;
+  color:#8C93A3;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 18px;white-space:nowrap;opacity:0}
+
+.viz[data-viz-id="viz-mismatch"] .rmwrap{width:980px;display:flex;flex-direction:column;gap:22px}
+.viz[data-viz-id="viz-mismatch"] .rmsub{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:24px;letter-spacing:.16em;
+  color:#8C93A3;text-align:center;opacity:0}
+.viz[data-viz-id="viz-mismatch"] .rmrow{display:flex;gap:20px;align-items:stretch;position:relative}
+.viz[data-viz-id="viz-mismatch"] .rmcol{flex:1;background:#16181F;border:1px solid rgba(255,255,255,.09);
+  border-radius:24px;padding:40px 22px 34px;text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="viz-mismatch"] .rmcol.bad{border-color:rgba(255,90,90,.45);
+  background:linear-gradient(180deg,rgba(255,90,90,.14) 0%,#16181F 72%)}
+.viz[data-viz-id="viz-mismatch"] .rmval{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:74px;line-height:.96;
+  letter-spacing:-.04em;color:#FFFFFF;white-space:nowrap}
+.viz[data-viz-id="viz-mismatch"] .rmcol.bad .rmval{color:#FF5A5A}
+.viz[data-viz-id="viz-mismatch"] .rmlab{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:20px;letter-spacing:.14em;
+  color:#8C93A3;margin-top:18px}
+.viz[data-viz-id="viz-mismatch"] .rmneq{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:78px;height:78px;border-radius:50%;background:#0B0C10;
+  border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;
+  font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:40px;color:#FF5A5A;
+  z-index:4;opacity:0}
+.viz[data-viz-id="viz-mismatch"] .rmverd{display:flex;align-items:center;justify-content:center;gap:16px;
+  background:rgba(255,90,90,.14);border:1px solid rgba(255,90,90,.42);
+  border-radius:16px;padding:24px 30px;font-family:'Inter', system-ui, sans-serif;
+  font-weight:800;font-size:40px;letter-spacing:-.02em;color:#FF5A5A;
+  opacity:0}
+
+.viz[data-viz-id="viz-mismatch"] .vizcam.mock{padding-top:250px;padding-bottom:470px}
+
+.viz[data-viz-id="viz-methods"] .vizbg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+
+.viz[data-viz-id="viz-methods"] .hud{position:absolute;inset:0;pointer-events:none;z-index:30}
+.viz[data-viz-id="viz-methods"] .hlabel{position:absolute;left:44px;top:96px;display:flex;align-items:center;gap:12px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:23px;letter-spacing:.16em;
+  color:#A7ADBB;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 20px;white-space:nowrap;opacity:0}
+.viz[data-viz-id="viz-methods"] .hlabel s{width:11px;height:11px;border-radius:50%;background:#7C5CFF;
+  display:block;text-decoration:none;flex:0 0 11px}
+.viz[data-viz-id="viz-methods"] .htick{position:absolute;left:240px;top:96px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:21px;letter-spacing:.18em;
+  color:#8C93A3;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 18px;white-space:nowrap;opacity:0}
+
+.viz[data-viz-id="viz-methods"] .cgwrap{width:980px;display:flex;flex-direction:column;
+  align-items:center;gap:30px}
+.viz[data-viz-id="viz-methods"] .cgkick{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:24px;letter-spacing:.18em;
+  color:#8C93A3;opacity:0}
+.viz[data-viz-id="viz-methods"] .cggrid{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+.viz[data-viz-id="viz-methods"] .cgchip{background:#1D2029;border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:24px 36px;font-family:'Inter', system-ui, sans-serif;
+  font-weight:800;font-size:44px;letter-spacing:-.02em;color:#FFFFFF;
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0;white-space:nowrap}
+.viz[data-viz-id="viz-methods"] .cgalert{display:flex;align-items:center;gap:16px;background:rgba(255,90,90,.14);
+  border:1px solid rgba(255,90,90,.42);border-radius:16px;
+  padding:22px 32px;font-family:'Inter', system-ui, sans-serif;font-weight:800;font-size:40px;
+  letter-spacing:-.02em;color:#FF5A5A;opacity:0}
+.viz[data-viz-id="viz-methods"] .cgalert s{width:12px;height:12px;border-radius:50%;background:#FF5A5A;
+  display:block;text-decoration:none;flex:0 0 12px}
+
+.viz[data-viz-id="viz-methods"] .vizcam.mock{padding-top:250px;padding-bottom:430px}
+
+.viz[data-viz-id="viz-erp"] .vizbg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+
+
+.viz[data-viz-id="viz-erp"] .khero{display:flex;flex-direction:column;align-items:center;gap:26px;
+  width:980px;text-align:center}
+.viz[data-viz-id="viz-erp"] .kkick{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:26px;letter-spacing:.20em;
+  color:#9B85FF;background:rgba(124,92,255,.16);border-radius:9999px;
+  padding:12px 26px;opacity:0}
+.viz[data-viz-id="viz-erp"] .kword{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:220px;line-height:.94;
+  letter-spacing:-.045em;color:#FFFFFF;opacity:0}
+.viz[data-viz-id="viz-erp"] .kbar{width:0;height:12px;border-radius:6px;background:#7C5CFF}
+.viz[data-viz-id="viz-erp"] .ksub{font-family:'Inter', system-ui, sans-serif;font-weight:500;font-size:36px;line-height:1.3;
+  color:#A7ADBB;max-width:820px;opacity:0}
+
+.viz[data-viz-id="viz-tour"] .vizbg{position:absolute;inset:0;background:transparent}
+
+.viz[data-viz-id="viz-tour"] .hud{position:absolute;inset:0;pointer-events:none;z-index:30}
+.viz[data-viz-id="viz-tour"] .hlabel{position:absolute;left:44px;top:96px;display:flex;align-items:center;gap:12px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:23px;letter-spacing:.16em;
+  color:#A7ADBB;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 20px;white-space:nowrap;opacity:0}
+.viz[data-viz-id="viz-tour"] .hlabel s{width:11px;height:11px;border-radius:50%;background:#7C5CFF;
+  display:block;text-decoration:none;flex:0 0 11px}
+.viz[data-viz-id="viz-tour"] .htick{position:absolute;left:318px;top:96px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:21px;letter-spacing:.18em;
+  color:#8C93A3;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 18px;white-space:nowrap;opacity:0}
+
+.viz[data-viz-id="viz-tour"] .screenfx{position:absolute;inset:0;z-index:12}
+.viz[data-viz-id="viz-tour"] .scbadge{position:absolute;background:#7C5CFF;color:#FFFFFF;
+  border-radius:9999px;padding:13px 24px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:24px;letter-spacing:.10em;opacity:0;white-space:nowrap;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);z-index:16}
+.viz[data-viz-id="viz-tour"] .scbox{position:absolute;border:5px solid #7C5CFF;border-radius:16px;
+  box-shadow:0 0 0 9999px rgba(11,12,16,.55);opacity:0;z-index:14}
+
+.viz[data-viz-id="viz-tour"] .bigcursor{position:absolute;left:0;top:0;width:76px;height:92px;z-index:20;opacity:0}
+.viz[data-viz-id="viz-tour"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
+.viz[data-viz-id="viz-tour"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
+  border-radius:50%;border:6px solid #7C5CFF;opacity:0}
+.viz[data-viz-id="viz-tour"] .spring{position:absolute;left:40px;top:540px;width:1000px;height:820px;
+  border:1px solid rgba(255,255,255,.16);border-radius:24px;pointer-events:none;
+  box-shadow:0 8px 20px rgba(0,0,0,.55), 0 40px 90px rgba(0,0,0,.65);z-index:11;opacity:0}
+
+.viz[data-viz-id="viz-sum"] .vizbg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+
+
+.viz[data-viz-id="viz-sum"] .khero{display:flex;flex-direction:column;align-items:center;gap:26px;
+  width:980px;text-align:center}
+.viz[data-viz-id="viz-sum"] .kkick{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:26px;letter-spacing:.20em;
+  color:#9B85FF;background:rgba(124,92,255,.16);border-radius:9999px;
+  padding:12px 26px;opacity:0}
+.viz[data-viz-id="viz-sum"] .kword{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:132px;line-height:.94;
+  letter-spacing:-.045em;color:#FFFFFF;opacity:0}
+.viz[data-viz-id="viz-sum"] .kbar{width:0;height:12px;border-radius:6px;background:#7C5CFF}
+.viz[data-viz-id="viz-sum"] .ksub{font-family:'Inter', system-ui, sans-serif;font-weight:500;font-size:36px;line-height:1.3;
+  color:#A7ADBB;max-width:820px;opacity:0}
+
+.viz[data-viz-id="viz-equiv"] .vizbg{position:absolute;inset:0;background:transparent}
+
+.viz[data-viz-id="viz-equiv"] .hud{position:absolute;inset:0;pointer-events:none;z-index:30}
+.viz[data-viz-id="viz-equiv"] .hlabel{position:absolute;left:44px;top:96px;display:flex;align-items:center;gap:12px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:23px;letter-spacing:.16em;
+  color:#A7ADBB;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 20px;white-space:nowrap;opacity:0}
+.viz[data-viz-id="viz-equiv"] .hlabel s{width:11px;height:11px;border-radius:50%;background:#7C5CFF;
+  display:block;text-decoration:none;flex:0 0 11px}
+.viz[data-viz-id="viz-equiv"] .htick{position:absolute;left:318px;top:96px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:21px;letter-spacing:.18em;
+  color:#8C93A3;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 18px;white-space:nowrap;opacity:0}
+
+.viz[data-viz-id="viz-equiv"] .screenfx{position:absolute;inset:0;z-index:12}
+.viz[data-viz-id="viz-equiv"] .scbadge{position:absolute;background:#7C5CFF;color:#FFFFFF;
+  border-radius:9999px;padding:13px 24px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:24px;letter-spacing:.10em;opacity:0;white-space:nowrap;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);z-index:16}
+.viz[data-viz-id="viz-equiv"] .scbox{position:absolute;border:5px solid #7C5CFF;border-radius:16px;
+  box-shadow:0 0 0 9999px rgba(11,12,16,.55);opacity:0;z-index:14}
+
+.viz[data-viz-id="viz-equiv"] .bigcursor{position:absolute;left:0;top:0;width:76px;height:92px;z-index:20;opacity:0}
+.viz[data-viz-id="viz-equiv"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
+.viz[data-viz-id="viz-equiv"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
+  border-radius:50%;border:6px solid #7C5CFF;opacity:0}
+.viz[data-viz-id="viz-equiv"] .spring{position:absolute;left:40px;top:540px;width:1000px;height:820px;
+  border:1px solid rgba(255,255,255,.16);border-radius:24px;pointer-events:none;
+  box-shadow:0 8px 20px rgba(0,0,0,.55), 0 40px 90px rgba(0,0,0,.65);z-index:11;opacity:0}
+
+.viz[data-viz-id="viz-cta"] .vizbg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+
+.viz[data-viz-id="viz-cta"] .hud{position:absolute;inset:0;pointer-events:none;z-index:30}
+.viz[data-viz-id="viz-cta"] .hlabel{position:absolute;left:44px;top:96px;display:flex;align-items:center;gap:12px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:23px;letter-spacing:.16em;
+  color:#A7ADBB;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 20px;white-space:nowrap;opacity:0}
+.viz[data-viz-id="viz-cta"] .hlabel s{width:11px;height:11px;border-radius:50%;background:#7C5CFF;
+  display:block;text-decoration:none;flex:0 0 11px}
+.viz[data-viz-id="viz-cta"] .htick{position:absolute;left:333px;top:96px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:21px;letter-spacing:.18em;
+  color:#8C93A3;background:rgba(22,24,31,.92);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:11px 18px;white-space:nowrap;opacity:0}
+
+.viz[data-viz-id="viz-cta"] .cwrap{display:flex;flex-direction:column;align-items:center;gap:34px;width:980px}
+.viz[data-viz-id="viz-cta"] .chead{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:190px;line-height:.92;
+  letter-spacing:-.05em;color:#FFFFFF;opacity:0}
+.viz[data-viz-id="viz-cta"] .csay{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:26px;letter-spacing:.20em;
+  color:#B8AAFF;background:rgba(124,92,255,.16);border-radius:9999px;
+  padding:12px 26px;opacity:0;margin-bottom:-14px}
+.viz[data-viz-id="viz-cta"] .cbox{width:100%;display:flex;align-items:center;gap:20px;background:#16181F;
+  border:1px solid rgba(255,255,255,.16);border-radius:9999px;padding:22px 26px;
+  box-shadow:0 8px 20px rgba(0,0,0,.55), 0 40px 90px rgba(0,0,0,.65);opacity:0}
+.viz[data-viz-id="viz-cta"] .cav{width:66px;height:66px;border-radius:50%;flex:0 0 66px;
+  background:linear-gradient(135deg,#7C5CFF 0%,#5B3FD6 100%)}
+.viz[data-viz-id="viz-cta"] .cfield{flex:1;min-width:0;font-family:'Inter', system-ui, sans-serif;font-weight:700;font-size:42px;
+  letter-spacing:-.01em;color:#FFFFFF;white-space:nowrap;overflow:hidden}
+.viz[data-viz-id="viz-cta"] .cfield i{color:#8C93A3;font-style:normal;font-weight:500}
+.viz[data-viz-id="viz-cta"] .ccaret{display:inline-block;width:4px;height:44px;background:#7C5CFF;
+  vertical-align:-8px;margin-left:6px}
+.viz[data-viz-id="viz-cta"] .csend{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:24px;letter-spacing:.12em;
+  color:#8C93A3;flex:0 0 auto}
+.viz[data-viz-id="viz-cta"] .csend.on{color:#34E39B}
+.viz[data-viz-id="viz-cta"] .cposted{display:flex;align-items:center;gap:16px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:26px;letter-spacing:.14em;color:#34E39B;background:rgba(52,227,155,.14);
+  border:1px solid rgba(52,227,155,.4);border-radius:9999px;
+  padding:14px 28px;opacity:0}
+
+.viz[data-viz-id="viz-cta"] .vizcam.mock{padding-top:60px}
+
+.card[data-card-id="card-01"] .root{width:100%;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-start;align-items:center;gap:22px;
+  padding:144px 65px 106px;background:transparent}
+.card[data-card-id="card-01"] .kick{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:26px;letter-spacing:.16em;color:#A7ADBB;
+  background:rgba(11,12,16,.72);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:12px 22px;white-space:nowrap;opacity:0}
+.card[data-card-id="card-01"] .kick s{width:10px;height:10px;border-radius:50%;background:#7C5CFF;
+  display:block;text-decoration:none}
+.card[data-card-id="card-01"] .ttl{display:flex;flex-direction:column;align-items:center;gap:2px;
+  font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:96px;line-height:1.02;
+  letter-spacing:-.032em;color:#FFFFFF;text-align:center;
+  -webkit-text-stroke:7px #0B0C10;paint-order:stroke fill;
+  text-shadow:0 3px 18px rgba(11,12,16,.85),0 1px 3px rgba(11,12,16,.9)}
+.card[data-card-id="card-01"] .tline{display:block}
+/* La keyword del titular lleva SU PROPIO suelo opaco, no solo el filete.
+   El filete salva la tinta blanca, pero el violeta sobre una pared iluminada
+   se queda en 1.4:1 — medido. Con la pastilla grafito el par es siempre
+   violet_hi sobre bg = 6.70:1, pase lo que pase detrás en el metraje, y
+   además rima con la pastilla del kicker. */
+.card[data-card-id="card-01"] .tkey{color:#9B85FF;background:#0B0C10;-webkit-text-stroke:0;
+  border-radius:10px;padding:0 .10em;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.card[data-card-id="card-01"] .sub{font-family:'Inter', system-ui, sans-serif;font-weight:500;font-size:34px;line-height:1.32;
+  color:#A7ADBB;text-align:center;max-width:821px;
+  text-shadow:0 2px 12px rgba(11,12,16,.9);opacity:0}
+
+
+.card[data-card-id="card-02"] .root{width:100%;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-start;align-items:center;gap:22px;
+  padding:144px 65px 106px;background:transparent}
+.card[data-card-id="card-02"] .kick{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:26px;letter-spacing:.16em;color:#A7ADBB;
+  background:rgba(11,12,16,.72);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:12px 22px;white-space:nowrap;opacity:0}
+.card[data-card-id="card-02"] .kick s{width:10px;height:10px;border-radius:50%;background:#7C5CFF;
+  display:block;text-decoration:none}
+.card[data-card-id="card-02"] .ttl{display:flex;flex-direction:column;align-items:center;gap:2px;
+  font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:96px;line-height:1.02;
+  letter-spacing:-.032em;color:#FFFFFF;text-align:center;
+  -webkit-text-stroke:7px #0B0C10;paint-order:stroke fill;
+  text-shadow:0 3px 18px rgba(11,12,16,.85),0 1px 3px rgba(11,12,16,.9)}
+.card[data-card-id="card-02"] .tline{display:block}
+/* La keyword del titular lleva SU PROPIO suelo opaco, no solo el filete.
+   El filete salva la tinta blanca, pero el violeta sobre una pared iluminada
+   se queda en 1.4:1 — medido. Con la pastilla grafito el par es siempre
+   violet_hi sobre bg = 6.70:1, pase lo que pase detrás en el metraje, y
+   además rima con la pastilla del kicker. */
+.card[data-card-id="card-02"] .tkey{color:#9B85FF;background:#0B0C10;-webkit-text-stroke:0;
+  border-radius:10px;padding:0 .10em;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.card[data-card-id="card-02"] .sub{font-family:'Inter', system-ui, sans-serif;font-weight:500;font-size:34px;line-height:1.32;
+  color:#A7ADBB;text-align:center;max-width:821px;
+  text-shadow:0 2px 12px rgba(11,12,16,.9);opacity:0}
+
+
+.card[data-card-id="card-03"] .root{width:100%;height:100%;display:flex;flex-direction:column;
+  justify-content:flex-start;align-items:center;gap:22px;
+  padding:144px 65px 106px;background:transparent}
+.card[data-card-id="card-03"] .kick{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:26px;letter-spacing:.16em;color:#A7ADBB;
+  background:rgba(11,12,16,.72);border:1px solid rgba(255,255,255,.09);
+  border-radius:9999px;padding:12px 22px;white-space:nowrap;opacity:0}
+.card[data-card-id="card-03"] .kick s{width:10px;height:10px;border-radius:50%;background:#7C5CFF;
+  display:block;text-decoration:none}
+.card[data-card-id="card-03"] .ttl{display:flex;flex-direction:column;align-items:center;gap:2px;
+  font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:96px;line-height:1.02;
+  letter-spacing:-.032em;color:#FFFFFF;text-align:center;
+  -webkit-text-stroke:7px #0B0C10;paint-order:stroke fill;
+  text-shadow:0 3px 18px rgba(11,12,16,.85),0 1px 3px rgba(11,12,16,.9)}
+.card[data-card-id="card-03"] .tline{display:block}
+/* La keyword del titular lleva SU PROPIO suelo opaco, no solo el filete.
+   El filete salva la tinta blanca, pero el violeta sobre una pared iluminada
+   se queda en 1.4:1 — medido. Con la pastilla grafito el par es siempre
+   violet_hi sobre bg = 6.70:1, pase lo que pase detrás en el metraje, y
+   además rima con la pastilla del kicker. */
+.card[data-card-id="card-03"] .tkey{color:#9B85FF;background:#0B0C10;-webkit-text-stroke:0;
+  border-radius:10px;padding:0 .10em;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.card[data-card-id="card-03"] .sub{font-family:'Inter', system-ui, sans-serif;font-weight:500;font-size:34px;line-height:1.32;
+  color:#A7ADBB;text-align:center;max-width:821px;
+  text-shadow:0 2px 12px rgba(11,12,16,.9);opacity:0}
+
+:root{--bg:#0B0C10;--surface:#16181F;--text:#FFFFFF;
+  --violet:#7C5CFF;--go:#34E39B;--alert:#FF5A5A;
+  --accent-0:#7C5CFF;--accent-1:#34E39B;--accent-2:#FFB84D;
+  --accent-3:#9B85FF;--accent-4:#FF5A5A}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
+  background:#0B0C10;font-family:'Inter', system-ui, sans-serif}
+#stage{position:relative;width:100%;height:100%;overflow:hidden;background:#0B0C10}
+/* El suelo DEBE ser un elemento del DOM, no el background de la página: la
+   captura es por capas y descarta el fondo de html/body/#stage, con lo que todo
+   lo que no es video saldría negro en el MP4 (en el navegador se ve bien, así
+   que solo se detecta mirando el render). */
+#ground{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:0;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+/* Geometría ESTÁTICA por encuadre. El renderer resuelve el rect del <video> una
+   sola vez al cargar: animar width/height no reescala la imagen, solo la
+   recorta. Por eso un punch-in es un ELEMENTO nuevo y el salto entre encuadres
+   es un corte duro — que además es el lenguaje que pide la pieza. */
+.vid{position:absolute;object-fit:cover;display:block;z-index:1}
+.vid.panel{border-radius:32px 32px 0 0;
+  box-shadow:0 -10px 50px rgba(0,0,0,.6)}
+/* El PiP se pinta POR ENCIMA del takeover. El índice de pista ordena el
+   TIEMPO, no el apilado: eso lo decide el z-index (y, sin él, el orden del
+   DOM). Como los <video> se emiten antes que los hosts, sin esta regla el
+   mockup opaco se comía la ventana del creador — y solo se notaba en los
+   visuales con fondo, porque sobre la grabación, que es transparente, se veía
+   perfectamente. */
+.vid.pip{border-radius:24px;box-shadow:0 8px 20px rgba(0,0,0,.55), 0 40px 90px rgba(0,0,0,.65);
+  outline:3px solid rgba(255,255,255,.14);outline-offset:-3px;z-index:6}
+/* ── capa de visuales ──────────────────────────────────────────────────────
+   `.vizcam` es la CÁMARA: el único elemento que GSAP escala o desplaza, para
+   que ni el mockup ni la imagen tengan que ceder su propio transform. */
+/* Apilado explícito, de abajo a arriba: suelo · metraje · media de un visual ·
+   fondo · tarjetas · takeover · PiP · subtítulos. */
+.viz{position:absolute;pointer-events:none;overflow:hidden;z-index:3}
+.viz.over{z-index:5}
+.vizcam{position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;will-change:transform}
+.vizcam.mock{padding-bottom:307px}
+.vizimg{width:100%;height:100%;object-fit:cover;display:block}
+.vizveil{position:absolute;inset:0;pointer-events:none}
+.vizmed{position:absolute;object-fit:cover;display:block;z-index:2}
+.card-host{position:absolute;pointer-events:none;overflow:hidden;z-index:4}
+.card-host .card{position:relative;width:100%;height:100%;overflow:hidden}
+#caption-host{position:absolute;left:0;top:0;width:1080px;height:1920px;
+  pointer-events:none;overflow:hidden;z-index:7}
+/* ── subtítulos ───────────────────────────────────────────────────────────
+   Bloques cortos, Inter 900 en mayúsculas. Sobre metraje el texto necesita
+   separarse del fondo sin engordar: filete de grafito con `paint-order: stroke
+   fill`, que pinta el trazo DETRÁS del relleno, más una sombra que lo asienta.
+   Un borde normal engorda la letra y le quita el peso de grotesca. */
+.cap{position:absolute;left:76px;right:76px;
+  text-align:center;opacity:0;font-family:'Inter', system-ui, sans-serif;font-weight:900;
+  font-size:66px;line-height:1.14;letter-spacing:-.02em;
+  pointer-events:none}
+.cap .w{display:inline-block;margin:0 9px;position:relative}
+.cap.on-dark .w{color:#FFFFFF;-webkit-text-stroke:7px #0B0C10;
+  paint-order:stroke fill;text-shadow:0 4px 22px rgba(11,12,16,.8)}
+.cap.on-surface .w{color:#FFFFFF;-webkit-text-stroke:0;
+  text-shadow:0 2px 16px rgba(11,12,16,.95)}
+/* La keyword: pastilla violeta que aparece bajo la palabra en el instante en
+   que se pronuncia. Blanco sobre #7C5CFF da 4.35:1 — AA para texto grande, y
+   este lo es con mucho margen. */
+.cap .w.key{padding:0 4px}
+.cap .kbg{position:absolute;left:-14px;right:-14px;top:-2px;bottom:2px;
+  background:#7C5CFF;border-radius:10px;opacity:0;
+  box-shadow:0 8px 28px rgba(124,92,255,.45)}
+.cap .kt{position:relative;color:#FFFFFF;-webkit-text-stroke:7px #0B0C10;
+  paint-order:stroke fill}
+.cap.on-surface .kt{-webkit-text-stroke:0}
+</style>
+</head>
+<body>
+<div id="stage" data-composition-id="talking-head-recut" data-start="0" data-duration="45.8000"
+     data-fps="30" data-width="1080" data-height="1920">
+
+  <div id="ground"></div>
+
+  <video class="vid clip" id="shot-00" src="input-video.mp4"
+         muted playsinline
+         style="left:-65px;top:-97px;width:1210px;height:2150px;object-position:50% 50%"
+         data-start="0.0000" data-duration="0.7333"
+         data-media-start="0.0000" data-track-index="1"></video>
+  <video class="vid pip clip" id="shot-01" src="input-video.mp4"
+         muted playsinline
+         style="left:740px;top:118px;width:300px;height:376px;object-position:50% 30%"
+         data-start="0.7333" data-duration="4.9667"
+         data-media-start="0.7333" data-track-index="6"></video>
+  <video class="vid clip" id="shot-02" src="input-video.mp4"
+         muted playsinline
+         style="left:-81px;top:-121px;width:1242px;height:2208px;object-position:50% 50%"
+         data-start="5.7000" data-duration="0.6000"
+         data-media-start="5.7000" data-track-index="1"></video>
+  <video class="vid pip clip" id="shot-03" src="input-video.mp4"
+         muted playsinline
+         style="left:740px;top:118px;width:300px;height:376px;object-position:50% 30%"
+         data-start="6.3000" data-duration="4.6000"
+         data-media-start="6.3000" data-track-index="6"></video>
+  <video class="vid clip" id="shot-04" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
+         data-start="10.9000" data-duration="2.0000"
+         data-media-start="10.9000" data-track-index="1"></video>
+  <video class="vid clip" id="shot-05" src="input-video.mp4"
+         muted playsinline
+         style="left:-32px;top:-51px;width:1145px;height:2035px;object-position:50% 50%"
+         data-start="12.9000" data-duration="1.4000"
+         data-media-start="12.9000" data-track-index="1"></video>
+  <video class="vid clip" id="shot-06" src="input-video.mp4"
+         muted playsinline
+         style="left:-48px;top:-74px;width:1177px;height:2093px;object-position:50% 50%"
+         data-start="14.3000" data-duration="1.6000"
+         data-media-start="14.3000" data-track-index="1"></video>
+  <video class="vid clip" id="shot-07" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
+         data-start="15.9000" data-duration="0.7667"
+         data-media-start="15.9000" data-track-index="1"></video>
+  <video class="vid pip clip" id="shot-09" src="input-video.mp4"
+         muted playsinline
+         style="left:740px;top:118px;width:300px;height:376px;object-position:50% 30%"
+         data-start="17.7000" data-duration="15.4000"
+         data-media-start="17.7000" data-track-index="6"></video>
+  <video class="vid clip" id="shot-10" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
+         data-start="33.1000" data-duration="1.4000"
+         data-media-start="33.1000" data-track-index="1"></video>
+  <video class="vid clip" id="shot-11" src="input-video.mp4"
+         muted playsinline
+         style="left:-27px;top:-42px;width:1134px;height:2016px;object-position:50% 50%"
+         data-start="34.5000" data-duration="1.9000"
+         data-media-start="34.5000" data-track-index="1"></video>
+  <video class="vid clip" id="shot-12" src="input-video.mp4"
+         muted playsinline
+         style="left:-48px;top:-74px;width:1177px;height:2093px;object-position:50% 50%"
+         data-start="36.4000" data-duration="2.5000"
+         data-media-start="36.4000" data-track-index="1"></video>
+  <video class="vid clip" id="shot-13" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
+         data-start="38.9000" data-duration="1.4000"
+         data-media-start="38.9000" data-track-index="1"></video>
+  <video class="vid clip" id="shot-14" src="input-video.mp4"
+         muted playsinline
+         style="left:-27px;top:-42px;width:1134px;height:2016px;object-position:50% 50%"
+         data-start="40.3000" data-duration="2.4333"
+         data-media-start="40.3000" data-track-index="1"></video>
+
+  <video class="vizmed clip" id="viz-tour-med" src="erp-3a.mp4"
+         muted playsinline
+         style="left:40px;top:540px;width:1000px;height:820px;border-radius:24px"
+         data-start="17.9000" data-duration="10.1667"
+         data-media-start="0.0000" data-track-index="2"></video>
+  <video class="vizmed clip" id="viz-equiv-med" src="erp-3b.mp4"
+         muted playsinline
+         style="left:40px;top:540px;width:1000px;height:820px;border-radius:24px"
+         data-start="29.5333" data-duration="3.5000"
+         data-media-start="0.0000" data-track-index="2"></video>
+
+  <audio id="source-audio" src="input-video.mp4" data-start="0"
+         data-duration="45.8000" data-track-index="10"
+         data-volume="0.7"></audio>
+
+  <audio id="music-bed" class="clip" src="music/bed.mp3" data-start="0" data-duration="45.8000" data-track-index="11" data-volume="0.1259"></audio>
+
+  <!-- abre la pieza -->
+  <audio id="sfx-00-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="0.0000" data-duration="0.5667" data-track-index="12" data-volume="0.19"></audio>
+  <!-- entra el tablero de los dos totales -->
+  <audio id="sfx-01-whoosh" class="clip" src="sfx/whoosh.mp3" data-start="0.7333" data-duration="0.5667" data-track-index="12" data-volume="0.179"></audio>
+  <!-- se sella el total con la tasa buena -->
+  <audio id="sfx-02-pop" class="clip" src="sfx/pop.mp3" data-start="1.2000" data-duration="0.7333" data-track-index="13" data-volume="0.216"></audio>
+  <!-- el total que no cuadra — el sonido de error que pide el guion -->
+  <audio id="sfx-03-error" class="clip" src="sfx/error.mp3" data-start="2.8000" data-duration="1.6333" data-track-index="12" data-volume="1.0"></audio>
+  <!-- el veredicto: −$4,38 en una sola venta -->
+  <audio id="sfx-04-impact-bass-1" class="clip" src="sfx/impact-bass-1.mp3" data-start="4.9667" data-duration="2.1000" data-track-index="12" data-volume="0.053"></audio>
+  <!-- corte duro de vuelta a la cara -->
+  <audio id="sfx-05-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="5.7000" data-duration="0.5667" data-track-index="13" data-volume="0.168"></audio>
+  <!-- entra el montón de métodos -->
+  <audio id="sfx-06-whoosh" class="clip" src="sfx/whoosh.mp3" data-start="6.3000" data-duration="0.5667" data-track-index="13" data-volume="0.168"></audio>
+  <!-- dólares -->
+  <audio id="sfx-07-pop" class="clip" src="sfx/pop.mp3" data-start="6.8333" data-duration="0.7334" data-track-index="14" data-volume="0.203"></audio>
+  <!-- bolívares -->
+  <audio id="sfx-08-pop" class="clip" src="sfx/pop.mp3" data-start="7.5333" data-duration="0.7334" data-track-index="12" data-volume="0.203"></audio>
+  <!-- pago móvil -->
+  <audio id="sfx-09-pop" class="clip" src="sfx/pop.mp3" data-start="8.2667" data-duration="0.7333" data-track-index="12" data-volume="0.203"></audio>
+  <!-- efectivo -->
+  <audio id="sfx-10-pop" class="clip" src="sfx/pop.mp3" data-start="9.0000" data-duration="0.7333" data-track-index="12" data-volume="0.203"></audio>
+  <!-- transferencia -->
+  <audio id="sfx-11-pop" class="clip" src="sfx/pop.mp3" data-start="9.8000" data-duration="0.7333" data-track-index="12" data-volume="0.203"></audio>
+  <!-- las cinco a la vez: 5 conversiones a mano -->
+  <audio id="sfx-12-impact-bass-2" class="clip" src="sfx/impact-bass-2.mp3" data-start="10.3000" data-duration="2.6000" data-track-index="13" data-volume="0.035"></audio>
+  <!-- aterriza la palabra ERP -->
+  <audio id="sfx-13-impact-bass-2" class="clip" src="sfx/impact-bass-2.mp3" data-start="16.5000" data-duration="2.6000" data-track-index="12" data-volume="0.035"></audio>
+  <!-- entra el producto real -->
+  <audio id="sfx-14-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="17.9000" data-duration="0.5667" data-track-index="13" data-volume="0.19"></audio>
+  <!-- la caja se clava sobre la tasa BCV -->
+  <audio id="sfx-15-click-soft" class="clip" src="sfx/click-soft.mp3" data-start="19.3000" data-duration="0.3667" data-track-index="12" data-volume="0.246"></audio>
+  <!-- corte al panel de métodos de pago -->
+  <audio id="sfx-16-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="21.3000" data-duration="0.5667" data-track-index="12" data-volume="0.134"></audio>
+  <!-- se elige cómo cobrar -->
+  <audio id="sfx-17-click" class="clip" src="sfx/click.mp3" data-start="21.9000" data-duration="0.3667" data-track-index="12" data-volume="0.278"></audio>
+  <!-- corte al modal de pago mixto -->
+  <audio id="sfx-18-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="25.0000" data-duration="0.5667" data-track-index="12" data-volume="0.134"></audio>
+  <!-- se abre el pago mixto -->
+  <audio id="sfx-19-click" class="clip" src="sfx/click.mp3" data-start="25.5000" data-duration="0.3667" data-track-index="13" data-volume="0.278"></audio>
+  <!-- USD + VES en una sola venta -->
+  <audio id="sfx-20-impact-bass-1" class="clip" src="sfx/impact-bass-1.mp3" data-start="28.0667" data-duration="2.1000" data-track-index="12" data-volume="0.047"></audio>
+  <!-- vuelve el producto -->
+  <audio id="sfx-21-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="29.6000" data-duration="0.5667" data-track-index="13" data-volume="0.179"></audio>
+  <!-- se teclea el monto en bolívares -->
+  <audio id="sfx-22-key-press" class="clip" src="sfx/key-press.mp3" data-start="30.6000" data-duration="0.4000" data-track-index="12" data-volume="0.288"></audio>
+  <!-- el sistema escribe el equivalente en dólares -->
+  <audio id="sfx-23-ping" class="clip" src="sfx/ping.mp3" data-start="32.7333" data-duration="1.3334" data-track-index="12" data-volume="0.305"></audio>
+  <!-- entra el CTA -->
+  <audio id="sfx-24-whoosh" class="clip" src="sfx/whoosh.mp3" data-start="42.6000" data-duration="0.5667" data-track-index="12" data-volume="0.179"></audio>
+  <!-- se teclea MONEDA -->
+  <audio id="sfx-25-key-press" class="clip" src="sfx/key-press.mp3" data-start="44.2667" data-duration="0.4000" data-track-index="12" data-volume="0.305"></audio>
+  <!-- comentario publicado -->
+  <audio id="sfx-26-chime" class="clip" src="sfx/chime.mp3" data-start="45.0667" data-duration="0.7333" data-track-index="12" data-volume="0.436"></audio>
+
+
+
+<div class="card-host clip" id="host-card-01" data-card-id="card-01" data-start="11.1000" data-duration="4.6000" data-track-index="4" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;">
+<div class="card" data-card-id="card-01">
+<div class="root">
+  <div class="kick" id="card-01-kick"><s></s>LO QUE CUESTA</div>
+  <div class="ttl" id="card-01-ttl"><span class="tline">Conversiones</span><span class="tline">a <span class="tkey">mano</span></span></div>
+  
+</div>
+</div>
+</div>
+<div class="card-host clip" id="host-card-02" data-card-id="card-02" data-start="33.4000" data-duration="5.2000" data-track-index="4" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;">
+<div class="card" data-card-id="card-02">
+<div class="root">
+  <div class="kick" id="card-02-kick"><s></s>EL RESULTADO</div>
+  <div class="ttl" id="card-02-ttl"><span class="tline">Cuánto facturó</span><span class="tline">de <span class="tkey">verdad</span></span></div>
+  
+</div>
+</div>
+</div>
+<div class="card-host clip" id="host-card-03" data-card-id="card-03" data-start="39.0000" data-duration="3.4000" data-track-index="4" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;">
+<div class="card" data-card-id="card-03">
+<div class="root">
+  <div class="kick" id="card-03-kick"><s></s>PIÉNSALO</div>
+  <div class="ttl" id="card-03-ttl"><span class="tline">¿Sabes tu cifra</span><span class="tline"><span class="tkey">real</span> de hoy?</span></div>
+  
+</div>
+</div>
+</div>
+
+<div class="viz over clip" data-viz-id="viz-mismatch" id="host-viz-mismatch" data-start="0.7333" data-duration="4.9667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam mock" id="viz-mismatch-cam"><div class="rmwrap"><div class="rmsub" id="viz-mismatch-rmsub">LA MISMA VENTA · $52,00</div><div class="rmrow"><div class="rmcol" id="viz-mismatch-rm0"><div class="rmval">Bs. 39.746</div><div class="rmlab">TASA BCV DE HOY</div></div><div class="rmcol bad" id="viz-mismatch-rm1"><div class="rmval">Bs. 36.400</div><div class="rmlab">TASA VIEJA, A MANO</div></div><div class="rmneq" id="viz-mismatch-rmneq">≠</div></div><div class="rmverd" id="viz-mismatch-rmv">−$4,38 en una sola venta</div></div></div><div class="hud"><div class="hlabel" id="viz-mismatch-hl"><s></s>EL PROBLEMA</div><div class="htick" id="viz-mismatch-ht">01</div></div></div>
+<div class="viz over clip" data-viz-id="viz-methods" id="host-viz-methods" data-start="6.3000" data-duration="4.5000" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam mock" id="viz-methods-cam"><div class="cgwrap"><div class="cgkick" id="viz-methods-cgk">EN LA MISMA CAJA</div><div class="cggrid"><div class="cgchip" id="viz-methods-c0">DÓLARES</div><div class="cgchip" id="viz-methods-c1">BOLÍVARES</div><div class="cgchip" id="viz-methods-c2">PAGO MÓVIL</div><div class="cgchip" id="viz-methods-c3">EFECTIVO</div><div class="cgchip" id="viz-methods-c4">TRANSFERENCIA</div></div><div class="cgalert" id="viz-methods-cga"><s></s>5 conversiones a mano</div></div></div><div class="hud"><div class="hlabel" id="viz-methods-hl"><s></s>CADA DÍA</div><div class="htick" id="viz-methods-ht">02</div></div></div>
+<div class="viz over clip" data-viz-id="viz-erp" id="host-viz-erp" data-start="16.5000" data-duration="1.3667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam mock" id="viz-erp-cam"><div class="khero"><div class="kkick" id="viz-erp-kk">LO QUE DESARROLLÉ</div><div class="kword" id="viz-erp-kw">ERP</div><div class="kbar" id="viz-erp-kb"></div><div class="ksub" id="viz-erp-ks">la tasa vive dentro del sistema</div></div></div></div>
+<div class="viz over clip" data-viz-id="viz-tour" id="host-viz-tour" data-start="17.9000" data-duration="10.1667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="viz-tour-cam"><div class="screenfx"><div class="scbox" id="viz-tour-box0" style="left:295px;top:566px;width:625px;height:190px"></div><div class="scbox" id="viz-tour-box1" style="left:157px;top:770px;width:329px;height:466px"></div><div class="scbadge" id="viz-tour-badge0" style="left:326px;top:463px">TASA BCV</div><div class="scbadge" id="viz-tour-badge1" style="left:360px;top:694px">PAGO MIXTO</div><div class="bigcursor" id="viz-tour-cursor"><span class="tap-ring" id="viz-tour-ring" style="border-color:#7C5CFF"></span><svg viewBox="0 0 80 96" aria-hidden="true"><path fill="#FFFFFF" stroke="#0B0C10" stroke-width="6" stroke-linejoin="round" d="M8 7v70l18-17 14 29 17-8-14-28h27z"/></svg></div></div><div class="spring" id="viz-tour-spring"></div></div><div class="hud"><div class="hlabel" id="viz-tour-hl"><s></s>PRODUCTO REAL</div><div class="htick" id="viz-tour-ht">03</div></div></div>
+<div class="viz over clip" data-viz-id="viz-sum" id="host-viz-sum" data-start="28.0667" data-duration="1.4666" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam mock" id="viz-sum-cam"><div class="khero"><div class="kkick" id="viz-sum-kk">EN EL MISMO COBRO</div><div class="kword" id="viz-sum-kw">USD + VES</div><div class="kbar" id="viz-sum-kb"></div><div class="ksub" id="viz-sum-ks">una sola venta</div></div></div></div>
+<div class="viz over clip" data-viz-id="viz-equiv" id="host-viz-equiv" data-start="29.5333" data-duration="3.5000" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="viz-equiv-cam"><div class="screenfx"><div class="scbox" id="viz-equiv-box0" style="left:86px;top:826px;width:300px;height:62px"></div><div class="scbadge" id="viz-equiv-badge0" style="left:702px;top:634px">SE COBRA EN Bs.</div><div class="bigcursor" id="viz-equiv-cursor"><span class="tap-ring" id="viz-equiv-ring" style="border-color:#7C5CFF"></span><svg viewBox="0 0 80 96" aria-hidden="true"><path fill="#FFFFFF" stroke="#0B0C10" stroke-width="6" stroke-linejoin="round" d="M8 7v70l18-17 14 29 17-8-14-28h27z"/></svg></div></div><div class="spring" id="viz-equiv-spring"></div></div><div class="hud"><div class="hlabel" id="viz-equiv-hl"><s></s>PRODUCTO REAL</div><div class="htick" id="viz-equiv-ht">04</div></div></div>
+<div class="viz over clip" data-viz-id="viz-cta" id="host-viz-cta" data-start="42.6000" data-duration="3.2000" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam mock" id="viz-cta-cam"><div class="cwrap"><div class="csay" id="viz-cta-say">COMENTA LA PALABRA</div><div class="chead" id="viz-cta-head">MONEDA</div><div class="cbox" id="viz-cta-box"><div class="cav"></div><div class="cfield" id="viz-cta-field"><i>Añade un comentario…</i></div><div class="csend" id="viz-cta-send">ENVIAR</div></div><div class="cposted" id="viz-cta-posted">✓ COMENTARIO PUBLICADO</div></div></div><div class="hud"><div class="hlabel" id="viz-cta-hl"><s></s>SIGUIENTE PASO</div><div class="htick" id="viz-cta-ht">05</div></div></div>
+
+  <!-- los bloques comparten posición a propósito: solo uno es visible a la vez -->
+  <div id="caption-host" class="clip" data-layout-allow-overlap data-start="0"
+       data-duration="45.8000" data-track-index="7">
+    <div class="cap on-surface" id="cap0" data-layout-allow-overlap style="top:1200px"><span class="w">TU</span><span class="w">NEGOCIO</span><span class="w">PUEDE</span><span class="w">ESTAR</span><span class="w">VENDIENDO</span></div>
+    <div class="cap on-surface" id="cap1" data-layout-allow-overlap style="top:1200px"><span class="w">BIEN</span><span class="w">Y</span><span class="w">AÚN</span><span class="w">ASÍ</span><span class="w">PERDER</span></div>
+    <div class="cap on-surface" id="cap2" data-layout-allow-overlap style="top:1200px"><span class="w">DINERO</span><span class="w">POR</span><span class="w">CALCULAR</span><span class="w">MAL</span><span class="w">LA</span></div>
+    <div class="cap on-surface" id="cap3" data-layout-allow-overlap style="top:1200px"><span class="w key"><span class="kbg" id="c3kb"></span><span class="kt" id="c3kt">TASA</span></span><span class="w">DEL</span><span class="w">DÓLAR</span></div>
+    <div class="cap on-surface" id="cap4" data-layout-allow-overlap style="top:1230px"><span class="w">CUANDO</span><span class="w">COBRAS</span><span class="w">EN</span><span class="w">DÓLARES</span><span class="w key"><span class="kbg" id="c4kb"></span><span class="kt" id="c4kt">BOLÍVARES</span></span></div>
+    <div class="cap on-surface" id="cap5" data-layout-allow-overlap style="top:1230px"><span class="w">PAGO</span><span class="w">MÓVIL</span></div>
+    <div class="cap on-surface" id="cap6" data-layout-allow-overlap style="top:1230px"><span class="w">EFECTIVO</span><span class="w">Y</span><span class="w">TRANSFERENCIA</span></div>
+    <div class="cap on-dark" id="cap7" data-layout-allow-overlap style="top:1117px"><span class="w">HACER</span><span class="w">CONVERSIONES</span><span class="w key"><span class="kbg" id="c7kb"></span><span class="kt" id="c7kt">MANUALES</span></span><span class="w">AUMENTA</span></div>
+    <div class="cap on-dark" id="cap8" data-layout-allow-overlap style="top:1139px"><span class="w">LOS</span><span class="w key"><span class="kbg" id="c8kb"></span><span class="kt" id="c8kt">ERRORES</span></span><span class="w">Y</span><span class="w">COMPLICA</span></div>
+    <div class="cap on-dark" id="cap9" data-layout-allow-overlap style="top:1139px"><span class="w">EL</span><span class="w">CIERRE</span><span class="w">DE</span><span class="w key"><span class="kbg" id="c9kb"></span><span class="kt" id="c9kt">CAJA</span></span></div>
+    <div class="cap on-surface" id="cap10" data-layout-allow-overlap style="top:1386px"><span class="w">EN</span><span class="w">EL</span><span class="w key"><span class="kbg" id="c10kb"></span><span class="kt" id="c10kt">ERP</span></span><span class="w">QUE</span><span class="w">DESARROLLÉ</span></div>
+    <div class="cap on-surface" id="cap11" data-layout-allow-overlap style="top:1430px"><span class="w">LA</span><span class="w key"><span class="kbg" id="c11kb"></span><span class="kt" id="c11kt">TASA</span></span><span class="w">BCV</span><span class="w">ESTÁ</span></div>
+    <div class="cap on-surface" id="cap12" data-layout-allow-overlap style="top:1386px"><span class="w">VISIBLE</span><span class="w">DENTRO</span><span class="w">DEL</span><span class="w key"><span class="kbg" id="c12kb"></span><span class="kt" id="c12kt">SISTEMA</span></span></div>
+    <div class="cap on-surface" id="cap13" data-layout-allow-overlap style="top:1430px"><span class="w">EL</span><span class="w">VENDEDOR</span><span class="w">PUEDE</span></div>
+    <div class="cap on-surface" id="cap14" data-layout-allow-overlap style="top:1430px"><span class="w">COBRAR</span><span class="w">EN</span><span class="w">DÓLARES</span></div>
+    <div class="cap on-surface" id="cap15" data-layout-allow-overlap style="top:1430px"><span class="w">EN</span><span class="w key"><span class="kbg" id="c15kb"></span><span class="kt" id="c15kt">BOLÍVARES</span></span></div>
+    <div class="cap on-surface" id="cap16" data-layout-allow-overlap style="top:1386px"><span class="w">O</span><span class="w">INCLUSO</span><span class="w key"><span class="kbg" id="c16kb"></span><span class="kt" id="c16kt">COMBINAR</span></span><span class="w">VARIOS</span></div>
+    <div class="cap on-surface" id="cap17" data-layout-allow-overlap style="top:1430px"><span class="w">MÉTODOS</span><span class="w">DE</span><span class="w">PAGO</span><span class="w">EN</span></div>
+    <div class="cap on-surface" id="cap18" data-layout-allow-overlap style="top:1430px"><span class="w">UNA</span><span class="w">MISMA</span><span class="w key"><span class="kbg" id="c18kb"></span><span class="kt" id="c18kt">VENTA</span></span></div>
+    <div class="cap on-surface" id="cap19" data-layout-allow-overlap style="top:1386px"><span class="w">EL</span><span class="w key"><span class="kbg" id="c19kb"></span><span class="kt" id="c19kt">SISTEMA</span></span><span class="w">REGISTRA</span><span class="w">LA</span><span class="w">MONEDA</span></div>
+    <div class="cap on-surface" id="cap20" data-layout-allow-overlap style="top:1386px"><span class="w">ORIGINAL</span><span class="w">Y</span><span class="w">TAMBIÉN</span><span class="w">CALCULA</span><span class="w">SU</span></div>
+    <div class="cap on-dark" id="cap21" data-layout-allow-overlap style="top:1386px"><span class="w key"><span class="kbg" id="c21kb"></span><span class="kt" id="c21kt">EQUIVALENTE</span></span><span class="w">EN</span><span class="w">DÓLARES</span></div>
+    <div class="cap on-dark" id="cap22" data-layout-allow-overlap style="top:1128px"><span class="w">ASÍ</span><span class="w">EL</span><span class="w">DUEÑO</span><span class="w">PUEDE</span><span class="w">VER</span></div>
+    <div class="cap on-dark" id="cap23" data-layout-allow-overlap style="top:1139px"><span class="w">CUÁNTO</span><span class="w key"><span class="kbg" id="c23kb"></span><span class="kt" id="c23kt">FACTURÓ</span></span><span class="w">REALMENTE</span><span class="w">SIN</span><span class="w">DEPENDER</span></div>
+    <div class="cap on-dark" id="cap24" data-layout-allow-overlap style="top:1117px"><span class="w">DE</span><span class="w">CÁLCULOS</span><span class="w key"><span class="kbg" id="c24kb"></span><span class="kt" id="c24kt">MANUALES</span></span></div>
+    <div class="cap on-dark" id="cap25" data-layout-allow-overlap style="top:1128px"><span class="w">¿QUIERES</span><span class="w">UNA</span><span class="w">PLANTILLA</span><span class="w">PARA</span><span class="w">CONTROLAR</span></div>
+    <div class="cap on-surface" id="cap26" data-layout-allow-overlap style="top:1180px"><span class="w">VENTAS</span><span class="w">EN</span><span class="w">AMBAS</span><span class="w">MONEDAS</span></div>
+    <div class="cap on-surface" id="cap27" data-layout-allow-overlap style="top:1180px"><span class="w">COMENTA</span><span class="w key"><span class="kbg" id="c27kb"></span><span class="kt" id="c27kt">MONEDA</span></span><span class="w">Y</span></div>
+    <div class="cap on-surface" id="cap28" data-layout-allow-overlap style="top:1180px"><span class="w">TE</span><span class="w">LA</span><span class="w">ENVÍO</span></div>
+  </div>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script>
+  (function () {
+    const tl = window.gsap.timeline({ paused: true });
+    tl.set('.card-host[data-card-id="card-01"]', { visibility: "visible" }, 11.1000);
+    tl.fromTo('.card-host[data-card-id="card-01"]', { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power1.inOut" }, 11.1000);
+    tl.to('.card-host[data-card-id="card-01"]', { opacity: 0, duration: 0.28, ease: "power1.inOut" }, 15.4200);
+    tl.set('.card-host[data-card-id="card-01"]', { visibility: "hidden" }, 15.7000);
+    tl.set('.card-host[data-card-id="card-02"]', { visibility: "visible" }, 33.4000);
+    tl.fromTo('.card-host[data-card-id="card-02"]', { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power1.inOut" }, 33.4000);
+    tl.to('.card-host[data-card-id="card-02"]', { opacity: 0, duration: 0.28, ease: "power1.inOut" }, 38.3200);
+    tl.set('.card-host[data-card-id="card-02"]', { visibility: "hidden" }, 38.6000);
+    tl.set('.card-host[data-card-id="card-03"]', { visibility: "visible" }, 39.0000);
+    tl.fromTo('.card-host[data-card-id="card-03"]', { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power1.inOut" }, 39.0000);
+    tl.to('.card-host[data-card-id="card-03"]', { opacity: 0, duration: 0.28, ease: "power1.inOut" }, 42.1200);
+    tl.set('.card-host[data-card-id="card-03"]', { visibility: "hidden" }, 42.4000);
+    tl.set('.viz[data-viz-id="viz-mismatch"]', { visibility: "visible" }, 0.7333);
+    tl.fromTo('.viz[data-viz-id="viz-mismatch"]', { opacity: 0 }, { opacity: 1, duration: 0.22, ease: "power1.inOut" }, 0.7333);
+    tl.to('.viz[data-viz-id="viz-mismatch"]', { opacity: 0, duration: 0.16, ease: "power1.inOut" }, 5.5400);
+    tl.set('.viz[data-viz-id="viz-mismatch"]', { opacity: 0, visibility: "hidden" }, 5.7000);
+    tl.set('.viz[data-viz-id="viz-methods"]', { visibility: "visible" }, 6.3000);
+    tl.fromTo('.viz[data-viz-id="viz-methods"]', { opacity: 0 }, { opacity: 1, duration: 0.18, ease: "power1.inOut" }, 6.3000);
+    tl.to('.viz[data-viz-id="viz-methods"]', { opacity: 0, duration: 0.16, ease: "power1.inOut" }, 10.6400);
+    tl.set('.viz[data-viz-id="viz-methods"]', { opacity: 0, visibility: "hidden" }, 10.8000);
+    tl.set('.viz[data-viz-id="viz-erp"]', { visibility: "visible" }, 16.5000);
+    tl.fromTo('.viz[data-viz-id="viz-erp"]', { opacity: 0 }, { opacity: 1, duration: 0.18, ease: "power1.inOut" }, 16.5000);
+    tl.to('.viz[data-viz-id="viz-erp"]', { opacity: 0, duration: 0.14, ease: "power1.inOut" }, 17.7267);
+    tl.set('.viz[data-viz-id="viz-erp"]', { opacity: 0, visibility: "hidden" }, 17.8667);
+    tl.set('.viz[data-viz-id="viz-tour"]', { visibility: "visible" }, 17.9000);
+    tl.fromTo('.viz[data-viz-id="viz-tour"]', { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.inOut" }, 17.9000);
+    tl.to('.viz[data-viz-id="viz-tour"]', { opacity: 0, duration: 0.14, ease: "power1.inOut" }, 27.9267);
+    tl.set('.viz[data-viz-id="viz-tour"]', { opacity: 0, visibility: "hidden" }, 28.0667);
+    tl.set('.viz[data-viz-id="viz-sum"]', { visibility: "visible" }, 28.0667);
+    tl.fromTo('.viz[data-viz-id="viz-sum"]', { opacity: 0 }, { opacity: 1, duration: 0.16, ease: "power1.inOut" }, 28.0667);
+    tl.to('.viz[data-viz-id="viz-sum"]', { opacity: 0, duration: 0.14, ease: "power1.inOut" }, 29.3933);
+    tl.set('.viz[data-viz-id="viz-sum"]', { opacity: 0, visibility: "hidden" }, 29.5333);
+    tl.set('.viz[data-viz-id="viz-equiv"]', { visibility: "visible" }, 29.5333);
+    tl.fromTo('.viz[data-viz-id="viz-equiv"]', { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power1.inOut" }, 29.5333);
+    tl.to('.viz[data-viz-id="viz-equiv"]', { opacity: 0, duration: 0.16, ease: "power1.inOut" }, 32.8733);
+    tl.set('.viz[data-viz-id="viz-equiv"]', { opacity: 0, visibility: "hidden" }, 33.0333);
+    tl.set('.viz[data-viz-id="viz-cta"]', { visibility: "visible" }, 42.6000);
+    tl.fromTo('.viz[data-viz-id="viz-cta"]', { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.inOut" }, 42.6000);
+    tl.to('.viz[data-viz-id="viz-cta"]', { opacity: 0, duration: 0.0, ease: "power1.inOut" }, 45.8000);
+    tl.set('.viz[data-viz-id="viz-cta"]', { opacity: 0, visibility: "hidden" }, 45.8000);
+    tl.fromTo('.viz[data-viz-id="viz-mismatch"] #viz-mismatch-rmsub', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.7667);
+    tl.fromTo('.viz[data-viz-id="viz-mismatch"] #viz-mismatch-rm0', { opacity: 0, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.513, ease: "power3.out" }, 1.2000);
+    tl.fromTo('.viz[data-viz-id="viz-mismatch"] #viz-mismatch-rm1', { opacity: 0, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.513, ease: "power3.out" }, 2.8000);
+    tl.fromTo('.viz[data-viz-id="viz-mismatch"] #viz-mismatch-rmneq', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.325, ease: "power2.out" }, 2.9667);
+    tl.fromTo('.viz[data-viz-id="viz-mismatch"] #viz-mismatch-rmv', { opacity: 0, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.54, ease: "power3.out" }, 5.7000);
+    tl.fromTo('.viz[data-viz-id="viz-mismatch"] #viz-mismatch-hl', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.9000);
+    tl.fromTo('.viz[data-viz-id="viz-mismatch"] #viz-mismatch-ht', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 0.9667);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-cgk', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 6.3333);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-c0', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 6.8333);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-c1', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 7.5667);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-c2', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 8.2667);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-c3', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 9.0000);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-c4', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 9.8000);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-cga', { opacity: 0, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.54, ease: "power3.out" }, 10.3000);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-hl', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 6.4667);
+    tl.fromTo('.viz[data-viz-id="viz-methods"] #viz-methods-ht', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 6.5333);
+    tl.fromTo('.viz[data-viz-id="viz-erp"] #viz-erp-kk', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 16.5667);
+    tl.fromTo('.viz[data-viz-id="viz-erp"] #viz-erp-kw', { opacity: 0, scale: 1.045, y: -8 }, { opacity: 1, scale: 1, y: 0, duration: 0.667, ease: "expo.out" }, 16.7000);
+    tl.fromTo('.viz[data-viz-id="viz-erp"] #viz-erp-kb', { width: 0 }, { width: 300, duration: 0.4, ease: "power2.out" }, 16.9667);
+    tl.fromTo('.viz[data-viz-id="viz-erp"] #viz-erp-ks', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.425, ease: "power2.out" }, 17.0667);
+    tl.fromTo('.viz[data-viz-id="viz-tour"] #viz-tour-box0', { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.38, ease: "power3.out" }, 22.9000);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-box0', { opacity: 0, scale: .97, duration: 0.26, ease: "power2.in" }, 24.8667);
+    tl.set('.viz[data-viz-id="viz-tour"] #viz-tour-box0', { opacity: 0 }, 25.1333);
+    tl.fromTo('.viz[data-viz-id="viz-tour"] #viz-tour-box1', { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.38, ease: "power3.out" }, 26.5000);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-box1', { opacity: 0, scale: .97, duration: 0.26, ease: "power2.in" }, 27.9667);
+    tl.set('.viz[data-viz-id="viz-tour"] #viz-tour-box1', { opacity: 0 }, 28.2333);
+    tl.fromTo('.viz[data-viz-id="viz-tour"] #viz-tour-cursor', { opacity: 0, x: 556, y: 811 }, { opacity: 1, x: 426, y: 581, duration: 0.32, ease: "power3.out" }, 19.0333);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-cursor', { scale: 0.86, duration: 0.08, ease: "power2.in", overwrite: "auto" }, 19.3667);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-cursor', { scale: 1, duration: 0.15, ease: "power2.out", overwrite: "auto" }, 19.4467);
+    tl.fromTo('#viz-tour-ring', { opacity: .8, scale: .30 }, { opacity: 0, scale: 1.6, duration: 0.26, ease: "power2.out" }, 19.3667);
+    tl.fromTo('.viz[data-viz-id="viz-tour"] #viz-tour-badge0', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 19.3667);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-badge0', { opacity: 0, scale: .97, duration: 0.24, ease: "power2.in" }, 20.3333);
+    tl.set('.viz[data-viz-id="viz-tour"] #viz-tour-badge0', { opacity: 0 }, 20.5667);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-cursor', { x: 460, y: 812, duration: 0.32, ease: "power2.inOut" }, 25.5667);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-cursor', { scale: 0.86, duration: 0.08, ease: "power2.in", overwrite: "auto" }, 25.9000);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-cursor', { scale: 1, duration: 0.15, ease: "power2.out", overwrite: "auto" }, 25.9800);
+    tl.fromTo('#viz-tour-ring', { opacity: .8, scale: .30 }, { opacity: 0, scale: 1.6, duration: 0.26, ease: "power2.out" }, 25.9000);
+    tl.fromTo('.viz[data-viz-id="viz-tour"] #viz-tour-badge1', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 25.9000);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-badge1', { opacity: 0, scale: .97, duration: 0.24, ease: "power2.in" }, 26.3000);
+    tl.set('.viz[data-viz-id="viz-tour"] #viz-tour-badge1', { opacity: 0 }, 26.5333);
+    tl.to('.viz[data-viz-id="viz-tour"] #viz-tour-cursor', { opacity: 0, scale: .97, duration: 0.28, ease: "power2.in" }, 26.9000);
+    tl.set('.viz[data-viz-id="viz-tour"] #viz-tour-cursor', { opacity: 0 }, 27.1667);
+    tl.fromTo('.viz[data-viz-id="viz-tour"] #viz-tour-spring', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 17.9333);
+    tl.fromTo('.viz[data-viz-id="viz-tour"] #viz-tour-hl', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 18.0667);
+    tl.fromTo('.viz[data-viz-id="viz-tour"] #viz-tour-ht', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 18.1333);
+    tl.fromTo('.viz[data-viz-id="viz-sum"] #viz-sum-kk', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 28.1333);
+    tl.fromTo('.viz[data-viz-id="viz-sum"] #viz-sum-kw', { opacity: 0, scale: 1.045, y: -8 }, { opacity: 1, scale: 1, y: 0, duration: 0.667, ease: "expo.out" }, 28.2667);
+    tl.fromTo('.viz[data-viz-id="viz-sum"] #viz-sum-kb', { width: 0 }, { width: 300, duration: 0.4, ease: "power2.out" }, 28.5333);
+    tl.fromTo('.viz[data-viz-id="viz-sum"] #viz-sum-ks', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.425, ease: "power2.out" }, 28.6333);
+    tl.fromTo('.viz[data-viz-id="viz-equiv"] #viz-equiv-box0', { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.38, ease: "power3.out" }, 31.9000);
+    tl.to('.viz[data-viz-id="viz-equiv"] #viz-equiv-box0', { opacity: 0, scale: .97, duration: 0.26, ease: "power2.in" }, 32.9667);
+    tl.set('.viz[data-viz-id="viz-equiv"] #viz-equiv-box0', { opacity: 0 }, 33.2333);
+    tl.fromTo('.viz[data-viz-id="viz-equiv"] #viz-equiv-cursor', { opacity: 0, x: 932, y: 982 }, { opacity: 1, x: 802, y: 752, duration: 0.32, ease: "power3.out" }, 30.2333);
+    tl.to('.viz[data-viz-id="viz-equiv"] #viz-equiv-cursor', { scale: 0.86, duration: 0.08, ease: "power2.in", overwrite: "auto" }, 30.5667);
+    tl.to('.viz[data-viz-id="viz-equiv"] #viz-equiv-cursor', { scale: 1, duration: 0.15, ease: "power2.out", overwrite: "auto" }, 30.6467);
+    tl.fromTo('#viz-equiv-ring', { opacity: .8, scale: .30 }, { opacity: 0, scale: 1.6, duration: 0.26, ease: "power2.out" }, 30.5667);
+    tl.fromTo('.viz[data-viz-id="viz-equiv"] #viz-equiv-badge0', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 30.5667);
+    tl.to('.viz[data-viz-id="viz-equiv"] #viz-equiv-badge0', { opacity: 0, scale: .97, duration: 0.24, ease: "power2.in" }, 30.9667);
+    tl.set('.viz[data-viz-id="viz-equiv"] #viz-equiv-badge0', { opacity: 0 }, 31.2000);
+    tl.to('.viz[data-viz-id="viz-equiv"] #viz-equiv-cursor', { opacity: 0, scale: .97, duration: 0.28, ease: "power2.in" }, 31.5667);
+    tl.set('.viz[data-viz-id="viz-equiv"] #viz-equiv-cursor', { opacity: 0 }, 31.8333);
+    tl.fromTo('.viz[data-viz-id="viz-equiv"] #viz-equiv-spring', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 29.5667);
+    tl.fromTo('.viz[data-viz-id="viz-equiv"] #viz-equiv-hl', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 29.7000);
+    tl.fromTo('.viz[data-viz-id="viz-equiv"] #viz-equiv-ht', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 29.7667);
+    tl.fromTo('.viz[data-viz-id="viz-cta"] #viz-cta-say', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.275, ease: "power2.out" }, 42.7667);
+    tl.fromTo('.viz[data-viz-id="viz-cta"] #viz-cta-head', { opacity: 0, scale: 1.045, y: -8 }, { opacity: 1, scale: 1, y: 0, duration: 0.638, ease: "expo.out" }, 42.8667);
+    tl.fromTo('.viz[data-viz-id="viz-cta"] #viz-cta-box', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 43.0000);
+    tl.set('.viz[data-viz-id="viz-cta"] #viz-cta-field', { innerHTML: "<span class='ccaret'></span>" }, 44.2667);
+    tl.set('.viz[data-viz-id="viz-cta"] #viz-cta-field', { innerHTML: "M<span class='ccaret'></span>" }, 44.3834);
+    tl.set('.viz[data-viz-id="viz-cta"] #viz-cta-field', { innerHTML: "MO<span class='ccaret'></span>" }, 44.5001);
+    tl.set('.viz[data-viz-id="viz-cta"] #viz-cta-field', { innerHTML: "MON<span class='ccaret'></span>" }, 44.6168);
+    tl.set('.viz[data-viz-id="viz-cta"] #viz-cta-field', { innerHTML: "MONE<span class='ccaret'></span>" }, 44.7335);
+    tl.set('.viz[data-viz-id="viz-cta"] #viz-cta-field', { innerHTML: "MONED<span class='ccaret'></span>" }, 44.8502);
+    tl.set('.viz[data-viz-id="viz-cta"] #viz-cta-field', { innerHTML: "MONEDA<span class='ccaret'></span>" }, 44.9669);
+    tl.set('.viz[data-viz-id="viz-cta"] #viz-cta-send', { color: "#34E39B" }, 45.0333);
+    tl.fromTo('.viz[data-viz-id="viz-cta"] #viz-cta-send', { scale: 1 }, { scale: 1.12, duration: 0.1040, yoyo: true, repeat: 1, ease: "power2.out" }, 45.0333);
+    tl.fromTo('.viz[data-viz-id="viz-cta"] #viz-cta-posted', { opacity: 0, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.513, ease: "power3.out" }, 45.2667);
+    tl.fromTo('.viz[data-viz-id="viz-cta"] #viz-cta-hl', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 42.7667);
+    tl.fromTo('.viz[data-viz-id="viz-cta"] #viz-cta-ht', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 42.8333);
+    tl.fromTo('.card[data-card-id="card-01"] #card-01-kick', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 11.1667);
+    tl.fromTo('.card[data-card-id="card-01"] #card-01-ttl', { opacity: 0, scale: 1.045, y: -8 }, { opacity: 1, scale: 1, y: 0, duration: 0.638, ease: "expo.out" }, 11.2333);
+    tl.fromTo('.card[data-card-id="card-02"] #card-02-kick', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 33.4667);
+    tl.fromTo('.card[data-card-id="card-02"] #card-02-ttl', { opacity: 0, scale: 1.045, y: -8 }, { opacity: 1, scale: 1, y: 0, duration: 0.638, ease: "expo.out" }, 33.5333);
+    tl.fromTo('.card[data-card-id="card-03"] #card-03-kick', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 39.0667);
+    tl.fromTo('.card[data-card-id="card-03"] #card-03-ttl', { opacity: 0, scale: 1.045, y: -8 }, { opacity: 1, scale: 1, y: 0, duration: 0.638, ease: "expo.out" }, 39.1333);
+    // bloques de subtítulo — entran enteros y se quedan quietos
+    tl.fromTo('#cap0', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.1000);
+    tl.to('#cap0', { opacity: 0, duration: 0.1, ease: "power2.in" }, 1.5333);
+    tl.set('#cap0', { opacity: 0 }, 1.6333);
+    tl.fromTo('#cap1', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 1.6333);
+    tl.to('#cap1', { opacity: 0, duration: 0.1, ease: "power2.in" }, 3.0667);
+    tl.set('#cap1', { opacity: 0 }, 3.1667);
+    tl.fromTo('#cap2', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 3.1333);
+    tl.to('#cap2', { opacity: 0, duration: 0.1, ease: "power2.in" }, 4.8333);
+    tl.set('#cap2', { opacity: 0 }, 4.9333);
+    tl.fromTo('#cap3', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 4.9333);
+    tl.to('#cap3', { opacity: 0, duration: 0.1, ease: "power2.in" }, 5.8333);
+    tl.set('#cap3', { opacity: 0 }, 5.9333);
+    tl.fromTo('#cap4', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 6.0667);
+    tl.to('#cap4', { opacity: 0, duration: 0.1, ease: "power2.in" }, 8.1333);
+    tl.set('#cap4', { opacity: 0 }, 8.2333);
+    tl.fromTo('#cap5', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 8.2000);
+    tl.to('#cap5', { opacity: 0, duration: 0.1, ease: "power2.in" }, 8.9000);
+    tl.set('#cap5', { opacity: 0 }, 9.0000);
+    tl.fromTo('#cap6', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 8.9667);
+    tl.to('#cap6', { opacity: 0, duration: 0.1, ease: "power2.in" }, 10.7667);
+    tl.set('#cap6', { opacity: 0 }, 10.8667);
+    tl.fromTo('#cap7', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 10.9667);
+    tl.to('#cap7', { opacity: 0, duration: 0.1, ease: "power2.in" }, 13.4333);
+    tl.set('#cap7', { opacity: 0 }, 13.5333);
+    tl.fromTo('#cap8', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 13.5333);
+    tl.to('#cap8', { opacity: 0, duration: 0.1, ease: "power2.in" }, 15.0667);
+    tl.set('#cap8', { opacity: 0 }, 15.1667);
+    tl.fromTo('#cap9', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 15.1333);
+    tl.to('#cap9', { opacity: 0, duration: 0.1, ease: "power2.in" }, 16.2667);
+    tl.set('#cap9', { opacity: 0 }, 16.3667);
+    tl.fromTo('#cap10', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 16.5000);
+    tl.to('#cap10', { opacity: 0, duration: 0.1, ease: "power2.in" }, 18.2333);
+    tl.set('#cap10', { opacity: 0 }, 18.3333);
+    tl.fromTo('#cap11', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 18.4333);
+    tl.to('#cap11', { opacity: 0, duration: 0.1, ease: "power2.in" }, 20.1333);
+    tl.set('#cap11', { opacity: 0 }, 20.2333);
+    tl.fromTo('#cap12', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 20.2000);
+    tl.to('#cap12', { opacity: 0, duration: 0.1, ease: "power2.in" }, 21.7333);
+    tl.set('#cap12', { opacity: 0 }, 21.8333);
+    tl.fromTo('#cap13', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 21.8000);
+    tl.to('#cap13', { opacity: 0, duration: 0.1, ease: "power2.in" }, 22.5333);
+    tl.set('#cap13', { opacity: 0 }, 22.6333);
+    tl.fromTo('#cap14', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 22.6000);
+    tl.to('#cap14', { opacity: 0, duration: 0.1, ease: "power2.in" }, 23.8333);
+    tl.set('#cap14', { opacity: 0 }, 23.9333);
+    tl.fromTo('#cap15', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 23.9000);
+    tl.to('#cap15', { opacity: 0, duration: 0.1, ease: "power2.in" }, 25.0000);
+    tl.set('#cap15', { opacity: 0 }, 25.1000);
+    tl.fromTo('#cap16', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 25.1000);
+    tl.to('#cap16', { opacity: 0, duration: 0.1, ease: "power2.in" }, 26.5333);
+    tl.set('#cap16', { opacity: 0 }, 26.6333);
+    tl.fromTo('#cap17', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 26.6333);
+    tl.to('#cap17', { opacity: 0, duration: 0.1, ease: "power2.in" }, 28.1000);
+    tl.set('#cap17', { opacity: 0 }, 28.2000);
+    tl.fromTo('#cap18', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 28.1667);
+    tl.to('#cap18', { opacity: 0, duration: 0.1, ease: "power2.in" }, 29.1000);
+    tl.set('#cap18', { opacity: 0 }, 29.2000);
+    tl.fromTo('#cap19', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 29.4667);
+    tl.to('#cap19', { opacity: 0, duration: 0.1, ease: "power2.in" }, 30.7000);
+    tl.set('#cap19', { opacity: 0 }, 30.8000);
+    tl.fromTo('#cap20', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 30.7667);
+    tl.to('#cap20', { opacity: 0, duration: 0.1, ease: "power2.in" }, 32.7667);
+    tl.set('#cap20', { opacity: 0 }, 32.8667);
+    tl.fromTo('#cap21', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 32.8667);
+    tl.to('#cap21', { opacity: 0, duration: 0.1, ease: "power2.in" }, 34.2667);
+    tl.set('#cap21', { opacity: 0 }, 34.3667);
+    tl.fromTo('#cap22', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 34.4667);
+    tl.to('#cap22', { opacity: 0, duration: 0.1, ease: "power2.in" }, 36.0000);
+    tl.set('#cap22', { opacity: 0 }, 36.1000);
+    tl.fromTo('#cap23', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 36.0667);
+    tl.to('#cap23', { opacity: 0, duration: 0.1, ease: "power2.in" }, 38.6000);
+    tl.set('#cap23', { opacity: 0 }, 38.7000);
+    tl.fromTo('#cap24', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 38.6667);
+    tl.to('#cap24', { opacity: 0, duration: 0.1, ease: "power2.in" }, 40.1000);
+    tl.set('#cap24', { opacity: 0 }, 40.2000);
+    tl.fromTo('#cap25', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 40.3333);
+    tl.to('#cap25', { opacity: 0, duration: 0.1, ease: "power2.in" }, 41.9333);
+    tl.set('#cap25', { opacity: 0 }, 42.0333);
+    tl.fromTo('#cap26', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 42.0333);
+    tl.to('#cap26', { opacity: 0, duration: 0.1, ease: "power2.in" }, 43.5333);
+    tl.set('#cap26', { opacity: 0 }, 43.6333);
+    tl.fromTo('#cap27', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 43.8000);
+    tl.to('#cap27', { opacity: 0, duration: 0.1, ease: "power2.in" }, 44.7000);
+    tl.set('#cap27', { opacity: 0 }, 44.8000);
+    tl.fromTo('#cap28', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 44.7667);
+    tl.to('#cap28', { opacity: 0, duration: 0.1, ease: "power2.in" }, 45.5333);
+    tl.set('#cap28', { opacity: 0 }, 45.6333);
+    // keyword — la pastilla aparece justo al pronunciarse
+    tl.fromTo("#c3kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 4.9667);
+    tl.fromTo("#c3kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 4.9667);
+    tl.fromTo("#c4kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 7.5667);
+    tl.fromTo("#c4kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 7.5667);
+    tl.fromTo("#c7kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 12.0667);
+    tl.fromTo("#c7kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 12.0667);
+    tl.fromTo("#c8kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 13.7667);
+    tl.fromTo("#c8kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 13.7667);
+    tl.fromTo("#c9kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 15.8333);
+    tl.fromTo("#c9kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 15.8333);
+    tl.fromTo("#c10kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 16.8000);
+    tl.fromTo("#c10kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 16.8000);
+    tl.fromTo("#c11kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 18.6333);
+    tl.fromTo("#c11kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 18.6333);
+    tl.fromTo("#c12kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 21.2000);
+    tl.fromTo("#c12kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 21.2000);
+    tl.fromTo("#c15kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 24.2667);
+    tl.fromTo("#c15kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 24.2667);
+    tl.fromTo("#c16kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 25.8000);
+    tl.fromTo("#c16kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 25.8000);
+    tl.fromTo("#c18kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 28.7000);
+    tl.fromTo("#c18kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 28.7000);
+    tl.fromTo("#c19kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 29.6333);
+    tl.fromTo("#c19kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 29.6333);
+    tl.fromTo("#c21kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 32.9000);
+    tl.fromTo("#c21kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 32.9000);
+    tl.fromTo("#c23kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 36.5333);
+    tl.fromTo("#c23kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 36.5333);
+    tl.fromTo("#c24kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 39.4667);
+    tl.fromTo("#c24kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 39.4667);
+    tl.fromTo("#c27kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 44.2667);
+    tl.fromTo("#c27kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 44.2667);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["talking-head-recut"] = tl;
+  })();
+  </script>
+</div>
+</body>
+</html>

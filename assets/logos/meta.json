@@ -1,0 +1,14 @@
+{
+  "whatsapp": {
+    "title": "WhatsApp",
+    "hex": "25D366",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/whatsapp.svg",
+    "simple_icons_version": "16"
+  },
+  "microsoftexcel": {
+    "title": "Microsoft Excel",
+    "hex": "217346",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@12.4.0/icons/microsoftexcel.svg",
+    "simple_icons_version": "12.4.0"
+  }
+}

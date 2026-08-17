@@ -1,0 +1,560 @@
+{
+  "format": "REEL",
+  "_": "REEL 3 — Cobrar en USD y VES sin errores. Todos los tiempos están en la línea del CORTE (45.80 s) y salen del transcript remapeado. El transcript se corrigió antes: AssemblyAI oía «de ese B» donde él deletrea BCV, y desalineaba 2 s el tramo 27-35 (se re-transcribió suelto).",
+  "keywords": [
+    "dólar",
+    "tasa",
+    "BCV",
+    "bolívares",
+    "manuales",
+    "errores",
+    "caja",
+    "ERP",
+    "sistema",
+    "combinar",
+    "venta",
+    "equivalente",
+    "facturó",
+    "moneda"
+  ],
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "target_mean": -34.0
+  },
+  "_curva": "HOOK 0-6 s el pico de la pieza: la cara a 1.12 y en 0.75 s ya está el tablero de los dos totales que no cuadran · PROBLEMA 6-16 s los cinco métodos se amontonan y rematan en alerta · PRODUCTO 17-33 s manda la grabación real, con un solo respiro gráfico en medio (USD + VES) · RESULTADO 33-40 s vuelve la cara, quieta · CTA 40-46 s un solo elemento.",
+  "voice_gain": 0.7,
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.42
+    },
+    {
+      "at": 0.75,
+      "kind": "pip",
+      "anchor": 0.3
+    },
+    {
+      "at": 5.7,
+      "kind": "full",
+      "zoom": 1.15,
+      "anchor": 0.42
+    },
+    {
+      "at": 6.3,
+      "kind": "pip",
+      "anchor": 0.3
+    },
+    {
+      "at": 10.9,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 12.9,
+      "kind": "full",
+      "zoom": 1.06,
+      "anchor": 0.44
+    },
+    {
+      "at": 14.3,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.43
+    },
+    {
+      "at": 15.9,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 16.68,
+      "kind": "off"
+    },
+    {
+      "at": 17.71,
+      "kind": "pip",
+      "anchor": 0.3
+    },
+    {
+      "at": 33.1,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 34.5,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.44
+    },
+    {
+      "at": 36.4,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.43
+    },
+    {
+      "at": 38.9,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 40.3,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.44
+    },
+    {
+      "at": 42.72,
+      "kind": "off"
+    }
+  ],
+  "cards": [
+    {
+      "start": 11.1,
+      "end": 15.7,
+      "place": "top",
+      "kicker": "LO QUE CUESTA",
+      "title": "Conversiones\na mano",
+      "key": "mano"
+    },
+    {
+      "start": 33.4,
+      "end": 38.6,
+      "place": "top",
+      "kicker": "EL RESULTADO",
+      "title": "Cuánto facturó\nde verdad",
+      "key": "verdad"
+    },
+    {
+      "start": 39.0,
+      "end": 42.4,
+      "place": "top",
+      "kicker": "PIÉNSALO",
+      "title": "¿Sabes tu cifra\nreal de hoy?",
+      "key": "real"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "viz-mismatch",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 0.75,
+      "end": 5.7,
+      "skin": "on-surface",
+      "cap_top": 1200,
+      "fade_in": 0.22,
+      "fade_out": 0.16,
+      "hud": [
+        "EL PROBLEMA",
+        "01"
+      ],
+      "mock_pad_top": 250,
+      "absolute_times": true,
+      "_": "la misma venta calculada con dos tasas: la columna buena entra en «vendiendo bien» (1.20) y la mala en «perder dinero» (2.81), que es la palabra donde duele. El veredicto aterriza en «la tasa del dólar» (4.98). Las dos columnas son iguales de grandes a propósito: si la mala se dibuja apagada, el ojo la descarta antes de haber comparado.",
+      "mock": [
+        "rate_mismatch",
+        {
+          "subject": "LA MISMA VENTA · $52,00",
+          "left": [
+            "Bs. 39.746",
+            "TASA BCV DE HOY"
+          ],
+          "right": [
+            "Bs. 36.400",
+            "TASA VIEJA, A MANO"
+          ],
+          "at": [
+            1.2,
+            2.81
+          ],
+          "verdict": "−$4,38 en una sola venta",
+          "verdict_at": 4.98
+        }
+      ],
+      "mock_pad_bottom": 470
+    },
+    {
+      "id": "viz-methods",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 6.3,
+      "end": 10.8,
+      "skin": "on-surface",
+      "cap_top": 1230,
+      "fade_in": 0.18,
+      "fade_out": 0.16,
+      "hud": [
+        "CADA DÍA",
+        "02"
+      ],
+      "mock_pad_top": 250,
+      "absolute_times": true,
+      "_": "cada forma de cobro se sella EN su palabra: dólares 6.83 · bolívares 7.55 · pago móvil 8.27 · efectivo 9.01 · transferencia 9.80. Lo que comunica no es cada chip suelto sino el montón, así que ninguno se va. La alerta remata en 10.30, con las cinco todavía en pantalla y justo antes de cortar a la cara.",
+      "mock": [
+        "chip_grid",
+        {
+          "kicker": "EN LA MISMA CAJA",
+          "chips": [
+            "DÓLARES",
+            "BOLÍVARES",
+            "PAGO MÓVIL",
+            "EFECTIVO",
+            "TRANSFERENCIA"
+          ],
+          "at": [
+            6.83,
+            7.55,
+            8.27,
+            9.01,
+            9.8
+          ],
+          "alert": "5 conversiones a mano",
+          "alert_at": 10.3
+        }
+      ],
+      "mock_pad_bottom": 430
+    },
+    {
+      "id": "viz-erp",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 16.5,
+      "end": 17.85,
+      "skin": "on-surface",
+      "cap_top": 1430,
+      "fade_in": 0.18,
+      "fade_out": 0.14,
+      "absolute_times": true,
+      "_": "«En el ERP que desarrollé» — 16.81. Un solo respiro entre el problema y el producto.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "ERP",
+          "kicker": "LO QUE DESARROLLÉ",
+          "size": 220,
+          "sub": "la tasa vive dentro del sistema"
+        }
+      ]
+    },
+    {
+      "id": "viz-tour",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 17.9,
+      "end": 28.05,
+      "src": "erp-3a.mp4",
+      "skin": "on-surface",
+      "cap_top": 1430,
+      "fade_in": 0.14,
+      "fade_out": 0.14,
+      "rect": [
+        40,
+        540,
+        1000,
+        820
+      ],
+      "panel": {},
+      "hud": [
+        "PRODUCTO REAL",
+        "03"
+      ],
+      "_": "SIN chrome de navegador: los 74 px de la barra salen del tamaño de la interfaz, y aquí lo que importa es que se lea. Tres tramos: tasa BCV 17.90-21.30 · métodos 21.30-25.00 · pago mixto 25.00-28.05. Clicks y cajas se MIDEN sobre el recorrido renderizado al tamaño exacto del panel (1000x820), no se estiman leyendo la captura original: por estimarlas, la caja de los métodos caía 300 px por debajo, sobre Zelle/Binance.",
+      "clicks": [
+        [
+          19.36,
+          426,
+          581,
+          "TASA BCV"
+        ],
+        [
+          25.9,
+          460,
+          812,
+          "PAGO MIXTO"
+        ]
+      ],
+      "boxes": [
+        [
+          22.9,
+          24.88,
+          295,
+          566,
+          625,
+          190
+        ],
+        [
+          26.5,
+          27.95,
+          157,
+          770,
+          329,
+          466
+        ]
+      ]
+    },
+    {
+      "id": "viz-sum",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 28.05,
+      "end": 29.55,
+      "skin": "on-surface",
+      "cap_top": 1430,
+      "fade_in": 0.16,
+      "fade_out": 0.14,
+      "absolute_times": true,
+      "_": "«en una misma venta» — 28.07. La idea del guion («USD + VES = UNA SOLA VENTA») cabe en una línea, así que la línea ES el gráfico. Va aquí y no antes porque hasta este momento el espectador no ha visto todavía las dos monedas dentro del mismo cobro.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "USD + VES",
+          "kicker": "EN EL MISMO COBRO",
+          "size": 132,
+          "sub": "una sola venta"
+        }
+      ]
+    },
+    {
+      "id": "viz-equiv",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 29.55,
+      "end": 33.05,
+      "src": "erp-3b.mp4",
+      "skin": "on-surface",
+      "cap_top": 1430,
+      "fade_in": 0.14,
+      "fade_out": 0.16,
+      "rect": [
+        40,
+        540,
+        1000,
+        820
+      ],
+      "panel": {},
+      "hud": [
+        "PRODUCTO REAL",
+        "04"
+      ],
+      "_": "«registra la moneda original y también calcula su equivalente en dólares» — se teclea en bolívares y el sistema escribe debajo «≈ $5.10 · Bs. 3.900,00». El clic marca la moneda ORIGINAL (30.55, sobre «original») y la caja entra en «también calcula» (31.90) para estar puesta cuando llegue «equivalente» (32.81). Dibujarla desde el principio la gastaría antes de su palabra.",
+      "clicks": [
+        [
+          30.55,
+          802,
+          752,
+          "SE COBRA EN Bs."
+        ]
+      ],
+      "boxes": [
+        [
+          31.9,
+          32.98,
+          86,
+          826,
+          300,
+          62
+        ]
+      ]
+    },
+    {
+      "id": "viz-cta",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 42.6,
+      "end": null,
+      "skin": "on-surface",
+      "cap_top": 1180,
+      "fade_in": 0.12,
+      "fade_out": 0.0,
+      "hud": [
+        "SIGUIENTE PASO",
+        "05"
+      ],
+      "mock_pad_top": 60,
+      "absolute_times": true,
+      "_": "el CTA no se explica, se ENSEÑA: la palabra se teclea en 44.26 (cuando él dice «moneda») y el comentario se publica en 45.05. Un solo elemento en pantalla.",
+      "mock": [
+        "comment_ui",
+        {
+          "word": "MONEDA",
+          "type_at": 44.26,
+          "send_at": 45.05,
+          "headline": "MONEDA"
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    [
+      0.0,
+      "whoosh-short",
+      0.85,
+      "abre la pieza"
+    ],
+    [
+      0.75,
+      "whoosh",
+      0.8,
+      "entra el tablero de los dos totales"
+    ],
+    [
+      1.2,
+      "pop",
+      0.85,
+      "se sella el total con la tasa buena"
+    ],
+    [
+      2.81,
+      "error",
+      1.0,
+      "el total que no cuadra — el sonido de error que pide el guion"
+    ],
+    [
+      4.98,
+      "impact-bass-1",
+      0.95,
+      "el veredicto: −$4,38 en una sola venta"
+    ],
+    [
+      5.7,
+      "whoosh-short",
+      0.75,
+      "corte duro de vuelta a la cara"
+    ],
+    [
+      6.3,
+      "whoosh",
+      0.75,
+      "entra el montón de métodos"
+    ],
+    [
+      6.83,
+      "pop",
+      0.8,
+      "dólares"
+    ],
+    [
+      7.55,
+      "pop",
+      0.8,
+      "bolívares"
+    ],
+    [
+      8.27,
+      "pop",
+      0.8,
+      "pago móvil"
+    ],
+    [
+      9.01,
+      "pop",
+      0.8,
+      "efectivo"
+    ],
+    [
+      9.8,
+      "pop",
+      0.8,
+      "transferencia"
+    ],
+    [
+      10.3,
+      "impact-bass-2",
+      0.8,
+      "las cinco a la vez: 5 conversiones a mano"
+    ],
+    [
+      16.5,
+      "impact-bass-2",
+      0.8,
+      "aterriza la palabra ERP"
+    ],
+    [
+      17.9,
+      "whoosh-short",
+      0.85,
+      "entra el producto real"
+    ],
+    [
+      19.3,
+      "click-soft",
+      0.75,
+      "la caja se clava sobre la tasa BCV"
+    ],
+    [
+      21.3,
+      "whoosh-short",
+      0.6,
+      "corte al panel de métodos de pago"
+    ],
+    [
+      21.9,
+      "click",
+      0.85,
+      "se elige cómo cobrar"
+    ],
+    [
+      25.0,
+      "whoosh-short",
+      0.6,
+      "corte al modal de pago mixto"
+    ],
+    [
+      25.5,
+      "click",
+      0.85,
+      "se abre el pago mixto"
+    ],
+    [
+      28.05,
+      "impact-bass-1",
+      0.85,
+      "USD + VES en una sola venta"
+    ],
+    [
+      29.6,
+      "whoosh-short",
+      0.8,
+      "vuelve el producto"
+    ],
+    [
+      30.6,
+      "key-press",
+      0.85,
+      "se teclea el monto en bolívares"
+    ],
+    [
+      32.75,
+      "ping",
+      0.85,
+      "el sistema escribe el equivalente en dólares"
+    ],
+    [
+      42.6,
+      "whoosh",
+      0.8,
+      "entra el CTA"
+    ],
+    [
+      44.26,
+      "key-press",
+      0.9,
+      "se teclea MONEDA"
+    ],
+    [
+      45.05,
+      "chime",
+      0.85,
+      "comentario publicado"
+    ]
+  ]
+}

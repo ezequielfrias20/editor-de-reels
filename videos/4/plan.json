@@ -1,0 +1,492 @@
+{
+  "format": "REEL",
+  "_": "REEL 4 — El inventario que avisa antes de que te quedes en cero. Todos los tiempos están en la línea del CORTE (44.64 s) y salen del transcript remapeado. La carpeta 4 venía SIN guion.md (0 bytes), así que la estructura se sacó del propio transcript: hook 0-6 · problema 6-15 · producto 15-24 · cifras 25-31 · tesis 31-38 · CTA 38-fin.",
+  "keywords": [
+    "stock",
+    "venta",
+    "inventario",
+    "Excel",
+    "almacén",
+    "ERP",
+    "disponible",
+    "reservado",
+    "mínimo",
+    "sucursal",
+    "alerta",
+    "agotados",
+    "ayer",
+    "hoy"
+  ],
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "target_mean": -34.0
+  },
+  "_curva": "HOOK 0-6 s la cadena que se rompe, con el último paso en rojo · PROBLEMA 6-15 s descanso en la cara con dos tarjetas · PRODUCTO 15-24 s manda la grabación real, tres tramos · CIFRAS 25-31 s las tres del propio panel · TESIS 31-38 s quietud, y la palabra entra EN su palabra · CTA 38-45 s un solo elemento que no se funde: es lo que hay que leer en el último frame.",
+  "voice_gain": 0.7,
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.42
+    },
+    {
+      "at": 0.92,
+      "kind": "pip",
+      "anchor": 0.3
+    },
+    {
+      "at": 5.69,
+      "kind": "full",
+      "zoom": 1.15,
+      "anchor": 0.42
+    },
+    {
+      "at": 6.6,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 8.6,
+      "kind": "full",
+      "zoom": 1.06,
+      "anchor": 0.44
+    },
+    {
+      "at": 10.3,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 11.3,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.43
+    },
+    {
+      "at": 12.6,
+      "kind": "full",
+      "zoom": 1.02,
+      "anchor": 0.46
+    },
+    {
+      "at": 14.2,
+      "kind": "full",
+      "zoom": 1.06,
+      "anchor": 0.44
+    },
+    {
+      "at": 15.64,
+      "kind": "pip",
+      "anchor": 0.3
+    },
+    {
+      "at": 24.06,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 25.9,
+      "kind": "pip",
+      "anchor": 0.3
+    },
+    {
+      "at": 31.22,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 33.3,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.44
+    },
+    {
+      "at": 35.3,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.43
+    },
+    {
+      "at": 39.07,
+      "kind": "off"
+    }
+  ],
+  "cards": [
+    {
+      "start": 7.0,
+      "end": 11.0,
+      "place": "top",
+      "kicker": "EL PROBLEMA",
+      "title": "Inventario\na ciegas",
+      "key": "ciegas"
+    },
+    {
+      "start": 11.4,
+      "end": 14.8,
+      "place": "top",
+      "kicker": "ASÍ SE ENTERAN HOY",
+      "title": "Alguien va\ny lo cuenta",
+      "key": "cuenta",
+      "body": "chips",
+      "items": [
+        "ALMACÉN",
+        "EXCEL"
+      ],
+      "beats": [
+        12.17,
+        14.02
+      ]
+    },
+    {
+      "start": 24.35,
+      "end": 25.6,
+      "place": "top",
+      "kicker": "AUTOMÁTICO",
+      "title": "No hay que\nir a mirar",
+      "key": "mirar"
+    },
+    {
+      "start": 32.4,
+      "end": 35.2,
+      "place": "top",
+      "kicker": "LA TESIS",
+      "title": "El inventario\nno es un reporte",
+      "key": "reporte"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "viz-lost",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 0.92,
+      "end": 5.85,
+      "skin": "on-surface",
+      "cap_top": 1200,
+      "fade_in": 0.22,
+      "fade_out": 0.16,
+      "hud": [
+        "EL PROBLEMA",
+        "01"
+      ],
+      "mock_pad_top": 250,
+      "mock_pad_bottom": 380,
+      "absolute_times": true,
+      "_": "la cadena de tres pasos, cada uno EN su palabra: «pide un producto» 1.37 · «no hay stock» 3.90 · «perdiste la venta» 4.97. Solo el ÚLTIMO va en rojo: si se tiñen los tres, la cadena se lee como un error de sistema en vez de como el precio de haber llegado hasta ahí.",
+      "mock": [
+        "flow_steps",
+        {
+          "steps": [
+            "El cliente pide un producto",
+            "No hay stock",
+            "Venta perdida"
+          ],
+          "at": [
+            1.37,
+            3.9,
+            4.97
+          ],
+          "tone": "fail"
+        }
+      ]
+    },
+    {
+      "id": "viz-tour",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 15.5,
+      "end": 24.2,
+      "src": "erp-4.mp4",
+      "skin": "on-surface",
+      "cap_top": 1430,
+      "fade_in": 0.14,
+      "fade_out": 0.14,
+      "rect": [
+        40,
+        540,
+        1000,
+        820
+      ],
+      "panel": {},
+      "hud": [
+        "PRODUCTO REAL",
+        "02"
+      ],
+      "_": "SIN chrome de navegador: los 74 px de la barra saldrían del tamaño de la interfaz. Tres tramos: la tabla de stock 15.50-16.80 · el modal «Ajustar inventario» 16.80-20.10 · las tarjetas de aviso 20.10-24.20. El tramo del medio no necesita gráfico inventado: el modal rotula sus campos Stock / Reservado / Mínimo con las mismas tres palabras que él dice, y debajo pone la sucursal. Coordenadas medidas sobre el recorrido renderizado a 1000x820, el tamaño exacto del panel.",
+      "clicks": [
+        [
+          19.95,
+          214,
+          883,
+          "POR SUCURSAL"
+        ]
+      ],
+      "boxes": [
+        [
+          17.6,
+          19.85,
+          68,
+          940,
+          934,
+          118
+        ],
+        [
+          21.7,
+          22.9,
+          40,
+          629,
+          487,
+          133
+        ],
+        [
+          23.1,
+          24.05,
+          557,
+          623,
+          483,
+          135
+        ]
+      ]
+    },
+    {
+      "id": "viz-stats",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 25.7,
+      "end": 31.4,
+      "skin": "on-surface",
+      "cap_top": 1200,
+      "fade_in": 0.2,
+      "fade_out": 0.18,
+      "hud": [
+        "DE UN VISTAZO",
+        "03"
+      ],
+      "mock_pad_top": 250,
+      "mock_pad_bottom": 470,
+      "absolute_times": true,
+      "_": "las tres cifras son las del panel que se acaba de ver, no inventadas: 2 agotados · $4.014 de valor · 6 SKUs. Cada una se sella EN su palabra: agotados 27.18 · valor 28.13 · existencias 29.94. El voltaje va al valor total, que es el número que le importa al dueño.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "2",
+              "AGOTADOS"
+            ],
+            [
+              "$4.014",
+              "VALOR TOTAL"
+            ],
+            [
+              "6",
+              "SKUS ACTIVOS"
+            ]
+          ],
+          "at": [
+            27.18,
+            28.13,
+            29.94
+          ],
+          "accent": 1
+        }
+      ]
+    },
+    {
+      "id": "viz-hoy",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 37.55,
+      "end": 38.95,
+      "skin": "on-surface",
+      "cap_top": 1430,
+      "fade_in": 0.18,
+      "fade_out": 0.14,
+      "absolute_times": true,
+      "_": "la palabra entra en 37.75 y él dice «hoy» en 37.84. Empezar el gráfico antes la habría enseñado dos segundos antes de que la diga, y al llegar la palabra ya no pasaría nada en pantalla. Llega después de 6 s de cara quieta: la quietud es lo que hace que se lea como conclusión.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "HOY",
+          "kicker": "NO LO QUE PASÓ AYER",
+          "size": 220,
+          "sub": "lo que necesitas hacer"
+        }
+      ]
+    },
+    {
+      "id": "viz-cta",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 38.95,
+      "end": null,
+      "skin": "on-surface",
+      "cap_top": 1180,
+      "fade_in": 0.12,
+      "fade_out": 0.0,
+      "hud": [
+        "SIGUIENTE PASO",
+        "04"
+      ],
+      "mock_pad_top": 60,
+      "absolute_times": true,
+      "_": "sin fundido de salida: el comentario tiene que estar puesto en el ÚLTIMO frame, que es el que se queda congelado cuando el reel vuelve a empezar. La palabra se teclea en 39.10, que es cuando él dice «stock».",
+      "mock": [
+        "comment_ui",
+        {
+          "word": "STOCK",
+          "type_at": 39.1,
+          "send_at": 39.95,
+          "headline": "STOCK"
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    [
+      0.0,
+      "whoosh-short",
+      0.85,
+      "abre la pieza"
+    ],
+    [
+      0.92,
+      "whoosh",
+      0.8,
+      "entra la cadena"
+    ],
+    [
+      1.37,
+      "pop",
+      0.85,
+      "el cliente pide un producto"
+    ],
+    [
+      3.9,
+      "error",
+      0.8,
+      "no hay stock"
+    ],
+    [
+      4.97,
+      "impact-bass-1",
+      0.95,
+      "venta perdida — remate del hook"
+    ],
+    [
+      5.69,
+      "whoosh-short",
+      0.75,
+      "corte duro de vuelta a la cara"
+    ],
+    [
+      12.17,
+      "pop",
+      0.8,
+      "se sella ALMACÉN"
+    ],
+    [
+      14.02,
+      "pop",
+      0.8,
+      "se sella EXCEL"
+    ],
+    [
+      15.5,
+      "whoosh-short",
+      0.85,
+      "entra el producto real"
+    ],
+    [
+      16.8,
+      "whoosh-short",
+      0.6,
+      "corte al modal de ajuste"
+    ],
+    [
+      17.6,
+      "click-soft",
+      0.75,
+      "la caja se clava sobre disponible / reservado / mínimo"
+    ],
+    [
+      19.95,
+      "click",
+      0.85,
+      "la sucursal del registro"
+    ],
+    [
+      20.1,
+      "whoosh-short",
+      0.6,
+      "corte a las tarjetas de aviso"
+    ],
+    [
+      21.7,
+      "ping",
+      0.8,
+      "stock bajo"
+    ],
+    [
+      23.1,
+      "notification",
+      0.85,
+      "el sistema genera la alerta"
+    ],
+    [
+      25.7,
+      "whoosh",
+      0.75,
+      "entran las tres cifras"
+    ],
+    [
+      27.18,
+      "pop",
+      0.85,
+      "2 agotados"
+    ],
+    [
+      28.13,
+      "pop",
+      0.85,
+      "valor total del inventario"
+    ],
+    [
+      29.94,
+      "pop",
+      0.85,
+      "existencias consolidadas"
+    ],
+    [
+      37.55,
+      "impact-bass-1",
+      0.85,
+      "la tesis: hoy, no ayer"
+    ],
+    [
+      38.95,
+      "whoosh",
+      0.8,
+      "entra el CTA"
+    ],
+    [
+      39.1,
+      "key-press",
+      0.9,
+      "se teclea STOCK"
+    ],
+    [
+      39.95,
+      "chime",
+      1.35,
+      "comentario publicado"
+    ]
+  ]
+}

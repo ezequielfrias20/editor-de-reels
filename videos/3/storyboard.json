@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 3,
+  "composition": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 45.8,
+    "layout": "portrait",
+    "themeId": "graphite-violet",
+    "seed": 42
+  },
+  "videoTrack": {
+    "sourcePath": "input-video.mp4",
+    "startSec": 0,
+    "endSec": 45.8,
+    "bounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1920
+    }
+  },
+  "subtitles": {
+    "enabled": true,
+    "style": "chunk-keyword"
+  },
+  "cards": [
+    {
+      "id": "card-01",
+      "intent": "LO QUE CUESTA — Conversiones\na mano",
+      "startSec": 11.1,
+      "endSec": 15.7,
+      "accentIndex": 1,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "LO QUE CUESTA",
+        "title": "Conversiones\na mano",
+        "body": "none",
+        "place": "top"
+      }
+    },
+    {
+      "id": "card-02",
+      "intent": "EL RESULTADO — Cuánto facturó\nde verdad",
+      "startSec": 33.4,
+      "endSec": 38.6,
+      "accentIndex": 2,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "EL RESULTADO",
+        "title": "Cuánto facturó\nde verdad",
+        "body": "none",
+        "place": "top"
+      }
+    },
+    {
+      "id": "card-03",
+      "intent": "PIÉNSALO — ¿Sabes tu cifra\nreal de hoy?",
+      "startSec": 39.0,
+      "endSec": 42.4,
+      "accentIndex": 3,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "PIÉNSALO",
+        "title": "¿Sabes tu cifra\nreal de hoy?",
+        "body": "none",
+        "place": "top"
+      }
+    }
+  ]
+}

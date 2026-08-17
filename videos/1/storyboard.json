@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 3,
+  "composition": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 38.9,
+    "layout": "portrait",
+    "themeId": "craft",
+    "seed": 42
+  },
+  "videoTrack": {
+    "sourcePath": "input-video.mp4",
+    "startSec": 0,
+    "endSec": 38.9,
+    "bounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1920
+    }
+  },
+  "subtitles": {
+    "enabled": true,
+    "style": "karaoke-word"
+  },
+  "cards": [
+    {
+      "id": "card-01",
+      "intent": "EL PROBLEMA — No es falta\nde consultas",
+      "startSec": 2.4667,
+      "endSec": 6.5333,
+      "accentIndex": 1,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "EL PROBLEMA",
+        "title": "No es falta\nde consultas",
+        "body": "none",
+        "mode": "full"
+      }
+    },
+    {
+      "id": "card-02",
+      "intent": "MIDE ESTO — 3 números",
+      "startSec": 6.6333,
+      "endSec": 11.4,
+      "accentIndex": 2,
+      "zone": "whiteboard-area",
+      "contentHints": {
+        "kicker": "MIDE ESTO",
+        "title": "3 números",
+        "body": "metrics",
+        "mode": "split"
+      }
+    },
+    {
+      "id": "card-03",
+      "intent": "LA CUENTA — Solo conviertes",
+      "startSec": 11.5,
+      "endSec": 16.6667,
+      "accentIndex": 3,
+      "zone": "whiteboard-area",
+      "contentHints": {
+        "kicker": "LA CUENTA",
+        "title": "Solo conviertes",
+        "body": "funnel",
+        "mode": "split"
+      }
+    },
+    {
+      "id": "card-04",
+      "intent": "LA CAUSA — Todo queda\nmezclado",
+      "startSec": 16.7667,
+      "endSec": 18.4333,
+      "accentIndex": 4,
+      "zone": "fullscreen",
+      "contentHints": {
+        "kicker": "LA CAUSA",
+        "title": "Todo queda\nmezclado",
+        "body": "none",
+        "mode": "pip"
+      }
+    },
+    {
+      "id": "card-06",
+      "intent": "LA SOLUCIÓN — Un CRM con IA",
+      "startSec": 24.9,
+      "endSec": 26.6667,
+      "accentIndex": 1,
+      "zone": "whiteboard-area",
+      "contentHints": {
+        "kicker": "LA SOLUCIÓN",
+        "title": "Un CRM con IA",
+        "body": "none",
+        "mode": "split"
+      }
+    },
+    {
+      "id": "card-07",
+      "intent": "TU TURNO — Comenta",
+      "startSec": 33.6,
+      "endSec": 38.8,
+      "accentIndex": 2,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "TU TURNO",
+        "title": "Comenta",
+        "body": "cta",
+        "mode": "full"
+      }
+    }
+  ]
+}

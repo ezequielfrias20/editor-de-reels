@@ -1,0 +1,141 @@
+{
+  "src": "VIDEOS ORIGINALES/4/pantalla.mov",
+  "out": "assets/erp-4.mp4",
+  "size": [
+    2000,
+    1640
+  ],
+  "fps": 30,
+  "_nota": "Tres tramos sobre la vista de Inventario, que es donde la columna STOCK dice literalmente lo que él enumera: «118 / 30 mín · 12 res» = disponible / mínimo / reservado, y al lado la sucursal y el estado. Salida cuadrada (1.2195) para que un origen apaisado quepa grande en 9:16.",
+  "exclude": [
+    {
+      "t": [
+        4.9,
+        5.77
+      ],
+      "rect": [
+        96,
+        985,
+        280,
+        95
+      ],
+      "why": "indicador de dev del framework"
+    },
+    {
+      "t": [
+        10.77,
+        12.6
+      ],
+      "rect": [
+        96,
+        985,
+        280,
+        95
+      ],
+      "why": "indicador de dev del framework"
+    },
+    {
+      "t": [
+        15.7,
+        16.6
+      ],
+      "rect": [
+        96,
+        985,
+        280,
+        95
+      ],
+      "why": "indicador de dev del framework"
+    },
+    {
+      "t": [
+        17.63,
+        19.17
+      ],
+      "rect": [
+        96,
+        985,
+        280,
+        95
+      ],
+      "why": "indicador de dev del framework"
+    },
+    {
+      "t": [
+        25.73,
+        29.07
+      ],
+      "rect": [
+        96,
+        985,
+        280,
+        95
+      ],
+      "why": "indicador de dev del framework"
+    },
+    {
+      "t": [
+        33.3,
+        38.53
+      ],
+      "rect": [
+        96,
+        985,
+        280,
+        95
+      ],
+      "why": "indicador de dev del framework"
+    }
+  ],
+  "_ventanas": "La grabación solo está en Inventario a partir de 19 s, y dentro hay tres estados que no se pueden pisar: la tabla con 6 filas y la página ya desplazada vive 19.8-21.3 (a las 21.9 cambia de pestaña y la tabla se vacía), el modal «Ajustar inventario» 25.73-29.10, y la vista limpia de Agotados 29.10-33.30 (a las 33.3 entra otro modal). Los `at` salen de ahí, medidos, no estimados.",
+  "segments": [
+    {
+      "_": "«En este ERP» — plano de situación sobre la columna STOCK, que ya trae escrito «118 / 30 mín · 12 res». Corto a propósito: su trabajo es presentar, no explicar.",
+      "label": "STOCK",
+      "at": 20.0,
+      "dur": 1.3,
+      "crop": [
+        1040,
+        440,
+        700,
+        574
+      ],
+      "zoom": [
+        1.0,
+        1.04
+      ]
+    },
+    {
+      "_": "«cada producto tiene stock disponible, reservado y mínimo por sucursal» — el modal «Ajustar inventario» rotula los tres campos con esas mismas tres palabras y debajo pone la sucursal. No hay que dibujar un gráfico que lo explique: el producto ya lo dice.",
+      "label": "DISPONIBLE / RESERVADO / MINIMO",
+      "at": 25.8,
+      "dur": 3.3,
+      "crop": [
+        650,
+        361,
+        620,
+        508
+      ],
+      "zoom": [
+        1.0,
+        1.06
+      ]
+    },
+    {
+      "_": "«cuando una variante está por agotarse, el sistema genera una alerta» — las dos tarjetas de aviso (Stock bajo ⚠ · Agotados ✕). El aviso ES la tarjeta, así que la caja delimitadora va sobre ella.",
+      "label": "ALERTA",
+      "at": 29.15,
+      "dur": 4.1,
+      "crop": [
+        620,
+        270,
+        770,
+        631
+      ],
+      "zoom": [
+        1.0,
+        1.06
+      ]
+    }
+  ]
+}

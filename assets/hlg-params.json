@@ -1,0 +1,9 @@
+{
+  "gamma": 1.65,
+  "gain": 0.85,
+  "lift": 0.06,
+  "sat": 1.2,
+  "error": 6.61,
+  "source": "out/1-rough.mp4",
+  "at": 5.5
+}

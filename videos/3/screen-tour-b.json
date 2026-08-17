@@ -1,0 +1,56 @@
+{
+  "src": "VIDEOS ORIGINALES/3/pantalla.mov",
+  "out": "assets/erp-3b.mp4",
+  "size": [
+    2000,
+    1640
+  ],
+  "fps": 30,
+  "_nota": "Segundo clip, separado del primero porque el renderer arranca cada <video> en 0: dos momentos distintos de la grabación con un gráfico en medio son dos archivos, no dos tramos del mismo. Aquí solo hay una idea: el monto se teclea en bolívares y el sistema escribe debajo su equivalente en dólares.",
+  "exclude": [
+    {
+      "t": [
+        32.9,
+        37.0
+      ],
+      "rect": [
+        1360,
+        160,
+        460,
+        70
+      ],
+      "why": "toast «Falta la referencia de Pago Móvil»"
+    },
+    {
+      "t": [
+        22.67,
+        36.87
+      ],
+      "rect": [
+        96,
+        985,
+        280,
+        95
+      ],
+      "why": "indicador de dev del framework"
+    }
+  ],
+  "segments": [
+    {
+      "_": "«registra la moneda original y también calcula su equivalente en dólares» — la línea «≈ $0.51 · Bs. 390,00» debajo del campo. El recorte se ciñe al modal (508 px de origen = 1.97x): antes cogía 30 px de más por abajo y metía una franja gris del velo dentro del panel. Termina en 32.8, antes del toast de error.",
+      "label": "EQUIVALENTE",
+      "at": 29.3,
+      "dur": 3.5,
+      "crop": [
+        652,
+        402,
+        508,
+        417
+      ],
+      "zoom": [
+        1.0,
+        1.07
+      ]
+    }
+  ]
+}

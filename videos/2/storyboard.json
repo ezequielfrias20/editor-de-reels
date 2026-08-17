@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 3,
+  "composition": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 46.9333,
+    "layout": "portrait",
+    "themeId": "graphite-violet",
+    "seed": 42
+  },
+  "videoTrack": {
+    "sourcePath": "input-video.mp4",
+    "startSec": 0,
+    "endSec": 46.9333,
+    "bounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1920
+    }
+  },
+  "subtitles": {
+    "enabled": true,
+    "style": "chunk-keyword"
+  },
+  "cards": [
+    {
+      "id": "card-01",
+      "intent": "EL CASO REAL — Una tienda\nretail",
+      "startSec": 7.1667,
+      "endSec": 11.3,
+      "accentIndex": 1,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "EL CASO REAL",
+        "title": "Una tienda\nretail",
+        "body": "none",
+        "place": "top"
+      }
+    },
+    {
+      "id": "card-02",
+      "intent": "EL RETO — Todo a la vez",
+      "startSec": 11.6,
+      "endSec": 16.5333,
+      "accentIndex": 2,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "EL RETO",
+        "title": "Todo a la vez",
+        "body": "stat",
+        "place": "top"
+      }
+    },
+    {
+      "id": "card-03",
+      "intent": "LA SOLUCIÓN — Por eso lo\nconstruí",
+      "startSec": 16.9667,
+      "endSec": 19.2,
+      "accentIndex": 3,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "LA SOLUCIÓN",
+        "title": "Por eso lo\nconstruí",
+        "body": "none",
+        "place": "top"
+      }
+    },
+    {
+      "id": "card-04",
+      "intent": "EL OBJETIVO — No era sumar\nherramientas",
+      "startSec": 36.0667,
+      "endSec": 38.4,
+      "accentIndex": 4,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "EL OBJETIVO",
+        "title": "No era sumar\nherramientas",
+        "body": "none",
+        "place": "top"
+      }
+    },
+    {
+      "id": "card-05",
+      "intent": "PIÉNSALO — ¿Tu sistema\nconecta todo?",
+      "startSec": 40.7,
+      "endSec": 44.0667,
+      "accentIndex": 0,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "PIÉNSALO",
+        "title": "¿Tu sistema\nconecta todo?",
+        "body": "none",
+        "place": "top"
+      }
+    }
+  ]
+}

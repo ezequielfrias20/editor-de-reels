@@ -1,0 +1,608 @@
+{
+  "format": "REEL",
+  "_": "REEL 2 — ERP: ventas, inventario y reportes desconectados. Todos los tiempos están en la línea del CORTE (46.946 s) y salen del transcript remapeado, no de una progresión estética.",
+  "keywords": [
+    "Excel",
+    "WhatsApp",
+    "ERP",
+    "stock",
+    "problemas",
+    "verdad",
+    "retail",
+    "sucursales",
+    "productos",
+    "dólares",
+    "bolívares",
+    "cliente"
+  ],
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "target_mean": -34.0
+  },
+  "_curva": "HOOK 0-7 s la parte más agresiva (encuadre 1.12→1.15, tablero, corte duro en el remate) · CUERPO 7-28 s con descansos a 1.00 y picos a 1.06/1.09 · DEMO 28-36 s el producto manda · TESIS 36-40 s vuelve la cara · CTA 40-47 s se simplifica.",
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.42
+    },
+    {
+      "at": 0.42,
+      "kind": "pip",
+      "anchor": 0.3
+    },
+    {
+      "at": 4.35,
+      "kind": "full",
+      "zoom": 1.15,
+      "anchor": 0.42
+    },
+    {
+      "at": 6.95,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 9.55,
+      "kind": "full",
+      "zoom": 1.06,
+      "anchor": 0.44
+    },
+    {
+      "at": 11.45,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 13.85,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.44
+    },
+    {
+      "at": 15.35,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.43
+    },
+    {
+      "at": 16.98,
+      "kind": "full",
+      "zoom": 1.02,
+      "anchor": 0.46
+    },
+    {
+      "at": 18.3,
+      "kind": "full",
+      "zoom": 1.08,
+      "anchor": 0.43
+    },
+    {
+      "at": 19.52,
+      "kind": "off"
+    },
+    {
+      "at": 20.38,
+      "kind": "pip",
+      "anchor": 0.3
+    },
+    {
+      "at": 36.0,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 37.3,
+      "kind": "full",
+      "zoom": 1.06,
+      "anchor": 0.44
+    },
+    {
+      "at": 38.8,
+      "kind": "off"
+    },
+    {
+      "at": 40.4,
+      "kind": "full",
+      "zoom": 1.0,
+      "anchor": 0.46
+    },
+    {
+      "at": 42.55,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.44
+    },
+    {
+      "at": 44.36,
+      "kind": "off"
+    }
+  ],
+  "cards": [
+    {
+      "start": 7.18,
+      "end": 11.3,
+      "place": "top",
+      "kicker": "EL CASO REAL",
+      "title": "Una tienda\nretail",
+      "key": "retail"
+    },
+    {
+      "start": 11.6,
+      "end": 16.55,
+      "place": "top",
+      "kicker": "EL RETO",
+      "title": "Todo a la vez",
+      "body": "stat",
+      "accent": 2,
+      "items": [
+        [
+          "VARIAS",
+          "SUCURSALES"
+        ],
+        [
+          "CIENTOS",
+          "PRODUCTOS"
+        ],
+        [
+          "$ / Bs",
+          "2 MONEDAS"
+        ]
+      ],
+      "beats": [
+        11.89,
+        13.33,
+        15.49
+      ]
+    },
+    {
+      "start": 16.98,
+      "end": 19.2,
+      "place": "top",
+      "kicker": "LA SOLUCIÓN",
+      "title": "Por eso lo\nconstruí"
+    },
+    {
+      "start": 36.05,
+      "end": 38.4,
+      "place": "top",
+      "kicker": "EL OBJETIVO",
+      "title": "No era sumar\nherramientas",
+      "key": "sumar"
+    },
+    {
+      "start": 40.7,
+      "end": 44.05,
+      "place": "top",
+      "kicker": "PIÉNSALO",
+      "title": "¿Tu sistema\nconecta todo?",
+      "key": "conecta"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "viz-apps",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 0.42,
+      "end": 4.35,
+      "skin": "on-surface",
+      "cap_top": 1255,
+      "fade_in": 0.22,
+      "fade_out": 0.16,
+      "hud": [
+        "EL PROBLEMA",
+        "01"
+      ],
+      "mock_pad_top": 240,
+      "absolute_times": true,
+      "_": "cada herramienta SE SELLA en la palabra que la nombra: venta 0.39 · Excel 2.20 · WhatsApp 3.64, y el conector roto llega detrás. Sin barra de alerta: el remate «3 problemas» se juega en la cara, no aquí.",
+      "mock": [
+        "app_switch",
+        {
+          "apps": [
+            [
+              "erp",
+              "VENTAS"
+            ],
+            [
+              "microsoftexcel",
+              "INVENTARIO"
+            ],
+            [
+              "whatsapp",
+              "REPORTES"
+            ]
+          ],
+          "brand": "whatsapp",
+          "switch_at": [
+            0.55,
+            2.2,
+            3.64
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viz-erp",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 19.3,
+      "end": 20.34,
+      "skin": "on-surface",
+      "cap_top": 1430,
+      "fade_in": 0.18,
+      "fade_out": 0.14,
+      "absolute_times": true,
+      "_": "la palabra ERP se dice en 19.66 y es además la palabra del CTA: aparece grande una vez, temprano, para que al final ya suene conocida.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "ERP",
+          "kicker": "LO QUE DESARROLLÉ",
+          "size": 220,
+          "sub": "un solo sistema para toda la operación"
+        }
+      ]
+    },
+    {
+      "id": "viz-map",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 20.38,
+      "end": 28.05,
+      "skin": "on-surface",
+      "cap_top": 1440,
+      "fade_in": 0.2,
+      "fade_out": 0.14,
+      "hud": [
+        "LA SOLUCIÓN",
+        "02"
+      ],
+      "mock_pad_top": 260,
+      "absolute_times": true,
+      "_": "los 7 módulos se dibujan uno a uno EN la palabra que los nombra. El mapa se construye al ritmo del habla en vez de aparecer entero.",
+      "mock": [
+        "connection_map",
+        {
+          "nodes": [
+            "Punto de venta",
+            "Inventario",
+            "Clientes",
+            "Sucursales",
+            "Facturación",
+            "Reportes",
+            "Empleados"
+          ],
+          "draw_at": [
+            21.43,
+            21.93,
+            22.98,
+            23.55,
+            24.44,
+            25.32,
+            27.1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "viz-screen",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 28.05,
+      "end": 36.0,
+      "src": "erp-tour.mp4",
+      "skin": "on-surface",
+      "cap_top": 1400,
+      "fade_in": 0.14,
+      "fade_out": 0.18,
+      "rect": [
+        50,
+        700,
+        980,
+        620
+      ],
+      "chrome": {
+        "url": "erp-sen.vercel.app/ventas",
+        "brand": "PRODUCTO REAL"
+      },
+      "hud": [
+        "PRODUCTO REAL",
+        "03"
+      ],
+      "_": "el recorrido ya viene cortado por screen-tour.json en cuatro tramos (venta · stock · reportes · cliente). Aquí solo van encima el cursor, los clics y las cajas que dirigen la mirada al punto exacto.",
+      "clicks": [
+        [
+          28.94,
+          300,
+          980,
+          "VENTA"
+        ],
+        [
+          29.92,
+          720,
+          1010,
+          "STOCK −1"
+        ],
+        [
+          32.34,
+          330,
+          1090,
+          "REPORTE"
+        ],
+        [
+          35.04,
+          760,
+          820,
+          "CLIENTE"
+        ]
+      ],
+      "boxes": [
+        [
+          29.5,
+          32.05,
+          560,
+          900,
+          440,
+          250
+        ],
+        [
+          32.2,
+          34.7,
+          90,
+          980,
+          470,
+          230
+        ],
+        [
+          34.85,
+          35.92,
+          520,
+          720,
+          470,
+          200
+        ]
+      ]
+    },
+    {
+      "id": "viz-truth",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 38.5,
+      "end": 40.62,
+      "skin": "on-surface",
+      "cap_top": 1430,
+      "fade_in": 0.26,
+      "fade_out": 0.22,
+      "absolute_times": true,
+      "_": "la tesis del video. Llega después de 2.5 s de cara quieta — la quietud es lo que hace que se lea como conclusión y no como un dato más.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "UNA SOLA",
+          "kicker": "EL OBJETIVO NO ERA SUMAR HERRAMIENTAS",
+          "sub": "fuente de verdad",
+          "size": 150
+        }
+      ]
+    },
+    {
+      "id": "viz-cta",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 44.2,
+      "end": null,
+      "skin": "on-surface",
+      "cap_top": 1180,
+      "fade_in": 0.12,
+      "fade_out": 0.3,
+      "hud": [
+        "SIGUIENTE PASO",
+        "04"
+      ],
+      "mock_pad_top": 60,
+      "absolute_times": true,
+      "_": "el CTA no se explica, se ENSEÑA: la palabra se teclea sola en 45.30 (que es cuando él dice «ERP») y el comentario se publica en 46.05. La composición se queda con un solo elemento.",
+      "mock": [
+        "comment_ui",
+        {
+          "word": "ERP",
+          "type_at": 45.3,
+          "send_at": 46.05,
+          "headline": "ERP"
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    [
+      0.0,
+      "whoosh-short",
+      0.85,
+      "abre la pieza"
+    ],
+    [
+      0.42,
+      "whoosh",
+      0.8,
+      "entra el tablero de 3 sistemas"
+    ],
+    [
+      0.55,
+      "pop",
+      0.85,
+      "se sella VENTAS"
+    ],
+    [
+      2.2,
+      "pop",
+      0.85,
+      "se sella Excel"
+    ],
+    [
+      3.64,
+      "pop",
+      0.85,
+      "se sella WhatsApp"
+    ],
+    [
+      4.35,
+      "whoosh-short",
+      0.75,
+      "corte duro de vuelta a la cara"
+    ],
+    [
+      6.08,
+      "impact-bass-1",
+      0.95,
+      "«3 problemas» — remate del hook"
+    ],
+    [
+      11.89,
+      "pop",
+      0.85,
+      "varias sucursales"
+    ],
+    [
+      13.33,
+      "pop",
+      0.85,
+      "cientos de productos"
+    ],
+    [
+      15.49,
+      "pop",
+      0.85,
+      "dos monedas"
+    ],
+    [
+      19.3,
+      "impact-bass-2",
+      0.8,
+      "aterriza la palabra ERP"
+    ],
+    [
+      20.38,
+      "whoosh",
+      0.75,
+      "entra el mapa de conexiones"
+    ],
+    [
+      21.43,
+      "click-soft",
+      0.7,
+      "conecta punto de venta"
+    ],
+    [
+      21.93,
+      "click-soft",
+      0.7,
+      "conecta inventario"
+    ],
+    [
+      22.98,
+      "click-soft",
+      0.7,
+      "conecta clientes"
+    ],
+    [
+      23.55,
+      "click-soft",
+      0.7,
+      "conecta sucursales"
+    ],
+    [
+      24.44,
+      "click-soft",
+      0.7,
+      "conecta facturación"
+    ],
+    [
+      25.32,
+      "click-soft",
+      0.7,
+      "conecta reportes"
+    ],
+    [
+      27.1,
+      "click-soft",
+      0.7,
+      "conecta empleados"
+    ],
+    [
+      28.05,
+      "whoosh-short",
+      0.85,
+      "entra el producto real"
+    ],
+    [
+      28.94,
+      "click",
+      0.85,
+      "se registra la venta"
+    ],
+    [
+      29.92,
+      "ping",
+      0.8,
+      "el stock se actualiza"
+    ],
+    [
+      32.2,
+      "whoosh-short",
+      0.6,
+      "corte con zoom al reporte"
+    ],
+    [
+      32.34,
+      "click",
+      0.8,
+      "aparece en los reportes"
+    ],
+    [
+      34.85,
+      "whoosh-short",
+      0.6,
+      "corte con zoom al cliente"
+    ],
+    [
+      35.04,
+      "click",
+      0.8,
+      "queda asociado al cliente"
+    ],
+    [
+      38.5,
+      "impact-bass-1",
+      0.85,
+      "la tesis: una sola fuente de verdad"
+    ],
+    [
+      44.2,
+      "whoosh",
+      0.8,
+      "entra el CTA"
+    ],
+    [
+      45.3,
+      "key-press",
+      0.9,
+      "se teclea ERP"
+    ],
+    [
+      46.05,
+      "chime",
+      0.85,
+      "comentario publicado"
+    ]
+  ],
+  "voice_gain": 0.7,
+  "_mezcla": "la grabación del iPhone ya viene con el audio a 0 dB, así que la voz se baja a 0.70 para abrir cabecera; efectos y música se desplazan los mismos −3.1 dB y el balance no cambia."
+}

@@ -1,0 +1,971 @@
+{
+  "id": "3bf0032e-2f58-4bce-a388-93c2c120fe67",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/42ac03a81c7f04067c3c44455879e90a118a93018a13d41e28db12fb70af1673/f7074e53-fd84-4c6d-b32f-6a7b4f0a308f",
+  "text": "Si tu venta está en un sistema, el inventario en Excel y los reportes en WhatsApp, no tienes 3 herramientas, tienes 3 problemas. Esto era exactamente lo que necesitábamos resolver para una tienda retail con varias sucursales, cientos de productos y ventas tanto en dólares como en bolívares. Por eso desarrollé un sistema llamado ERP que conecta el punto de venta, inventario clientes, sucursales, facturación, reportes financieros y permisos de empleados. Cuando se registra una venta, el stock se actualiza, la transacción aparece en los reportes y queda asociado completamente al cliente. El objetivo no era más herramientas, era tener una sola fuente de verdad. ¿Quieres conocer las funciones que debería tener el sistema de tu negocio? Comenta la palabra ERP y te lo envío.",
+  "words": [
+    {
+      "text": "Si",
+      "start": 260,
+      "end": 422,
+      "confidence": 0.9970084,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 422,
+      "end": 503,
+      "confidence": 0.98732865,
+      "speaker": null
+    },
+    {
+      "text": "venta",
+      "start": 503,
+      "end": 698,
+      "confidence": 0.9740694,
+      "speaker": null
+    },
+    {
+      "text": "está",
+      "start": 698,
+      "end": 861,
+      "confidence": 0.9999093,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 861,
+      "end": 958,
+      "confidence": 0.9999931,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 991,
+      "end": 1072,
+      "confidence": 0.9998424,
+      "speaker": null
+    },
+    {
+      "text": "sistema,",
+      "start": 1072,
+      "end": 1592,
+      "confidence": 0.9998497,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 1820,
+      "end": 1885,
+      "confidence": 0.99991393,
+      "speaker": null
+    },
+    {
+      "text": "inventario",
+      "start": 1901,
+      "end": 2242,
+      "confidence": 0.9999904,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 2242,
+      "end": 2307,
+      "confidence": 0.99865294,
+      "speaker": null
+    },
+    {
+      "text": "Excel",
+      "start": 2307,
+      "end": 2648,
+      "confidence": 0.99995375,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 2876,
+      "end": 2941,
+      "confidence": 0.9967084,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 2941,
+      "end": 3103,
+      "confidence": 0.99998224,
+      "speaker": null
+    },
+    {
+      "text": "reportes",
+      "start": 3136,
+      "end": 3607,
+      "confidence": 0.99998647,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 3607,
+      "end": 3753,
+      "confidence": 0.999954,
+      "speaker": null
+    },
+    {
+      "text": "WhatsApp,",
+      "start": 3753,
+      "end": 4208,
+      "confidence": 0.9992959,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 4566,
+      "end": 4647,
+      "confidence": 0.99910706,
+      "speaker": null
+    },
+    {
+      "text": "tienes",
+      "start": 4728,
+      "end": 4956,
+      "confidence": 0.9999815,
+      "speaker": null
+    },
+    {
+      "text": "3",
+      "start": 5053,
+      "end": 5232,
+      "confidence": 0.9999908,
+      "speaker": null
+    },
+    {
+      "text": "herramientas,",
+      "start": 5232,
+      "end": 5752,
+      "confidence": 0.99892896,
+      "speaker": null
+    },
+    {
+      "text": "tienes",
+      "start": 5866,
+      "end": 6158,
+      "confidence": 0.97540504,
+      "speaker": null
+    },
+    {
+      "text": "3",
+      "start": 6191,
+      "end": 6353,
+      "confidence": 0.9999857,
+      "speaker": null
+    },
+    {
+      "text": "problemas.",
+      "start": 6353,
+      "end": 6890,
+      "confidence": 0.9994289,
+      "speaker": null
+    },
+    {
+      "text": "Esto",
+      "start": 10246,
+      "end": 10648,
+      "confidence": 0.9965708,
+      "speaker": null
+    },
+    {
+      "text": "era",
+      "start": 10648,
+      "end": 10793,
+      "confidence": 0.99927884,
+      "speaker": null
+    },
+    {
+      "text": "exactamente",
+      "start": 10809,
+      "end": 11597,
+      "confidence": 0.99997836,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 11597,
+      "end": 11758,
+      "confidence": 0.99999523,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 11758,
+      "end": 11790,
+      "confidence": 0.99999654,
+      "speaker": null
+    },
+    {
+      "text": "necesitábamos",
+      "start": 11790,
+      "end": 12514,
+      "confidence": 0.999972,
+      "speaker": null
+    },
+    {
+      "text": "resolver",
+      "start": 12514,
+      "end": 13029,
+      "confidence": 0.99999666,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 13126,
+      "end": 13302,
+      "confidence": 0.99990344,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 13302,
+      "end": 13528,
+      "confidence": 0.9999771,
+      "speaker": null
+    },
+    {
+      "text": "tienda",
+      "start": 13528,
+      "end": 13849,
+      "confidence": 0.9999948,
+      "speaker": null
+    },
+    {
+      "text": "retail",
+      "start": 13849,
+      "end": 14219,
+      "confidence": 0.9988072,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 14734,
+      "end": 14975,
+      "confidence": 0.9021871,
+      "speaker": null
+    },
+    {
+      "text": "varias",
+      "start": 14975,
+      "end": 15217,
+      "confidence": 0.9990501,
+      "speaker": null
+    },
+    {
+      "text": "sucursales,",
+      "start": 15217,
+      "end": 15908,
+      "confidence": 0.9999814,
+      "speaker": null
+    },
+    {
+      "text": "cientos",
+      "start": 16101,
+      "end": 16503,
+      "confidence": 0.99996793,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 16503,
+      "end": 16664,
+      "confidence": 0.99999774,
+      "speaker": null
+    },
+    {
+      "text": "productos",
+      "start": 16664,
+      "end": 17356,
+      "confidence": 0.9999846,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 17404,
+      "end": 17468,
+      "confidence": 0.9998956,
+      "speaker": null
+    },
+    {
+      "text": "ventas",
+      "start": 17468,
+      "end": 17951,
+      "confidence": 0.9999696,
+      "speaker": null
+    },
+    {
+      "text": "tanto",
+      "start": 17951,
+      "end": 18691,
+      "confidence": 0.9925874,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 18691,
+      "end": 18820,
+      "confidence": 0.9999933,
+      "speaker": null
+    },
+    {
+      "text": "dólares",
+      "start": 18820,
+      "end": 19075,
+      "confidence": 0.9999986,
+      "speaker": null
+    },
+    {
+      "text": "como",
+      "start": 19092,
+      "end": 19296,
+      "confidence": 0.99994147,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 19296,
+      "end": 19347,
+      "confidence": 0.9995938,
+      "speaker": null
+    },
+    {
+      "text": "bolívares.",
+      "start": 19347,
+      "end": 19908,
+      "confidence": 0.99982107,
+      "speaker": null
+    },
+    {
+      "text": "Por",
+      "start": 22949,
+      "end": 23127,
+      "confidence": 0.99958354,
+      "speaker": null
+    },
+    {
+      "text": "eso",
+      "start": 23127,
+      "end": 23435,
+      "confidence": 0.99998105,
+      "speaker": null
+    },
+    {
+      "text": "desarrollé",
+      "start": 23678,
+      "end": 24260,
+      "confidence": 0.9711395,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 24260,
+      "end": 24325,
+      "confidence": 0.99997413,
+      "speaker": null
+    },
+    {
+      "text": "sistema",
+      "start": 24325,
+      "end": 25086,
+      "confidence": 0.99994266,
+      "speaker": null
+    },
+    {
+      "text": "llamado",
+      "start": 25135,
+      "end": 25459,
+      "confidence": 0.99946535,
+      "speaker": null
+    },
+    {
+      "text": "ERP",
+      "start": 25637,
+      "end": 26122,
+      "confidence": 0.9997316,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 26187,
+      "end": 26349,
+      "confidence": 0.98598576,
+      "speaker": null
+    },
+    {
+      "text": "conecta",
+      "start": 26349,
+      "end": 26705,
+      "confidence": 0.99978817,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 26705,
+      "end": 26786,
+      "confidence": 0.9963446,
+      "speaker": null
+    },
+    {
+      "text": "punto",
+      "start": 26916,
+      "end": 27272,
+      "confidence": 0.99874675,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 27272,
+      "end": 27401,
+      "confidence": 0.9999038,
+      "speaker": null
+    },
+    {
+      "text": "venta,",
+      "start": 27401,
+      "end": 27774,
+      "confidence": 0.9996654,
+      "speaker": null
+    },
+    {
+      "text": "inventario",
+      "start": 27903,
+      "end": 28697,
+      "confidence": 0.9995363,
+      "speaker": null
+    },
+    {
+      "text": "clientes,",
+      "start": 29350,
+      "end": 29639,
+      "confidence": 0.92251724,
+      "speaker": null
+    },
+    {
+      "text": "sucursales,",
+      "start": 29928,
+      "end": 30619,
+      "confidence": 0.99998087,
+      "speaker": null
+    },
+    {
+      "text": "facturación,",
+      "start": 30812,
+      "end": 31663,
+      "confidence": 0.9999315,
+      "speaker": null
+    },
+    {
+      "text": "reportes",
+      "start": 31696,
+      "end": 32097,
+      "confidence": 0.9998561,
+      "speaker": null
+    },
+    {
+      "text": "financieros",
+      "start": 32097,
+      "end": 32756,
+      "confidence": 0.9999963,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 32756,
+      "end": 32820,
+      "confidence": 0.99987245,
+      "speaker": null
+    },
+    {
+      "text": "permisos",
+      "start": 32901,
+      "end": 33399,
+      "confidence": 0.99956393,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 33399,
+      "end": 33479,
+      "confidence": 0.999933,
+      "speaker": null
+    },
+    {
+      "text": "empleados.",
+      "start": 33479,
+      "end": 33993,
+      "confidence": 0.99423045,
+      "speaker": null
+    },
+    {
+      "text": "Cuando",
+      "start": 34427,
+      "end": 34668,
+      "confidence": 0.9998938,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 34668,
+      "end": 34781,
+      "confidence": 0.99999464,
+      "speaker": null
+    },
+    {
+      "text": "registra",
+      "start": 34781,
+      "end": 35166,
+      "confidence": 0.99981195,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 35166,
+      "end": 35311,
+      "confidence": 0.9999939,
+      "speaker": null
+    },
+    {
+      "text": "venta,",
+      "start": 35311,
+      "end": 35681,
+      "confidence": 0.99994546,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 35809,
+      "end": 35954,
+      "confidence": 0.9999883,
+      "speaker": null
+    },
+    {
+      "text": "stock",
+      "start": 35954,
+      "end": 36179,
+      "confidence": 0.9997981,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 36195,
+      "end": 36243,
+      "confidence": 0.99973804,
+      "speaker": null
+    },
+    {
+      "text": "actualiza,",
+      "start": 36291,
+      "end": 36966,
+      "confidence": 0.99991536,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 37320,
+      "end": 37480,
+      "confidence": 0.9999442,
+      "speaker": null
+    },
+    {
+      "text": "transacción",
+      "start": 37480,
+      "end": 38139,
+      "confidence": 0.9999899,
+      "speaker": null
+    },
+    {
+      "text": "aparece",
+      "start": 38139,
+      "end": 38541,
+      "confidence": 0.9999873,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 38541,
+      "end": 38670,
+      "confidence": 0.9999902,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 38670,
+      "end": 38718,
+      "confidence": 0.99940443,
+      "speaker": null
+    },
+    {
+      "text": "reportes",
+      "start": 38718,
+      "end": 39264,
+      "confidence": 0.99998826,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 39264,
+      "end": 39328,
+      "confidence": 0.9997718,
+      "speaker": null
+    },
+    {
+      "text": "queda",
+      "start": 39409,
+      "end": 39714,
+      "confidence": 0.9999589,
+      "speaker": null
+    },
+    {
+      "text": "asociado",
+      "start": 39714,
+      "end": 40372,
+      "confidence": 0.99933165,
+      "speaker": null
+    },
+    {
+      "text": "completamente",
+      "start": 40372,
+      "end": 41208,
+      "confidence": 0.9999938,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 41272,
+      "end": 41417,
+      "confidence": 0.99997723,
+      "speaker": null
+    },
+    {
+      "text": "cliente.",
+      "start": 41417,
+      "end": 41931,
+      "confidence": 0.99998796,
+      "speaker": null
+    },
+    {
+      "text": "El",
+      "start": 43361,
+      "end": 43473,
+      "confidence": 0.99976474,
+      "speaker": null
+    },
+    {
+      "text": "objetivo",
+      "start": 43521,
+      "end": 43939,
+      "confidence": 0.999992,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 43939,
+      "end": 44244,
+      "confidence": 0.99995065,
+      "speaker": null
+    },
+    {
+      "text": "era",
+      "start": 44244,
+      "end": 44582,
+      "confidence": 0.99985516,
+      "speaker": null
+    },
+    {
+      "text": "más",
+      "start": 44630,
+      "end": 44807,
+      "confidence": 0.99912816,
+      "speaker": null
+    },
+    {
+      "text": "herramientas,",
+      "start": 44807,
+      "end": 45401,
+      "confidence": 0.9988335,
+      "speaker": null
+    },
+    {
+      "text": "era",
+      "start": 45530,
+      "end": 45754,
+      "confidence": 0.99993086,
+      "speaker": null
+    },
+    {
+      "text": "tener",
+      "start": 45754,
+      "end": 46092,
+      "confidence": 0.9998944,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 46092,
+      "end": 46317,
+      "confidence": 0.99994457,
+      "speaker": null
+    },
+    {
+      "text": "sola",
+      "start": 46317,
+      "end": 46606,
+      "confidence": 0.9999932,
+      "speaker": null
+    },
+    {
+      "text": "fuente",
+      "start": 46638,
+      "end": 47361,
+      "confidence": 0.99798,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 47361,
+      "end": 47441,
+      "confidence": 0.99999106,
+      "speaker": null
+    },
+    {
+      "text": "verdad.",
+      "start": 47441,
+      "end": 47650,
+      "confidence": 0.99990404,
+      "speaker": null
+    },
+    {
+      "text": "¿Quieres",
+      "start": 51510,
+      "end": 51688,
+      "confidence": 0.9992584,
+      "speaker": null
+    },
+    {
+      "text": "conocer",
+      "start": 51688,
+      "end": 52077,
+      "confidence": 0.9999889,
+      "speaker": null
+    },
+    {
+      "text": "las",
+      "start": 52093,
+      "end": 52190,
+      "confidence": 0.99991333,
+      "speaker": null
+    },
+    {
+      "text": "funciones",
+      "start": 52255,
+      "end": 52661,
+      "confidence": 0.9999691,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 52661,
+      "end": 52774,
+      "confidence": 0.9999858,
+      "speaker": null
+    },
+    {
+      "text": "debería",
+      "start": 52774,
+      "end": 53066,
+      "confidence": 0.99977034,
+      "speaker": null
+    },
+    {
+      "text": "tener",
+      "start": 53147,
+      "end": 53325,
+      "confidence": 0.9999684,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 53325,
+      "end": 53374,
+      "confidence": 0.9998969,
+      "speaker": null
+    },
+    {
+      "text": "sistema",
+      "start": 53471,
+      "end": 53877,
+      "confidence": 0.9998301,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 53877,
+      "end": 53958,
+      "confidence": 0.99927694,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 53958,
+      "end": 54071,
+      "confidence": 0.9999764,
+      "speaker": null
+    },
+    {
+      "text": "negocio?",
+      "start": 54071,
+      "end": 54574,
+      "confidence": 0.99996346,
+      "speaker": null
+    },
+    {
+      "text": "Comenta",
+      "start": 55174,
+      "end": 55547,
+      "confidence": 0.99996585,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 55579,
+      "end": 55628,
+      "confidence": 0.9999254,
+      "speaker": null
+    },
+    {
+      "text": "palabra",
+      "start": 55660,
+      "end": 55952,
+      "confidence": 0.99999166,
+      "speaker": null
+    },
+    {
+      "text": "ERP",
+      "start": 56163,
+      "end": 56649,
+      "confidence": 0.9961436,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 56892,
+      "end": 56957,
+      "confidence": 0.9997745,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 56957,
+      "end": 57103,
+      "confidence": 0.99985373,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 57103,
+      "end": 57152,
+      "confidence": 0.9998066,
+      "speaker": null
+    },
+    {
+      "text": "envío.",
+      "start": 57152,
+      "end": 57411,
+      "confidence": 0.99954927,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.99731004,
+  "audio_duration": 60,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

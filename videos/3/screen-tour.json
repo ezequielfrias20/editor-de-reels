@@ -1,0 +1,50 @@
+{
+  "src": "VIDEOS ORIGINALES/3/pantalla.mov",
+  "out": "assets/erp-3a.mp4",
+  "size": [2000, 1640],
+  "fps": 30,
+  "_nota": "Salida CUADRADA (1.2195), no apaisada: el panel del lienzo es 1000×820, así que un recorte de 640×525 llega a 1.56× — la interfaz se ve MÁS GRANDE que en el monitor original. En la pieza 2 el recorte 1350×854 acababa a 0.73× y por eso no se leía. El chrome del navegador (y<145) queda siempre fuera; aquí no se dibuja ninguno encima.",
+  "exclude": [
+    {
+      "t": [32.9, 37.0],
+      "rect": [1360, 160, 460, 70],
+      "why": "toast «Falta la referencia de Pago Móvil» — un error de validación en un video de venta se lee como que el producto falla"
+    },
+    {
+      "t": [8.07, 9.67],
+      "rect": [96, 985, 280, 95],
+      "why": "indicador de dev del framework (pastilla negra «Compiling…»)"
+    },
+    {
+      "t": [22.67, 36.87],
+      "rect": [96, 985, 280, 95],
+      "why": "indicador de dev del framework (pastilla negra «Compiling…»)"
+    }
+  ],
+  "segments": [
+    {
+      "_": "«la tasa BCV está visible dentro del sistema» — el chip vive en la barra superior del ERP, así que el recorte arranca justo debajo del chrome (y=148) y se cierra sobre él a 1.56×.",
+      "label": "TASA BCV",
+      "at": 14.2,
+      "dur": 3.4,
+      "crop": [1150, 148, 640, 525],
+      "zoom": [1.0, 1.06]
+    },
+    {
+      "_": "«puede cobrar en dólares, en bolívares» — la columna de MÉTODO DE PAGO entera. 500 px de origen en un panel de 1000 = 2.0×, que es lo que hace legibles las etiquetas USD/VES de cada método.",
+      "label": "METODOS",
+      "at": 17.6,
+      "dur": 3.7,
+      "crop": [1320, 670, 500, 410],
+      "zoom": [1.02, 1.09]
+    },
+    {
+      "_": "«o incluso combinar varios métodos de pago en una misma venta» — el modal de pago mixto. Fuera de la ventana del toast (32.9-37.0).",
+      "label": "PAGO MIXTO",
+      "at": 23.0,
+      "dur": 3.05,
+      "crop": [610, 330, 700, 574],
+      "zoom": [1.0, 1.05]
+    }
+  ]
+}
