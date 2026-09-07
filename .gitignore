@@ -29,3 +29,5 @@ node_modules/
 __pycache__/
 cache/
 videos/*/review-snapshots/
+
+.pytest_cache/
