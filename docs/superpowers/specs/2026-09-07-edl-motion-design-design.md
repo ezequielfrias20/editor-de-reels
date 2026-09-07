@@ -131,8 +131,8 @@ estar **escrita**, no colada en silencio.
   "piece": 10,
   "style_profile": "motion-explainer",
   "transcript": {
-    "src": "transcripts/10.json",
-    "fingerprint": "sha256:…"          // falla si el transcript cambió
+    "src": "transcripts/10-rough.json",   // ← la línea del CORTE, no la del fuente
+    "fingerprint": "sha256:…"             // falla si el transcript cambió
   },
   "planner": { … },                    // trazabilidad, §11 — NO entra en compilación
   "voice_gain": 0.70,
@@ -187,6 +187,28 @@ beats se mueven solos**. Hoy son floats hardcodeados que se desincronizan en sil
 «la keyword está dentro del caption» sea exacta, y que el instante en que la keyword se
 enciende salga del `start` de su propia palabra — literalmente *«en el instante exacto en
 que se pronuncia»*, hoy estimado a mano.
+
+### Qué transcript referencia el EDL — la trampa de las dos líneas de tiempo
+
+Cada pieza tiene **dos transcripts**, y el EDL solo puede usar uno:
+
+| Archivo | Línea de tiempo | Ejemplo (pieza 10) |
+| --- | --- | --- |
+| `transcripts/<n>.json` | **Fuente**, antes de cortar | 131 palabras, 0.42 → 46.21 |
+| `transcripts/<n>-rough.json` | **Corte**, después de `rough-cut.sh` | 130 palabras, 0.18 → 43.88 |
+
+**El EDL referencia el del CORTE**, porque la regla ya establecida es que *todos los tiempos
+van en la línea del corte, no en la del fuente*. Apuntar al del fuente produce un EDL que
+valida perfectamente y cuyos beats caen todos desplazados — en la pieza 10, hasta **3 s** al
+final.
+
+Y las dos no son solo un desplazamiento constante: en la pieza 10 el corte se llevó **una
+palabra entera** (131 → 130), así que a partir de ese punto **los índices tampoco coinciden**.
+No hay forma de convertir uno en otro sin volver a alinear.
+
+> Por eso `transcript.src` es un campo **obligatorio y explícito** en el EDL, y el
+> `fingerprint` se calcula sobre ese archivo concreto. Es la única defensa contra un EDL que
+> parece bien y está entero desplazado.
 
 ### Dónde fueron los 14 campos del brief
 
@@ -264,7 +286,7 @@ en el trazado end-to-end de §15.
 
 #### `A_ROLL` — el hook
 
-Palabras 0–13, 0.42 → 3.99:
+Palabras 0–13, **0.18 → 3.67** (línea del corte):
 *«La clínica de al lado no es mejor que la tuya, simplemente contestó primero.»*
 
 ```jsonc
@@ -287,7 +309,7 @@ representación concreta», y **eso es una respuesta legítima**, no un hueco po
 
 #### `MOTION_STAGE` acumulativo — cuatro tareas a la vez
 
-Palabras 57–72, 19.30 → 24.20. El beat es literal en el guion:
+Palabras 57–72, **18.53 → 23.30** (línea del corte). El beat es literal en el guion:
 *«Nadie puede atender en el sillón, el teléfono, el cobro y el Instagram al mismo tiempo.»*
 
 ```jsonc
@@ -323,8 +345,8 @@ Palabras 57–72, 19.30 → 24.20. El beat es literal en el guion:
 
 Lo que este ejemplo demuestra:
 
-- **Nada sale de la escena.** Cuatro `OBJECT_IN` a 20.69 · 21.25 · 22.13 · 23.03 — huecos de
-  0.56, 0.88 y 0.90 s, muy por debajo del gate macro de 4.5 s.
+- **Nada sale de la escena.** Cuatro `OBJECT_IN` a 19.77 · 20.30 · 21.18 · 22.08 — huecos de
+  0.53, 0.88 y 0.90 s, muy por debajo del gate macro de 4.5 s.
 - **La acumulación es el mensaje.** Los tres `OBJECT_STATE` con `crowd` en «al mismo tiempo»
   son el cierre radial de `overwhelm-surround`: **el sillón no se mueve, el mundo se le echa
   encima.**
@@ -1134,11 +1156,11 @@ Si falla cualquiera de las tres, el 3D real no entra y el 2.5D cubre todo el voc
 
 ## 15. Trazado end-to-end — el reloj de la pieza 10
 
-Material real: `transcripts/10.json`, 131 palabras. El reel trata sobre clínicas que pierden
-pacientes por contestar tarde.
+Material real: `transcripts/10-rough.json`, 130 palabras, **línea del corte**. El reel trata
+sobre clínicas que pierden pacientes por contestar tarde.
 
-**1 · palabras del transcript** — índices 31–37
-`Contestaste(31) a(32) las(33) 7(34) de(35) la(36) tarde.(37)` · 9.95 → 11.76
+**1 · palabras del transcript** — `transcripts/10-rough.json`, índices 31–37
+`Contestaste(31) a(32) las(33) 7(34) de(35) la(36) tarde.(37)` · **9.39 → 11.21**
 
 **2 · `semanticIntent`** → *«pasaron ocho horas»*
 
@@ -1182,12 +1204,12 @@ vueltas de minutera en 0.42 s se difuminan solas: el motion blur no hay que fing
   "reason": "es EL MISMO reloj con las agujas barridas: las ocho horas se ven en vez de calcularse" }
 ```
 
-**9 · `edl-compile.py`** → `atWord 34` → `words[34].start = 10.83` →
-`q(10.83) = round(round(10.83·30)/30, 4) = 325/30 =` **`10.8333`**.
+**9 · `edl-compile.py`** → `atWord 34` → `words[34].start = 10.28` →
+`q(10.28) = round(round(10.28·30)/30, 4) = 308/30 =` **`10.2667`**.
 Deriva el stage: los tres segmentos contiguos `MOTION_STAGE` —`[14,21]` «te
 escribieron a las 11 de la mañana», `[22,30]` «estabas con un paciente adelante y con
 otro después» y `[31,37]`— forman **un solo stage**, palabras 14–37 →
-`q(4.66) = 4.6667` a `q(11.76) = 11.7667`. Las palabras 38–56 rompen la contigüidad,
+`q(4.10) = 4.1` a `q(11.21) = 11.2`. Las palabras 38–56 rompen la contigüidad,
 así que el beat de acumulación (57–72) es **otro** stage.
 Valida el match cut: `clock-main` vive a ambos lados ✅ y el segmento entrante lo muta ✅.
 
@@ -1195,18 +1217,18 @@ Valida el match cut: `clock-main` vive a ambos lados ✅ y el segmento entrante 
 
 ```jsonc
 "visuals": [{ "id": "stage-a", "role": "takeover", "kind": "mockup",
-  "start": 4.6667, "end": 11.7667, "skin": "on-surface",
+  "start": 4.1, "end": 11.2, "skin": "on-surface",
   "fade_in": 0.22, "fade_out": 0.18, "hud": ["EL PROBLEMA", "01"],
   "mock": ["motion_stage", { "theme": "problem",
     "objects": [{ "id": "clock-main", "kind": "clock", "slot": "center",
-                  "state": {"time":"11:00"}, "in": 5.5667 }],
-    "at": [{ "t": 10.8333, "op": "state", "id": "clock-main",
+                  "state": {"time":"11:00"}, "in": 5.0 }],
+    "at": [{ "t": 10.2667, "op": "state", "id": "clock-main",
              "hour": 570, "minute": 2880, "preset": "hands-sweep" }] }] }],
-"shots": [{ "at": 4.8667, "kind": "off" }, … ],
-"sfx":   [[10.8333, "whoosh-short", 1.0, "las agujas barren ocho horas"]]
+"shots": [{ "at": 4.3333, "kind": "off" }, … ],
+"sfx":   [[10.2667, "whoosh-short", 1.0, "las agujas barren ocho horas"]]
 ```
 
-El `off` en **4.8667** y no en 4.6667 es la aritmética del gotcha #6: el encuadre se queda
+El `off` en **4.3333** y no en 4.1 es la aritmética del gotcha #6: el encuadre se queda
 hasta `start + fade_in` para que el cruce no caiga al suelo. Y el `1.0` del SFX es el
 **`trim` por defecto** (§8): «acepto el nivel calculado».
 
