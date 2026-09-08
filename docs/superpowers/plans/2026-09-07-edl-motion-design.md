@@ -3360,11 +3360,11 @@ El último eslabón, y el único no determinista. Llega al final **a propósito*
 - Create: `.claude/skills/video-tech-premium/scripts/edl-plan.py`
 - Create: `tests/test_planner_contract.py`
 
-- [ ] **Step 1: Escribir el contrato del Planner**
+- [x] **Step 1: Escribir el contrato del Planner**
 
 `references/planner.md`: entrada (transcript con `wordId`, style profile, `guion.md` si existe), salida (`videos/<n>/edl.draft.json`), y las cuatro restricciones — no inventa palabras, no fija tiempos (solo `atWord` + `offset`), no fija dB ni px ni coordenadas, y rellena `reason` con una razón real.
 
-- [ ] **Step 2: El test que importa no es del Planner, es del pipeline**
+- [x] **Step 2: El test que importa no es del Planner, es del pipeline**
 
 ```python
 def test_un_draft_del_planner_pasa_por_el_mismo_core(tmp_path, project_root):
@@ -3403,11 +3403,11 @@ def test_el_hash_creativo_SI_cambia_con_una_decision_editorial(project_root):
     assert creative_hash(a) != creative_hash(b)
 ```
 
-- [ ] **Step 3: Implementar `creative_hash` y el CLI del Planner**
+- [x] **Step 3: Implementar `creative_hash` y el CLI del Planner**
 
 `creative_hash`: `sha256` del EDL canonicalizado (`sort_keys`, separadores fijos) **sin** `planner.generatedAt` y **sin** las claves que empiezan por `_`.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add -A .claude/skills/video-tech-premium tests/
