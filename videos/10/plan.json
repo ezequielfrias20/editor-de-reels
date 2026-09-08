@@ -278,7 +278,38 @@
     "fade_out": 2.6,
     "src": "assets/music/bed-tech.mp3"
   },
-  "sfx": [],
+  "sfx": [
+    [
+      2.8667,
+      "impact-bass-1",
+      1.0,
+      "no perdiste por calidad, perdiste por velocidad"
+    ],
+    [
+      5.0333,
+      "pop",
+      1.0,
+      "te escribieron mientras estabas ocupado"
+    ],
+    [
+      10.3,
+      "whoosh-short",
+      1.0,
+      "pasaron ocho horas"
+    ],
+    [
+      19.8,
+      "pop",
+      1.0,
+      "cuatro trabajos incompatibles cayendo sobre la misma persona"
+    ],
+    [
+      22.6667,
+      "impact-bass-1",
+      1.0,
+      "cuatro trabajos incompatibles cayendo sobre la misma persona"
+    ]
+  ],
   "shots": [
     {
       "anchor": 0.42,

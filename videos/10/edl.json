@@ -55,7 +55,8 @@
             12,
             13
           ],
-          "preset": "punch"
+          "preset": "punch",
+          "sfx": "auto"
         }
       ],
       "reason": "es la acusación que abre la pieza; su cara sostiene el golpe y un gráfico se lo robaría"

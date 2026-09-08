@@ -55,10 +55,17 @@ def test_las_keywords_salen_de_los_eventos_keyword(plan10):
     assert "CONTESTÓ" in ks and "PRIMERO" in ks
 
 
-def test_cards_y_sfx_siguen_vacios_hasta_sus_tareas(plan10):
-    # cards nunca se llena en la pieza 10; sfx llega en la Tarea 10. visuals
-    # ya NO está vacío desde la Tarea 6 — ver test_un_stage_sale_como_UNA_...
-    assert plan10["sfx"] == [] and plan10["cards"] == []
+def test_cards_sigue_vacio_la_pieza_10_no_usa_tarjetas(plan10):
+    assert plan10["cards"] == []
+
+
+def test_sfx_ya_no_esta_vacio_desde_la_tarea_10(plan10):
+    # cards nunca se llena en la pieza 10; visuals ya NO está vacío desde la
+    # Tarea 6 — ver test_un_stage_sale_como_UNA_... — y sfx desde la Tarea 10.
+    assert len(plan10["sfx"]) == 5
+    for start, name, trim, why in plan10["sfx"]:
+        assert isinstance(start, float) and isinstance(name, str)
+        assert isinstance(trim, float) and isinstance(why, str)
 
 
 # ── determinismo ────────────────────────────────────────────────────────────

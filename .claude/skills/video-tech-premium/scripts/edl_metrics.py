@@ -11,6 +11,20 @@ from dataclasses import dataclass
 
 from edl_schema import Edl, derive_stages, segment_windows
 
+FPS = 30
+
+
+def q(t: float) -> float:
+    """Cuantiza a frame y recorta a 4 decimales.
+
+    Copia literal de `edl_compile.py`/`build-composition.py`. El punto de
+    cuantización es por MÓDULO, a propósito (cada uno lo necesita sin crear
+    un import cruzado) — lo que no puede pasar es que dos rutas hagan
+    aritmética de redondeo DISTINTA para el mismo instante.
+    """
+    return round(round(float(t) * FPS) / FPS, 4)
+
+
 # Un cambio macro es un cambio de MUNDO; uno micro, de lectura.
 MACRO_EVENTS = frozenset({"CAMERA", "OBJECT_IN", "OBJECT_EXIT", "OBJECT_STATE",
                           "STAGE_CLEAR", "THEME_CHANGE", "TYPE_BEAT", "UI_ACTION"})
@@ -143,6 +157,16 @@ def measure(edl: Edl, style: dict | None = None) -> dict[str, float]:
     especiales = sum(1 for s in edl.segments if s.transition_in != "CUT")
     limites = max(1, len(edl.segments) - 1)
 
+    # `sfx_declarations` es TODO lo que declara `sfx:"auto"` o un nombre
+    # explícito — el mecanismo real que usa la pieza, distinto de `sfx` de
+    # arriba (que solo cuenta el tipo de evento dedicado `SFX`, la escotilla
+    # para un sonido sin evento visual detrás). `sfx_dropped` es cuánto de
+    # eso se queda por el camino en `resolve_sfx()`: el colapso de iguales y
+    # la concurrencia entre clases.
+    declarados = sfx_declarations(edl)
+    sobreviven = resolve_sfx(declarados)
+    sfx_dropped = len(declarados) - len(sobreviven)
+
     return {
         "presenter_share": round(presenter / ajustado, 4) if ajustado > 0 else 0.0,
         "presenter_share_raw": round(presenter / total, 4) if total > 0 else 0.0,
@@ -164,6 +188,7 @@ def measure(edl: Edl, style: dict | None = None) -> dict[str, float]:
         "min_camera_gap": _min_camera_gap(edl, windows, hook),
         "stage_count": float(len(derive_stages(edl.segments))),
         "segment_count": float(len(edl.segments)),
+        "sfx_dropped": float(sfx_dropped),
     }
 
 
@@ -193,3 +218,105 @@ def run_gates(metrics: dict, style: dict) -> list[Finding]:
                 out.append(Finding(name, sev,
                                    f"{name} = {v} fuera de la banda objetivo [{lo}, {hi}]"))
     return out
+
+
+# ── SFX: opt-in, colapso y concurrencia (Tarea 10) ──────────────────────────
+# Cada preset trae su efecto, pero SOLO suena si el evento declara sfx:"auto".
+# `do not add SFX to every animation` como comportamiento por defecto, no
+# como disciplina que hay que recordar en cada EDL.
+PRESET_SFX = {"float-in": "pop", "drop-in": "impact-bass-2",
+             "slide-blur": "whoosh-short", "hands-sweep": "whoosh-short",
+             "crowd-in": "impact-bass-1", "type-beat": "key-press",
+             "punch": "impact-bass-1", "box-in": "click"}
+
+# Clase 1 gana a clase 4. El orden sale del peso narrativo, no del volumen:
+# un impacto SIGNIFICA algo (el mundo cambió), un adorno solo decora.
+PRIORITY = {"impact-bass-1": 1, "impact-bass-2": 1, "error": 1,
+           "whoosh": 2, "whoosh-short": 2, "whoosh-cinematic": 2, "riser": 2,
+           "click": 3, "click-soft": 3, "key-press": 3, "pop": 3, "typing": 3,
+           "chime": 4, "sparkle": 4, "ping": 4, "notification": 4}
+
+COLLAPSE_SAME = 0.25
+CONCURRENCY = 0.18
+
+
+def sfx_declarations(edl: Edl) -> list[dict]:
+    """Todo evento que declara sonido — de cualquier tipo (`CAMERA`,
+    `OBJECT_IN`, `OBJECT_STATE`, `KEYWORD`, o el tipo dedicado `SFX`), en
+    cualquier segmento — traducido a lo que `resolve_sfx()` necesita.
+
+    `preset` sale del evento y, si no trae uno, del `defaultPreset` del
+    segmento — el mismo fallback que usa la interpretación visual del stage.
+    `why` no es un campo del `Event` (no hay dónde escribirlo aparte): la
+    intención del SEGMENTO que lo contiene ya describe con qué beat va ese
+    sonido, así que sirve de sobra como comentario en el HTML.
+    """
+    out = []
+    for seg in edl.segments:
+        for ev in seg.events:
+            if not ev.sfx:
+                continue
+            out.append({"t": ev.t(edl.wt), "sfx": ev.sfx,
+                       "preset": ev.preset or seg.default_preset,
+                       "trim": ev.trim, "why": seg.semantic_intent})
+    return out
+
+
+def resolve_sfx(events) -> list[tuple[float, str, float, str]]:
+    """`events`: dicts `{t, sfx, preset?, trim?, why?}` — la forma que da
+    `sfx_declarations()`, pero la función es pura y no exige un `Edl`: los
+    tests del motor de colapso/concurrencia construyen la lista a mano.
+
+    `sfx` en `None` es silencio — la palanca del opt-in. `sfx == "auto"`
+    busca el efecto del `preset` en `PRESET_SFX`; cualquier otro string ES
+    el nombre del efecto, sin pasar por el preset (el tipo dedicado `SFX`
+    y los tests de concurrencia lo usan así).
+
+    Dos reglas, en ORDEN — no son la misma regla con distinto umbral:
+
+    1. Iguales dentro de `COLLAPSE_SAME` (250 ms) colapsan en uno — el
+       primero, no el último: cuatro `OBJECT_IN` con `pop` en 2.3 s tienen
+       que sonar a algo que EMPIEZA a crecer, no a un eco tardío.
+    2. Distintos dentro de `CONCURRENCY` (180 ms) dejan solo el de la clase
+       más alta (número de prioridad más bajo) — impact + whoosh + pop casi
+       simultáneos son una metralleta sonora, no tres capas.
+
+    Devuelve tuplas `(q(t), nombre, trim, why)` en el mismo orden que
+    `build_sfx()` desempaqueta — `for start, name, trim, why in sorted(SFX)`.
+    """
+    resolved: list[dict] = []
+    for e in events:
+        sfx = e.get("sfx")
+        if not sfx:
+            continue
+        if sfx == "auto":
+            preset = e.get("preset")
+            if preset not in PRESET_SFX:
+                raise KeyError(
+                    f"sfx:\"auto\" sobre un preset sin efecto por defecto "
+                    f"({preset!r}); hay {sorted(PRESET_SFX)}")
+            name = PRESET_SFX[preset]
+        else:
+            name = sfx
+        resolved.append({"t": q(float(e["t"])), "name": name,
+                        "trim": float(e.get("trim", 1.0)),
+                        "why": e.get("why", "")})
+    # Orden estable por tiempo: a igualdad de instante, la prioridad decide
+    # cuál se procesa primero, así que un impacto simultáneo con un pop
+    # nunca depende de en qué orden llegaron en la lista de entrada.
+    resolved.sort(key=lambda r: (r["t"], PRIORITY.get(r["name"], 99)))
+
+    kept: list[dict] = []
+    for r in resolved:
+        if any(k["name"] == r["name"] and abs(r["t"] - k["t"]) < COLLAPSE_SAME
+              for k in kept):
+            continue
+        rivals = [i for i, k in enumerate(kept)
+                 if abs(r["t"] - k["t"]) < CONCURRENCY]
+        if any(PRIORITY.get(kept[i]["name"], 99) <= PRIORITY.get(r["name"], 99)
+              for i in rivals):
+            continue    # ya hay uno de clase igual o más alta ahí mismo
+        kept = [k for i, k in enumerate(kept) if i not in rivals] + [r]
+
+    kept.sort(key=lambda r: r["t"])
+    return [(r["t"], r["name"], r["trim"], r["why"]) for r in kept]

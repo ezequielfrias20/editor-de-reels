@@ -20,7 +20,8 @@ import sys
 from pathlib import Path
 
 import objects as _objects
-from edl_metrics import measure, run_gates
+from edl_metrics import (PRESET_SFX, PRIORITY, measure, resolve_sfx,
+                        run_gates, sfx_declarations)
 from edl_schema import Edl, EdlError, derive_stages, load_edl, segment_windows
 
 FPS = 30
@@ -218,6 +219,16 @@ def _visuals(edl: Edl, style: dict) -> list[dict]:
     return out
 
 
+def _sfx(edl: Edl) -> list[tuple[float, str, float, str]]:
+    """La capa de SONIDO. Pura derivación: `sfx_declarations()` (en
+    `edl_metrics.py`, compartida con `measure()` para que `sfx_dropped` mida
+    exactamente lo que esto emite) reúne los eventos que declaran sonido, y
+    `resolve_sfx()` aplica el colapso de iguales y la concurrencia entre
+    clases. El compilador no decide qué suena — nunca elige un preset ni un
+    nombre de efecto — solo hace el lookup y aplica la fórmula (§9)."""
+    return resolve_sfx(sfx_declarations(edl))
+
+
 def _keywords(edl: Edl) -> list[str]:
     """Las palabras a resaltar, para el FALLBACK del troceo automático.
 
@@ -279,7 +290,7 @@ def compile_edl(edl: Edl, style: dict, src_w: int | None = None) -> dict:
         "shots": _shots(edl, style, src_w),
         "cards": [],
         "visuals": _visuals(edl, style),
-        "sfx": [],
+        "sfx": _sfx(edl),
         "_": f"generado por edl-compile desde {edl.src.name} — NO editar a mano",
     }
 
