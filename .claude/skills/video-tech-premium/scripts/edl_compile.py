@@ -25,6 +25,10 @@ from edl_schema import Edl, EdlError, derive_stages, load_edl, segment_windows
 
 FPS = 30
 
+# El ancho del lienzo por formato. El fuente puede ser cualquier cosa; el lienzo
+# no, y es la mitad de la fórmula del reescalado.
+CANVAS_W = {"REEL": 1080, "YOUTUBE": 1920}
+
 
 def q(t: float) -> float:
     """Cuantiza a frame y recorta a 4 decimales.
@@ -34,6 +38,29 @@ def q(t: float) -> float:
     instantes distintos para la misma palabra.
     """
     return round(round(float(t) * FPS) / FPS, 4)
+
+
+def cap_ladder(ladder: dict, src_w: int, canvas_w: int,
+               max_upscale: float) -> dict:
+    """Recorta la escalera de zoom por la RESOLUCIÓN del fuente.
+
+    El factor de reescalado al alza de un encuadre es `zoom · canvas_w / src_w`,
+    así que el zoom máximo tolerable sale de despejar:
+
+        techo = (src_w / canvas_w) · max_upscale
+
+    Con fuente 1080 en lienzo 1080 el techo es **1.20**; con 4K vertical (2160)
+    es **2.40**, y ahí un `z = 2.00` sigue en nativo (reescalado 1.00×). El 1.25
+    del brief queda descartado SOLO para fuente 1080: por encima de ~1.2 el H.264
+    a 1080 de ancho ablanda la piel de forma visible. La solución para crops más
+    agresivos no es software, es grabar en 4K.
+
+    El perfil pide la escalera que quiera y esto la recorta. Devuelve un dict
+    NUEVO: el perfil se carga una vez y lo comparten todas las piezas, así que
+    mutarlo haría que compilar dos seguidas diera resultados distintos.
+    """
+    techo = (src_w / canvas_w) * max_upscale
+    return {k: min(v, techo) for k, v in ladder.items()}
 
 
 def load_style(name: str, skill_root: Path) -> dict:
@@ -46,7 +73,7 @@ def load_style(name: str, skill_root: Path) -> dict:
     return json.loads(p.read_text())
 
 
-def _shots(edl: Edl, style: dict) -> list[dict]:
+def _shots(edl: Edl, style: dict, src_w: int | None = None) -> list[dict]:
     """La capa de metraje. Un encuadre por segmento, más los eventos CAMERA.
 
     Gotcha #6: un `off` que empieza a la vez que el takeover deja el frame
@@ -56,7 +83,16 @@ def _shots(edl: Edl, style: dict) -> list[dict]:
     encuadre entra en `start − fade_out` (antes de que el fundido de salida
     termine), nunca exactamente en el borde del stage.
     """
-    ladder = style["camera"]["ladder"]
+    canvas_w = CANVAS_W[edl.fmt]
+    ladder = cap_ladder(style["camera"]["ladder"], src_w or canvas_w, canvas_w,
+                        style["camera"]["max_upscale"])
+    recortados = {k: v for k, v in style["camera"]["ladder"].items()
+                  if ladder[k] < v}
+    if recortados:
+        print(f"  ⚠ escalera recortada por resolución del fuente "
+              f"({src_w or canvas_w}px → lienzo {canvas_w}px): " +
+              " · ".join(f"{k} {style['camera']['ladder'][k]} → {ladder[k]:.4g}"
+                         for k, v in sorted(recortados.items())), file=sys.stderr)
     anchor = style["camera"]["default_anchor"]
     fade_in = style["stage"]["fade_in"]
     fade_out = style["stage"]["fade_out"]
@@ -213,15 +249,21 @@ def _captions(edl: Edl) -> list[dict]:
     return out
 
 
-def compile_edl(edl: Edl, style: dict) -> dict:
-    """Función PURA: mismas entradas, mismo dict, siempre."""
+def compile_edl(edl: Edl, style: dict, src_w: int | None = None) -> dict:
+    """Función PURA: mismas entradas, mismo dict, siempre.
+
+    `src_w` es el ancho del METRAJE, que sale de `assets/face-<n>.json`. Sin él
+    se asume fuente nativa (igual al lienzo), que es la hipótesis conservadora:
+    recorta la escalera al máximo en vez de dar por bueno un zoom que el fuente
+    no aguanta.
+    """
     return {
         "format": edl.fmt,
         "voice_gain": edl.voice_gain,
         "music": edl.music,
         "keywords": _keywords(edl),
         "captions": _captions(edl),
-        "shots": _shots(edl, style),
+        "shots": _shots(edl, style, src_w),
         "cards": [],
         "visuals": _visuals(edl, style),
         "sfx": [],
@@ -260,7 +302,7 @@ def main(argv=None) -> int:
     # Fase 5: el compilador CALCULA métricas; el perfil decide umbrales y
     # severidad. Un gate en fail detiene el compilador antes de escribir nada;
     # un warn se imprime y se sigue.
-    metrics = measure(edl)
+    metrics = measure(edl, style)
     findings = run_gates(metrics, style)
     for f in findings:
         marca = "✗" if f.severity == "fail" else "⚠"
@@ -271,7 +313,12 @@ def main(argv=None) -> int:
 
     print("  métricas: " + " · ".join(f"{k} {v}" for k, v in sorted(metrics.items())))
 
-    plan = compile_edl(edl, style)
+    face_path = root / "assets" / f"face-{a.piece}.json"
+    src_w = None
+    if face_path.exists():
+        src_w = int(json.loads(face_path.read_text())["width"])
+
+    plan = compile_edl(edl, style, src_w)
     out = a.out or (work / "plan.json")
     write_plan(plan, out)
     print(f"✓ {out}  ·  {len(edl.segments)} segmentos  ·  "

@@ -97,3 +97,22 @@ def edl10(project_root):
 def plan10(edl10, style):
     from edl_compile import compile_edl
     return compile_edl(edl10, style)
+
+
+# ── Tarea 8 ──────────────────────────────────────────────────────────────────
+@pytest.fixture(scope="session")
+def bc():
+    """`build-composition.py` cargado como módulo.
+
+    Lleva guion, así que un `import` normal no lo alcanza. No se extrae la
+    geometría a un módulo aparte a propósito: el plan le concede EXACTAMENTE 4
+    cambios quirúrgicos y una extracción sería un quinto de otra naturaleza.
+    Cargarlo con importlib no tiene efectos secundarios — todo su estado vive
+    en `configure()`, que estos tests no llaman.
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "build_composition", SCRIPTS / "build-composition.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod

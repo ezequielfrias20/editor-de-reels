@@ -84,6 +84,11 @@
       "metric": "decorative_reason_count",
       "max": 0,
       "severity": "warn"
+    },
+    {
+      "metric": "min_camera_gap",
+      "min": 0.7,
+      "severity": "warn"
     }
   ]
 }

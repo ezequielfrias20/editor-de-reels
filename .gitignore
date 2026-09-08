@@ -31,3 +31,8 @@ cache/
 videos/*/review-snapshots/
 
 .pytest_cache/
+
+# spikes desechables (Tarea 8): se reconstruyen desde el doc del spike.
+# Anclado a la raíz — sin la barra inicial también habría ignorado
+# docs/superpowers/spikes/, que sí se versiona.
+/spikes/

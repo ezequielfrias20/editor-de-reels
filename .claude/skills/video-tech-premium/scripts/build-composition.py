@@ -75,7 +75,7 @@ ROOT = WORK = PUB = PIECE = None
 W = H = None
 FMT = "REEL"
 T = None                     # escala tipográfica del formato
-SRC_W = SRC_H = CHIN = None
+SRC_W = SRC_H = CHIN = CX = None
 SHOTS = CARDS = VISUALS = SFX = MUSIC = None
 KEYWORDS = None
 CAPTIONS = None
@@ -120,7 +120,7 @@ def pip_panel():
     return dict(left=W - 340, top=118, width=300, height=376)
 
 
-def shot_geometry(kind, zoom, anchor):
+def shot_geometry(kind, zoom, anchor, anchor_x=0.5):
     """El rect ESTÁTICO del <video> de un encuadre.
 
     En `full` el truco del punch-in es una caja SOBREDIMENSIONADA con desborde
@@ -129,10 +129,17 @@ def shot_geometry(kind, zoom, anchor):
     reescala la imagen, solo la recorta (trampa 2 del renderer). Un encuadre
     nuevo es un ELEMENTO nuevo, y el salto entre ellos es el corte duro que pide
     el lenguaje de la pieza.
+
+    `anchor` reparte el desborde VERTICAL y `anchor_x` el HORIZONTAL. El 0.5 por
+    defecto es exactamente el `-(w - W) / 2` de siempre, así que una pieza que no
+    declare `anchorX` —y una medición de cara sin `cx_frac`— dan el rect de antes
+    bit a bit. Con `cx_frac` el crop ocurre alrededor de la CARA y no del centro
+    geométrico del cuadro, que es la diferencia que se nota cuando el sujeto no
+    está clavado en el medio.
     """
     if kind == "full":
         w, h = round(W * zoom), round(H * zoom)
-        return dict(left=round(-(w - W) / 2), top=round(-(h - H) * anchor),
+        return dict(left=round(-(w - W) * anchor_x), top=round(-(h - H) * anchor),
                     width=w, height=h, objpos="50% 50%")
     if kind == "split":
         b = dict(split_panel())
@@ -164,7 +171,7 @@ def chin_at(shot):
 
 # ── carga ─────────────────────────────────────────────────────────────────────
 def configure(project, piece):
-    global ROOT, WORK, PUB, PIECE, W, H, FMT, T, SRC_W, SRC_H, CHIN
+    global ROOT, WORK, PUB, PIECE, W, H, FMT, T, SRC_W, SRC_H, CHIN, CX
     global SHOTS, CARDS, VISUALS, SFX, MUSIC, KEYWORDS, CAPTIONS
     global CAPTION_SIZE, CAPTION_MAXW, CAPTION_MARGIN
     global SFX_TARGET_MEAN, SFX_PEAK_CAP, MUSIC_TARGET_MEAN, VOICE_GAIN
@@ -188,6 +195,10 @@ def configure(project, piece):
                  f"Ejecuta: scripts/measure-face.py out/{PIECE}-rough.mp4 {face_path}")
     face = json.loads(face_path.read_text())
     SRC_W, SRC_H, CHIN = face["width"], face["height"], face["chin_frac"]
+    # Una medición de antes de la Tarea 8 no trae centroide. El 0.5 de reserva
+    # es el centro geométrico: exactamente lo que se venía haciendo, así que las
+    # piezas 1-9 recompilan idénticas.
+    CX = float(face.get("cx_frac", 0.5))
 
     SHOTS = plan["shots"]
     CARDS = plan.get("cards", [])
@@ -263,6 +274,9 @@ def build_shots(dur):
             start=q(s["at"]), kind=kind,
             zoom=float(s.get("zoom", 1.0)),
             anchor=float(s.get("anchor", 0.5 if kind == "full" else 0.40)),
+            # El plan manda sobre la medición: un encuadre puede pedir otro
+            # anclaje (dejar aire a un lado para un rótulo, por ejemplo).
+            anchor_x=float(s.get("anchorX", CX)),
         ))
     shots.sort(key=lambda x: x["start"])
     for i, s in enumerate(shots):
@@ -272,7 +286,7 @@ def build_shots(dur):
     for i, s in enumerate(shots):
         if s["kind"] == "off" or s["end"] - s["start"] < 1.0 / FPS:
             continue
-        g = shot_geometry(s["kind"], s["zoom"], s["anchor"])
+        g = shot_geometry(s["kind"], s["zoom"], s["anchor"], s["anchor_x"])
         cls = {"full": "vid", "split": "vid panel", "pip": "vid pip"}[s["kind"]]
         track = TRK_PIP if s["kind"] == "pip" else TRK_VIDEO
         els.append(
