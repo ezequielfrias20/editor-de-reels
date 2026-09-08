@@ -6,9 +6,11 @@ aplicación de fórmulas. NO elige objetos, ni instantes, ni si un segmento
 merece visual. Si una decisión podría ser razonablemente distinta en manos de
 otro editor, no es de aquí.
 
-Mínimo a propósito: emite `keywords` como lista de strings, que es lo que el
-motor de captions actual ya consume, así que `build-composition.py` no se toca.
-Las captions explícitas llegan en la Tarea 7.
+Los bloques de subtítulo se emiten EXPLÍCITOS, por rango de palabras
+(`captions`), así que la keyword se enciende en el `start` exacto de su propia
+palabra. `keywords` (la lista de strings) se sigue emitiendo porque el troceo
+automático de `build-composition.py` la usa como fallback — es lo que mantiene
+compilando las piezas 1-9, que no traen `captions` en su plan.
 """
 from __future__ import annotations
 
@@ -168,7 +170,11 @@ def _visuals(edl: Edl, style: dict) -> list[dict]:
 
 
 def _keywords(edl: Edl) -> list[str]:
-    """Las palabras que el motor de captions actual debe resaltar.
+    """Las palabras a resaltar, para el FALLBACK del troceo automático.
+
+    Con `captions` explícitas esta lista no decide nada: el rango de la
+    keyword viene dado. Se emite igual porque una pieza sin `captions` (las
+    1-9) la sigue necesitando.
 
     Ordenadas y deduplicadas: un set iterado sin ordenar rompe el determinismo.
     """
@@ -181,6 +187,32 @@ def _keywords(edl: Edl) -> list[str]:
     return sorted(ks)
 
 
+def _captions(edl: Edl) -> list[dict]:
+    """Los bloques de subtítulo, por RANGO DE PALABRAS.
+
+    El EDL los declara explícitamente, así que la keyword se enciende en el
+    `start` exacto de SU palabra en vez de deducirse por coincidencia de
+    texto — que es lo que hacía el troceo automático, y lo que obligaba a
+    listar `keywords` como strings sueltos (una palabra repetida en la pieza
+    se resaltaba en todas sus apariciones).
+
+    NO se emiten `start`/`end`: los deriva `build_captions` de los mismos
+    rangos, con la regla de lectura que ya tenía. Duplicar aquí esa cuenta
+    sería una segunda fuente de verdad para el ritmo del subtítulo.
+    """
+    out: list[dict] = []
+    for seg in edl.segments:
+        caps = [e for e in seg.events if e.type == "CAPTION" and e.words]
+        kws = [e for e in seg.events if e.type == "KEYWORD" and e.words]
+        for c in sorted(caps, key=lambda e: e.words[0]):
+            kw = next((k for k in kws
+                       if c.words[0] <= k.words[0] <= k.words[1] <= c.words[1]), None)
+            out.append({"words": list(c.words),
+                        "keyword": list(kw.words) if kw else None})
+    out.sort(key=lambda c: c["words"][0])
+    return out
+
+
 def compile_edl(edl: Edl, style: dict) -> dict:
     """Función PURA: mismas entradas, mismo dict, siempre."""
     return {
@@ -188,6 +220,7 @@ def compile_edl(edl: Edl, style: dict) -> dict:
         "voice_gain": edl.voice_gain,
         "music": edl.music,
         "keywords": _keywords(edl),
+        "captions": _captions(edl),
         "shots": _shots(edl, style),
         "cards": [],
         "visuals": _visuals(edl, style),

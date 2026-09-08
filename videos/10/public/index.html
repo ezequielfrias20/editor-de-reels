@@ -92,16 +92,19 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   paint-order:stroke fill;text-shadow:0 4px 22px rgba(11,12,16,.8)}
 .cap.on-surface .w{color:#FFFFFF;-webkit-text-stroke:0;
   text-shadow:0 2px 16px rgba(11,12,16,.95)}
-/* La keyword: pastilla violeta que aparece bajo la palabra en el instante en
-   que se pronuncia. Blanco sobre #7C5CFF da 4.35:1 — AA para texto grande, y
-   este lo es con mucho margen. */
-.cap .w.key{padding:0 4px}
-.cap .kbg{position:absolute;left:-14px;right:-14px;top:-2px;bottom:2px;
-  background:#7C5CFF;border-radius:10px;opacity:0;
-  box-shadow:0 8px 28px rgba(124,92,255,.45)}
-.cap .kt{position:relative;color:#FFFFFF;-webkit-text-stroke:7px #0B0C10;
-  paint-order:stroke fill}
-.cap.on-surface .kt{-webkit-text-stroke:0}
+/* La keyword ya no es una pastilla: es TEXTO. Cuatro rasgos a la vez la
+   convierten en el titular del frame sin añadir un objeto — mayúscula (las
+   demás van en caja de frase), ExtraBold, 81px
+   (1.22x) y violeta. Medido: violet_hi da 6.70:1 sobre bg y 6.07:1
+   sobre surface, así que aguanta texto normal en los dos suelos; `violet` a
+   secas se queda en 4.08:1 sobre surface y NO llega.
+   El color arranca en blanco y se enciende en el instante exacto en que la
+   palabra se pronuncia — el tamaño es estático para que el bloque no
+   reflowee. */
+.cap .w.key{font-size:81px;font-weight:800;
+  color:#FFFFFF}
+.cap.on-dark .w.key{-webkit-text-stroke:7px #0B0C10;paint-order:stroke fill}
+.cap.on-surface .w.key{-webkit-text-stroke:0}
 </style>
 </head>
 <body>
@@ -200,40 +203,39 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   <!-- los bloques comparten posición a propósito: solo uno es visible a la vez -->
   <div id="caption-host" class="clip" data-layout-allow-overlap data-start="0"
        data-duration="44.3333" data-track-index="7">
-    <div class="cap on-dark" id="cap0" data-layout-allow-overlap style="top:893px"><span class="w">LA</span><span class="w">CLÍNICA</span><span class="w key"><span class="kbg" id="c0kb"></span><span class="kt" id="c0kt">DE</span></span><span class="w">AL</span></div>
-    <div class="cap on-dark" id="cap1" data-layout-allow-overlap style="top:893px"><span class="w">LADO</span><span class="w">NO</span><span class="w">ES</span><span class="w">MEJOR</span></div>
-    <div class="cap on-dark" id="cap2" data-layout-allow-overlap style="top:893px"><span class="w">QUE</span><span class="w">LA</span><span class="w">TUYA</span></div>
-    <div class="cap on-dark" id="cap3" data-layout-allow-overlap style="top:893px"><span class="w">SIMPLEMENTE</span><span class="w key"><span class="kbg" id="c3kb"></span><span class="kt" id="c3kt">CONTESTÓ</span></span><span class="w">PRIMERO</span></div>
-    <div class="cap on-surface" id="cap4" data-layout-allow-overlap style="top:1382px"><span class="w">TE</span><span class="w">ESCRIBIERON</span><span class="w">A</span><span class="w">LAS</span></div>
-    <div class="cap on-surface" id="cap5" data-layout-allow-overlap style="top:1382px"><span class="w key"><span class="kbg" id="c5kb"></span><span class="kt" id="c5kt">11</span></span><span class="w">DE</span><span class="w">LA</span><span class="w">MAÑANA</span></div>
-    <div class="cap on-surface" id="cap6" data-layout-allow-overlap style="top:1382px"><span class="w">ESTABAS</span><span class="w">CON</span><span class="w">UN</span><span class="w">PACIENTE</span><span class="w">ADELANTE</span></div>
-    <div class="cap on-surface" id="cap7" data-layout-allow-overlap style="top:1382px"><span class="w">Y</span><span class="w">CON</span><span class="w">OTRO</span><span class="w">DESPUÉS</span></div>
-    <div class="cap on-surface" id="cap8" data-layout-allow-overlap style="top:1382px"><span class="w">CONTESTASTE</span><span class="w">A</span><span class="w">LAS</span><span class="w key"><span class="kbg" id="c8kb"></span><span class="kt" id="c8kt">7</span></span></div>
-    <div class="cap on-surface" id="cap9" data-layout-allow-overlap style="top:1382px"><span class="w key"><span class="kbg" id="c9kb"></span><span class="kt" id="c9kt">DE</span></span><span class="w">LA</span><span class="w">TARDE</span></div>
-    <div class="cap on-dark" id="cap10" data-layout-allow-overlap style="top:891px"><span class="w">PARA</span><span class="w">ENTONCES</span></div>
-    <div class="cap on-dark" id="cap11" data-layout-allow-overlap style="top:891px"><span class="w">ESA</span><span class="w">PERSONA</span><span class="w">YA</span><span class="w">HABÍA</span><span class="w">ESCRITO</span></div>
-    <div class="cap on-dark" id="cap12" data-layout-allow-overlap style="top:891px"><span class="w">A</span><span class="w key"><span class="kbg" id="c12kb"></span><span class="kt" id="c12kt">3</span></span><span class="w">CLÍNICAS</span><span class="w">MÁS</span></div>
-    <div class="cap on-dark" id="cap13" data-layout-allow-overlap style="top:888px"><span class="w">Y</span><span class="w">NO</span></div>
-    <div class="cap on-dark" id="cap14" data-layout-allow-overlap style="top:888px"><span class="w">EL</span><span class="w">PROBLEMA</span><span class="w">NO</span></div>
-    <div class="cap on-dark" id="cap15" data-layout-allow-overlap style="top:888px"><span class="w">ES</span><span class="w">TU</span><span class="w key"><span class="kbg" id="c15kb"></span><span class="kt" id="c15kt">RECEPCIONISTA</span></span></div>
-    <div class="cap on-dark" id="cap16" data-layout-allow-overlap style="top:891px"><span class="w">NADIE</span><span class="w">PUEDE</span><span class="w">ATENDER</span><span class="w">EN</span></div>
-    <div class="cap on-dark" id="cap17" data-layout-allow-overlap style="top:891px"><span class="w">EL</span><span class="w">SILLÓN</span><span class="w">EL</span><span class="w">TELÉFONO</span></div>
-    <div class="cap on-dark" id="cap18" data-layout-allow-overlap style="top:893px"><span class="w">EL</span><span class="w">COBRO</span><span class="w">Y</span><span class="w">EL</span></div>
-    <div class="cap on-dark" id="cap19" data-layout-allow-overlap style="top:893px"><span class="w">INSTAGRAM</span><span class="w">AL</span><span class="w key"><span class="kbg" id="c19kb"></span><span class="kt" id="c19kt">MISMO</span></span><span class="w">TIEMPO</span></div>
-    <div class="cap on-dark" id="cap20" data-layout-allow-overlap style="top:891px"><span class="w">CONTRATAR</span><span class="w">OTRA</span><span class="w">PERSONA</span><span class="w">TE</span></div>
-    <div class="cap on-dark" id="cap21" data-layout-allow-overlap style="top:891px"><span class="w">TAMPOCO</span><span class="w">LO</span><span class="w">ARREGLA</span></div>
-    <div class="cap on-dark" id="cap22" data-layout-allow-overlap style="top:888px"><span class="w">SOLO</span><span class="w">MUEVE</span><span class="w">EL</span><span class="w key"><span class="kbg" id="c22kb"></span><span class="kt" id="c22kt">CUELLO</span></span></div>
-    <div class="cap on-dark" id="cap23" data-layout-allow-overlap style="top:888px"><span class="w key"><span class="kbg" id="c23kb"></span><span class="kt" id="c23kt">DE</span></span><span class="w">BOTELLA</span><span class="w">DEL</span><span class="w">LUGAR</span></div>
-    <div class="cap on-dark" id="cap24" data-layout-allow-overlap style="top:888px"><span class="w">LO</span><span class="w">QUE</span><span class="w">HAY</span><span class="w">QUE</span><span class="w">RESOLVER</span></div>
-    <div class="cap on-dark" id="cap25" data-layout-allow-overlap style="top:888px"><span class="w">NO</span><span class="w">ES</span><span class="w">CONTESTAR</span><span class="w">MÁS</span><span class="w">RÁPIDO</span></div>
-    <div class="cap on-dark" id="cap26" data-layout-allow-overlap style="top:891px"><span class="w">ES</span><span class="w">QUE</span><span class="w">LA</span><span class="w">PRIMERA</span></div>
-    <div class="cap on-dark" id="cap27" data-layout-allow-overlap style="top:891px"><span class="w">RESPUESTA</span><span class="w">NO</span><span class="w">DEPENDA</span><span class="w key"><span class="kbg" id="c27kb"></span><span class="kt" id="c27kt">DE</span></span></div>
-    <div class="cap on-dark" id="cap28" data-layout-allow-overlap style="top:891px"><span class="w">QUE</span><span class="w">ALGUIEN</span><span class="w">ESTÉ</span><span class="w">LIBRE</span></div>
-    <div class="cap on-dark" id="cap29" data-layout-allow-overlap style="top:893px"><span class="w">ESA</span><span class="w">PRIMERA</span><span class="w">RESPUESTA</span><span class="w">NO</span><span class="w">TIENE</span></div>
-    <div class="cap on-dark" id="cap30" data-layout-allow-overlap style="top:893px"><span class="w">QUE</span><span class="w">CERRAR</span><span class="w">LA</span><span class="w">CITA</span></div>
-    <div class="cap on-dark" id="cap31" data-layout-allow-overlap style="top:891px"><span class="w">TIENE</span><span class="w">QUE</span><span class="w key"><span class="kbg" id="c31kb"></span><span class="kt" id="c31kt">SOSTENER</span></span><span class="w">A</span></div>
-    <div class="cap on-dark" id="cap32" data-layout-allow-overlap style="top:891px"><span class="w">LA</span><span class="w">PERSONA</span><span class="w">HASTA</span><span class="w">QUE</span></div>
-    <div class="cap on-dark" id="cap33" data-layout-allow-overlap style="top:891px"><span class="w">USTEDES</span><span class="w">PUEDAN</span><span class="w">ATENDERLA</span><span class="w">BIEN</span></div>
+    <div class="cap on-dark" id="cap0" data-layout-allow-overlap style="top:893px"><span class="w">La</span><span class="w">clínica</span><span class="w">de</span><span class="w">al</span><span class="w">lado</span></div>
+    <div class="cap on-dark" id="cap1" data-layout-allow-overlap style="top:893px"><span class="w">no</span><span class="w">es</span><span class="w">mejor</span><span class="w">que</span><span class="w">la</span><span class="w">tuya</span></div>
+    <div class="cap on-dark" id="cap2" data-layout-allow-overlap style="top:893px"><span class="w">simplemente</span><span class="w key" id="c2k1">CONTESTÓ</span><span class="w key" id="c2k2">PRIMERO</span></div>
+    <div class="cap on-surface" id="cap3" data-layout-allow-overlap style="top:1382px"><span class="w">Te</span><span class="w">escribieron</span><span class="w">a</span><span class="w">las</span></div>
+    <div class="cap on-surface" id="cap4" data-layout-allow-overlap style="top:1382px"><span class="w key" id="c4k0">11</span><span class="w">de</span><span class="w">la</span><span class="w">mañana</span></div>
+    <div class="cap on-surface" id="cap5" data-layout-allow-overlap style="top:1382px"><span class="w">estabas</span><span class="w">con</span><span class="w">un</span><span class="w">paciente</span><span class="w">adelante</span></div>
+    <div class="cap on-surface" id="cap6" data-layout-allow-overlap style="top:1382px"><span class="w">y</span><span class="w">con</span><span class="w">otro</span><span class="w">después</span></div>
+    <div class="cap on-surface" id="cap7" data-layout-allow-overlap style="top:1382px"><span class="w">Contestaste</span><span class="w">a</span><span class="w">las</span></div>
+    <div class="cap on-surface" id="cap8" data-layout-allow-overlap style="top:1382px"><span class="w key" id="c8k0">7</span><span class="w">de</span><span class="w">la</span><span class="w">tarde</span></div>
+    <div class="cap on-dark" id="cap9" data-layout-allow-overlap style="top:891px"><span class="w">Para</span><span class="w">entonces</span><span class="w">esa</span><span class="w">persona</span></div>
+    <div class="cap on-dark" id="cap10" data-layout-allow-overlap style="top:891px"><span class="w">ya</span><span class="w">había</span><span class="w">escrito</span><span class="w">a</span></div>
+    <div class="cap on-dark" id="cap11" data-layout-allow-overlap style="top:891px"><span class="w key" id="c11k0">3</span><span class="w">clínicas</span><span class="w">más</span></div>
+    <div class="cap on-dark" id="cap12" data-layout-allow-overlap style="top:888px"><span class="w">Y</span><span class="w">no</span><span class="w">el</span><span class="w">problema</span><span class="w">no</span></div>
+    <div class="cap on-dark" id="cap13" data-layout-allow-overlap style="top:888px"><span class="w">es</span><span class="w">tu</span><span class="w key" id="c13k2">RECEPCIONISTA</span></div>
+    <div class="cap on-dark" id="cap14" data-layout-allow-overlap style="top:891px"><span class="w">Nadie</span><span class="w">puede</span><span class="w">atender</span></div>
+    <div class="cap on-dark" id="cap15" data-layout-allow-overlap style="top:891px"><span class="w">en</span><span class="w">el</span><span class="w">sillón</span><span class="w">el</span><span class="w">teléfono</span></div>
+    <div class="cap on-dark" id="cap16" data-layout-allow-overlap style="top:893px"><span class="w">el</span><span class="w">cobro</span><span class="w">y</span><span class="w">el</span><span class="w">Instagram</span></div>
+    <div class="cap on-dark" id="cap17" data-layout-allow-overlap style="top:893px"><span class="w">al</span><span class="w key" id="c17k1">MISMO</span><span class="w key" id="c17k2">TIEMPO</span></div>
+    <div class="cap on-dark" id="cap18" data-layout-allow-overlap style="top:891px"><span class="w">Contratar</span><span class="w">otra</span><span class="w">persona</span><span class="w">te</span></div>
+    <div class="cap on-dark" id="cap19" data-layout-allow-overlap style="top:891px"><span class="w">tampoco</span><span class="w">lo</span><span class="w">arregla</span></div>
+    <div class="cap on-dark" id="cap20" data-layout-allow-overlap style="top:888px"><span class="w">solo</span><span class="w">mueve</span><span class="w">el</span></div>
+    <div class="cap on-dark" id="cap21" data-layout-allow-overlap style="top:888px"><span class="w key" id="c21k0">CUELLO</span><span class="w key" id="c21k1">DE</span><span class="w key" id="c21k2">BOTELLA</span><span class="w">del</span><span class="w">lugar</span></div>
+    <div class="cap on-dark" id="cap22" data-layout-allow-overlap style="top:888px"><span class="w">Lo</span><span class="w">que</span><span class="w">hay</span><span class="w">que</span><span class="w">resolver</span></div>
+    <div class="cap on-dark" id="cap23" data-layout-allow-overlap style="top:888px"><span class="w">no</span><span class="w">es</span><span class="w">contestar</span><span class="w">más</span><span class="w">rápido</span></div>
+    <div class="cap on-dark" id="cap24" data-layout-allow-overlap style="top:891px"><span class="w">es</span><span class="w">que</span><span class="w">la</span><span class="w">primera</span></div>
+    <div class="cap on-dark" id="cap25" data-layout-allow-overlap style="top:891px"><span class="w">respuesta</span><span class="w">no</span><span class="w">dependa</span><span class="w">de</span></div>
+    <div class="cap on-dark" id="cap26" data-layout-allow-overlap style="top:891px"><span class="w">que</span><span class="w">alguien</span><span class="w">esté</span><span class="w">libre</span></div>
+    <div class="cap on-dark" id="cap27" data-layout-allow-overlap style="top:893px"><span class="w">Esa</span><span class="w">primera</span><span class="w">respuesta</span><span class="w">no</span><span class="w">tiene</span></div>
+    <div class="cap on-dark" id="cap28" data-layout-allow-overlap style="top:893px"><span class="w">que</span><span class="w">cerrar</span><span class="w">la</span><span class="w">cita</span></div>
+    <div class="cap on-dark" id="cap29" data-layout-allow-overlap style="top:891px"><span class="w">tiene</span><span class="w">que</span><span class="w key" id="c29k2">SOSTENER</span></div>
+    <div class="cap on-dark" id="cap30" data-layout-allow-overlap style="top:891px"><span class="w">a</span><span class="w">la</span><span class="w">persona</span></div>
+    <div class="cap on-dark" id="cap31" data-layout-allow-overlap style="top:891px"><span class="w">hasta</span><span class="w">que</span><span class="w">ustedes</span></div>
+    <div class="cap on-dark" id="cap32" data-layout-allow-overlap style="top:891px"><span class="w">puedan</span><span class="w">atenderla</span><span class="w">bien</span></div>
   </div>
 
   <script src="vendor/gsap.min.js"></script>
@@ -251,132 +253,129 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     tl.to(_mv7, { v: 2880, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-m')?.setAttribute("transform", "rotate(" + _mv7.v + " 150 150)"); } }, 10.3000);
     // bloques de subtítulo — entran enteros y se quedan quietos
     tl.fromTo('#cap0', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.1000);
-    tl.to('#cap0', { opacity: 0, duration: 0.1, ease: "power2.in" }, 0.7333);
-    tl.set('#cap0', { opacity: 0 }, 0.8333);
-    tl.fromTo('#cap1', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.8000);
-    tl.to('#cap1', { opacity: 0, duration: 0.1, ease: "power2.in" }, 1.4667);
-    tl.set('#cap1', { opacity: 0 }, 1.5667);
-    tl.fromTo('#cap2', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 1.5333);
-    tl.to('#cap2', { opacity: 0, duration: 0.1, ease: "power2.in" }, 2.0333);
-    tl.set('#cap2', { opacity: 0 }, 2.1333);
-    tl.fromTo('#cap3', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 2.1000);
-    tl.to('#cap3', { opacity: 0, duration: 0.1, ease: "power2.in" }, 3.8333);
-    tl.set('#cap3', { opacity: 0 }, 3.9333);
-    tl.fromTo('#cap4', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 4.0667);
-    tl.to('#cap4', { opacity: 0, duration: 0.1, ease: "power2.in" }, 4.9000);
-    tl.set('#cap4', { opacity: 0 }, 5.0000);
-    tl.fromTo('#cap5', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 4.9667);
-    tl.to('#cap5', { opacity: 0, duration: 0.1, ease: "power2.in" }, 5.9000);
-    tl.set('#cap5', { opacity: 0 }, 6.0000);
-    tl.fromTo('#cap6', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 6.0000);
-    tl.to('#cap6', { opacity: 0, duration: 0.1, ease: "power2.in" }, 7.9333);
-    tl.set('#cap6', { opacity: 0 }, 8.0333);
-    tl.fromTo('#cap7', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 8.1000);
-    tl.to('#cap7', { opacity: 0, duration: 0.1, ease: "power2.in" }, 9.1000);
-    tl.set('#cap7', { opacity: 0 }, 9.2000);
-    tl.fromTo('#cap8', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 9.3667);
-    tl.to('#cap8', { opacity: 0, duration: 0.1, ease: "power2.in" }, 10.6333);
-    tl.set('#cap8', { opacity: 0 }, 10.7333);
-    tl.fromTo('#cap9', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 10.7000);
-    tl.to('#cap9', { opacity: 0, duration: 0.1, ease: "power2.in" }, 11.2000);
-    tl.set('#cap9', { opacity: 0 }, 11.3000);
-    tl.fromTo('#cap10', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 11.2667);
-    tl.to('#cap10', { opacity: 0, duration: 0.1, ease: "power2.in" }, 12.1333);
-    tl.set('#cap10', { opacity: 0 }, 12.2333);
-    tl.fromTo('#cap11', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 12.4000);
-    tl.to('#cap11', { opacity: 0, duration: 0.1, ease: "power2.in" }, 14.1000);
-    tl.set('#cap11', { opacity: 0 }, 14.2000);
-    tl.fromTo('#cap12', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 14.1667);
-    tl.to('#cap12', { opacity: 0, duration: 0.1, ease: "power2.in" }, 15.3333);
-    tl.set('#cap12', { opacity: 0 }, 15.4333);
-    tl.fromTo('#cap13', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 15.7333);
-    tl.to('#cap13', { opacity: 0, duration: 0.1, ease: "power2.in" }, 16.2667);
-    tl.set('#cap13', { opacity: 0 }, 16.3667);
-    tl.fromTo('#cap14', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 16.3333);
-    tl.to('#cap14', { opacity: 0, duration: 0.1, ease: "power2.in" }, 16.9000);
-    tl.set('#cap14', { opacity: 0 }, 17.0000);
-    tl.fromTo('#cap15', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 16.9667);
-    tl.to('#cap15', { opacity: 0, duration: 0.1, ease: "power2.in" }, 17.9000);
-    tl.set('#cap15', { opacity: 0 }, 18.0000);
-    tl.fromTo('#cap16', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 18.3667);
-    tl.to('#cap16', { opacity: 0, duration: 0.1, ease: "power2.in" }, 19.5333);
-    tl.set('#cap16', { opacity: 0 }, 19.6333);
-    tl.fromTo('#cap17', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 19.6000);
-    tl.to('#cap17', { opacity: 0, duration: 0.1, ease: "power2.in" }, 20.9000);
-    tl.set('#cap17', { opacity: 0 }, 21.0000);
-    tl.fromTo('#cap18', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 20.9667);
-    tl.to('#cap18', { opacity: 0, duration: 0.1, ease: "power2.in" }, 22.0000);
-    tl.set('#cap18', { opacity: 0 }, 22.1000);
-    tl.fromTo('#cap19', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 22.0667);
-    tl.to('#cap19', { opacity: 0, duration: 0.1, ease: "power2.in" }, 23.4333);
-    tl.set('#cap19', { opacity: 0 }, 23.5333);
-    tl.fromTo('#cap20', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 23.8000);
-    tl.to('#cap20', { opacity: 0, duration: 0.1, ease: "power2.in" }, 25.2000);
-    tl.set('#cap20', { opacity: 0 }, 25.3000);
-    tl.fromTo('#cap21', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 25.3333);
-    tl.to('#cap21', { opacity: 0, duration: 0.1, ease: "power2.in" }, 26.3333);
-    tl.set('#cap21', { opacity: 0 }, 26.4333);
-    tl.fromTo('#cap22', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 26.4000);
-    tl.to('#cap22', { opacity: 0, duration: 0.1, ease: "power2.in" }, 27.4000);
-    tl.set('#cap22', { opacity: 0 }, 27.5000);
-    tl.fromTo('#cap23', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 27.4667);
-    tl.to('#cap23', { opacity: 0, duration: 0.1, ease: "power2.in" }, 28.5333);
-    tl.set('#cap23', { opacity: 0 }, 28.6333);
-    tl.fromTo('#cap24', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 28.7333);
-    tl.to('#cap24', { opacity: 0, duration: 0.1, ease: "power2.in" }, 29.9333);
-    tl.set('#cap24', { opacity: 0 }, 30.0333);
-    tl.fromTo('#cap25', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 30.0000);
-    tl.to('#cap25', { opacity: 0, duration: 0.1, ease: "power2.in" }, 31.6333);
-    tl.set('#cap25', { opacity: 0 }, 31.7333);
-    tl.fromTo('#cap26', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 31.7000);
-    tl.to('#cap26', { opacity: 0, duration: 0.1, ease: "power2.in" }, 32.4333);
-    tl.set('#cap26', { opacity: 0 }, 32.5333);
-    tl.fromTo('#cap27', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 32.5000);
-    tl.to('#cap27', { opacity: 0, duration: 0.1, ease: "power2.in" }, 34.3333);
-    tl.set('#cap27', { opacity: 0 }, 34.4333);
-    tl.fromTo('#cap28', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 34.4000);
-    tl.to('#cap28', { opacity: 0, duration: 0.1, ease: "power2.in" }, 35.7000);
-    tl.set('#cap28', { opacity: 0 }, 35.8000);
-    tl.fromTo('#cap29', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 35.7667);
-    tl.to('#cap29', { opacity: 0, duration: 0.1, ease: "power2.in" }, 37.7667);
-    tl.set('#cap29', { opacity: 0 }, 37.8667);
-    tl.fromTo('#cap30', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 37.8333);
-    tl.to('#cap30', { opacity: 0, duration: 0.1, ease: "power2.in" }, 39.2000);
-    tl.set('#cap30', { opacity: 0 }, 39.3000);
-    tl.fromTo('#cap31', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 39.3667);
-    tl.to('#cap31', { opacity: 0, duration: 0.1, ease: "power2.in" }, 40.5000);
-    tl.set('#cap31', { opacity: 0 }, 40.6000);
-    tl.fromTo('#cap32', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 40.6000);
-    tl.to('#cap32', { opacity: 0, duration: 0.1, ease: "power2.in" }, 42.0000);
-    tl.set('#cap32', { opacity: 0 }, 42.1000);
-    tl.fromTo('#cap33', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 42.0667);
-    tl.to('#cap33', { opacity: 0, duration: 0.1, ease: "power2.in" }, 44.0333);
-    tl.set('#cap33', { opacity: 0 }, 44.1333);
-    // keyword — la pastilla aparece justo al pronunciarse
-    tl.fromTo("#c0kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 0.7000);
-    tl.fromTo("#c0kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 0.7000);
-    tl.fromTo("#c3kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 2.8667);
-    tl.fromTo("#c3kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 2.8667);
-    tl.fromTo("#c5kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 5.0333);
-    tl.fromTo("#c5kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 5.0333);
-    tl.fromTo("#c8kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 10.3000);
-    tl.fromTo("#c8kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 10.3000);
-    tl.fromTo("#c9kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 10.7667);
-    tl.fromTo("#c9kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 10.7667);
-    tl.fromTo("#c12kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 14.3000);
-    tl.fromTo("#c12kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 14.3000);
-    tl.fromTo("#c15kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 17.2333);
-    tl.fromTo("#c15kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 17.2333);
-    tl.fromTo("#c19kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 22.6667);
-    tl.fromTo("#c19kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 22.6667);
-    tl.fromTo("#c22kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 27.2000);
-    tl.fromTo("#c22kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 27.2000);
-    tl.fromTo("#c23kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 27.5333);
-    tl.fromTo("#c23kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 27.5333);
-    tl.fromTo("#c27kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 34.3000);
-    tl.fromTo("#c27kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 34.3000);
-    tl.fromTo("#c31kb", { opacity: 0, scaleX: 0.72 }, { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 39.8667);
-    tl.fromTo("#c31kt", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, 39.8667);
+    tl.to('#cap0', { opacity: 0, duration: 0.1, ease: "power2.in" }, 0.9667);
+    tl.set('#cap0', { opacity: 0 }, 1.0667);
+    tl.fromTo('#cap1', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 1.0667);
+    tl.to('#cap1', { opacity: 0, duration: 0.1, ease: "power2.in" }, 2.0333);
+    tl.set('#cap1', { opacity: 0 }, 2.1333);
+    tl.fromTo('#cap2', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 2.1000);
+    tl.to('#cap2', { opacity: 0, duration: 0.1, ease: "power2.in" }, 3.8333);
+    tl.set('#cap2', { opacity: 0 }, 3.9333);
+    tl.fromTo('#cap3', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 4.0667);
+    tl.to('#cap3', { opacity: 0, duration: 0.1, ease: "power2.in" }, 4.9000);
+    tl.set('#cap3', { opacity: 0 }, 5.0000);
+    tl.fromTo('#cap4', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 4.9667);
+    tl.to('#cap4', { opacity: 0, duration: 0.1, ease: "power2.in" }, 5.9000);
+    tl.set('#cap4', { opacity: 0 }, 6.0000);
+    tl.fromTo('#cap5', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 6.0000);
+    tl.to('#cap5', { opacity: 0, duration: 0.1, ease: "power2.in" }, 7.9333);
+    tl.set('#cap5', { opacity: 0 }, 8.0333);
+    tl.fromTo('#cap6', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 8.1000);
+    tl.to('#cap6', { opacity: 0, duration: 0.1, ease: "power2.in" }, 9.1000);
+    tl.set('#cap6', { opacity: 0 }, 9.2000);
+    tl.fromTo('#cap7', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 9.3667);
+    tl.to('#cap7', { opacity: 0, duration: 0.1, ease: "power2.in" }, 10.1667);
+    tl.set('#cap7', { opacity: 0 }, 10.2667);
+    tl.fromTo('#cap8', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 10.2333);
+    tl.to('#cap8', { opacity: 0, duration: 0.1, ease: "power2.in" }, 11.2000);
+    tl.set('#cap8', { opacity: 0 }, 11.3000);
+    tl.fromTo('#cap9', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 11.2667);
+    tl.to('#cap9', { opacity: 0, duration: 0.1, ease: "power2.in" }, 13.4000);
+    tl.set('#cap9', { opacity: 0 }, 13.5000);
+    tl.fromTo('#cap10', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 13.5333);
+    tl.to('#cap10', { opacity: 0, duration: 0.1, ease: "power2.in" }, 14.1667);
+    tl.set('#cap10', { opacity: 0 }, 14.2667);
+    tl.fromTo('#cap11', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 14.2333);
+    tl.to('#cap11', { opacity: 0, duration: 0.1, ease: "power2.in" }, 15.3333);
+    tl.set('#cap11', { opacity: 0 }, 15.4333);
+    tl.fromTo('#cap12', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 15.7333);
+    tl.to('#cap12', { opacity: 0, duration: 0.1, ease: "power2.in" }, 16.9000);
+    tl.set('#cap12', { opacity: 0 }, 17.0000);
+    tl.fromTo('#cap13', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 16.9667);
+    tl.to('#cap13', { opacity: 0, duration: 0.1, ease: "power2.in" }, 17.9000);
+    tl.set('#cap13', { opacity: 0 }, 18.0000);
+    tl.fromTo('#cap14', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 18.3667);
+    tl.to('#cap14', { opacity: 0, duration: 0.1, ease: "power2.in" }, 19.4333);
+    tl.set('#cap14', { opacity: 0 }, 19.5333);
+    tl.fromTo('#cap15', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 19.5000);
+    tl.to('#cap15', { opacity: 0, duration: 0.1, ease: "power2.in" }, 20.9000);
+    tl.set('#cap15', { opacity: 0 }, 21.0000);
+    tl.fromTo('#cap16', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 20.9667);
+    tl.to('#cap16', { opacity: 0, duration: 0.1, ease: "power2.in" }, 22.5000);
+    tl.set('#cap16', { opacity: 0 }, 22.6000);
+    tl.fromTo('#cap17', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 22.5667);
+    tl.to('#cap17', { opacity: 0, duration: 0.1, ease: "power2.in" }, 23.4333);
+    tl.set('#cap17', { opacity: 0 }, 23.5333);
+    tl.fromTo('#cap18', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 23.8000);
+    tl.to('#cap18', { opacity: 0, duration: 0.1, ease: "power2.in" }, 25.2000);
+    tl.set('#cap18', { opacity: 0 }, 25.3000);
+    tl.fromTo('#cap19', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 25.3333);
+    tl.to('#cap19', { opacity: 0, duration: 0.1, ease: "power2.in" }, 26.3333);
+    tl.set('#cap19', { opacity: 0 }, 26.4333);
+    tl.fromTo('#cap20', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 26.4000);
+    tl.to('#cap20', { opacity: 0, duration: 0.1, ease: "power2.in" }, 27.0667);
+    tl.set('#cap20', { opacity: 0 }, 27.1667);
+    tl.fromTo('#cap21', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 27.1333);
+    tl.to('#cap21', { opacity: 0, duration: 0.1, ease: "power2.in" }, 28.5333);
+    tl.set('#cap21', { opacity: 0 }, 28.6333);
+    tl.fromTo('#cap22', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 28.7333);
+    tl.to('#cap22', { opacity: 0, duration: 0.1, ease: "power2.in" }, 29.9333);
+    tl.set('#cap22', { opacity: 0 }, 30.0333);
+    tl.fromTo('#cap23', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 30.0000);
+    tl.to('#cap23', { opacity: 0, duration: 0.1, ease: "power2.in" }, 31.6333);
+    tl.set('#cap23', { opacity: 0 }, 31.7333);
+    tl.fromTo('#cap24', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 31.7000);
+    tl.to('#cap24', { opacity: 0, duration: 0.1, ease: "power2.in" }, 32.4333);
+    tl.set('#cap24', { opacity: 0 }, 32.5333);
+    tl.fromTo('#cap25', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 32.5000);
+    tl.to('#cap25', { opacity: 0, duration: 0.1, ease: "power2.in" }, 34.3333);
+    tl.set('#cap25', { opacity: 0 }, 34.4333);
+    tl.fromTo('#cap26', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 34.4000);
+    tl.to('#cap26', { opacity: 0, duration: 0.1, ease: "power2.in" }, 35.7000);
+    tl.set('#cap26', { opacity: 0 }, 35.8000);
+    tl.fromTo('#cap27', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 35.7667);
+    tl.to('#cap27', { opacity: 0, duration: 0.1, ease: "power2.in" }, 37.7667);
+    tl.set('#cap27', { opacity: 0 }, 37.8667);
+    tl.fromTo('#cap28', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 37.8333);
+    tl.to('#cap28', { opacity: 0, duration: 0.1, ease: "power2.in" }, 39.2000);
+    tl.set('#cap28', { opacity: 0 }, 39.3000);
+    tl.fromTo('#cap29', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 39.3667);
+    tl.to('#cap29', { opacity: 0, duration: 0.1, ease: "power2.in" }, 40.4333);
+    tl.set('#cap29', { opacity: 0 }, 40.5333);
+    tl.fromTo('#cap30', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 40.5333);
+    tl.to('#cap30', { opacity: 0, duration: 0.1, ease: "power2.in" }, 41.5000);
+    tl.set('#cap30', { opacity: 0 }, 41.6000);
+    tl.fromTo('#cap31', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 41.7333);
+    tl.to('#cap31', { opacity: 0, duration: 0.1, ease: "power2.in" }, 42.5333);
+    tl.set('#cap31', { opacity: 0 }, 42.6333);
+    tl.fromTo('#cap32', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 42.6000);
+    tl.to('#cap32', { opacity: 0, duration: 0.1, ease: "power2.in" }, 44.0333);
+    tl.set('#cap32', { opacity: 0 }, 44.1333);
+    // keyword — el violeta se ENCIENDE justo al pronunciarse
+    tl.fromTo("#c2k1", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 2.8667);
+    tl.fromTo("#c2k1", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 2.8667);
+    tl.fromTo("#c2k2", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 3.3667);
+    tl.fromTo("#c2k2", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 3.3667);
+    tl.fromTo("#c4k0", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 5.0333);
+    tl.fromTo("#c4k0", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 5.0333);
+    tl.fromTo("#c8k0", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 10.3000);
+    tl.fromTo("#c8k0", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 10.3000);
+    tl.fromTo("#c11k0", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 14.3000);
+    tl.fromTo("#c11k0", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 14.3000);
+    tl.fromTo("#c13k2", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 17.2333);
+    tl.fromTo("#c13k2", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 17.2333);
+    tl.fromTo("#c17k1", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 22.6667);
+    tl.fromTo("#c17k1", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 22.6667);
+    tl.fromTo("#c17k2", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 23.0000);
+    tl.fromTo("#c17k2", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 23.0000);
+    tl.fromTo("#c21k0", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 27.2000);
+    tl.fromTo("#c21k0", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 27.2000);
+    tl.fromTo("#c21k1", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 27.5333);
+    tl.fromTo("#c21k1", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 27.5333);
+    tl.fromTo("#c21k2", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 27.6000);
+    tl.fromTo("#c21k2", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 27.6000);
+    tl.fromTo("#c29k2", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 39.8667);
+    tl.fromTo("#c29k2", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 39.8667);
     window.__timelines = window.__timelines || {};
     window.__timelines["talking-head-recut"] = tl;
   })();

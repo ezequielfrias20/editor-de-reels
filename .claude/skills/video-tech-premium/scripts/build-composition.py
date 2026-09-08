@@ -34,6 +34,8 @@ from pathlib import Path
 from PIL import ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import caption_fonts  # noqa: E402
+import caption_metrics  # noqa: E402
 import mockups  # noqa: E402
 import objects  # noqa: E402
 from tokens import C, FILL, FONT, GLOW, LINE, LINE_HI, MONO, RADIUS  # noqa: E402
@@ -76,6 +78,12 @@ T = None                     # escala tipográfica del formato
 SRC_W = SRC_H = CHIN = None
 SHOTS = CARDS = VISUALS = SFX = MUSIC = None
 KEYWORDS = None
+CAPTIONS = None
+
+# Cuánto más grande es la keyword que el resto del bloque. El tope está
+# medido en `caption_metrics`: por encima, un bloque de dos líneas se queda
+# sin presupuesto de zona segura.
+KW_SCALE = caption_metrics.KEYWORD_SCALE_MAX
 CAPTION_SIZE = CAPTION_MAXW = CAPTION_MARGIN = None
 
 
@@ -157,7 +165,7 @@ def chin_at(shot):
 # ── carga ─────────────────────────────────────────────────────────────────────
 def configure(project, piece):
     global ROOT, WORK, PUB, PIECE, W, H, FMT, T, SRC_W, SRC_H, CHIN
-    global SHOTS, CARDS, VISUALS, SFX, MUSIC, KEYWORDS
+    global SHOTS, CARDS, VISUALS, SFX, MUSIC, KEYWORDS, CAPTIONS
     global CAPTION_SIZE, CAPTION_MAXW, CAPTION_MARGIN
     global SFX_TARGET_MEAN, SFX_PEAK_CAP, MUSIC_TARGET_MEAN, VOICE_GAIN
 
@@ -187,6 +195,9 @@ def configure(project, piece):
     SFX = [tuple(x) for x in plan.get("sfx", [])]
     MUSIC = plan.get("music")
     KEYWORDS = plan.get("keywords", [])
+    # Bloques declarados por el EDL (rangos de palabras). Si no vienen,
+    # `build_captions` trocea como siempre: las piezas 1-9 no los traen.
+    CAPTIONS = plan.get("captions") or None
     SFX_TARGET_MEAN = plan.get("sfx_target_mean", -27.0)
     SFX_PEAK_CAP = plan.get("sfx_peak_cap", -12.0)
 
@@ -228,15 +239,13 @@ def load():
 
 
 def measure_font(size):
-    """Inter 900 real, para cortar los bloques con métricas y no contando letras."""
-    from fontTools.ttLib import TTFont
-    cache = WORK / ".inter900.ttf"
-    if not cache.exists():
-        cache.parent.mkdir(parents=True, exist_ok=True)
-        f = TTFont(SKILL / "assets" / "fonts" / "Inter-900.woff2")
-        f.flavor = None
-        f.save(str(cache))
-    return ImageFont.truetype(str(cache), size)
+    """Inter 900 real, para cortar los bloques con métricas y no contando letras.
+
+    Delegado a `caption_fonts` para que `caption_metrics` pueda medir sin
+    importar este archivo (que no es importable: lleva guion). El .ttf se
+    sigue cacheando en el directorio de la PIEZA, igual que antes.
+    """
+    return caption_fonts.measure_font(size, cache_dir=WORK)
 
 
 # ── capa de METRAJE — encuadres y punch-ins ───────────────────────────────────
@@ -821,26 +830,53 @@ def build_captions(words, dur, shots, viz_skins):
 
     flat = [(w, w["text"].strip().rstrip(",.:;!?").upper()) for w in words
             if w["text"].strip().rstrip(",.:;!?")]
-    chunks = []
-    for sent in split_units(flat, (".", "?", "!")):
-        for clause in split_units(sent, (",", ";", ":")):
-            chunks.extend(even_split(clause))
 
-    # Una cláusula de una sola palabra («…y,») se pega a su vecina DENTRO de la
-    # misma frase; nunca a través de un punto.
-    merged = []
-    for ch in chunks:
-        prev = merged[-1] if merged else None
-        crosses_sentence = bool(
-            prev and prev[-1][0]["text"].rstrip().endswith((".", "?", "!")))
-        if (prev and len(ch) == 1 and not crosses_sentence
-                and len(prev) + 1 <= MAX_WORDS
-                and width(prev + ch) <= budget
-                and ch[-1][0]["end"] - prev[0][0]["start"] <= MAX_SECS + 0.4):
-            merged[-1] = prev + ch
-        else:
-            merged.append(ch)
-    chunks = merged
+    # `key_ranges[i]` es el rango LOCAL (lo, hi) inclusive de la keyword del
+    # bloque `i`, o None. Con captions explícitas viene del EDL; con el troceo
+    # automático se deduce con `is_key` más abajo.
+    key_ranges: list[tuple[int, int] | None] = []
+
+    if CAPTIONS:
+        # EL EDL MANDA. Los bloques llegan como rangos de palabras sobre el
+        # transcript SIN filtrar, que es el mismo índice que usa `edl_words`,
+        # así que se indexa `words` directamente y no `flat`.
+        chunks = []
+        for c in CAPTIONS:
+            lo, hi = c["words"]
+            ch = [(words[i], words[i]["text"].strip().rstrip(",.:;!?").upper())
+                  for i in range(lo, hi + 1)
+                  if words[i]["text"].strip().rstrip(",.:;!?")]
+            if not ch:
+                continue
+            chunks.append(ch)
+            kw = c.get("keyword")
+            key_ranges.append((kw[0] - lo, kw[1] - lo) if kw else None)
+    else:
+        chunks = []
+        for sent in split_units(flat, (".", "?", "!")):
+            for clause in split_units(sent, (",", ";", ":")):
+                chunks.extend(even_split(clause))
+
+        # Una cláusula de una sola palabra («…y,») se pega a su vecina DENTRO
+        # de la misma frase; nunca a través de un punto.
+        merged = []
+        for ch in chunks:
+            prev = merged[-1] if merged else None
+            crosses_sentence = bool(
+                prev and prev[-1][0]["text"].rstrip().endswith((".", "?", "!")))
+            if (prev and len(ch) == 1 and not crosses_sentence
+                    and len(prev) + 1 <= MAX_WORDS
+                    and width(prev + ch) <= budget
+                    and ch[-1][0]["end"] - prev[0][0]["start"] <= MAX_SECS + 0.4):
+                merged[-1] = prev + ch
+            else:
+                merged.append(ch)
+        chunks = merged
+        # una sola keyword por bloque: la primera que califique
+        for ch in chunks:
+            i = next((i for i, (_, up) in enumerate(ch)
+                      if is_key(up, KEYWORDS)), -1)
+            key_ranges.append((i, i) if i >= 0 else None)
 
     spans, anims, key_anims, rows = [], [], [], []
     for ci, ch in enumerate(chunks):
@@ -850,18 +886,25 @@ def build_captions(words, dur, shots, viz_skins):
             e = min(e, chunks[ci + 1][0][0]["start"] - 0.03)
         e = q(max(min(e, dur), s + 0.28))
 
-        # una sola keyword por bloque: la primera que califique
-        key_idx = next((i for i, (_, up) in enumerate(ch) if is_key(up, KEYWORDS)), -1)
+        krange = key_ranges[ci] if ci < len(key_ranges) else None
+        klo, khi = krange if krange else (-1, -2)
+        key_idx = klo if krange else -1
 
-        parts = []
+        # Las palabras normales van en CAJA DE FRASE y solo la keyword en
+        # MAYÚSCULA: el contraste de caja es lo que la convierte en el titular
+        # del frame. La mayúscula continua convertía la banda entera en un
+        # metrónomo y el ojo dejaba de leer.
+        parts, disp = [], []
         for i, (w, up) in enumerate(ch):
-            if i == key_idx:
-                wid = f"c{ci}k"
-                parts.append(f'<span class="w key"><span class="kbg" id="{wid}b"></span>'
-                             f'<span class="kt" id="{wid}t">{esc(up)}</span></span>')
+            en_key = klo <= i <= khi
+            txt = up if en_key else w["text"].strip().rstrip(",.:;!?")
+            disp.append(txt)
+            if en_key:
+                wid = f"c{ci}k{i}"
+                parts.append(f'<span class="w key" id="{wid}">{esc(txt)}</span>')
                 key_anims.append((wid, q(max(w["start"], s))))
             else:
-                parts.append(f'<span class="w">{esc(up)}</span>')
+                parts.append(f'<span class="w">{esc(txt)}</span>')
 
         # La altura la decide LO QUE HAY DETRÁS en ese frame: el encuadre activo
         # (que mueve la barbilla) o el visual a pantalla completa que lo tape.
@@ -894,11 +937,17 @@ def build_captions(words, dur, shots, viz_skins):
 
         # ZONA SEGURA: en REEL el 20 % inferior lo pinta la plataforma con su
         # propia interfaz, así que ahí no puede caer TINTA — no basta con que
-        # empiece antes de 1536. La cuenta necesita el número de líneas, que
-        # aquí ya se puede medir; sin esto un bloque de dos líneas colocado
-        # sobre un gráfico (top 1430) mete la segunda línea 46 px dentro.
-        n_lines = 1 if width(ch) <= CAPTION_MAXW else 2
-        floor_top = round(H * 0.80) - n_lines * round(CAPTION_SIZE * 1.14)
+        # empiece antes de 1536. La cuenta necesita el número de líneas Y el
+        # tamaño MÁXIMO del bloque (la keyword mide 1.22x), así que vive en
+        # `caption_metrics`, testeable sin renderizar. Sin esto un bloque de
+        # dos líneas colocado sobre un gráfico metía la segunda línea 46 px
+        # dentro de la interfaz.
+        # Se mide el texto que de verdad se pinta (`disp`: caja de frase salvo
+        # la keyword), no la versión en mayúsculas: la mayúscula es más ancha y
+        # habría subido el techo sin necesidad.
+        m = caption_metrics.measure_block(disp, CAPTION_SIZE, krange, FMT, H, W,
+                                          cache_dir=WORK)
+        n_lines, floor_top = m["n_lines"], m["floor_top"]
         top = min(top, floor_top)
 
         spans.append(f'<div class="cap {skin}" id="cap{ci}" data-layout-allow-overlap '
@@ -1021,16 +1070,19 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   paint-order:stroke fill;text-shadow:0 4px 22px rgba(11,12,16,.8)}}
 .cap.on-surface .w{{color:{C['text']};-webkit-text-stroke:0;
   text-shadow:0 2px 16px rgba(11,12,16,.95)}}
-/* La keyword: pastilla violeta que aparece bajo la palabra en el instante en
-   que se pronuncia. Blanco sobre #7C5CFF da 4.35:1 — AA para texto grande, y
-   este lo es con mucho margen. */
-.cap .w.key{{padding:0 4px}}
-.cap .kbg{{position:absolute;left:-14px;right:-14px;top:-2px;bottom:2px;
-  background:{C['violet']};border-radius:{RADIUS['sm']}px;opacity:0;
-  box-shadow:0 8px 28px rgba(124,92,255,.45)}}
-.cap .kt{{position:relative;color:{C['text']};-webkit-text-stroke:7px {C['bg']};
-  paint-order:stroke fill}}
-.cap.on-surface .kt{{-webkit-text-stroke:0}}"""
+/* La keyword ya no es una pastilla: es TEXTO. Cuatro rasgos a la vez la
+   convierten en el titular del frame sin añadir un objeto — mayúscula (las
+   demás van en caja de frase), ExtraBold, {round(CAPTION_SIZE * KW_SCALE)}px
+   ({KW_SCALE}x) y violeta. Medido: violet_hi da 6.70:1 sobre bg y 6.07:1
+   sobre surface, así que aguanta texto normal en los dos suelos; `violet` a
+   secas se queda en 4.08:1 sobre surface y NO llega.
+   El color arranca en blanco y se enciende en el instante exacto en que la
+   palabra se pronuncia — el tamaño es estático para que el bloque no
+   reflowee. */
+.cap .w.key{{font-size:{round(CAPTION_SIZE * KW_SCALE)}px;font-weight:800;
+  color:{C['text']}}}
+.cap.on-dark .w.key{{-webkit-text-stroke:7px {C['bg']};paint-order:stroke fill}}
+.cap.on-surface .w.key{{-webkit-text-stroke:0}}"""
 
     # ── timeline ───────────────────────────────────────────────────────────────
     js = ["const tl = window.gsap.timeline({ paused: true });"]
@@ -1218,13 +1270,18 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
                   f'ease: "power2.in" }}, {out_t:.4f});')
         js.append(f'tl.set(\'{sel}\', {{ opacity: 0 }}, {e:.4f});')
 
-    js.append("// keyword — la pastilla aparece justo al pronunciarse")
+    js.append("// keyword — el violeta se ENCIENDE justo al pronunciarse")
     for wid, at in key_anims:
-        js.append(f'tl.fromTo("#{wid}b", {{ opacity: 0, scaleX: 0.72 }}, '
-                  f'{{ opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }}, {at:.4f});')
-        js.append(f'tl.fromTo("#{wid}t", {{ scale: 1 }}, '
+        # Solo `color` y `scale`, los dos en el allowlist. El TAMAÑO no se
+        # anima: es estático en el CSS para que el bloque no reflowee a mitad
+        # de lectura. Lo que se mueve es el color, en el instante exacto en que
+        # la palabra suena, más un golpe corto de escala.
+        js.append(f'tl.fromTo("#{wid}", {{ color: "{C["text"]}" }}, '
+                  f'{{ color: "{C["violet_hi"]}", duration: 0.16, '
+                  f'ease: "power3.out" }}, {at:.4f});')
+        js.append(f'tl.fromTo("#{wid}", {{ scale: 1 }}, '
                   f'{{ scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, '
-                  f'ease: "power2.out" }}, {at:.4f});')
+                  f'ease: "power2.out", overwrite: false }}, {at:.4f});')
 
     js.append('window.__timelines = window.__timelines || {};')
     js.append(f'window.__timelines["{COMP_ID}"] = tl;')

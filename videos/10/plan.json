@@ -1,5 +1,262 @@
 {
   "_": "generado por edl-compile desde edl.json — NO editar a mano",
+  "captions": [
+    {
+      "keyword": null,
+      "words": [
+        0,
+        4
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        5,
+        10
+      ]
+    },
+    {
+      "keyword": [
+        12,
+        13
+      ],
+      "words": [
+        11,
+        13
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        14,
+        17
+      ]
+    },
+    {
+      "keyword": [
+        18,
+        18
+      ],
+      "words": [
+        18,
+        21
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        22,
+        26
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        27,
+        30
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        31,
+        33
+      ]
+    },
+    {
+      "keyword": [
+        34,
+        34
+      ],
+      "words": [
+        34,
+        37
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        38,
+        41
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        42,
+        45
+      ]
+    },
+    {
+      "keyword": [
+        46,
+        46
+      ],
+      "words": [
+        46,
+        48
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        49,
+        53
+      ]
+    },
+    {
+      "keyword": [
+        56,
+        56
+      ],
+      "words": [
+        54,
+        56
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        57,
+        59
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        60,
+        64
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        65,
+        69
+      ]
+    },
+    {
+      "keyword": [
+        71,
+        72
+      ],
+      "words": [
+        70,
+        72
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        73,
+        76
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        77,
+        79
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        80,
+        82
+      ]
+    },
+    {
+      "keyword": [
+        83,
+        85
+      ],
+      "words": [
+        83,
+        87
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        88,
+        92
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        93,
+        97
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        98,
+        101
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        102,
+        105
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        106,
+        109
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        110,
+        114
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        115,
+        118
+      ]
+    },
+    {
+      "keyword": [
+        121,
+        121
+      ],
+      "words": [
+        119,
+        121
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        122,
+        124
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        125,
+        127
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        128,
+        130
+      ]
+    }
+  ],
   "cards": [],
   "format": "REEL",
   "keywords": [

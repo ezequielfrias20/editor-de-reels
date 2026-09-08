@@ -344,16 +344,17 @@
         },
         {
           "atWord": 80,
-          "type": "CAMERA",
-          "state": {
-            "camera": "WIDE"
-          }
-        },
-        {
-          "atWord": 80,
           "type": "CAPTION",
           "words": [
             80,
+            82
+          ]
+        },
+        {
+          "atWord": 83,
+          "type": "CAPTION",
+          "words": [
+            83,
             87
           ]
         },
@@ -364,6 +365,13 @@
             83,
             85
           ]
+        },
+        {
+          "atWord": 80,
+          "type": "CAMERA",
+          "state": {
+            "camera": "WIDE"
+          }
         }
       ],
       "reason": "desmonta la solución que el espectador ya estaba pensando"
@@ -390,21 +398,14 @@
           "type": "CAPTION",
           "words": [
             93,
-            96
+            97
           ]
         },
         {
           "atWord": 98,
-          "type": "CAMERA",
-          "state": {
-            "camera": "MEDIUM"
-          }
-        },
-        {
-          "atWord": 97,
           "type": "CAPTION",
           "words": [
-            97,
+            98,
             101
           ]
         },
@@ -423,6 +424,13 @@
             106,
             109
           ]
+        },
+        {
+          "atWord": 98,
+          "type": "CAMERA",
+          "state": {
+            "camera": "MEDIUM"
+          }
         }
       ],
       "reason": "es la tesis de la pieza; el cambio de cámara a mitad evita 6.8 s del mismo plano"
@@ -453,25 +461,26 @@
           ]
         },
         {
-          "atWord": 121,
-          "type": "CAMERA",
-          "state": {
-            "camera": "MEDIUM"
-          }
-        },
-        {
           "atWord": 119,
           "type": "CAPTION",
           "words": [
             119,
-            123
+            121
           ]
         },
         {
-          "atWord": 124,
+          "atWord": 122,
           "type": "CAPTION",
           "words": [
-            124,
+            122,
+            124
+          ]
+        },
+        {
+          "atWord": 125,
+          "type": "CAPTION",
+          "words": [
+            125,
             127
           ]
         },
@@ -482,6 +491,13 @@
             128,
             130
           ]
+        },
+        {
+          "atWord": 121,
+          "type": "CAMERA",
+          "state": {
+            "camera": "MEDIUM"
+          }
         },
         {
           "atWord": 121,
