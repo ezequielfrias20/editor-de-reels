@@ -324,6 +324,27 @@ def instagram(cid: str, iid: str, state: dict, slot: str = "orbit-3", **_) -> di
     return _object_html(cid, iid, slot, 200, 200, 8, svg)
 
 
+def bottleneck(cid: str, iid: str, state: dict, slot: str = "center", **_) -> dict:
+    """El sexto y último objeto de la librería inicial (Global Constraints:
+    empieza con 6, no con 15). Un embudo: varios esperan arriba, la boca los
+    aprieta, uno solo sale por el cuello — «contratar a alguien más no lo
+    arregla, solo MUEVE el cuello de botella» es literal, no una metáfora
+    que haya que traducir a otra forma."""
+    svg = f"""<svg viewBox="0 0 320 320" width="320" height="320">
+  <circle cx="110" cy="42" r="15" fill="{t.C['surface']}" stroke="currentColor" stroke-width="3"/>
+  <circle cx="152" cy="30" r="15" fill="{t.C['surface']}" stroke="currentColor" stroke-width="3"/>
+  <circle cx="194" cy="42" r="15" fill="{t.C['surface']}" stroke="currentColor" stroke-width="3"/>
+  <circle cx="232" cy="60" r="15" fill="{t.C['surface']}" stroke="currentColor" stroke-width="3"/>
+  <circle cx="76" cy="62" r="15" fill="{t.C['surface']}" stroke="currentColor" stroke-width="3"/>
+  <path d="M40 92 L280 92 L188 232 L132 232 Z" fill="{t.C['surface']}"
+        stroke="currentColor" stroke-width="3"/>
+  <rect x="132" y="232" width="56" height="46" fill="{t.C['surface']}"
+        stroke="{t.LINE_HI}" stroke-width="2"/>
+  <circle cx="160" cy="298" r="15" fill="{t.LINE_HI}"/>
+</svg>"""
+    return _object_html(cid, iid, slot, 320, 320, -6, svg)
+
+
 # Las CLAVES son el nombre del asset tal como lo escribe el EDL
 # (`object:dental-chair@1` -> kind `dental-chair`): `ASSET_RE` en
 # `edl_schema.py` solo admite `[a-z0-9-]+`, así que un asset de dos palabras
@@ -332,4 +353,5 @@ def instagram(cid: str, iid: str, state: dict, slot: str = "orbit-3", **_) -> di
 # llevar guiones — dos namespaces distintos, unidos aquí a propósito.
 REGISTRY = {"motion_stage": motion_stage, "clock": clock,
            "dental-chair": dental_chair, "phone": phone,
-           "card-payment": card_payment, "instagram": instagram}
+           "card-payment": card_payment, "instagram": instagram,
+           "bottleneck": bottleneck}

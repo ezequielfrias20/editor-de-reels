@@ -308,6 +308,12 @@
       "impact-bass-1",
       1.0,
       "cuatro trabajos incompatibles cayendo sobre la misma persona"
+    ],
+    [
+      27.2,
+      "pop",
+      1.0,
+      "contratar solo mueve el cuello de botella, no lo quita"
     ]
   ],
   "shots": [
@@ -348,14 +354,12 @@
       "zoom": 1.12
     },
     {
-      "anchor": 0.42,
-      "at": 26.4667,
-      "kind": "full",
-      "zoom": 1.0
+      "at": 26.7,
+      "kind": "off"
     },
     {
       "anchor": 0.42,
-      "at": 28.8,
+      "at": 28.6333,
       "kind": "full",
       "zoom": 1.0
     },
@@ -489,6 +493,33 @@
       "role": "takeover",
       "skin": "on-surface",
       "start": 18.4333
+    },
+    {
+      "end": 28.8,
+      "fade_in": 0.22,
+      "fade_out": 0.18,
+      "id": "stage-c",
+      "kind": "mockup",
+      "mock": [
+        "motion_stage",
+        {
+          "at": [],
+          "objects": [
+            {
+              "id": "task-bottleneck",
+              "in": 27.2,
+              "kind": "bottleneck",
+              "slot": "center",
+              "state": {}
+            }
+          ],
+          "theme": "primary",
+          "visual_start": 26.4667
+        }
+      ],
+      "role": "takeover",
+      "skin": "on-surface",
+      "start": 26.4667
     }
   ],
   "voice_gain": 0.7

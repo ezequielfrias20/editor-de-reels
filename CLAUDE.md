@@ -58,10 +58,20 @@ Orden fijo, todo re-ejecutable. Si cambia el plan de cortes, se vuelve a correr 
 | 6 | Color, solo si es HDR (§8) | `scripts/calibrate-hlg.py` + `scripts/make-hlg-lut.py` |
 | 7 | Recorrido de pantalla | `scripts/screen-tour.py videos/2/screen-tour.json --preview` |
 | 8 | Música | `scripts/make-music-bed.py assets/music/bed-tech.mp3 --dur 70` |
-| 9 | **Escribir el plan** | `videos/2/plan.json` ← **el trabajo creativo** |
+| 9 | **Escribir el plan** | `videos/2/plan.json` ← **el trabajo creativo** (piezas 1–9) |
+| 9b | **o escribir el EDL y compilarlo** | `videos/10/edl.json` ← el trabajo creativo, anclado a ÍNDICES DE PALABRA · `scripts/edl-compile.py --project . --piece 10` escribe `plan.json` |
 | 10 | Componer | `scripts/build-composition.py --project . --piece 2` |
 | 11 | Validar | `npx hyperframes check public` |
 | 12 | Renderizar | `npx hyperframes render public --skill=talking-head-recut -o output.mp4 --fps 30 --sdr` |
+
+**Desde la pieza 10, el paso 9 tiene dos caminos.** El de siempre: escribir `plan.json` a
+mano. El nuevo: escribir un `edl.json` que referencia **índices de palabra** del transcript
+(no floats copiados a mano) y dejar que `edl-compile.py` derive shots, stages, captions y
+SFX — con gates de estilo que fallan antes de escribir nada si `presenter_share`, el ritmo
+de cambios o la proporción de transiciones especiales se salen de banda. El paso 10 no
+cambia: `build-composition.py` consume el `plan.json` que sea, sin saber de cuál de los dos
+caminos vino. Ver `docs/superpowers/plans/2026-09-07-edl-motion-design.md` y
+`docs/superpowers/specs/2026-09-07-edl-motion-design-design.md`.
 
 ### Transcripción — AssemblyAI, no Whisper
 
@@ -669,6 +679,103 @@ Inventario que avisa antes de quedarte en cero · CTA **STOCK**.
 - Validación **0 errores** · **39/39 WCAG AA**. Sobre el MP4: sin negro real, pico
   −2.7 dB, **0 muestras saturadas**, voz 0.694, música a −36.0 dB, **22/22 efectos** con
   ataque detectable.
+
+**Piezas 5–9.** Editadas y sin documentar aquí una por una.
+
+⚠ **La numeración de las piezas NO es la de los reels.** `VIDEOS ORIGINALES/` se reorganizó
+en carpetas `REEL <n> — <título>` con su `GUION.MD`, y esa numeración es del calendario de
+publicación, no del estudio. La pieza **10** ya trata el tema del REEL 9 con **otra toma**
+(49 s, conversacional); la **11** es ese mismo reel grabado siguiendo el guion. Antes de
+abrir un slot, mirar de qué habla el transcript, no el número de la carpeta.
+
+**Pieza 10 — terminada, primera desde un `edl.json`.** `videos/10/output.mp4`, REEL 9:16,
+**44.33 s**, 29.8 MB, H.264 + AAC. Clínicas que pierden pacientes por contestar tarde.
+
+- Fuente: 49.16 s, corte a 44.33 s (10 % fuera, 5 cortes). Barbilla p95 = **0.4324**,
+  48/48 muestras; centroide `cx_frac` **0.4861** (Tarea 8: el punch-in recorta alrededor
+  de la CARA, no del centro geométrico). 131 palabras.
+- **El hito del plan `docs/superpowers/plans/2026-09-07-edl-motion-design.md`**: de punta a
+  punta desde un `videos/10/edl.json` que referencia índices de palabra, no floats a mano.
+  `edl-compile.py` deriva shots, stages, captions y SFX y aplica los gates de estilo antes
+  de escribir el plan — ver §9 arriba y la spec en `docs/superpowers/specs/`.
+- **3 Motion Stage**, cada uno una serie contigua de segmentos con un solo `fade_in`/
+  `fade_out` (nunca uno por segmento — la clase de bug de `check_no_black()` no puede
+  ocurrir con un stage continuo):
+
+  | Palabras | t | Qué visualiza | Objeto(s) |
+  | --- | --- | --- | --- |
+  | 14–37 | 4.13–11.33 | la hora exacta a la que escribieron, y las 8 horas que pasan | el reloj, **match cut** 11:00 → 19:00 sobre la MISMA instancia |
+  | 57–72 | 18.43–23.87 | cuatro trabajos incompatibles a la vez | sillón + teléfono + tarjeta + Instagram, **acumulativos** — se quedan, y en «al mismo tiempo» los tres orbitales se cierran sobre el sillón por un delta horneado |
+  | 80–87 | 26.47–28.80 | contratar mueve el cuello de botella, no lo quita | el embudo — sexto y último objeto de la librería inicial |
+
+- **Librería de objetos completa en 6**: `clock` · `dental-chair` · `phone` ·
+  `card-payment` · `instagram` · `bottleneck`. Cada uno un SVG sobre tokens con
+  `perspective()`/`rotateY()` ESTÁTICOS en un wrapper hijo — GSAP solo toca
+  `opacity`/`scale`/`x`/`y` del div exterior.
+- **SFX opt-in**: 6 declaraciones (`sfx:"auto"` en el punch del hook, la entrada del reloj,
+  el barrido de agujas, la entrada del sillón, el cierre radial y la entrada del embudo),
+  **0 colapsadas** — caen lo bastante separadas.
+- 10 segmentos, 12 encuadres, 33 bloques de subtítulo con 12 keywords, 6 efectos en 1
+  pista + cama musical.
+- `presenter_share` **0.66** — dentro del `warn_in` [0.35, 0.70] del perfil, fuera de la
+  banda ideal [0.45, 0.60] pero sin bloquear (severidad `warn`, no `fail`). Subirlo más
+  habría exigido inventar un séptimo objeto sin `reason` real o forzar `MOTION_STAGE` en
+  la tesis/cierre, que sus propios `reason` argumentan que deben quedarse en cámara —
+  se dejó así a propósito.
+- Validación **0 errores** de estructura, runtime, layout y motion · **19/19 WCAG AA**.
+  Sobre el MP4: duración 44.333 s, sin negro real (`pix_th=0.03`), pico **−3.3 dB**,
+  **0 muestras saturadas**, media −22.9 dB. Tinta más baja del bloque de dos líneas más
+  bajo (Task 9's acumulación pasa por el mismo cálculo): **y1518**, dentro de la zona
+  segura. El reloj: `rotate(330...)` al entrar (11:00) y `570 % 360 = 210°` al final del
+  barrido (19:00, la posición del «7»), mismo `id` en las dos puntas.
+- Golden file en `tests/golden/10.plan.json` — congela el `plan.json` compilado; un slot
+  movido en `objects.py` o un token tocado en `tokens.py` rompe `test_golden.py` en vez de
+  descubrirse tres piezas después.
+
+**Pieza 11 — terminada.** `videos/11/output.mp4`, copia en
+`VIDEOS EDITADOS/video-11-clinica-whatsapp-reel.mp4`. REEL 9:16, **41.40 s**, 20.7 MB,
+H.264 + AAC. La clínica que pierde pacientes en WhatsApp · CTA **CLÍNICA**.
+
+- Fuente `VIDEOS ORIGINALES/REEL 9 — …/video.mov`: 60.02 s, H.264 **SDR bt709**, 1080×1920,
+  rot 0. Corte 60.02 → 41.41 s (31 % fuera, 6 cortes). Barbilla p95 = 0.5436, 48/48.
+  90 palabras, verificadas re-transcribiendo el bruto: 90 = 90.
+- **Dos bordes de corte se movieron a mano.** `refine-timings.py` avisó de cuatro huecos con
+  sonido audible; midiendo la envolvente RMS en ventanas de 50 ms, dos de esas islas eran
+  **ataques separados** del final de palabra —un blip de 380 ms tras «clínica.» y una
+  vacilación de 600 ms a −20 dB antes del CTA— y el corte automático caía **encima**,
+  dejando 80 y 160 ms truncados. El borde va antes del ataque, no dentro. La lección:
+  el aviso dice *dónde* mirar; **la envolvente dice si la isla es la cola de la palabra o
+  un sonido nuevo**, y solo eso decide si el corte la parte o la elimina entera.
+- ⚠ **AssemblyAI devolvió una palabra con el final desbordado 2.3 s** («interés», pisando a
+  las cuatro siguientes). No lo caza ningún aviso de `refine-timings`: se ve comparando
+  cada `end` con el `start` siguiente. Recortado al inicio de la siguiente.
+- **5 visuales**, cuatro técnicas:
+
+  | t | Función | Visual | Técnica |
+  | --- | --- | --- | --- |
+  | 7.05–11.05 | pregunta, espera, silencio | `chat_unanswered` + espera ámbar | mockup |
+  | 11.05–13.90 | escribe a otra clínica, y le contestan | el MISMO chat, con `reply` | mockup |
+  | 16.75–23.30 | responder, identificar, pedir datos | `chip_grid` que se amontona | mockup |
+  | 23.30–28.85 | dirige → cita → persona | `flow_steps` `tone: ok` | mockup |
+  | 35.30–fin | «comenta CLÍNICA» | `comment_ui` | mockup |
+
+- Los dos tramos de **cara pelada** son el hook y el matiz («no reemplaza la atención
+  humana»): los dos momentos en los que un gráfico le roba el argumento.
+- 13 encuadres, 4 tarjetas, 21 bloques con 21 keywords, 32 efectos.
+- Validación **0 errores** · **38/38 WCAG AA**. Sobre el MP4: sin negro real, pico
+  **−2.53 dB**, **0 muestras saturadas**, voz 0.695 frente a 0.700 declarada, música en la
+  cola y **28/32 efectos** con ataque detectable (los cuatro restantes son `riser` y
+  `typing` —que por diseño no tienen ataque— y dos `ping` bajo voz). Tinta más baja fuera
+  de plano lleno: **y1518**, 18 px de margen.
+
+⚠ **Medir el pico con `-ac 1` miente.** La mezcla a mono de ffmpeg **suma** los dos canales
+(+3 dB): daba pico +0.26 dB y 17 muestras saturadas sobre un archivo cuyos canales reales
+van a −2.53 dB sin una sola saturada. El pico se mide **por canal**.
+
+⚠ **`mockups.py` perdió `chat_unanswered` entre la pieza 9 y hoy** — el árbol de trabajo
+quedó en la versión del commit inicial y el mockup solo sobrevivía en el `index.html`
+renderizado de la 9, cuyo `plan.json` ya no compilaba. Restaurado desde ahí y ampliado con
+`reply`. **`keyword_hero(mark=…)`, que la pieza 9 también usa, sigue sin existir.**
 
 Avisos abiertos que no bloquean: `composition_file_too_large`, `timeline_track_too_dense`,
 `pointer_events_none`.

@@ -102,10 +102,11 @@ def test_los_tiempos_salen_cuantizados():
 
 
 # ── integración con la pieza 10 ───────────────────────────────────────────────
-def test_la_pieza_10_declara_las_cinco_sfx_del_plan(edl10):
+def test_la_pieza_10_declara_seis_sfx_en_el_plan_final(edl10):
+    """Cinco desde la Tarea 10; la Tarea 11 añade la entrada del embudo."""
     from edl_metrics import sfx_declarations
     decl = sfx_declarations(edl10)
-    assert len(decl) == 5
+    assert len(decl) == 6
 
 
 def test_el_plan_de_la_pieza_10_trae_la_capa_de_sfx(plan10):

@@ -21,11 +21,12 @@ def test_el_plan_tiene_las_claves_que_build_composition_espera(plan10):
 
 
 def test_hay_un_encuadre_por_segmento_mas_los_eventos_camera(plan10):
-    # 9 segmentos + 4 eventos CAMERA - 1: eran 13 en la Tarea 8. La Tarea 9
-    # convirtió el segmento [57, 72] en MOTION_STAGE (camera=OFF todo el
-    # segmento) y se llevó por delante el CAMERA de la palabra 65, que vivía
-    # DENTRO de ese segmento — un corte de cámara mid-stage no tiene sentido,
-    # la misma razón que ya vació el segmento 1 en la Tarea 6.
+    # 10 segmentos (la Tarea 11 partió [73, 87] en un A_ROLL de rebote y un
+    # MOTION_STAGE) + 2 eventos CAMERA que sobreviven (palabras 98 y 121).
+    # El CAMERA de la palabra 65 lo quitó la Tarea 9 al convertir [57, 72]
+    # en MOTION_STAGE; el de la palabra 80 lo quitó la Tarea 11 al pasar a
+    # ser el ARRANQUE del nuevo segmento MOTION_STAGE [80, 87] — un corte de
+    # cámara mid-stage no tiene sentido, la misma razón las dos veces.
     assert len(plan10["shots"]) == 12
 
 
@@ -62,7 +63,8 @@ def test_cards_sigue_vacio_la_pieza_10_no_usa_tarjetas(plan10):
 def test_sfx_ya_no_esta_vacio_desde_la_tarea_10(plan10):
     # cards nunca se llena en la pieza 10; visuals ya NO está vacío desde la
     # Tarea 6 — ver test_un_stage_sale_como_UNA_... — y sfx desde la Tarea 10.
-    assert len(plan10["sfx"]) == 5
+    # Eran 5 en la Tarea 10; la Tarea 11 añade el sexto, la entrada del embudo.
+    assert len(plan10["sfx"]) == 6
     for start, name, trim, why in plan10["sfx"]:
         assert isinstance(start, float) and isinstance(name, str)
         assert isinstance(trim, float) and isinstance(why, str)
@@ -111,14 +113,23 @@ def test_un_stage_sale_como_UNA_entrada_de_visuals(plan10):
     assert v["start"] == 4.1333 and v["end"] == 11.3333
 
 
-def test_dos_stages_no_contiguos_son_DOS_entradas_de_visuals(plan10):
+def test_stages_no_contiguos_son_entradas_de_visuals_separadas(plan10):
     """La Tarea 9 añade el stage de acumulación (palabras 57-72), separado
     del reloj (14-37) por dos segmentos A_ROLL de por medio — `derive_stages`
     tiene que verlos como series MAXIMALES distintas, no fundirlos en una."""
     stages = [v for v in plan10["visuals"] if v["mock"][0] == "motion_stage"]
-    assert len(stages) == 2
+    assert len(stages) == 3
     assert stages[1]["id"] == "stage-b"
     assert stages[1]["start"] == 18.4333 and stages[1]["end"] == 23.8667
+
+
+def test_el_cuello_de_botella_es_un_tercer_stage_separado(plan10):
+    """La Tarea 11 añade el embudo (palabras 80-87). Un rebote A_ROLL de
+    73-79 lo separa del stage de acumulación — sin él, `derive_stages` los
+    fundiría en uno y el sillón seguiría vivo cuando el embudo entra."""
+    stages = [v for v in plan10["visuals"] if v["mock"][0] == "motion_stage"]
+    assert stages[2]["id"] == "stage-c"
+    assert stages[2]["start"] == 26.4667
 
 
 def test_el_off_se_retrasa_por_el_fade_in(plan10):

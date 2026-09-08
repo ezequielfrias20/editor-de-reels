@@ -217,3 +217,13 @@ def test_el_css_del_stage_usa_el_atributo_data_viz_id_no_un_id_literal():
     css, _, _ = motion_stage("stage-x", theme="primary", objects=[], at=[])
     assert '.viz[data-viz-id="stage-x"] .obj.accent' in css
     assert "#stage-x " not in css and "#stage-x." not in css and "#stage-x{" not in css
+
+
+# ── el cuello de botella (Tarea 11 — sexto y último objeto) ─────────────────
+def test_el_cuello_de_botella_existe():
+    assert "bottleneck" in REGISTRY
+
+
+def test_el_cuello_de_botella_devuelve_html_con_id():
+    o = REGISTRY["bottleneck"]("stage-c", "task-bottleneck", {}, "center")
+    assert 'id="stage-c-task-bottleneck"' in o["html"]

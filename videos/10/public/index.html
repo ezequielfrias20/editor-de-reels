@@ -52,6 +52,26 @@
 .viz[data-viz-id="stage-b"] .stage-type{color:#FFFFFF;font-family:'Inter', system-ui, sans-serif;font-weight:900}
 
 
+.viz[data-viz-id="stage-c"] .vizbg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+
+
+/* Motion Stage — suelo continuo de una serie de segmentos.
+   El fondo va en un ELEMENTO del DOM: el `background` de la página se descarta
+   en el render (trampa nº1), y el fill de una escena a pantalla completa nunca
+   va en la raíz de la composición. */
+.viz[data-viz-id="stage-c"] .stage-ground{position:absolute;inset:0;
+  background:radial-gradient(120% 62% at 50% 0%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 58%),repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+.viz[data-viz-id="stage-c"] .stage-grain{position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.82%27%20numOctaves%3D%272%27%20seed%3D%227%22/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23g%29%27%20opacity%3D%270.035%27/%3E%3C/svg%3E");background-repeat:repeat}
+.viz[data-viz-id="stage-c"] .stage-plane{position:absolute;inset:0}
+.viz[data-viz-id="stage-c"] .obj{position:absolute;display:block;opacity:0;
+  transform-origin:50% 50%;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
+.viz[data-viz-id="stage-c"] .obj.accent{color:#9B85FF}
+.viz[data-viz-id="stage-c"] .obj .fill{background:rgba(124,92,255,.16)}
+.viz[data-viz-id="stage-c"] .obj.hero{box-shadow:0 0 0 1px rgba(124,92,255,.35), 0 18px 60px rgba(124,92,255,.22)}
+.viz[data-viz-id="stage-c"] .stage-type{color:#FFFFFF;font-family:'Inter', system-ui, sans-serif;font-weight:900}
+
+
 :root{--bg:#0B0C10;--surface:#16181F;--text:#FFFFFF;
   --violet:#7C5CFF;--go:#34E39B;--alert:#FF5A5A;
   --accent-0:#7C5CFF;--accent-1:#34E39B;--accent-2:#FFB84D;
@@ -151,18 +171,13 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   <video class="vid clip" id="shot-06" src="input-video.mp4"
          muted playsinline
          style="left:-63px;top:-97px;width:1210px;height:2150px;object-position:50% 50%"
-         data-start="23.7000" data-duration="2.7667"
+         data-start="23.7000" data-duration="3.0000"
          data-media-start="23.7000" data-track-index="1"></video>
-  <video class="vid clip" id="shot-07" src="input-video.mp4"
-         muted playsinline
-         style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
-         data-start="26.4667" data-duration="2.3333"
-         data-media-start="26.4667" data-track-index="1"></video>
   <video class="vid clip" id="shot-08" src="input-video.mp4"
          muted playsinline
          style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
-         data-start="28.8000" data-duration="2.9667"
-         data-media-start="28.8000" data-track-index="1"></video>
+         data-start="28.6333" data-duration="3.1334"
+         data-media-start="28.6333" data-track-index="1"></video>
   <video class="vid clip" id="shot-09" src="input-video.mp4"
          muted playsinline
          style="left:-63px;top:-97px;width:1210px;height:2150px;object-position:50% 50%"
@@ -197,6 +212,8 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   <audio id="sfx-03-pop" class="clip" src="sfx/pop.mp3" data-start="19.8000" data-duration="0.7333" data-track-index="12" data-volume="0.254"></audio>
   <!-- cuatro trabajos incompatibles cayendo sobre la misma persona -->
   <audio id="sfx-04-impact-bass-1" class="clip" src="sfx/impact-bass-1.mp3" data-start="22.6667" data-duration="2.1000" data-track-index="12" data-volume="0.056"></audio>
+  <!-- contratar solo mueve el cuello de botella, no lo quita -->
+  <audio id="sfx-05-pop" class="clip" src="sfx/pop.mp3" data-start="27.2000" data-duration="0.7333" data-track-index="12" data-volume="0.254"></audio>
 
 
 
@@ -281,6 +298,25 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
 </svg>
   </div>
 </div></div><div class="stage-grain"></div></div></div>
+<div class="viz over clip" data-viz-id="stage-c" id="host-stage-c" data-start="26.4667" data-duration="2.3333" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam mock" id="stage-c-cam"><div class="stage-ground"></div><div class="stage-plane">
+<div class="obj accent" id="stage-c-task-bottleneck" data-layout-allow-overflow style="left:380px;
+     top:690px;width:320px;height:320px">
+  <div style="width:100%;height:100%;transform:perspective(900px) rotateY(-6deg);
+       transform-style:preserve-3d">
+    <svg viewBox="0 0 320 320" width="320" height="320">
+  <circle cx="110" cy="42" r="15" fill="#16181F" stroke="currentColor" stroke-width="3"/>
+  <circle cx="152" cy="30" r="15" fill="#16181F" stroke="currentColor" stroke-width="3"/>
+  <circle cx="194" cy="42" r="15" fill="#16181F" stroke="currentColor" stroke-width="3"/>
+  <circle cx="232" cy="60" r="15" fill="#16181F" stroke="currentColor" stroke-width="3"/>
+  <circle cx="76" cy="62" r="15" fill="#16181F" stroke="currentColor" stroke-width="3"/>
+  <path d="M40 92 L280 92 L188 232 L132 232 Z" fill="#16181F"
+        stroke="currentColor" stroke-width="3"/>
+  <rect x="132" y="232" width="56" height="46" fill="#16181F"
+        stroke="rgba(255,255,255,.16)" stroke-width="2"/>
+  <circle cx="160" cy="298" r="15" fill="rgba(255,255,255,.16)"/>
+</svg>
+  </div>
+</div></div><div class="stage-grain"></div></div></div>
 
   <!-- los bloques comparten posición a propósito: solo uno es visible a la vez -->
   <div id="caption-host" class="clip" data-layout-allow-overlap data-start="0"
@@ -305,8 +341,8 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     <div class="cap on-surface" id="cap17" data-layout-allow-overlap style="top:1382px"><span class="w">al</span><span class="w key" id="c17k1">MISMO</span><span class="w key" id="c17k2">TIEMPO</span></div>
     <div class="cap on-dark" id="cap18" data-layout-allow-overlap style="top:891px"><span class="w">Contratar</span><span class="w">otra</span><span class="w">persona</span><span class="w">te</span></div>
     <div class="cap on-dark" id="cap19" data-layout-allow-overlap style="top:891px"><span class="w">tampoco</span><span class="w">lo</span><span class="w">arregla</span></div>
-    <div class="cap on-dark" id="cap20" data-layout-allow-overlap style="top:888px"><span class="w">solo</span><span class="w">mueve</span><span class="w">el</span></div>
-    <div class="cap on-dark" id="cap21" data-layout-allow-overlap style="top:888px"><span class="w key" id="c21k0">CUELLO</span><span class="w key" id="c21k1">DE</span><span class="w key" id="c21k2">BOTELLA</span><span class="w">del</span><span class="w">lugar</span></div>
+    <div class="cap on-surface" id="cap20" data-layout-allow-overlap style="top:1382px"><span class="w">solo</span><span class="w">mueve</span><span class="w">el</span></div>
+    <div class="cap on-surface" id="cap21" data-layout-allow-overlap style="top:1352px"><span class="w key" id="c21k0">CUELLO</span><span class="w key" id="c21k1">DE</span><span class="w key" id="c21k2">BOTELLA</span><span class="w">del</span><span class="w">lugar</span></div>
     <div class="cap on-dark" id="cap22" data-layout-allow-overlap style="top:888px"><span class="w">Lo</span><span class="w">que</span><span class="w">hay</span><span class="w">que</span><span class="w">resolver</span></div>
     <div class="cap on-dark" id="cap23" data-layout-allow-overlap style="top:888px"><span class="w">no</span><span class="w">es</span><span class="w">contestar</span><span class="w">más</span><span class="w">rápido</span></div>
     <div class="cap on-dark" id="cap24" data-layout-allow-overlap style="top:891px"><span class="w">es</span><span class="w">que</span><span class="w">la</span><span class="w">primera</span></div>
@@ -332,11 +368,15 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     tl.fromTo('.viz[data-viz-id="stage-b"]', { opacity: 0 }, { opacity: 1, duration: 0.22, ease: "power1.inOut" }, 18.4333);
     tl.to('.viz[data-viz-id="stage-b"]', { opacity: 0, duration: 0.18, ease: "power1.inOut" }, 23.6867);
     tl.set('.viz[data-viz-id="stage-b"]', { opacity: 0, visibility: "hidden" }, 23.8667);
+    tl.set('.viz[data-viz-id="stage-c"]', { visibility: "visible" }, 26.4667);
+    tl.fromTo('.viz[data-viz-id="stage-c"]', { opacity: 0 }, { opacity: 1, duration: 0.22, ease: "power1.inOut" }, 26.4667);
+    tl.to('.viz[data-viz-id="stage-c"]', { opacity: 0, duration: 0.18, ease: "power1.inOut" }, 28.6200);
+    tl.set('.viz[data-viz-id="stage-c"]', { opacity: 0, visibility: "hidden" }, 28.8000);
     tl.fromTo('.viz[data-viz-id="stage-a"] #stage-a-clock-main', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 5.0333);
-    const _hv10 = { v: 330.0 };
-    tl.to(_hv10, { v: 570.0, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-h')?.setAttribute("transform", "rotate(" + _hv10.v + " 150 150)"); } }, 10.3000);
-    const _mv11 = { v: 0 };
-    tl.to(_mv11, { v: 2880, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-m')?.setAttribute("transform", "rotate(" + _mv11.v + " 150 150)"); } }, 10.3000);
+    const _hv14 = { v: 330.0 };
+    tl.to(_hv14, { v: 570.0, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-h')?.setAttribute("transform", "rotate(" + _hv14.v + " 150 150)"); } }, 10.3000);
+    const _mv15 = { v: 0 };
+    tl.to(_mv15, { v: 2880, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-m')?.setAttribute("transform", "rotate(" + _mv15.v + " 150 150)"); } }, 10.3000);
     tl.fromTo('.viz[data-viz-id="stage-b"] #stage-b-task-chair', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 19.8000);
     tl.fromTo('.viz[data-viz-id="stage-b"] #stage-b-task-phone', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 20.3667);
     tl.fromTo('.viz[data-viz-id="stage-b"] #stage-b-task-pay', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 21.2333);
@@ -344,6 +384,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     tl.to('.viz[data-viz-id="stage-b"] #stage-b-task-phone', { x: 0, y: 105, scale: 1.06, duration: 0.5, ease: "power2.inOut" }, 22.6667);
     tl.to('.viz[data-viz-id="stage-b"] #stage-b-task-pay', { x: -120, y: 52, scale: 1.06, duration: 0.5, ease: "power2.inOut" }, 22.6667);
     tl.to('.viz[data-viz-id="stage-b"] #stage-b-task-ig', { x: -120, y: -52, scale: 1.06, duration: 0.5, ease: "power2.inOut" }, 22.6667);
+    tl.fromTo('.viz[data-viz-id="stage-c"] #stage-c-task-bottleneck', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 27.2000);
     // bloques de subtítulo — entran enteros y se quedan quietos
     tl.fromTo('#cap0', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.1000);
     tl.to('#cap0', { opacity: 0, duration: 0.1, ease: "power2.in" }, 0.9667);

@@ -366,11 +366,11 @@
     {
       "words": [
         73,
-        87
+        79
       ],
+      "semanticIntent": "contratar a alguien más no arregla nada",
       "sceneType": "A_ROLL",
       "camera": "MEDIUM",
-      "semanticIntent": "contratar no arregla nada, solo mueve el cuello de botella",
       "events": [
         {
           "atWord": 73,
@@ -387,7 +387,21 @@
             77,
             79
           ]
-        },
+        }
+      ],
+      "reason": "rechaza la solución obvia en cámara, con su propia cara — el giro necesita que el espectador vea que él sabe lo que están pensando"
+    },
+    {
+      "words": [
+        80,
+        87
+      ],
+      "semanticIntent": "contratar solo mueve el cuello de botella, no lo quita",
+      "sceneType": "MOTION_STAGE",
+      "representationType": "OBJECT",
+      "camera": "OFF",
+      "defaultPreset": "float-in",
+      "events": [
         {
           "atWord": 80,
           "type": "CAPTION",
@@ -395,6 +409,14 @@
             80,
             82
           ]
+        },
+        {
+          "atWord": 83,
+          "type": "OBJECT_IN",
+          "asset": "object:bottleneck@1",
+          "instanceId": "task-bottleneck",
+          "slot": "center",
+          "sfx": "auto"
         },
         {
           "atWord": 83,
@@ -411,16 +433,9 @@
             83,
             85
           ]
-        },
-        {
-          "atWord": 80,
-          "type": "CAMERA",
-          "state": {
-            "camera": "WIDE"
-          }
         }
       ],
-      "reason": "desmonta la solución que el espectador ya estaba pensando"
+      "reason": "el embudo entra en su propia palabra, «cuello» — es un stage propio, separado del de acumulación por el rebote de arriba, para que el objeto no compita por el centro con el sillón que todavía no ha salido"
     },
     {
       "words": [
