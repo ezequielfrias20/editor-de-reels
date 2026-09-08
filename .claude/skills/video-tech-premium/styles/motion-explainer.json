@@ -1,15 +1,89 @@
 {
   "name": "motion-explainer",
   "camera": {
-    "ladder": { "WIDE": 1.00, "MEDIUM": 1.12, "CLOSE": 1.20 },
-    "max_upscale": 1.20,
-    "min_gap": 0.70,
+    "ladder": {
+      "WIDE": 1.0,
+      "MEDIUM": 1.12,
+      "CLOSE": 1.2
+    },
+    "max_upscale": 1.2,
+    "min_gap": 0.7,
     "hook_exempt_until": 3.0,
     "default_anchor": 0.42
   },
-  "kinetic": { "small": 1.00, "medium": 1.55, "hero": 2.20, "mega": 2.80 },
-  "caption": { "keyword_scale": 1.22 },
-  "stage": { "spotlight_alpha": 0.05, "fade_in": 0.22, "fade_out": 0.18 },
-  "sfx": { "collapse_same": 0.25, "concurrency_window": 0.18 },
-  "gates": []
+  "kinetic": {
+    "small": 1.0,
+    "medium": 1.55,
+    "hero": 2.2,
+    "mega": 2.8
+  },
+  "caption": {
+    "keyword_scale": 1.22
+  },
+  "stage": {
+    "spotlight_alpha": 0.05,
+    "fade_in": 0.22,
+    "fade_out": 0.18
+  },
+  "sfx": {
+    "collapse_same": 0.25,
+    "concurrency_window": 0.18
+  },
+  "gates": [
+    {
+      "metric": "presenter_share",
+      "in": [
+        0.45,
+        0.6
+      ],
+      "warn_in": [
+        0.35,
+        0.7
+      ],
+      "fail_in": [
+        0.2,
+        0.85
+      ]
+    },
+    {
+      "metric": "max_micro_gap",
+      "max": 2.5,
+      "severity": "fail"
+    },
+    {
+      "metric": "max_macro_gap",
+      "max": 4.5,
+      "severity": "fail"
+    },
+    {
+      "metric": "punch_zoom_count",
+      "max": 2,
+      "severity": "warn"
+    },
+    {
+      "metric": "theme_change_count",
+      "max": 2,
+      "severity": "warn"
+    },
+    {
+      "metric": "mega_count",
+      "max": 1,
+      "severity": "warn"
+    },
+    {
+      "metric": "special_transition_ratio",
+      "max": 0.2,
+      "severity": "warn"
+    },
+    {
+      "metric": "sfx_per_macro",
+      "max": 0.5,
+      "severity": "warn"
+    },
+    {
+      "metric": "decorative_reason_count",
+      "max": 0,
+      "severity": "warn"
+    }
+  ]
 }

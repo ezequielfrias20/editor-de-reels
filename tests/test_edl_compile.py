@@ -21,8 +21,9 @@ def test_el_plan_tiene_las_claves_que_build_composition_espera(plan10):
 
 
 def test_hay_un_encuadre_por_segmento_mas_los_eventos_camera(plan10):
-    # 9 segmentos + 2 eventos CAMERA
-    assert len(plan10["shots"]) == 11
+    # 9 segmentos + 5 eventos CAMERA (los que se añadieron en la Tarea 4 para
+    # que ningún segmento se quedara sin evento macro por más de 4.5 s)
+    assert len(plan10["shots"]) == 14
 
 
 def test_los_encuadres_van_ordenados_y_empiezan_en_cero(plan10):
@@ -38,8 +39,9 @@ def test_la_camara_se_traduce_por_la_escalera_del_perfil(plan10):
 
 
 def test_el_evento_camera_emite_su_propio_encuadre(plan10, edl10):
-    # El CAMERA de la palabra 97 baja a MEDIUM a mitad del segmento 7.
-    t = q(edl10.wt.at(97))
+    # El CAMERA de la palabra 98 ("es", inicio de la segunda cláusula) baja
+    # a MEDIUM a mitad del segmento 7.
+    t = q(edl10.wt.at(98))
     sh = next(s for s in plan10["shots"] if s["at"] == t)
     assert sh["zoom"] == 1.12
 

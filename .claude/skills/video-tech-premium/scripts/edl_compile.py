@@ -17,7 +17,8 @@ import json
 import sys
 from pathlib import Path
 
-from edl_schema import Edl, EdlError, load_edl
+from edl_metrics import measure, run_gates
+from edl_schema import Edl, EdlError, load_edl, segment_windows
 
 FPS = 30
 
@@ -55,10 +56,12 @@ def _shots(edl: Edl, style: dict) -> list[dict]:
             out.append({"at": q(at), "kind": "full",
                         "zoom": ladder[camera], "anchor": anchor})
 
-    for i, seg in enumerate(edl.segments):
+    windows = segment_windows(edl.segments, edl.wt)
+    for (start, _end), seg in zip(windows, edl.segments):
         # El primer encuadre arranca la PIEZA, no la primera palabra: antes de
-        # que él hable ya hay imagen en pantalla.
-        start = 0.0 if i == 0 else seg.t(edl.wt)[0]
+        # que él hable ya hay imagen en pantalla. `segment_windows` ya lo
+        # resuelve así, y es la MISMA regla que measure() usa para calcular
+        # cuánto tiempo está el presentador en pantalla.
         push(start, seg.camera)
         for ev in sorted(seg.events, key=lambda e: (e.at_word,)):
             if ev.type == "CAMERA":
@@ -123,7 +126,23 @@ def main(argv=None) -> int:
             print(f"  - {p}", file=sys.stderr)
         return 1
 
-    plan = compile_edl(edl, load_style(edl.style_profile, skill))
+    style = load_style(edl.style_profile, skill)
+
+    # Fase 5: el compilador CALCULA métricas; el perfil decide umbrales y
+    # severidad. Un gate en fail detiene el compilador antes de escribir nada;
+    # un warn se imprime y se sigue.
+    metrics = measure(edl)
+    findings = run_gates(metrics, style)
+    for f in findings:
+        marca = "✗" if f.severity == "fail" else "⚠"
+        print(f"  {marca} {f.message}", file=sys.stderr)
+    if any(f.severity == "fail" for f in findings):
+        print("\n✗ gates de estilo en fallo; el plan no se escribe", file=sys.stderr)
+        return 1
+
+    print("  métricas: " + " · ".join(f"{k} {v}" for k, v in sorted(metrics.items())))
+
+    plan = compile_edl(edl, style)
     out = a.out or (work / "plan.json")
     write_plan(plan, out)
     print(f"✓ {out}  ·  {len(edl.segments)} segmentos  ·  "

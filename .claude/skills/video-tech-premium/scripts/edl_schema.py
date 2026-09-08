@@ -120,6 +120,22 @@ class Edl:
     planner: dict
 
 
+def segment_windows(segments, wt: WordTable) -> tuple[tuple[float, float], ...]:
+    """Ventana temporal ACTIVA de cada segmento: desde su inicio (o 0.0 para
+    el primero) hasta el inicio del siguiente (o la duración total para el
+    último).
+
+    NO es el span de sus palabras. El span deja fuera las pausas entre
+    frases, pero el presentador sigue en pantalla durante esas pausas — el
+    plano no cambia hasta que empieza el siguiente segmento. Es la misma regla
+    que usa `_shots()` para decidir cuándo emitir cada encuadre, y `measure()`
+    la necesita para que `presenter_share` dé 1.0 en una pieza toda A_ROLL.
+    """
+    starts = [0.0 if i == 0 else seg.t(wt)[0] for i, seg in enumerate(segments)]
+    ends = starts[1:] + [wt.duration]
+    return tuple(zip(starts, ends))
+
+
 def derive_stages(segments) -> tuple[Stage, ...]:
     """Un stage es una serie MAXIMAL de segmentos contiguos de tipo stage.
 
