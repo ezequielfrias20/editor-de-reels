@@ -1,0 +1,95 @@
+{
+  "_": "generado por edl-compile desde edl.json — NO editar a mano",
+  "cards": [],
+  "format": "REEL",
+  "keywords": [
+    "11",
+    "3",
+    "7",
+    "BOTELLA",
+    "CONTESTÓ",
+    "CUELLO",
+    "DE",
+    "MISMO",
+    "PRIMERO",
+    "RECEPCIONISTA",
+    "SOSTENER",
+    "TIEMPO"
+  ],
+  "music": {
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "src": "assets/music/bed-tech.mp3"
+  },
+  "sfx": [],
+  "shots": [
+    {
+      "anchor": 0.42,
+      "at": 0.0,
+      "kind": "full",
+      "zoom": 1.2
+    },
+    {
+      "anchor": 0.42,
+      "at": 4.1333,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "anchor": 0.42,
+      "at": 9.4,
+      "kind": "full",
+      "zoom": 1.2
+    },
+    {
+      "anchor": 0.42,
+      "at": 11.3333,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "anchor": 0.42,
+      "at": 15.8,
+      "kind": "full",
+      "zoom": 1.0
+    },
+    {
+      "anchor": 0.42,
+      "at": 18.4333,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "anchor": 0.42,
+      "at": 23.8667,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "anchor": 0.42,
+      "at": 28.8,
+      "kind": "full",
+      "zoom": 1.0
+    },
+    {
+      "anchor": 0.42,
+      "at": 31.1,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "anchor": 0.42,
+      "at": 35.8333,
+      "kind": "full",
+      "zoom": 1.2
+    },
+    {
+      "anchor": 0.42,
+      "at": 39.4333,
+      "kind": "full",
+      "zoom": 1.12
+    }
+  ],
+  "visuals": [],
+  "voice_gain": 0.7
+}

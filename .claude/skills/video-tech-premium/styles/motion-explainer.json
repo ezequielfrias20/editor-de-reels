@@ -1,0 +1,15 @@
+{
+  "name": "motion-explainer",
+  "camera": {
+    "ladder": { "WIDE": 1.00, "MEDIUM": 1.12, "CLOSE": 1.20 },
+    "max_upscale": 1.20,
+    "min_gap": 0.70,
+    "hook_exempt_until": 3.0,
+    "default_anchor": 0.42
+  },
+  "kinetic": { "small": 1.00, "medium": 1.55, "hero": 2.20, "mega": 2.80 },
+  "caption": { "keyword_scale": 1.22 },
+  "stage": { "spotlight_alpha": 0.05, "fade_in": 0.22, "fade_out": 0.18 },
+  "sfx": { "collapse_same": 0.25, "concurrency_window": 0.18 },
+  "gates": []
+}

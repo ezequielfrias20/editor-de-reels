@@ -16,6 +16,11 @@ def project_root() -> Path:
 
 
 @pytest.fixture(scope="session")
+def skill_root() -> Path:
+    return SCRIPTS.parent
+
+
+@pytest.fixture(scope="session")
 def w10(project_root):
     """Las palabras de la pieza 10, remapeadas a la línea del corte."""
     from edl_words import load_words
@@ -73,3 +78,22 @@ def stage_edl():
         seg.update(kw)
         return dict(base, segments=[seg])
     return _s
+
+
+# ── Tarea 3 ──────────────────────────────────────────────────────────────────
+@pytest.fixture(scope="session")
+def style(skill_root):
+    from edl_compile import load_style
+    return load_style("motion-explainer", skill_root)
+
+
+@pytest.fixture(scope="session")
+def edl10(project_root):
+    from edl_schema import load_edl
+    return load_edl(project_root / "videos" / "10" / "edl.json", project_root)
+
+
+@pytest.fixture(scope="session")
+def plan10(edl10, style):
+    from edl_compile import compile_edl
+    return compile_edl(edl10, style)
