@@ -2895,11 +2895,11 @@ Primera pieza del pipeline testeable sin renderizar."
 - Modify: `scripts/build-composition.py` — **cambio quirúrgico nº 2**
 - Modify: `scripts/edl_compile.py` (tope de escalera por resolución, `camera_min_gap`)
 
-- [ ] **Step 1: Montar el spike**
+- [x] **Step 1: Montar el spike**
 
 Composición mínima con **un** `<video>` de `out/10-rough.mp4` dentro de un wrapper, y tres `tl.set({scale, x, y})` de duración cero sobre el **wrapper** (nunca sobre el `<video>`, que es del framework).
 
-- [ ] **Step 2: Las tres comprobaciones**
+- [x] **Step 2: Las tres comprobaciones**
 
 ```bash
 npx hyperframes snapshot spikes/camera-transform --at 1.0,1.0
@@ -2909,7 +2909,7 @@ npx hyperframes snapshot spikes/camera-transform --at 2.5
 # (c) comparar nitidez a CLOSE contra la ruta actual de caja sobredimensionada
 ```
 
-- [ ] **Step 3: Escribir el resultado**
+- [x] **Step 3: Escribir el resultado**
 
 `docs/superpowers/spikes/2026-09-07-hard-crop-cut.md` con las tres respuestas y la decisión:
 
@@ -2919,11 +2919,11 @@ npx hyperframes snapshot spikes/camera-transform --at 2.5
 | (a) o (b) fallan | **Tres capas persistentes** WIDE/MEDIUM/CLOSE, cada una en su wrapper, corte por opacidad. Tres decoders frente a los 15-16 elementos de hoy |
 | (c) sale más blando | **Statu quo.** La nitidez de la cara no se negocia |
 
-- [ ] **Step 4: `cx_frac` / `cy_frac` en `measure-face.py`**
+- [x] **Step 4: `cx_frac` / `cy_frac` en `measure-face.py`**
 
 Sobre las mismas 48 muestras Haar que ya corre, emitir también el centroide horizontal. Test: `assets/face-10.json` regenerado conserva `chin_frac` **0.4324** y gana `cx_frac` en `[0, 1]`.
 
-- [ ] **Step 5: Cambio quirúrgico nº 2**
+- [x] **Step 5: Cambio quirúrgico nº 2**
 
 En `shot_rect()`, `kind == "full"`:
 
@@ -2935,7 +2935,7 @@ En `shot_rect()`, `kind == "full"`:
 
 Con `anchor_x = shot.get("anchorX", 0.5)`. Un plan sin `anchorX` da el comportamiento actual **bit a bit** — verificarlo recompilando la pieza 4 y comparando su `public/index.html` con el commiteado.
 
-- [ ] **Step 6: Tope de escalera por resolución y ritmo de cámara**
+- [x] **Step 6: Tope de escalera por resolución y ritmo de cámara**
 
 ```python
 def cap_ladder(ladder: dict, src_w: int, canvas_w: int, max_upscale: float) -> dict:
@@ -2947,7 +2947,7 @@ def cap_ladder(ladder: dict, src_w: int, canvas_w: int, max_upscale: float) -> d
 
 Y una métrica nueva `min_camera_gap` en `edl_metrics.py`, con gate `warn` por debajo de 0.70 s salvo dentro de `hook_exempt_until`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add -A docs/superpowers/spikes .claude/skills/video-tech-premium/scripts tests/
