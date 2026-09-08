@@ -2976,7 +2976,7 @@ El beat literal del guion, palabras 57-72. Nada sale de la escena: los objetos s
 - Modify: `videos/10/edl.json` (segmento `[57, 72]` → `MOTION_STAGE`)
 - Modify: `tests/test_objects.py`
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 ```python
 def test_crowd_mueve_hacia_el_centro_por_un_delta_horneado():
@@ -3006,15 +3006,15 @@ def test_cada_objeto_devuelve_html_y_un_id_unico():
         vistos.add(o["eid"])
 ```
 
-- [ ] **Step 2: Implementar los cuatro objetos y `crowd_delta`**
+- [x] **Step 2: Implementar los cuatro objetos y `crowd_delta`**
 
 Cada uno es un SVG construido desde `tokens` (hairline `LINE`, `SHADOW`, `RADIUS`, acento del tema). Profundidad 2.5D con `perspective()` **estático** y un `rotateY` de reposo; lo que se anima es solo `opacity`, `scale`, `x`, `y`.
 
-- [ ] **Step 3: Convertir el segmento en el EDL**
+- [x] **Step 3: Convertir el segmento en el EDL**
 
 Cuatro `OBJECT_IN` en las palabras 62 · 64 · 66 · 69 (19.799 · 20.360 · 21.241 · 22.139 — huecos de 0.56, 0.88 y 0.90 s), y tres `OBJECT_STATE` con `crowd: true` en la palabra 71. `transitionIn: "DIAGONAL_WIPE"`.
 
-- [ ] **Step 4: Verificar sobre snapshots**
+- [x] **Step 4: Verificar sobre snapshots**
 
 ```bash
 npx hyperframes snapshot videos/10/public --at 19.9,20.5,21.4,22.3,23.1
@@ -3022,7 +3022,7 @@ npx hyperframes snapshot videos/10/public --at 19.9,20.5,21.4,22.3,23.1
 
 Esperado: la escena **se llena progresivamente** — 1, 2, 3, 4 objetos — y en 23.1 los tres orbitales están más cerca del sillón que en 22.3. Ningún objeto por debajo de y1536.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add -A .claude/skills/video-tech-premium/scripts videos/10/ tests/
