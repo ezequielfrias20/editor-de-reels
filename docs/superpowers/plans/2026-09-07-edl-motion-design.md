@@ -3433,11 +3433,11 @@ la prueba de determinismo sería inútil."
 - Create: `spikes/three-determinism/` (desechable)
 - Create: `docs/superpowers/spikes/2026-09-07-three-determinism.md`
 
-- [ ] **Step 1: Montar la escena mínima**
+- [x] **Step 1: Montar la escena mínima**
 
 Composición 1080×1920 con un icosaedro rotando dirigido por `hf-seek`, `data-duration` **explícito** en la raíz (el adapter `three` no infiere duración y sin él el render falla con «Composition has zero duration»).
 
-- [ ] **Step 2: Las tres comprobaciones**
+- [x] **Step 2: Las tres comprobaciones**
 
 | # | Prueba | Cómo |
 | --- | --- | --- |
@@ -3445,7 +3445,7 @@ Composición 1080×1920 con un icosaedro rotando dirigido por `hf-seek`, `data-d
 | 2 | `data-duration` manual se respeta | render de 3 s → `ffprobe` da 3 s |
 | 3 | WebGL no revienta con la memoria justa | render de 90 frames a 1080×1920 sin OOM |
 
-- [ ] **Step 3: Escribir el resultado y decidir**
+- [x] **Step 3: Escribir el resultado y decidir**
 
 Si falla cualquiera de las tres, **el 3D real no entra** y el 2.5D cubre todo el vocabulario. Documentarlo en `docs/superpowers/spikes/` y cerrar.
 
