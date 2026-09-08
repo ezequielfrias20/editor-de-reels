@@ -3257,7 +3257,7 @@ Solo **después** de que la pieza 10 funcione. Antes no hay contra qué validar 
   - `resolve_edl(draft: dict, manifest: dict) -> dict` — devuelve el EDL con `asset`, `resolvedVia` y `resolveReason` rellenos
   - `load_manifest(path) -> dict` · `asset_hash(ref, manifest) -> str`
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 ```python
 def test_la_prioridad_es_reutilizar_antes_que_generar(manifest):
@@ -3298,7 +3298,7 @@ def test_el_informe_registra_manifest_version_y_hashes(edl10, style, manifest):
     assert all(h.startswith("sha256:") for h in r["assets_used"].values())
 ```
 
-- [ ] **Step 2: Crear `assets/manifest.json`**
+- [x] **Step 2: Crear `assets/manifest.json`**
 
 ```jsonc
 {
@@ -3316,7 +3316,7 @@ def test_el_informe_registra_manifest_version_y_hashes(edl10, style, manifest):
 
 Los hashes se generan del código fuente de cada función de `objects.py` (`inspect.getsource`), que es lo que **define** el asset. Un script `scripts/manifest-sync.py` los recalcula y **falla si un `@n` existente cambió** — que es exactamente la garantía de inmutabilidad.
 
-- [ ] **Step 3: Implementar el Resolver con la prioridad estricta**
+- [x] **Step 3: Implementar el Resolver con la prioridad estricta**
 
 ```python
 PRIORIDAD = ("library", "configurable", "recording", "generated", "broll")
@@ -3324,11 +3324,11 @@ PRIORIDAD = ("library", "configurable", "recording", "generated", "broll")
 
 Cada nivel se intenta en orden y solo se baja si el de arriba no puede servir la petición. Lo generado entra en `assets/gen/ledger.json`, que **ya existe**, así que el pipeline se re-corre sin volver a pagar. El B-roll **ya no está limitado a metraje propio**: puede ser licenciado, buscado o generado si el Planner lo justifica.
 
-- [ ] **Step 4: Validar en CORE la presencia en el manifest**
+- [x] **Step 4: Validar en CORE la presencia en el manifest**
 
 En `edl_schema.load_edl`, junto a `_check_assets`: si el `asset` no está en `assets/manifest.json`, o su hash no cuadra, **falla**.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add -A .claude/skills/video-tech-premium/scripts assets/manifest.json tests/
