@@ -15,6 +15,7 @@ compilando las piezas 1-9, que no traen `captions` en su plan.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -294,6 +295,54 @@ def compile_edl(edl: Edl, style: dict, src_w: int | None = None) -> dict:
         "sfx": _sfx(edl),
         "_": f"generado por edl-compile desde {edl.src.name} — NO editar a mano",
     }
+
+
+def _sin_ruido_creativo(node):
+    """Copia recursiva sin las claves-comentario (`_algo`, la misma
+    convención documentada en `references/plan-schema.md`) ni
+    `planner.generatedAt`. Devuelve estructura nueva — nunca toca `node`.
+    """
+    if isinstance(node, dict):
+        out = {}
+        for k, v in node.items():
+            if k.startswith("_"):
+                continue
+            if k == "planner" and isinstance(v, dict):
+                v = {pk: pv for pk, pv in v.items() if pk != "generatedAt"}
+                if not v:
+                    # Un EDL sin "planner" y uno con solo generatedAt (que
+                    # queda vacío tras excluirlo) son la MISMA decisión
+                    # creativa — la clave no puede sobrevivir vacía, o un
+                    # EDL escrito a mano y su equivalente con metadata de
+                    # trazabilidad hashearían distinto sin razón creativa.
+                    continue
+            out[k] = _sin_ruido_creativo(v)
+        return out
+    if isinstance(node, list):
+        return [_sin_ruido_creativo(x) for x in node]
+    return node
+
+
+def creative_hash(edl: dict) -> str:
+    """Identifica «esta decisión creativa» — no «estos bytes exactos».
+
+    `sha256` del EDL canonicalizado (claves ordenadas, separadores fijos)
+    SIN `planner.generatedAt` y SIN las claves que empiezan por `_`. Sin
+    excluir `generatedAt`, dos corridas del MISMO EDL (misma decisión
+    creativa, otro instante de generación) darían hashes distintos y la
+    prueba de determinismo sería inútil. El hash del manifest (§12,
+    `compile_report`) es una pregunta DISTINTA — «¿son los mismos píxeles?»
+    — y mezclarla aquí invalidaría el hash creativo de toda pieza vieja
+    cada vez que se añade un objeto nuevo a la librería.
+
+    Recibe el EDL como `dict` crudo (JSON), no como `Edl`: el dataclass ya
+    descarta las claves subrayadas y `planner` al parsear, así que hashear
+    DESPUÉS de `load_edl` no probaría que la exclusión funciona.
+    """
+    canon = _sin_ruido_creativo(edl)
+    blob = json.dumps(canon, sort_keys=True, ensure_ascii=False,
+                      separators=(",", ":"))
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
 def compile_report(edl: Edl, style: dict, manifest: dict) -> dict:
