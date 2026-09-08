@@ -3158,7 +3158,7 @@ absoluto lo sigue calculando la fórmula que mide cada archivo."
 - Create: `tests/test_golden.py`
 - Create: `VIDEOS EDITADOS/video-10-clinica-reel.mp4`
 
-- [ ] **Step 1: Golden file y prueba de determinismo**
+- [x] **Step 1: Golden file y prueba de determinismo**
 
 ```python
 # tests/test_golden.py
@@ -3179,7 +3179,7 @@ def test_compilar_dos_veces_da_bytes_identicos(edl10, style, tmp_path):
     assert a.read_bytes() == b.read_bytes()
 ```
 
-- [ ] **Step 2: Comprobar los gates finales**
+- [x] **Step 2: Comprobar los gates finales**
 
 ```bash
 .venv/bin/python scripts/edl-compile.py --project . --piece 10
@@ -3187,7 +3187,7 @@ def test_compilar_dos_veces_da_bytes_identicos(edl10, style, tmp_path):
 
 Esperado: `presenter_share` **dentro de [0.45, 0.60]** ahora que hay tres Motion Stage, `max_micro_gap` ≤ 2.5 s, `max_macro_gap` ≤ 4.5 s, y ningún `fail`.
 
-- [ ] **Step 3: Render y validación**
+- [x] **Step 3: Render y validación**
 
 ```bash
 .venv/bin/python scripts/build-composition.py --project . --piece 10
@@ -3198,7 +3198,7 @@ npx hyperframes render videos/10/public --skill=talking-head-recut \
 
 Esperado: `check` **0 errores** de estructura, runtime, layout, motion y contraste. Ojo: los checks de contraste **solo corren si hay muestras** — un `0/0` no es que pase, es que no midió.
 
-- [ ] **Step 4: Verificación sobre el MP4 — la que cuenta**
+- [x] **Step 4: Verificación sobre el MP4 — la que cuenta**
 
 ```bash
 ffprobe -v error -show_entries format=duration -of csv=p=0 videos/10/output.mp4
@@ -3208,15 +3208,15 @@ ffmpeg -v error -i videos/10/output.mp4 -af volumedetect -f null - 2>&1 | tail -
 
 Checklist, todo medido y ninguno estimado:
 
-- [ ] duración ≈ **44.3 s**
-- [ ] **sin negro real** con `pix_th=0.03`
-- [ ] pico **≤ −2 dB**, **0 muestras** saturadas
-- [ ] tinta más baja **≤ y1536** en todos los bloques de dos líneas
-- [ ] el reloj marca **11:00** a los 5.5 s y **19:00** a los 11.0 s, y es el mismo
-- [ ] los cuatro objetos de la acumulación **siguen en pantalla** en 23.1 s
-- [ ] la cara **nunca** queda tapada por un subtítulo
+- [x] duración ≈ **44.3 s**
+- [x] **sin negro real** con `pix_th=0.03`
+- [x] pico **≤ −2 dB**, **0 muestras** saturadas
+- [x] tinta más baja **≤ y1536** en todos los bloques de dos líneas
+- [x] el reloj marca **11:00** a los 5.5 s y **19:00** a los 11.0 s, y es el mismo
+- [x] los cuatro objetos de la acumulación **siguen en pantalla** en 23.1 s
+- [x] la cara **nunca** queda tapada por un subtítulo
 
-- [ ] **Step 5: Publicar y commitear**
+- [x] **Step 5: Publicar y commitear**
 
 ```bash
 cp videos/10/output.mp4 "VIDEOS EDITADOS/video-10-clinica-reel.mp4"
@@ -3235,7 +3235,7 @@ descubrirlo tres piezas después.
 Verificado sobre el MP4, no sobre el HTML."
 ```
 
-- [ ] **Step 6: Actualizar `CLAUDE.md`**
+- [x] **Step 6: Actualizar `CLAUDE.md`**
 
 Añadir la pieza 10 a §13 con sus cifras reales, y reescribir §2 (pipeline) con los pasos 9/9b. La bitácora es lo que hace que la próxima pieza no repita los errores de esta.
 
