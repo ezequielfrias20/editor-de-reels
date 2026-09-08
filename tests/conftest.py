@@ -116,3 +116,10 @@ def bc():
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+
+# ── Tarea 12 ─────────────────────────────────────────────────────────────────
+@pytest.fixture(scope="session")
+def manifest(project_root):
+    from asset_resolve import load_manifest
+    return load_manifest(project_root / "assets" / "manifest.json")

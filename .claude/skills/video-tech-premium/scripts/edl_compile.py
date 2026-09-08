@@ -20,6 +20,7 @@ import sys
 from pathlib import Path
 
 import objects as _objects
+from asset_resolve import asset_hash, load_manifest
 from edl_metrics import (PRESET_SFX, PRIORITY, measure, resolve_sfx,
                         run_gates, sfx_declarations)
 from edl_schema import Edl, EdlError, derive_stages, load_edl, segment_windows
@@ -295,6 +296,27 @@ def compile_edl(edl: Edl, style: dict, src_w: int | None = None) -> dict:
     }
 
 
+def compile_report(edl: Edl, style: dict, manifest: dict) -> dict:
+    """El informe de UNA compilación: qué versión de manifest se usó y el
+    hash REAL de cada asset que esta pieza referencia — no el que dice el
+    manifest, el recalculado ahora. Con esto una pieza vieja es reproducible
+    **por referencia**: si algún día `objects.py` cambia de verdad (subiendo
+    versión), el informe archivado de esta pieza sigue apuntando al código
+    exacto que tenía cuando se renderizó.
+
+    No decide nada — es lookup y aritmética, como todo lo demás de este
+    módulo (§9). `style` no se usa todavía; queda en la firma porque el
+    informe es el sitio natural donde un futuro dato del perfil (qué preset
+    de calidad, qué build) también debería aparecer.
+    """
+    refs = sorted({ev.asset for seg in edl.segments for ev in seg.events
+                  if ev.type == "OBJECT_IN" and ev.asset})
+    return {
+        "manifest_version": manifest["manifest_version"],
+        "assets_used": {ref: asset_hash(ref, manifest) for ref in refs},
+    }
+
+
 def write_plan(plan: dict, out: Path) -> None:
     Path(out).write_text(
         json.dumps(plan, ensure_ascii=False, indent=2,
@@ -345,6 +367,12 @@ def main(argv=None) -> int:
     plan = compile_edl(edl, style, src_w)
     out = a.out or (work / "plan.json")
     write_plan(plan, out)
+
+    manifest = load_manifest(root / "assets" / "manifest.json")
+    report = compile_report(edl, style, manifest)
+    print(f"  manifest {report['manifest_version']} · "
+          f"{len(report['assets_used'])} asset(s) usados")
+
     print(f"✓ {out}  ·  {len(edl.segments)} segmentos  ·  "
           f"{len(plan['shots'])} encuadres  ·  {len(plan['keywords'])} keywords")
     return 0

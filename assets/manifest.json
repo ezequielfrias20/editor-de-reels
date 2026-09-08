@@ -1,0 +1,35 @@
+{
+  "assets": {
+    "object:bottleneck@1": {
+      "added": "2026-09-08",
+      "hash": "sha256:e276e4a9dffda27f3ca7dea38eaab2df68696db366eea8e3a5d84b42186db87f",
+      "kind": "object"
+    },
+    "object:card-payment@1": {
+      "added": "2026-09-07",
+      "hash": "sha256:6638fc5ecbcb2008e088894f54540404c95a4113695401354cdaa8abea379e72",
+      "kind": "object"
+    },
+    "object:clock@1": {
+      "added": "2026-09-07",
+      "hash": "sha256:3d321c5490a4478c7dd05422e249a13f9ca992b8006d24ca8c6e74528036e2ba",
+      "kind": "object"
+    },
+    "object:dental-chair@1": {
+      "added": "2026-09-07",
+      "hash": "sha256:da8dce17167f0393715f5e6a474a514303d44ff782e30f00f978519cf5fba5a4",
+      "kind": "object"
+    },
+    "object:instagram@1": {
+      "added": "2026-09-07",
+      "hash": "sha256:f13e3d8a26babc352d6203820fcf74f6369f11f4d699924b34e58f8a79a714cb",
+      "kind": "object"
+    },
+    "object:phone@1": {
+      "added": "2026-09-07",
+      "hash": "sha256:4b9b2b6cf0fe611f2abda95fe45084110ec297835d83ab7e4d28e919e5fa9fb7",
+      "kind": "object"
+    }
+  },
+  "manifest_version": "2026-09-07.1"
+}

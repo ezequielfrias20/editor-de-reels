@@ -12,6 +12,7 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from asset_resolve import asset_hash, load_manifest
 from edl_words import WordTable, load_words
 
 SCENE_TYPES = frozenset({"A_ROLL", "A_ROLL_ICON", "MOTION_STAGE",
@@ -186,7 +187,7 @@ def _parse_event(raw: dict, si: int, ei: int, problems: list[str]) -> Event | No
     )
 
 
-def _check_assets(segments, problems: list[str]) -> None:
+def _check_assets(segments, manifest: dict | None, problems: list[str]) -> None:
     for si, seg in enumerate(segments):
         for ei, ev in enumerate(seg.events):
             if ev.type != "OBJECT_IN":
@@ -209,6 +210,35 @@ def _check_assets(segments, problems: list[str]) -> None:
                         f"segmento {si}, evento {ei}: asset '{a}' sin versión — se "
                         f"espera '{kind}:nombre@n'. Una @n es inmutable, y es lo que "
                         f"permite re-renderizar una pieza vieja idéntica")
+            else:
+                # Formato correcto (§11, resuelto y versionado): que EXISTA y
+                # que su hash CUADRE con el código que dice representar — un
+                # asset editado en silencio cambiaría renders históricos.
+                if manifest is None:
+                    problems.append(
+                        f"segmento {si}, evento {ei}: no se pudo cargar "
+                        f"assets/manifest.json para validar '{a}'")
+                    continue
+                entry = manifest.get("assets", {}).get(a)
+                if entry is None:
+                    problems.append(
+                        f"segmento {si}, evento {ei}: asset '{a}' no está en el "
+                        f"manifest ({len(manifest.get('assets', {}))} registrados) — "
+                        f"el Asset Resolver no lo produjo, o alguien lo escribió a mano")
+                    continue
+                try:
+                    real = asset_hash(a, manifest)
+                except Exception as e:
+                    problems.append(
+                        f"segmento {si}, evento {ei}: no se pudo verificar el hash "
+                        f"de '{a}': {e}")
+                    continue
+                if real != entry.get("hash"):
+                    problems.append(
+                        f"segmento {si}, evento {ei}: asset '{a}' CAMBIÓ — el "
+                        f"manifest dice {entry.get('hash')}, el código da {real}. "
+                        f"Un @n es inmutable; si el rediseño es intencionado, sube "
+                        f"la versión en vez de editar esta")
 
 
 def _check_slots(segments, problems: list[str]) -> None:
@@ -442,7 +472,11 @@ def load_edl(path: Path, project_root: Path) -> Edl:
                     f"('{wt.text_of(*kw.words)}') no está dentro de ningún CAPTION "
                     f"del segmento")
 
-    _check_assets(segments, problems)
+    try:
+        manifest = load_manifest(project_root / "assets" / "manifest.json")
+    except FileNotFoundError:
+        manifest = None
+    _check_assets(segments, manifest, problems)
     _check_slots(segments, problems)
     _check_instances(segments, problems)
     _check_transitions(segments, problems)
