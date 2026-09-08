@@ -30,26 +30,16 @@
       "zoom": 1.2
     },
     {
-      "anchor": 0.42,
-      "at": 4.1333,
-      "kind": "full",
-      "zoom": 1.12
+      "at": 4.3333,
+      "kind": "off"
     },
     {
-      "anchor": 0.42,
-      "at": 6.0667,
-      "kind": "full",
-      "zoom": 1.2
-    },
-    {
-      "anchor": 0.42,
       "at": 9.4,
-      "kind": "full",
-      "zoom": 1.2
+      "kind": "off"
     },
     {
       "anchor": 0.42,
-      "at": 11.3333,
+      "at": 11.1667,
       "kind": "full",
       "zoom": 1.12
     },
@@ -108,6 +98,47 @@
       "zoom": 1.12
     }
   ],
-  "visuals": [],
+  "visuals": [
+    {
+      "end": 11.3333,
+      "fade_in": 0.22,
+      "fade_out": 0.18,
+      "id": "stage-a",
+      "kind": "mockup",
+      "mock": [
+        "motion_stage",
+        {
+          "at": [
+            {
+              "hour": 570.0,
+              "hour_from": 330.0,
+              "id": "clock-main",
+              "minute": 2880,
+              "minute_from": 0,
+              "op": "state",
+              "preset": "hands-sweep",
+              "t": 10.3
+            }
+          ],
+          "objects": [
+            {
+              "id": "clock-main",
+              "in": 5.0333,
+              "kind": "clock",
+              "slot": "center",
+              "state": {
+                "time": "11:00"
+              }
+            }
+          ],
+          "theme": "problem",
+          "visual_start": 4.1333
+        }
+      ],
+      "role": "takeover",
+      "skin": "on-surface",
+      "start": 4.1333
+    }
+  ],
   "voice_gain": 0.7
 }

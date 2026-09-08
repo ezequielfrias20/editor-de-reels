@@ -21,9 +21,10 @@ def test_el_plan_tiene_las_claves_que_build_composition_espera(plan10):
 
 
 def test_hay_un_encuadre_por_segmento_mas_los_eventos_camera(plan10):
-    # 9 segmentos + 5 eventos CAMERA (los que se añadieron en la Tarea 4 para
-    # que ningún segmento se quedara sin evento macro por más de 4.5 s)
-    assert len(plan10["shots"]) == 14
+    # 9 segmentos + 4 eventos CAMERA. Eran 5 en la Tarea 4; la Tarea 6 quitó
+    # el de dentro del segmento 1 al convertirlo en MOTION_STAGE (camera=OFF
+    # todo el segmento, un corte de cámara mid-stage no tiene sentido).
+    assert len(plan10["shots"]) == 13
 
 
 def test_los_encuadres_van_ordenados_y_empiezan_en_cero(plan10):
@@ -52,8 +53,10 @@ def test_las_keywords_salen_de_los_eventos_keyword(plan10):
     assert "CONTESTÓ" in ks and "PRIMERO" in ks
 
 
-def test_el_minimo_no_emite_visuales_ni_efectos(plan10):
-    assert plan10["visuals"] == [] and plan10["sfx"] == [] and plan10["cards"] == []
+def test_cards_y_sfx_siguen_vacios_hasta_sus_tareas(plan10):
+    # cards nunca se llena en la pieza 10; sfx llega en la Tarea 10. visuals
+    # ya NO está vacío desde la Tarea 6 — ver test_un_stage_sale_como_UNA_...
+    assert plan10["sfx"] == [] and plan10["cards"] == []
 
 
 # ── determinismo ────────────────────────────────────────────────────────────
@@ -85,3 +88,31 @@ def test_ningun_tiempo_del_plan_esta_sin_cuantizar(plan10):
 def test_un_perfil_inexistente_falla_claro(skill_root):
     with pytest.raises(FileNotFoundError, match="motion-explainer|no-existe"):
         load_style("no-existe", skill_root)
+
+
+# ── Tarea 6: el reloj y el stage como una sola entrada ──────────────────────
+def test_un_stage_sale_como_UNA_entrada_de_visuals(plan10):
+    """La serie contigua entera, no una entrada por segmento. El `end` es el
+    borde de la VENTANA (inicio del siguiente segmento, 11.3333), no el fin
+    del span de palabras (11.2): usar el span dejaría un hueco de 0.11 s entre
+    el fin del stage y el próximo encuadre — el mismo bug que gotcha #6
+    documenta."""
+    stages = [v for v in plan10["visuals"] if v["mock"][0] == "motion_stage"]
+    assert len(stages) == 1
+    v = stages[0]
+    assert v["start"] == 4.1333 and v["end"] == 11.3333
+
+
+def test_el_off_se_retrasa_por_el_fade_in(plan10):
+    """Gotcha #6: un `off` que empieza a la vez que el takeover deja el frame
+    vacío durante el fundido. fade_in se suma al start SIN cuantizar
+    (4.124 + 0.22 = 4.344) y se cuantiza una sola vez -> 4.3333, no
+    4.1333 + 0.22 cuantizado por separado."""
+    off = next(s for s in plan10["shots"] if s["kind"] == "off")
+    assert off["at"] == 4.3333
+
+
+def test_el_estado_del_reloj_se_emite_como_angulos(plan10):
+    v = next(v for v in plan10["visuals"] if v["mock"][0] == "motion_stage")
+    op = next(o for o in v["mock"][1]["at"] if o["id"] == "clock-main")
+    assert op["t"] == 10.3 and op["hour"] == 570 and op["minute"] == 2880

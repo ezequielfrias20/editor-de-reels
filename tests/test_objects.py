@@ -85,3 +85,46 @@ def test_un_tema_inexistente_falla_claro():
 
 def test_el_registry_expone_motion_stage():
     assert REGISTRY["motion_stage"] is motion_stage
+
+
+# ── el reloj ────────────────────────────────────────────────────────────────
+def test_las_agujas_van_siempre_hacia_delante():
+    """330° -> 210° es el camino corto y son -120°: el reloj iría HACIA ATRÁS,
+    y ocho horas perdidas se leerían como ocho horas recuperadas."""
+    from objects import hand_angles
+    a = hand_angles("11:00", "19:00")
+    assert a["hour_from"] == 330 and a["hour_to"] == 570      # +240°, horario
+    assert a["minute_from"] == 0 and a["minute_to"] == 2880   # 8 vueltas
+    assert a["hour_to"] > a["hour_from"] and a["minute_to"] > a["minute_from"]
+
+
+def test_cruzar_medianoche_tambien_va_hacia_delante():
+    from objects import hand_angles
+    a = hand_angles("23:30", "01:15")
+    assert a["hour_to"] > a["hour_from"]
+
+
+def test_un_salto_de_minutos_mueve_las_dos_agujas():
+    from objects import hand_angles
+    a = hand_angles("11:00", "11:45")
+    assert a["minute_to"] - a["minute_from"] == 270           # 45 min × 6°
+    assert a["hour_to"] - a["hour_from"] == pytest.approx(22.5)
+
+
+def test_el_mismo_estado_no_mueve_nada():
+    from objects import hand_angles
+    a = hand_angles("11:00", "11:00")
+    assert a["hour_to"] == a["hour_from"]
+
+
+def test_una_hora_mal_formada_falla_claro():
+    from objects import hand_angles
+    with pytest.raises(ValueError, match="HH:MM"):
+        hand_angles("11:00", "las siete")
+
+
+def test_el_reloj_marca_su_estado_inicial():
+    from objects import clock
+    o = clock("stage-a", "clock-main", {"time": "11:00"}, "center")
+    assert 'id="stage-a-clock-main"' in o["html"]
+    assert "rotate(330" in o["html"], "la hora inicial se hornea, no se anima"

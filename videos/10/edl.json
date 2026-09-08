@@ -65,10 +65,16 @@
         14,
         30
       ],
-      "sceneType": "A_ROLL",
-      "camera": "MEDIUM",
+      "sceneType": "MOTION_STAGE",
+      "representationType": "OBJECT",
+      "camera": "OFF",
       "semanticIntent": "te escribieron mientras estabas ocupado",
       "events": [
+        {
+          "atWord": 14,
+          "type": "THEME_CHANGE",
+          "theme": "problem"
+        },
         {
           "atWord": 14,
           "type": "CAPTION",
@@ -79,18 +85,23 @@
         },
         {
           "atWord": 18,
+          "type": "OBJECT_IN",
+          "asset": "object:clock@1",
+          "instanceId": "clock-main",
+          "slot": "center",
+          "state": {
+            "time": "11:00"
+          },
+          "preset": "float-in",
+          "sfx": "auto"
+        },
+        {
+          "atWord": 18,
           "type": "CAPTION",
           "words": [
             18,
             21
           ]
-        },
-        {
-          "atWord": 22,
-          "type": "CAMERA",
-          "state": {
-            "camera": "CLOSE"
-          }
         },
         {
           "atWord": 18,
@@ -117,15 +128,17 @@
           ]
         }
       ],
-      "reason": "la hora concreta es el dato que hace que el espectador se reconozca"
+      "reason": "el reloj visualiza la hora concreta a la que escribieron: entra en su propia palabra, 11, y se queda como la presión que crece"
     },
     {
       "words": [
         31,
         37
       ],
-      "sceneType": "A_ROLL",
-      "camera": "CLOSE",
+      "sceneType": "MOTION_STAGE",
+      "representationType": "STATE_CHANGE",
+      "camera": "OFF",
+      "transitionIn": "OBJECT_MATCH_CUT",
       "semanticIntent": "pasaron ocho horas",
       "events": [
         {
@@ -151,9 +164,19 @@
             34,
             34
           ]
+        },
+        {
+          "atWord": 34,
+          "type": "OBJECT_STATE",
+          "instanceId": "clock-main",
+          "state": {
+            "time": "19:00"
+          },
+          "preset": "hands-sweep",
+          "sfx": "auto"
         }
       ],
-      "reason": "el contraste 11 -> 7 es el corazón del problema; en la Tarea 6 pasa a MOTION_STAGE con el match cut del reloj"
+      "reason": "es EL MISMO reloj con las agujas barridas: las ocho horas se ven en vez de calcularse"
     },
     {
       "words": [

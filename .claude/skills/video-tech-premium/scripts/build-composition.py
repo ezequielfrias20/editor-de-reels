@@ -1100,6 +1100,38 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
             js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.06 }}, '
                       f'{{ opacity: 1, scale: 1, duration: {d}, '
                       f'ease: "power3.out" }}, {t:.4f});')
+        elif kind == "hands-sweep":
+            # El barrido de las agujas de un reloj de objects.py: dos
+            # rotaciones simultáneas, SIEMPRE hacia delante (objects.hand_
+            # angles ya resolvió el sentido — el compilador no vuelve a
+            # decidirlo aquí, solo emite el tween).
+            #
+            # NO se anima `rotation` de GSAP. Depurado con un dump del
+            # `transform` computado: en cuanto GSAP toca la propiedad
+            # `rotation` de un `<g>` SVG, el pivote que reporta el navegador
+            # es "0px 0px" pese a cualquier `transform-origin`/`svgOrigin`
+            # declarado, y un SEGUNDO tween sobre la misma propiedad añade
+            # además una traslación espuria. En vez de pelear con eso, se
+            # anima un objeto plano `{v: ángulo}` y en cada `onUpdate` —
+            # determinista: GSAP lo llama con el valor YA interpolado en
+            # cada seek, nunca por reloj de pared — se reescribe a mano el
+            # atributo SVG NATIVO `rotate(v, 150, 150)`, que lleva el pivote
+            # incrustado en su propia sintaxis y no depende de ningún origen
+            # que resolver.
+            hour_from, hour_to, min_sel, min_from, min_to = a[4], a[5], a[6], a[7], a[8]
+            hv, mv = f"_hv{len(js)}", f"_mv{len(js) + 1}"
+            js.append(f'const {hv} = {{ v: {hour_from} }};')
+            js.append(f'tl.to({hv}, {{ v: {hour_to}, duration: {d}, '
+                      f'ease: "power2.inOut", onUpdate: function() {{ '
+                      f'document.querySelector({sel!r})?.setAttribute('
+                      f'"transform", "rotate(" + {hv}.v + " 150 150)"); '
+                      f'}} }}, {t:.4f});')
+            js.append(f'const {mv} = {{ v: {min_from} }};')
+            js.append(f'tl.to({mv}, {{ v: {min_to}, duration: {d}, '
+                      f'ease: "power2.inOut", onUpdate: function() {{ '
+                      f'document.querySelector({min_sel!r})?.setAttribute('
+                      f'"transform", "rotate(" + {mv}.v + " 150 150)"); '
+                      f'}} }}, {t:.4f});')
         elif kind in ("cursor-enter", "cursor-to"):
             x, y = a[4], a[5]
             if kind == "cursor-enter":

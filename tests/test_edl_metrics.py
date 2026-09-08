@@ -1,5 +1,8 @@
+from pathlib import Path
+
 import pytest
 from edl_metrics import measure, run_gates
+from edl_schema import Edl, Segment
 
 
 @pytest.fixture(scope="module")
@@ -7,21 +10,38 @@ def m10(edl10):
     return measure(edl10)
 
 
+def _synthetic_edl(wt, segments):
+    """Un EDL sintético sobre las palabras REALES de la pieza 10 (`w10`,
+    inmutable), pero con segmentos inventados. Las dos pruebas de abajo
+    verifican una propiedad GENERAL de `measure()`, no algo de la pieza 10
+    en sí — anclarlas a `edl10` las rompía cada vez que la pieza avanzaba de
+    tarea en tarea (dejó de ser toda A_ROLL en la Tarea 6)."""
+    return Edl(src=Path("synthetic"), fmt="REEL", piece=0,
+              style_profile="motion-explainer", wt=wt, segments=tuple(segments),
+              overrides=(), voice_gain=0.7, music={}, planner={})
+
+
 # ── presencia del presentador ───────────────────────────────────────────────
-def test_una_pieza_toda_a_roll_da_presencia_1(m10):
-    assert m10["presenter_share"] == pytest.approx(1.0)
+def test_una_pieza_toda_a_roll_da_presencia_1(w10):
+    n = len(w10.words)
+    seg = Segment(words=(0, n - 1), semantic_intent="x", scene_type="A_ROLL",
+                  reason="sintético: toda la pieza en un solo A_ROLL")
+    assert measure(_synthetic_edl(w10, [seg]))["presenter_share"] == pytest.approx(1.0)
 
 
-def test_ui_demo_sale_del_denominador(edl10):
+def test_ui_demo_sale_del_denominador(w10):
     """El caso del reel de ChatGPT: 15 s de demo legítima no deben obligar a
     volver al presentador para cuadrar un porcentaje."""
-    from edl_schema import Edl, Segment
-    segs = list(edl10.segments)
-    old = segs[5]
-    segs[5] = Segment(**{**old.__dict__, "scene_type": "UI_DEMO",
-                         "representation_type": "INTERFACE", "camera": "OFF"})
-    edl = Edl(**{**edl10.__dict__, "segments": tuple(segs)})
-    m = measure(edl)
+    n = len(w10.words)
+    mid = n // 2
+    segs = [
+        Segment(words=(0, mid), semantic_intent="a", scene_type="A_ROLL",
+                reason="sintético: mitad presentador"),
+        Segment(words=(mid + 1, n - 1), semantic_intent="b", scene_type="UI_DEMO",
+                representation_type="INTERFACE", camera="OFF",
+                reason="sintético: mitad demo de producto"),
+    ]
+    m = measure(_synthetic_edl(w10, segs))
     assert m["presenter_share"] == pytest.approx(1.0)
     assert m["presenter_share_raw"] < 1.0
 
