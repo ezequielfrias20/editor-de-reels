@@ -144,3 +144,92 @@ def grid(size: int = 72, alpha: float = .022) -> str:
     a = f"rgba(255,255,255,{alpha})"
     return (f"repeating-linear-gradient(0deg,{a} 0 1px,transparent 1px {size}px),"
             f"repeating-linear-gradient(90deg,{a} 0 1px,transparent 1px {size}px)")
+
+
+# ── el Motion Stage ───────────────────────────────────────────────────────────
+def lift(hex_bg: str, alpha: float) -> str:
+    """El color que resulta de poner blanco a `alpha` encima de `hex_bg`.
+
+    Sirve para MEDIR el contraste dentro de un stage iluminado antes de
+    renderizar, que es cuando cuesta barato.
+    """
+    b = hex_bg.lstrip("#")
+    rgb = [int(b[i:i + 2], 16) for i in (0, 2, 4)]
+    return "#%02X%02X%02X" % tuple(round(c * (1 - alpha) + 255 * alpha) for c in rgb)
+
+
+# Medido: a alpha 0.05 el violet_hi sobre el fondo iluminado da 6.08:1; a 0.07
+# cae a 5.77 y deja de aguantar texto normal. El techo no es una opinión.
+SPOTLIGHT_MAX = 0.05
+
+
+def spotlight(alpha: float = SPOTLIGHT_MAX) -> str:
+    """Foco cenital centrado. Empuja la mirada arriba, donde vive el objeto."""
+    if alpha > SPOTLIGHT_MAX:
+        raise ValueError(
+            f"spotlight alpha {alpha} pasa del techo medido {SPOTLIGHT_MAX}: por "
+            f"encima, el violeta como texto cae por debajo de AA sobre el fondo "
+            f"iluminado")
+    return (f"radial-gradient(120% 62% at 50% 0%, rgba(255,255,255,{alpha}) 0%, "
+            f"rgba(255,255,255,0) 58%)")
+
+
+def grain(seed: int = 7, opacity: float = 0.035) -> str:
+    """Grano como data-URI SVG con SEMILLA FIJA y filtro ESTÁTICO.
+
+    Es la única forma determinista: `Math.random` sin semilla está prohibido por
+    el contrato de render, y un grano animado desincronizaría en cuanto el
+    renderer muestree frames en paralelo.
+    """
+    svg = (f"<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'>"
+           f"<filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.82' "
+           f"numOctaves='2' seed=\"{seed}\"/></filter>"
+           f"<rect width='160' height='160' filter='url(#g)' opacity='{opacity}'/>"
+           f"</svg>")
+    from urllib.parse import quote
+    return f"url(\"data:image/svg+xml,{quote(svg)}\")"
+
+
+# El tema cambia ACENTO, relleno y glow. Nunca el color del texto: si lo
+# cambiara, todo el trabajo de legibilidad habría que re-litigarlo cinco veces.
+THEME = {
+    "primary": {"accent": C["violet"], "accent_text": C["violet_hi"],
+                "fill": FILL["violet"], "glow": GLOW},
+    "problem": {"accent": C["alert"], "accent_text": C["alert"],
+                "fill": FILL["alert"],
+                "glow": "0 0 0 1px rgba(255,90,90,.32), 0 18px 60px rgba(255,90,90,.20)"},
+    "warning": {"accent": C["warn"], "accent_text": C["warn"],
+                "fill": FILL["warn"],
+                "glow": "0 0 0 1px rgba(255,184,77,.30), 0 18px 60px rgba(255,184,77,.18)"},
+    "success": {"accent": C["go"], "accent_text": C["go"], "fill": FILL["go"],
+                "glow": "0 0 0 1px rgba(52,227,155,.30), 0 18px 60px rgba(52,227,155,.18)"},
+    "neutral": {"accent": C["text"], "accent_text": C["text"], "fill": FILL["white"],
+                "glow": SHADOW},
+}
+
+# ⚠ Sobre un relleno `warn` va TINTA, nunca blanco: text/warn = 1.72:1. Misma
+# regla que ya está escrita para el verde (bg/go = 11.74:1).
+INK_ON_FILL = {"warning": C["bg"], "success": C["bg"]}
+
+# Coordenadas HORNEADAS del lienzo REEL 1080×1920. Se calculan aquí, en Python,
+# no con cos/sin en el navegador. El centro va hacia y 820-880 porque un bloque
+# centrado en el lienzo deja medio frame vacío bajo el PiP.
+def _bake_slots(cx=540, cy=850, rx=330, ry=250):
+    import math
+    s = {"center": (cx, cy)}
+    for i in range(6):
+        a = math.radians(-90 + i * 60)
+        s[f"orbit-{i+1}"] = (round(cx + rx * math.cos(a)), round(cy + ry * math.sin(a)))
+    for i in range(4):
+        s[f"stack-{i+1}"] = (cx, round(cy - 240 + i * 160))
+    return s
+
+
+SLOTS = _bake_slots()
+
+# Escala dedicada de kinetic typography. `hero` cae EXACTAMENTE en TYPE.display
+# de cada formato, así que extiende la escala verificada en vez de inventar una.
+KINETIC = {
+    "REEL":    {"small": 60, "medium": 93, "hero": 132, "mega": 168},
+    "YOUTUBE": {"small": 51, "medium": 79, "hero": 112, "mega": 143},
+}

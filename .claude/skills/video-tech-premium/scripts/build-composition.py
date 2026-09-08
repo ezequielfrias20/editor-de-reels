@@ -35,6 +35,7 @@ from PIL import ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import mockups  # noqa: E402
+import objects  # noqa: E402
 from tokens import C, FILL, FONT, GLOW, LINE, LINE_HI, MONO, RADIUS  # noqa: E402
 from tokens import SHADOW, SHADOW_LIFT, TRACK, TYPE, grid, vignette  # noqa: E402
 
@@ -387,7 +388,8 @@ def build_visuals(dur):
                   "flow_steps": mockups.flow_steps,
                   "rate_mismatch": mockups.rate_mismatch,
                   "chip_grid": mockups.chip_grid,
-                  "comment_ui": mockups.comment_ui}[which]
+                  "comment_ui": mockups.comment_ui,
+                  "motion_stage": objects.motion_stage}[which]
             body_css, body_html_, body_anims = fn(vid, **kw)
         elif v["kind"] == "image":
             assets.add(v["src"])

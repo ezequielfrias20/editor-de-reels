@@ -153,6 +153,15 @@ def test_stage_clear_libera_los_instance_id(write_edl, edl_min, stage_edl):
     assert len(write_edl(data).segments[0].events) == 3
 
 
+def test_slot_inexistente_falla(write_edl, edl_min, problems_of, stage_edl):
+    """Activado por tokens.SLOTS (Tarea 5): un objeto puede caer dentro de la
+    interfaz de la plataforma y hasta ahora nada lo comprobaba."""
+    data = stage_edl(edl_min, [
+        {"atWord": 0, "type": "OBJECT_IN", "asset": "object:clock@1",
+         "instanceId": "c", "slot": "orbit-99"}])
+    assert "no existe" in problems_of(data)
+
+
 # ── assets ──────────────────────────────────────────────────────────────────
 def test_asset_semantico_sin_resolver_falla(write_edl, edl_min, problems_of, stage_edl):
     data = stage_edl(edl_min, [
