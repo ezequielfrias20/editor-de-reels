@@ -115,7 +115,7 @@ Todo depende de convertir un `atWord` en un instante de la línea del corte. Y h
   - `WordTable.fingerprint: str` — `"sha256:<hex>"`, **cubre transcript y cuts**
   - `WordTable.at(i) -> float` · `.span(i, j) -> tuple[float, float]` · `.text_of(i, j) -> str`
 
-- [ ] **Step 1: Instalar pytest**
+- [x] **Step 1: Instalar pytest**
 
 ```bash
 cd /Users/ezequielfrias/Documents/Cubo/mi-universo/marca-personal/editor-videos
@@ -124,7 +124,7 @@ cd /Users/ezequielfrias/Documents/Cubo/mi-universo/marca-personal/editor-videos
 
 Esperado: imprime una versión. Si `.venv/bin/pip` no existe, usar `uv pip install pytest`.
 
-- [ ] **Step 2: Crear `tests/conftest.py`**
+- [x] **Step 2: Crear `tests/conftest.py`**
 
 `scripts/` es un symlink dentro de la skill y no es un paquete importable.
 
@@ -152,7 +152,7 @@ def w10(project_root):
                       project_root / "cuts" / "10.json")
 ```
 
-- [ ] **Step 3: Escribir el test que falla**
+- [x] **Step 3: Escribir el test que falla**
 
 `tests/test_edl_words.py`. Los valores salen de correr `remap()` sobre los archivos reales, no de estimar.
 
@@ -239,7 +239,7 @@ def test_span_invertido_falla(w10):
         w10.span(13, 0)
 ```
 
-- [ ] **Step 4: Correr los tests y verificar que fallan**
+- [x] **Step 4: Correr los tests y verificar que fallan**
 
 ```bash
 .venv/bin/python -m pytest tests/test_edl_words.py -v
@@ -247,7 +247,7 @@ def test_span_invertido_falla(w10):
 
 Esperado: FAIL — `ModuleNotFoundError: No module named 'edl_words'`.
 
-- [ ] **Step 5: Implementar `edl_words.py`**
+- [x] **Step 5: Implementar `edl_words.py`**
 
 `remap` es **una copia literal** de la de `build-composition.py:212-220`. No mejorarla: si las dos divergen, el EDL y el render dejan de hablar de los mismos instantes.
 
@@ -362,7 +362,7 @@ def load_words(transcript: Path, cuts: Path) -> WordTable:
                      duration=duration, fingerprint=f"sha256:{h.hexdigest()}")
 ```
 
-- [ ] **Step 6: Correr los tests y verificar que pasan**
+- [x] **Step 6: Correr los tests y verificar que pasan**
 
 ```bash
 .venv/bin/python -m pytest tests/test_edl_words.py -v
@@ -370,13 +370,13 @@ def load_words(transcript: Path, cuts: Path) -> WordTable:
 
 Esperado: 13 passed.
 
-- [ ] **Step 7: Ignorar la caché de pytest**
+- [x] **Step 7: Ignorar la caché de pytest**
 
 ```bash
 grep -q '.pytest_cache' .gitignore || printf '\n.pytest_cache/\n' >> .gitignore
 ```
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add tests/conftest.py tests/test_edl_words.py .gitignore \
@@ -420,7 +420,7 @@ Dos validaciones se dejan para más tarde porque necesitan piezas que aún no ex
   - `derive_stages(segments) -> tuple[Stage, ...]` con `Stage.first`, `.last`
   - `EdlError(Exception)` con `.problems: list[str]`
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 `tests/test_edl_schema.py`.
 
@@ -746,7 +746,7 @@ def test_todos_los_problemas_se_reportan_juntos(write_edl, edl_min):
     assert len(ei.value.problems) >= 2
 ```
 
-- [ ] **Step 2: Correr los tests y verificar que fallan**
+- [x] **Step 2: Correr los tests y verificar que fallan**
 
 ```bash
 .venv/bin/python -m pytest tests/test_edl_schema.py -v
@@ -754,7 +754,7 @@ def test_todos_los_problemas_se_reportan_juntos(write_edl, edl_min):
 
 Esperado: FAIL — `ModuleNotFoundError: No module named 'edl_schema'`.
 
-- [ ] **Step 3: Implementar `edl_schema.py`**
+- [x] **Step 3: Implementar `edl_schema.py`**
 
 Cuatro cosas que el implementador **no debe improvisar**:
 
@@ -1202,7 +1202,7 @@ def load_edl(path: Path, project_root: Path) -> Edl:
                music=raw.get("music", {}), planner=raw.get("planner", {}))
 ```
 
-- [ ] **Step 4: Correr los tests y verificar que pasan**
+- [x] **Step 4: Correr los tests y verificar que pasan**
 
 ```bash
 .venv/bin/python -m pytest tests/test_edl_schema.py -v
@@ -1210,7 +1210,7 @@ def load_edl(path: Path, project_root: Path) -> Edl:
 
 Esperado: ~35 passed. Si alguno falla por el texto de un mensaje, ajustar el **mensaje** para que sea más útil al editor humano — nunca el test para que pase.
 
-- [ ] **Step 5: Correr la suite entera**
+- [x] **Step 5: Correr la suite entera**
 
 ```bash
 .venv/bin/python -m pytest tests/ -q
@@ -1218,7 +1218,7 @@ Esperado: ~35 passed. Si alguno falla por el texto de un mensaje, ajustar el **m
 
 Esperado: 0 fallos.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add tests/test_edl_schema.py \
@@ -1265,7 +1265,7 @@ El truco para conseguirlo: el EDL de esta tarea es **todo `A_ROLL`**, y el compi
   - `write_plan(plan: dict, out: Path) -> None` — `sort_keys=True`, separadores fijos, `\n` final
   - CLI: `edl-compile.py --project . --piece 10 [-o videos/10/plan.json] [--report path]`
 
-- [ ] **Step 1: Crear el style profile (sin gates todavía)**
+- [x] **Step 1: Crear el style profile (sin gates todavía)**
 
 `.claude/skills/video-tech-premium/styles/motion-explainer.json`. Los gates llegan en la Tarea 4; aquí solo la configuración que el compilador mínimo necesita.
 
@@ -1287,7 +1287,7 @@ El truco para conseguirlo: el EDL de esta tarea es **todo `A_ROLL`**, y el compi
 }
 ```
 
-- [ ] **Step 2: Escribir el EDL grueso de la pieza 10**
+- [x] **Step 2: Escribir el EDL grueso de la pieza 10**
 
 `videos/10/edl.json`. **Nueve segmentos, uno por frase**, con los límites ya calculados sobre el transcript real. Todo `A_ROLL` — las conversiones a `MOTION_STAGE` llegan en las Tareas 6 y 9.
 
@@ -1415,7 +1415,7 @@ print(load_words('transcripts/10.json', 'cuts/10.json').fingerprint)"
 
 ⚠ Los rangos de `CAPTION` son un **primer troceo**. Si `load_edl` se queja de que una keyword no cae dentro de su caption, ajustar el rango del caption — **no** mover la keyword: la keyword la elige el sentido de la frase, el corte del bloque es lo negociable.
 
-- [ ] **Step 3: Escribir el test que falla**
+- [x] **Step 3: Escribir el test que falla**
 
 `tests/test_edl_compile.py`.
 
@@ -1527,7 +1527,7 @@ def test_un_perfil_inexistente_falla_claro(skill_root):
         load_style("no-existe", skill_root)
 ```
 
-- [ ] **Step 4: Correr los tests y verificar que fallan**
+- [x] **Step 4: Correr los tests y verificar que fallan**
 
 ```bash
 .venv/bin/python -m pytest tests/test_edl_compile.py -v
@@ -1543,7 +1543,7 @@ from edl_compile import main
 main()
 ```
 
-- [ ] **Step 5: Implementar `edl_compile.py`**
+- [x] **Step 5: Implementar `edl_compile.py`**
 
 Lo que el implementador **no debe improvisar**:
 - `q()` es una **copia literal** de `build-composition.py:81-83`. Si divergen, el EDL y el render dejan de hablar de los mismos frames.
@@ -1689,7 +1689,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-- [ ] **Step 6: Correr los tests y verificar que pasan**
+- [x] **Step 6: Correr los tests y verificar que pasan**
 
 ```bash
 .venv/bin/python -m pytest tests/test_edl_compile.py -v
@@ -1697,7 +1697,7 @@ if __name__ == "__main__":
 
 Esperado: todos pasan. Si `load_edl` falla, **leer los problemas y arreglar el EDL**, no el validador: para eso están.
 
-- [ ] **Step 7: Compilar y renderizar la pieza 10 de verdad**
+- [x] **Step 7: Compilar y renderizar la pieza 10 de verdad**
 
 ```bash
 .venv/bin/python scripts/edl-compile.py --project . --piece 10
@@ -1714,7 +1714,7 @@ npx hyperframes render videos/10/public --skill=talking-head-recut \
 
 Esperado: MP4 de ~44.3 s. Esperar por el **PID concreto**, nunca con `pgrep -f "hyperframes render"` — el propio shell que espera lleva esa cadena y se caza a sí mismo.
 
-- [ ] **Step 8: Verificar sobre el MP4, no sobre el HTML**
+- [x] **Step 8: Verificar sobre el MP4, no sobre el HTML**
 
 ```bash
 ffprobe -v error -show_entries format=duration -of csv=p=0 videos/10/output.mp4
@@ -1723,7 +1723,7 @@ ffmpeg -v info -i videos/10/output.mp4 -vf blackdetect=d=0.05:pix_th=0.03 -f nul
 
 Esperado: duración ≈ 44.3 s y **sin negro real**. (Con el `pix_th` por defecto de 0.10 salta el propio suelo grafito, que es luma 12 — por eso 0.03.)
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add .claude/skills/video-tech-premium/scripts/edl_compile.py \
@@ -1767,7 +1767,7 @@ Aquí se cumple el requisito arquitectónico: **el compilador calcula métricas,
   - `run_gates(metrics: dict, style: dict) -> list[Finding]` con `Finding.metric`, `.severity` (`"fail"`/`"warn"`), `.message`
   - `GateError(Exception)` con `.findings`
 
-- [ ] **Step 1: Rellenar los `gates` del perfil**
+- [x] **Step 1: Rellenar los `gates` del perfil**
 
 ```json
 "gates": [
@@ -1784,7 +1784,7 @@ Aquí se cumple el requisito arquitectónico: **el compilador calcula métricas,
 ]
 ```
 
-- [ ] **Step 2: Escribir el test que falla**
+- [x] **Step 2: Escribir el test que falla**
 
 `tests/test_edl_metrics.py`.
 
@@ -1877,7 +1877,7 @@ def edl10(project_root):
     return load_edl(project_root / "videos" / "10" / "edl.json", project_root)
 ```
 
-- [ ] **Step 3: Correr los tests y verificar que fallan**
+- [x] **Step 3: Correr los tests y verificar que fallan**
 
 ```bash
 .venv/bin/python -m pytest tests/test_edl_metrics.py -v
@@ -1885,7 +1885,7 @@ def edl10(project_root):
 
 Esperado: FAIL — `ModuleNotFoundError: No module named 'edl_metrics'`.
 
-- [ ] **Step 4: Implementar `edl_metrics.py`**
+- [x] **Step 4: Implementar `edl_metrics.py`**
 
 ```python
 #!/usr/bin/env python3
@@ -2013,7 +2013,7 @@ def run_gates(metrics: dict, style: dict) -> list[Finding]:
     return out
 ```
 
-- [ ] **Step 5: Enganchar la fase 5 en el compilador**
+- [x] **Step 5: Enganchar la fase 5 en el compilador**
 
 En `edl_compile.py`, dentro de `main()` y **después** de `load_edl`:
 
@@ -2033,7 +2033,7 @@ from edl_metrics import measure, run_gates
         f"{k} {v}" for k, v in sorted(metrics.items())))
 ```
 
-- [ ] **Step 6: Correr los tests y verificar que pasan**
+- [x] **Step 6: Correr los tests y verificar que pasan**
 
 ```bash
 .venv/bin/python -m pytest tests/ -q
@@ -2041,7 +2041,7 @@ from edl_metrics import measure, run_gates
 
 Esperado: 0 fallos.
 
-- [ ] **Step 7: Comprobar los gates sobre la pieza real**
+- [x] **Step 7: Comprobar los gates sobre la pieza real**
 
 ```bash
 .venv/bin/python scripts/edl-compile.py --project . --piece 10
@@ -2049,7 +2049,7 @@ Esperado: 0 fallos.
 
 Esperado: compila e imprime las métricas. **`presenter_share` saldrá en 1.0 y disparará un warn** — es correcto: la pieza es todo `A_ROLL` y baja a la banda cuando lleguen los Motion Stage de las Tareas 6 y 9. Si `max_macro_gap` supera 4.5 s, añadir un evento `CAMERA` en el segmento largo que lo cause; el mensaje dice cuál.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add .claude/skills/video-tech-premium/scripts/edl_metrics.py \
@@ -2096,7 +2096,7 @@ El stage sale como **una sola entrada de `visuals`** que abarca toda su serie de
   - `objects.motion_stage(cid, theme, objects, at, **kw) -> tuple[str, str, list]` — el trío `(css, html, anims)` que `build-composition.py` ya espera de cualquier mockup
   - `objects.REGISTRY: dict[str, callable]`
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 `tests/test_objects.py`.
 
@@ -2188,7 +2188,7 @@ def test_el_registry_expone_motion_stage():
     assert REGISTRY["motion_stage"] is motion_stage
 ```
 
-- [ ] **Step 2: Correr el test y verificar que falla**
+- [x] **Step 2: Correr el test y verificar que falla**
 
 ```bash
 .venv/bin/python -m pytest tests/test_objects.py -v
@@ -2196,7 +2196,7 @@ def test_el_registry_expone_motion_stage():
 
 Esperado: FAIL — `ModuleNotFoundError: No module named 'objects'`.
 
-- [ ] **Step 3: Ampliar `tokens.py`**
+- [x] **Step 3: Ampliar `tokens.py`**
 
 Añadir al final, **sin tocar nada de lo existente**:
 
@@ -2290,7 +2290,7 @@ KINETIC = {
 }
 ```
 
-- [ ] **Step 4: Implementar `objects.py`**
+- [x] **Step 4: Implementar `objects.py`**
 
 Sigue el patrón exacto de `mockups.py`: cada función recibe `cid` y devuelve `(css, html, anims)`. En esta tarea el stage se emite **vacío** (suelo, viñeta, grid, spotlight y grano); los objetos entran en las Tareas 6 y 9.
 
@@ -2351,7 +2351,7 @@ def motion_stage(cid: str, theme: str = "primary", objects=None, at=None,
 REGISTRY = {"motion_stage": motion_stage}
 ```
 
-- [ ] **Step 5: Cambio quirúrgico nº 1 en `build-composition.py`**
+- [x] **Step 5: Cambio quirúrgico nº 1 en `build-composition.py`**
 
 En el dict de despacho de mockups (~línea 386), añadir **una línea**:
 
@@ -2365,7 +2365,7 @@ En el dict de despacho de mockups (~línea 386), añadir **una línea**:
         }
 ```
 
-- [ ] **Step 6: Validar la zona segura de slots en CORE**
+- [x] **Step 6: Validar la zona segura de slots en CORE**
 
 En `edl_schema.py`, dentro de `load_edl`, junto al resto de validaciones:
 
@@ -2390,7 +2390,7 @@ def test_slot_inexistente_falla(write_edl, edl_min):
     assert "no existe" in problems_of(write_edl, data)
 ```
 
-- [ ] **Step 7: Correr la suite entera**
+- [x] **Step 7: Correr la suite entera**
 
 ```bash
 .venv/bin/python -m pytest tests/ -q
@@ -2398,7 +2398,7 @@ def test_slot_inexistente_falla(write_edl, edl_min):
 
 Esperado: 0 fallos.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add .claude/skills/video-tech-premium/scripts/objects.py \
@@ -2444,7 +2444,7 @@ El caso que demuestra el principio central: no se busca otro asset, **se transfo
   - `objects.clock(cid, iid, state, slot) -> dict` → `{"html", "anims"}`
   - `edl_compile._visuals(edl, style) -> list[dict]` — una entrada por stage
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 ```python
 # tests/test_objects.py
@@ -2510,7 +2510,7 @@ def test_el_estado_del_reloj_se_emite_como_angulos(plan10):
     assert op["t"] == 10.3 and op["hour"] == 570 and op["minute"] == 2880
 ```
 
-- [ ] **Step 2: Correr los tests y verificar que fallan**
+- [x] **Step 2: Correr los tests y verificar que fallan**
 
 ```bash
 .venv/bin/python -m pytest tests/test_objects.py tests/test_edl_compile.py -v
@@ -2518,7 +2518,7 @@ def test_el_estado_del_reloj_se_emite_como_angulos(plan10):
 
 Esperado: FAIL — `cannot import name 'clock'`.
 
-- [ ] **Step 3: Implementar `hand_angles` y `clock` en `objects.py`**
+- [x] **Step 3: Implementar `hand_angles` y `clock` en `objects.py`**
 
 ```python
 def hand_angles(desde: str, hasta: str) -> dict:
@@ -2583,7 +2583,7 @@ def clock(cid: str, iid: str, state: dict, slot: str = "center", **_) -> dict:
 REGISTRY = {"motion_stage": motion_stage, "clock": clock}
 ```
 
-- [ ] **Step 4: Emitir stages en el compilador**
+- [x] **Step 4: Emitir stages en el compilador**
 
 En `edl_compile.py`, una función `_visuals(edl, style)` que:
 1. recorre `derive_stages(edl.segments)`;
@@ -2594,11 +2594,11 @@ En `edl_compile.py`, una función `_visuals(edl, style)` que:
 
 Y en `_shots`, el segmento con `camera: "OFF"` dentro de un stage emite su `off` en **`q(start + fade_in)`**, no en `start` — gotcha #6.
 
-- [ ] **Step 5: Convertir los segmentos 1 y 2 del EDL a `MOTION_STAGE`**
+- [x] **Step 5: Convertir los segmentos 1 y 2 del EDL a `MOTION_STAGE`**
 
 En `videos/10/edl.json`, el segmento `[14, 30]` gana `sceneType: "MOTION_STAGE"`, `representationType: "OBJECT"`, `camera: "OFF"` y un `OBJECT_IN` del reloj en la palabra 18; el segmento `[31, 37]` pasa a `MOTION_STAGE` / `STATE_CHANGE` / `OFF` con `transitionIn: "OBJECT_MATCH_CUT"` y el `OBJECT_STATE` en la palabra 34, tal y como está escrito en §15 de la spec.
 
-- [ ] **Step 6: Correr, compilar, renderizar y mirar el frame**
+- [x] **Step 6: Correr, compilar, renderizar y mirar el frame**
 
 ```bash
 .venv/bin/python -m pytest tests/ -q
@@ -2610,7 +2610,7 @@ npx hyperframes snapshot videos/10/public --at 5.5,9.0,10.5,11.0
 
 Esperado: `check` con 0 hallazgos. En los snapshots, el reloj marca **las 11 a los 5.5 s** y **las 7 a los 11.0 s**, y **es el mismo reloj**: no desaparece entre medias.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add -A .claude/skills/video-tech-premium/scripts videos/10/edl.json \
@@ -2648,7 +2648,7 @@ Dos cambios quirúrgicos, y el más delicado de todo el plan: **la keyword crece
   - `caption_metrics.KEYWORD_SCALE_MAX = 1.22`
   - `edl_compile._captions(edl) -> list[dict]` → `{"start", "end", "words", "keyword", "skin"}`
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 ```python
 # tests/test_caption_metrics.py
@@ -2708,7 +2708,7 @@ def test_youtube_usa_su_propia_escala():
     assert y["floor_top"] != r["floor_top"]
 ```
 
-- [ ] **Step 2: Correr el test y verificar que falla**
+- [x] **Step 2: Correr el test y verificar que falla**
 
 ```bash
 .venv/bin/python -m pytest tests/test_caption_metrics.py -v
@@ -2716,7 +2716,7 @@ def test_youtube_usa_su_propia_escala():
 
 Esperado: FAIL — `ModuleNotFoundError: No module named 'caption_metrics'`.
 
-- [ ] **Step 3: Implementar `caption_metrics.py`**
+- [x] **Step 3: Implementar `caption_metrics.py`**
 
 Reutiliza `measure_font()` de `build-composition.py` (Inter 900 real vía `fontTools`); **no** contar letras.
 
@@ -2784,7 +2784,7 @@ def measure_block(words, base_size: int, keyword_range, fmt: str, canvas_h: int,
 
 ⚠ `measure_font()` vive hoy dentro de `build-composition.py`, que no es importable (guion en el nombre). Extraerlo a `build_composition_fonts.py` y que `build-composition.py` lo importe desde ahí. Es un movimiento sin cambio de comportamiento.
 
-- [ ] **Step 4: Cambios quirúrgicos nº 3 y nº 4 en `build-composition.py`**
+- [x] **Step 4: Cambios quirúrgicos nº 3 y nº 4 en `build-composition.py`**
 
 **nº 3 — delegar la cuenta.** Donde hoy está:
 
@@ -2829,11 +2829,11 @@ Y la keyword deja de elegirse por `is_key(up, KEYWORDS)` cuando hay captions exp
 
 y las palabras normales pierden el `text-transform: uppercase` global.
 
-- [ ] **Step 5: Emitir `captions` en el compilador**
+- [x] **Step 5: Emitir `captions` en el compilador**
 
 `_captions(edl)` recorre los eventos `CAPTION`, y por cada uno busca el `KEYWORD` contenido. El `end` de un bloque es el `start` del siguiente menos 0.03 s, o el fin de su última palabra más 0.22 s, lo que sea menor — **la misma regla que el troceo actual**, para no cambiar el ritmo de lectura sin querer.
 
-- [ ] **Step 6: Verificar sobre el MP4, que es donde este bug se ve**
+- [x] **Step 6: Verificar sobre el MP4, que es donde este bug se ve**
 
 ```bash
 .venv/bin/python -m pytest tests/ -q
@@ -2859,7 +2859,7 @@ assert filas.max() <= 1536"
 
 Esperado: tinta más baja **≤ y1536**. En las piezas 3 y 4 quedó en y1533 y y1502; si esta sale por encima, el `floor_top` está mal y **no** se arregla con un `plan_override`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add -A .claude/skills/video-tech-premium/scripts tests/ videos/10/
