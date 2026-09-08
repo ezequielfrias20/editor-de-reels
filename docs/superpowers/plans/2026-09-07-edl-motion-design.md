@@ -3046,7 +3046,7 @@ como un zoom en vez de como el mundo echándosele encima."
 - Modify: `scripts/edl_metrics.py` (métrica `sfx_per_macro` ya existe; añadir `sfx_dropped`)
 - Create: `tests/test_edl_sfx.py`
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 ```python
 from edl_compile import PRESET_SFX, PRIORITY, resolve_sfx
@@ -3098,7 +3098,7 @@ def test_la_tupla_es_la_que_espera_build_sfx():
     assert (t, nombre, trim, por_que) == (1.0, "pop", 1.0, "entra el reloj")
 ```
 
-- [ ] **Step 2: Implementar en `edl_compile.py`**
+- [x] **Step 2: Implementar en `edl_compile.py`**
 
 ```python
 # Cada preset trae su efecto, pero SOLO suena si el evento declara sfx:"auto".
@@ -3118,11 +3118,11 @@ COLLAPSE_SAME, CONCURRENCY = 0.25, 0.18
 
 `resolve_sfx` ordena por `(t, prioridad)`, descarta un igual dentro de `COLLAPSE_SAME`, y dentro de `CONCURRENCY` se queda con el de clase más baja. Devuelve tuplas `(q(t), nombre, trim, why)` — **exactamente** lo que `build_sfx` desempaqueta.
 
-- [ ] **Step 3: Marcar los `sfx: "auto"` en el EDL de la pieza 10**
+- [x] **Step 3: Marcar los `sfx: "auto"` en el EDL de la pieza 10**
 
 Solo donde marcan algo que pasa en imagen: el `punch` del hook (palabra 12), la entrada del reloj (18), el barrido de agujas (34), la entrada del sillón (62) y el cierre radial (71). **Cinco**, no veinte.
 
-- [ ] **Step 4: Verificar el ataque sobre el MP4**
+- [x] **Step 4: Verificar el ataque sobre el MP4**
 
 ```bash
 ffmpeg -v error -i videos/10/output.mp4 -af "volumedetect" -f null - 2>&1 | tail -5
@@ -3130,7 +3130,7 @@ ffmpeg -v error -i videos/10/output.mp4 -af "volumedetect" -f null - 2>&1 | tail
 
 Esperado: pico por debajo de −2 dB y **0 muestras saturadas**.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add -A .claude/skills/video-tech-premium/scripts videos/10/ tests/
