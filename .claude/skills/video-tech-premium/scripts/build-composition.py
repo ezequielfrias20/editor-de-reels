@@ -1147,6 +1147,17 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
             js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 0.955 }}, '
                       f'{{ opacity: 1, scale: 1, duration: {round(d*1.30,4)}, '
                       f'ease: "power2.out" }}, {t:.4f});')
+        elif kind == "crowd-in":
+            # El cierre radial de la acumulación (`objects.crowd_delta`): el
+            # mundo se le echa encima al sujeto, el sujeto no se acerca a él.
+            # `x`/`y` de GSAP son transform RELATIVO a la posición natural
+            # del elemento — el `left`/`top` que ya le dio su slot horneado
+            # — así que animar hacia (dx, dy) lo desplaza sin tocar layout.
+            # El `scale` leve es la única concesión de "impacto": aquí sí es
+            # intencional, no un artefacto que limpiar.
+            dx, dy = a[4], a[5]
+            js.append(f'tl.to(\'{sel}\', {{ x: {dx}, y: {dy}, scale: 1.06, '
+                      f'duration: {d}, ease: "power2.inOut" }}, {t:.4f});')
         elif kind == "grow-x":
             js.append(f'tl.fromTo(\'{sel}\', {{ width: 0 }}, '
                       f'{{ width: {a[4]}, duration: {d}, ease: "power2.out" }}, {t:.4f});')

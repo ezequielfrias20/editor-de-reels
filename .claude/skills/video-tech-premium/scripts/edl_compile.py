@@ -186,6 +186,19 @@ def _visuals(edl: Edl, style: dict) -> list[dict]:
                     # necesita los dos extremos explícitos.
                     op["hour_from"] = angles["hour_from"]
                     op["minute_from"] = angles["minute_from"]
+                if ev.crowd:
+                    # El SLOT de origen es el que le dio su `OBJECT_IN`, no
+                    # el estado corriente — la instancia no se reposiciona
+                    # entre medias, así que `objects.py` (que también
+                    # hornea `tokens.SLOTS`) es quien sabe hacer la cuenta.
+                    slot = next((o["slot"] for o in obj_defs
+                                if o["id"] == ev.instance_id), None)
+                    if slot is None:
+                        raise ValueError(
+                            f"'{ev.instance_id}' no tiene slot: ¿un OBJECT_STATE "
+                            f"con crowd antes de su propio OBJECT_IN? El validador "
+                            f"de instancias debería haberlo cazado ya")
+                    op["dx"], op["dy"] = _objects.crowd_delta(slot)
                 if ev.preset:
                     op["preset"] = ev.preset
                 ops.append(op)

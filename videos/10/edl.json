@@ -263,9 +263,12 @@
         57,
         72
       ],
-      "sceneType": "A_ROLL",
-      "camera": "MEDIUM",
       "semanticIntent": "cuatro trabajos incompatibles cayendo sobre la misma persona",
+      "sceneType": "MOTION_STAGE",
+      "representationType": "QUANTITY",
+      "camera": "OFF",
+      "defaultPreset": "float-in",
+      "transitionIn": "DIAGONAL_WIPE",
       "events": [
         {
           "atWord": 57,
@@ -276,6 +279,14 @@
           ]
         },
         {
+          "atWord": 62,
+          "type": "OBJECT_IN",
+          "asset": "object:dental-chair@1",
+          "instanceId": "task-chair",
+          "slot": "center",
+          "sfx": "auto"
+        },
+        {
           "atWord": 60,
           "type": "CAPTION",
           "words": [
@@ -284,11 +295,18 @@
           ]
         },
         {
-          "atWord": 65,
-          "type": "CAMERA",
-          "state": {
-            "camera": "CLOSE"
-          }
+          "atWord": 64,
+          "type": "OBJECT_IN",
+          "asset": "object:phone@1",
+          "instanceId": "task-phone",
+          "slot": "orbit-1"
+        },
+        {
+          "atWord": 66,
+          "type": "OBJECT_IN",
+          "asset": "object:card-payment@1",
+          "instanceId": "task-pay",
+          "slot": "orbit-2"
         },
         {
           "atWord": 65,
@@ -297,6 +315,13 @@
             65,
             69
           ]
+        },
+        {
+          "atWord": 69,
+          "type": "OBJECT_IN",
+          "asset": "object:instagram@1",
+          "instanceId": "task-ig",
+          "slot": "orbit-3"
         },
         {
           "atWord": 70,
@@ -313,9 +338,29 @@
             71,
             72
           ]
+        },
+        {
+          "atWord": 71,
+          "type": "OBJECT_STATE",
+          "instanceId": "task-phone",
+          "crowd": true,
+          "preset": "crowd-in",
+          "sfx": "auto"
+        },
+        {
+          "atWord": 71,
+          "type": "OBJECT_STATE",
+          "instanceId": "task-pay",
+          "crowd": true
+        },
+        {
+          "atWord": 71,
+          "type": "OBJECT_STATE",
+          "instanceId": "task-ig",
+          "crowd": true
         }
       ],
-      "reason": "la enumeración ES la carga; en la Tarea 9 pasa a MOTION_STAGE acumulativo"
+      "reason": "los cuatro objetos SE QUEDAN: la escena se llena al ritmo en que él los nombra, y en «al mismo tiempo» se cierran sobre el sillón. La carga no se dice, se ve"
     },
     {
       "words": [

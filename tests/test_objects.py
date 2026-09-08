@@ -1,6 +1,6 @@
 import pytest
 import tokens
-from objects import REGISTRY, motion_stage
+from objects import REGISTRY, crowd_delta, motion_stage
 
 
 # ── slots ───────────────────────────────────────────────────────────────────
@@ -128,3 +128,92 @@ def test_el_reloj_marca_su_estado_inicial():
     o = clock("stage-a", "clock-main", {"time": "11:00"}, "center")
     assert 'id="stage-a-clock-main"' in o["html"]
     assert "rotate(330" in o["html"], "la hora inicial se hornea, no se anima"
+
+
+# ── acumulación (Tarea 9) ────────────────────────────────────────────────────
+def test_crowd_mueve_hacia_el_centro_por_un_delta_horneado():
+    dx, dy = crowd_delta("orbit-1", fraction=0.42)
+    cx, cy = tokens.SLOTS["center"]
+    ox, oy = tokens.SLOTS["orbit-1"]
+    assert (dx, dy) == (round((cx - ox) * 0.42), round((cy - oy) * 0.42))
+    assert isinstance(dx, int) and isinstance(dy, int)
+
+
+def test_el_centro_no_se_mueve_al_acumular():
+    """La claustrofobia viene de que el mundo se le echa encima al sujeto,
+    no de que el sujeto se acerque: si el centro se mueve, se lee como zoom."""
+    assert crowd_delta("center", fraction=0.42) == (0, 0)
+
+
+def test_crowd_delta_usa_una_fraccion_de_reserva():
+    """La llamada del compilador es `crowd_delta(slot)`, sin fracción — tiene
+    que quedar un valor por defecto, no un `TypeError`."""
+    assert crowd_delta("orbit-1") == crowd_delta("orbit-1", fraction=0.42)
+
+
+def test_los_cuatro_objetos_de_la_pieza_10_existen():
+    """Claves kebab-case: son las que escribe el EDL (`object:dental-chair@1`
+    -> kind `dental-chair`) — `ASSET_RE` solo admite `[a-z0-9-]+`, así que un
+    asset de dos palabras nunca lleva guion bajo. `objects.dental_chair` etc.
+    (guion bajo) son los NOMBRES DE FUNCIÓN Python, un namespace distinto."""
+    for k in ("dental-chair", "phone", "card-payment", "instagram"):
+        assert k in REGISTRY
+
+
+def test_cada_objeto_devuelve_html_y_un_id_unico():
+    vistos = set()
+    for k in ("dental-chair", "phone", "card-payment", "instagram"):
+        o = REGISTRY[k]("stage-b", f"task-{k}", {}, "orbit-1")
+        assert o["eid"] not in vistos
+        vistos.add(o["eid"])
+
+
+def test_los_cuatro_objetos_se_posicionan_por_slot():
+    """`left`/`top` salen de `tokens.SLOTS[slot]`, no de un valor fijo: el
+    mismo objeto en dos slots distintos tiene que caer en sitios distintos."""
+    for k in ("phone", "card-payment", "instagram"):
+        a = REGISTRY[k]("s", "x", {}, "orbit-1")
+        b = REGISTRY[k]("s", "x", {}, "orbit-2")
+        assert a["html"] != b["html"]
+
+
+def test_el_sillon_no_se_declara_crowd_en_la_pieza_10(project_root):
+    """El sillón es el punto fijo hacia el que convergen los demás — si
+    alguien le añade `crowd: true` por error, la escena se cierra sobre un
+    objeto que también se está moviendo y el efecto se rompe."""
+    import json
+    edl = json.loads((project_root / "videos" / "10" / "edl.json").read_text())
+    seg = next(s for s in edl["segments"] if s["words"] == [57, 72])
+    crowd_ids = {e["instanceId"] for e in seg["events"]
+                if e["type"] == "OBJECT_STATE" and e.get("crowd")}
+    chair_id = next(e["instanceId"] for e in seg["events"]
+                    if e["type"] == "OBJECT_IN" and "dental-chair" in e["asset"])
+    assert chair_id not in crowd_ids
+
+
+def test_los_cuatro_objetos_entran_sin_solaparse_demasiado(project_root):
+    """Huecos de 0.56, 0.88 y 0.90 s entre los cuatro OBJECT_IN — muy por
+    debajo del gate macro de 4.5 s, tal como dice el plan."""
+    import json
+    from edl_words import load_words
+    edl = json.loads((project_root / "videos" / "10" / "edl.json").read_text())
+    seg = next(s for s in edl["segments"] if s["words"] == [57, 72])
+    wt = load_words(project_root / "transcripts" / "10.json",
+                    project_root / "cuts" / "10.json")
+    ins = sorted(e["atWord"] for e in seg["events"] if e["type"] == "OBJECT_IN")
+    assert len(ins) == 4
+    times = [wt.at(w) for w in ins]
+    gaps = [round(b - a, 2) for a, b in zip(times, times[1:])]
+    assert gaps == [pytest.approx(0.56, abs=0.02), pytest.approx(0.88, abs=0.02),
+                    pytest.approx(0.90, abs=0.02)]
+
+
+def test_el_css_del_stage_usa_el_atributo_data_viz_id_no_un_id_literal():
+    """Regresión: `cid` nunca es el id LITERAL de un elemento — el host lleva
+    `id="host-{cid}"` y `data-viz-id="{cid}"` es un ATRIBUTO. Un selector
+    `#{cid}` no matchea nada y deja `.obj.accent`/`currentColor` sin color:
+    los objetos se pintan, pero invisibles contra el fondo oscuro. Bug real,
+    cazado renderizando la pieza 10 y comparando snapshots antes/después."""
+    css, _, _ = motion_stage("stage-x", theme="primary", objects=[], at=[])
+    assert '.viz[data-viz-id="stage-x"] .obj.accent' in css
+    assert "#stage-x " not in css and "#stage-x." not in css and "#stage-x{" not in css

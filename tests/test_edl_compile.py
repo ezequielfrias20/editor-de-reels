@@ -21,10 +21,12 @@ def test_el_plan_tiene_las_claves_que_build_composition_espera(plan10):
 
 
 def test_hay_un_encuadre_por_segmento_mas_los_eventos_camera(plan10):
-    # 9 segmentos + 4 eventos CAMERA. Eran 5 en la Tarea 4; la Tarea 6 quitó
-    # el de dentro del segmento 1 al convertirlo en MOTION_STAGE (camera=OFF
-    # todo el segmento, un corte de cámara mid-stage no tiene sentido).
-    assert len(plan10["shots"]) == 13
+    # 9 segmentos + 4 eventos CAMERA - 1: eran 13 en la Tarea 8. La Tarea 9
+    # convirtió el segmento [57, 72] en MOTION_STAGE (camera=OFF todo el
+    # segmento) y se llevó por delante el CAMERA de la palabra 65, que vivía
+    # DENTRO de ese segmento — un corte de cámara mid-stage no tiene sentido,
+    # la misma razón que ya vació el segmento 1 en la Tarea 6.
+    assert len(plan10["shots"]) == 12
 
 
 def test_los_encuadres_van_ordenados_y_empiezan_en_cero(plan10):
@@ -98,9 +100,18 @@ def test_un_stage_sale_como_UNA_entrada_de_visuals(plan10):
     el fin del stage y el próximo encuadre — el mismo bug que gotcha #6
     documenta."""
     stages = [v for v in plan10["visuals"] if v["mock"][0] == "motion_stage"]
-    assert len(stages) == 1
     v = stages[0]
     assert v["start"] == 4.1333 and v["end"] == 11.3333
+
+
+def test_dos_stages_no_contiguos_son_DOS_entradas_de_visuals(plan10):
+    """La Tarea 9 añade el stage de acumulación (palabras 57-72), separado
+    del reloj (14-37) por dos segmentos A_ROLL de por medio — `derive_stages`
+    tiene que verlos como series MAXIMALES distintas, no fundirlos en una."""
+    stages = [v for v in plan10["visuals"] if v["mock"][0] == "motion_stage"]
+    assert len(stages) == 2
+    assert stages[1]["id"] == "stage-b"
+    assert stages[1]["start"] == 18.4333 and stages[1]["end"] == 23.8667
 
 
 def test_el_off_se_retrasa_por_el_fade_in(plan10):

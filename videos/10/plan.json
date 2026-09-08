@@ -307,20 +307,12 @@
       "zoom": 1.0
     },
     {
-      "anchor": 0.42,
-      "at": 18.4333,
-      "kind": "full",
-      "zoom": 1.12
+      "at": 18.6333,
+      "kind": "off"
     },
     {
       "anchor": 0.42,
-      "at": 21.0333,
-      "kind": "full",
-      "zoom": 1.2
-    },
-    {
-      "anchor": 0.42,
-      "at": 23.8667,
+      "at": 23.7,
       "kind": "full",
       "zoom": 1.12
     },
@@ -395,6 +387,77 @@
       "role": "takeover",
       "skin": "on-surface",
       "start": 4.1333
+    },
+    {
+      "end": 23.8667,
+      "fade_in": 0.22,
+      "fade_out": 0.18,
+      "id": "stage-b",
+      "kind": "mockup",
+      "mock": [
+        "motion_stage",
+        {
+          "at": [
+            {
+              "dx": 0,
+              "dy": 105,
+              "id": "task-phone",
+              "op": "state",
+              "preset": "crowd-in",
+              "t": 22.6667
+            },
+            {
+              "dx": -120,
+              "dy": 52,
+              "id": "task-pay",
+              "op": "state",
+              "t": 22.6667
+            },
+            {
+              "dx": -120,
+              "dy": -52,
+              "id": "task-ig",
+              "op": "state",
+              "t": 22.6667
+            }
+          ],
+          "objects": [
+            {
+              "id": "task-chair",
+              "in": 19.8,
+              "kind": "dental-chair",
+              "slot": "center",
+              "state": {}
+            },
+            {
+              "id": "task-phone",
+              "in": 20.3667,
+              "kind": "phone",
+              "slot": "orbit-1",
+              "state": {}
+            },
+            {
+              "id": "task-pay",
+              "in": 21.2333,
+              "kind": "card-payment",
+              "slot": "orbit-2",
+              "state": {}
+            },
+            {
+              "id": "task-ig",
+              "in": 22.1333,
+              "kind": "instagram",
+              "slot": "orbit-3",
+              "state": {}
+            }
+          ],
+          "theme": "primary",
+          "visual_start": 18.4333
+        }
+      ],
+      "role": "takeover",
+      "skin": "on-surface",
+      "start": 18.4333
     }
   ],
   "voice_gain": 0.7

@@ -19,17 +19,37 @@
    El fondo va en un ELEMENTO del DOM: el `background` de la página se descarta
    en el render (trampa nº1), y el fill de una escena a pantalla completa nunca
    va en la raíz de la composición. */
-#stage-a .stage-ground{position:absolute;inset:0;
+.viz[data-viz-id="stage-a"] .stage-ground{position:absolute;inset:0;
   background:radial-gradient(120% 62% at 50% 0%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 58%),repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
-#stage-a .stage-grain{position:absolute;inset:0;pointer-events:none;
+.viz[data-viz-id="stage-a"] .stage-grain{position:absolute;inset:0;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.82%27%20numOctaves%3D%272%27%20seed%3D%227%22/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23g%29%27%20opacity%3D%270.035%27/%3E%3C/svg%3E");background-repeat:repeat}
-#stage-a .stage-plane{position:absolute;inset:0}
-#stage-a .obj{position:absolute;display:block;opacity:0;
+.viz[data-viz-id="stage-a"] .stage-plane{position:absolute;inset:0}
+.viz[data-viz-id="stage-a"] .obj{position:absolute;display:block;opacity:0;
   transform-origin:50% 50%;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
-#stage-a .obj.accent{color:#FF5A5A}
-#stage-a .obj .fill{background:rgba(255,90,90,.14)}
-#stage-a .obj.hero{box-shadow:0 0 0 1px rgba(255,90,90,.32), 0 18px 60px rgba(255,90,90,.20)}
-#stage-a .stage-type{color:#FFFFFF;font-family:'Inter', system-ui, sans-serif;font-weight:900}
+.viz[data-viz-id="stage-a"] .obj.accent{color:#FF5A5A}
+.viz[data-viz-id="stage-a"] .obj .fill{background:rgba(255,90,90,.14)}
+.viz[data-viz-id="stage-a"] .obj.hero{box-shadow:0 0 0 1px rgba(255,90,90,.32), 0 18px 60px rgba(255,90,90,.20)}
+.viz[data-viz-id="stage-a"] .stage-type{color:#FFFFFF;font-family:'Inter', system-ui, sans-serif;font-weight:900}
+
+
+.viz[data-viz-id="stage-b"] .vizbg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+
+
+/* Motion Stage — suelo continuo de una serie de segmentos.
+   El fondo va en un ELEMENTO del DOM: el `background` de la página se descarta
+   en el render (trampa nº1), y el fill de una escena a pantalla completa nunca
+   va en la raíz de la composición. */
+.viz[data-viz-id="stage-b"] .stage-ground{position:absolute;inset:0;
+  background:radial-gradient(120% 62% at 50% 0%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 58%),repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+.viz[data-viz-id="stage-b"] .stage-grain{position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.82%27%20numOctaves%3D%272%27%20seed%3D%227%22/%3E%3C/filter%3E%3Crect%20width%3D%27160%27%20height%3D%27160%27%20filter%3D%27url%28%23g%29%27%20opacity%3D%270.035%27/%3E%3C/svg%3E");background-repeat:repeat}
+.viz[data-viz-id="stage-b"] .stage-plane{position:absolute;inset:0}
+.viz[data-viz-id="stage-b"] .obj{position:absolute;display:block;opacity:0;
+  transform-origin:50% 50%;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
+.viz[data-viz-id="stage-b"] .obj.accent{color:#9B85FF}
+.viz[data-viz-id="stage-b"] .obj .fill{background:rgba(124,92,255,.16)}
+.viz[data-viz-id="stage-b"] .obj.hero{box-shadow:0 0 0 1px rgba(124,92,255,.35), 0 18px 60px rgba(124,92,255,.22)}
+.viz[data-viz-id="stage-b"] .stage-type{color:#FFFFFF;font-family:'Inter', system-ui, sans-serif;font-weight:900}
 
 
 :root{--bg:#0B0C10;--surface:#16181F;--text:#FFFFFF;
@@ -126,44 +146,34 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   <video class="vid clip" id="shot-04" src="input-video.mp4"
          muted playsinline
          style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
-         data-start="15.8000" data-duration="2.6333"
+         data-start="15.8000" data-duration="2.8333"
          data-media-start="15.8000" data-track-index="1"></video>
-  <video class="vid clip" id="shot-05" src="input-video.mp4"
-         muted playsinline
-         style="left:-63px;top:-97px;width:1210px;height:2150px;object-position:50% 50%"
-         data-start="18.4333" data-duration="2.6000"
-         data-media-start="18.4333" data-track-index="1"></video>
   <video class="vid clip" id="shot-06" src="input-video.mp4"
          muted playsinline
-         style="left:-105px;top:-161px;width:1296px;height:2304px;object-position:50% 50%"
-         data-start="21.0333" data-duration="2.8334"
-         data-media-start="21.0333" data-track-index="1"></video>
-  <video class="vid clip" id="shot-07" src="input-video.mp4"
-         muted playsinline
          style="left:-63px;top:-97px;width:1210px;height:2150px;object-position:50% 50%"
-         data-start="23.8667" data-duration="2.6000"
-         data-media-start="23.8667" data-track-index="1"></video>
-  <video class="vid clip" id="shot-08" src="input-video.mp4"
+         data-start="23.7000" data-duration="2.7667"
+         data-media-start="23.7000" data-track-index="1"></video>
+  <video class="vid clip" id="shot-07" src="input-video.mp4"
          muted playsinline
          style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
          data-start="26.4667" data-duration="2.3333"
          data-media-start="26.4667" data-track-index="1"></video>
-  <video class="vid clip" id="shot-09" src="input-video.mp4"
+  <video class="vid clip" id="shot-08" src="input-video.mp4"
          muted playsinline
          style="left:0px;top:0px;width:1080px;height:1920px;object-position:50% 50%"
          data-start="28.8000" data-duration="2.9667"
          data-media-start="28.8000" data-track-index="1"></video>
-  <video class="vid clip" id="shot-10" src="input-video.mp4"
+  <video class="vid clip" id="shot-09" src="input-video.mp4"
          muted playsinline
          style="left:-63px;top:-97px;width:1210px;height:2150px;object-position:50% 50%"
          data-start="31.7667" data-duration="4.0666"
          data-media-start="31.7667" data-track-index="1"></video>
-  <video class="vid clip" id="shot-11" src="input-video.mp4"
+  <video class="vid clip" id="shot-10" src="input-video.mp4"
          muted playsinline
          style="left:-105px;top:-161px;width:1296px;height:2304px;object-position:50% 50%"
          data-start="35.8333" data-duration="4.0334"
          data-media-start="35.8333" data-track-index="1"></video>
-  <video class="vid clip" id="shot-12" src="input-video.mp4"
+  <video class="vid clip" id="shot-11" src="input-video.mp4"
          muted playsinline
          style="left:-63px;top:-97px;width:1210px;height:2150px;object-position:50% 50%"
          data-start="39.8667" data-duration="4.4666"
@@ -199,6 +209,69 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     <circle cx="150" cy="150" r="10" fill="#7C5CFF"/>
   </svg>
 </div></div><div class="stage-grain"></div></div></div>
+<div class="viz over clip" data-viz-id="stage-b" id="host-stage-b" data-start="18.4333" data-duration="5.4334" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam mock" id="stage-b-cam"><div class="stage-ground"></div><div class="stage-plane">
+<div class="obj accent" id="stage-b-task-chair" data-layout-allow-overflow style="left:380px;
+     top:690px;width:320px;height:320px">
+  <div style="width:100%;height:100%;transform:perspective(900px) rotateY(-6deg);
+       transform-style:preserve-3d">
+    <svg viewBox="0 0 320 320" width="320" height="320">
+  <rect x="90" y="30" width="60" height="46" rx="16" fill="#16181F"
+        stroke="currentColor" stroke-width="3"/>
+  <rect x="70" y="60" width="100" height="150" rx="20" fill="#16181F"
+        stroke="currentColor" stroke-width="3"/>
+  <rect x="70" y="196" width="140" height="34" rx="12" fill="#16181F"
+        stroke="rgba(255,255,255,.16)" stroke-width="2"/>
+  <rect x="172" y="206" width="66" height="22" rx="10" fill="#16181F"
+        stroke="rgba(255,255,255,.16)" stroke-width="2"/>
+  <rect x="132" y="230" width="14" height="52" fill="rgba(255,255,255,.16)"/>
+  <ellipse cx="139" cy="290" rx="72" ry="11" fill="rgba(255,255,255,.09)"/>
+</svg>
+  </div>
+</div>
+<div class="obj accent" id="stage-b-task-phone" data-layout-allow-overflow style="left:440px;
+     top:500px;width:200px;height:200px">
+  <div style="width:100%;height:100%;transform:perspective(900px) rotateY(10deg);
+       transform-style:preserve-3d">
+    <svg viewBox="0 0 200 200" width="200" height="200">
+  <path d="M40 58 Q18 100 40 142" fill="none" stroke="currentColor"
+        stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+  <path d="M160 58 Q182 100 160 142" fill="none" stroke="currentColor"
+        stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+  <rect x="55" y="20" width="90" height="160" rx="20" fill="#16181F"
+        stroke="currentColor" stroke-width="3"/>
+  <rect x="68" y="40" width="64" height="112" rx="4" fill="#0B0C10"/>
+  <circle cx="100" cy="166" r="6" fill="currentColor"/>
+</svg>
+  </div>
+</div>
+<div class="obj accent" id="stage-b-task-pay" data-layout-allow-overflow style="left:716px;
+     top:650px;width:220px;height:150px">
+  <div style="width:100%;height:100%;transform:perspective(900px) rotateY(-8deg);
+       transform-style:preserve-3d">
+    <svg viewBox="0 0 220 150" width="220" height="150">
+  <rect x="10" y="10" width="200" height="130" rx="16" fill="#16181F"
+        stroke="currentColor" stroke-width="3"/>
+  <rect x="10" y="42" width="200" height="26" fill="currentColor" opacity="0.85"/>
+  <rect x="28" y="96" width="42" height="20" rx="4" fill="rgba(255,255,255,.16)"/>
+  <rect x="150" y="96" width="42" height="20" rx="6" fill="rgba(255,255,255,.16)"/>
+</svg>
+  </div>
+</div>
+<div class="obj accent" id="stage-b-task-ig" data-layout-allow-overflow style="left:726px;
+     top:875px;width:200px;height:200px">
+  <div style="width:100%;height:100%;transform:perspective(900px) rotateY(8deg);
+       transform-style:preserve-3d">
+    <svg viewBox="0 0 200 200" width="200" height="200">
+  <rect x="20" y="30" width="160" height="110" rx="24" fill="#16181F"
+        stroke="currentColor" stroke-width="3"/>
+  <path d="M60 55 h50 M60 76 h80 M60 97 h60" stroke="rgba(255,255,255,.16)"
+        stroke-width="7" stroke-linecap="round"/>
+  <path d="M55 140 L75 168 L92 140 Z" fill="#16181F"
+        stroke="currentColor" stroke-width="3"/>
+  <circle cx="152" cy="48" r="15" fill="currentColor"/>
+</svg>
+  </div>
+</div></div><div class="stage-grain"></div></div></div>
 
   <!-- los bloques comparten posición a propósito: solo uno es visible a la vez -->
   <div id="caption-host" class="clip" data-layout-allow-overlap data-start="0"
@@ -217,10 +290,10 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     <div class="cap on-dark" id="cap11" data-layout-allow-overlap style="top:891px"><span class="w key" id="c11k0">3</span><span class="w">clínicas</span><span class="w">más</span></div>
     <div class="cap on-dark" id="cap12" data-layout-allow-overlap style="top:888px"><span class="w">Y</span><span class="w">no</span><span class="w">el</span><span class="w">problema</span><span class="w">no</span></div>
     <div class="cap on-dark" id="cap13" data-layout-allow-overlap style="top:888px"><span class="w">es</span><span class="w">tu</span><span class="w key" id="c13k2">RECEPCIONISTA</span></div>
-    <div class="cap on-dark" id="cap14" data-layout-allow-overlap style="top:891px"><span class="w">Nadie</span><span class="w">puede</span><span class="w">atender</span></div>
-    <div class="cap on-dark" id="cap15" data-layout-allow-overlap style="top:891px"><span class="w">en</span><span class="w">el</span><span class="w">sillón</span><span class="w">el</span><span class="w">teléfono</span></div>
-    <div class="cap on-dark" id="cap16" data-layout-allow-overlap style="top:893px"><span class="w">el</span><span class="w">cobro</span><span class="w">y</span><span class="w">el</span><span class="w">Instagram</span></div>
-    <div class="cap on-dark" id="cap17" data-layout-allow-overlap style="top:893px"><span class="w">al</span><span class="w key" id="c17k1">MISMO</span><span class="w key" id="c17k2">TIEMPO</span></div>
+    <div class="cap on-surface" id="cap14" data-layout-allow-overlap style="top:1382px"><span class="w">Nadie</span><span class="w">puede</span><span class="w">atender</span></div>
+    <div class="cap on-surface" id="cap15" data-layout-allow-overlap style="top:1382px"><span class="w">en</span><span class="w">el</span><span class="w">sillón</span><span class="w">el</span><span class="w">teléfono</span></div>
+    <div class="cap on-surface" id="cap16" data-layout-allow-overlap style="top:1382px"><span class="w">el</span><span class="w">cobro</span><span class="w">y</span><span class="w">el</span><span class="w">Instagram</span></div>
+    <div class="cap on-surface" id="cap17" data-layout-allow-overlap style="top:1382px"><span class="w">al</span><span class="w key" id="c17k1">MISMO</span><span class="w key" id="c17k2">TIEMPO</span></div>
     <div class="cap on-dark" id="cap18" data-layout-allow-overlap style="top:891px"><span class="w">Contratar</span><span class="w">otra</span><span class="w">persona</span><span class="w">te</span></div>
     <div class="cap on-dark" id="cap19" data-layout-allow-overlap style="top:891px"><span class="w">tampoco</span><span class="w">lo</span><span class="w">arregla</span></div>
     <div class="cap on-dark" id="cap20" data-layout-allow-overlap style="top:888px"><span class="w">solo</span><span class="w">mueve</span><span class="w">el</span></div>
@@ -246,11 +319,22 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     tl.fromTo('.viz[data-viz-id="stage-a"]', { opacity: 0 }, { opacity: 1, duration: 0.22, ease: "power1.inOut" }, 4.1333);
     tl.to('.viz[data-viz-id="stage-a"]', { opacity: 0, duration: 0.18, ease: "power1.inOut" }, 11.1533);
     tl.set('.viz[data-viz-id="stage-a"]', { opacity: 0, visibility: "hidden" }, 11.3333);
+    tl.set('.viz[data-viz-id="stage-b"]', { visibility: "visible" }, 18.4333);
+    tl.fromTo('.viz[data-viz-id="stage-b"]', { opacity: 0 }, { opacity: 1, duration: 0.22, ease: "power1.inOut" }, 18.4333);
+    tl.to('.viz[data-viz-id="stage-b"]', { opacity: 0, duration: 0.18, ease: "power1.inOut" }, 23.6867);
+    tl.set('.viz[data-viz-id="stage-b"]', { opacity: 0, visibility: "hidden" }, 23.8667);
     tl.fromTo('.viz[data-viz-id="stage-a"] #stage-a-clock-main', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 5.0333);
-    const _hv6 = { v: 330.0 };
-    tl.to(_hv6, { v: 570.0, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-h')?.setAttribute("transform", "rotate(" + _hv6.v + " 150 150)"); } }, 10.3000);
-    const _mv7 = { v: 0 };
-    tl.to(_mv7, { v: 2880, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-m')?.setAttribute("transform", "rotate(" + _mv7.v + " 150 150)"); } }, 10.3000);
+    const _hv10 = { v: 330.0 };
+    tl.to(_hv10, { v: 570.0, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-h')?.setAttribute("transform", "rotate(" + _hv10.v + " 150 150)"); } }, 10.3000);
+    const _mv11 = { v: 0 };
+    tl.to(_mv11, { v: 2880, duration: 0.42, ease: "power2.inOut", onUpdate: function() { document.querySelector('.viz[data-viz-id="stage-a"] #stage-a-clock-main-m')?.setAttribute("transform", "rotate(" + _mv11.v + " 150 150)"); } }, 10.3000);
+    tl.fromTo('.viz[data-viz-id="stage-b"] #stage-b-task-chair', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 19.8000);
+    tl.fromTo('.viz[data-viz-id="stage-b"] #stage-b-task-phone', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 20.3667);
+    tl.fromTo('.viz[data-viz-id="stage-b"] #stage-b-task-pay', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 21.2333);
+    tl.fromTo('.viz[data-viz-id="stage-b"] #stage-b-task-ig', { opacity: 0, scale: 0.955 }, { opacity: 1, scale: 1, duration: 0.455, ease: "power2.out" }, 22.1333);
+    tl.to('.viz[data-viz-id="stage-b"] #stage-b-task-phone', { x: 0, y: 105, scale: 1.06, duration: 0.5, ease: "power2.inOut" }, 22.6667);
+    tl.to('.viz[data-viz-id="stage-b"] #stage-b-task-pay', { x: -120, y: 52, scale: 1.06, duration: 0.5, ease: "power2.inOut" }, 22.6667);
+    tl.to('.viz[data-viz-id="stage-b"] #stage-b-task-ig', { x: -120, y: -52, scale: 1.06, duration: 0.5, ease: "power2.inOut" }, 22.6667);
     // bloques de subtítulo — entran enteros y se quedan quietos
     tl.fromTo('#cap0', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.1000);
     tl.to('#cap0', { opacity: 0, duration: 0.1, ease: "power2.in" }, 0.9667);
