@@ -32,10 +32,25 @@ def test_la_card_no_viaja_su_contenido_si(mk):
 
 
 def test_el_logo_entra_en_horizontal_y_el_nombre_cae(mk):
+    """La forma COMPLETA del selector, no solo su final.
+
+    Bug real (el peor de esta rama, y el único hallado a mano que no había
+    quedado congelado en un test): `tool_card`/`tool_recording` duplicaban el
+    prefijo `.viz[data-viz-id="..."]` en los selectores de `anims` —
+    `build_visuals` ya lo antepone (`build-composition.py`) antes de meter la
+    tupla en la lista final, así que el selector que estos componentes deben
+    devolver es el BARE `#{cid}-logo`/`#{cid}-name`, sin ningún prefijo
+    propio. Con el prefijo duplicado el elemento se queda en `opacity:0` para
+    siempre —GSAP no encuentra nada que coincida con
+    `.viz[...] .viz[...] #tc-logo`— y el logo, el nombre y la cabecera nunca
+    se ven en el frame. Una aserción con `.endswith("-logo")` pasa igual con
+    el prefijo duplicado (sigue terminando en "-logo"): hay que comprobar el
+    selector ENTERO.
+    """
     _, _, anims = mk.tool_card("tc", "motion", "Motion")
     por_kind = {a[0]: a[1] for a in anims}
-    assert por_kind["glide-x"].endswith("-logo")
-    assert por_kind["drop-in"].endswith("-name")
+    assert por_kind["glide-x"] == "#tc-logo"
+    assert por_kind["drop-in"] == "#tc-name"
 
 
 def test_el_nombre_entra_despues_del_logo(mk):
@@ -49,6 +64,17 @@ def test_la_card_de_grabacion_conserva_la_marca(mk):
     """Sin el chip, 8 s de grabación se desatan de su nombre."""
     _, html, _ = mk.tool_recording("tr", "motion", "Motion", (60, 140, 960, 540))
     assert "Motion" in html
+
+
+def test_la_cabecera_de_grabacion_entra_sin_prefijo_duplicado(mk):
+    """El mismo bug de arriba, del lado de `tool_recording`: su único anim
+    (`slide-in` sobre `.tr-head`) tiene que ser el selector BARE
+    `#{cid}-head`, no `{p} #{cid}-head` — ese prefijo lo antepone
+    `build_visuals`, y duplicarlo aquí deja la cabecera —con el chip de
+    marca dentro— en `opacity:0` durante toda la grabación."""
+    _, _, anims = mk.tool_recording("tr", "motion", "Motion", (60, 140, 960, 540))
+    por_kind = {a[0]: a[1] for a in anims}
+    assert por_kind["slide-in"] == "#tr-head"
 
 
 def test_ninguna_card_usa_negro_puro(mk):

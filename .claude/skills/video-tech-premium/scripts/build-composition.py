@@ -399,6 +399,50 @@ def check_no_black(shots, dur):
     sys.exit("\n".join(msg))
 
 
+def check_band_speaker_clear(shots, dur):
+    """El hablante de la banda `speaker` no puede quedar tapado por un mockup opaco.
+
+    Es la comprobación que falta para que la Tarea 9c no vuelva a saltarse: hoy
+    conviven DOS mecanismos que suben un visual a la banda de arriba —`band`,
+    que confina el host al rect de la banda y deja el fondo transparente
+    (`build_visuals`), y `mock_pad_bottom`, que solo EMPUJA el gráfico hacia
+    arriba con relleno, sin tocar la opacidad del host— y nada avisaba si un
+    plan usaba el segundo sin el primero. Le pasó al `v-cta` de la pieza 15:
+    se quedó con `mock_pad_bottom` y sin `band`, así que conservó un host a
+    lienzo completo con fondo opaco encima de un encuadre `kind: "band"` — los
+    últimos 2 s de la pieza, luma máxima 41 en la banda del hablante donde
+    debía verse el presentador.
+
+    La regla: un visual `kind: "mockup"` sin `band` es OPACO (`build_visuals`,
+    `opaque = v["kind"] == "mockup" and not band`) y ocupa el lienzo entero, así
+    que NO puede solapar en el tiempo con un encuadre `kind: "band"` — ese
+    encuadre confina el metraje a la banda de abajo precisamente para que el
+    hablante se siga viendo, y un host opaco por encima lo tapa igual que
+    taparía cualquier otro metraje.
+    """
+    band_shots = [s for s in shots if s["kind"] == "band"]
+    if not band_shots:
+        return
+    for v in VISUALS:
+        if v.get("kind") != "mockup" or v.get("band"):
+            continue          # con `band` el host se confina y el fondo es transparente
+        s = q(float(v["start"]))
+        e = q(dur if v.get("end") is None else min(float(v["end"]), dur))
+        for shot in band_shots:
+            lo, hi = max(s, shot["start"]), min(e, shot["end"])
+            if hi - lo > 1.0 / FPS:
+                sys.exit(
+                    f"visual «{v['id']}» es un mockup OPACO (kind:\"mockup\" sin "
+                    f"`band`) y solapa {lo:.2f}-{hi:.2f}s con el encuadre "
+                    f"`band` {shot['start']:.2f}-{shot['end']:.2f}s: su host a "
+                    f"lienzo completo tapa al hablante en la banda `speaker` "
+                    f"durante ese tramo.\n"
+                    f"  arréglalo declarando `\"band\": \"top\"` en «{v['id']}» "
+                    f"— confina el host al rect de esa banda y deja el fondo "
+                    f"transparente. `mock_pad_bottom` NO basta: solo sube el "
+                    f"gráfico, no toca la opacidad del host.")
+
+
 # ── capa de VISUALES ──────────────────────────────────────────────────────────
 def build_visuals(dur):
     """Materializa VISUALS. Devuelve (css, media suelta, hosts, anims, skins).
@@ -1378,6 +1422,7 @@ def build():
 
     shots, vid_els = build_shots(dur)
     check_no_black(shots, dur)
+    check_band_speaker_clear(shots, dur)
     (viz_css, viz_media, viz_back, viz_over,
      viz_anims, viz_skins, viz_assets) = build_visuals(dur)
     card_css, card_hosts, card_anims, story_cards = build_cards(dur)

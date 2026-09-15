@@ -93,3 +93,59 @@ def test_band_sin_bloque_layout_falla_claro(bc):
         bc.build_visuals(10.0)
     msg = str(ei.value)
     assert "band" in msg and "layout" in msg
+
+
+# ── el gate que impide el bug del `v-cta` de la pieza 15 ──────────────────────
+# `band` arregla el fondo; `mock_pad_bottom` solo EMPUJA el gráfico y no toca
+# la opacidad del host. El plan de la pieza 15 usó los dos a la vez en `v-cta`
+# y nada avisó: el host opaco a lienzo completo tapó al hablante los últimos
+# 2 s de la pieza (luma máxima 41 en la banda [1120,1920], donde debía verse
+# el presentador). `check_band_speaker_clear` es el gate que lo caza en tiempo
+# de compilación, ANTES de renderizar.
+BAND_SHOT = {"start": 61.805, "kind": "band", "end": 69.87}
+
+
+def _cta(band=None):
+    v = {
+        "id": "v-cta", "role": "takeover", "kind": "mockup",
+        "start": 67.785, "end": None,
+        "mock_pad_bottom": 1100,
+        "mock": ["comment_ui", {"word": "WEBS", "type_at": 0.6,
+                                 "send_at": 1.4, "headline": "WEBS"}],
+    }
+    if band:
+        v["band"] = band
+    return v
+
+
+def test_mockup_opaco_sobre_encuadre_band_falla(bc):
+    """El caso exacto del `v-cta` de la pieza 15: `mock_pad_bottom` sin
+    `band` deja un host opaco a lienzo completo encima de un encuadre `band`,
+    y eso tiene que parar la compilación, no colarse hasta el MP4."""
+    bc.VISUALS = [_cta(None)]
+    with pytest.raises(SystemExit) as ei:
+        bc.check_band_speaker_clear([BAND_SHOT], 69.87)
+    msg = str(ei.value)
+    assert "v-cta" in msg
+    assert "band" in msg
+    assert "mock_pad_bottom" in msg
+
+
+def test_mockup_con_band_top_sobre_encuadre_band_pasa(bc):
+    """El arreglo: declarar `band: \"top\"` confina el host a la banda de
+    arriba y deja el fondo transparente, así que ya no tapa al hablante — el
+    mismo plan que antes fallaba ahora compila."""
+    bc.VISUALS = [_cta("top")]
+    bc.check_band_speaker_clear([BAND_SHOT], 69.87)   # no debe lanzar
+
+
+def test_mockup_opaco_que_no_solapa_con_ningun_band_pasa(bc):
+    """Regresión: un mockup opaco sigue siendo válido mientras no comparta
+    tiempo con un encuadre `band` — las cinco cards de logo de la pieza 15,
+    por ejemplo, viven fuera de cualquier tramo `band` de OTRO visual."""
+    bc.VISUALS = [{
+        "id": "v-x", "role": "takeover", "kind": "mockup",
+        "start": 1.0, "end": 2.0,
+        "mock": ["tool_card", {"slug": "motion", "name": "Motion", "kicker": "X"}],
+    }]
+    bc.check_band_speaker_clear([BAND_SHOT], 69.87)   # no debe lanzar

@@ -118,8 +118,8 @@
       "start": 67.785, "end": null,
       "skin": "on-surface",
       "absolute_times": true,
-      "mock_pad_bottom": 1100,
-      "_": "el CTA se enseña, no se explica: la palabra se teclea sola en 68.387 (cuando él dice 'webs') y el comentario se publica en 69.15. mock_pad_bottom sube el bloque a la banda de arriba (0-820): sin él, el titular a 190px de comment_ui pisaba el subtítulo de la banda de texto (content_overlap verificado con hyperframes check).",
+      "band": "top",
+      "_": "el CTA se enseña, no se explica: la palabra se teclea sola en 68.387 (cuando él dice 'webs') y el comentario se publica en 69.15. band:\"top\" (Tarea 9c, ver v-tool-1) confina el host a la banda de arriba y deja el fondo transparente: el encuadre de abajo es 'band' desde 61.805 hasta el final, y sin `band` el host opaco a lienzo completo tapaba al hablante los últimos 2s (bug encontrado en la revisión final de la rama).",
       "mock": ["comment_ui", {"word": "WEBS", "type_at": 68.387, "send_at": 69.15, "headline": "WEBS"}]
     }
   ],
