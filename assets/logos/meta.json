@@ -15,30 +15,35 @@
     "title": "Motion",
     "source": "https://motion.dev/favicon.svg",
     "downloaded": "2026-09-15",
-    "format": "svg"
+    "format": "svg",
+    "tile": "#0B0B0C"
   },
   "manus": {
     "title": "Manus",
     "source": "https://manus.im/icon.svg",
     "downloaded": "2026-09-15",
-    "format": "svg"
+    "format": "svg",
+    "tile": "#FFFFFF"
   },
   "bklitui": {
     "title": "Bklit UI",
     "source": "https://bklit.com/apple-icon.png",
     "downloaded": "2026-09-15",
-    "format": "png"
+    "format": "png",
+    "tile": "#000000"
   },
   "kokonutui": {
     "title": "Kokonut UI",
     "source": "https://kokonutui.com/icon.png",
     "downloaded": "2026-09-15",
-    "format": "png"
+    "format": "png",
+    "tile": null
   },
   "animejs": {
     "title": "Anime.js",
     "source": "https://animejs.com/assets/images/anime-js-logo-v4.svg",
     "downloaded": "2026-09-15",
-    "format": "svg"
+    "format": "svg",
+    "tile": null
   }
 }

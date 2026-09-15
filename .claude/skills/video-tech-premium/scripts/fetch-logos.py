@@ -2,6 +2,7 @@
 """Vendoriza marcas monocromas desde Simple Icons v16, y marcas fuera de ese
 catálogo directamente desde el sitio oficial de cada una (VENDOR)."""
 import json
+import re
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -49,6 +50,54 @@ def check_raster(path, render_h: int) -> tuple[int, bool]:
     return alto, alto >= render_h * RASTER_MIN_SCALE
 
 
+_NAMED_COLOR = {"white": "#FFFFFF", "black": "#000000", "none": None}
+
+
+def _svg_tile(raw: bytes) -> str | None:
+    """Color de fondo dominante de un SVG vendorizado.
+
+    Busca un `<rect>` que cubra el lienzo entero (mismo ancho/alto que el
+    `viewBox`) y devuelve su `fill`. Si no hay ninguno, la marca es
+    transparente y no tiene tile que medir.
+    """
+    text = raw.decode("utf-8")
+    vb = re.search(r'viewBox="[\d.\-]+\s+[\d.\-]+\s+([\d.]+)\s+([\d.]+)"', text)
+    if not vb:
+        return None
+    view_w, view_h = float(vb.group(1)), float(vb.group(2))
+    for m in re.finditer(r"<rect\b[^>]*/?>", text):
+        tag = m.group(0)
+        wm = re.search(r'width="([\d.]+)"', tag)
+        hm = re.search(r'height="([\d.]+)"', tag)
+        fm = re.search(r'fill="([^"]+)"', tag)
+        if not (wm and hm and fm):
+            continue
+        w, h = float(wm.group(1)), float(hm.group(1))
+        if abs(w - view_w) < 0.5 and abs(h - view_h) < 0.5:
+            fill = fm.group(1).strip()
+            low = fill.lower()
+            if low in _NAMED_COLOR:
+                return _NAMED_COLOR[low]
+            return fill.upper() if fill.startswith("#") else fill
+    return None
+
+
+def _png_tile(path: Path) -> str | None:
+    """Color de fondo dominante de un PNG vendorizado, muestreado en las
+    cuatro esquinas. `None` si es transparente (alpha 0) — sin tile que medir.
+    """
+    from PIL import Image
+    with Image.open(path) as im:
+        im = im.convert("RGBA")
+        w, h = im.size
+        corners = [im.getpixel(p) for p in
+                   ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1))]
+    r, g, b, a = corners[0]
+    if a == 0:
+        return None
+    return "#" + "".join(f"{v:02X}" for v in (r, g, b))
+
+
 def fetch_known(slug: str, meta: dict) -> None:
     """Descarga una marca del catálogo de Simple Icons."""
     if slug not in KNOWN:
@@ -83,7 +132,9 @@ def fetch_vendor(slug: str, meta: dict) -> None:
         raw = r.read()
     dest = OUT / f"{slug}.{fmt}"
     dest.write_bytes(raw)
-    if fmt != "svg":
+    if fmt == "svg":
+        tile = _svg_tile(raw)
+    else:
         alto, pasa = check_raster(dest, CARD_RENDER_H)
         if not pasa:
             dest.unlink()
@@ -91,11 +142,15 @@ def fetch_vendor(slug: str, meta: dict) -> None:
                 f"{slug}: {alto}px no pasa el gate de resolución "
                 f"(mínimo {CARD_RENDER_H * RASTER_MIN_SCALE}px) — no se vendoriza"
             )
+        tile = _png_tile(dest)
     meta[slug] = {
         "title": title,
         "source": url,
         "downloaded": date.today().isoformat(),
         "format": fmt,
+        # Fondo dominante que la marca trae consigo (para medir si se
+        # distingue del `surface` de la card), o None si es transparente.
+        "tile": tile,
     }
     print(f"{slug} → assets/logos/{slug}.{fmt}")
 
