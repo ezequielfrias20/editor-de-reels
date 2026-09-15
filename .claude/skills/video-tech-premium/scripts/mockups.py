@@ -548,6 +548,103 @@ def keyword_hero(cid: str, word: str, kicker: str = "",
     return css, html, anims
 
 
+# ── banda de arriba del triband: card de logo y card de grabación ────────────
+def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, str, list]:
+    """La card de marca, clavada a la palabra que nombra la herramienta.
+
+    La CARD entra por OPACIDAD (la resuelve quien la hospeda, igual que el
+    resto de las cards del sistema — §6): este componente no le pone ningún
+    `anim`, solo a lo de DENTRO. El logo viaja en horizontal (`glide-x`) y el
+    nombre cae en vertical (`drop-in`) con un pequeño retraso — dos caminos
+    distintos a propósito, para que el ojo lea DOS elementos y no un bloque.
+
+    El logo se monta en un marco propio (`.tc-logoframe`: hairline + fondo
+    `bg`, el mismo tratamiento que ya usa `.appicon` en `app_switch`) en vez
+    de fiarse del tile que trae la marca. Medido contra `surface`: Motion
+    (`#0B0B0C`, 1.11:1) y Bklit UI (`#000000`, 1.18:1) se hunden sin él; Manus
+    (17.73:1), Anime.js y Kokonut UI (transparentes) no lo necesitan pero
+    tampoco lo penaliza — es una regla del componente, no un caso especial
+    escrito para dos slugs.
+    """
+    p = f'.viz[data-viz-id="{cid}"]'
+    # `ratio` mide el tile de la marca contra `surface` y puede ser None (marca
+    # transparente) — aquí no se usa: el marco propio da el contraste que haga
+    # falta sin depender de lo que traiga cada logo.
+    logo_html, _ratio = logos.mark(slug, 72)
+    css = f"""
+{p} .tc-card{{position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center}}
+{p} .tc-root{{display:flex;align-items:center;gap:30px;background:{C['surface']};
+  border:1px solid {LINE};border-radius:{RADIUS['lg']}px;box-shadow:{SHADOW};
+  padding:30px 46px}}
+{p} .tc-logoframe{{flex:0 0 auto;width:112px;height:112px;
+  border-radius:{RADIUS['md']}px;background:{C['bg']};border:1px solid {LINE};
+  display:flex;align-items:center;justify-content:center;overflow:hidden}}
+{p} .tc-logo{{opacity:0;display:flex;align-items:center;justify-content:center}}
+{p} .tc-name{{display:flex;flex-direction:column;gap:8px;opacity:0}}
+{p} .tc-kick{{font-family:{MONO};font-weight:700;font-size:22px;
+  letter-spacing:.16em;color:{C['violet_hi']};text-transform:uppercase}}
+{p} .tc-word{{font-family:{FONT};font-weight:900;font-size:58px;line-height:1;
+  letter-spacing:-.03em;color:{C['text']}}}"""
+    html = (f'<div class="tc-card" id="{cid}-card"><div class="tc-root">'
+            f'<div class="tc-logoframe"><span class="tc-logo" id="{cid}-logo">'
+            f'{logo_html}</span></div>'
+            f'<div class="tc-name" id="{cid}-name">'
+            + (f'<span class="tc-kick">{esc(kicker)}</span>' if kicker else "")
+            + f'<span class="tc-word">{esc(name)}</span>'
+            + "</div></div></div>")
+    anims = [
+        ("glide-x", f'{p} #{cid}-logo', .10, .45),
+        ("drop-in", f'{p} #{cid}-name', .18, .42),
+    ]
+    return css, html, anims
+
+
+def tool_recording(cid: str, slug: str, name: str,
+                    rect: tuple[float, float, float, float],
+                    hairline: int = 1) -> tuple[str, str, list]:
+    """La card de grabación: el logo persiste de CHIP en la cabecera.
+
+    Corte duro desde `tool_card` — la grabación es un `<video>` nuevo, no una
+    transición. Este componente, igual que `browser_frame`/`screen_panel`, no
+    dibuja el video: se dibuja ALREDEDOR. El `<video>` real va suelto en el
+    stage (media anidada en un elemento temporizado se congela) y ocupa el
+    mismo `rect` a sangre — 16:9, igual que la card — así que `.tr-panel` no
+    lleva fondo propio: pintarlo taparía la grabación que vive por debajo.
+
+    El chip de marca en la cabecera es lo que ata la grabación a su nombre
+    durante los 6–8 s que dura, sin él se desatan (§3).
+
+    `hairline` es el grosor del marco en px, PARAMETRIZADO: la grabación de
+    Manus es la única CLARA de las cinco y necesita un marco más marcado para
+    no perderse contra un fondo también claro. El llamador decide el grosor
+    por grabación — este componente no conoce ningún slug especial.
+    """
+    x, y, w, h = rect
+    p = f'.viz[data-viz-id="{cid}"]'
+    chip_html, _ratio = logos.mark(slug, 40)
+    head_h = 84
+    css = f"""
+{p} .tr-panel{{position:absolute;left:{x}px;top:{y}px;width:{w}px;height:{h}px;
+  border-radius:{RADIUS['lg']}px;overflow:hidden;pointer-events:none;
+  border:{hairline}px solid {LINE_HI};box-shadow:{SHADOW};z-index:11}}
+{p} .tr-head{{position:absolute;left:0;top:0;width:100%;height:{head_h}px;
+  display:flex;align-items:center;gap:16px;padding:0 26px;
+  background:rgba(11,12,16,.72);border-bottom:1px solid {LINE_HI};opacity:0}}
+{p} .tr-chip{{flex:0 0 auto;width:40px;height:40px;border-radius:{RADIUS['sm']}px;
+  background:{C['bg']};border:1px solid {LINE};display:flex;align-items:center;
+  justify-content:center;overflow:hidden}}
+{p} .tr-name{{font-family:{FONT};font-weight:800;font-size:28px;
+  letter-spacing:-.02em;color:{C['text']}}}"""
+    html = (f'<div class="tr-panel" id="{cid}-panel">'
+            f'<div class="tr-head" id="{cid}-head">'
+            f'<span class="tr-chip">{chip_html}</span>'
+            f'<span class="tr-name">{esc(name)}</span>'
+            f'</div></div>')
+    anims = [("slide-in", f'{p} #{cid}-head', .04, .26)]
+    return css, html, anims
+
+
 # ── cadena de consecuencias ───────────────────────────────────────────────────
 def flow_steps(cid: str, steps: list[str], at: list[float],
                tone: str = "ok") -> tuple[str, str, list]:

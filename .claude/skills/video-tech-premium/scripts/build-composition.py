@@ -1305,6 +1305,7 @@ def build():
     (PUB / "cards").mkdir(exist_ok=True)
     (PUB / "fonts").mkdir(exist_ok=True)
     (PUB / "vendor").mkdir(exist_ok=True)
+    (PUB / "logos").mkdir(exist_ok=True)
 
     for src in sorted((SKILL / "assets" / "fonts").glob("*.woff2")):
         dst = PUB / "fonts" / src.name
@@ -1314,6 +1315,17 @@ def build():
     dst = PUB / "vendor" / "gsap.min.js"
     if gsap.exists() and (not dst.exists() or dst.stat().st_size != gsap.stat().st_size):
         dst.write_bytes(gsap.read_bytes())
+    # `logos.mark()` emite `<img src="logos/<slug>.png">` para las marcas
+    # vendorizadas en formato PNG (Bklit UI, Kokonut UI): sin este paso esa
+    # ruta no resuelve en el render y la card sale con la imagen rota. Se
+    # copia el directorio entero, no un slug a mano, para que una marca PNG
+    # nueva no necesite tocar este script.
+    logos_src = ROOT / "assets" / "logos"
+    if logos_src.exists():
+        for src in sorted(logos_src.glob("*.png")):
+            dst = PUB / "logos" / src.name
+            if not dst.exists() or dst.stat().st_size != src.stat().st_size:
+                dst.write_bytes(src.read_bytes())
 
     shots, vid_els = build_shots(dur)
     check_no_black(shots, dur)
