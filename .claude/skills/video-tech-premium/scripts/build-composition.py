@@ -79,6 +79,7 @@ SRC_W = SRC_H = CHIN = CX = None
 SHOTS = CARDS = VISUALS = SFX = MUSIC = None
 KEYWORDS = None
 CAPTIONS = None
+LAYOUT = {}         # bloque `layout` del plan (Tarea 3); {} si el plan no trae ninguno
 
 # Cuánto más grande es la keyword que el resto del bloque. El tope está
 # medido en `caption_metrics`: por encima, un bloque de dos líneas se queda
@@ -120,6 +121,21 @@ def pip_panel():
     return dict(left=W - 340, top=118, width=300, height=376)
 
 
+def triband_panels():
+    """Las tres bandas del layout triband, en coordenadas del lienzo.
+
+    Van a ancho completo y NO a hueso: entre ellas queda suelo grafito, que es
+    lo que hace que la card de arriba flote en vez de parecer un recorte
+    pegado. La geometría viene del EDL, no se inventa aquí.
+    """
+    if not LAYOUT:
+        raise RuntimeError(
+            "encuadre 'band' sin bloque `layout` en el plan: la geometría de las tres "
+            "bandas la declara el EDL y el compilador la copia al plan")
+    return {k: dict(left=0, top=v[0], width=W, height=v[1] - v[0])
+            for k, v in LAYOUT["bands"].items()}
+
+
 def shot_geometry(kind, zoom, anchor, anchor_x=0.5):
     """El rect ESTÁTICO del <video> de un encuadre.
 
@@ -145,6 +161,10 @@ def shot_geometry(kind, zoom, anchor, anchor_x=0.5):
         b = dict(split_panel())
         b["objpos"] = f"50% {round(anchor * 100)}%"
         return b
+    if kind == "band":
+        b = dict(triband_panels()["speaker"])
+        b["objpos"] = f"50% {round(anchor * 100)}%"
+        return b
     b = dict(pip_panel())
     b["objpos"] = f"50% {round(anchor * 100)}%"
     return b
@@ -161,7 +181,10 @@ def chin_at(shot):
     if kind == "full":
         h = H * zoom
         return -(h - H) * anchor + CHIN * h
-    b = split_panel() if kind == "split" else pip_panel()
+    if kind == "band":
+        b = triband_panels()["speaker"]
+    else:
+        b = split_panel() if kind == "split" else pip_panel()
     # object-fit: cover — la escala la fija el lado que sobra
     scale = max(b["width"] / SRC_W, b["height"] / SRC_H)
     drawn_h = SRC_H * scale
@@ -172,7 +195,7 @@ def chin_at(shot):
 # ── carga ─────────────────────────────────────────────────────────────────────
 def configure(project, piece):
     global ROOT, WORK, PUB, PIECE, W, H, FMT, T, SRC_W, SRC_H, CHIN, CX
-    global SHOTS, CARDS, VISUALS, SFX, MUSIC, KEYWORDS, CAPTIONS
+    global SHOTS, CARDS, VISUALS, SFX, MUSIC, KEYWORDS, CAPTIONS, LAYOUT
     global CAPTION_SIZE, CAPTION_MAXW, CAPTION_MARGIN
     global SFX_TARGET_MEAN, SFX_PEAK_CAP, MUSIC_TARGET_MEAN, VOICE_GAIN
 
@@ -209,6 +232,7 @@ def configure(project, piece):
     # Bloques declarados por el EDL (rangos de palabras). Si no vienen,
     # `build_captions` trocea como siempre: las piezas 1-9 no los traen.
     CAPTIONS = plan.get("captions") or None
+    LAYOUT = plan.get("layout") or {}
     SFX_TARGET_MEAN = plan.get("sfx_target_mean", -27.0)
     SFX_PEAK_CAP = plan.get("sfx_peak_cap", -12.0)
 
@@ -287,7 +311,8 @@ def build_shots(dur):
         if s["kind"] == "off" or s["end"] - s["start"] < 1.0 / FPS:
             continue
         g = shot_geometry(s["kind"], s["zoom"], s["anchor"], s["anchor_x"])
-        cls = {"full": "vid", "split": "vid panel", "pip": "vid pip"}[s["kind"]]
+        cls = {"full": "vid", "split": "vid panel",
+               "pip": "vid pip", "band": "vid band"}[s["kind"]]
         track = TRK_PIP if s["kind"] == "pip" else TRK_VIDEO
         els.append(
             f'  <video class="{cls} clip" id="shot-{i:02d}" src="input-video.mp4"\n'
