@@ -1,8 +1,28 @@
 {
   "assets": {
+    "object:answer-approved@1": {
+      "added": "2026-09-08",
+      "hash": "sha256:a514ed3c64e99bb74a7777f5cbd0448ae9dee82ee4a7f16cc5490573bfe38bff",
+      "kind": "object"
+    },
+    "object:answer-counter@1": {
+      "added": "2026-09-08",
+      "hash": "sha256:f58a23a5b103fb38e0d8a901874e1e12cd1af2d8011e457231dfb578760c614f",
+      "kind": "object"
+    },
+    "object:appointment-timeline@1": {
+      "added": "2026-09-08",
+      "hash": "sha256:84140ca00db43c0b531665ce1188838ed84589e8af0c7404e9e6b7fbc14dffe4",
+      "kind": "object"
+    },
     "object:bottleneck@1": {
       "added": "2026-09-08",
       "hash": "sha256:e276e4a9dffda27f3ca7dea38eaab2df68696db366eea8e3a5d84b42186db87f",
+      "kind": "object"
+    },
+    "object:calendar@1": {
+      "added": "2026-09-08",
+      "hash": "sha256:bad1670e0cefcdb5c4d03bd613acf28bb24b1564fcb60355998f99681c52c006",
       "kind": "object"
     },
     "object:card-payment@1": {
@@ -15,6 +35,11 @@
       "hash": "sha256:3d321c5490a4478c7dd05422e249a13f9ca992b8006d24ca8c6e74528036e2ba",
       "kind": "object"
     },
+    "object:confirm-buttons@1": {
+      "added": "2026-09-08",
+      "hash": "sha256:7400f36d19664616672c6a9451fa7fd7e7a22a575d0ff376c37b9ca040b14601",
+      "kind": "object"
+    },
     "object:dental-chair@1": {
       "added": "2026-09-07",
       "hash": "sha256:da8dce17167f0393715f5e6a474a514303d44ff782e30f00f978519cf5fba5a4",
@@ -25,11 +50,31 @@
       "hash": "sha256:f13e3d8a26babc352d6203820fcf74f6369f11f4d699924b34e58f8a79a714cb",
       "kind": "object"
     },
+    "object:knowledge-base@1": {
+      "added": "2026-09-08",
+      "hash": "sha256:d44dcbdee29c95031b22bc21ef975cdb1c6a486110be28e344b450ee5ac136e2",
+      "kind": "object"
+    },
+    "object:kpi-card@1": {
+      "added": "2026-09-11",
+      "hash": "sha256:3a61c18916721974bd57dd0db053ca9cb19d47fdb9f5e8da004279ba6fd0d973",
+      "kind": "object"
+    },
+    "object:msg-card@1": {
+      "added": "2026-09-08",
+      "hash": "sha256:f5eceaec6b9ff5d78d41774deffca428d0c5dcccedc8dd96b90feb50e4d41923",
+      "kind": "object"
+    },
     "object:phone@1": {
       "added": "2026-09-07",
       "hash": "sha256:4b9b2b6cf0fe611f2abda95fe45084110ec297835d83ab7e4d28e919e5fa9fb7",
       "kind": "object"
+    },
+    "object:spreadsheet@1": {
+      "added": "2026-09-11",
+      "hash": "sha256:f7621242c04a91872877998a97d0ac21020e116262839a4a881ddec2210dc90e",
+      "kind": "object"
     }
   },
-  "manifest_version": "2026-09-07.1"
+  "manifest_version": "2026-09-08.2"
 }

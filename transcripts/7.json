@@ -1,0 +1,691 @@
+{
+  "id": "c0c91b52-7e9e-4ea2-90e4-0c819970c427",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/783be441002ba40e24315fe0ebf32c2377974af81616a78e507f186cfe334af8/2f262a9e-36ea-42eb-bd22-671e234e4180",
+  "text": "Un dueño no debería preguntar todos los días: ¿Cuánto vendimos? Esa respuesta debería estar disponible en segundos, sin pedir reportes y sin esperar que alguien actualice un archivo. Por eso, el ERP incluye un dashboard con ventas del día, mes y año, Ticket promedio y productos vendidos, clientes nuevos, ganancia bruta, margen, ventas por sucursal y distribución por método de pago. También muestra top de productos, categorías y alertas importantes de inventario. Comenta dashboard y te envío los 12 indicadores que deberías revisar cada semana.",
+  "words": [
+    {
+      "text": "Un",
+      "start": 3911,
+      "end": 4087,
+      "confidence": 0.9972517,
+      "speaker": null
+    },
+    {
+      "text": "dueño",
+      "start": 4087,
+      "end": 4412,
+      "confidence": 0.999996,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 4412,
+      "end": 4574,
+      "confidence": 0.99997854,
+      "speaker": null
+    },
+    {
+      "text": "debería",
+      "start": 4574,
+      "end": 4865,
+      "confidence": 0.99999595,
+      "speaker": null
+    },
+    {
+      "text": "preguntar",
+      "start": 4898,
+      "end": 5465,
+      "confidence": 0.99993634,
+      "speaker": null
+    },
+    {
+      "text": "todos",
+      "start": 5465,
+      "end": 5708,
+      "confidence": 0.99997246,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 5708,
+      "end": 5870,
+      "confidence": 0.99999905,
+      "speaker": null
+    },
+    {
+      "text": "días:",
+      "start": 5870,
+      "end": 6146,
+      "confidence": 0.85015255,
+      "speaker": null
+    },
+    {
+      "text": "¿Cuánto",
+      "start": 6519,
+      "end": 6924,
+      "confidence": 0.84226847,
+      "speaker": null
+    },
+    {
+      "text": "vendimos?",
+      "start": 6924,
+      "end": 7689,
+      "confidence": 0.9998521,
+      "speaker": null
+    },
+    {
+      "text": "Esa",
+      "start": 11538,
+      "end": 11795,
+      "confidence": 0.9992894,
+      "speaker": null
+    },
+    {
+      "text": "respuesta",
+      "start": 11795,
+      "end": 12567,
+      "confidence": 0.9999801,
+      "speaker": null
+    },
+    {
+      "text": "debería",
+      "start": 12728,
+      "end": 12986,
+      "confidence": 0.9999959,
+      "speaker": null
+    },
+    {
+      "text": "estar",
+      "start": 12986,
+      "end": 13291,
+      "confidence": 0.99999714,
+      "speaker": null
+    },
+    {
+      "text": "disponible",
+      "start": 13291,
+      "end": 13935,
+      "confidence": 0.99999833,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 13951,
+      "end": 14096,
+      "confidence": 0.9999534,
+      "speaker": null
+    },
+    {
+      "text": "segundos,",
+      "start": 14096,
+      "end": 14756,
+      "confidence": 0.9449834,
+      "speaker": null
+    },
+    {
+      "text": "sin",
+      "start": 14981,
+      "end": 15222,
+      "confidence": 0.99998987,
+      "speaker": null
+    },
+    {
+      "text": "pedir",
+      "start": 15222,
+      "end": 15480,
+      "confidence": 0.9999977,
+      "speaker": null
+    },
+    {
+      "text": "reportes",
+      "start": 15480,
+      "end": 16204,
+      "confidence": 0.999971,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 16284,
+      "end": 16348,
+      "confidence": 0.99764377,
+      "speaker": null
+    },
+    {
+      "text": "sin",
+      "start": 16381,
+      "end": 16558,
+      "confidence": 0.99999034,
+      "speaker": null
+    },
+    {
+      "text": "esperar",
+      "start": 16558,
+      "end": 16992,
+      "confidence": 0.99999684,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 16992,
+      "end": 17169,
+      "confidence": 0.9983064,
+      "speaker": null
+    },
+    {
+      "text": "alguien",
+      "start": 17169,
+      "end": 17410,
+      "confidence": 0.99999857,
+      "speaker": null
+    },
+    {
+      "text": "actualice",
+      "start": 17410,
+      "end": 18199,
+      "confidence": 0.9999761,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 18376,
+      "end": 18456,
+      "confidence": 0.9999534,
+      "speaker": null
+    },
+    {
+      "text": "archivo.",
+      "start": 18456,
+      "end": 18911,
+      "confidence": 0.999877,
+      "speaker": null
+    },
+    {
+      "text": "Por",
+      "start": 21804,
+      "end": 21981,
+      "confidence": 0.9998167,
+      "speaker": null
+    },
+    {
+      "text": "eso,",
+      "start": 21981,
+      "end": 22255,
+      "confidence": 0.73845565,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 22625,
+      "end": 22721,
+      "confidence": 0.9997025,
+      "speaker": null
+    },
+    {
+      "text": "ERP",
+      "start": 22786,
+      "end": 23188,
+      "confidence": 0.99906904,
+      "speaker": null
+    },
+    {
+      "text": "incluye",
+      "start": 23349,
+      "end": 23977,
+      "confidence": 0.99992967,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 23993,
+      "end": 24090,
+      "confidence": 0.9999552,
+      "speaker": null
+    },
+    {
+      "text": "dashboard",
+      "start": 24138,
+      "end": 24653,
+      "confidence": 0.99790514,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 24862,
+      "end": 25072,
+      "confidence": 0.999841,
+      "speaker": null
+    },
+    {
+      "text": "ventas",
+      "start": 25104,
+      "end": 25506,
+      "confidence": 0.9993593,
+      "speaker": null
+    },
+    {
+      "text": "del",
+      "start": 25506,
+      "end": 25748,
+      "confidence": 0.9999471,
+      "speaker": null
+    },
+    {
+      "text": "día,",
+      "start": 25748,
+      "end": 26102,
+      "confidence": 0.99997544,
+      "speaker": null
+    },
+    {
+      "text": "mes",
+      "start": 26150,
+      "end": 26440,
+      "confidence": 0.99998605,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 26649,
+      "end": 26730,
+      "confidence": 0.999938,
+      "speaker": null
+    },
+    {
+      "text": "año,",
+      "start": 26730,
+      "end": 26987,
+      "confidence": 0.8219259,
+      "speaker": null
+    },
+    {
+      "text": "Ticket",
+      "start": 27336,
+      "end": 27657,
+      "confidence": 0.49543738,
+      "speaker": null
+    },
+    {
+      "text": "promedio",
+      "start": 27657,
+      "end": 28220,
+      "confidence": 0.99927455,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 28557,
+      "end": 28621,
+      "confidence": 0.97965795,
+      "speaker": null
+    },
+    {
+      "text": "productos",
+      "start": 28621,
+      "end": 29441,
+      "confidence": 0.99814403,
+      "speaker": null
+    },
+    {
+      "text": "vendidos,",
+      "start": 29585,
+      "end": 30276,
+      "confidence": 0.99738085,
+      "speaker": null
+    },
+    {
+      "text": "clientes",
+      "start": 30308,
+      "end": 30790,
+      "confidence": 0.9982078,
+      "speaker": null
+    },
+    {
+      "text": "nuevos,",
+      "start": 30790,
+      "end": 31160,
+      "confidence": 0.99994934,
+      "speaker": null
+    },
+    {
+      "text": "ganancia",
+      "start": 31192,
+      "end": 31834,
+      "confidence": 0.999572,
+      "speaker": null
+    },
+    {
+      "text": "bruta,",
+      "start": 31834,
+      "end": 32354,
+      "confidence": 0.9994927,
+      "speaker": null
+    },
+    {
+      "text": "margen,",
+      "start": 32718,
+      "end": 33368,
+      "confidence": 0.9993871,
+      "speaker": null
+    },
+    {
+      "text": "ventas",
+      "start": 33762,
+      "end": 34244,
+      "confidence": 0.9999312,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 34244,
+      "end": 34405,
+      "confidence": 0.99997556,
+      "speaker": null
+    },
+    {
+      "text": "sucursal",
+      "start": 34405,
+      "end": 35224,
+      "confidence": 0.9999622,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 35224,
+      "end": 35289,
+      "confidence": 0.9995115,
+      "speaker": null
+    },
+    {
+      "text": "distribución",
+      "start": 35289,
+      "end": 36301,
+      "confidence": 0.99998355,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 36413,
+      "end": 36638,
+      "confidence": 0.99744475,
+      "speaker": null
+    },
+    {
+      "text": "método",
+      "start": 36654,
+      "end": 36863,
+      "confidence": 0.9999063,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 36977,
+      "end": 37154,
+      "confidence": 0.99999666,
+      "speaker": null
+    },
+    {
+      "text": "pago.",
+      "start": 37154,
+      "end": 37474,
+      "confidence": 0.9999685,
+      "speaker": null
+    },
+    {
+      "text": "También",
+      "start": 39326,
+      "end": 39702,
+      "confidence": 0.9999585,
+      "speaker": null
+    },
+    {
+      "text": "muestra",
+      "start": 39702,
+      "end": 40206,
+      "confidence": 0.99991775,
+      "speaker": null
+    },
+    {
+      "text": "top",
+      "start": 40206,
+      "end": 40369,
+      "confidence": 0.99598134,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 40369,
+      "end": 40532,
+      "confidence": 0.9999913,
+      "speaker": null
+    },
+    {
+      "text": "productos,",
+      "start": 40532,
+      "end": 41069,
+      "confidence": 0.99956423,
+      "speaker": null
+    },
+    {
+      "text": "categorías",
+      "start": 41101,
+      "end": 42175,
+      "confidence": 0.9999729,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 42337,
+      "end": 42500,
+      "confidence": 0.9996189,
+      "speaker": null
+    },
+    {
+      "text": "alertas",
+      "start": 42500,
+      "end": 42907,
+      "confidence": 0.9999775,
+      "speaker": null
+    },
+    {
+      "text": "importantes",
+      "start": 42907,
+      "end": 43704,
+      "confidence": 0.99998295,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 43704,
+      "end": 43801,
+      "confidence": 0.9998449,
+      "speaker": null
+    },
+    {
+      "text": "inventario.",
+      "start": 43801,
+      "end": 44352,
+      "confidence": 0.999772,
+      "speaker": null
+    },
+    {
+      "text": "Comenta",
+      "start": 47750,
+      "end": 48138,
+      "confidence": 0.9998453,
+      "speaker": null
+    },
+    {
+      "text": "dashboard",
+      "start": 48138,
+      "end": 48964,
+      "confidence": 0.91847503,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 48964,
+      "end": 49029,
+      "confidence": 0.99912864,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 49110,
+      "end": 49207,
+      "confidence": 0.99991715,
+      "speaker": null
+    },
+    {
+      "text": "envío",
+      "start": 49207,
+      "end": 49897,
+      "confidence": 0.9999737,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 50163,
+      "end": 50373,
+      "confidence": 0.9998708,
+      "speaker": null
+    },
+    {
+      "text": "12",
+      "start": 50406,
+      "end": 50746,
+      "confidence": 0.9998325,
+      "speaker": null
+    },
+    {
+      "text": "indicadores",
+      "start": 50746,
+      "end": 51459,
+      "confidence": 0.9999944,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 51459,
+      "end": 51540,
+      "confidence": 0.9997888,
+      "speaker": null
+    },
+    {
+      "text": "deberías",
+      "start": 51540,
+      "end": 51977,
+      "confidence": 0.9998732,
+      "speaker": null
+    },
+    {
+      "text": "revisar",
+      "start": 51977,
+      "end": 52479,
+      "confidence": 0.9999172,
+      "speaker": null
+    },
+    {
+      "text": "cada",
+      "start": 52479,
+      "end": 52965,
+      "confidence": 0.69486994,
+      "speaker": null
+    },
+    {
+      "text": "semana.",
+      "start": 52846,
+      "end": 53460,
+      "confidence": 0.76311487,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.97667617,
+  "audio_duration": 61,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

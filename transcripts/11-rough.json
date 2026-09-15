@@ -1,0 +1,726 @@
+{
+  "id": "25d976db-6b07-4bd1-bab4-797680b2879d",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/43cf0b5a8023647756b712fc1aee025a97c37e63f6315956ddf576285b870649/01872047-05a2-46a1-9321-a1bafc821882",
+  "text": "Tu clínica puede estar perdiendo pacientes antes de que una persona llegue a responderles. Un paciente pregunta por WhatsApp, espera 20 minutos, no recibe respuesta y termina escribiéndole a otra clínica. Un asistente con inteligencia artificial puede responder preguntas frecuentes, identificar el tratamiento de interés, solicitar los datos necesarios y dirigir al paciente hacia una cita o hacia una persona del equipo. No reemplaza la atención humana, evita que el prospecto se pierda antes de recibirla. Comenta clínica y te envío un guión para calificar los pacientes automáticamente por WhatsApp.",
+  "words": [
+    {
+      "text": "Tu",
+      "start": 256,
+      "end": 337,
+      "confidence": 0.99093914,
+      "speaker": null
+    },
+    {
+      "text": "clínica",
+      "start": 337,
+      "end": 738,
+      "confidence": 0.9999976,
+      "speaker": null
+    },
+    {
+      "text": "puede",
+      "start": 738,
+      "end": 963,
+      "confidence": 0.99993753,
+      "speaker": null
+    },
+    {
+      "text": "estar",
+      "start": 963,
+      "end": 1284,
+      "confidence": 0.9999908,
+      "speaker": null
+    },
+    {
+      "text": "perdiendo",
+      "start": 1300,
+      "end": 1782,
+      "confidence": 0.9999977,
+      "speaker": null
+    },
+    {
+      "text": "pacientes",
+      "start": 1863,
+      "end": 2601,
+      "confidence": 0.9998745,
+      "speaker": null
+    },
+    {
+      "text": "antes",
+      "start": 2682,
+      "end": 3003,
+      "confidence": 0.9999505,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 3003,
+      "end": 3147,
+      "confidence": 0.9999926,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 3147,
+      "end": 3180,
+      "confidence": 0.99999344,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 3180,
+      "end": 3388,
+      "confidence": 0.9999603,
+      "speaker": null
+    },
+    {
+      "text": "persona",
+      "start": 3388,
+      "end": 4031,
+      "confidence": 0.99999046,
+      "speaker": null
+    },
+    {
+      "text": "llegue",
+      "start": 4272,
+      "end": 4529,
+      "confidence": 0.9999472,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 4529,
+      "end": 4545,
+      "confidence": 0.99998546,
+      "speaker": null
+    },
+    {
+      "text": "responderles.",
+      "start": 4545,
+      "end": 5508,
+      "confidence": 0.9992935,
+      "speaker": null
+    },
+    {
+      "text": "Un",
+      "start": 5974,
+      "end": 6119,
+      "confidence": 0.9998611,
+      "speaker": null
+    },
+    {
+      "text": "paciente",
+      "start": 6119,
+      "end": 6761,
+      "confidence": 0.9999933,
+      "speaker": null
+    },
+    {
+      "text": "pregunta",
+      "start": 6761,
+      "end": 7163,
+      "confidence": 0.9999788,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 7163,
+      "end": 7323,
+      "confidence": 0.99998796,
+      "speaker": null
+    },
+    {
+      "text": "WhatsApp,",
+      "start": 7323,
+      "end": 7773,
+      "confidence": 0.99996436,
+      "speaker": null
+    },
+    {
+      "text": "espera",
+      "start": 8142,
+      "end": 8560,
+      "confidence": 0.9999691,
+      "speaker": null
+    },
+    {
+      "text": "20",
+      "start": 8560,
+      "end": 8929,
+      "confidence": 0.9999846,
+      "speaker": null
+    },
+    {
+      "text": "minutos,",
+      "start": 8929,
+      "end": 9379,
+      "confidence": 0.99983424,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 9813,
+      "end": 9925,
+      "confidence": 0.9999726,
+      "speaker": null
+    },
+    {
+      "text": "recibe",
+      "start": 9925,
+      "end": 10327,
+      "confidence": 0.9999753,
+      "speaker": null
+    },
+    {
+      "text": "respuesta",
+      "start": 10327,
+      "end": 11114,
+      "confidence": 0.99994457,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 11114,
+      "end": 11178,
+      "confidence": 0.9995241,
+      "speaker": null
+    },
+    {
+      "text": "termina",
+      "start": 11258,
+      "end": 11595,
+      "confidence": 0.9999734,
+      "speaker": null
+    },
+    {
+      "text": "escribiéndole",
+      "start": 11595,
+      "end": 12543,
+      "confidence": 0.9999416,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 12880,
+      "end": 13025,
+      "confidence": 0.99995756,
+      "speaker": null
+    },
+    {
+      "text": "otra",
+      "start": 13041,
+      "end": 13250,
+      "confidence": 0.99990654,
+      "speaker": null
+    },
+    {
+      "text": "clínica.",
+      "start": 13346,
+      "end": 13715,
+      "confidence": 0.99992156,
+      "speaker": null
+    },
+    {
+      "text": "Un",
+      "start": 14004,
+      "end": 14165,
+      "confidence": 0.99954647,
+      "speaker": null
+    },
+    {
+      "text": "asistente",
+      "start": 14165,
+      "end": 14872,
+      "confidence": 0.9999832,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 15113,
+      "end": 15289,
+      "confidence": 0.99988246,
+      "speaker": null
+    },
+    {
+      "text": "inteligencia",
+      "start": 15289,
+      "end": 15819,
+      "confidence": 0.9996308,
+      "speaker": null
+    },
+    {
+      "text": "artificial",
+      "start": 15819,
+      "end": 16542,
+      "confidence": 0.9999925,
+      "speaker": null
+    },
+    {
+      "text": "puede",
+      "start": 16719,
+      "end": 16960,
+      "confidence": 0.9999746,
+      "speaker": null
+    },
+    {
+      "text": "responder",
+      "start": 16960,
+      "end": 17506,
+      "confidence": 0.9999844,
+      "speaker": null
+    },
+    {
+      "text": "preguntas",
+      "start": 17522,
+      "end": 18004,
+      "confidence": 0.99999106,
+      "speaker": null
+    },
+    {
+      "text": "frecuentes,",
+      "start": 18004,
+      "end": 18775,
+      "confidence": 0.9996338,
+      "speaker": null
+    },
+    {
+      "text": "identificar",
+      "start": 19064,
+      "end": 19706,
+      "confidence": 0.9999881,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 19706,
+      "end": 19851,
+      "confidence": 0.99997246,
+      "speaker": null
+    },
+    {
+      "text": "tratamiento",
+      "start": 19851,
+      "end": 20493,
+      "confidence": 0.99998844,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 20493,
+      "end": 20589,
+      "confidence": 0.99997425,
+      "speaker": null
+    },
+    {
+      "text": "interés,",
+      "start": 20589,
+      "end": 20991,
+      "confidence": 0.9999778,
+      "speaker": null
+    },
+    {
+      "text": "solicitar",
+      "start": 21376,
+      "end": 21906,
+      "confidence": 0.9999957,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 21939,
+      "end": 22099,
+      "confidence": 0.99999213,
+      "speaker": null
+    },
+    {
+      "text": "datos",
+      "start": 22099,
+      "end": 22340,
+      "confidence": 0.99999344,
+      "speaker": null
+    },
+    {
+      "text": "necesarios",
+      "start": 22340,
+      "end": 23400,
+      "confidence": 0.99999374,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 23400,
+      "end": 23464,
+      "confidence": 0.9999038,
+      "speaker": null
+    },
+    {
+      "text": "dirigir",
+      "start": 23464,
+      "end": 24042,
+      "confidence": 0.9999928,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 24203,
+      "end": 24299,
+      "confidence": 0.9999856,
+      "speaker": null
+    },
+    {
+      "text": "paciente",
+      "start": 24348,
+      "end": 25070,
+      "confidence": 0.999992,
+      "speaker": null
+    },
+    {
+      "text": "hacia",
+      "start": 25408,
+      "end": 25809,
+      "confidence": 0.999954,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 25809,
+      "end": 25954,
+      "confidence": 0.999974,
+      "speaker": null
+    },
+    {
+      "text": "cita",
+      "start": 25954,
+      "end": 26548,
+      "confidence": 0.99999785,
+      "speaker": null
+    },
+    {
+      "text": "o",
+      "start": 26773,
+      "end": 26805,
+      "confidence": 0.9999294,
+      "speaker": null
+    },
+    {
+      "text": "hacia",
+      "start": 26853,
+      "end": 27046,
+      "confidence": 0.99988985,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 27046,
+      "end": 27126,
+      "confidence": 0.9999676,
+      "speaker": null
+    },
+    {
+      "text": "persona",
+      "start": 27239,
+      "end": 27688,
+      "confidence": 0.9999863,
+      "speaker": null
+    },
+    {
+      "text": "del",
+      "start": 27720,
+      "end": 27897,
+      "confidence": 0.99997663,
+      "speaker": null
+    },
+    {
+      "text": "equipo.",
+      "start": 27897,
+      "end": 28250,
+      "confidence": 0.99953336,
+      "speaker": null
+    },
+    {
+      "text": "No",
+      "start": 29166,
+      "end": 29359,
+      "confidence": 0.9133777,
+      "speaker": null
+    },
+    {
+      "text": "reemplaza",
+      "start": 29359,
+      "end": 30051,
+      "confidence": 0.9999604,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 30051,
+      "end": 30115,
+      "confidence": 0.9993717,
+      "speaker": null
+    },
+    {
+      "text": "atención",
+      "start": 30115,
+      "end": 30550,
+      "confidence": 0.99999344,
+      "speaker": null
+    },
+    {
+      "text": "humana,",
+      "start": 30550,
+      "end": 30823,
+      "confidence": 0.9663979,
+      "speaker": null
+    },
+    {
+      "text": "evita",
+      "start": 31032,
+      "end": 31499,
+      "confidence": 0.99989694,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 31499,
+      "end": 31595,
+      "confidence": 0.9999864,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 31595,
+      "end": 31644,
+      "confidence": 0.9999858,
+      "speaker": null
+    },
+    {
+      "text": "prospecto",
+      "start": 31740,
+      "end": 32384,
+      "confidence": 0.99999166,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 32706,
+      "end": 32947,
+      "confidence": 0.9999887,
+      "speaker": null
+    },
+    {
+      "text": "pierda",
+      "start": 32947,
+      "end": 33510,
+      "confidence": 0.9999882,
+      "speaker": null
+    },
+    {
+      "text": "antes",
+      "start": 33767,
+      "end": 34073,
+      "confidence": 0.9999274,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 34073,
+      "end": 34105,
+      "confidence": 0.9999927,
+      "speaker": null
+    },
+    {
+      "text": "recibirla.",
+      "start": 34105,
+      "end": 34765,
+      "confidence": 0.9998718,
+      "speaker": null
+    },
+    {
+      "text": "Comenta",
+      "start": 35038,
+      "end": 35602,
+      "confidence": 0.9999236,
+      "speaker": null
+    },
+    {
+      "text": "clínica",
+      "start": 35602,
+      "end": 36245,
+      "confidence": 0.9995196,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 36583,
+      "end": 36647,
+      "confidence": 0.99990916,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 36647,
+      "end": 36744,
+      "confidence": 0.9999832,
+      "speaker": null
+    },
+    {
+      "text": "envío",
+      "start": 36744,
+      "end": 37114,
+      "confidence": 0.9999477,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 37114,
+      "end": 37210,
+      "confidence": 0.99992526,
+      "speaker": null
+    },
+    {
+      "text": "guión",
+      "start": 37210,
+      "end": 37661,
+      "confidence": 0.9774606,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 37934,
+      "end": 38095,
+      "confidence": 0.9998666,
+      "speaker": null
+    },
+    {
+      "text": "calificar",
+      "start": 38095,
+      "end": 38626,
+      "confidence": 0.9999764,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 38658,
+      "end": 38755,
+      "confidence": 0.9937418,
+      "speaker": null
+    },
+    {
+      "text": "pacientes",
+      "start": 38819,
+      "end": 39399,
+      "confidence": 0.9999728,
+      "speaker": null
+    },
+    {
+      "text": "automáticamente",
+      "start": 39399,
+      "end": 40428,
+      "confidence": 0.9999542,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 40428,
+      "end": 40589,
+      "confidence": 0.9999299,
+      "speaker": null
+    },
+    {
+      "text": "WhatsApp.",
+      "start": 40589,
+      "end": 40959,
+      "confidence": 0.99991655,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.9981653,
+  "audio_duration": 42,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

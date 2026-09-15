@@ -1,0 +1,72 @@
+{
+  "source_duration": 60.024898,
+  "final_duration": 41.166,
+  "removed": 18.859,
+  "cuts": [
+    {
+      "start": 0.0,
+      "end": 0.352,
+      "dur": 0.352,
+      "reason": "cabeza muerta"
+    },
+    {
+      "start": 6.699,
+      "end": 11.48,
+      "dur": 4.781,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 20.56,
+      "end": 24.768,
+      "dur": 4.208,
+      "reason": "pausa fin de oración",
+      "_": "la vocalización 20.260-20.490 es la cola de «lento»: el corte va después"
+    },
+    {
+      "start": 38.313,
+      "end": 40.882,
+      "dur": 2.569,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 46.7,
+      "end": 50.88,
+      "dur": 4.18,
+      "reason": "pausa fin de oración",
+      "_": "la vocalización de 46.708-47.088 quedaba partida"
+    },
+    {
+      "start": 57.256,
+      "end": 60.025,
+      "dur": 2.769,
+      "reason": "cola muerta"
+    }
+  ],
+  "keeps": [
+    {
+      "start": 0.352,
+      "end": 6.699,
+      "dur": 6.347
+    },
+    {
+      "start": 11.48,
+      "end": 20.56,
+      "dur": 9.08
+    },
+    {
+      "start": 24.768,
+      "end": 38.313,
+      "dur": 13.545
+    },
+    {
+      "start": 40.882,
+      "end": 46.7,
+      "dur": 5.818
+    },
+    {
+      "start": 50.88,
+      "end": 57.256,
+      "dur": 6.376
+    }
+  ]
+}

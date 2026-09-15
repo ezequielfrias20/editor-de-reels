@@ -1,0 +1,776 @@
+{
+  "_": "generado por edl-compile desde edl.json — NO editar a mano",
+  "captions": [
+    {
+      "keyword": [
+        2,
+        2
+      ],
+      "words": [
+        0,
+        3
+      ]
+    },
+    {
+      "keyword": [
+        5,
+        5
+      ],
+      "words": [
+        4,
+        6
+      ]
+    },
+    {
+      "keyword": [
+        9,
+        9
+      ],
+      "words": [
+        7,
+        9
+      ]
+    },
+    {
+      "keyword": [
+        12,
+        12
+      ],
+      "words": [
+        10,
+        12
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        13,
+        15
+      ]
+    },
+    {
+      "keyword": [
+        18,
+        18
+      ],
+      "words": [
+        16,
+        18
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        19,
+        21
+      ]
+    },
+    {
+      "keyword": [
+        23,
+        23
+      ],
+      "words": [
+        22,
+        26
+      ]
+    },
+    {
+      "keyword": [
+        31,
+        31
+      ],
+      "words": [
+        27,
+        31
+      ]
+    },
+    {
+      "keyword": [
+        36,
+        36
+      ],
+      "words": [
+        32,
+        36
+      ]
+    },
+    {
+      "keyword": [
+        38,
+        38
+      ],
+      "words": [
+        37,
+        39
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        40,
+        42
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        43,
+        46
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        47,
+        49
+      ]
+    },
+    {
+      "keyword": [
+        50,
+        50
+      ],
+      "words": [
+        50,
+        53
+      ]
+    },
+    {
+      "keyword": [
+        56,
+        56
+      ],
+      "words": [
+        54,
+        56
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        57,
+        59
+      ]
+    },
+    {
+      "keyword": [
+        61,
+        61
+      ],
+      "words": [
+        60,
+        62
+      ]
+    },
+    {
+      "keyword": [
+        65,
+        65
+      ],
+      "words": [
+        63,
+        67
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        68,
+        70
+      ]
+    },
+    {
+      "keyword": [
+        72,
+        72
+      ],
+      "words": [
+        71,
+        75
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        76,
+        79
+      ]
+    },
+    {
+      "keyword": [
+        83,
+        83
+      ],
+      "words": [
+        80,
+        83
+      ]
+    },
+    {
+      "keyword": null,
+      "words": [
+        84,
+        86
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "end": 16.2667,
+      "key": "IA",
+      "kicker": "BASE DE CONOCIMIENTO",
+      "place": "top",
+      "start": 14.9,
+      "title": "+ asistente\nde IA"
+    },
+    {
+      "end": 32.0333,
+      "key": "humano",
+      "kicker": "CUANDO HACE FALTA",
+      "place": "top",
+      "start": 30.3667,
+      "title": "Escalar a\nun humano"
+    },
+    {
+      "body": "cta",
+      "cta_at": 35.9667,
+      "cta_text": "RESPUESTAS",
+      "end": 37.6333,
+      "kicker": "COMENTA LA PALABRA",
+      "place": "top",
+      "start": 35.5667
+    },
+    {
+      "body": "teaser",
+      "end": 38.9,
+      "key": "conocimiento",
+      "kicker": "PLANTILLA",
+      "place": "top",
+      "start": 37.6333,
+      "title": "Base de\nconocimiento"
+    },
+    {
+      "end": 41.7,
+      "key": "RESPUESTAS",
+      "kicker": "COMENTA",
+      "place": "top",
+      "start": 39.6333,
+      "title": "RESPUESTAS"
+    }
+  ],
+  "format": "REEL",
+  "keywords": [
+    "APROBADA",
+    "CONOCIMIENTO",
+    "CONTRATAR",
+    "COPIAR",
+    "CRITERIO",
+    "DÍAS",
+    "EQUIPO",
+    "EXISTEN",
+    "IA",
+    "INTERVIENE",
+    "MISMAS",
+    "ORGANIZAR",
+    "RESPONDER",
+    "RESPUESTAS"
+  ],
+  "music": {
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "src": "assets/music/bed-tech.mp3"
+  },
+  "sfx": [
+    [
+      1.8667,
+      "pop",
+      1.0,
+      "las mismas cuatro preguntas y la cuenta de veces que ya se contestaron"
+    ],
+    [
+      2.5,
+      "pop",
+      1.0,
+      "las mismas cuatro preguntas y la cuenta de veces que ya se contestaron"
+    ],
+    [
+      3.1333,
+      "pop",
+      1.0,
+      "las mismas cuatro preguntas y la cuenta de veces que ya se contestaron"
+    ],
+    [
+      3.5667,
+      "click-soft",
+      1.0,
+      "las mismas cuatro preguntas y la cuenta de veces que ya se contestaron"
+    ],
+    [
+      9.4,
+      "impact-bass-2",
+      1.0,
+      "las respuestas ya existen, lo que falta es el sitio donde viven"
+    ],
+    [
+      16.5,
+      "pop",
+      1.0,
+      "el cliente pregunta y la respuesta sale del documento, categoría por categoría"
+    ],
+    [
+      16.8,
+      "click",
+      1.0,
+      "el cliente pregunta y la respuesta sale del documento, categoría por categoría"
+    ],
+    [
+      17.4667,
+      "click-soft",
+      1.0,
+      "el cliente pregunta y la respuesta sale del documento, categoría por categoría"
+    ],
+    [
+      19.3333,
+      "click-soft",
+      1.0,
+      "el cliente pregunta y la respuesta sale del documento, categoría por categoría"
+    ],
+    [
+      21.4,
+      "click-soft",
+      1.0,
+      "el cliente pregunta y la respuesta sale del documento, categoría por categoría"
+    ],
+    [
+      24.3333,
+      "click",
+      1.0,
+      "la respuesta que sale lleva el visto bueno de la empresa"
+    ],
+    [
+      25.6333,
+      "chime",
+      1.0,
+      "la respuesta que sale lleva el visto bueno de la empresa"
+    ],
+    [
+      32.3,
+      "pop",
+      1.0,
+      "esas cuatro preguntas ya no las contesta nadie a mano"
+    ],
+    [
+      33.3333,
+      "pop",
+      1.0,
+      "esas cuatro preguntas ya no las contesta nadie a mano"
+    ],
+    [
+      34.4667,
+      "impact-bass-1",
+      1.0,
+      "esas cuatro preguntas ya no las contesta nadie a mano"
+    ]
+  ],
+  "shots": [
+    {
+      "anchor": 0.42,
+      "at": 0.0,
+      "kind": "full",
+      "zoom": 1.2
+    },
+    {
+      "at": 2.0667,
+      "kind": "off"
+    },
+    {
+      "anchor": 0.42,
+      "at": 4.3333,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "anchor": 0.42,
+      "at": 7.2,
+      "kind": "full",
+      "zoom": 1.0
+    },
+    {
+      "at": 9.4,
+      "kind": "off"
+    },
+    {
+      "anchor": 0.42,
+      "at": 12.7667,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "anchor": 0.42,
+      "at": 14.9,
+      "kind": "full",
+      "zoom": 1.2
+    },
+    {
+      "at": 16.7,
+      "kind": "off"
+    },
+    {
+      "at": 24.3333,
+      "kind": "off"
+    },
+    {
+      "anchor": 0.42,
+      "at": 27.3333,
+      "kind": "full",
+      "zoom": 1.0
+    },
+    {
+      "anchor": 0.42,
+      "at": 29.4,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "at": 32.5333,
+      "kind": "off"
+    },
+    {
+      "anchor": 0.42,
+      "at": 35.4,
+      "kind": "full",
+      "zoom": 1.2
+    },
+    {
+      "anchor": 0.42,
+      "at": 38.5,
+      "kind": "full",
+      "zoom": 1.12
+    },
+    {
+      "anchor": 0.42,
+      "at": 39.8,
+      "kind": "full",
+      "zoom": 1.2
+    }
+  ],
+  "visuals": [
+    {
+      "end": 4.5,
+      "fade_in": 0.22,
+      "fade_out": 0.18,
+      "id": "stage-a",
+      "kind": "mockup",
+      "mock": [
+        "motion_stage",
+        {
+          "at": [
+            {
+              "count": 18,
+              "count_from": 12,
+              "id": "counter",
+              "op": "state",
+              "t": 3.1333
+            },
+            {
+              "count": 27,
+              "count_from": 18,
+              "id": "counter",
+              "op": "state",
+              "t": 3.5667
+            }
+          ],
+          "objects": [
+            {
+              "id": "counter",
+              "in": 1.8667,
+              "kind": "answer-counter",
+              "slot": "head",
+              "state": {
+                "label": "RESPUESTA",
+                "n": 12,
+                "sub": "IGUAL A LA ANTERIOR"
+              }
+            },
+            {
+              "id": "q1",
+              "in": 1.8667,
+              "kind": "msg-card",
+              "slot": "stack-1",
+              "state": {
+                "dx": -40,
+                "text": "¿Cuál es el horario?",
+                "w": 520
+              }
+            },
+            {
+              "id": "q2",
+              "in": 2.1,
+              "kind": "msg-card",
+              "slot": "stack-2",
+              "state": {
+                "dx": 50,
+                "text": "¿Cuánto cuesta?",
+                "w": 520
+              }
+            },
+            {
+              "id": "q3",
+              "in": 2.5,
+              "kind": "msg-card",
+              "slot": "stack-3",
+              "state": {
+                "dx": -30,
+                "text": "¿Dónde están ubicados?",
+                "w": 520
+              }
+            },
+            {
+              "id": "q4",
+              "in": 3.1333,
+              "kind": "msg-card",
+              "slot": "stack-4",
+              "state": {
+                "dx": 40,
+                "text": "¿Aceptan pago móvil?",
+                "w": 520
+              }
+            }
+          ],
+          "theme": "problem",
+          "visual_start": 1.8667
+        }
+      ],
+      "role": "takeover",
+      "skin": "on-surface",
+      "start": 1.8667
+    },
+    {
+      "end": 12.9333,
+      "fade_in": 0.22,
+      "fade_out": 0.18,
+      "id": "stage-b",
+      "kind": "mockup",
+      "mock": [
+        "motion_stage",
+        {
+          "at": [],
+          "objects": [
+            {
+              "id": "kb",
+              "in": 9.4,
+              "kind": "knowledge-base",
+              "slot": "center",
+              "state": {
+                "labels": [],
+                "reveal": false,
+                "rows": 6,
+                "title": "RESPUESTAS DEL NEGOCIO"
+              }
+            }
+          ],
+          "theme": "primary",
+          "visual_start": 9.2
+        }
+      ],
+      "role": "takeover",
+      "skin": "on-surface",
+      "start": 9.2
+    },
+    {
+      "end": 27.5,
+      "fade_in": 0.22,
+      "fade_out": 0.18,
+      "id": "stage-c",
+      "kind": "mockup",
+      "mock": [
+        "motion_stage",
+        {
+          "at": [
+            {
+              "id": "kb",
+              "op": "state",
+              "reveal": "r0",
+              "t": 17.4667
+            },
+            {
+              "id": "kb",
+              "op": "state",
+              "reveal": "r1",
+              "t": 18.4333
+            },
+            {
+              "id": "kb",
+              "op": "state",
+              "reveal": "r2",
+              "t": 19.3333
+            },
+            {
+              "id": "kb",
+              "op": "state",
+              "reveal": "r3",
+              "t": 20.3
+            },
+            {
+              "id": "kb",
+              "op": "state",
+              "reveal": "r4",
+              "t": 21.4
+            },
+            {
+              "id": "kb",
+              "op": "state",
+              "reveal": "r5",
+              "t": 22.5333
+            },
+            {
+              "id": "kb",
+              "op": "state",
+              "reveal": "seal",
+              "t": 25.6333
+            }
+          ],
+          "objects": [
+            {
+              "id": "ask",
+              "in": 16.5,
+              "kind": "msg-card",
+              "slot": "head",
+              "state": {
+                "arrow": "down",
+                "text": "Cliente escribe…",
+                "w": 520
+              }
+            },
+            {
+              "id": "kb",
+              "in": 16.8,
+              "kind": "knowledge-base",
+              "slot": "center",
+              "state": {
+                "labels": [
+                  "Horarios",
+                  "Precios",
+                  "Ubicaciones",
+                  "Requisitos",
+                  "Políticas",
+                  "Preguntas frecuentes"
+                ],
+                "reveal": true,
+                "rows": 6,
+                "seal": "APROBADA POR TU EMPRESA",
+                "title": "BASE DE CONOCIMIENTO"
+              }
+            },
+            {
+              "id": "ans",
+              "in": 24.3333,
+              "kind": "answer-approved",
+              "slot": "foot",
+              "state": {
+                "text": "Respuesta aprobada",
+                "w": 700
+              }
+            }
+          ],
+          "theme": "primary",
+          "visual_start": 16.5
+        }
+      ],
+      "role": "takeover",
+      "skin": "on-surface",
+      "start": 16.5
+    },
+    {
+      "end": 35.5667,
+      "fade_in": 0.22,
+      "fade_out": 0.18,
+      "id": "stage-d",
+      "kind": "mockup",
+      "mock": [
+        "motion_stage",
+        {
+          "at": [
+            {
+              "id": "a1",
+              "op": "state",
+              "reveal": "seal",
+              "t": 34.4667
+            },
+            {
+              "id": "a2",
+              "op": "state",
+              "reveal": "seal",
+              "t": 34.4667
+            },
+            {
+              "id": "a3",
+              "op": "state",
+              "reveal": "seal",
+              "t": 34.4667
+            },
+            {
+              "id": "a4",
+              "op": "state",
+              "reveal": "seal",
+              "t": 34.4667
+            }
+          ],
+          "objects": [
+            {
+              "id": "a1",
+              "in": 32.3,
+              "kind": "msg-card",
+              "slot": "stack-1",
+              "state": {
+                "seal": "AUTOMATIZADO",
+                "text": "¿Cuál es el horario?",
+                "w": 760
+              }
+            },
+            {
+              "id": "a2",
+              "in": 32.8,
+              "kind": "msg-card",
+              "slot": "stack-2",
+              "state": {
+                "seal": "AUTOMATIZADO",
+                "text": "¿Cuánto cuesta?",
+                "w": 760
+              }
+            },
+            {
+              "id": "a3",
+              "in": 33.3333,
+              "kind": "msg-card",
+              "slot": "stack-3",
+              "state": {
+                "seal": "AUTOMATIZADO",
+                "text": "¿Dónde están ubicados?",
+                "w": 760
+              }
+            },
+            {
+              "id": "a4",
+              "in": 34.2333,
+              "kind": "msg-card",
+              "slot": "stack-4",
+              "state": {
+                "seal": "AUTOMATIZADO",
+                "text": "¿Aceptan pago móvil?",
+                "w": 760
+              }
+            }
+          ],
+          "theme": "success",
+          "visual_start": 32.3
+        }
+      ],
+      "role": "takeover",
+      "skin": "on-surface",
+      "start": 32.3
+    }
+  ],
+  "voice_gain": 0.7
+}

@@ -412,6 +412,7 @@ def build_visuals(dur):
                   "rate_mismatch": mockups.rate_mismatch,
                   "chip_grid": mockups.chip_grid,
                   "comment_ui": mockups.comment_ui,
+                  "chat_unanswered": mockups.chat_unanswered,
                   "motion_stage": objects.motion_stage}[which]
             body_css, body_html_, body_anims = fn(vid, **kw)
         elif v["kind"] == "image":
@@ -656,6 +657,77 @@ def card_body(kind, cid, cfg):
         return css, f'<div class="mrow">{cells}</div>', [
             ("stamp", f"#{cid}-m{i}", at[i] if i < len(at) else 0.3 + i * .16, 0.38)
             for i in range(len(items))]
+
+    if kind == "msgteaser":
+        # Las cuatro piezas del lead magnet, en miniatura y entrando rápido.
+        #
+        # NO va borroso, al contrario que `teaser`. La diferencia es qué se
+        # está protegiendo: en la pieza 12 el entregable era UN documento y
+        # enseñarlo legible era entregarlo, así que el blur era el mensaje.
+        # Aquí el entregable es una SECUENCIA, y lo que hay que enseñar es
+        # cuántos mensajes trae y en qué orden — no su redacción. Los rótulos
+        # son el TIPO de cada mensaje, nunca su texto: se ve la forma del
+        # paquete y sigue habiendo razón para pedirlo.
+        items = cfg.get("items", [])
+        filas = "".join(
+            f'<span class="mtrow" id="{cid}-mt{i}">'
+            f'<span class="mtdot"></span><span class="mttxt">{esc(x)}</span>'
+            f'<span class="mtnum">{i + 1}</span></span>'
+            for i, x in enumerate(items))
+        css = f"""
+{p} .mtwrap{{display:flex;flex-direction:column;gap:12px;
+  width:{round(W*0.72)}px}}
+{p} .mtrow{{display:flex;align-items:center;gap:16px;height:74px;
+  box-sizing:border-box;padding:0 22px;background:{C['surface']};
+  border:1px solid {LINE_HI};border-radius:{RADIUS['md']}px;
+  box-shadow:{SHADOW};opacity:0}}
+{p} .mtdot{{width:14px;height:14px;border-radius:50%;background:{C['violet']};
+  flex:0 0 auto}}
+{p} .mttxt{{font-family:{FONT};font-weight:600;font-size:{T['body']-2}px;
+  color:{C['text']};white-space:nowrap}}
+{p} .mtnum{{margin-left:auto;font-family:{MONO};font-weight:700;
+  font-size:{T['chip']-4}px;letter-spacing:.10em;color:{C['bg']};
+  background:{C['go']};border-radius:{RADIUS['pill']}px;padding:6px 14px}}"""
+        # 110 ms entre filas: «entrando rápidamente», no una lista que se lee.
+        at = cfg.get("beats_rel") or [0.14 + i * 0.11 for i in range(len(items))]
+        return css, f'<div class="mtwrap">{filas}</div>', [
+            ("chip-in", f"#{cid}-mt{i}", at[i] if i < len(at) else 0.14 + i * .11,
+             0.26) for i in range(len(items))]
+
+    if kind == "teaser":
+        # El adelanto del lead magnet: se ve QUE existe, no QUÉ dice. El
+        # blur es ESTÁTICO — la prohibición del contrato es *animar* `filter`,
+        # no usarlo; un blur fijo es solo rendering, igual que el de
+        # `BLUR_WIPE`. Y es lo que hace que enseñarlo no sea entregarlo.
+        # DOS NÚMEROS MEDIDOS, los dos a la baja respecto al primer intento.
+        #
+        # `blur(7px)` sobre filas de 14 px dejaba un BORRÓN de 605x239: se veía
+        # una mancha oscura sobre la pared clara, no un documento — y el teaser
+        # solo funciona si se reconoce QUÉ tipo de cosa es. A 5 px con filas de
+        # 20 px se lee «documento» y sigue siendo ilegible palabra por palabra,
+        # que es justo lo que se busca.
+        #
+        # Y NO LLEVA PASTILLA VERDE. Con kicker + titular + documento + pastilla
+        # el rótulo del CTA sumaba cuatro elementos apilados, y el CTA es donde
+        # el brief pide no saturar. Lo que la pastilla decía («te la envío al
+        # comentar») ya lo está diciendo su voz en ese mismo instante.
+        rows = "".join(
+            f'<span class="tsrow" style="width:{w}%"></span>'
+            for w in (86, 64, 78, 52, 71, 44, 68))
+        css = f"""
+{p} .tsdoc{{position:relative;width:{round(W*0.60)}px;background:{C['surface']};
+  border:1px solid {LINE_HI};border-radius:{RADIUS['lg']}px;padding:30px 32px;
+  display:flex;flex-direction:column;gap:18px;box-shadow:{SHADOW};
+  filter:blur(5px);opacity:.85}}
+{p} .tsbar{{height:30px;width:52%;border-radius:8px;background:{C['violet']};
+  margin-bottom:8px}}
+{p} .tsrow{{height:20px;border-radius:10px;background:{LINE_HI};display:block}}
+{p} .tswrap{{position:relative;display:flex;flex-direction:column;
+  align-items:center;opacity:0}}"""
+        html = (f'<div class="tswrap" id="{cid}-ts">'
+                f'<div class="tsdoc"><span class="tsbar"></span>{rows}</div>'
+                f'</div>')
+        return css, html, [("rise-in", f"#{cid}-ts", 0.16, 0.40)]
 
     if kind == "cta":
         label = esc(cfg.get("cta_text", "COMENTA"))
@@ -1209,6 +1281,24 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
                       f'document.querySelector({min_sel!r})?.setAttribute('
                       f'"transform", "rotate(" + {mv}.v + " 150 150)"); '
                       f'}} }}, {t:.4f});')
+        elif kind == "count-roll":
+            # El contador que sube (`objects.answer_counter`). MISMO patrón
+            # que `hands-sweep` y por la misma razón: se tuenea un número
+            # PURO y en cada `onUpdate` se reescribe el texto del span. GSAP
+            # llama al onUpdate con el valor ya interpolado en cada seek, así
+            # que el frame 312 pinta lo mismo se llegue a él reproduciendo o
+            # buscando — que es lo que exige el contrato de determinismo.
+            #
+            # El prefijo va FUERA del número interpolado: metido dentro, un
+            # `Math.round` sobre la cadena daría NaN.
+            n_from, n_to, prefix = a[4], a[5], a[6]
+            cv = f"_cv{len(js)}"
+            js.append(f'const {cv} = {{ v: {n_from} }};')
+            js.append(f'tl.to({cv}, {{ v: {n_to}, duration: {d}, '
+                      f'ease: "power2.out", onUpdate: function() {{ '
+                      f'const e = document.querySelector({sel!r}); '
+                      f'if (e) e.textContent = {json.dumps(prefix)} + '
+                      f'Math.round({cv}.v); }} }}, {t:.4f});')
         elif kind in ("cursor-enter", "cursor-to"):
             x, y = a[4], a[5]
             if kind == "cursor-enter":

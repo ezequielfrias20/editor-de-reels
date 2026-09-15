@@ -27,7 +27,8 @@ def q(t: float) -> float:
 
 # Un cambio macro es un cambio de MUNDO; uno micro, de lectura.
 MACRO_EVENTS = frozenset({"CAMERA", "OBJECT_IN", "OBJECT_EXIT", "OBJECT_STATE",
-                          "STAGE_CLEAR", "THEME_CHANGE", "TYPE_BEAT", "UI_ACTION"})
+                          "STAGE_CLEAR", "THEME_CHANGE", "TYPE_BEAT", "UI_ACTION",
+                          "CARD"})
 MICRO_EVENTS = frozenset({"CAPTION", "KEYWORD"})
 # SFX no cuenta en ninguno: no es un cambio visual.
 
@@ -127,6 +128,61 @@ def _min_camera_gap(edl: Edl, windows, hook_exempt_until: float) -> float:
     return round(peor, 4)
 
 
+def bare_stage_gaps(edl: Edl, fade_in: float) -> list[tuple[str, float]]:
+    """Cuánto tiempo está cada stage EN PANTALLA SIN NINGÚN OBJETO.
+
+    Es la hermana de `check_no_black()` y nace del mismo tipo de fallo, con la
+    diferencia que lo hacía invisible: el frame no cae a negro, porque el suelo
+    del stage SÍ se pinta —con su viñeta y su retícula—, así que ninguna
+    comprobación existente lo veía. Lo que se ve es un fondo grafito vacío con
+    un subtítulo encima, y eso se lee como un error de montaje.
+
+    Medido cuando esta función se escribió: **1.63 s** en el stage de la
+    secuencia de la pieza 13 y **0.97 s** en el de su línea de tiempo; y, ya
+    entregada, **0.90 / 1.38 / 0.74 s** en los tres stages de la pieza 10.
+
+    El arreglo es mover el LÍMITE del segmento, no el evento: la ventana de un
+    segmento empieza en su primera palabra, así que hacer que el stage empiece
+    en la palabra del objeto cierra el hueco sin adelantar el guion.
+
+    El margen es el `fade_in` del stage —mientras el fondo se funde no hay nada
+    que se lea como vacío— MÁS UN FRAME, porque el compilador cuantiza cada
+    instante con `q()` y por debajo de 1/30 s no hay nada que ver.
+    """
+    margen = fade_in + 1.0 / FPS
+    windows = segment_windows(edl.segments, edl.wt)
+    fuera: list[tuple[str, float]] = []
+    for stage in derive_stages(edl.segments):
+        eventos = []
+        for si in range(stage.first, stage.last + 1):
+            eventos.extend(sorted(edl.segments[si].events, key=lambda e: e.at_word))
+        donde = f"stage {stage.first}-{stage.last}"
+        entradas = [e for e in eventos if e.type == "OBJECT_IN"]
+        if not entradas:
+            fuera.append((f"{donde} (sin un solo objeto)",
+                          windows[stage.last][1] - windows[stage.first][0]))
+            continue
+        hueco = min(e.t(edl.wt) for e in entradas) - windows[stage.first][0]
+        if hueco > margen:
+            fuera.append((f"{donde} (al entrar)", round(hueco, 3)))
+        # Y por el otro lado: retirar todo lo vivo a mitad de stage deja el
+        # mismo fondo desnudo hasta que el stage termine.
+        vivas, vaciado = set(), None
+        for e in eventos:
+            if e.type == "OBJECT_IN":
+                vivas.add(e.instance_id); vaciado = None
+            elif e.type == "OBJECT_EXIT":
+                vivas.discard(e.instance_id)
+                if not vivas:
+                    vaciado = e.t(edl.wt)
+            elif e.type == "STAGE_CLEAR":
+                vivas.clear(); vaciado = e.t(edl.wt)
+        if vaciado is not None and windows[stage.last][1] - vaciado > margen:
+            fuera.append((f"{donde} (al salir)",
+                          round(windows[stage.last][1] - vaciado, 3)))
+    return fuera
+
+
 def measure(edl: Edl, style: dict | None = None) -> dict[str, float]:
     """La lista FIJA de métricas. Añadir una es tocar código, a propósito.
 
@@ -163,6 +219,9 @@ def measure(edl: Edl, style: dict | None = None) -> dict[str, float]:
     # para un sonido sin evento visual detrás). `sfx_dropped` es cuánto de
     # eso se queda por el camino en `resolve_sfx()`: el colapso de iguales y
     # la concurrencia entre clases.
+    desnudos = bare_stage_gaps(
+        edl, float((style or {}).get("stage", {}).get("fade_in", 0.22)))
+
     declarados = sfx_declarations(edl)
     sobreviven = resolve_sfx(declarados)
     sfx_dropped = len(declarados) - len(sobreviven)
@@ -189,6 +248,9 @@ def measure(edl: Edl, style: dict | None = None) -> dict[str, float]:
         "stage_count": float(len(derive_stages(edl.segments))),
         "segment_count": float(len(edl.segments)),
         "sfx_dropped": float(sfx_dropped),
+        # El PEOR hueco de suelo desnudo. 0.0 significa que ningún stage está
+        # en pantalla sin objetos — ver `bare_stage_gaps`.
+        "max_bare_stage": round(max((g for _, g in desnudos), default=0.0), 4),
     }
 
 

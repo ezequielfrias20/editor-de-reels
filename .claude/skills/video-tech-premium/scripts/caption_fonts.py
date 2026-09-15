@@ -45,6 +45,17 @@ def measure_font(size: int, cache_dir: Path | None = None):
     return fnt
 
 
+def word_widths(words, sizes, cache_dir: Path | None = None) -> list[float]:
+    """El ancho de CADA palabra, con su margen incluido.
+
+    Lo necesita el reparto en líneas: el total no dice cuántas líneas salen
+    —una sola palabra muy larga rompe la línea antes de agotar el ancho— así
+    que hay que repartir palabra a palabra.
+    """
+    return [measure_font(int(s), cache_dir).getlength(w) + WORD_MARGIN
+            for w, s in zip(words, sizes)]
+
+
 def words_width(words, sizes, cache_dir: Path | None = None) -> float:
     """Ancho de una lista de palabras, cada una a SU tamaño.
 

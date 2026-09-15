@@ -1,0 +1,532 @@
+[
+ {
+  "text": "Un",
+  "start": 0.15,
+  "end": 0.295
+ },
+ {
+  "text": "buen",
+  "start": 0.295,
+  "end": 0.457
+ },
+ {
+  "text": "punto",
+  "start": 0.457,
+  "end": 0.78
+ },
+ {
+  "text": "de",
+  "start": 0.78,
+  "end": 0.893
+ },
+ {
+  "text": "venta",
+  "start": 0.893,
+  "end": 1.459
+ },
+ {
+  "text": "no",
+  "start": 1.459,
+  "end": 1.669
+ },
+ {
+  "text": "solo",
+  "start": 1.669,
+  "end": 1.992
+ },
+ {
+  "text": "cobra,",
+  "start": 1.992,
+  "end": 2.202
+ },
+ {
+  "text": "también",
+  "start": 2.396,
+  "end": 2.736
+ },
+ {
+  "text": "evita",
+  "start": 2.736,
+  "end": 3.302
+ },
+ {
+  "text": "errores",
+  "start": 3.302,
+  "end": 3.867
+ },
+ {
+  "text": "antes",
+  "start": 3.867,
+  "end": 4.158
+ },
+ {
+  "text": "de",
+  "start": 4.175,
+  "end": 4.255
+ },
+ {
+  "text": "que",
+  "start": 4.255,
+  "end": 4.368
+ },
+ {
+  "text": "ocurran.",
+  "start": 4.368,
+  "end": 4.798
+ },
+ {
+  "text": "Te",
+  "start": 5.198,
+  "end": 5.31
+ },
+ {
+  "text": "muestro",
+  "start": 5.31,
+  "end": 5.573
+ },
+ {
+  "text": "el",
+  "start": 5.573,
+  "end": 5.655
+ },
+ {
+  "text": "flujo",
+  "start": 5.704,
+  "end": 6.081
+ },
+ {
+  "text": "del",
+  "start": 6.525,
+  "end": 6.672
+ },
+ {
+  "text": "POS",
+  "start": 6.771,
+  "end": 7.05
+ },
+ {
+  "text": "que",
+  "start": 7.05,
+  "end": 7.132
+ },
+ {
+  "text": "desarrollé",
+  "start": 7.132,
+  "end": 7.837
+ },
+ {
+  "text": "para",
+  "start": 8.001,
+  "end": 8.165
+ },
+ {
+  "text": "una",
+  "start": 8.165,
+  "end": 8.329
+ },
+ {
+  "text": "tienda",
+  "start": 8.329,
+  "end": 8.69
+ },
+ {
+  "text": "retail.",
+  "start": 8.69,
+  "end": 9.161
+ },
+ {
+  "text": "El",
+  "start": 9.421,
+  "end": 9.538
+ },
+ {
+  "text": "vendedor",
+  "start": 9.586,
+  "end": 10.217
+ },
+ {
+  "text": "busca",
+  "start": 10.315,
+  "end": 10.654
+ },
+ {
+  "text": "el",
+  "start": 10.654,
+  "end": 10.719
+ },
+ {
+  "text": "producto",
+  "start": 10.719,
+  "end": 11.205
+ },
+ {
+  "text": "por",
+  "start": 11.205,
+  "end": 11.431
+ },
+ {
+  "text": "nombre,",
+  "start": 11.448,
+  "end": 11.82
+ },
+ {
+  "text": "SKU,",
+  "start": 12.014,
+  "end": 12.338
+ },
+ {
+  "text": "talla,",
+  "start": 12.581,
+  "end": 12.953
+ },
+ {
+  "text": "color,",
+  "start": 12.985,
+  "end": 13.357
+ },
+ {
+  "text": "lo",
+  "start": 13.714,
+  "end": 13.811
+ },
+ {
+  "text": "agrega",
+  "start": 13.811,
+  "end": 14.053
+ },
+ {
+  "text": "al",
+  "start": 14.053,
+  "end": 14.199
+ },
+ {
+  "text": "carrito,",
+  "start": 14.199,
+  "end": 14.652
+ },
+ {
+  "text": "valida",
+  "start": 14.685,
+  "end": 14.96
+ },
+ {
+  "text": "el",
+  "start": 14.96,
+  "end": 15.089
+ },
+ {
+  "text": "stock",
+  "start": 15.089,
+  "end": 15.51
+ },
+ {
+  "text": "y",
+  "start": 15.51,
+  "end": 15.575
+ },
+ {
+  "text": "selecciona",
+  "start": 15.575,
+  "end": 16.158
+ },
+ {
+  "text": "el",
+  "start": 16.158,
+  "end": 16.303
+ },
+ {
+  "text": "cliente.",
+  "start": 16.303,
+  "end": 16.595
+ },
+ {
+  "text": "Después",
+  "start": 17.171,
+  "end": 17.574
+ },
+ {
+  "text": "puede",
+  "start": 17.574,
+  "end": 17.832
+ },
+ {
+  "text": "aplicar",
+  "start": 17.832,
+  "end": 18.219
+ },
+ {
+  "text": "descuento,",
+  "start": 18.219,
+  "end": 18.831
+ },
+ {
+  "text": "IVA",
+  "start": 19.121,
+  "end": 19.427
+ },
+ {
+  "text": "y",
+  "start": 19.427,
+  "end": 19.443
+ },
+ {
+  "text": "elegir",
+  "start": 19.443,
+  "end": 19.975
+ },
+ {
+  "text": "uno",
+  "start": 20.088,
+  "end": 20.394
+ },
+ {
+  "text": "o",
+  "start": 20.491,
+  "end": 20.555
+ },
+ {
+  "text": "varios",
+  "start": 20.555,
+  "end": 20.861
+ },
+ {
+  "text": "métodos",
+  "start": 20.877,
+  "end": 21.329
+ },
+ {
+  "text": "de",
+  "start": 21.329,
+  "end": 21.522
+ },
+ {
+  "text": "pago.",
+  "start": 21.522,
+  "end": 21.791
+ },
+ {
+  "text": "Si",
+  "start": 22.157,
+  "end": 22.344
+ },
+ {
+  "text": "el",
+  "start": 22.344,
+  "end": 22.44
+ },
+ {
+  "text": "método",
+  "start": 22.489,
+  "end": 22.892
+ },
+ {
+  "text": "lo",
+  "start": 22.892,
+  "end": 23.004
+ },
+ {
+  "text": "necesita,",
+  "start": 23.004,
+  "end": 23.504
+ },
+ {
+  "text": "también",
+  "start": 23.617,
+  "end": 23.939
+ },
+ {
+  "text": "registra",
+  "start": 23.939,
+  "end": 24.503
+ },
+ {
+  "text": "la",
+  "start": 24.825,
+  "end": 24.906
+ },
+ {
+  "text": "referencia",
+  "start": 24.906,
+  "end": 25.47
+ },
+ {
+  "text": "del",
+  "start": 25.47,
+  "end": 25.583
+ },
+ {
+  "text": "mismo.",
+  "start": 25.631,
+  "end": 26.021
+ },
+ {
+  "text": "Al",
+  "start": 26.281,
+  "end": 26.41
+ },
+ {
+  "text": "completar",
+  "start": 26.426,
+  "end": 26.926
+ },
+ {
+  "text": "la",
+  "start": 26.926,
+  "end": 27.071
+ },
+ {
+  "text": "venta",
+  "start": 27.071,
+  "end": 27.555
+ },
+ {
+  "text": "se",
+  "start": 27.555,
+  "end": 27.716
+ },
+ {
+  "text": "genera",
+  "start": 27.716,
+  "end": 28.12
+ },
+ {
+  "text": "la",
+  "start": 28.12,
+  "end": 28.168
+ },
+ {
+  "text": "factura,",
+  "start": 28.2,
+  "end": 28.813
+ },
+ {
+  "text": "el",
+  "start": 29.184,
+  "end": 29.281
+ },
+ {
+  "text": "ticket",
+  "start": 29.41,
+  "end": 29.813
+ },
+ {
+  "text": "térmico",
+  "start": 29.813,
+  "end": 30.378
+ },
+ {
+  "text": "y",
+  "start": 30.474,
+  "end": 30.539
+ },
+ {
+  "text": "se",
+  "start": 30.539,
+  "end": 30.7
+ },
+ {
+  "text": "descuenta",
+  "start": 30.7,
+  "end": 31.216
+ },
+ {
+  "text": "automáticamente",
+  "start": 31.216,
+  "end": 32.426
+ },
+ {
+  "text": "el",
+  "start": 32.813,
+  "end": 32.91
+ },
+ {
+  "text": "inventario.",
+  "start": 32.974,
+  "end": 33.571
+ },
+ {
+  "text": "¿Quieres",
+  "start": 33.971,
+  "end": 34.269
+ },
+ {
+  "text": "ver",
+  "start": 34.269,
+  "end": 34.45
+ },
+ {
+  "text": "el",
+  "start": 34.45,
+  "end": 34.548
+ },
+ {
+  "text": "mapa",
+  "start": 34.597,
+  "end": 35.008
+ },
+ {
+  "text": "completo",
+  "start": 35.008,
+  "end": 35.665
+ },
+ {
+  "text": "de",
+  "start": 35.993,
+  "end": 36.157
+ },
+ {
+  "text": "un",
+  "start": 36.174,
+  "end": 36.239
+ },
+ {
+  "text": "proceso",
+  "start": 36.239,
+  "end": 36.814
+ },
+ {
+  "text": "de",
+  "start": 36.814,
+  "end": 36.929
+ },
+ {
+  "text": "venta",
+  "start": 36.929,
+  "end": 37.241
+ },
+ {
+  "text": "automatizado?",
+  "start": 37.241,
+  "end": 38.062
+ },
+ {
+  "text": "Comenta",
+  "start": 38.661,
+  "end": 39.256
+ },
+ {
+  "text": "POS",
+  "start": 39.256,
+  "end": 39.633
+ },
+ {
+  "text": "y",
+  "start": 40.011,
+  "end": 40.077
+ },
+ {
+  "text": "te",
+  "start": 40.077,
+  "end": 40.225
+ },
+ {
+  "text": "lo",
+  "start": 40.225,
+  "end": 40.274
+ },
+ {
+  "text": "envío.",
+  "start": 40.274,
+  "end": 40.759
+ }
+]

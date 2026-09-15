@@ -23,10 +23,26 @@ def test_floor_top_usa_el_tamano_maximo_no_el_base():
     palabras = ["si", "tienes", "una", "clínica", "que", "atiende",
                 "pacientes", "todos", "los", "días"]
     con = measure_block(palabras, 66, (3, 3), "REEL", H)
-    assert con["n_lines"] == 2
-    assert con["floor_top"] == round(H * 0.80) - 2 * con["line_h"]
+    # El presupuesto se descuenta con las líneas que de verdad salen. Antes
+    # aquí había un `== 2` fijo, que era el tope del cálculo viejo y no una
+    # medida: diez palabras no caben en dos líneas.
+    assert con["floor_top"] == round(H * 0.80) - con["n_lines"] * con["line_h"]
     sin = measure_block(palabras, 66, None, "REEL", H)
     assert con["floor_top"] < sin["floor_top"], "la keyword grande baja el techo"
+
+
+def test_una_palabra_larga_fuerza_una_tercera_linea():
+    """La regresión de la pieza 11. El bloque suma 1.67x el ancho útil —que
+    dividiendo da dos líneas— pero «AUTOMÁTICAMENTE» rompe la línea antes de
+    agotarlo y el navegador lo envuelve a TRES. Con la cuenta topada en dos, la
+    tercera línea entraba 58 px dentro del 20 % que pinta la plataforma."""
+    m = measure_block(["PACIENTES", "AUTOMÁTICAMENTE", "POR", "WHATSAPP"],
+                      66, (0, 0), "REEL", H)
+    assert m["n_lines"] == 3
+    maxw = round(1080 * 0.84)
+    por_division = -(-round(m["width"]) // maxw)      # techo de ancho/ancho_util
+    assert por_division == 2, "dividiendo el total salen 2: por eso no vale dividir"
+    assert m["floor_top"] + m["n_lines"] * m["line_h"] <= round(H * 0.80)
 
 
 def test_ninguna_tinta_cae_en_el_20_por_ciento_inferior():

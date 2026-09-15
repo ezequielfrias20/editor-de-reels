@@ -189,6 +189,17 @@ def _visuals(edl: Edl, style: dict) -> list[dict]:
                     # necesita los dos extremos explícitos.
                     op["hour_from"] = angles["hour_from"]
                     op["minute_from"] = angles["minute_from"]
+                if "reveal" in ev.state:
+                    # El objeto expone el sufijo; el compilador solo pasa el
+                    # instante. No sabe qué es una fila ni un sello.
+                    op["reveal"] = ev.state["reveal"]
+                if "n" in ev.state:
+                    # El FROM sale del estado ANTERIOR que rastrea el
+                    # compilador, igual que las agujas del reloj: el EDL
+                    # declara el objetivo, la continuidad no se reescribe a
+                    # mano en cada salto.
+                    op["count_from"] = int(prev.get("n", 0))
+                    op["count"] = int(ev.state["n"])
                 if ev.crowd:
                     # El SLOT de origen es el que le dio su `OBJECT_IN`, no
                     # el estado corriente — la instancia no se reposiciona
@@ -218,6 +229,39 @@ def _visuals(edl: Edl, style: dict) -> list[dict]:
             "mock": ["motion_stage", {"theme": theme, "objects": obj_defs,
                                       "at": ops, "visual_start": q(start)}],
         })
+    return out
+
+
+def _cards(edl: Edl) -> list[dict]:
+    """La capa de RÓTULOS: los eventos `CARD` traducidos a `plan["cards"]`.
+
+    Existe porque el rótulo flotante es la única forma de poner una etiqueta
+    SOBRE la cara del presentador — un stage la sustituye, un rótulo la
+    acompaña. «Escalar a un humano» dicho por él con la etiqueta encima es
+    otra frase que la misma etiqueta a pantalla completa sin él.
+
+    Los DOS bordes salen de una palabra (`atWord` / `untilWord`), no de dos
+    floats: si `refine-timings.py` mueve un borde, el rótulo se mueve con su
+    frase igual que todo lo demás. `untilWord` usa el FINAL de su palabra —
+    un rótulo acompaña hasta que la idea termina de pronunciarse, no hasta
+    que empieza la palabra siguiente.
+    """
+    out: list[dict] = []
+    for seg in edl.segments:
+        for ev in seg.events:
+            if ev.type != "CARD":
+                continue
+            start = ev.t(edl.wt)
+            end = edl.wt.words[ev.until_word].end + ev.until_offset
+            card = {k: v for k, v in ev.card.items() if not k.startswith("_")}
+            card["start"] = q(start)
+            card["end"] = q(end)
+            if ev.cta_at_word is not None:
+                # `build_cards` lo espera ABSOLUTO y lo pasa a relativo él
+                # mismo. Aquí solo se resuelve la palabra a instante.
+                card["cta_at"] = q(edl.wt.at(ev.cta_at_word))
+            out.append(card)
+    out.sort(key=lambda c: c["start"])
     return out
 
 
@@ -290,7 +334,7 @@ def compile_edl(edl: Edl, style: dict, src_w: int | None = None) -> dict:
         "keywords": _keywords(edl),
         "captions": _captions(edl),
         "shots": _shots(edl, style, src_w),
-        "cards": [],
+        "cards": _cards(edl),
         "visuals": _visuals(edl, style),
         "sfx": _sfx(edl),
         "_": f"generado por edl-compile desde {edl.src.name} — NO editar a mano",
@@ -423,7 +467,8 @@ def main(argv=None) -> int:
           f"{len(report['assets_used'])} asset(s) usados")
 
     print(f"✓ {out}  ·  {len(edl.segments)} segmentos  ·  "
-          f"{len(plan['shots'])} encuadres  ·  {len(plan['keywords'])} keywords")
+          f"{len(plan['shots'])} encuadres  ·  {len(plan['cards'])} tarjetas  ·  "
+          f"{len(plan['keywords'])} keywords")
     return 0
 
 

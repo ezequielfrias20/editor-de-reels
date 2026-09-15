@@ -17,7 +17,7 @@ zona segura solo se verificaba extrayendo frames del MP4.
 """
 from __future__ import annotations
 
-from caption_fonts import words_width
+from caption_fonts import word_widths, words_width
 
 # Tope MEDIDO: a 66 px de base, 1.30 son 86 px y un bloque de dos líneas se
 # queda sin presupuesto de zona segura. El brief pedía hasta 1.30.
@@ -52,7 +52,21 @@ def measure_block(words, base_size: int, keyword_range, fmt: str, canvas_h: int,
     max_size = max(sizes) if sizes else base_size
     line_h = round(max_size * LINE_RATIO)
     width = words_width(words, sizes, cache_dir)
-    n_lines = 1 if width <= round(canvas_w * MAXW_RATIO) else 2
+    # El número de líneas se REPARTE, no se divide. Dos razones por las que
+    # `ancho_total / ancho_util` no sirve: una palabra muy larga rompe la línea
+    # mucho antes de agotar el ancho, y el sobrante de cada línea se pierde.
+    # Medido en la pieza 11: «PACIENTES AUTOMÁTICAMENTE POR WHATSAPP» suma
+    # 1.67x el ancho útil —que redondeando da 2— y el navegador lo envuelve a
+    # TRES, así que la tercera línea entraba 58 px dentro del 20 % que pinta la
+    # plataforma. Topar la cuenta en 2, como estaba, tenía el mismo efecto.
+    maxw = round(canvas_w * MAXW_RATIO)
+    n_lines, linea = 1, 0.0
+    for w in word_widths(words, sizes, cache_dir):
+        if linea and linea + w > maxw:
+            n_lines += 1
+            linea = w
+        else:
+            linea += w
 
     # LA CUENTA QUE IMPORTA: con `max_size`, no con `base_size`.
     floor_top = round(canvas_h * SAFE_BOTTOM) - n_lines * line_h

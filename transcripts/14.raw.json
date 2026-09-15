@@ -1,0 +1,733 @@
+{
+  "id": "d9c61ec8-92df-4a21-921d-f5cccaf05d57",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/94fe5bfabbcceb81b39b8384dcc43d262bfa7de373d5a30c3a8514a507ff9365/dc639f6e-2a28-45f2-80f4-8595e683ebda",
+  "text": "Tener muchos datos no sirve si ninguno te ayuda a tomar una decisión. Una hoja con cientos de filas puede contener información valiosa, pero obliga al dueño a buscar manualmente qué está pasando. Un dashboard útil no solo muestra números, te ayuda a detectar qué servicio vende más, qué sucursal está por debajo de la meta, producto necesita reposición o qué método de pago concentra más ingresos. Cada indicador debería responder una pregunta y provocar una acción. Comenta datos y te envío una plantilla para convertir tus números en indicadores accionables.",
+  "words": [
+    {
+      "text": "Tener",
+      "start": 745,
+      "end": 1055,
+      "confidence": 0.9981335,
+      "speaker": null
+    },
+    {
+      "text": "muchos",
+      "start": 1071,
+      "end": 1478,
+      "confidence": 0.9999875,
+      "speaker": null
+    },
+    {
+      "text": "datos",
+      "start": 1478,
+      "end": 1982,
+      "confidence": 0.99999356,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 2047,
+      "end": 2129,
+      "confidence": 0.99952805,
+      "speaker": null
+    },
+    {
+      "text": "sirve",
+      "start": 2129,
+      "end": 2617,
+      "confidence": 0.9999286,
+      "speaker": null
+    },
+    {
+      "text": "si",
+      "start": 2942,
+      "end": 3105,
+      "confidence": 0.9981229,
+      "speaker": null
+    },
+    {
+      "text": "ninguno",
+      "start": 3105,
+      "end": 3756,
+      "confidence": 0.9999864,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 3756,
+      "end": 3903,
+      "confidence": 0.99996245,
+      "speaker": null
+    },
+    {
+      "text": "ayuda",
+      "start": 3903,
+      "end": 4423,
+      "confidence": 0.9999404,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 4423,
+      "end": 4488,
+      "confidence": 0.9999974,
+      "speaker": null
+    },
+    {
+      "text": "tomar",
+      "start": 4488,
+      "end": 4798,
+      "confidence": 0.999995,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 4993,
+      "end": 5091,
+      "confidence": 0.9999949,
+      "speaker": null
+    },
+    {
+      "text": "decisión.",
+      "start": 5091,
+      "end": 5595,
+      "confidence": 0.99993855,
+      "speaker": null
+    },
+    {
+      "text": "Una",
+      "start": 8160,
+      "end": 8224,
+      "confidence": 0.999589,
+      "speaker": null
+    },
+    {
+      "text": "hoja",
+      "start": 8354,
+      "end": 8581,
+      "confidence": 0.9999882,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 8581,
+      "end": 8776,
+      "confidence": 0.9998938,
+      "speaker": null
+    },
+    {
+      "text": "cientos",
+      "start": 8906,
+      "end": 9392,
+      "confidence": 0.9999888,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 9392,
+      "end": 9473,
+      "confidence": 0.9999987,
+      "speaker": null
+    },
+    {
+      "text": "filas",
+      "start": 9554,
+      "end": 9862,
+      "confidence": 0.99999803,
+      "speaker": null
+    },
+    {
+      "text": "puede",
+      "start": 9960,
+      "end": 10284,
+      "confidence": 0.9999281,
+      "speaker": null
+    },
+    {
+      "text": "contener",
+      "start": 10284,
+      "end": 10706,
+      "confidence": 0.9999946,
+      "speaker": null
+    },
+    {
+      "text": "información",
+      "start": 10706,
+      "end": 11419,
+      "confidence": 0.99998033,
+      "speaker": null
+    },
+    {
+      "text": "valiosa,",
+      "start": 11419,
+      "end": 11954,
+      "confidence": 0.9994729,
+      "speaker": null
+    },
+    {
+      "text": "pero",
+      "start": 12392,
+      "end": 12571,
+      "confidence": 0.99998415,
+      "speaker": null
+    },
+    {
+      "text": "obliga",
+      "start": 12571,
+      "end": 13138,
+      "confidence": 0.9999838,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 13138,
+      "end": 13252,
+      "confidence": 0.9999894,
+      "speaker": null
+    },
+    {
+      "text": "dueño",
+      "start": 13365,
+      "end": 13803,
+      "confidence": 0.99999636,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 13949,
+      "end": 14014,
+      "confidence": 0.99995387,
+      "speaker": null
+    },
+    {
+      "text": "buscar",
+      "start": 14014,
+      "end": 14420,
+      "confidence": 0.9999647,
+      "speaker": null
+    },
+    {
+      "text": "manualmente",
+      "start": 14420,
+      "end": 15230,
+      "confidence": 0.99999845,
+      "speaker": null
+    },
+    {
+      "text": "qué",
+      "start": 15230,
+      "end": 15279,
+      "confidence": 0.9998828,
+      "speaker": null
+    },
+    {
+      "text": "está",
+      "start": 15328,
+      "end": 15555,
+      "confidence": 0.99996066,
+      "speaker": null
+    },
+    {
+      "text": "pasando.",
+      "start": 15555,
+      "end": 16090,
+      "confidence": 0.99985135,
+      "speaker": null
+    },
+    {
+      "text": "Un",
+      "start": 18914,
+      "end": 19059,
+      "confidence": 0.9997825,
+      "speaker": null
+    },
+    {
+      "text": "dashboard",
+      "start": 19059,
+      "end": 19623,
+      "confidence": 0.99862707,
+      "speaker": null
+    },
+    {
+      "text": "útil",
+      "start": 19639,
+      "end": 20090,
+      "confidence": 0.9999844,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 20187,
+      "end": 20348,
+      "confidence": 0.9998447,
+      "speaker": null
+    },
+    {
+      "text": "solo",
+      "start": 20348,
+      "end": 20622,
+      "confidence": 0.994072,
+      "speaker": null
+    },
+    {
+      "text": "muestra",
+      "start": 20622,
+      "end": 21025,
+      "confidence": 0.99998724,
+      "speaker": null
+    },
+    {
+      "text": "números,",
+      "start": 21025,
+      "end": 21444,
+      "confidence": 0.999722,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 21718,
+      "end": 21815,
+      "confidence": 0.99975127,
+      "speaker": null
+    },
+    {
+      "text": "ayuda",
+      "start": 21815,
+      "end": 22089,
+      "confidence": 0.99997175,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 22089,
+      "end": 22153,
+      "confidence": 0.9999963,
+      "speaker": null
+    },
+    {
+      "text": "detectar",
+      "start": 22153,
+      "end": 22750,
+      "confidence": 0.9999948,
+      "speaker": null
+    },
+    {
+      "text": "qué",
+      "start": 22766,
+      "end": 22895,
+      "confidence": 0.99987817,
+      "speaker": null
+    },
+    {
+      "text": "servicio",
+      "start": 22959,
+      "end": 23459,
+      "confidence": 0.99122673,
+      "speaker": null
+    },
+    {
+      "text": "vende",
+      "start": 23491,
+      "end": 23765,
+      "confidence": 0.99971205,
+      "speaker": null
+    },
+    {
+      "text": "más,",
+      "start": 23765,
+      "end": 24104,
+      "confidence": 0.9998906,
+      "speaker": null
+    },
+    {
+      "text": "qué",
+      "start": 24539,
+      "end": 24652,
+      "confidence": 0.9997644,
+      "speaker": null
+    },
+    {
+      "text": "sucursal",
+      "start": 24652,
+      "end": 25280,
+      "confidence": 0.9999683,
+      "speaker": null
+    },
+    {
+      "text": "está",
+      "start": 25280,
+      "end": 25667,
+      "confidence": 0.9997042,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 25667,
+      "end": 25828,
+      "confidence": 0.999863,
+      "speaker": null
+    },
+    {
+      "text": "debajo",
+      "start": 25828,
+      "end": 26183,
+      "confidence": 0.9999442,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 26183,
+      "end": 26312,
+      "confidence": 0.99961555,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 26312,
+      "end": 26360,
+      "confidence": 0.9997235,
+      "speaker": null
+    },
+    {
+      "text": "meta,",
+      "start": 26425,
+      "end": 26747,
+      "confidence": 0.9936765,
+      "speaker": null
+    },
+    {
+      "text": "producto",
+      "start": 27387,
+      "end": 27886,
+      "confidence": 0.4738259,
+      "speaker": null
+    },
+    {
+      "text": "necesita",
+      "start": 27886,
+      "end": 28433,
+      "confidence": 0.9999833,
+      "speaker": null
+    },
+    {
+      "text": "reposición",
+      "start": 28433,
+      "end": 29335,
+      "confidence": 0.99999017,
+      "speaker": null
+    },
+    {
+      "text": "o",
+      "start": 29737,
+      "end": 29769,
+      "confidence": 0.8906411,
+      "speaker": null
+    },
+    {
+      "text": "qué",
+      "start": 29882,
+      "end": 30075,
+      "confidence": 0.99935585,
+      "speaker": null
+    },
+    {
+      "text": "método",
+      "start": 30075,
+      "end": 30526,
+      "confidence": 0.99997354,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 30607,
+      "end": 30687,
+      "confidence": 0.9999969,
+      "speaker": null
+    },
+    {
+      "text": "pago",
+      "start": 30768,
+      "end": 31090,
+      "confidence": 0.9999502,
+      "speaker": null
+    },
+    {
+      "text": "concentra",
+      "start": 31170,
+      "end": 31846,
+      "confidence": 0.9999701,
+      "speaker": null
+    },
+    {
+      "text": "más",
+      "start": 31846,
+      "end": 32394,
+      "confidence": 0.99999213,
+      "speaker": null
+    },
+    {
+      "text": "ingresos.",
+      "start": 32394,
+      "end": 32909,
+      "confidence": 0.9663717,
+      "speaker": null
+    },
+    {
+      "text": "Cada",
+      "start": 36670,
+      "end": 36866,
+      "confidence": 0.9997127,
+      "speaker": null
+    },
+    {
+      "text": "indicador",
+      "start": 36866,
+      "end": 37438,
+      "confidence": 0.99999785,
+      "speaker": null
+    },
+    {
+      "text": "debería",
+      "start": 37585,
+      "end": 37993,
+      "confidence": 0.99998945,
+      "speaker": null
+    },
+    {
+      "text": "responder",
+      "start": 37993,
+      "end": 38418,
+      "confidence": 0.99998534,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 38418,
+      "end": 38533,
+      "confidence": 0.9977691,
+      "speaker": null
+    },
+    {
+      "text": "pregunta",
+      "start": 38647,
+      "end": 39219,
+      "confidence": 0.99999547,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 39236,
+      "end": 39301,
+      "confidence": 0.99998283,
+      "speaker": null
+    },
+    {
+      "text": "provocar",
+      "start": 39383,
+      "end": 39922,
+      "confidence": 0.99999505,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 40135,
+      "end": 40298,
+      "confidence": 0.9999931,
+      "speaker": null
+    },
+    {
+      "text": "acción.",
+      "start": 40298,
+      "end": 40821,
+      "confidence": 0.9999574,
+      "speaker": null
+    },
+    {
+      "text": "Comenta",
+      "start": 45210,
+      "end": 45549,
+      "confidence": 0.9997834,
+      "speaker": null
+    },
+    {
+      "text": "datos",
+      "start": 45630,
+      "end": 46163,
+      "confidence": 0.93280303,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 46454,
+      "end": 46519,
+      "confidence": 0.9991799,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 46519,
+      "end": 46616,
+      "confidence": 0.9999057,
+      "speaker": null
+    },
+    {
+      "text": "envío",
+      "start": 46616,
+      "end": 46794,
+      "confidence": 0.99992096,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 46794,
+      "end": 46923,
+      "confidence": 0.9993326,
+      "speaker": null
+    },
+    {
+      "text": "plantilla",
+      "start": 46923,
+      "end": 47408,
+      "confidence": 0.9999924,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 47408,
+      "end": 47570,
+      "confidence": 0.9999645,
+      "speaker": null
+    },
+    {
+      "text": "convertir",
+      "start": 47570,
+      "end": 48119,
+      "confidence": 0.9999969,
+      "speaker": null
+    },
+    {
+      "text": "tus",
+      "start": 48136,
+      "end": 48249,
+      "confidence": 0.99997985,
+      "speaker": null
+    },
+    {
+      "text": "números",
+      "start": 48297,
+      "end": 48879,
+      "confidence": 0.9999907,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 49041,
+      "end": 49203,
+      "confidence": 0.9999933,
+      "speaker": null
+    },
+    {
+      "text": "indicadores",
+      "start": 49203,
+      "end": 50092,
+      "confidence": 0.99997956,
+      "speaker": null
+    },
+    {
+      "text": "accionables.",
+      "start": 50092,
+      "end": 50852,
+      "confidence": 0.99984944,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.9915023,
+  "audio_duration": 60,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

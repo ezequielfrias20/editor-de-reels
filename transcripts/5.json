@@ -1,0 +1,838 @@
+{
+ "id": "f55bdd21-694f-4b95-857f-88243574cb89",
+ "language_model": "assemblyai_default",
+ "acoustic_model": "assemblyai_default",
+ "language_code": "es",
+ "speech_understanding": null,
+ "translated_texts": null,
+ "status": "completed",
+ "audio_url": "https://cdn.assemblyai.com/upload/73faec205f8fdcf80332474e49397b8ef3451137b629ba5f4268aee14ef222dc/e325ce59-b49a-494f-bdb3-a3edb3b28817",
+ "text": "Un buen punto de venta no solo cobra, también evita errores antes de que ocurran. Te muestro el flujo del POS que desarrollé para una tienda retail. El vendedor busca el producto por nombre, SKU, talla, color, lo agrega al carrito, valida el stock y selecciona el cliente. Después puede aplicar descuento, IVA y elegir uno o varios métodos de pago. Si el método lo necesita, también registra la referencia del mismo. Al completar la venta se genera la factura, el ticket térmico y se descuenta automáticamente el inventario. ¿Quieres ver el mapa completo de un proceso de venta automatizado? Comenta POS y te lo envío.",
+ "words": [
+  {
+   "text": "Un",
+   "start": 2588,
+   "end": 2733,
+   "confidence": 0.9985476,
+   "speaker": null
+  },
+  {
+   "text": "buen",
+   "start": 2733,
+   "end": 2895,
+   "confidence": 0.9999497,
+   "speaker": null
+  },
+  {
+   "text": "punto",
+   "start": 2895,
+   "end": 3218,
+   "confidence": 0.99975604,
+   "speaker": null
+  },
+  {
+   "text": "de",
+   "start": 3218,
+   "end": 3331,
+   "confidence": 0.99999607,
+   "speaker": null
+  },
+  {
+   "text": "venta",
+   "start": 3331,
+   "end": 3897,
+   "confidence": 0.9997427,
+   "speaker": null
+  },
+  {
+   "text": "no",
+   "start": 3897,
+   "end": 4107,
+   "confidence": 0.9999331,
+   "speaker": null
+  },
+  {
+   "text": "solo",
+   "start": 4107,
+   "end": 4430,
+   "confidence": 0.99557555,
+   "speaker": null
+  },
+  {
+   "text": "cobra,",
+   "start": 4430,
+   "end": 4640,
+   "confidence": 0.9999033,
+   "speaker": null
+  },
+  {
+   "text": "también",
+   "start": 4834,
+   "end": 5174,
+   "confidence": 0.99987435,
+   "speaker": null
+  },
+  {
+   "text": "evita",
+   "start": 5174,
+   "end": 5740,
+   "confidence": 0.9999383,
+   "speaker": null
+  },
+  {
+   "text": "errores",
+   "start": 5740,
+   "end": 6305,
+   "confidence": 0.9999676,
+   "speaker": null
+  },
+  {
+   "text": "antes",
+   "start": 6305,
+   "end": 6596,
+   "confidence": 0.9999641,
+   "speaker": null
+  },
+  {
+   "text": "de",
+   "start": 6613,
+   "end": 6693,
+   "confidence": 0.99999094,
+   "speaker": null
+  },
+  {
+   "text": "que",
+   "start": 6693,
+   "end": 6806,
+   "confidence": 0.9999951,
+   "speaker": null
+  },
+  {
+   "text": "ocurran.",
+   "start": 6806,
+   "end": 7236,
+   "confidence": 0.99996006,
+   "speaker": null
+  },
+  {
+   "text": "Te",
+   "start": 10260,
+   "end": 10372,
+   "confidence": 0.99977726,
+   "speaker": null
+  },
+  {
+   "text": "muestro",
+   "start": 10372,
+   "end": 10635,
+   "confidence": 0.9999941,
+   "speaker": null
+  },
+  {
+   "text": "el",
+   "start": 10635,
+   "end": 10717,
+   "confidence": 0.9999616,
+   "speaker": null
+  },
+  {
+   "text": "flujo",
+   "start": 10766,
+   "end": 11143,
+   "confidence": 0.99999774,
+   "speaker": null
+  },
+  {
+   "text": "del",
+   "start": 11587,
+   "end": 11734,
+   "confidence": 0.9994098,
+   "speaker": null
+  },
+  {
+   "text": "POS",
+   "start": 11833,
+   "end": 12112,
+   "confidence": 0.99941194,
+   "speaker": null
+  },
+  {
+   "text": "que",
+   "start": 12112,
+   "end": 12194,
+   "confidence": 0.9998498,
+   "speaker": null
+  },
+  {
+   "text": "desarrollé",
+   "start": 12194,
+   "end": 12899,
+   "confidence": 0.99997157,
+   "speaker": null
+  },
+  {
+   "text": "para",
+   "start": 13063,
+   "end": 13227,
+   "confidence": 0.99996066,
+   "speaker": null
+  },
+  {
+   "text": "una",
+   "start": 13227,
+   "end": 13391,
+   "confidence": 0.9999869,
+   "speaker": null
+  },
+  {
+   "text": "tienda",
+   "start": 13391,
+   "end": 13752,
+   "confidence": 0.9999971,
+   "speaker": null
+  },
+  {
+   "text": "retail.",
+   "start": 13752,
+   "end": 14223,
+   "confidence": 0.999075,
+   "speaker": null
+  },
+  {
+   "text": "El",
+   "start": 18097,
+   "end": 18214,
+   "confidence": 0.9997774,
+   "speaker": null
+  },
+  {
+   "text": "vendedor",
+   "start": 18262,
+   "end": 18893,
+   "confidence": 0.9999826,
+   "speaker": null
+  },
+  {
+   "text": "busca",
+   "start": 18991,
+   "end": 19330,
+   "confidence": 0.99997556,
+   "speaker": null
+  },
+  {
+   "text": "el",
+   "start": 19330,
+   "end": 19395,
+   "confidence": 0.99998784,
+   "speaker": null
+  },
+  {
+   "text": "producto",
+   "start": 19395,
+   "end": 19881,
+   "confidence": 0.99998534,
+   "speaker": null
+  },
+  {
+   "text": "por",
+   "start": 19881,
+   "end": 20107,
+   "confidence": 0.99998105,
+   "speaker": null
+  },
+  {
+   "text": "nombre,",
+   "start": 20124,
+   "end": 20496,
+   "confidence": 0.99295723,
+   "speaker": null
+  },
+  {
+   "text": "SKU,",
+   "start": 20690,
+   "end": 21014,
+   "confidence": 0.9945381,
+   "speaker": null
+  },
+  {
+   "text": "talla,",
+   "start": 21257,
+   "end": 21629,
+   "confidence": 0.97819954,
+   "speaker": null
+  },
+  {
+   "text": "color,",
+   "start": 21661,
+   "end": 22033,
+   "confidence": 0.99692446,
+   "speaker": null
+  },
+  {
+   "text": "lo",
+   "start": 22390,
+   "end": 22487,
+   "confidence": 0.9992933,
+   "speaker": null
+  },
+  {
+   "text": "agrega",
+   "start": 22487,
+   "end": 22729,
+   "confidence": 0.9999798,
+   "speaker": null
+  },
+  {
+   "text": "al",
+   "start": 22729,
+   "end": 22875,
+   "confidence": 0.9999391,
+   "speaker": null
+  },
+  {
+   "text": "carrito,",
+   "start": 22875,
+   "end": 23328,
+   "confidence": 0.9998649,
+   "speaker": null
+  },
+  {
+   "text": "valida",
+   "start": 23361,
+   "end": 23636,
+   "confidence": 0.9993631,
+   "speaker": null
+  },
+  {
+   "text": "el",
+   "start": 23636,
+   "end": 23765,
+   "confidence": 0.9998872,
+   "speaker": null
+  },
+  {
+   "text": "stock",
+   "start": 23765,
+   "end": 24186,
+   "confidence": 0.9999281,
+   "speaker": null
+  },
+  {
+   "text": "y",
+   "start": 24186,
+   "end": 24251,
+   "confidence": 0.9998448,
+   "speaker": null
+  },
+  {
+   "text": "selecciona",
+   "start": 24251,
+   "end": 24834,
+   "confidence": 0.9999729,
+   "speaker": null
+  },
+  {
+   "text": "el",
+   "start": 24834,
+   "end": 24979,
+   "confidence": 0.5425583,
+   "speaker": null
+  },
+  {
+   "text": "cliente.",
+   "start": 24979,
+   "end": 25271,
+   "confidence": 0.9987655,
+   "speaker": null
+  },
+  {
+   "text": "Después",
+   "start": 25847,
+   "end": 26250,
+   "confidence": 0.9960457,
+   "speaker": null
+  },
+  {
+   "text": "puede",
+   "start": 26250,
+   "end": 26508,
+   "confidence": 0.9928663,
+   "speaker": null
+  },
+  {
+   "text": "aplicar",
+   "start": 26508,
+   "end": 26895,
+   "confidence": 0.9999956,
+   "speaker": null
+  },
+  {
+   "text": "descuento,",
+   "start": 26895,
+   "end": 27507,
+   "confidence": 0.94453436,
+   "speaker": null
+  },
+  {
+   "text": "IVA",
+   "start": 27797,
+   "end": 28103,
+   "confidence": 0.99981827,
+   "speaker": null
+  },
+  {
+   "text": "y",
+   "start": 28103,
+   "end": 28119,
+   "confidence": 0.88446206,
+   "speaker": null
+  },
+  {
+   "text": "elegir",
+   "start": 28119,
+   "end": 28651,
+   "confidence": 0.9999911,
+   "speaker": null
+  },
+  {
+   "text": "uno",
+   "start": 28764,
+   "end": 29070,
+   "confidence": 0.9995196,
+   "speaker": null
+  },
+  {
+   "text": "o",
+   "start": 29167,
+   "end": 29231,
+   "confidence": 0.99998784,
+   "speaker": null
+  },
+  {
+   "text": "varios",
+   "start": 29231,
+   "end": 29537,
+   "confidence": 0.9999862,
+   "speaker": null
+  },
+  {
+   "text": "métodos",
+   "start": 29553,
+   "end": 30005,
+   "confidence": 0.9999189,
+   "speaker": null
+  },
+  {
+   "text": "de",
+   "start": 30005,
+   "end": 30198,
+   "confidence": 0.9999974,
+   "speaker": null
+  },
+  {
+   "text": "pago.",
+   "start": 30198,
+   "end": 30467,
+   "confidence": 0.9999081,
+   "speaker": null
+  },
+  {
+   "text": "Si",
+   "start": 30833,
+   "end": 31020,
+   "confidence": 0.9998354,
+   "speaker": null
+  },
+  {
+   "text": "el",
+   "start": 31020,
+   "end": 31116,
+   "confidence": 0.9998927,
+   "speaker": null
+  },
+  {
+   "text": "método",
+   "start": 31165,
+   "end": 31568,
+   "confidence": 0.99980825,
+   "speaker": null
+  },
+  {
+   "text": "lo",
+   "start": 31568,
+   "end": 31680,
+   "confidence": 0.99978536,
+   "speaker": null
+  },
+  {
+   "text": "necesita,",
+   "start": 31680,
+   "end": 32180,
+   "confidence": 0.99762625,
+   "speaker": null
+  },
+  {
+   "text": "también",
+   "start": 32293,
+   "end": 32615,
+   "confidence": 0.9999925,
+   "speaker": null
+  },
+  {
+   "text": "registra",
+   "start": 32615,
+   "end": 33179,
+   "confidence": 0.99962914,
+   "speaker": null
+  },
+  {
+   "text": "la",
+   "start": 33501,
+   "end": 33582,
+   "confidence": 0.9999627,
+   "speaker": null
+  },
+  {
+   "text": "referencia",
+   "start": 33582,
+   "end": 34146,
+   "confidence": 0.9999976,
+   "speaker": null
+  },
+  {
+   "text": "del",
+   "start": 34146,
+   "end": 34259,
+   "confidence": 0.99997187,
+   "speaker": null
+  },
+  {
+   "text": "mismo.",
+   "start": 34307,
+   "end": 34697,
+   "confidence": 0.99995214,
+   "speaker": null
+  },
+  {
+   "text": "Al",
+   "start": 36420,
+   "end": 36549,
+   "confidence": 0.99986637,
+   "speaker": null
+  },
+  {
+   "text": "completar",
+   "start": 36565,
+   "end": 37065,
+   "confidence": 0.9999982,
+   "speaker": null
+  },
+  {
+   "text": "la",
+   "start": 37065,
+   "end": 37210,
+   "confidence": 0.9999819,
+   "speaker": null
+  },
+  {
+   "text": "venta",
+   "start": 37210,
+   "end": 37694,
+   "confidence": 0.9999732,
+   "speaker": null
+  },
+  {
+   "text": "se",
+   "start": 37694,
+   "end": 37855,
+   "confidence": 0.8641659,
+   "speaker": null
+  },
+  {
+   "text": "genera",
+   "start": 37855,
+   "end": 38259,
+   "confidence": 0.9999813,
+   "speaker": null
+  },
+  {
+   "text": "la",
+   "start": 38259,
+   "end": 38307,
+   "confidence": 0.9999833,
+   "speaker": null
+  },
+  {
+   "text": "factura,",
+   "start": 38339,
+   "end": 38952,
+   "confidence": 0.9997271,
+   "speaker": null
+  },
+  {
+   "text": "el",
+   "start": 39323,
+   "end": 39420,
+   "confidence": 0.99994254,
+   "speaker": null
+  },
+  {
+   "text": "ticket",
+   "start": 39549,
+   "end": 39952,
+   "confidence": 0.97625875,
+   "speaker": null
+  },
+  {
+   "text": "térmico",
+   "start": 39952,
+   "end": 40517,
+   "confidence": 0.9999481,
+   "speaker": null
+  },
+  {
+   "text": "y",
+   "start": 40613,
+   "end": 40678,
+   "confidence": 0.99327797,
+   "speaker": null
+  },
+  {
+   "text": "se",
+   "start": 40678,
+   "end": 40839,
+   "confidence": 0.99998295,
+   "speaker": null
+  },
+  {
+   "text": "descuenta",
+   "start": 40839,
+   "end": 41355,
+   "confidence": 0.9999754,
+   "speaker": null
+  },
+  {
+   "text": "automáticamente",
+   "start": 41355,
+   "end": 42565,
+   "confidence": 0.99998796,
+   "speaker": null
+  },
+  {
+   "text": "el",
+   "start": 42952,
+   "end": 43049,
+   "confidence": 0.9928261,
+   "speaker": null
+  },
+  {
+   "text": "inventario.",
+   "start": 43113,
+   "end": 43710,
+   "confidence": 0.9999236,
+   "speaker": null
+  },
+  {
+   "text": "¿Quieres",
+   "start": 47330,
+   "end": 47628,
+   "confidence": 0.99986035,
+   "speaker": null
+  },
+  {
+   "text": "ver",
+   "start": 47628,
+   "end": 47809,
+   "confidence": 0.9999783,
+   "speaker": null
+  },
+  {
+   "text": "el",
+   "start": 47809,
+   "end": 47907,
+   "confidence": 0.99996793,
+   "speaker": null
+  },
+  {
+   "text": "mapa",
+   "start": 47956,
+   "end": 48367,
+   "confidence": 0.9999937,
+   "speaker": null
+  },
+  {
+   "text": "completo",
+   "start": 48367,
+   "end": 49024,
+   "confidence": 0.99998844,
+   "speaker": null
+  },
+  {
+   "text": "de",
+   "start": 49352,
+   "end": 49516,
+   "confidence": 0.9999788,
+   "speaker": null
+  },
+  {
+   "text": "un",
+   "start": 49533,
+   "end": 49598,
+   "confidence": 0.99993086,
+   "speaker": null
+  },
+  {
+   "text": "proceso",
+   "start": 49598,
+   "end": 50173,
+   "confidence": 0.99998605,
+   "speaker": null
+  },
+  {
+   "text": "de",
+   "start": 50173,
+   "end": 50288,
+   "confidence": 0.9999919,
+   "speaker": null
+  },
+  {
+   "text": "venta",
+   "start": 50288,
+   "end": 50600,
+   "confidence": 0.9985538,
+   "speaker": null
+  },
+  {
+   "text": "automatizado?",
+   "start": 50600,
+   "end": 51421,
+   "confidence": 0.9999648,
+   "speaker": null
+  },
+  {
+   "text": "Comenta",
+   "start": 52020,
+   "end": 52615,
+   "confidence": 0.9998947,
+   "speaker": null
+  },
+  {
+   "text": "POS",
+   "start": 52615,
+   "end": 52992,
+   "confidence": 0.832852,
+   "speaker": null
+  },
+  {
+   "text": "y",
+   "start": 53370,
+   "end": 53436,
+   "confidence": 0.998901,
+   "speaker": null
+  },
+  {
+   "text": "te",
+   "start": 53436,
+   "end": 53584,
+   "confidence": 0.99981755,
+   "speaker": null
+  },
+  {
+   "text": "lo",
+   "start": 53584,
+   "end": 53633,
+   "confidence": 0.99996173,
+   "speaker": null
+  },
+  {
+   "text": "envío.",
+   "start": 53633,
+   "end": 54118,
+   "confidence": 0.9985799,
+   "speaker": null
+  }
+ ],
+ "utterances": null,
+ "confidence": 0.9901857,
+ "audio_duration": 56,
+ "punctuate": true,
+ "format_text": true,
+ "webhook_url": null,
+ "webhook_status_code": null,
+ "webhook_auth": false,
+ "webhook_auth_header_name": null,
+ "speed_boost": false,
+ "auto_highlights_result": null,
+ "auto_highlights": false,
+ "audio_start_from": null,
+ "audio_end_at": null,
+ "word_boost": [],
+ "boost_param": null,
+ "prompt": null,
+ "keyterms_prompt": [],
+ "filter_profanity": false,
+ "redact_pii": false,
+ "redact_pii_audio": false,
+ "redact_pii_audio_quality": null,
+ "redact_pii_audio_options": null,
+ "redact_pii_policies": null,
+ "redact_pii_sub": null,
+ "redact_static_entities": null,
+ "speaker_labels": false,
+ "speaker_options": null,
+ "content_safety": false,
+ "iab_categories": false,
+ "content_safety_labels": {
+  "status": "unavailable",
+  "results": [],
+  "summary": {}
+ },
+ "iab_categories_result": {
+  "status": "unavailable",
+  "results": [],
+  "summary": {}
+ },
+ "language_detection": false,
+ "language_detection_options": null,
+ "language_detection_results": null,
+ "language_confidence_threshold": null,
+ "language_confidence": null,
+ "custom_spelling": null,
+ "throttled": false,
+ "auto_chapters": false,
+ "summarization": false,
+ "summary_type": null,
+ "summary_model": null,
+ "custom_topics": false,
+ "topics": [],
+ "speech_threshold": null,
+ "speech_model": null,
+ "speech_models": [
+  "universal-3-5-pro",
+  "universal-2"
+ ],
+ "speech_model_used": "universal-3-5-pro",
+ "metadata": {
+  "domain_used": null,
+  "warnings": [
+   {
+    "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+   }
+  ]
+ },
+ "temperature": null,
+ "remove_audio_tags": "all",
+ "chapters": null,
+ "disfluencies": true,
+ "entity_detection": false,
+ "sentiment_analysis": false,
+ "sentiment_analysis_results": null,
+ "entities": null,
+ "speakers_expected": null,
+ "summary": null,
+ "custom_topics_results": null,
+ "is_deleted": null,
+ "multichannel": null,
+ "project_id": 1936176,
+ "token_id": 1966981
+}

@@ -1,0 +1,77 @@
+{
+  "source_duration": 60.036326,
+  "final_duration": 38.355,
+  "removed": 21.681,
+  "cuts": [
+    {
+      "start": 0.0,
+      "end": 3.76,
+      "dur": 3.76,
+      "reason": "cabeza muerta"
+    },
+    {
+      "start": 7.769,
+      "end": 11.116,
+      "dur": 3.347,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 19.72,
+      "end": 22.225,
+      "dur": 2.505,
+      "reason": "pausa fin de oración",
+      "_": "la vocalización 19.429-19.649 es la cola de «comisión»: el corte va después"
+    },
+    {
+      "start": 37.992,
+      "end": 39.94,
+      "dur": 1.948,
+      "reason": "pausa fin de oración",
+      "_": "la respiración de 39.952-40.102 quedaba decapitada"
+    },
+    {
+      "start": 44.435,
+      "end": 47.61,
+      "dur": 3.175,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 53.09,
+      "end": 60.036,
+      "dur": 6.946,
+      "reason": "cola muerta"
+    }
+  ],
+  "keeps": [
+    {
+      "start": 3.76,
+      "end": 7.769,
+      "dur": 4.009
+    },
+    {
+      "start": 11.116,
+      "end": 19.72,
+      "dur": 8.604
+    },
+    {
+      "start": 22.225,
+      "end": 37.992,
+      "dur": 15.767
+    },
+    {
+      "start": 39.94,
+      "end": 44.435,
+      "dur": 4.495
+    },
+    {
+      "start": 47.61,
+      "end": 53.09,
+      "dur": 5.48
+    },
+    {
+      "start": 60.036,
+      "end": 60.036,
+      "dur": 0.0
+    }
+  ]
+}

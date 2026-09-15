@@ -1,0 +1,472 @@
+[
+ {
+  "text": "Una",
+  "start": 0.15,
+  "end": 0.389
+ },
+ {
+  "text": "venta",
+  "start": 0.389,
+  "end": 0.762
+ },
+ {
+  "text": "con",
+  "start": 0.762,
+  "end": 0.924
+ },
+ {
+  "text": "Cashea",
+  "start": 0.924,
+  "end": 1.296
+ },
+ {
+  "text": "no",
+  "start": 1.491,
+  "end": 1.653
+ },
+ {
+  "text": "termina",
+  "start": 1.653,
+  "end": 2.058
+ },
+ {
+  "text": "cuando",
+  "start": 2.058,
+  "end": 2.318
+ },
+ {
+  "text": "el",
+  "start": 2.318,
+  "end": 2.366
+ },
+ {
+  "text": "cliente",
+  "start": 2.464,
+  "end": 2.869
+ },
+ {
+  "text": "sale",
+  "start": 2.869,
+  "end": 3.274
+ },
+ {
+  "text": "de",
+  "start": 3.274,
+  "end": 3.355
+ },
+ {
+  "text": "la",
+  "start": 3.355,
+  "end": 3.404
+ },
+ {
+  "text": "tienda.",
+  "start": 3.517,
+  "end": 3.809
+ },
+ {
+  "text": "Todavía",
+  "start": 4.209,
+  "end": 4.685
+ },
+ {
+  "text": "necesitas",
+  "start": 4.733,
+  "end": 5.299
+ },
+ {
+  "text": "controlar",
+  "start": 5.299,
+  "end": 5.865
+ },
+ {
+  "text": "cuánto",
+  "start": 5.865,
+  "end": 6.189
+ },
+ {
+  "text": "pagó",
+  "start": 6.189,
+  "end": 6.512
+ },
+ {
+  "text": "de",
+  "start": 6.512,
+  "end": 6.658
+ },
+ {
+  "text": "inicial,",
+  "start": 6.658,
+  "end": 7.191
+ },
+ {
+  "text": "cuánto",
+  "start": 7.563,
+  "end": 7.838
+ },
+ {
+  "text": "está",
+  "start": 7.838,
+  "end": 8.049
+ },
+ {
+  "text": "financiado,",
+  "start": 8.049,
+  "end": 8.744
+ },
+ {
+  "text": "qué",
+  "start": 8.938,
+  "end": 9.051
+ },
+ {
+  "text": "monto",
+  "start": 9.051,
+  "end": 9.456
+ },
+ {
+  "text": "debe",
+  "start": 9.456,
+  "end": 9.747
+ },
+ {
+  "text": "cobrar",
+  "start": 9.747,
+  "end": 10.087
+ },
+ {
+  "text": "el",
+  "start": 10.087,
+  "end": 10.135
+ },
+ {
+  "text": "negocio",
+  "start": 10.151,
+  "end": 10.717
+ },
+ {
+  "text": "y",
+  "start": 10.814,
+  "end": 10.879
+ },
+ {
+  "text": "cuál",
+  "start": 10.96,
+  "end": 11.235
+ },
+ {
+  "text": "fue",
+  "start": 11.364,
+  "end": 11.688
+ },
+ {
+  "text": "la",
+  "start": 11.688,
+  "end": 11.736
+ },
+ {
+  "text": "comisión.",
+  "start": 11.85,
+  "end": 12.272
+ },
+ {
+  "text": "Por",
+  "start": 12.813,
+  "end": 12.993
+ },
+ {
+  "text": "eso",
+  "start": 12.993,
+  "end": 13.385
+ },
+ {
+  "text": "desarrollé",
+  "start": 13.631,
+  "end": 14.121
+ },
+ {
+  "text": "una",
+  "start": 14.121,
+  "end": 14.285
+ },
+ {
+  "text": "vista",
+  "start": 14.285,
+  "end": 14.694
+ },
+ {
+  "text": "para",
+  "start": 14.694,
+  "end": 14.907
+ },
+ {
+  "text": "seguir",
+  "start": 14.939,
+  "end": 15.332
+ },
+ {
+  "text": "cada",
+  "start": 15.43,
+  "end": 15.855
+ },
+ {
+  "text": "orden",
+  "start": 15.855,
+  "end": 16.248
+ },
+ {
+  "text": "con",
+  "start": 16.248,
+  "end": 16.411
+ },
+ {
+  "text": "Cashea.",
+  "start": 16.411,
+  "end": 16.806
+ },
+ {
+  "text": "El",
+  "start": 17.18,
+  "end": 17.244
+ },
+ {
+  "text": "sistema",
+  "start": 17.324,
+  "end": 17.726
+ },
+ {
+  "text": "muestra",
+  "start": 17.726,
+  "end": 18.096
+ },
+ {
+  "text": "la",
+  "start": 18.128,
+  "end": 18.176
+ },
+ {
+  "text": "factura,",
+  "start": 18.24,
+  "end": 19.012
+ },
+ {
+  "text": "el",
+  "start": 19.189,
+  "end": 19.333
+ },
+ {
+  "text": "cliente,",
+  "start": 19.333,
+  "end": 19.864
+ },
+ {
+  "text": "la",
+  "start": 20.057,
+  "end": 20.089
+ },
+ {
+  "text": "referencia,",
+  "start": 20.089,
+  "end": 21.212
+ },
+ {
+  "text": "el",
+  "start": 21.359,
+  "end": 21.455
+ },
+ {
+  "text": "total,",
+  "start": 21.503,
+  "end": 22.034
+ },
+ {
+  "text": "la",
+  "start": 22.146,
+  "end": 22.243
+ },
+ {
+  "text": "inicial,",
+  "start": 22.243,
+  "end": 23.015
+ },
+ {
+  "text": "el",
+  "start": 23.368,
+  "end": 23.448
+ },
+ {
+  "text": "monto",
+  "start": 23.512,
+  "end": 23.834
+ },
+ {
+  "text": "financiado",
+  "start": 23.834,
+  "end": 24.396
+ },
+ {
+  "text": "y",
+  "start": 24.557,
+  "end": 24.573
+ },
+ {
+  "text": "el",
+  "start": 24.573,
+  "end": 24.67
+ },
+ {
+  "text": "estado",
+  "start": 24.734,
+  "end": 25.087
+ },
+ {
+  "text": "de",
+  "start": 25.12,
+  "end": 25.2
+ },
+ {
+  "text": "la",
+  "start": 25.2,
+  "end": 25.248
+ },
+ {
+  "text": "operación,",
+  "start": 25.296,
+  "end": 25.811
+ },
+ {
+  "text": "si",
+  "start": 25.843,
+  "end": 26.004
+ },
+ {
+  "text": "está",
+  "start": 26.004,
+  "end": 26.252
+ },
+ {
+  "text": "pendiente,",
+  "start": 26.252,
+  "end": 26.88
+ },
+ {
+  "text": "cobrada",
+  "start": 26.913,
+  "end": 27.442
+ },
+ {
+  "text": "o",
+  "start": 27.442,
+  "end": 27.508
+ },
+ {
+  "text": "anulada.",
+  "start": 27.508,
+  "end": 28.18
+ },
+ {
+  "text": "También",
+  "start": 28.62,
+  "end": 28.899
+ },
+ {
+  "text": "permite",
+  "start": 28.899,
+  "end": 29.471
+ },
+ {
+  "text": "comparar",
+  "start": 29.471,
+  "end": 29.896
+ },
+ {
+  "text": "operaciones",
+  "start": 29.896,
+  "end": 30.566
+ },
+ {
+  "text": "realizadas",
+  "start": 30.566,
+  "end": 31.203
+ },
+ {
+  "text": "en",
+  "start": 31.203,
+  "end": 31.432
+ },
+ {
+  "text": "tienda",
+  "start": 31.432,
+  "end": 32.004
+ },
+ {
+  "text": "y",
+  "start": 32.183,
+  "end": 32.265
+ },
+ {
+  "text": "online.",
+  "start": 32.265,
+  "end": 32.675
+ },
+ {
+  "text": "Comenta",
+  "start": 33.075,
+  "end": 33.608
+ },
+ {
+  "text": "Cashea",
+  "start": 33.608,
+  "end": 34.213
+ },
+ {
+  "text": "y",
+  "start": 34.524,
+  "end": 34.589
+ },
+ {
+  "text": "te",
+  "start": 34.671,
+  "end": 34.752
+ },
+ {
+  "text": "envío",
+  "start": 34.769,
+  "end": 35.096
+ },
+ {
+  "text": "una",
+  "start": 35.096,
+  "end": 35.243
+ },
+ {
+  "text": "plantilla",
+  "start": 35.243,
+  "end": 35.815
+ },
+ {
+  "text": "para",
+  "start": 35.815,
+  "end": 36.061
+ },
+ {
+  "text": "conciliar",
+  "start": 36.061,
+  "end": 36.698
+ },
+ {
+  "text": "tus",
+  "start": 36.715,
+  "end": 36.878
+ },
+ {
+  "text": "ventas",
+  "start": 36.878,
+  "end": 37.287
+ },
+ {
+  "text": "financiadas.",
+  "start": 37.287,
+  "end": 37.955
+ }
+]

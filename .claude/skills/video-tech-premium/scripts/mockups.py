@@ -598,6 +598,96 @@ def flow_steps(cid: str, steps: list[str], at: list[float],
     return css, f'<div class="fflow">{"".join(rows)}</div>', anims
 
 
+# ── el chat: un mensaje y lo que NO vuelve ────────────────────────────────────
+def chat_unanswered(cid: str, contact: str, message: str, kicker: str = "",
+                    brand: str = "", bubble_at: float = .62,
+                    tick_at: float = 1.70, tick_label: str = "ENVIADO",
+                    wait: str = "", wait_at: float | None = None,
+                    reply: str = "", reply_at: float | None = None,
+                    ) -> tuple[str, str, list]:
+    """Un mensaje enviado y el hueco debajo. Lo que comunica es la AUSENCIA:
+    la burbuja llega, el tilde se queda gris y no baja nada más.
+
+    La marca en la cabecera declara de qué app es **sin clonar su interfaz**:
+    dibujar el chat real de WhatsApp sería una captura falsa, y la doctrina de
+    este módulo lo prohíbe.
+
+    `wait` es el remate ámbar del silencio («20 MIN SIN RESPUESTA») y solo
+    tiene sentido cuando la burbuja ya está puesta. `reply` abre una burbuja
+    ENTRANTE: convierte el mismo componente en el caso contrario, que es como
+    se lee un contraste — el mismo chat, el otro resultado.
+    """
+    p = f'.viz[data-viz-id="{cid}"]'
+    mk = ""
+    if brand:
+        svg, _ratio = logos.mark(brand, 44, "brand")
+        mk = f'<div class="chbrand" id="{cid}-brand">{svg}</div>'
+    css = f"""
+{p} .chwrap{{display:flex;flex-direction:column;align-items:center;gap:26px;width:{BOARD_W}px}}
+{p} .chkick{{font-family:{MONO};font-weight:700;font-size:26px;letter-spacing:.20em;
+  color:{C['text3']};opacity:0}}
+{p} .chpane{{width:100%;height:880px;background:{C['surface']};border:1px solid {LINE};
+  border-radius:{RADIUS['xl']}px;box-shadow:{SHADOW_LIFT};padding:0 0 34px;
+  display:flex;flex-direction:column;overflow:hidden;opacity:0}}
+{p} .chtop{{display:flex;align-items:center;gap:20px;padding:26px 30px;
+  border-bottom:1px solid {LINE};background:{C['surface2']}}}
+{p} .chav{{width:58px;height:58px;border-radius:50%;flex:0 0 58px;
+  background:linear-gradient(135deg,{C['surface3']} 0%,{C['bg2']} 100%);
+  border:1px solid {LINE_HI}}}
+{p} .chname{{font-family:{FONT};font-weight:700;font-size:38px;letter-spacing:-.01em;
+  color:{C['text']};flex:1}}
+/* La marca va a la IZQUIERDA, pegada al avatar: el borde derecho de la
+   cabecera es justo donde se posa la ventana del creador en PiP.
+   `display:block` en el span no es decorativo — `logos.mark` le pone el tamaño
+   en línea, y un span inline se lo ignora: el SVG crecía hasta comerse la
+   cabecera entera. */
+{p} .chbrand{{line-height:0;flex:0 0 auto;width:44px;height:44px}}
+{p} .chbrand .brandmark{{display:block;width:44px;height:44px}}
+{p} .chbrand svg{{width:100%;height:100%;display:block}}
+{p} .chbody{{flex:1;display:flex;flex-direction:column;justify-content:flex-start;
+  align-items:flex-end;padding:34px 30px 0;gap:10px}}
+{p} .chbub{{max-width:78%;background:{FILL['violet2']};border:1px solid rgba(124,92,255,.34);
+  border-radius:24px 10px 24px 24px;
+  padding:24px 28px;font-family:{FONT};font-weight:500;font-size:36px;line-height:1.34;
+  color:{C['text']};opacity:0}}
+{p} .chmeta{{display:flex;align-items:center;gap:12px;font-family:{MONO};font-weight:700;
+  font-size:24px;letter-spacing:.10em;color:{C['text3']};padding-right:6px;opacity:0}}
+{p} .chtick{{font-size:30px;line-height:1;color:{C['text3']}}}
+{p} .chwait{{align-self:center;margin-top:26px;font-family:{MONO};font-weight:700;
+  font-size:28px;letter-spacing:.14em;color:{C['warn']};background:{FILL['warn']};
+  border:1px solid rgba(255,184,77,.34);border-radius:{RADIUS['pill']}px;
+  padding:14px 30px;opacity:0}}
+/* La entrante va pegada al otro lado y con la esquina espejada: el bando se
+   lee en la geometría, no hace falta rotularlo. */
+{p} .chin{{align-self:flex-start;max-width:78%;margin-top:26px;background:{C['surface3']};
+  border:1px solid {LINE_HI};border-radius:10px 24px 24px 24px;
+  padding:24px 28px;font-family:{FONT};font-weight:500;font-size:36px;line-height:1.34;
+  color:{C['text']};opacity:0}}"""
+    html = (f'<div class="chwrap">'
+            + (f'<div class="chkick" id="{cid}-kick">{esc(kicker)}</div>' if kicker else "")
+            + f'<div class="chpane" id="{cid}-pane">'
+            + f'<div class="chtop"><div class="chav"></div>{mk}'
+            + f'<div class="chname">{esc(contact)}</div></div>'
+            + f'<div class="chbody">'
+            + f'<div class="chbub" id="{cid}-bub">{esc(message)}</div>'
+            + f'<div class="chmeta" id="{cid}-meta">'
+            + f'<span>{esc(tick_label)}</span><span class="chtick">✓</span></div>'
+            + (f'<div class="chwait" id="{cid}-wait">{esc(wait)}</div>' if wait else "")
+            + (f'<div class="chin" id="{cid}-in">{esc(reply)}</div>' if reply else "")
+            + "</div></div></div>")
+    anims = []
+    if kicker:
+        anims.append(("chip-in", f"#{cid}-kick", .10, .30))
+    anims.append(("chip-in", f"#{cid}-pane", .1667, .40))
+    anims.append(("rise-in", f"#{cid}-bub", bubble_at, .459))
+    anims.append(("chip-in", f"#{cid}-meta", tick_at, .35))
+    if wait:
+        anims.append(("stamp", f"#{cid}-wait",
+                      tick_at + .5 if wait_at is None else wait_at, .38))
+    if reply:
+        anims.append(("rise-in", f"#{cid}-in",
+                      tick_at + .5 if reply_at is None else reply_at, .44))
+    return css, html, anims
 # ── CTA: la interacción que se pide, simulada ─────────────────────────────────
 def comment_ui(cid: str, word: str, type_at: float = 0.6,
                send_at: float = 1.5, headline: str = "") -> tuple[str, str, list]:

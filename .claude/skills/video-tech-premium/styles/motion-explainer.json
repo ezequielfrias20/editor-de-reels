@@ -89,6 +89,11 @@
       "metric": "min_camera_gap",
       "min": 0.7,
       "severity": "warn"
+    },
+    {
+      "metric": "max_bare_stage",
+      "max": 0.0,
+      "severity": "warn"
     }
   ]
 }

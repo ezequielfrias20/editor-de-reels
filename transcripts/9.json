@@ -1,0 +1,1027 @@
+{
+  "id": "596f7e7d-9a73-4854-a9e1-fdf044eaf00b",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/d333c38897637bffccae9c2460b571ab32707d78f7c2db9f0a18220f16836b4b/2969d968-9f70-42fe-95a5-fcb5c877787d",
+  "text": "Deja de decir que el paciente es irresponsable. Esa cita a esa hora la abriste tú. Hoy alguien no llegó, nadie llamó a nadie, la hora pasó, el equipo esperó, y esa hora no se factura ni se recupera. Mañana pasará otra vez. ¿Me vas a decir que ustedes confirman por WhatsApp? Sí, confirman cuando recepción se desocupa. Si el paciente no responde, nadie insiste, y un mensaje sin respuesta no es una confirmación. Es una esperanza. La confirmación no puede depender de que alguien se acuerde, tiene que salir sola 2 veces y tiene que ofrecer una salida, cambiar la hora antes de perderla. El día que esa silla se libere con aviso, deja de ser un hueco y pasa a ser un espacio para el que está en lista de espera.",
+  "words": [
+    {
+      "text": "Deja",
+      "start": 497,
+      "end": 737,
+      "confidence": 0.998923,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 737,
+      "end": 850,
+      "confidence": 0.9999938,
+      "speaker": null
+    },
+    {
+      "text": "decir",
+      "start": 850,
+      "end": 1203,
+      "confidence": 0.99999547,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 1219,
+      "end": 1315,
+      "confidence": 0.9999825,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 1315,
+      "end": 1363,
+      "confidence": 0.99998903,
+      "speaker": null
+    },
+    {
+      "text": "paciente",
+      "start": 1459,
+      "end": 1956,
+      "confidence": 0.999995,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 1956,
+      "end": 2117,
+      "confidence": 0.9999902,
+      "speaker": null
+    },
+    {
+      "text": "irresponsable.",
+      "start": 2117,
+      "end": 2951,
+      "confidence": 0.9999191,
+      "speaker": null
+    },
+    {
+      "text": "Esa",
+      "start": 3079,
+      "end": 3256,
+      "confidence": 0.9999087,
+      "speaker": null
+    },
+    {
+      "text": "cita",
+      "start": 3256,
+      "end": 3641,
+      "confidence": 0.9999976,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 3641,
+      "end": 3705,
+      "confidence": 0.9754512,
+      "speaker": null
+    },
+    {
+      "text": "esa",
+      "start": 3881,
+      "end": 4202,
+      "confidence": 0.9999783,
+      "speaker": null
+    },
+    {
+      "text": "hora",
+      "start": 4202,
+      "end": 4427,
+      "confidence": 0.9999925,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 4427,
+      "end": 4523,
+      "confidence": 0.9999436,
+      "speaker": null
+    },
+    {
+      "text": "abriste",
+      "start": 4523,
+      "end": 4988,
+      "confidence": 0.99995077,
+      "speaker": null
+    },
+    {
+      "text": "tú.",
+      "start": 4988,
+      "end": 5146,
+      "confidence": 0.9999662,
+      "speaker": null
+    },
+    {
+      "text": "Hoy",
+      "start": 5636,
+      "end": 5758,
+      "confidence": 0.9999436,
+      "speaker": null
+    },
+    {
+      "text": "alguien",
+      "start": 5806,
+      "end": 6111,
+      "confidence": 0.99996495,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 6111,
+      "end": 6191,
+      "confidence": 0.9999887,
+      "speaker": null
+    },
+    {
+      "text": "llegó,",
+      "start": 6191,
+      "end": 6480,
+      "confidence": 0.99991196,
+      "speaker": null
+    },
+    {
+      "text": "nadie",
+      "start": 6833,
+      "end": 7154,
+      "confidence": 0.99998987,
+      "speaker": null
+    },
+    {
+      "text": "llamó",
+      "start": 7154,
+      "end": 7346,
+      "confidence": 0.99999076,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 7346,
+      "end": 7426,
+      "confidence": 0.99998796,
+      "speaker": null
+    },
+    {
+      "text": "nadie,",
+      "start": 7426,
+      "end": 7763,
+      "confidence": 0.9993929,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 8116,
+      "end": 8276,
+      "confidence": 0.9998853,
+      "speaker": null
+    },
+    {
+      "text": "hora",
+      "start": 8292,
+      "end": 8517,
+      "confidence": 0.999977,
+      "speaker": null
+    },
+    {
+      "text": "pasó,",
+      "start": 8517,
+      "end": 8838,
+      "confidence": 0.9999634,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 9014,
+      "end": 9127,
+      "confidence": 0.9999813,
+      "speaker": null
+    },
+    {
+      "text": "equipo",
+      "start": 9175,
+      "end": 9511,
+      "confidence": 0.99999046,
+      "speaker": null
+    },
+    {
+      "text": "esperó,",
+      "start": 9511,
+      "end": 9961,
+      "confidence": 0.9914399,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 10378,
+      "end": 10458,
+      "confidence": 0.99999034,
+      "speaker": null
+    },
+    {
+      "text": "esa",
+      "start": 10458,
+      "end": 10859,
+      "confidence": 0.9988753,
+      "speaker": null
+    },
+    {
+      "text": "hora",
+      "start": 10859,
+      "end": 10955,
+      "confidence": 0.99984574,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 10955,
+      "end": 11164,
+      "confidence": 0.99999213,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 11164,
+      "end": 11324,
+      "confidence": 0.99999654,
+      "speaker": null
+    },
+    {
+      "text": "factura",
+      "start": 11324,
+      "end": 11966,
+      "confidence": 0.9998217,
+      "speaker": null
+    },
+    {
+      "text": "ni",
+      "start": 12046,
+      "end": 12206,
+      "confidence": 0.9999957,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 12206,
+      "end": 12319,
+      "confidence": 0.9999931,
+      "speaker": null
+    },
+    {
+      "text": "recupera.",
+      "start": 12319,
+      "end": 12866,
+      "confidence": 0.9999878,
+      "speaker": null
+    },
+    {
+      "text": "Mañana",
+      "start": 13269,
+      "end": 13810,
+      "confidence": 0.9999892,
+      "speaker": null
+    },
+    {
+      "text": "pasará",
+      "start": 13810,
+      "end": 14163,
+      "confidence": 0.9999961,
+      "speaker": null
+    },
+    {
+      "text": "otra",
+      "start": 14163,
+      "end": 14404,
+      "confidence": 0.99999416,
+      "speaker": null
+    },
+    {
+      "text": "vez.",
+      "start": 14404,
+      "end": 14640,
+      "confidence": 0.99997026,
+      "speaker": null
+    },
+    {
+      "text": "¿Me",
+      "start": 15044,
+      "end": 15206,
+      "confidence": 0.8558993,
+      "speaker": null
+    },
+    {
+      "text": "vas",
+      "start": 15206,
+      "end": 15350,
+      "confidence": 0.9999914,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 15350,
+      "end": 15366,
+      "confidence": 0.99999917,
+      "speaker": null
+    },
+    {
+      "text": "decir",
+      "start": 15366,
+      "end": 15719,
+      "confidence": 0.999997,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 15735,
+      "end": 15767,
+      "confidence": 0.99999094,
+      "speaker": null
+    },
+    {
+      "text": "ustedes",
+      "start": 15767,
+      "end": 16216,
+      "confidence": 0.9999976,
+      "speaker": null
+    },
+    {
+      "text": "confirman",
+      "start": 16216,
+      "end": 16778,
+      "confidence": 0.9999886,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 16778,
+      "end": 16922,
+      "confidence": 0.99999356,
+      "speaker": null
+    },
+    {
+      "text": "WhatsApp?",
+      "start": 16938,
+      "end": 17371,
+      "confidence": 0.9998394,
+      "speaker": null
+    },
+    {
+      "text": "Sí,",
+      "start": 17740,
+      "end": 17959,
+      "confidence": 0.99890584,
+      "speaker": null
+    },
+    {
+      "text": "confirman",
+      "start": 18382,
+      "end": 18927,
+      "confidence": 0.9999821,
+      "speaker": null
+    },
+    {
+      "text": "cuando",
+      "start": 18943,
+      "end": 19264,
+      "confidence": 0.99853086,
+      "speaker": null
+    },
+    {
+      "text": "recepción",
+      "start": 19264,
+      "end": 19777,
+      "confidence": 0.9999905,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 19826,
+      "end": 19938,
+      "confidence": 0.99998116,
+      "speaker": null
+    },
+    {
+      "text": "desocupa.",
+      "start": 19938,
+      "end": 20676,
+      "confidence": 0.9983344,
+      "speaker": null
+    },
+    {
+      "text": "Si",
+      "start": 20948,
+      "end": 21125,
+      "confidence": 0.999943,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 21125,
+      "end": 21173,
+      "confidence": 0.99997497,
+      "speaker": null
+    },
+    {
+      "text": "paciente",
+      "start": 21269,
+      "end": 21911,
+      "confidence": 0.9999949,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 22183,
+      "end": 22328,
+      "confidence": 0.99997175,
+      "speaker": null
+    },
+    {
+      "text": "responde,",
+      "start": 22328,
+      "end": 22921,
+      "confidence": 0.9999897,
+      "speaker": null
+    },
+    {
+      "text": "nadie",
+      "start": 22953,
+      "end": 23290,
+      "confidence": 0.99997556,
+      "speaker": null
+    },
+    {
+      "text": "insiste,",
+      "start": 23290,
+      "end": 23964,
+      "confidence": 0.99520355,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 24343,
+      "end": 24573,
+      "confidence": 0.99995935,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 24573,
+      "end": 24718,
+      "confidence": 0.9999825,
+      "speaker": null
+    },
+    {
+      "text": "mensaje",
+      "start": 24718,
+      "end": 25247,
+      "confidence": 0.9999962,
+      "speaker": null
+    },
+    {
+      "text": "sin",
+      "start": 25359,
+      "end": 25616,
+      "confidence": 0.99999404,
+      "speaker": null
+    },
+    {
+      "text": "respuesta",
+      "start": 25616,
+      "end": 26322,
+      "confidence": 0.99998796,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 26563,
+      "end": 26707,
+      "confidence": 0.99994254,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 26707,
+      "end": 26739,
+      "confidence": 0.99997735,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 26739,
+      "end": 26851,
+      "confidence": 0.99993277,
+      "speaker": null
+    },
+    {
+      "text": "confirmación.",
+      "start": 26883,
+      "end": 27573,
+      "confidence": 0.9996089,
+      "speaker": null
+    },
+    {
+      "text": "Es",
+      "start": 27862,
+      "end": 28023,
+      "confidence": 0.638487,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 28023,
+      "end": 28103,
+      "confidence": 0.9998498,
+      "speaker": null
+    },
+    {
+      "text": "esperanza.",
+      "start": 28103,
+      "end": 28621,
+      "confidence": 0.9997378,
+      "speaker": null
+    },
+    {
+      "text": "La",
+      "start": 29533,
+      "end": 29662,
+      "confidence": 0.9999083,
+      "speaker": null
+    },
+    {
+      "text": "confirmación",
+      "start": 29662,
+      "end": 30465,
+      "confidence": 0.99996215,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 30658,
+      "end": 30818,
+      "confidence": 0.99998534,
+      "speaker": null
+    },
+    {
+      "text": "puede",
+      "start": 30818,
+      "end": 31059,
+      "confidence": 0.99997616,
+      "speaker": null
+    },
+    {
+      "text": "depender",
+      "start": 31059,
+      "end": 31541,
+      "confidence": 0.99999803,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 31541,
+      "end": 31702,
+      "confidence": 0.9999949,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 31702,
+      "end": 31975,
+      "confidence": 0.9999931,
+      "speaker": null
+    },
+    {
+      "text": "alguien",
+      "start": 32040,
+      "end": 32265,
+      "confidence": 0.9999957,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 32265,
+      "end": 32441,
+      "confidence": 0.9999927,
+      "speaker": null
+    },
+    {
+      "text": "acuerde,",
+      "start": 32441,
+      "end": 32714,
+      "confidence": 0.9670256,
+      "speaker": null
+    },
+    {
+      "text": "tiene",
+      "start": 33068,
+      "end": 33389,
+      "confidence": 0.99997437,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 33389,
+      "end": 33470,
+      "confidence": 0.999995,
+      "speaker": null
+    },
+    {
+      "text": "salir",
+      "start": 33470,
+      "end": 33855,
+      "confidence": 0.9999908,
+      "speaker": null
+    },
+    {
+      "text": "sola",
+      "start": 33871,
+      "end": 34142,
+      "confidence": 0.99995494,
+      "speaker": null
+    },
+    {
+      "text": "2",
+      "start": 34595,
+      "end": 34916,
+      "confidence": 0.9999864,
+      "speaker": null
+    },
+    {
+      "text": "veces",
+      "start": 34916,
+      "end": 35446,
+      "confidence": 0.999998,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 35655,
+      "end": 35799,
+      "confidence": 0.99593073,
+      "speaker": null
+    },
+    {
+      "text": "tiene",
+      "start": 35799,
+      "end": 36281,
+      "confidence": 0.9998672,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 36281,
+      "end": 36394,
+      "confidence": 0.9999957,
+      "speaker": null
+    },
+    {
+      "text": "ofrecer",
+      "start": 36394,
+      "end": 36988,
+      "confidence": 0.99998224,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 37181,
+      "end": 37326,
+      "confidence": 0.9999585,
+      "speaker": null
+    },
+    {
+      "text": "salida,",
+      "start": 37326,
+      "end": 37695,
+      "confidence": 0.8787712,
+      "speaker": null
+    },
+    {
+      "text": "cambiar",
+      "start": 37888,
+      "end": 38210,
+      "confidence": 0.9999505,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 38210,
+      "end": 38451,
+      "confidence": 0.92018825,
+      "speaker": null
+    },
+    {
+      "text": "hora",
+      "start": 38467,
+      "end": 38708,
+      "confidence": 0.9998518,
+      "speaker": null
+    },
+    {
+      "text": "antes",
+      "start": 38708,
+      "end": 38900,
+      "confidence": 0.99909234,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 38900,
+      "end": 39093,
+      "confidence": 0.9999964,
+      "speaker": null
+    },
+    {
+      "text": "perderla.",
+      "start": 39093,
+      "end": 39704,
+      "confidence": 0.9999642,
+      "speaker": null
+    },
+    {
+      "text": "El",
+      "start": 40094,
+      "end": 40331,
+      "confidence": 0.9999337,
+      "speaker": null
+    },
+    {
+      "text": "día",
+      "start": 40379,
+      "end": 40620,
+      "confidence": 0.9999945,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 40620,
+      "end": 40861,
+      "confidence": 0.99976605,
+      "speaker": null
+    },
+    {
+      "text": "esa",
+      "start": 41037,
+      "end": 41262,
+      "confidence": 0.9970174,
+      "speaker": null
+    },
+    {
+      "text": "silla",
+      "start": 41262,
+      "end": 41664,
+      "confidence": 0.99998957,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 41664,
+      "end": 41825,
+      "confidence": 0.9999933,
+      "speaker": null
+    },
+    {
+      "text": "libere",
+      "start": 41825,
+      "end": 42226,
+      "confidence": 0.99991536,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 42226,
+      "end": 42403,
+      "confidence": 0.9658942,
+      "speaker": null
+    },
+    {
+      "text": "aviso,",
+      "start": 42403,
+      "end": 42869,
+      "confidence": 0.9859467,
+      "speaker": null
+    },
+    {
+      "text": "deja",
+      "start": 43110,
+      "end": 43351,
+      "confidence": 0.99997973,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 43351,
+      "end": 43432,
+      "confidence": 0.9999989,
+      "speaker": null
+    },
+    {
+      "text": "ser",
+      "start": 43432,
+      "end": 43608,
+      "confidence": 0.99999666,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 43608,
+      "end": 43753,
+      "confidence": 0.999995,
+      "speaker": null
+    },
+    {
+      "text": "hueco",
+      "start": 43753,
+      "end": 44074,
+      "confidence": 0.9999962,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 44171,
+      "end": 44235,
+      "confidence": 0.9999865,
+      "speaker": null
+    },
+    {
+      "text": "pasa",
+      "start": 44235,
+      "end": 44492,
+      "confidence": 0.9999838,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 44492,
+      "end": 44556,
+      "confidence": 0.9999838,
+      "speaker": null
+    },
+    {
+      "text": "ser",
+      "start": 44556,
+      "end": 44894,
+      "confidence": 0.9999893,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 44894,
+      "end": 44974,
+      "confidence": 0.9999933,
+      "speaker": null
+    },
+    {
+      "text": "espacio",
+      "start": 44974,
+      "end": 45601,
+      "confidence": 0.9999944,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 45922,
+      "end": 46163,
+      "confidence": 0.999979,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 46163,
+      "end": 46243,
+      "confidence": 0.996924,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 46243,
+      "end": 46542,
+      "confidence": 0.9452406,
+      "speaker": null
+    },
+    {
+      "text": "está",
+      "start": 46923,
+      "end": 47448,
+      "confidence": 0.99966085,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 47625,
+      "end": 47770,
+      "confidence": 0.9999914,
+      "speaker": null
+    },
+    {
+      "text": "lista",
+      "start": 47770,
+      "end": 48123,
+      "confidence": 0.99974066,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 48123,
+      "end": 48188,
+      "confidence": 0.99997437,
+      "speaker": null
+    },
+    {
+      "text": "espera.",
+      "start": 48188,
+      "end": 48541,
+      "confidence": 0.99992913,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.9932093,
+  "audio_duration": 51,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

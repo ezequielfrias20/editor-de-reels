@@ -52,8 +52,9 @@ Orden fijo, todo re-ejecutable. Si cambia el plan de cortes, se vuelve a correr 
 | 1 | Extraer audio | `ffmpeg -i <src> -vn -ac 1 -ar 16000 -c:a flac assets/audio/2.flac` |
 | 2 | Transcribir | `scripts/transcribe.py assets/audio/2.flac transcripts/2.json` |
 | 2b | **Cuadrar el transcript con el audio** | `scripts/refine-timings.py assets/audio/2.flac transcripts/2.json --write` |
-| 3 | Planificar cortes | `scripts/plan-cuts.py transcripts/2.json cuts/2.json <dur_real>` |
+| 3 | Planificar cortes | `scripts/plan-cuts.py transcripts/2.json cuts/2.json <dur_real> --audio assets/audio/2.flac` |
 | 4 | Corte bruto | `scripts/rough-cut.sh <src> cuts/2.json out/2-rough.mp4` |
+| 4b | **Auditar respiraciones — no se sigue si falla** | `scripts/audit-breaths.py --project . --piece 2` |
 | 5 | Medir la cara | `scripts/measure-face.py out/2-rough.mp4 assets/face-2.json` |
 | 6 | Color, solo si es HDR (§8) | `scripts/calibrate-hlg.py` + `scripts/make-hlg-lut.py` |
 | 7 | Recorrido de pantalla | `scripts/screen-tour.py videos/2/screen-tour.json --preview` |
@@ -72,6 +73,20 @@ de cambios o la proporción de transiciones especiales se salen de banda. El pas
 cambia: `build-composition.py` consume el `plan.json` que sea, sin saber de cuál de los dos
 caminos vino. Ver `docs/superpowers/plans/2026-09-07-edl-motion-design.md` y
 `docs/superpowers/specs/2026-09-07-edl-motion-design-design.md`.
+
+**Desde la pieza 12 el EDL también emite RÓTULOS** (evento `CARD`). Hasta entonces el
+camino del EDL escribía `"cards": []` fijo, así que lo único que podía acompañar al
+presentador era el subtítulo. Un rótulo no es un stage pequeño: **el stage sustituye la cara
+y el rótulo la acompaña**, y hay frases —«escalar a un humano», dicha por un humano— en las
+que esa diferencia ES el argumento. Los dos bordes salen de una palabra (`atWord` /
+`untilWord`, que usa el FINAL de la suya), así que un borde corregido por `refine-timings`
+los mueve solos.
+
+⚠ **Un `CARD` dentro de un segmento de stage falla, y no es gusto: es apilado.** Las
+tarjetas van en la pista 4 y el takeover en la 5 (gotcha #5), así que el rótulo se
+renderizaría debajo de un fondo opaco. Y **no basta con mirar el segmento en que se
+declara**: el rótulo se extiende hasta `untilWord` y ese borde puede caer ya dentro del
+stage siguiente. Las dos comprobaciones están en `_check_cards`.
 
 ### Transcripción — AssemblyAI, no Whisper
 
@@ -101,6 +116,75 @@ que sale bien porque el modelo deja de arrastrar el contexto largo, y se empalma
 deletrea. Ninguna medición lo caza: hay que leer el texto contra el guion.
 
 `silencedetect` y `volumedetect` **loguean a nivel info**: con `-v error` no imprimen nada.
+
+### Voz no es sonido — `voicing.py`
+
+⚠ **Se entregó un reel con una inspiración de 900 ms a −10.4 dB dentro del
+hook.** Entre «decisión.» y «Una», más fuerte que media frase, y la oyó el
+usuario. La cadena de errores merece leerse entera porque cada eslabón parecía
+razonable:
+
+1. AssemblyAI cerró «decisión.» en 5.595 — **bien**.
+2. `refine-timings` vio sonido continuo hasta 6.44 y estiró el borde hasta su
+   tope de `MAX_SHIFT` (500 ms), porque medía ENERGÍA.
+3. Al revisarlo se leyó la envolvente —que sube sin un frame de silencio— y se
+   concluyó que era la sílaba tónica de la palabra. **Se alargó a mano a 6.440.**
+4. Con la respiración YA DENTRO del span de la palabra, ningún detector
+   posterior podía verla: el censo de sonido fuera de palabra daba cero.
+
+**La envolvente no distingue una vocal sostenida de una respiración de
+proximidad**, porque el micro cercano le sube los graves. Lo que sí las
+distingue es si hay TONO, y ahora vive en `scripts/voicing.py`:
+
+| | armonicidad | energía >400 Hz |
+| --- | --- | --- |
+| vocal | 0.35–0.69 | 0.11–0.93 |
+| fricativa (la «s») | 0.24 | 0.90 |
+| **respiración** | **0.06–0.25** | **0.01–0.11** |
+
+Hacen falta las DOS medidas: la armonicidad sola marcaría la «s» como
+respiración —y cortaría el final de cada plural—; la energía alta sola daría
+por voz cualquier soplido. **Un frame es voz si tiene tono O aire alto.**
+
+Tres cosas cambiaron con eso:
+
+- **`refine-timings` estira los bordes solo sobre voz.** En la pieza 14 pasó de
+  mover 9 bordes a mover 6, y los tres que dejó de mover eran los tres que se
+  comían una respiración. Su aviso de isla también dejó de llamarlas
+  «vocalización» —lo eran por reparto grave/agudo— y ahora dice «respiración».
+- **`plan-cuts --audio` coloca la pausa que queda sobre SILENCIO.** No cambia
+  cuánta pausa deja, cambia de qué está hecha: cada lado se recorta hasta donde
+  empieza la respiración. Sin `--audio` se comporta como siempre, para que las
+  piezas anteriores se vuelvan a cortar igual.
+- **Los márgenes de cabeza y cola también.** La última inspiración de la toma
+  entraba en el reel por `TAIL_PAD`.
+- **Y una red que lo comprueba: `audit-breaths.py` (paso 4b).** Quitar la respiración es
+  del paso 3; comprobar que no quedó ninguna es de este, y falla con código 1 para que
+  un reel con una inspiración dentro no llegue a renderizarse por descuido. Pasa en las
+  piezas 11, 12 y 14; **falla en la 13**, señalando 6.140–6.215 s a −15.1 dB.
+
+⚠ **Auditar un corte exige el umbral de la FUENTE.** El suelo sale del
+percentil 10 de la propia envolvente y un corte ya no contiene los silencios de
+los que estimarlo: medido, «sube» de −52.0 a −41.9 dB y el umbral con él, de
+−42.0 a −31.9. Con el umbral equivocado una ráfaga de −11.7 dB se quedaba en
+75 ms y caía por debajo de `min_dur`.
+
+⚠ **Y una isla CORTA pero FUERTE cuenta igual.** Fue esa regla —no el faldón—
+la que movió el corte de «ingresos.» de 33.18 a 33.07: la respiración arranca
+con ráfagas de 35–55 ms a −13 dB que `min_dur` descartaba una por una.
+
+⚠ **El detector es ciego al transcript a propósito**, así que también caza las
+plosivas y las nasales apagándose DENTRO de una palabra. Quien lo use filtra
+por spans de palabra: una ráfaga de 25 ms sobre el ataque de «Una» dejaría la
+pausa de ese lado en cero.
+
+⚠ **Auditar el MP4 mezclado da falsos positivos: la cama musical no tiene tono.**
+La auditoría se hace sobre `out/<n>-rough.mp4`, que es voz sola.
+
+⚠ **Y no se prueba con ruido sintético.** Un ruido gaussiano limitado en banda
+es cuasi-periódico y su armonicidad se queda en 0.27–0.44, pegada al umbral.
+La clasificación se prueba contra el audio real de la pieza; lo sintético solo
+vale para lo que no depende de modelar una respiración.
 
 ### Plan de cortes
 
@@ -240,11 +324,26 @@ se come 0.2 s del final de un takeover heredaba la altura de la cara —más arr
 ### La zona segura la calcula el generador
 
 No basta con que el subtítulo **empiece** antes de y1536: la cuenta necesita el número de
-líneas. `build-composition.py` mide el ancho, deduce si son una o dos líneas y baja el
-tope a `0.80·H − líneas·1.14·tamaño`. Sin eso, un bloque de dos líneas colocado sobre un
-gráfico (top 1430) metía la segunda línea 46 px dentro de la interfaz de la plataforma.
-Verificado sobre el MP4: la tinta más baja fuera de plano lleno queda en y1533 (pieza 3) y
-y1502 (pieza 4).
+líneas. `caption_metrics.py` mide el ancho de cada palabra a SU tamaño, **reparte las
+palabras en líneas como lo hace el navegador** y baja el tope a `0.80·H − líneas·1.14·tamaño`.
+
+⚠ **El número de líneas se reparte, no se divide, y no se topa en dos.** `ancho_total /
+ancho_útil` falla por los dos lados: el sobrante de cada línea se pierde y una palabra muy
+larga rompe la línea antes de agotar el ancho. Medido en la pieza 11 — «PACIENTES
+AUTOMÁTICAMENTE POR WHATSAPP» suma exactamente 2.00 veces el ancho útil, o sea dos líneas
+por división, y el navegador lo envuelve a **tres**. El cálculo viejo topaba en dos, así
+que descontaba una línea de menos y la tercera entraba **58 px** dentro de la interfaz de
+la plataforma. Cazó dos bloques de la misma pieza.
+
+Y la caja de línea se mide con el tamaño de la **keyword**, no con el base: usando
+`CAPTION_SIZE` a secas, un bloque de dos líneas sobre un gráfico (top 1430) metía la
+segunda línea 46 px dentro de la interfaz.
+
+Verificado sobre el MP4: la tinta más baja fuera de plano lleno queda en y1533 (pieza 3),
+y1502 (pieza 4), y1518 (pieza 11) y **y1531 (pieza 12)**. El 1531 no es un descuido: es
+`floor_top` haciendo su trabajo en un bloque de dos líneas sin keyword (1536 − 2·75), o sea
+el tope exacto que calcula el generador. Cuando el margen sale de 5 px, la cuenta está
+apretando bien.
 
 ---
 
@@ -342,7 +441,19 @@ origen del `rect`.
 ### Librería de mockups
 
 `app_switch` · `connection_map` · `stat_grid` · `chip_grid` · `rate_mismatch` ·
-`keyword_hero` · `flow_steps` · `comment_ui` · `screen_panel` · `browser_frame` · `hud`.
+`keyword_hero` · `flow_steps` · `comment_ui` · `chat_unanswered` · `screen_panel` ·
+`browser_frame` · `hud`.
+
+⚠ **`connection_map` está dibujado para 7 módulos.** Con tres nodos usa las tres
+posiciones de arriba, todas las líneas salen del hub hacia arriba y la mitad inferior
+del tablero queda vacía. Para tres cosas, `chip_grid`. Y el hub aguanta rótulos muy
+cortos: el círculo mide 230 px y «ASISTENTE IA» desbordaba 66 px por lado.
+
+`chat_unanswered` es un mensaje enviado y el hueco debajo; lo que comunica es la
+AUSENCIA. Con `reply` abre una burbuja entrante y el mismo componente sirve para el
+caso contrario: **dos instancias con corte duro entre ellas** es como se lee un
+contraste, porque la rima visual deja ver qué cambió. La marca va en la cabecera y
+eso ata el visual a su palabra — no puede entrar antes de que se nombre la app.
 
 `stat_grid` y `chip_grid` se confunden fácil y no son intercambiables: tres cifras grandes
 contestan **cuánto**, una fila de etiquetas que se amontona contesta **cuántas cosas a la
@@ -363,6 +474,95 @@ limpios, pero el espectador lee «Excel» dos segundos antes de que se diga y, c
 la palabra, ya no pasa nada en pantalla.
 
 **El HUD da contexto, no repite** un dato que ya está dentro del gráfico.
+
+### Librería de objetos — 15, y crece por demanda
+
+`clock` · `dental-chair` · `phone` · `card-payment` · `instagram` · `bottleneck` (pieza 10)
+· `msg-card` · `answer-counter` · `knowledge-base` · `answer-approved` (pieza 12)
+· `calendar` · `appointment-timeline` · `confirm-buttons` (pieza 13)
+· `spreadsheet` · `kpi-card` (pieza 14).
+
+⚠ **Una REJILLA no es una lista, y `knowledge-base` no sirve de hoja de cálculo.** El
+documento de la pieza 12 apila filas y comunica «esto existe suelto»; «una hoja con cientos
+de filas» necesita **columnas con separadores**, porque una columna de barras grises se lee
+como una lista de pendientes. `spreadsheet` es la rejilla: cabecera de archivo, fila de
+columnas y 11 filas de barras **deterministas** (`(i*37 + j*53) % 41` — un golden file no
+puede depender de un `random`, y el dato concreto no es el argumento: el VOLUMEN lo es).
+
+⚠ **La cifra enterrada se pone ENCIMA de la barra, no en su lugar.** Si la celda naciera
+vacía esperando su palabra, la rejilla tendría un hueco durante los segundos previos y se
+leería como un panel roto — la misma trampa que `knowledge-base` ya documenta con `reveal`.
+Y es **una celda entre 44**: el beat no es que el dato exista, es que está enterrado.
+
+Los tres interrogantes de `spreadsheet` van en **`currentColor`**, así que los tiñe el tema
+del stage (`problem` → alert) en vez de traer un color propio que habría que volver a
+justificar en cada uso.
+
+⚠ **La pastilla de acción de `kpi-card` es verde en las cuatro, y no es descuido.** Teñir
+«REVISAR» de ámbar y «REPONER» de rojo convertiría la serie en un **semáforo de estados**,
+que es otra frase. Lo que se afirma es que CADA indicador produce una decisión, y lo que
+esas cuatro palabras tienen en común es que son accionables, no su gravedad. Sobre relleno
+`go` va tinta `bg` (11.74:1), nunca blanco (1.66:1) — la regla de `msg-card`.
+
+**La 13 solo necesitó TRES objetos nuevos para cinco funciones**, porque los mensajes de
+su secuencia se sirven con `msg-card` de la 12 y su `seal` verde carga la **ventana de
+envío** (INMEDIATA · DÍA ANTERIOR · 3 H ANTES) en vez de un estado. Es el nivel `library`
+del Resolver haciendo su trabajo: en la 12 ese mismo sello decía AUTOMATIZADO y aquí dice
+cuándo sale el mensaje — el componente no cambió una línea.
+
+⚠ **Un hueco solo cuenta el tiempo si algo lo mide.** `appointment-timeline` nació con dos
+paradas (Reserva y Cita) y un tramo discontinuo de 244 px en medio, y sobre frames eso
+**no se leía como días pasando: se leía como un panel a medio hacer**. Con los días
+intermedios puestos como nodos huecos **sin evento**, la misma ausencia se convierte en la
+frase: hay un día que existe y no pasó nada en él. Y la discontinua va a `text3`, no a
+`LINE_HI`: a alpha .16 se perdía contra el suelo del panel.
+
+⚠ **Una franja vacía se dibuja como HUECO, no como fila en rojo.** En `calendar`, la hora
+sin paciente va con borde discontinuo y sin relleno, y es **más alta** que las demás. Una
+fila roja con texto se lee como «esta cita tiene un problema»; un hueco se lee como «aquí
+no hay nadie», que es la frase. Misma lógica que `chat_unanswered` en la pieza 11: lo que
+comunica es la AUSENCIA. El punto verde solo va en las franjas ocupadas.
+
+**Los cuatro de la 12 trajeron tres mecanismos que valen más que los dibujos.**
+
+1. **Coreografía interna.** Los `anims` que devuelve la función de render llegan relativos
+   a la ENTRADA del objeto y `motion_stage` los desplaza a la línea del stage. Una lista
+   que se apila fila a fila es **un gesto, no seis decisiones editoriales**: declararlo con
+   seis `OBJECT_STATE` metería en el contrato creativo un escalonado de 130 ms que no sale
+   del transcript.
+2. **`reveal`.** `OBJECT_STATE {"reveal": "r3"}` enciende el sub-elemento `{eid}-r3`. Es
+   lo contrario del punto 1 y por eso conviven: cuando cada fila SÍ cae en su palabra —el
+   enunciado de categorías— el ritmo es del EDL, no del objeto.
+3. **`count`.** El contador que sube, con el `count_from` rastreado por el compilador desde
+   el estado anterior, igual que las agujas del reloj. Mismo patrón probado: se tuenea un
+   número **puro** y el `onUpdate` reescribe el texto.
+
+⚠ **Un objeto con TEXTO dentro necesita `data-layout-allow-occlusion`.** El texto de un
+objeto vive por debajo de `.stage-grain`, que es a sangre. El grano está al **3.5 %** de
+opacidad y no oculta nada, pero el linter de layout no puede ver a través de un
+`background-image` y cuenta la capa como opaca: **seis errores de golpe** en la pieza 12 y
+ninguno en la 10, cuyos seis objetos eran SVG puro. El atributo va en el elemento
+**ocluido** (probado en el grano primero: los seis errores no se movieron) y **no** en
+`_object_html`, para que los seis objetos de la 10 conserven la comprobación.
+
+Y tiene un precio que hay que pagar a mano: los pares de contraste de ese texto **dejan de
+muestrearse** (30/30 → 18/18). `0/0 no es que pase, es que no midió` vale igual para 18/18:
+los 12 pares que desaparecen se miden con `tokens.contrast()` y se anotan.
+
+⚠ **El ✓ verde solo va en una fila CON nombre.** Un check junto a una barra en bruto se lee
+como «esto ya está resuelto», que es lo contrario del beat en que el documento aparece sin
+organizar. Es la misma trampa que `flow_steps` ya documenta con «✓ junto a No hay stock».
+
+⚠ **Con `reveal`, el HUECO se queda puesto y lo que entra es su CONTENIDO.** Animando la
+fila entera, el panel conservaba su alto de seis filas con solo cuatro visibles: el tercio
+de abajo quedaba vacío **dentro del marco** y se leía como un panel roto, no como una lista
+llenándose.
+
+**Dos slots nuevos, `head` (540, 440) y `foot` (540, 1250)**, para un flujo origen →
+operador → destino. En 9:16 ese flujo **no cabe en horizontal**: a 1080 de ancho, tres
+paneles legibles se quedan en 340 px cada uno y el del medio —el que lleva la información—
+deja de leerse. En vertical el operador se queda en `center` a tamaño de héroe. El `foot`
+en 1250 está medido contra el subtítulo del stage (y1352 con dos líneas): 48 px de margen.
 
 ### Kie AI — son dos rutas distintas
 
@@ -443,6 +643,21 @@ Casi todas comparten la misma firma: **el navegador se ve bien y el MP4 sale mal
      solo un ahorro de decodificación, no cuesta nada retrasarlo);
    · **el último visual no se funde a la salida**: el CTA tiene que estar puesto en el
      último frame, que es el que se congela cuando el reel vuelve a empezar.
+6b. **Un stage EN PANTALLA SIN OBJETOS no cae a negro, y por eso no se veía.** Es la
+   hermana de la trampa 6 y nace del mismo fallo: el suelo del stage **sí se pinta** —con
+   su viñeta y su retícula—, así que `check_no_black()` no encuentra nada. Lo que se ve es
+   un fondo grafito vacío con un subtítulo encima, y se lee como un error de montaje.
+   Medido: **1.63 s** en el stage de la secuencia de la pieza 13 y **0.97 s** en el de su
+   línea de tiempo; y, ya entregada, **0.90 / 1.38 / 0.73 s** en los tres stages de la
+   pieza 10. Ahora lo mide `edl_metrics.bare_stage_gaps()` y lo reporta la métrica
+   `max_bare_stage`.
+
+   **El arreglo es mover el LÍMITE del segmento, no el evento.** La ventana de un segmento
+   empieza en su primera palabra, así que hacer que el stage empiece en la palabra del
+   objeto cierra el hueco **sin adelantar el guion** — que es lo que pasaría adelantando el
+   objeto a una palabra que todavía no lo nombra. En la 13 salió gratis: «Puedes
+   automatizar» y «Si una persona» volvieron al presentador, donde además estaban mejor.
+
 7. **Un trazo SVG se prepara en t=0, no al dibujarlo.** El `stroke-dasharray` montado en
    el mismo instante que el tween deja la línea entera desde el primer frame.
 8. **GSAP**: `left`/`top` tartamudean → usar `x`/`y`. Toda salida necesita `tl.set` de
@@ -768,9 +983,233 @@ H.264 + AAC. La clínica que pierde pacientes en WhatsApp · CTA **CLÍNICA**.
   `typing` —que por diseño no tienen ataque— y dos `ping` bajo voz). Tinta más baja fuera
   de plano lleno: **y1518**, 18 px de margen.
 
+**Pieza 12 — terminada.** `videos/12/output.mp4`, copia en
+`VIDEOS EDITADOS/video-12-respuestas-reel.mp4`. REEL 9:16, **41.70 s**, 27.8 MB,
+H.264 + AAC. Responder lo mismo todos los días · CTA **RESPUESTAS**.
+
+- Fuente `VIDEOS ORIGINALES/REEL 10 — …/video.mov`: 60.04 s, H.264 **SDR bt709**,
+  1080×1920, rot 0. Corte 60.04 → 41.70 s (31 % fuera, 6 cortes). Barbilla p95 = 0.6608 —
+  **la más baja de la serie**, 48/48 muestras; centroide `cx_frac` 0.5106. 87 palabras.
+- **El aviso de alineación imposible resultó ser un falso positivo, y comprobarlo fue
+  barato.** `refine-timings.py` marcó «otra» (146 ms) y «todavía» (292 ms) a 13.7 síl/s.
+  Re-transcrito el tramo 4.6–10.4 s suelto, los timings volvieron **a 90 ms de los
+  originales**: ahí no hay desfase, habla rápido. Se empalmó el tramo aislado igual, porque
+  su cola de «todavía» sale 48 ms más larga y ese borde es donde corta `plan-cuts`. La
+  lección de la pieza 3 se mantiene —el aviso dice dónde mirar—, pero **mirar puede
+  confirmar que no pasa nada**, y eso también es un resultado.
+- **4 Motion Stage y 5 rótulos**, repartidos para que el presentador nunca desaparezca más
+  de un beat sin razón:
+
+  | Palabras | t | Qué visualiza | Cómo |
+  | --- | --- | --- | --- |
+  | 4–9 | 1.85–4.51 | la misma pregunta, 27 veces | 4 `msg-card` apilándose + `answer-counter` 12→18→27, tema `problem` |
+  | 19–26 | 9.19–12.95 | las respuestas ya existen, sueltas | `knowledge-base` con 6 filas **sin etiqueta**, en cascada interna |
+  | 37–53 | 16.49–27.50 | pregunta → base → respuesta aprobada | el flujo vertical `head`/`center`/`foot`, con las 6 categorías encendiéndose **en su palabra** y el sello en «aprobada» |
+  | 63–70 | 32.30–35.57 | esas cuatro preguntas ya no las contesta nadie | **las MISMAS 4 tarjetas** del hook, en los mismos slots, selladas AUTOMATIZADO a la vez, tema `success` |
+
+- **La rima visual es la estructura de la pieza.** Las cuatro tarjetas del hook vuelven al
+  final con el mismo texto y en el mismo slot; lo único que cambia es el sello y el tema.
+  Eso es lo que deja ver *qué* cambió — misma lógica que las dos instancias de
+  `chat_unanswered` en la pieza 11.
+- **El documento aparece dos veces y no es repetición**: primero **sin nombres** (nadie ha
+  dicho ninguna categoría todavía, y etiquetarlas ahí adelantaría el guion) y luego con
+  ellos, uno por palabra. Dos instancias, dos stages, el mismo objeto en sus dos modos.
+- `transitionIn` especiales: **OBJECT_MATCH_CUT** en el sello (es el mismo documento
+  mutando, no una escena nueva) y **DIAGONAL_WIPE** en el remate. 2 de 10 límites = el tope
+  exacto del gate.
+- 11 segmentos, 15 encuadres (10 en pantalla), 24 bloques con 15 keywords, **15 efectos**
+  en 2 pistas + cama musical.
+- **Todos los gates en verde a la primera**: `presenter_share` **0.5039** —dentro de la
+  banda ideal [0.45, 0.60], no solo del `warn_in`, que es donde se quedó la 10 con 0.66—
+  `max_micro_gap` 2.461 · `max_macro_gap` 3.532 · `min_camera_gap` 1.289 ·
+  `theme_change_count` 2 · `decorative_reason_count` 0 · `sfx_dropped` 0.
+- Validación **0 errores** · **18/18 WCAG AA por el checker + 12 pares medidos a mano**
+  con `tokens.contrast()` (peor caso 5.76:1), los que el
+  `data-layout-allow-occlusion` saca del muestreo. Ver §7.
+- Sobre el MP4: duración **41.700 s** exacta, sin negro real (`pix_th=0.03`), pico por canal
+  **−2.83 / −2.80 dB**, **0 muestras saturadas**, voz **0.697** frente a 0.700 declarada,
+  música aislada restando la voz alineada a −35…−39 dB (objetivo −37.1) y tinta más baja
+  fuera de plano lleno **y1531**.
+- **15/15 efectos** localizados por **filtro adaptado** a la forma de onda real de cada
+  archivo, con desfase submilimétrico. La envolvente sola solo veía 10: los otros cinco
+  caen bajo habla fuerte, donde el residuo del **códec** sube ~14 dB por debajo de la voz y
+  se come un `pop` de volumen 0.254. **El salto de envolvente mide si el efecto DESTACA;
+  el filtro adaptado mide si ESTÁ.** Son dos preguntas distintas y solo la segunda dice si
+  la mezcla se escribió bien.
+- ⚠ **Y el `chime` necesitó una tercera pasada.** Con filtro adaptado sobre 300 ms daba
+  correlación 0.12: es una campana de **2.5 s** de ataque lento, y 300 ms de ella no
+  identifican nada. Con la campana completa y la banda limitada a su parcial dominante
+  (3512 Hz): correlación **1.04** a +3.0 ms, y su propia banda sube **+24.8 dB**. La
+  ventana del filtro tiene que cubrir el efecto, no el ataque que uno espera que tenga.
+- Golden en `tests/golden/12.plan.json`. La suite pasa de **191 a 235 tests**: 16 del
+  evento `CARD` —la mayoría sobre lo que NO se puede escribir— y 26 de los objetos y sus
+  tres mecanismos.
+
+**Pieza 13 — terminada.** `videos/13/output.mp4`, copia en
+`VIDEOS EDITADOS/video-13-citas-reel.mp4`. REEL 9:16, **41.53 s**, 24.9 MB, H.264 + AAC.
+Pacientes que no se presentan a sus citas · CTA **CITAS**.
+
+- Fuente `VIDEOS ORIGINALES/REEL 11 — …/video.mov`: 60.03 s, H.264 **SDR bt709**,
+  1080×1920, rot 0. Corte 60.03 → 41.52 s (31 % fuera, 6 cortes). Barbilla p95 = 0.6376,
+  47/48 muestras; centroide `cx_frac` 0.5442. 88 palabras.
+- ⚠ **La carpeta del reel y el pedido no coincidían.** Se pidió «el reel 12» con
+  instrucciones tituladas REEL 11 y con el guion de citas (CTA CITAS); el REEL 12 es
+  «Tener datos sin saber qué hacer con ellos». **Manda el contenido del brief, no el
+  número**, y las dos carpetas tenían metraje nuevo. Es la misma trampa que ya avisa la
+  nota de numeración de arriba, vista desde el otro lado.
+- **El take más sucio hasta ahora, y todo se resolvió midiendo.** `refine-timings.py` dio
+  10 bordes que cuadrar, **4 huecos con sonido audible** y **2 tramos con alineación
+  imposible**:
+  · **Los dos desfases eran reales.** «olvide» venía en 213 ms (14.1 síl/s) y «todo» en
+    162 ms. Re-transcritos sueltos: 393 y 247 ms. Se empalman los TIEMPOS y se conserva el
+    TEXTO del pase de contexto largo — el aislado oyó «aumenta» donde el guion dice
+    «aumentan». Cada pase es mejor en una cosa distinta.
+  · **Las 4 islas de sonido no eran cola de palabra.** Re-transcritas sueltas dieron **0
+    palabras** (ningún arranque en falso), y la envolvente RMS las situó a **1.6–2.4 s de
+    silencio real** de la palabra anterior: sonidos aparte en mitad de las pausas. Una iba
+    a **−8 dB**, más fuerte que el habla (p90 = −12.8 dB). Al caer enteras dentro de las
+    pausas que `plan-cuts` colapsa, **se eliminaron completas sin que ningún borde las
+    partiera** — verificado contra los `keeps` antes de cortar, y sobre el MP4 después.
+    Distinto de la pieza 11, donde dos islas SÍ eran cola de palabra y hubo que mover el
+    borde a mano. **El aviso dice dónde mirar; la envolvente dice qué es; y solo eso decide
+    si el corte la parte o se la lleva entera.**
+- **4 Motion Stage y 5 rótulos**:
+
+  | Palabras | t | Qué visualiza | Cómo |
+  | --- | --- | --- | --- |
+  | 3–8 | 1.56–3.59 | la franja de las 11 no tiene a nadie | `calendar`, con el hueco discontinuo y HORA PERDIDA entrando en «culpa», tema `problem` |
+  | 18–23 | 7.36–9.86 | siete días entre reservar y venir | `appointment-timeline` vertical, 4 paradas |
+  | 24–28 | 9.86–11.72 | en esos días nadie escribe | LA MISMA línea de tiempo, por **match cut**: SIN MENSAJES y el aro de riesgo en el nodo final |
+  | 39–51 | 17.26–24.40 | tres mensajes, cada uno con su hora de salida | 3 × `msg-card`, y el sello cae en la palabra que lo nombra |
+  | 56–59 | 26.01–29.16 | confirmar o reprogramar en un toque | `msg-card` + `confirm-buttons`, con el check en «reprogramar» |
+
+- **El beat sin sonido es una decisión, no un olvido.** El stage del silencio (24–28) es el
+  único de la pieza sin efecto: ponerle sonido al silencio lo contradice.
+- El stage de los botones se queda en tema **`primary`** y el verde vive **solo en el botón
+  que se espera pulsar**. Teñir la escena de éxito convertiría una opción del paciente en
+  un mensaje de sistema — y así `theme_change_count` se queda en 2.
+- **Un bloque de subtítulo de DOS palabras, a propósito.** «Puedes automatizar» es una
+  cláusula completa; partirla para llegar a tres pegaría «la cita.» con «Puedes», que es
+  exactamente lo que la doctrina de troceo prohíbe.
+- 11 segmentos, 18 encuadres (11 en pantalla), 23 bloques con 16 keywords, **8 efectos** en
+  2 pistas + cama musical.
+- **Todos los gates en verde**: `presenter_share` **0.5982** · `max_bare_stage` **0.0** ·
+  `max_micro_gap` 2.004 · `max_macro_gap` 2.924 · `min_camera_gap` 0.966 ·
+  `theme_change_count` 2 · `special_transition_ratio` 0.2 · `decorative_reason_count` 0 ·
+  `sfx_dropped` 0.
+- Validación **0 errores** · **27/27 WCAG AA**. Sobre el MP4: duración **41.533 s**, sin
+  negro real, pico por canal **−2.46 / −2.42 dB**, **0 muestras saturadas**, voz **0.696**
+  frente a 0.700, música aislada a −34…−39 dB (objetivo −37.1), tinta más baja fuera de
+  plano lleno **y1518** (18 px de margen) y **8/8 efectos** localizados por filtro adaptado
+  con desfase submilimétrico.
+- El `error` del hook queda **+3.4 dB** sobre la voz de su tramo porque ya está a
+  `volume 1.0` — el mismo caso documentado en la pieza 3, y por la misma razón: la voz
+  manda y el efecto cae en la palabra que lo justifica.
+- Golden en `tests/golden/13.plan.json`. La suite pasa de **235 a 261 tests**: 10 de
+  `max_bare_stage` y 15 de los tres objetos y el reuso de `msg-card`.
+
+**Pieza 14 — terminada, y re-entregada.** `videos/14/output.mp4`, copia en
+`VIDEOS EDITADOS/video-14-datos-reel.mp4`. REEL 9:16, **39.17 s**, 23.9 MB,
+H.264 + AAC. Tener datos sin saber qué hacer con ellos · CTA **DATOS**.
+
+- Fuente `VIDEOS ORIGINALES/REEL 12 — …/video.mov`: 60.03 s, H.264 **SDR bt709**,
+  1080×1920, rot 0. Corte 60.03 → 39.17 s (**35 % fuera**, 6 cortes). Barbilla p95 =
+  **0.7297** —la más baja de la serie, 48/48 muestras—; centroide `cx_frac` 0.5755.
+  92 palabras.
+- **Esta vez el número del reel SÍ era el del brief**, al contrario que en la 13.
+  Comprobarlo cuesta un minuto y se comprueba igual.
+- ⚠ **AssemblyAI se comió una palabra entera, y ninguna medición lo caza.** El guion
+  dice «qué producto necesita reposición» y el transcript traía «producto necesita
+  reposición». Re-transcrito el tramo 26.0–29.6 s suelto, el aislado **sí oye «qué»** a
+  27.243–27.407. Insertada a mano: 91 → **92 palabras**. Hermana de la trampa de las
+  siglas (§2): **el transcript se lee contra el guion**, porque una palabra que falta no
+  rompe ningún número.
+- **Los dos avisos de alineación imposible eran falsos positivos.** «envío» (178 ms) y
+  «para» (162 ms) re-transcritos sueltos dieron **177 y 161 ms**: a 1 ms de los
+  originales. No se empalmó nada, y confirmarlo también es un resultado.
+
+**⚠ La primera entrega salió con una respiración dentro del hook, y la cazó el
+usuario.** 900 ms a −10.4 dB entre «decisión.» y «Una». La causa raíz, el arreglo y
+las cuatro trampas que destapó están en §2 («Voz no es sonido»); aquí queda lo que le
+pasó a la pieza:
+
+- El primer corte daba **41.63 s**; con los bordes atados a la voz y las pausas
+  colocadas sobre silencio, **39.17 s**. Los 2.46 s de diferencia son respiraciones.
+- `refine-timings` pasó de mover **9 bordes a 6**: los tres que dejó de mover
+  —«decisión.», «acción.» y «accionables.»— eran los tres que se tragaban una
+  inspiración de 500 ms cada uno. Y destapó **una cuarta a −7.0 dB** tras «ingresos.»,
+  que hasta entonces vivía escondida dentro de la palabra.
+- Auditado el corte nuevo con el umbral de la fuente: **0 respiraciones audibles fuera
+  de un span de palabra**. Verificado también sobre el MP4: tras «decisión.» el nivel
+  cae a −42 dB (la cama musical) y se queda ahí hasta «Una».
+- **La misma auditoría sobre las piezas ya publicadas**: la 11 y la 12 limpias, la
+  **13 tiene una a −15.1 dB** entre «seguimiento.» y «Si». Su hueco es de 3.99 s, así
+  que se arregla volviendo a cortar con `--audio` — no hace falta herramienta nueva.
+
+- **2 Motion Stage y 4 rótulos.** La pieza se parte en dos mitades y cada una tiene su
+  objeto:
+
+  | Palabras | Qué visualiza | Cómo |
+  | --- | --- | --- |
+  | 13–22 | una hoja con cientos de filas, y una cifra enterrada | `spreadsheet`, tema `problem`; «1.284 FILAS» en «cientos» y `$ 4.820` en «valiosa» |
+  | 23–32 | encontrarla obliga a buscar a mano | LA MISMA hoja, por **match cut**: tres interrogantes en «manualmente» |
+  | 44–47 | el primer indicador y su decisión | `kpi-card` en `stack-1`, pastilla en «más» |
+  | 48–59 | la sucursal bajo meta y el producto sin stock | dos `kpi-card` más, `stack-2` y `stack-3` |
+  | 60–67 | el método que concentra ingresos | el cuarto en `stack-4`; la pastilla cierra en «ingresos» |
+
+- **El panel se ACUMULA, no se sustituye.** Primera pieza que apila cuatro instancias
+  del MISMO objeto en los cuatro slots `stack`: sustituirlas habría dejado cuatro
+  gráficos sueltos en vez de un panel, y el argumento necesita verlos juntos.
+- **La regla es un RÓTULO, no un stage**: «DATO SIN ACCIÓN = RUIDO» la formula él, así
+  que acompaña su cara en vez de sustituirla. Entra en «provocar», no antes.
+- **El límite del stage se movió para cerrar el suelo desnudo** (gotcha #6b): el A_ROLL
+  se queda con «te ayuda a detectar» y el stage arranca en la palabra del objeto.
+- 9 segmentos, 15 encuadres (10 en pantalla), 21 bloques con 21 keywords, **14 efectos**
+  en 1 pista + cama musical.
+- **Todos los gates en verde**: `presenter_share` **0.5111** —banda ideal—
+  `max_bare_stage` **0.0** · `max_micro_gap` 2.07 · `max_macro_gap` 2.945 ·
+  `min_camera_gap` 1.048 · `theme_change_count` **1** · `special_transition_ratio` 0.125
+  · `punch_zoom_count` 0 · `decorative_reason_count` 0 · `sfx_dropped` 0.
+- Validación **0 errores** de estructura, runtime, layout y motion.
+- ⚠ **Los dos avisos de contraste son del FUNDIDO, no del diseño, y este take los
+  provoca.** El muestreo cae dentro de la entrada o la salida de un rótulo —340 y 280 ms—
+  **sobre la pared más clara de la serie**, que aquí ocupa medio frame porque la barbilla
+  está en 0.730. Medido sobre los PNG, en las dos entregas:
+
+  | rótulo | en pleno fundido | asentado |
+  | --- | --- | --- |
+  | `card-04` kicker / titular (entrada, t+220 ms) | 2.11:1 · 1.84:1 | 5.31:1 · **6.70:1** |
+  | `card-03` kicker / pastilla (salida, t−75 ms) | 1.46:1 · 1.79:1 | 5.23:1 · **10.64:1** |
+
+  El 6.70 es exactamente el `violet_hi/bg` que declaran los tokens. **La pared clara es
+  de este take; el fundido es de todas las piezas** — arreglarlo sería tocar el fundido
+  de las tarjetas de todo el proyecto, así que queda medido y no tocado.
+- Sobre el MP4: duración **39.167 s** exacta, sin negro real (`pix_th=0.03`), pico por
+  canal **−2.43 / −2.45 dB**, **0 muestras saturadas**, voz **0.692** frente a 0.700
+  declarada, música aislada a **−35.2…−39.7 dB** (objetivo −37.1) y tinta más baja
+  **y1531**, 5 px de margen — el mismo `floor_top` apretando que en la pieza 12.
+- **14/14 efectos** localizados por filtro adaptado, desfase **submilimétrico** y
+  amplitud al **96–100 %** de la declarada. El `chime` vuelve a ser la excepción
+  conocida (cola de 2.5 s solapada con la música en el residuo): presente y localizado,
+  pero su amplitud no se mide bien con la plantilla entera — ver la pieza 12.
+- ⚠ **Medir la tinta del subtítulo por luminancia sola miente sobre metraje claro.**
+  «píxel > 205» daba **y1919** en un frame sin una sola letra ahí: era la pared. La firma
+  del subtítulo sobre metraje es el **filete grafito de 7 px** — píxel casi blanco con
+  grafito pegado a menos de 9 px. Con esa firma, y1531.
+- Golden en `tests/golden/14.plan.json`. La suite pasa de **261 a 291 tests**: 11 de los
+  dos objetos nuevos, 4 del plan compilado, **11 de `voicing.py`** —incluido el que falla
+  si «decisión.» vuelve a estirarse sobre la respiración— y **4 del gate 4b**, uno de
+  ellos con margen 0 para probar que el camino de FALLO existe: un gate que nunca ha
+  fallado no es un gate.
+
 ⚠ **Medir el pico con `-ac 1` miente.** La mezcla a mono de ffmpeg **suma** los dos canales
 (+3 dB): daba pico +0.26 dB y 17 muestras saturadas sobre un archivo cuyos canales reales
 van a −2.53 dB sin una sola saturada. El pico se mide **por canal**.
+
+Y **no solo el pico**: en la pieza 12 la misma trampa dio una ganancia de voz de **0.493**
+frente a 0.700 declarada —parecía un fallo de mezcla— porque la referencia se había
+decodificado con `-ac 1`. 0.493 × 1.414 = 0.697. **Cualquier razón entre dos archivos se
+mide con los dos en estéreo.**
 
 ⚠ **`mockups.py` perdió `chat_unanswered` entre la pieza 9 y hoy** — el árbol de trabajo
 quedó en la versión del commit inicial y el mockup solo sobrevivía en el `index.html`
@@ -778,7 +1217,11 @@ renderizado de la 9, cuyo `plan.json` ya no compilaba. Restaurado desde ahí y a
 `reply`. **`keyword_hero(mark=…)`, que la pieza 9 también usa, sigue sin existir.**
 
 Avisos abiertos que no bloquean: `composition_file_too_large`, `timeline_track_too_dense`,
-`pointer_events_none`.
+`pointer_events_none` y **`gsap_repeated_fromto_without_baseline`** sobre los elementos de
+keyword (12 en la pieza 10, 15 en la 12). Es del emisor de keywords de
+`build-composition.py`, no de ninguna pieza: dos `fromTo` sobre el mismo `#cNkM` sin un
+`tl.set` de base a t=0. Sin efecto visible —el bloque de subtítulo está a opacidad 0 hasta
+su propio instante— pero es deuda real y crece con cada keyword.
 
 ---
 
@@ -789,6 +1232,12 @@ Avisos abiertos que no bloquean: `composition_file_too_large`, `timeline_track_t
 - Medir la cara, no estimarla.
 - **Cuadrar el transcript con el audio antes de cortar** (`refine-timings.py`), y
   re-transcribir suelto el tramo que salga con la alineación rota.
+- **Cortar con `--audio`** (`plan-cuts.py … --audio assets/audio/<n>.flac`): la pausa
+  que queda tiene que ser SILENCIO, no una respiración.
+- **Correr `audit-breaths.py` antes de seguir** (paso 4b). Sale con código 1 si queda
+  una respiración en el corte, y ahí se para el flujo: **cero islas sin voz fuera de un
+  span de palabra, o no se entrega.** Audita el CORTE —voz sola— con el umbral de la
+  FUENTE; el MP4 mezclado da falsos positivos porque la cama musical tampoco tiene tono.
 - Cada beat clavado a su palabra, sacado del transcript remapeado.
 - **Recortar la grabación hasta que el flujo se lea**: salida cuadrada, sin navegador
   alrededor, y las coordenadas de clicks y cajas medidas, no estimadas.
@@ -801,6 +1250,9 @@ Avisos abiertos que no bloquean: `composition_file_too_large`, `timeline_track_t
 **No hacer**
 - Estilizar el metraje. El color reproduce el original. El usuario lo nota.
 - Tapar la cara con subtítulos.
+- **Estirar el borde de una palabra sobre un sonido que no tiene tono.** Suena, y hasta
+  suena fuerte, pero es una respiración — y una vez dentro del span ya no la ve nadie.
+- Fiarse de la envolvente para decidir QUÉ es un sonido. Dice cuánto, no qué.
 - Resaltar todas las palabras del subtítulo.
 - Adelantar el guion: un logo no aparece antes de que se nombre.
 - Blanco puro, negro puro ni sombras duras.

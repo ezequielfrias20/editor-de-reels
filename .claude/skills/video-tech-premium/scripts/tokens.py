@@ -222,6 +222,18 @@ def _bake_slots(cx=540, cy=850, rx=330, ry=250):
         s[f"orbit-{i+1}"] = (round(cx + rx * math.cos(a)), round(cy + ry * math.sin(a)))
     for i in range(4):
         s[f"stack-{i+1}"] = (cx, round(cy - 240 + i * 160))
+    # Los dos extremos del RAIL vertical, para un flujo origen -> operador ->
+    # destino en 9:16. Un flujo de tres bloques no cabe en horizontal: a 1080
+    # de ancho, tres paneles legibles se quedan en 340 px cada uno y el del
+    # medio —que es el que lleva la información— deja de leerse. En vertical
+    # el operador se queda en `center` a tamaño de héroe y los dos extremos
+    # caben encima y debajo.
+    #
+    # `foot` en 1250 no es libre: con un objeto de 108 px de alto acaba en
+    # y1304, y el subtítulo de un stage empieza en y1352 (min(0.72·H,
+    # floor_top) con dos líneas). 48 px de margen, medidos, no estimados.
+    s["head"] = (cx, 440)
+    s["foot"] = (cx, 1250)
     return s
 
 
