@@ -21,10 +21,23 @@ REPRESENTATION_TYPES = frozenset({"OBJECT", "STATE_CHANGE", "QUANTITY", "RELATIO
                                   "SEQUENCE", "CONTRAST", "INTERFACE"})
 EVENT_TYPES = frozenset({"OBJECT_IN", "OBJECT_STATE", "OBJECT_EXIT", "STAGE_CLEAR",
                          "THEME_CHANGE", "CAPTION", "KEYWORD", "CAMERA",
-                         "TYPE_BEAT", "UI_ACTION", "SFX"})
+                         "TYPE_BEAT", "UI_ACTION", "SFX", "CARD"})
+
+# Las claves que un rótulo puede declarar. Cerrada por la misma razón que la
+# whitelist de overrides: `build_cards` ignora en silencio una clave que no
+# conoce, así que un `titel` mal escrito daría un rótulo sin titular y un
+# render aparentemente correcto.
+CARD_KEYS = frozenset({"kicker", "title", "sub", "key", "place", "body",
+                       "items", "accent", "cta_text", "_"})
+CARD_PLACES = frozenset({"top", "center", "bottom"})
+CARD_BODIES = frozenset({"none", "chips", "stat", "cta", "teaser",
+                         "msgteaser"})
 TRANSITIONS = frozenset({"CUT", "DIAGONAL_WIPE", "BLUR_WIPE",
                          "OBJECT_MATCH_CUT", "SCALE_BLUR"})
-CAMERAS = frozenset({"WIDE", "MEDIUM", "CLOSE", "OFF"})
+# `BAND` es el layout triband: el metraje ocupa solo la banda de abajo y no
+# lleva escalera de zoom — el encuadre de la banda ya es un recorte fuerte y
+# una escalera encima lo haría irreconocible.
+CAMERAS = frozenset({"WIDE", "MEDIUM", "CLOSE", "BAND", "OFF"})
 
 # Los sceneType que abren stage. Es lo que da ámbito a un instanceId.
 STAGE_TYPES = frozenset({"MOTION_STAGE", "KINETIC_TYPE"})
@@ -66,6 +79,10 @@ class Event:
     theme: str | None = None
     roles: dict = field(default_factory=dict)
     trim: float = 1.0
+    card: dict = field(default_factory=dict)
+    until_word: int | None = None
+    until_offset: float = 0.0
+    cta_at_word: int | None = None
 
     def t(self, wt: WordTable) -> float:
         """Instante SIN cuantizar. La cuantización es del compilador."""
@@ -184,6 +201,10 @@ def _parse_event(raw: dict, si: int, ei: int, problems: list[str]) -> Event | No
         slot=raw.get("slot"), crowd=bool(raw.get("crowd", False)),
         theme=raw.get("theme"), roles=raw.get("roles") or {},
         trim=float(raw.get("trim", 1.0)),
+        card=raw.get("card") or {},
+        until_word=(int(raw["untilWord"]) if "untilWord" in raw else None),
+        until_offset=float(raw.get("untilOffset", 0.0)),
+        cta_at_word=(int(raw["ctaAtWord"]) if "ctaAtWord" in raw else None),
     )
 
 
@@ -239,6 +260,90 @@ def _check_assets(segments, manifest: dict | None, problems: list[str]) -> None:
                         f"manifest dice {entry.get('hash')}, el código da {real}. "
                         f"Un @n es inmutable; si el rediseño es intencionado, sube "
                         f"la versión en vez de editar esta")
+
+
+def _card_span(ev: Event, wt: WordTable) -> tuple[float, float]:
+    return ev.t(wt), wt.words[ev.until_word].end + ev.until_offset
+
+
+def _check_cards(segments, wt: WordTable, problems: list[str]) -> None:
+    """Un rótulo ACOMPAÑA al presentador; no puede vivir sobre un stage.
+
+    No es gusto, es apilado (gotcha #5): las tarjetas van en la pista 4 y el
+    takeover del stage en la 5, así que un rótulo declarado dentro de un
+    segmento de stage se renderiza DEBAJO de un fondo opaco y no se ve. Un
+    render que sale mal sin que nada falle es exactamente lo que este
+    validador existe para impedir.
+    """
+    n = len(wt.words)
+    for si, seg in enumerate(segments):
+        for ei, ev in enumerate(seg.events):
+            if ev.type != "CARD":
+                continue
+            where = f"segmento {si}, evento {ei} (CARD)"
+            if seg.scene_type in STAGE_TYPES:
+                problems.append(
+                    f"{where}: un rótulo dentro de {seg.scene_type} queda DEBAJO "
+                    f"del takeover del stage (pista 4 vs 5) y no se vería. Sobre "
+                    f"un stage, el texto lo pone el propio objeto")
+            if not ev.card:
+                problems.append(f"{where}: falta 'card'")
+                continue
+            desconocidas = set(ev.card) - CARD_KEYS
+            if desconocidas:
+                problems.append(
+                    f"{where}: claves de rótulo desconocidas {sorted(desconocidas)}; "
+                    f"se aceptan {sorted(CARD_KEYS - {'_'})}. `build_cards` ignora "
+                    f"en silencio lo que no conoce")
+            if not (ev.card.get("kicker") or ev.card.get("title")):
+                problems.append(
+                    f"{where}: un rótulo sin 'kicker' ni 'title' no pinta nada")
+            place = ev.card.get("place", "top")
+            if place not in CARD_PLACES:
+                problems.append(f"{where}: place '{place}' no existe; hay "
+                                f"{sorted(CARD_PLACES)}")
+            body = ev.card.get("body", "none")
+            if body not in CARD_BODIES:
+                problems.append(f"{where}: body '{body}' no existe; hay "
+                                f"{sorted(CARD_BODIES)}")
+            key = ev.card.get("key")
+            title = ev.card.get("title") or ""
+            if key and key not in title:
+                problems.append(
+                    f"{where}: 'key' ({key!r}) no aparece en 'title' ({title!r}), "
+                    f"así que ninguna palabra del titular llevaría el acento")
+            if ev.until_word is None:
+                problems.append(
+                    f"{where}: falta untilWord — los dos bordes del rótulo salen "
+                    f"de una palabra, no de un float")
+            elif not (0 <= ev.until_word < n):
+                problems.append(
+                    f"{where}: untilWord {ev.until_word} fuera de las {n} palabras")
+            elif ev.until_word < ev.at_word:
+                problems.append(
+                    f"{where}: untilWord {ev.until_word} va antes de atWord "
+                    f"{ev.at_word}")
+            # Y NO BASTA CON EL SEGMENTO EN QUE SE DECLARA. Un rótulo se
+            # extiende hasta `untilWord`, que puede caer YA DENTRO del stage
+            # siguiente — y ahí vuelve a quedar debajo del takeover. El borde
+            # tiene que morir antes de que el stage empiece.
+            if ev.until_word is not None and 0 <= ev.until_word < n:
+                cs, ce = _card_span(ev, wt)
+                for (ws, we), s2 in zip(segment_windows(segments, wt), segments):
+                    if s2.scene_type in STAGE_TYPES and cs < we and ws < ce:
+                        problems.append(
+                            f"{where}: el rótulo vive {cs:.3f}-{ce:.3f} y pisa el "
+                            f"stage de {ws:.3f}-{we:.3f}; ahí queda debajo del "
+                            f"takeover. Acorta untilWord")
+                        break
+            if ev.cta_at_word is not None:
+                if body != "cta":
+                    problems.append(
+                        f"{where}: ctaAtWord solo tiene sentido con body 'cta'")
+                elif not (ev.at_word <= ev.cta_at_word <= (ev.until_word or n - 1)):
+                    problems.append(
+                        f"{where}: ctaAtWord {ev.cta_at_word} cae fuera del rótulo "
+                        f"[{ev.at_word}, {ev.until_word}]")
 
 
 def _check_slots(segments, problems: list[str]) -> None:
@@ -477,6 +582,7 @@ def load_edl(path: Path, project_root: Path) -> Edl:
     except FileNotFoundError:
         manifest = None
     _check_assets(segments, manifest, problems)
+    _check_cards(segments, wt, problems)
     _check_slots(segments, problems)
     _check_instances(segments, problems)
     _check_transitions(segments, problems)
