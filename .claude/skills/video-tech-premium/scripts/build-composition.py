@@ -418,6 +418,28 @@ def build_visuals(dur):
         track = TRK_BACKDROP if v["role"] == "backdrop" else TRK_TAKEOVER
         skins.append((s, e, v.get("skin", "on-dark"), v.get("cap_top")))
 
+        # `band` confina el HOST de este visual a una banda del triband en vez
+        # de dárselo el lienzo entero. Convive con `role`, no lo sustituye:
+        # `role` sigue decidiendo la PISTA (`backdrop`/`takeover`, línea de
+        # arriba); `band` decide la GEOMETRÍA. Una card de logo sigue siendo
+        # un takeover en el apilado — solo que su rect ya no es el lienzo.
+        # Sin bloque `layout` no hay bandas de dónde sacar el rect, y eso no
+        # cae a un default silencioso (arreglo de la Tarea 9c: con el host a
+        # lienzo completo, el `.vizbg` opaco del mockup tapaba la banda del
+        # hablante durante las cinco cards de logo — luma máxima 28 medida
+        # sobre el MP4 donde debía verse la camiseta blanca).
+        band = v.get("band")
+        if band:
+            if not LAYOUT:
+                sys.exit(
+                    f"visual «{vid}» declara band:\"{band}\" pero el plan no "
+                    f"trae bloque `layout`: la geometría de las bandas la pone "
+                    f"el EDL, no hay default silencioso — añade `layout` al "
+                    f"plan o quita `band` de «{vid}»")
+            host_rect = triband_panels()[band]
+        else:
+            host_rect = dict(left=0, top=0, width=W, height=H)
+
         if v.get("hud"):
             hud_css, hud_html, hud_anims = mockups.hud(vid, *v["hud"])
         else:
@@ -504,8 +526,12 @@ def build_visuals(dur):
             body_html_ += c_html
             body_anims = list(body_anims) + c_anims
 
-        # Un mockup necesita fondo OPACO o se ve el metraje por detrás.
-        opaque = v["kind"] == "mockup"
+        # Un mockup necesita fondo OPACO o se ve el metraje por detrás — pero
+        # eso es lo correcto para un mockup que SUSTITUYE el metraje (kind
+        # "takeover" a lienzo completo), no para uno que vive dentro de una
+        # banda y tiene que dejar ver el metraje de las OTRAS bandas (la del
+        # hablante). Con `band`, el fondo es transparente siempre.
+        opaque = v["kind"] == "mockup" and not band
         bg = f"{grid()},{vignette()}" if opaque else "transparent"
         css.append(f"""
 .viz[data-viz-id="{vid}"] .vizbg{{position:absolute;inset:0;background:{bg}}}""")
@@ -515,7 +541,13 @@ def build_visuals(dur):
 
         veil = (f'<div class="vizveil" style="background:rgba(11,12,16,{v["veil"]})"></div>'
                 if v.get("veil") else "")
-        camcls = "vizcam mock" if v["kind"] == "mockup" else "vizcam"
+        # `.vizcam.mock` resta un 16% de alto para dejar la zona segura de la
+        # PLATAFORMA (el 20% inferior del LIENZO ENTERO) libre de mockup. Con
+        # el host ya confinado a una banda ese cálculo no aplica — la banda de
+        # arriba no toca la zona segura — así que un visual con `band` centra
+        # a secas, sin restar nada.
+        camcls = ("vizcam" if band else
+                  "vizcam mock" if v["kind"] == "mockup" else "vizcam")
         # Cuando el creador acompaña al gráfico en PiP, su ventana se come la
         # esquina superior derecha del lienzo: `mock_pad_top` empuja el mockup
         # hacia abajo lo justo para que no se pisen.
@@ -539,7 +571,8 @@ def build_visuals(dur):
             f'<div class="{vcls}" data-viz-id="{vid}" id="host-{vid}" '
             f'data-start="{s:.4f}" data-duration="{d:.4f}" '
             f'data-track-index="{track}" data-layout-allow-overlap '
-            f'style="left:0px;top:0px;width:{W}px;height:{H}px;'
+            f'style="left:{host_rect["left"]}px;top:{host_rect["top"]}px;'
+            f'width:{host_rect["width"]}px;height:{host_rect["height"]}px;'
             f'visibility:hidden;opacity:0;">{inner}</div>')
 
         for a in list(body_anims) + list(hud_anims):

@@ -45,8 +45,8 @@
     {
       "id": "v-tool-1", "role": "takeover", "kind": "mockup",
       "start": 9.076, "end": 10.747,
-      "mock_pad_bottom": 1100,
-      "_": "card de logo, clavada a 'Anime.js' (9.076-9.895). mock_pad_bottom sube la card a la banda de arriba (0-820): con el centrado por defecto el nombre pisaba el subtítulo (content_overlap verificado con hyperframes check).",
+      "band": "top",
+      "_": "card de logo, clavada a 'Anime.js' (9.076-9.895). Tarea 9c: band:\"top\" confina el host a la banda de arriba (0-820) y lo deja transparente, así la banda del hablante (1120-1920) se sigue viendo por debajo — antes el host a lienzo completo del mockup tapaba al hablante entero y mock_pad_bottom solo disimulaba subiendo la card, sin arreglar el fondo opaco.",
       "mock": ["tool_card", {"slug": "animejs", "name": "Anime.js", "kicker": "LIBRERÍA"}]
     },
     {
@@ -59,8 +59,8 @@
     {
       "id": "v-tool-2", "role": "takeover", "kind": "mockup",
       "start": 17.007, "end": 18.381,
-      "mock_pad_bottom": 1100,
-      "_": "card de logo, clavada a 'Motion' (17.007-17.460)",
+      "band": "top",
+      "_": "card de logo, clavada a 'Motion' (17.007-17.460). band:\"top\" (Tarea 9c, ver v-tool-1).",
       "mock": ["tool_card", {"slug": "motion", "name": "Motion", "kicker": "TRANSICIONES"}]
     },
     {
@@ -73,8 +73,8 @@
     {
       "id": "v-tool-3", "role": "takeover", "kind": "mockup",
       "start": 27.217, "end": 28.824,
-      "mock_pad_bottom": 1100,
-      "_": "el guion dice 'Coconut UI' pero el producto es Kokonut UI: el subtítulo transcribe lo dicho, el rótulo pone el nombre real. Clavada a 'Coconut UI.' (27.217-27.828)",
+      "band": "top",
+      "_": "el guion dice 'Coconut UI' pero el producto es Kokonut UI: el subtítulo transcribe lo dicho, el rótulo pone el nombre real. Clavada a 'Coconut UI.' (27.217-27.828). band:\"top\" (Tarea 9c, ver v-tool-1).",
       "mock": ["tool_card", {"slug": "kokonutui", "name": "Kokonut UI", "kicker": "COMPONENTES"}]
     },
     {
@@ -87,8 +87,8 @@
     {
       "id": "v-tool-4", "role": "takeover", "kind": "mockup",
       "start": 38.97, "end": 40.737,
-      "mock_pad_bottom": 1100,
-      "_": "card de logo, clavada a 'Bklit UI.' (38.970-39.660)",
+      "band": "top",
+      "_": "card de logo, clavada a 'Bklit UI.' (38.970-39.660). band:\"top\" (Tarea 9c, ver v-tool-1).",
       "mock": ["tool_card", {"slug": "bklitui", "name": "Bklit UI", "kicker": "GRÁFICOS"}]
     },
     {
@@ -101,8 +101,8 @@
     {
       "id": "v-tool-5", "role": "takeover", "kind": "mockup",
       "start": 48.848, "end": 50.548,
-      "mock_pad_bottom": 1100,
-      "_": "card de logo, clavada a 'Manus,' (48.848-49.217)",
+      "band": "top",
+      "_": "card de logo, clavada a 'Manus,' (48.848-49.217). band:\"top\" (Tarea 9c, ver v-tool-1).",
       "mock": ["tool_card", {"slug": "manus", "name": "Manus", "kicker": "PROTOTIPOS"}]
     },
     {
