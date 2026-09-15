@@ -1096,12 +1096,17 @@ def build_captions(words, dur, shots, viz_skins):
 
 
 _ANIM_NONCE = itertools.count()
-# Nonce para nombres de variable JS únicos (`_hv`/`_mv`/`_cv`) dentro de
-# UN documento. `emit_anim()` recibe una animación a la vez y no puede
-# apoyarse en `len(js)` de una lista global como antes: dos objetos con
-# `count-roll` en el mismo plan (p. ej. un contador que sube en dos
-# tramos, 12→18→27) generarían el mismo `const _cv0` dos veces y el
-# script del documento rompería con un identificador duplicado.
+# Nonce para nombres de variable JS únicos (`_hv`/`_mv`/`_cv`). DE MÓDULO A
+# PROPÓSITO, no local a `emit_anim`: un `js: list[str] = []` fresco en cada
+# llamada reinicia `len(js)` en cada una, y dos animaciones del MISMO kind en
+# el MISMO documento sacarían el MISMO nombre. No es hipotético — la pieza 12
+# sube su contador en dos tramos (12→18→27, mismo id "counter", ver
+# tests/golden/12.plan.json:466-479) y eso son DOS tuplas count-roll en el
+# mismo plan. Con un contador local, las dos declararían `const _cv0` y el
+# script ENTERO de la pieza rompería con `SyntaxError: Identifier '_cv0' has
+# already been declared` — no solo esa animación. Ver el test de regresión en
+# tests/test_motion_gestos.py que reproduce justo este caso: si alguien
+# "simplifica" esto de vuelta a `len(js)`, ese test se pone en rojo.
 
 
 def emit_anim(a) -> str:
