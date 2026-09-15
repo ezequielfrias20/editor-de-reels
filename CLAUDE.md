@@ -287,6 +287,35 @@ con desborde negativo que el stage recorta; el salto entre dos es un **corte dur
 
 Escala de zoom: **1.00 · 1.05 · 1.09 · 1.12 · 1.15**. El 1.15 es escaso.
 
+### El layout `triband`
+
+Un quinto `kind`, junto a `full` · `split` · `pip` · `off`: **`band`**. En vez de que el
+metraje ocupe el lienzo entero o una esquina, lo confina a la franja de ABAJO de tres
+bandas que cubren el lienzo de arriba a abajo **sin huecos** (medidas de la pieza 15, REEL):
+
+```
+top      y    0– 820   card de logo, grabación de producto — lo que se está explicando
+text     y  820–1120   el subtítulo (la excepción de §5)
+speaker  y 1120–1920   el hablante, SIEMPRE visible detrás del takeover
+```
+
+La geometría se declara **una sola vez**, en el bloque `layout` del plan
+(`layout.mode: "triband"`, `layout.bands`) — `triband_panels()` la lee de ahí para las tres
+bandas, y el validador falla si no cubren `0..H` contiguas o si falta alguna. Un segmento la
+activa con `camera: "BAND"` en el EDL (o `kind: "band"` a mano en el plan, para quien no pase
+por el compilador). `BAND` no lleva escalera de zoom a propósito: el rect de la banda ya
+recorta fuerte, y una escalera encima dejaría la cara irreconocible — el reencuadre vertical
+lo hace `object-position` con el `anchor` de siempre.
+
+**Un visual puede declarar `"band": "top"` para vivir DENTRO de una banda en vez de tapar el
+lienzo.** Convive con `role`, no lo sustituye: `role` sigue decidiendo la PISTA
+(`backdrop`/`takeover`); `band` decide la GEOMETRÍA del host. Antes de esto, una card de logo
+a lienzo completo con host opaco tapaba al hablante entero durante las cinco cards de logo
+de la pieza 15 — luma máxima **28** medida sobre el MP4, donde debía verse la camiseta
+blanca del presentador. Declarar `band` en un visual (o `camera: "BAND"` en un segmento) sin
+que el plan traiga `layout` **falla** en vez de caer a un lienzo completo por defecto: la
+geometría de las bandas no tiene un valor implícito razonable.
+
 ### Zona segura
 
 En REEL, **el 20 % inferior queda libre**: ahí pinta la plataforma su interfaz. El espacio
@@ -344,6 +373,26 @@ y1502 (pieza 4), y1518 (pieza 11) y **y1531 (pieza 12)**. El 1531 no es un descu
 `floor_top` haciendo su trabajo en un bloque de dos líneas sin keyword (1536 − 2·75), o sea
 el tope exacto que calcula el generador. Cuando el margen sale de 5 px, la cuenta está
 apretando bien.
+
+### La excepción `triband`
+
+En `full` · `split` · `pip` el subtítulo persigue la barbilla porque el metraje está detrás
+y puede taparla. En `triband` no: entre y820 (techo de la banda de texto) y y1120 (techo de
+la banda del hablante, §4) **no hay metraje**, es suelo grafito, así que no hay barbilla que
+esquivar — perseguirla ahí sería mover el subtítulo sin ningún motivo.
+
+- **Tope fijo en y844** (`bands.text.top` + 24 px de aire, no la barbilla).
+- **Piel `on-surface`, sin filete.** El filete de grafito de 7 px existe para que la letra
+  sobreviva encima de metraje que puede ser claro; sobre suelo liso no hace falta, y solo
+  engordaría la letra sin razón.
+- **Gate en y1104** (`bands.speaker.top` − 16 px de margen): el bloque no puede invadir la
+  banda del hablante, y si la cuenta lo cruza el compilador **para** en vez de recortar en
+  silencio — «trocea el bloque más corto» en el mensaje de error.
+- **Máximo dos líneas**, y sale de medir, no de una regla puesta a mano. Con la keyword
+  resaltada: base **66 px**, keyword 66×1.22 = **81**, caja de línea 81×1.14 = **92**. Dos
+  líneas = 184 px → la tinta cae en **y1028** (844+184), 76 px de margen bajo el gate. Tres
+  líneas = 276 px → **y1120** exacto — toca la banda del hablante sin un solo píxel de aire,
+  y el gate lo rechaza antes de renderizar.
 
 ---
 
@@ -1222,6 +1271,54 @@ keyword (12 en la pieza 10, 15 en la 12). Es del emisor de keywords de
 `build-composition.py`, no de ninguna pieza: dos `fromTo` sobre el mismo `#cNkM` sin un
 `tl.set` de base a t=0. Sin efecto visible —el bloque de subtítulo está a opacidad 0 hasta
 su propio instante— pero es deuda real y crece con cada keyword.
+
+⚠ **Los EDL de las piezas 12, 13 y 14 se perdieron.** `videos/` se borró sin commitear en
+algún punto y esos tres `edl.json` nunca llegaron a HEAD ni a ningún commit colgante — se
+buscaron los dos sitios antes de darlos por perdidos. Los golden (`tests/golden/12.plan.json`
+· `13.plan.json` · `14.plan.json`) sí sobreviven, pero sin su EDL de origen no hay nada que
+compilar y comparar contra ellos: `tests/conftest.py` hace `pytest.skip` en `edl12`/`edl13`/
+`edl14` con el motivo escrito, en vez de fallar o fingir que la fixture existe. **La única
+no-regresión viva del camino EDL es la pieza 10** (`test_el_plan_de_la_pieza_10_no_ha_cambiado`,
+que sí tiene su `edl.json`) — si se toca `edl_compile.py` o `edl_schema.py`, ese es el test
+que hay que mirar, porque los otros tres están apagados y no van a avisar.
+
+**Pieza 15 — terminada, primera en `triband`.** `videos/15/output.mp4`, REEL 9:16,
+**69.87 s**, H.264 + AAC. 5 herramientas para construir webs con Claude (Anime.js, Motion,
+Kokonut UI, Bklit UI, Manus) · CTA **WEBS**.
+
+- ⚠ **`VIDEOS ORIGINALES/1` → pieza 15.** La numeración de la carpeta fuente NO es la de
+  pieza, la misma trampa que ya avisa la nota de la pieza 10 — y aquí confundió otra vez
+  antes de escribirlo: se busca por lo que dice el `guion.md` y el transcript, no por el
+  número de carpeta.
+- Fuente `VIDEOS ORIGINALES/1/pantalla.MOV`: **78.94 s → 69.87 s** (11.5 % fuera, 9 cortes).
+  178 palabras. Barbilla `chin_frac` **0.4531**, 48/48 muestras. Los encuadres `band` usan
+  el `anchor` por defecto del estilo, **0.5714**, que con esa barbilla coloca la cara en
+  **y1350** dentro de la banda del hablante (1120–1920) — cómodo, ni pegado al techo de la
+  banda ni a su suelo.
+- **Cinco herramientas, la misma coreografía para las cinco**: card de logo (`tool_card`,
+  `band: "top"`) clavada a su nombre → grabación dirigida (`tool_recording`, `screen-tour.py`)
+  en triband. El hook y la tesis se quedan a **plano lleno** (`kind: "full"`), porque ahí la
+  cara sola es el argumento y una banda la recortaría sin necesidad.
+- **El recorrido de Kokonut UI se rehízo entero.** El primero mostraba, en el segundo exacto
+  en que el guion dice «aquí tienes componentes visuales que puedes usar como referencia o
+  integrar en tus proyectos», la sección **«What People Are Saying»** de la web — testimonios,
+  no componentes: la prueba de fuego del proyecto (arriba del todo) falla con el audio
+  apagado ahí. Barrida la grabación (`kokonutui.mov`, 7.47 s) cada 0.5 s: el scroll pasa
+  limpio por la fila de tarjetas nombradas (`particle-button` · `liquid-glass-card` ·
+  `shimmer-text` · `ai-prompt`) y el registry (`@kokonutui/…`) hasta t≈4.1 s, y de ahí al
+  final es testimonios fijos — el scroll frena en seco y ya no hay nada más que mostrar.
+  Ventana útil real: **3.8 s**, no los 6.6 s que pide el hueco del EDL. Arreglo en
+  `videos/15/screen-tour-kokonut.json`: dos tramos sobre la MISMA ventana de tiempo pero con
+  **dos encuadres distintos** (uno recorta la mitad de arriba de la pantalla —el titular
+  «Components humans browse. Agents ship.» y el comando de instalación—, el otro la de abajo
+  —la rejilla de tarjetas y el registry completos—), en vez de estirar un solo encuadre sobre
+  metraje que ya no existe.
+- Validación **0 errores**. Verificado sobre el MP4 en el segundo exacto del hallazgo: en
+  t=32.0 el encuadre de Kokonut ahora enseña «Get started in seconds» con las tarjetas
+  Browse/Install/Customize, y el hablante sigue visible en la banda de abajo (luma máxima
+  **232** en y1120–1920, sobre el umbral de 200). Las otras cuatro herramientas no se
+  tocaron: sus `screen-tour-*.json` y el `plan.json` quedan sin diff.
+- Suite: **353 passed, 0 failed, 0 errors** (11 skipped — los de arriba).
 
 ---
 
