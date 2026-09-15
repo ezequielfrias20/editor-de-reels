@@ -69,3 +69,29 @@ def test_un_segmento_band_sin_layout_es_error(edl_min, problems_of):
     malo = dict(edl_min)
     malo["segments"] = [dict(malo["segments"][0], camera="BAND")]
     assert "camera BAND sin bloque 'layout'" in problems_of(malo)
+
+
+def test_un_segmento_band_emite_un_encuadre_band(edl_min, write_edl, style):
+    from edl_compile import compile_edl
+    plan = compile_edl(write_edl(_con_layout(edl_min, LAYOUT_OK)), style)
+    assert plan["shots"][0]["kind"] == "band"
+
+
+def test_el_encuadre_band_no_lleva_zoom(edl_min, write_edl, style):
+    """La banda ya es un recorte fuerte: una escalera encima lo haría ilegible."""
+    from edl_compile import compile_edl
+    plan = compile_edl(write_edl(_con_layout(edl_min, LAYOUT_OK)), style)
+    assert "zoom" not in plan["shots"][0]
+
+
+def test_el_layout_viaja_al_plan(edl_min, write_edl, style):
+    from edl_compile import compile_edl
+    plan = compile_edl(write_edl(_con_layout(edl_min, LAYOUT_OK)), style)
+    assert plan["layout"]["bands"]["speaker"] == [1120, 1920]
+
+
+def test_un_edl_sin_layout_no_mete_la_clave_en_el_plan(edl_min, write_edl, style):
+    """Una clave nueva en el plan de una pieza vieja rompería su golden."""
+    from edl_compile import compile_edl
+    plan = compile_edl(write_edl(edl_min), style)
+    assert "layout" not in plan

@@ -104,6 +104,11 @@ def _shots(edl: Edl, style: dict, src_w: int | None = None) -> list[dict]:
     def emit(at: float, camera: str) -> None:
         if camera == "OFF":
             out.append({"at": q(at), "kind": "off"})
+        elif camera == "BAND":
+            # Sin zoom a propósito: el rect de la banda ya recorta fuerte y la
+            # escalera encima dejaría la cara irreconocible. El reencuadre
+            # vertical lo hace `object-position` con `anchor`.
+            out.append({"at": q(at), "kind": "band", "anchor": anchor})
         else:
             out.append({"at": q(at), "kind": "full",
                         "zoom": ladder[camera], "anchor": anchor})
@@ -327,7 +332,7 @@ def compile_edl(edl: Edl, style: dict, src_w: int | None = None) -> dict:
     recorta la escalera al máximo en vez de dar por bueno un zoom que el fuente
     no aguanta.
     """
-    return {
+    plan = {
         "format": edl.fmt,
         "voice_gain": edl.voice_gain,
         "music": edl.music,
@@ -339,6 +344,11 @@ def compile_edl(edl: Edl, style: dict, src_w: int | None = None) -> dict:
         "sfx": _sfx(edl),
         "_": f"generado por edl-compile desde {edl.src.name} — NO editar a mano",
     }
+    # Condicional a propósito: una clave incondicional cambiaría el plan de
+    # TODAS las piezas viejas y rompería el golden de la 10.
+    if edl.layout:
+        plan["layout"] = edl.layout
+    return plan
 
 
 def _sin_ruido_creativo(node):
