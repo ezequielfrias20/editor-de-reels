@@ -39,6 +39,11 @@ TRANSITIONS = frozenset({"CUT", "DIAGONAL_WIPE", "BLUR_WIPE",
 # una escalera encima lo haría irreconocible.
 CAMERAS = frozenset({"WIDE", "MEDIUM", "CLOSE", "BAND", "OFF"})
 
+LAYOUT_MODES = frozenset({"triband"})
+# El orden IMPORTA: es el de arriba abajo, y con él se comprueba la contigüidad.
+BAND_ORDER = ("top", "text", "speaker")
+CANVAS_H = {"REEL": 1920, "YOUTUBE": 1080}
+
 # Los sceneType que abren stage. Es lo que da ámbito a un instanceId.
 STAGE_TYPES = frozenset({"MOTION_STAGE", "KINETIC_TYPE"})
 
@@ -136,6 +141,7 @@ class Edl:
     voice_gain: float
     music: dict
     planner: dict
+    layout: dict = field(default_factory=dict)
 
 
 def segment_windows(segments, wt: WordTable) -> tuple[tuple[float, float], ...]:
@@ -452,6 +458,59 @@ def _check_transitions(segments, problems: list[str]) -> None:
                 f"segmento no las muta con OBJECT_STATE. El match cut ES la mutación")
 
 
+def validate_layout(layout: dict, segments, canvas_h: int) -> list[str]:
+    """Las bandas tienen que cubrir el lienzo entero, en orden y sin huecos.
+
+    Un hueco entre dos bandas es suelo grafito que nadie decidió dejar, y en un
+    lienzo de 1920 px pasa desapercibido en el JSON y no en el frame.
+    """
+    problems: list[str] = []
+    usa_band = any(s.camera == "BAND" for s in segments)
+
+    if not layout:
+        if usa_band:
+            problems.append(
+                "hay un segmento con camera BAND sin bloque 'layout' en la cabecera: "
+                "la geometría de las tres bandas se declara una sola vez y se comparte")
+        return problems
+
+    mode = layout.get("mode")
+    if mode not in LAYOUT_MODES:
+        problems.append(f"layout.mode '{mode}' desconocido; hay {sorted(LAYOUT_MODES)}")
+        return problems
+
+    bands = layout.get("bands") or {}
+    faltan = [k for k in BAND_ORDER if k not in bands]
+    if faltan:
+        problems.append(f"layout.bands: faltan {faltan}; el triband pide {list(BAND_ORDER)}")
+        return problems
+
+    for k in BAND_ORDER:
+        v = bands[k]
+        if not isinstance(v, list) or len(v) != 2:
+            problems.append(f"layout.bands.{k} tiene que ser [y0, y1]")
+            return problems
+        if v[1] <= v[0]:
+            problems.append(f"layout: banda '{k}' invertida o vacía {v}")
+
+    ys = [bands[k] for k in BAND_ORDER]
+    if ys[0][0] != 0 or ys[-1][1] != canvas_h:
+        problems.append(
+            f"layout: las bandas tienen que cubrir 0..{canvas_h}, y van de "
+            f"{ys[0][0]} a {ys[-1][1]}")
+    for a, b, ka, kb in zip(ys, ys[1:], BAND_ORDER, BAND_ORDER[1:]):
+        if a[1] != b[0]:
+            problems.append(
+                f"layout: las bandas '{ka}' y '{kb}' no son contiguas "
+                f"({a[1]} → {b[0]}): un hueco entre bandas es suelo que nadie decidió")
+
+    if not usa_band:
+        problems.append(
+            "layout declarado pero ningún segmento usa camera BAND: declarar geometría "
+            "que nadie usa casi siempre significa que faltó marcar los segmentos")
+    return problems
+
+
 def load_edl(path: Path, project_root: Path) -> Edl:
     path, project_root = Path(path), Path(project_root)
     if path.name.endswith(".draft.json"):
@@ -587,6 +646,9 @@ def load_edl(path: Path, project_root: Path) -> Edl:
     _check_instances(segments, problems)
     _check_transitions(segments, problems)
 
+    layout = raw.get("layout") or {}
+    problems += validate_layout(layout, segments, CANVAS_H[raw.get("format", "REEL").upper()])
+
     # ── overrides ────────────────────────────────────────────────────────────
     overrides: list[Override] = []
     for i, ro in enumerate(raw.get("plan_overrides", [])):
@@ -609,4 +671,5 @@ def load_edl(path: Path, project_root: Path) -> Edl:
                style_profile=raw.get("style_profile", "motion-explainer"),
                wt=wt, segments=tuple(segments), overrides=tuple(overrides),
                voice_gain=float(raw.get("voice_gain", 0.70)),
-               music=raw.get("music", {}), planner=raw.get("planner", {}))
+               music=raw.get("music", {}), planner=raw.get("planner", {}),
+               layout=layout)
