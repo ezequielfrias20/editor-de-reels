@@ -33,6 +33,64 @@ def test_dos_lineas_con_keyword_caben_en_la_banda(project_root):
     assert 844 + 2 * m["line_h"] <= FLOOR
 
 
-def test_tres_lineas_no_caben(project_root):
-    """3 x 92 = 276; 844 + 276 = 1120, o sea encima de la banda del hablante."""
-    assert 844 + 3 * 92 > FLOOR
+BANDS = {"top": [0, 820], "text": [820, 1120], "speaker": [1120, 1920]}
+
+
+@pytest.fixture
+def banda(bc, project_root):
+    """Fija los globals que `build_captions` lee (`bc` es de ámbito de SESIÓN
+    en conftest.py, así que una fuga aquí contaminaría otros archivos de
+    test) y los restaura al terminar — mismo patrón que
+    `test_triband_geometry.py`."""
+    prev = dict(W=bc.W, H=bc.H, FMT=bc.FMT, LAYOUT=bc.LAYOUT,
+                CAPTION_SIZE=bc.CAPTION_SIZE, CAPTION_MAXW=bc.CAPTION_MAXW,
+                CAPTION_MARGIN=bc.CAPTION_MARGIN, WORK=bc.WORK,
+                CAPTIONS=bc.CAPTIONS)
+    bc.W, bc.H, bc.FMT = 1080, 1920, "REEL"
+    bc.LAYOUT = {"mode": "triband", "bands": BANDS}
+    bc.CAPTION_SIZE = BASE
+    bc.CAPTION_MAXW = round(bc.W * 0.84)
+    bc.CAPTION_MARGIN = round(bc.W * 0.07)
+    # El .inter900.ttf cacheado en videos/10 es lo que permite medir la
+    # fuente real sin renderizar.
+    bc.WORK = project_root / "videos" / "10"
+    yield bc
+    for k, v in prev.items():
+        setattr(bc, k, v)
+
+
+def _words(*textos, paso=0.3, dur=0.25):
+    """Palabras sintéticas con timings crecientes, en el mismo formato que
+    devuelve `load()`: `{"text", "start", "end"}`."""
+    out, t = [], 0.0
+    for txt in textos:
+        out.append({"text": txt, "start": t, "end": t + dur})
+        t += paso
+    return out
+
+
+def test_un_bloque_que_cabe_atraviesa_build_captions_con_el_tope_fijo(banda):
+    """El gate no es solo aritmética: hay que atravesar `build_captions()` de
+    verdad. Dos líneas (844 -> 1028) caben con 76 px de holgura sobre el
+    suelo (1104), así que la función devuelve normalmente y el `top` del
+    subtítulo emitido —no un literal— es el tope fijo y844."""
+    words = _words("la", "primera", "es", "anime.js")
+    shots = [{"start": 0.0, "end": 10.0, "kind": "band", "zoom": 1.0, "anchor": 0.5}]
+    banda.CAPTIONS = [{"words": [0, 3], "keyword": [3, 3]}]
+    spans, anims, key_anims, rows = banda.build_captions(words, 10.0, shots, [])
+    assert len(rows) == 1
+    assert rows[0][3] == 844
+
+
+def test_un_bloque_que_no_cabe_hace_salir_la_compilacion(banda):
+    """El `sys.exit(...)` del gate es un fallo REAL, y solo se prueba de
+    verdad disparándolo: tres líneas (844 -> 1120) invaden la banda del
+    hablante (suelo 1104), y `build_captions()` tiene que salir con
+    `SystemExit` mencionando la banda del hablante, no devolver un plan que
+    la invade."""
+    words = _words("PACIENTES", "AUTOMÁTICAMENTE", "POR", "WHATSAPP")
+    shots = [{"start": 0.0, "end": 10.0, "kind": "band", "zoom": 1.0, "anchor": 0.5}]
+    banda.CAPTIONS = [{"words": [0, 3], "keyword": [0, 0]}]
+    with pytest.raises(SystemExit) as ei:
+        banda.build_captions(words, 10.0, shots, [])
+    assert "banda del hablante" in str(ei.value)
