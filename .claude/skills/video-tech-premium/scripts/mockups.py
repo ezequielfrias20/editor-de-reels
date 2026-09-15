@@ -564,7 +564,19 @@ def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, st
     (`#0B0B0C`, 1.11:1) y Bklit UI (`#000000`, 1.18:1) se hunden sin él; Manus
     (17.73:1), Anime.js y Kokonut UI (transparentes) no lo necesitan pero
     tampoco lo penaliza — es una regla del componente, no un caso especial
-    escrito para dos slugs.
+    escrito para dos slugs. El hairline es `LINE_HI` (no el `LINE` de
+    costumbre): compuesto sobre `surface` da 1.63:1 (`tokens.lift`), un
+    margen real sobre el 1.11–1.18:1 de los dos tiles que motivaron el
+    arreglo — con `LINE` a secas quedaba en 1.29:1, apenas por encima del
+    peor tile, y el marco tiene que separar más de lo que ya fallaba.
+
+    `tc-tilt` es el wrapper HIJO estático de `perspective()+rotateY()`: GSAP
+    no lo toca — solo anima `#{cid}-logo` y `#{cid}-name`, opacity/x/y — así
+    que el tilt no se puede descuadrar por un tween posterior de scale (mismo
+    mecanismo que `objects._object_html`). -6° es el valor que ya usan
+    `dental_chair`/`bottleneck`: una card no necesita su propio ángulo, y
+    reutilizar el de la librería de objetos es lo que hace que las tres
+    bandas del triband lean del mismo mundo 3D.
     """
     p = f'.viz[data-viz-id="{cid}"]'
     # `ratio` mide el tile de la marca contra `surface` y puede ser None (marca
@@ -574,11 +586,12 @@ def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, st
     css = f"""
 {p} .tc-card{{position:absolute;inset:0;display:flex;align-items:center;
   justify-content:center}}
+{p} .tc-tilt{{transform:perspective(1400px) rotateY(-6deg);transform-style:preserve-3d}}
 {p} .tc-root{{display:flex;align-items:center;gap:30px;background:{C['surface']};
   border:1px solid {LINE};border-radius:{RADIUS['lg']}px;box-shadow:{SHADOW};
   padding:30px 46px}}
 {p} .tc-logoframe{{flex:0 0 auto;width:112px;height:112px;
-  border-radius:{RADIUS['md']}px;background:{C['bg']};border:1px solid {LINE};
+  border-radius:{RADIUS['md']}px;background:{C['bg']};border:1px solid {LINE_HI};
   display:flex;align-items:center;justify-content:center;overflow:hidden}}
 {p} .tc-logo{{opacity:0;display:flex;align-items:center;justify-content:center}}
 {p} .tc-name{{display:flex;flex-direction:column;gap:8px;opacity:0}}
@@ -586,13 +599,14 @@ def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, st
   letter-spacing:.16em;color:{C['violet_hi']};text-transform:uppercase}}
 {p} .tc-word{{font-family:{FONT};font-weight:900;font-size:58px;line-height:1;
   letter-spacing:-.03em;color:{C['text']}}}"""
-    html = (f'<div class="tc-card" id="{cid}-card"><div class="tc-root">'
+    html = (f'<div class="tc-card" id="{cid}-card"><div class="tc-tilt">'
+            f'<div class="tc-root">'
             f'<div class="tc-logoframe"><span class="tc-logo" id="{cid}-logo">'
             f'{logo_html}</span></div>'
             f'<div class="tc-name" id="{cid}-name">'
             + (f'<span class="tc-kick">{esc(kicker)}</span>' if kicker else "")
             + f'<span class="tc-word">{esc(name)}</span>'
-            + "</div></div></div>")
+            + "</div></div></div></div>")
     anims = [
         ("glide-x", f'{p} #{cid}-logo', .10, .45),
         ("drop-in", f'{p} #{cid}-name', .18, .42),
@@ -619,6 +633,24 @@ def tool_recording(cid: str, slug: str, name: str,
     Manus es la única CLARA de las cinco y necesita un marco más marcado para
     no perderse contra un fondo también claro. El llamador decide el grosor
     por grabación — este componente no conoce ningún slug especial.
+
+    **El tilt 3D va SOLO en el chip (`.tr-chip`, 40×40), nunca en el marco
+    (`.tr-panel`) ni en la cabecera entera (`.tr-head`).** Dos motivos, los
+    dos verificados en Chrome headless, no supuestos:
+
+    1. El `<video>` de la grabación es un elemento aparte que este componente
+       no controla y que se coloca sin transform, plano, en el mismo `rect`.
+       Si el marco llevara `rotateY`, su borde dejaría de coincidir con el
+       borde del video real que enmarca.
+    2. **Probé el tilt en `.tr-head` entera (la barra ancha, 960×84) y se ve
+       ROTA, no elegante**: al ser una franja pegada al borde superior,
+       `rotateY` alrededor de su propio centro le abre un hueco visible en la
+       esquina superior donde el fondo se asoma por debajo — no es «sutil»,
+       es un defecto. Un elemento CUADRADO y pequeño como `.tr-chip` no tiene
+       ese problema: rota sobre sí mismo sin desprenderse de ningún borde
+       compartido. Por eso el tilt vive solo ahí, con un ángulo más marcado
+       (-8°, contra -6° en `tool_card`) para que se note en un elemento tan
+       chico — la cabecera sigue plana y pegada a su rect.
     """
     x, y, w, h = rect
     p = f'.viz[data-viz-id="{cid}"]'
@@ -632,8 +664,9 @@ def tool_recording(cid: str, slug: str, name: str,
   display:flex;align-items:center;gap:16px;padding:0 26px;
   background:rgba(11,12,16,.72);border-bottom:1px solid {LINE_HI};opacity:0}}
 {p} .tr-chip{{flex:0 0 auto;width:40px;height:40px;border-radius:{RADIUS['sm']}px;
-  background:{C['bg']};border:1px solid {LINE};display:flex;align-items:center;
-  justify-content:center;overflow:hidden}}
+  background:{C['bg']};border:1px solid {LINE_HI};display:flex;align-items:center;
+  justify-content:center;overflow:hidden;
+  transform:perspective(800px) rotateY(-8deg);transform-style:preserve-3d}}
 {p} .tr-name{{font-family:{FONT};font-weight:800;font-size:28px;
   letter-spacing:-.02em;color:{C['text']}}}"""
     html = (f'<div class="tr-panel" id="{cid}-panel">'
