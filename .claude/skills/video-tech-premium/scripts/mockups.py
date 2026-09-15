@@ -198,7 +198,12 @@ def app_switch(cid: str, apps: list[tuple[str, str]], brand: str,
             ratio = 99.0
         else:
             mk, ratio = logos.mark(slug, 104, "brand" if slug == brand else "mono")
-        if ratio < 3:
+        # `ratio` es None cuando la marca es vendorizada y transparente (sin
+        # tile propio, p.ej. animejs, kokonutui): no hay tile que se pueda
+        # perder contra el fondo de la tarjeta, así que la pregunta de este
+        # gate no aplica. No se bloquea la marca por algo que no le
+        # corresponde medir, y tampoco se inventa un ratio.
+        if ratio is not None and ratio < 3:
             raise ValueError(f"{slug}: contraste de logo insuficiente ({ratio:.2f}:1)")
         tiles.append(
             f'<div class="apptile" id="{cid}-app{i}">'

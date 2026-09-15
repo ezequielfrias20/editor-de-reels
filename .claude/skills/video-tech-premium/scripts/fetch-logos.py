@@ -117,12 +117,33 @@ def fetch_known(slug: str, meta: dict) -> None:
     print(f"{slug} → assets/logos/{slug}.svg")
 
 
+_UNSAFE_SVG = (
+    (re.compile(rb"<script\b", re.IGNORECASE), "un <script>"),
+    (re.compile(rb"<foreignObject\b", re.IGNORECASE), "un <foreignObject>"),
+    (re.compile(rb"\son\w+\s*=", re.IGNORECASE), "un manejador de evento on...="),
+)
+
+
+def _reject_unsafe_svg(raw: bytes, slug: str) -> None:
+    """Un SVG vendorizado entra VERBATIM al HTML que Chrome renderiza —
+    `_fit_svg()` en logos.py solo toca el `width`/`height` del `<svg>` raíz,
+    nada de su contenido. Sin este gate, un `<script>`, un manejador
+    `on...=` o un `foreignObject` entrarían enteros al render. Falla en la
+    DESCARGA, no en el render: la misma disciplina que el gate de resolución
+    de abajo, y que `screen-tour.py` fallando antes de renderizar ante barras
+    negras."""
+    for pattern, label in _UNSAFE_SVG:
+        if pattern.search(raw):
+            raise SystemExit(f"{slug}: SVG rechazado — contiene {label}")
+
+
 def fetch_vendor(slug: str, meta: dict) -> None:
     """Descarga una marca fuera de Simple Icons desde su fuente oficial.
 
     Una marca raster que no pase el gate de resolución NO se vendoriza: el
     script se detiene en vez de guardar algo que entraría estirado en la
-    card sin que nadie lo note.
+    card sin que nadie lo note. Un SVG que no pase el gate de seguridad
+    tampoco: ver `_reject_unsafe_svg`.
     """
     if slug not in VENDOR:
         raise SystemExit(f"slug no declarado en VENDOR: {slug}")
@@ -130,6 +151,8 @@ def fetch_vendor(slug: str, meta: dict) -> None:
     req = urllib.request.Request(url, headers={"User-Agent": "editor-videos/1.0"})
     with urllib.request.urlopen(req, timeout=60) as r:
         raw = r.read()
+    if fmt == "svg":
+        _reject_unsafe_svg(raw, slug)
     dest = OUT / f"{slug}.{fmt}"
     dest.write_bytes(raw)
     if fmt == "svg":
