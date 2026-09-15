@@ -87,6 +87,12 @@ LAYOUT = {}         # bloque `layout` del plan (Tarea 3); {} si el plan no trae 
 KW_SCALE = caption_metrics.KEYWORD_SCALE_MAX
 CAPTION_SIZE = CAPTION_MAXW = CAPTION_MARGIN = None
 
+# Aire bajo el techo de la banda de texto, y holgura sobre la del hablante.
+# El tope es FIJO: un bloque de una línea y otro de dos tienen que empezar en
+# la misma y, o el ojo ve el texto saltar entre bloques.
+BAND_CAP_PAD = 24
+BAND_CAP_MARGIN = 16
+
 
 def q(t):
     """Cuantiza a frame y recorta a 4 decimales."""
@@ -1038,28 +1044,47 @@ def build_captions(words, dur, shots, viz_skins):
                 skin = vskin
             if ov > 0.12 and vtop is not None:
                 tops.append(vtop)
-        if sh and sh["kind"] == "pip":
-            if not tops:
-                skin = "on-dark"
-            tops.append(round(H * 0.60))
-        elif sh and sh["kind"] != "off":
-            tops.append(round(min(chin_at(sh) + H * 0.030, H * 0.80)))
-        top = max(tops) if tops else round(H * 0.72)
+        if sh and sh["kind"] == "band":
+            # En triband el subtítulo no persigue la barbilla: entre el techo y
+            # el suelo de su banda NO hay metraje, así que no puede tapar la
+            # cara. Tope fijo, piel sin filete —el filete existe para sobrevivir
+            # encima del metraje— y un gate que impide invadir al hablante.
+            bandas = triband_panels()
+            top = bandas["text"]["top"] + BAND_CAP_PAD
+            suelo = bandas["speaker"]["top"] - BAND_CAP_MARGIN
+            skin = "on-surface"
+            m = caption_metrics.measure_block(disp, CAPTION_SIZE, krange, FMT, H, W,
+                                              cache_dir=WORK, floor_px=suelo)
+            bajo = top + m["n_lines"] * m["line_h"]
+            if bajo > suelo:
+                sys.exit(
+                    f"bloque {ci} «{' '.join(u for _, u in ch)}»: {m['n_lines']} líneas "
+                    f"acaban en y{bajo} y la banda del hablante empieza en "
+                    f"y{bandas['speaker']['top']}. Trocea el bloque más corto.")
+            n_lines = m["n_lines"]
+        else:
+            if sh and sh["kind"] == "pip":
+                if not tops:
+                    skin = "on-dark"
+                tops.append(round(H * 0.60))
+            elif sh and sh["kind"] != "off":
+                tops.append(round(min(chin_at(sh) + H * 0.030, H * 0.80)))
+            top = max(tops) if tops else round(H * 0.72)
 
-        # ZONA SEGURA: en REEL el 20 % inferior lo pinta la plataforma con su
-        # propia interfaz, así que ahí no puede caer TINTA — no basta con que
-        # empiece antes de 1536. La cuenta necesita el número de líneas Y el
-        # tamaño MÁXIMO del bloque (la keyword mide 1.22x), así que vive en
-        # `caption_metrics`, testeable sin renderizar. Sin esto un bloque de
-        # dos líneas colocado sobre un gráfico metía la segunda línea 46 px
-        # dentro de la interfaz.
-        # Se mide el texto que de verdad se pinta (`disp`: caja de frase salvo
-        # la keyword), no la versión en mayúsculas: la mayúscula es más ancha y
-        # habría subido el techo sin necesidad.
-        m = caption_metrics.measure_block(disp, CAPTION_SIZE, krange, FMT, H, W,
-                                          cache_dir=WORK)
-        n_lines, floor_top = m["n_lines"], m["floor_top"]
-        top = min(top, floor_top)
+            # ZONA SEGURA: en REEL el 20 % inferior lo pinta la plataforma con
+            # su propia interfaz, así que ahí no puede caer TINTA — no basta
+            # con que empiece antes de 1536. La cuenta necesita el número de
+            # líneas Y el tamaño MÁXIMO del bloque (la keyword mide 1.22x), así
+            # que vive en `caption_metrics`, testeable sin renderizar. Sin esto
+            # un bloque de dos líneas colocado sobre un gráfico metía la
+            # segunda línea 46 px dentro de la interfaz.
+            # Se mide el texto que de verdad se pinta (`disp`: caja de frase
+            # salvo la keyword), no la versión en mayúsculas: la mayúscula es
+            # más ancha y habría subido el techo sin necesidad.
+            m = caption_metrics.measure_block(disp, CAPTION_SIZE, krange, FMT, H, W,
+                                              cache_dir=WORK)
+            n_lines, floor_top = m["n_lines"], m["floor_top"]
+            top = min(top, floor_top)
 
         spans.append(f'<div class="cap {skin}" id="cap{ci}" data-layout-allow-overlap '
                      f'style="top:{top}px">{"".join(parts)}</div>')

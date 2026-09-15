@@ -11,6 +11,8 @@ resto del bloque, y eso cambia dos cuentas que antes eran triviales:
   2. El ancho que decide si el bloque es de una o dos líneas tiene que pesar
      los caracteres de la keyword a SU tamaño, o un bloque medido como una
      línea se renderiza como dos y la cuenta de arriba falla igual.
+  3. En el layout `triband` el suelo NO es el 20% de la plataforma sino el
+     techo de la banda del hablante. La cuenta es la misma; cambia el suelo.
 
 Encapsularlo aquí lo hace testeable SIN renderizar, que es el ciclo caro: la
 zona segura solo se verificaba extrayendo frames del MP4.
@@ -32,7 +34,7 @@ FORMATS = ("REEL", "YOUTUBE")
 
 def measure_block(words, base_size: int, keyword_range, fmt: str, canvas_h: int,
                   canvas_w: int = 1080, keyword_scale: float = KEYWORD_SCALE_MAX,
-                  cache_dir=None) -> dict:
+                  cache_dir=None, floor_px: int | None = None) -> dict:
     """→ {n_lines, max_size, line_h, floor_top, width}
 
     `keyword_range` es `(lo, hi)` inclusive sobre los índices de `words`, o
@@ -69,7 +71,11 @@ def measure_block(words, base_size: int, keyword_range, fmt: str, canvas_h: int,
             linea += w
 
     # LA CUENTA QUE IMPORTA: con `max_size`, no con `base_size`.
-    floor_top = round(canvas_h * SAFE_BOTTOM) - n_lines * line_h
+    # En `full` el suelo es el 20 % que pinta la plataforma. En triband no: el
+    # suelo es la banda del hablante, que está MUCHO más arriba, y lo pasa
+    # quien llama con `floor_px`.
+    suelo = floor_px if floor_px is not None else round(canvas_h * SAFE_BOTTOM)
+    floor_top = suelo - n_lines * line_h
 
     return {"n_lines": n_lines, "max_size": max_size, "line_h": line_h,
             "floor_top": floor_top, "width": round(width, 2)}
