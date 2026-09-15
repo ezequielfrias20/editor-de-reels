@@ -1123,6 +1123,19 @@ def emit_anim(a) -> str:
         js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 0.94, y: 8 }}, '
                   f'{{ opacity: 1, scale: 1, y: 0, duration: {round(d*1.25,4)}, '
                   f'ease: "power2.out" }}, {t:.4f});')
+    elif kind == "glide-x":
+        # De derecha a izquierda. Recorrido corto a propósito: lo que entra
+        # por opacidad es la CARD, y dentro de ella el logo solo se desliza
+        # lo justo para que el ojo lea una llegada, no un barrido.
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, x: 72 }}, '
+                  f'{{ opacity: 1, x: 0, duration: {d}, '
+                  f'ease: "power2.out" }}, {t:.4f});')
+    elif kind == "drop-in":
+        # De arriba abajo, distinto del `glide-x` a propósito: dos
+        # recorridos distintos hacen que el ojo lea DOS elementos.
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, y: -22 }}, '
+                  f'{{ opacity: 1, y: 0, duration: {d}, '
+                  f'ease: "power3.out" }}, {t:.4f});')
     elif kind == "scale-pop":
         js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 0.955 }}, '
                   f'{{ opacity: 1, scale: 1, duration: {round(d*1.30,4)}, '
