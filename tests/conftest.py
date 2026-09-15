@@ -127,14 +127,6 @@ def manifest(project_root):
 
 # ── pieza 12 ─────────────────────────────────────────────────────────────────
 @pytest.fixture(scope="session")
-def w12(project_root):
-    """Las palabras de la pieza 12, remapeadas a la línea del corte."""
-    from edl_words import load_words
-    return load_words(project_root / "transcripts" / "12.json",
-                      project_root / "cuts" / "12.json")
-
-
-@pytest.fixture(scope="session")
 def edl12(project_root):
     """El EDL de la pieza 12.
 
@@ -173,13 +165,6 @@ def card_edl(edl_min):
 
 # ── pieza 13 ─────────────────────────────────────────────────────────────────
 @pytest.fixture(scope="session")
-def w13(project_root):
-    from edl_words import load_words
-    return load_words(project_root / "transcripts" / "13.json",
-                      project_root / "cuts" / "13.json")
-
-
-@pytest.fixture(scope="session")
 def edl13(project_root):
     """El EDL de la pieza 13.
 
@@ -203,13 +188,6 @@ def plan13(edl13, style):
 
 
 # ── pieza 14 ─────────────────────────────────────────────────────────────────
-@pytest.fixture(scope="session")
-def w14(project_root):
-    from edl_words import load_words
-    return load_words(project_root / "transcripts" / "14.json",
-                      project_root / "cuts" / "14.json")
-
-
 @pytest.fixture(scope="session")
 def edl14(project_root):
     """El EDL de la pieza 14.
