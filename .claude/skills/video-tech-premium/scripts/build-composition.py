@@ -445,6 +445,7 @@ def build_visuals(dur):
                   "chip_grid": mockups.chip_grid,
                   "comment_ui": mockups.comment_ui,
                   "chat_unanswered": mockups.chat_unanswered,
+                  "tool_card": mockups.tool_card,
                   "motion_stage": objects.motion_stage}[which]
             body_css, body_html_, body_anims = fn(vid, **kw)
         elif v["kind"] == "image":
@@ -472,7 +473,15 @@ def build_visuals(dur):
                 boxes = [(q(a - s), q(b - s), x, y, bw, bh)
                          for a, b, x, y, bw, bh in v.get("boxes", [])]
                 body_css, body_html_, body_anims = mockups.screen_overlay(vid, clicks, boxes)
-            if v.get("chrome"):
+            if v.get("tool_recording"):
+                # Igual trato que `chrome`/`panel`: no dibuja el <video>, se
+                # dibuja ALREDEDOR de su `rect` — por eso lee `rect` directo
+                # del visual y no de un `kw` de mockup (Tarea 8b).
+                tr = v["tool_recording"]
+                c_css, c_html, c_anims = mockups.tool_recording(
+                    vid, tr["slug"], tr["name"], (rx, ry, rw, rh),
+                    tr.get("hairline", 1))
+            elif v.get("chrome"):
                 ch = v["chrome"]
                 c_css, c_html, c_anims = mockups.browser_frame(
                     vid, (rx, ry, rw, rh), ch.get("url", ""), ch.get("brand", ""))
