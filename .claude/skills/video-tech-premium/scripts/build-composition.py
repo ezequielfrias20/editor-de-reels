@@ -459,7 +459,14 @@ def build_visuals(dur):
             # entra más grande; `chrome` dibuja la barra de navegador y cuesta
             # 74 px de alto — solo cuando hace falta declarar que es la web.
             rx, ry, rw, rh = v.get("rect", [0, 0, W, H])
-            radius = (f"0 0 {RADIUS['lg']}px {RADIUS['lg']}px" if v.get("chrome")
+            # Las esquinas superiores cuadradas son SOLO para la barra de
+            # `chrome` (`.bframe`, 74 px encima del rect): si `tool_recording`
+            # gana el despacho de más abajo, `.tr-panel` redondea las CUATRO
+            # esquinas y el <video> que enmarca tiene que ir parejo, o la
+            # esquina cuadrada de `chrome` asoma bajo el marco (Tarea 8b,
+            # ronda de revisión 1).
+            radius = (f"0 0 {RADIUS['lg']}px {RADIUS['lg']}px"
+                      if v.get("chrome") and not v.get("tool_recording")
                       else f"{RADIUS['lg']}px")
             media.append(
                 f'  <video class="vizmed clip" id="{vid}-med" src="{v["src"]}"\n'

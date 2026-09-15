@@ -11,7 +11,10 @@ Estos tests pasan por el camino REAL de una pieza: `plan.json` → `VISUALS` →
 `build_visuals()`. Nunca llaman a `mockups.tool_card`/`tool_recording`
 directo — eso ya está cubierto.
 """
+import re
+
 import pytest
+import tokens
 
 
 @pytest.fixture(autouse=True)
@@ -92,11 +95,33 @@ def test_tool_recording_propaga_el_hairline(bc):
     assert "border:3px solid" in css
 
 
+def _video_radius(media, src):
+    """El `border-radius` que `build_visuals` le puso al `<video>` suelto
+    que apunta a `src`, leído del `style=` real que emite — no supuesto."""
+    entry = next(m for m in media if src in m)
+    m = re.search(r'border-radius:([^"]+)"', entry)
+    assert m, "el <video> no declara border-radius"
+    return m.group(1)
+
+
 def test_tool_recording_gana_sobre_chrome_en_el_mismo_rect(bc):
     """`chrome`, `panel` y `tool_recording` son tratamientos EXCLUYENTES del
     mismo `rect` — declarar los dos a la vez no debe mezclar los dos marcos,
-    solo uno gana, igual que hoy `chrome` ya gana sobre `panel`."""
+    solo uno gana, igual que hoy `chrome` ya gana sobre `panel`.
+
+    Ganar el HTML no basta: `.tr-panel` redondea las CUATRO esquinas, así que
+    el `<video>` que enmarca tiene que llevar el mismo radio parejo — no el
+    recorte `0 0 lg lg` que solo tiene sentido bajo la barra de 74 px de
+    `chrome`. Con las esquinas de `chrome` puestas, la esquina superior
+    cuadrada del video asoma por debajo del marco redondeado del panel: una
+    costura real, no solo una etiqueta CSS de más.
+    """
     bc.VISUALS = [_visual_tool_recording(chrome={"url": "x.com", "brand": "X"})]
     css, media, hosts_back, hosts_over, anims, skins, assets = bc.build_visuals(8.0)
     assert "tr-panel" in "\n".join(hosts_over)
     assert "bframe" not in css, "el chrome de navegador no debería dibujarse a la vez"
+    radius = _video_radius(media, "motion-tour.mp4")
+    assert radius == f"{tokens.RADIUS['lg']}px", (
+        f"el <video> quedó con esquinas de chrome ({radius!r}) bajo un panel "
+        "de tool_recording que las redondea las cuatro"
+    )
