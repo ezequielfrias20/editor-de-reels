@@ -29,8 +29,10 @@
 Las piezas 10, 12, 13 y 14 tienen golden del `plan.json` compilado en `tests/golden/`. Un
 reemplazo del layout por defecto los rompe todos a la vez y deja de haber forma barata de
 saber si la rotura es intencional o un efecto colateral. Con un modo, la ausencia de
-`layout` en el EDL **es** la prueba de regresión: si los cuatro golden siguen verdes, el
-camino viejo no se movió.
+`layout` en el EDL **es** la prueba de regresión: si el golden sigue verde, el camino viejo
+no se movió.
+
+De esos cuatro, solo el de la pieza 10 puede ejecutarse hoy — ver la corrección en §7.
 
 ---
 
@@ -316,8 +318,23 @@ El paso 7 es el único que toca el sistema. Todo lo demás es el flujo de siempr
 - El gate del suelo de la banda de texto — un bloque de dos líneas que se pasa **debe**
   fallar la compilación.
 - `layout` declarado sin ningún segmento `BAND` → error de validación.
-- **Los cuatro golden de las piezas 10, 12, 13 y 14 intactos.** Es la prueba de que el
-  camino viejo no se movió.
+- **El golden de la pieza 10 intacto.** Es la prueba de que el camino viejo no se movió.
+
+⚠ **Corrección sobre lo que esta spec decía al escribirse.** Prometía los cuatro golden
+(10, 12, 13 y 14). Al medir la suite resultó que **solo la pieza 10 es utilizable**: los
+`videos/12|13|14/edl.json` se borraron sin haber llegado nunca a un commit, y no están en
+HEAD, ni en el stash, ni en ningún commit colgante. Sus golden (`tests/golden/*.plan.json`)
+sobreviven, pero sin entrada no hay nada que compilar.
+
+La pieza 10 cubre cámaras, captions, keywords, MOTION_STAGE, instancias y SFX — o sea,
+todo lo que este cambio toca. Lo que queda **sin cobertura** son las **tarjetas**: la pieza
+10 no usa ninguna (`test_cards_sigue_vacio_la_pieza_10_no_usa_tarjetas`). Ningún paso de
+este diseño toca `build_cards`, así que el riesgo es bajo, pero queda dicho en vez de
+supuesto.
+
+Los tests de las piezas 12–14 se saltan con razón explícita —el mismo trato que `audio14`
+con su FLAC gitignoreado— para que un fallo NUEVO se vea en vez de perderse entre 8 errores
+de partida.
 
 **Verificación sobre el MP4** (no sobre la fecha del archivo):
 
