@@ -24,6 +24,7 @@ Las tres son independientes y se cruzan por tiempo, que es lo que permite
 cambiar de imagen cada 1–2.5 s sin reescribir la estructura.
 """
 import argparse
+import itertools
 import json
 import math
 import re
@@ -1094,6 +1095,190 @@ def build_captions(words, dur, shots, viz_skins):
     return spans, anims, key_anims, rows
 
 
+_ANIM_NONCE = itertools.count()
+# Nonce para nombres de variable JS únicos (`_hv`/`_mv`/`_cv`) dentro de
+# UN documento. `emit_anim()` recibe una animación a la vez y no puede
+# apoyarse en `len(js)` de una lista global como antes: dos objetos con
+# `count-roll` en el mismo plan (p. ej. un contador que sube en dos
+# tramos, 12→18→27) generarían el mismo `const _cv0` dos veces y el
+# script del documento rompería con un identificador duplicado.
+
+
+def emit_anim(a) -> str:
+    """El JS de UNA animación. Extraído del bucle `for a in anims:` para
+    poder probar un gesto sin renderizar la composición entera."""
+    kind, sel, t, d = a[0], a[1], q(a[2]), a[3]
+    js: list[str] = []
+    if kind == "slide-in":
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, y: 14 }}, '
+                  f'{{ opacity: 1, y: 0, duration: {round(d*1.25,4)}, '
+                  f'ease: "power2.out" }}, {t:.4f});')
+    elif kind == "rise-in":
+        # Entrada de un panel grande: sube muy poco y aterriza en plano. El
+        # recorrido acompaña al fundido, nunca lo protagoniza.
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, y: 26, scale: 0.985 }}, '
+                  f'{{ opacity: 1, y: 0, scale: 1, duration: {round(d*1.35,4)}, '
+                  f'ease: "power3.out" }}, {t:.4f});')
+    elif kind == "chip-in":
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 0.94, y: 8 }}, '
+                  f'{{ opacity: 1, scale: 1, y: 0, duration: {round(d*1.25,4)}, '
+                  f'ease: "power2.out" }}, {t:.4f});')
+    elif kind == "scale-pop":
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 0.955 }}, '
+                  f'{{ opacity: 1, scale: 1, duration: {round(d*1.30,4)}, '
+                  f'ease: "power2.out" }}, {t:.4f});')
+    elif kind == "crowd-in":
+        # El cierre radial de la acumulación (`objects.crowd_delta`): el
+        # mundo se le echa encima al sujeto, el sujeto no se acerca a él.
+        # `x`/`y` de GSAP son transform RELATIVO a la posición natural
+        # del elemento — el `left`/`top` que ya le dio su slot horneado
+        # — así que animar hacia (dx, dy) lo desplaza sin tocar layout.
+        # El `scale` leve es la única concesión de "impacto": aquí sí es
+        # intencional, no un artefacto que limpiar.
+        dx, dy = a[4], a[5]
+        js.append(f'tl.to(\'{sel}\', {{ x: {dx}, y: {dy}, scale: 1.06, '
+                  f'duration: {d}, ease: "power2.inOut" }}, {t:.4f});')
+    elif kind == "grow-x":
+        js.append(f'tl.fromTo(\'{sel}\', {{ width: 0 }}, '
+                  f'{{ width: {a[4]}, duration: {d}, ease: "power2.out" }}, {t:.4f});')
+    elif kind == "punch":
+        # El titular ATERRIZA: entra corto, algo pasado de tamaño, y asienta.
+        # `expo.out` frena muy fuerte al final, como se para algo con masa.
+        # Nada de `back.out`: rebota como muelle y es lenguaje de dibujo animado.
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.045, y: -8 }}, '
+                  f'{{ opacity: 1, scale: 1, y: 0, duration: {round(d*1.45,4)}, '
+                  f'ease: "expo.out" }}, {t:.4f});')
+    elif kind == "stamp":
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.10 }}, '
+                  f'{{ opacity: 1, scale: 1, duration: {round(d*1.35,4)}, '
+                  f'ease: "power3.out" }}, {t:.4f});')
+    elif kind == "box-in":
+        # Caja delimitadora sobre el producto: se clava, no se desliza.
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.06 }}, '
+                  f'{{ opacity: 1, scale: 1, duration: {d}, '
+                  f'ease: "power3.out" }}, {t:.4f});')
+    elif kind == "hands-sweep":
+        # El barrido de las agujas de un reloj de objects.py: dos
+        # rotaciones simultáneas, SIEMPRE hacia delante (objects.hand_
+        # angles ya resolvió el sentido — el compilador no vuelve a
+        # decidirlo aquí, solo emite el tween).
+        #
+        # NO se anima `rotation` de GSAP. Depurado con un dump del
+        # `transform` computado: en cuanto GSAP toca la propiedad
+        # `rotation` de un `<g>` SVG, el pivote que reporta el navegador
+        # es "0px 0px" pese a cualquier `transform-origin`/`svgOrigin`
+        # declarado, y un SEGUNDO tween sobre la misma propiedad añade
+        # además una traslación espuria. En vez de pelear con eso, se
+        # anima un objeto plano `{v: ángulo}` y en cada `onUpdate` —
+        # determinista: GSAP lo llama con el valor YA interpolado en
+        # cada seek, nunca por reloj de pared — se reescribe a mano el
+        # atributo SVG NATIVO `rotate(v, 150, 150)`, que lleva el pivote
+        # incrustado en su propia sintaxis y no depende de ningún origen
+        # que resolver.
+        hour_from, hour_to, min_sel, min_from, min_to = a[4], a[5], a[6], a[7], a[8]
+        hv, mv = f"_hv{next(_ANIM_NONCE)}", f"_mv{next(_ANIM_NONCE)}"
+        js.append(f'const {hv} = {{ v: {hour_from} }};')
+        js.append(f'tl.to({hv}, {{ v: {hour_to}, duration: {d}, '
+                  f'ease: "power2.inOut", onUpdate: function() {{ '
+                  f'document.querySelector({sel!r})?.setAttribute('
+                  f'"transform", "rotate(" + {hv}.v + " 150 150)"); '
+                  f'}} }}, {t:.4f});')
+        js.append(f'const {mv} = {{ v: {min_from} }};')
+        js.append(f'tl.to({mv}, {{ v: {min_to}, duration: {d}, '
+                  f'ease: "power2.inOut", onUpdate: function() {{ '
+                  f'document.querySelector({min_sel!r})?.setAttribute('
+                  f'"transform", "rotate(" + {mv}.v + " 150 150)"); '
+                  f'}} }}, {t:.4f});')
+    elif kind == "count-roll":
+        # El contador que sube (`objects.answer_counter`). MISMO patrón
+        # que `hands-sweep` y por la misma razón: se tuenea un número
+        # PURO y en cada `onUpdate` se reescribe el texto del span. GSAP
+        # llama al onUpdate con el valor ya interpolado en cada seek, así
+        # que el frame 312 pinta lo mismo se llegue a él reproduciendo o
+        # buscando — que es lo que exige el contrato de determinismo.
+        #
+        # El prefijo va FUERA del número interpolado: metido dentro, un
+        # `Math.round` sobre la cadena daría NaN.
+        n_from, n_to, prefix = a[4], a[5], a[6]
+        cv = f"_cv{next(_ANIM_NONCE)}"
+        js.append(f'const {cv} = {{ v: {n_from} }};')
+        js.append(f'tl.to({cv}, {{ v: {n_to}, duration: {d}, '
+                  f'ease: "power2.out", onUpdate: function() {{ '
+                  f'const e = document.querySelector({sel!r}); '
+                  f'if (e) e.textContent = {json.dumps(prefix)} + '
+                  f'Math.round({cv}.v); }} }}, {t:.4f});')
+    elif kind in ("cursor-enter", "cursor-to"):
+        x, y = a[4], a[5]
+        if kind == "cursor-enter":
+            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, x: {x + 130}, y: {y + 230} }}, '
+                      f'{{ opacity: 1, x: {x}, y: {y}, duration: {d}, '
+                      f'ease: "power3.out" }}, {t:.4f});')
+        else:
+            js.append(f'tl.to(\'{sel}\', {{ x: {x}, y: {y}, duration: {d}, '
+                      f'ease: "power2.inOut" }}, {t:.4f});')
+    elif kind == "click":
+        # `overwrite: "auto"` porque dos clics seguidos animan la MISMA
+        # propiedad del mismo cursor: sin él, el tween de vuelta a escala 1
+        # y el de bajada del clic siguiente se solapan y el resultado
+        # depende del orden de evaluación, que es justo lo que rompe un
+        # render determinista.
+        ring = a[4]
+        js.append(f'tl.to(\'{sel}\', {{ scale: 0.86, duration: 0.08, '
+                  f'ease: "power2.in", overwrite: "auto" }}, {t:.4f});')
+        js.append(f'tl.to(\'{sel}\', {{ scale: 1, duration: 0.15, '
+                  f'ease: "power2.out", overwrite: "auto" }}, {t + .08:.4f});')
+        js.append(f'tl.fromTo(\'{ring}\', {{ opacity: .8, scale: .30 }}, '
+                  f'{{ opacity: 0, scale: 1.6, duration: {d}, ease: "power2.out" }}, {t:.4f});')
+    elif kind == "focus-app":
+        js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1, borderColor: "{LINE}" }}, '
+                  f'{{ scale: 1.04, borderColor: "rgba(255,90,90,.6)", '
+                  f'duration: {d * .45:.4f}, ease: "power2.out", yoyo: true, repeat: 1 }}, '
+                  f'{t:.4f});')
+    elif kind == "alert-hit":
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.08 }}, '
+                  f'{{ opacity: 1, scale: 1, duration: {d * .55:.4f}, ease: "power3.out" }}, '
+                  f'{t:.4f});')
+        js.append(f'tl.to(\'{sel}\', {{ x: 7, duration: .055, yoyo: true, repeat: 3, '
+                  f'ease: "power1.inOut" }}, {t + d * .55:.4f});')
+        js.append(f'tl.set(\'{sel}\', {{ x: 0 }}, {t + d * .55 + .25:.4f});')
+    elif kind == "draw":
+        js.append('(function(){ const p = document.querySelector(' + repr(sel) + '); '
+                  'if (!p) return; const n = p.getTotalLength(); '
+                  'tl.set(p, { strokeDasharray: n, strokeDashoffset: n }, 0); '
+                  f'tl.to(p, {{ strokeDashoffset: 0, duration: {d}, ease: "power2.out" }}, {t:.4f}); }})();')
+    elif kind == "badge-out":
+        # Toda salida necesita su `set` de kill duro en el borde: un seek
+        # puede aterrizar después del fundido y dejar el elemento encendido
+        # con estado obsoleto. El linter lo exige y tiene razón.
+        js.append(f'tl.to(\'{sel}\', {{ opacity: 0, scale: .97, duration: {d}, '
+                  f'ease: "power2.in" }}, {t:.4f});')
+        js.append(f'tl.set(\'{sel}\', {{ opacity: 0 }}, {q(t + d):.4f});')
+    elif kind == "type-word":
+        # Tecleo por caracteres. Es determinista y seek-safe porque cada
+        # estado se escribe con un `set` en su propio instante, no con un
+        # onUpdate que dependa de por dónde iba la reproducción.
+        word = a[4]
+        n = len(word)
+        step = round(d / max(1, n), 4)
+        for ci in range(n + 1):
+            txt = esc(word[:ci])
+            js.append(f'tl.set(\'{sel}\', {{ innerHTML: '
+                      f'{json.dumps(txt + "<span class=\'ccaret\'></span>")} }}, '
+                      f'{t + ci * step:.4f});')
+    elif kind == "send-on":
+        js.append(f'tl.set(\'{sel}\', {{ color: "{C["go"]}" }}, {t:.4f});')
+        js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1 }}, '
+                  f'{{ scale: 1.12, duration: {d*.4:.4f}, yoyo: true, repeat: 1, '
+                  f'ease: "power2.out" }}, {t:.4f});')
+    elif kind == "cam-kb":
+        js.append(f'tl.fromTo(\'{sel}\', {{ scale: {a[4]} }}, '
+                  f'{{ scale: {a[5]}, duration: {d}, ease: "none" }}, {t:.4f});')
+    elif kind == "cam-push":
+        js.append(f'tl.to(\'{sel}\', {{ scale: {a[4]}, y: {a[5]}, '
+                  f'duration: {d}, ease: "power2.inOut" }}, {t:.4f});')
+    return "\n".join(js)
+
+
 # ── construcción ──────────────────────────────────────────────────────────────
 def build():
     words, dur = load()
@@ -1250,174 +1435,12 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
         js.append(f'tl.set(\'{sel}\', {{ opacity: 0, visibility: "hidden" }}, {ve:.4f});')
 
     for a in anims:
-        kind, sel, t, d = a[0], a[1], q(a[2]), a[3]
-        if kind == "slide-in":
-            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, y: 14 }}, '
-                      f'{{ opacity: 1, y: 0, duration: {round(d*1.25,4)}, '
-                      f'ease: "power2.out" }}, {t:.4f});')
-        elif kind == "rise-in":
-            # Entrada de un panel grande: sube muy poco y aterriza en plano. El
-            # recorrido acompaña al fundido, nunca lo protagoniza.
-            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, y: 26, scale: 0.985 }}, '
-                      f'{{ opacity: 1, y: 0, scale: 1, duration: {round(d*1.35,4)}, '
-                      f'ease: "power3.out" }}, {t:.4f});')
-        elif kind == "chip-in":
-            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 0.94, y: 8 }}, '
-                      f'{{ opacity: 1, scale: 1, y: 0, duration: {round(d*1.25,4)}, '
-                      f'ease: "power2.out" }}, {t:.4f});')
-        elif kind == "scale-pop":
-            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 0.955 }}, '
-                      f'{{ opacity: 1, scale: 1, duration: {round(d*1.30,4)}, '
-                      f'ease: "power2.out" }}, {t:.4f});')
-        elif kind == "crowd-in":
-            # El cierre radial de la acumulación (`objects.crowd_delta`): el
-            # mundo se le echa encima al sujeto, el sujeto no se acerca a él.
-            # `x`/`y` de GSAP son transform RELATIVO a la posición natural
-            # del elemento — el `left`/`top` que ya le dio su slot horneado
-            # — así que animar hacia (dx, dy) lo desplaza sin tocar layout.
-            # El `scale` leve es la única concesión de "impacto": aquí sí es
-            # intencional, no un artefacto que limpiar.
-            dx, dy = a[4], a[5]
-            js.append(f'tl.to(\'{sel}\', {{ x: {dx}, y: {dy}, scale: 1.06, '
-                      f'duration: {d}, ease: "power2.inOut" }}, {t:.4f});')
-        elif kind == "grow-x":
-            js.append(f'tl.fromTo(\'{sel}\', {{ width: 0 }}, '
-                      f'{{ width: {a[4]}, duration: {d}, ease: "power2.out" }}, {t:.4f});')
-        elif kind == "punch":
-            # El titular ATERRIZA: entra corto, algo pasado de tamaño, y asienta.
-            # `expo.out` frena muy fuerte al final, como se para algo con masa.
-            # Nada de `back.out`: rebota como muelle y es lenguaje de dibujo animado.
-            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.045, y: -8 }}, '
-                      f'{{ opacity: 1, scale: 1, y: 0, duration: {round(d*1.45,4)}, '
-                      f'ease: "expo.out" }}, {t:.4f});')
-        elif kind == "stamp":
-            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.10 }}, '
-                      f'{{ opacity: 1, scale: 1, duration: {round(d*1.35,4)}, '
-                      f'ease: "power3.out" }}, {t:.4f});')
-        elif kind == "box-in":
-            # Caja delimitadora sobre el producto: se clava, no se desliza.
-            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.06 }}, '
-                      f'{{ opacity: 1, scale: 1, duration: {d}, '
-                      f'ease: "power3.out" }}, {t:.4f});')
-        elif kind == "hands-sweep":
-            # El barrido de las agujas de un reloj de objects.py: dos
-            # rotaciones simultáneas, SIEMPRE hacia delante (objects.hand_
-            # angles ya resolvió el sentido — el compilador no vuelve a
-            # decidirlo aquí, solo emite el tween).
-            #
-            # NO se anima `rotation` de GSAP. Depurado con un dump del
-            # `transform` computado: en cuanto GSAP toca la propiedad
-            # `rotation` de un `<g>` SVG, el pivote que reporta el navegador
-            # es "0px 0px" pese a cualquier `transform-origin`/`svgOrigin`
-            # declarado, y un SEGUNDO tween sobre la misma propiedad añade
-            # además una traslación espuria. En vez de pelear con eso, se
-            # anima un objeto plano `{v: ángulo}` y en cada `onUpdate` —
-            # determinista: GSAP lo llama con el valor YA interpolado en
-            # cada seek, nunca por reloj de pared — se reescribe a mano el
-            # atributo SVG NATIVO `rotate(v, 150, 150)`, que lleva el pivote
-            # incrustado en su propia sintaxis y no depende de ningún origen
-            # que resolver.
-            hour_from, hour_to, min_sel, min_from, min_to = a[4], a[5], a[6], a[7], a[8]
-            hv, mv = f"_hv{len(js)}", f"_mv{len(js) + 1}"
-            js.append(f'const {hv} = {{ v: {hour_from} }};')
-            js.append(f'tl.to({hv}, {{ v: {hour_to}, duration: {d}, '
-                      f'ease: "power2.inOut", onUpdate: function() {{ '
-                      f'document.querySelector({sel!r})?.setAttribute('
-                      f'"transform", "rotate(" + {hv}.v + " 150 150)"); '
-                      f'}} }}, {t:.4f});')
-            js.append(f'const {mv} = {{ v: {min_from} }};')
-            js.append(f'tl.to({mv}, {{ v: {min_to}, duration: {d}, '
-                      f'ease: "power2.inOut", onUpdate: function() {{ '
-                      f'document.querySelector({min_sel!r})?.setAttribute('
-                      f'"transform", "rotate(" + {mv}.v + " 150 150)"); '
-                      f'}} }}, {t:.4f});')
-        elif kind == "count-roll":
-            # El contador que sube (`objects.answer_counter`). MISMO patrón
-            # que `hands-sweep` y por la misma razón: se tuenea un número
-            # PURO y en cada `onUpdate` se reescribe el texto del span. GSAP
-            # llama al onUpdate con el valor ya interpolado en cada seek, así
-            # que el frame 312 pinta lo mismo se llegue a él reproduciendo o
-            # buscando — que es lo que exige el contrato de determinismo.
-            #
-            # El prefijo va FUERA del número interpolado: metido dentro, un
-            # `Math.round` sobre la cadena daría NaN.
-            n_from, n_to, prefix = a[4], a[5], a[6]
-            cv = f"_cv{len(js)}"
-            js.append(f'const {cv} = {{ v: {n_from} }};')
-            js.append(f'tl.to({cv}, {{ v: {n_to}, duration: {d}, '
-                      f'ease: "power2.out", onUpdate: function() {{ '
-                      f'const e = document.querySelector({sel!r}); '
-                      f'if (e) e.textContent = {json.dumps(prefix)} + '
-                      f'Math.round({cv}.v); }} }}, {t:.4f});')
-        elif kind in ("cursor-enter", "cursor-to"):
-            x, y = a[4], a[5]
-            if kind == "cursor-enter":
-                js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, x: {x + 130}, y: {y + 230} }}, '
-                          f'{{ opacity: 1, x: {x}, y: {y}, duration: {d}, '
-                          f'ease: "power3.out" }}, {t:.4f});')
-            else:
-                js.append(f'tl.to(\'{sel}\', {{ x: {x}, y: {y}, duration: {d}, '
-                          f'ease: "power2.inOut" }}, {t:.4f});')
-        elif kind == "click":
-            # `overwrite: "auto"` porque dos clics seguidos animan la MISMA
-            # propiedad del mismo cursor: sin él, el tween de vuelta a escala 1
-            # y el de bajada del clic siguiente se solapan y el resultado
-            # depende del orden de evaluación, que es justo lo que rompe un
-            # render determinista.
-            ring = a[4]
-            js.append(f'tl.to(\'{sel}\', {{ scale: 0.86, duration: 0.08, '
-                      f'ease: "power2.in", overwrite: "auto" }}, {t:.4f});')
-            js.append(f'tl.to(\'{sel}\', {{ scale: 1, duration: 0.15, '
-                      f'ease: "power2.out", overwrite: "auto" }}, {t + .08:.4f});')
-            js.append(f'tl.fromTo(\'{ring}\', {{ opacity: .8, scale: .30 }}, '
-                      f'{{ opacity: 0, scale: 1.6, duration: {d}, ease: "power2.out" }}, {t:.4f});')
-        elif kind == "focus-app":
-            js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1, borderColor: "{LINE}" }}, '
-                      f'{{ scale: 1.04, borderColor: "rgba(255,90,90,.6)", '
-                      f'duration: {d * .45:.4f}, ease: "power2.out", yoyo: true, repeat: 1 }}, '
-                      f'{t:.4f});')
-        elif kind == "alert-hit":
-            js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scale: 1.08 }}, '
-                      f'{{ opacity: 1, scale: 1, duration: {d * .55:.4f}, ease: "power3.out" }}, '
-                      f'{t:.4f});')
-            js.append(f'tl.to(\'{sel}\', {{ x: 7, duration: .055, yoyo: true, repeat: 3, '
-                      f'ease: "power1.inOut" }}, {t + d * .55:.4f});')
-            js.append(f'tl.set(\'{sel}\', {{ x: 0 }}, {t + d * .55 + .25:.4f});')
-        elif kind == "draw":
-            js.append('(function(){ const p = document.querySelector(' + repr(sel) + '); '
-                      'if (!p) return; const n = p.getTotalLength(); '
-                      'tl.set(p, { strokeDasharray: n, strokeDashoffset: n }, 0); '
-                      f'tl.to(p, {{ strokeDashoffset: 0, duration: {d}, ease: "power2.out" }}, {t:.4f}); }})();')
-        elif kind == "badge-out":
-            # Toda salida necesita su `set` de kill duro en el borde: un seek
-            # puede aterrizar después del fundido y dejar el elemento encendido
-            # con estado obsoleto. El linter lo exige y tiene razón.
-            js.append(f'tl.to(\'{sel}\', {{ opacity: 0, scale: .97, duration: {d}, '
-                      f'ease: "power2.in" }}, {t:.4f});')
-            js.append(f'tl.set(\'{sel}\', {{ opacity: 0 }}, {q(t + d):.4f});')
-        elif kind == "type-word":
-            # Tecleo por caracteres. Es determinista y seek-safe porque cada
-            # estado se escribe con un `set` en su propio instante, no con un
-            # onUpdate que dependa de por dónde iba la reproducción.
-            word = a[4]
-            n = len(word)
-            step = round(d / max(1, n), 4)
-            for ci in range(n + 1):
-                txt = esc(word[:ci])
-                js.append(f'tl.set(\'{sel}\', {{ innerHTML: '
-                          f'{json.dumps(txt + "<span class=\'ccaret\'></span>")} }}, '
-                          f'{t + ci * step:.4f});')
-        elif kind == "send-on":
-            js.append(f'tl.set(\'{sel}\', {{ color: "{C["go"]}" }}, {t:.4f});')
-            js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1 }}, '
-                      f'{{ scale: 1.12, duration: {d*.4:.4f}, yoyo: true, repeat: 1, '
-                      f'ease: "power2.out" }}, {t:.4f});')
-        elif kind == "cam-kb":
-            js.append(f'tl.fromTo(\'{sel}\', {{ scale: {a[4]} }}, '
-                      f'{{ scale: {a[5]}, duration: {d}, ease: "none" }}, {t:.4f});')
-        elif kind == "cam-push":
-            js.append(f'tl.to(\'{sel}\', {{ scale: {a[4]}, y: {a[5]}, '
-                      f'duration: {d}, ease: "power2.inOut" }}, {t:.4f});')
+        # `emit_anim` devuelve varias líneas unidas por "\n" cuando un gesto
+        # necesita más de una sentencia (p. ej. `hands-sweep`). `extend` las
+        # reparte de vuelta como entradas SUELTAS de `js`, igual que antes de
+        # extraer la cadena — si no, la plantilla de abajo (que antepone la
+        # indentación línea a línea) solo sangra la primera de cada gesto.
+        js.extend(emit_anim(a).split("\n"))
 
     js.append("// bloques de subtítulo — entran enteros y se quedan quietos")
     frame = 1.0 / FPS
