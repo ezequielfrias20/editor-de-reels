@@ -451,14 +451,11 @@ def test_un_edl_sin_layout_no_mete_la_clave_en_el_plan(edl_min, write_edl, style
     from edl_compile import compile_edl
     plan = compile_edl(write_edl(edl_min), style)
     assert "layout" not in plan
-
-
-def test_el_golden_de_la_pieza_10_sigue_intacto(plan10, project_root):
-    """La prueba de que el camino viejo no se movió."""
-    import json
-    golden = json.loads((project_root / "tests" / "golden" / "10.plan.json").read_text())
-    assert plan10 == golden
 ```
+
+> **No escribas un test del golden de la pieza 10 aquí.** Ya existe:
+> `tests/test_golden.py::test_el_plan_de_la_pieza_10_no_ha_cambiado`, y corre en cada
+> `pytest`. Un segundo test idéntico es duplicación, no cobertura.
 
 - [ ] **Step 2: Correr y ver que fallan**
 
@@ -486,13 +483,24 @@ En `scripts/edl_compile.py`, dentro de `_shots`, sustituir `emit`:
                         "zoom": ladder[camera], "anchor": anchor})
 ```
 
-En `compile_edl`, donde se arma el dict del plan, añadir **de forma condicional** (una clave
-incondicional rompería el golden de la pieza 10):
+`compile_edl` (`scripts/edl_compile.py:322`) devuelve **un dict literal**, así que no hay
+dónde insertar nada. Reestructurarlo mínimamente:
 
 ```python
+    plan = {
+        "format": edl.fmt,
+        ...            # las mismas claves de ahora, sin tocar una sola
+        "_": f"generado por edl-compile desde {edl.src.name} — NO editar a mano",
+    }
+    # Condicional a propósito: una clave incondicional cambiaría el plan de
+    # TODAS las piezas viejas y rompería el golden de la 10.
     if edl.layout:
         plan["layout"] = edl.layout
+    return plan
 ```
+
+El orden de inserción no importa: el JSON se escribe con `sort_keys` y el golden compara
+dicts.
 
 - [ ] **Step 4: Correr y ver que pasan**
 
