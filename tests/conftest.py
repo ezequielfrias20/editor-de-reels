@@ -123,3 +123,142 @@ def bc():
 def manifest(project_root):
     from asset_resolve import load_manifest
     return load_manifest(project_root / "assets" / "manifest.json")
+
+
+# ── pieza 12 ─────────────────────────────────────────────────────────────────
+@pytest.fixture(scope="session")
+def w12(project_root):
+    """Las palabras de la pieza 12, remapeadas a la línea del corte."""
+    from edl_words import load_words
+    return load_words(project_root / "transcripts" / "12.json",
+                      project_root / "cuts" / "12.json")
+
+
+@pytest.fixture(scope="session")
+def edl12(project_root):
+    """El EDL de la pieza 12.
+
+    ⚠ No está: `videos/` se borró sin commitear y estos EDL nunca llegaron a
+    HEAD. El golden `tests/golden/12.plan.json` sí sobrevive, pero sin su
+    entrada no hay nada que compilar. Se salta con razón en vez de reventar
+    —el mismo trato que `audio14`— para que un fallo NUEVO se vea.
+    """
+    from edl_schema import load_edl
+    p = project_root / "videos" / "12" / "edl.json"
+    if not p.exists():
+        pytest.skip("videos/12/edl.json no está: se perdió al borrar videos/ "
+                    "sin commitear. La no-regresión la cubre la pieza 10.")
+    return load_edl(p, project_root)
+
+
+@pytest.fixture(scope="session")
+def plan12(edl12, style):
+    from edl_compile import compile_edl
+    return compile_edl(edl12, style)
+
+
+@pytest.fixture
+def card_edl(edl_min):
+    """`edl_min` (un A_ROLL sobre las 131 palabras de la pieza 10) con los
+    eventos CARD que se le pasen. Sirve para los tests del rótulo sin
+    depender del EDL real de ninguna pieza."""
+    def _c(*cards):
+        base = dict(edl_min)
+        seg = dict(base["segments"][0])
+        seg["events"] = list(seg["events"]) + list(cards)
+        base["segments"] = [seg]
+        return base
+    return _c
+
+
+# ── pieza 13 ─────────────────────────────────────────────────────────────────
+@pytest.fixture(scope="session")
+def w13(project_root):
+    from edl_words import load_words
+    return load_words(project_root / "transcripts" / "13.json",
+                      project_root / "cuts" / "13.json")
+
+
+@pytest.fixture(scope="session")
+def edl13(project_root):
+    """El EDL de la pieza 13.
+
+    ⚠ No está: `videos/` se borró sin commitear y estos EDL nunca llegaron a
+    HEAD. El golden `tests/golden/13.plan.json` sí sobrevive, pero sin su
+    entrada no hay nada que compilar. Se salta con razón en vez de reventar
+    —el mismo trato que `audio14`— para que un fallo NUEVO se vea.
+    """
+    from edl_schema import load_edl
+    p = project_root / "videos" / "13" / "edl.json"
+    if not p.exists():
+        pytest.skip("videos/13/edl.json no está: se perdió al borrar videos/ "
+                    "sin commitear. La no-regresión la cubre la pieza 10.")
+    return load_edl(p, project_root)
+
+
+@pytest.fixture(scope="session")
+def plan13(edl13, style):
+    from edl_compile import compile_edl
+    return compile_edl(edl13, style)
+
+
+# ── pieza 14 ─────────────────────────────────────────────────────────────────
+@pytest.fixture(scope="session")
+def w14(project_root):
+    from edl_words import load_words
+    return load_words(project_root / "transcripts" / "14.json",
+                      project_root / "cuts" / "14.json")
+
+
+@pytest.fixture(scope="session")
+def edl14(project_root):
+    """El EDL de la pieza 14.
+
+    ⚠ No está: `videos/` se borró sin commitear y estos EDL nunca llegaron a
+    HEAD. El golden `tests/golden/14.plan.json` sí sobrevive, pero sin su
+    entrada no hay nada que compilar. Se salta con razón en vez de reventar
+    —el mismo trato que `audio14`— para que un fallo NUEVO se vea.
+    """
+    from edl_schema import load_edl
+    p = project_root / "videos" / "14" / "edl.json"
+    if not p.exists():
+        pytest.skip("videos/14/edl.json no está: se perdió al borrar videos/ "
+                    "sin commitear. La no-regresión la cubre la pieza 10.")
+    return load_edl(p, project_root)
+
+
+@pytest.fixture(scope="session")
+def plan14(edl14, style):
+    from edl_compile import compile_edl
+    return compile_edl(edl14, style)
+
+
+@pytest.fixture(scope="session")
+def pc():
+    """`plan-cuts.py` cargado como módulo — lleva guion en el nombre."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("plan_cuts", SCRIPTS / "plan-cuts.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+@pytest.fixture(scope="session")
+def audio14(project_root):
+    """El FLAC de la pieza 14. `assets/audio/` está en .gitignore, así que los
+    tests que lo necesitan se saltan en un clon limpio en vez de fallar."""
+    p = project_root / "assets" / "audio" / "14.flac"
+    if not p.exists():
+        pytest.skip("assets/audio/14.flac no está (gitignored)")
+    return p
+
+
+@pytest.fixture(scope="session")
+def ab():
+    """`audit-breaths.py` cargado como módulo — lleva guion en el nombre."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "audit_breaths", SCRIPTS / "audit-breaths.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
