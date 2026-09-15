@@ -10,5 +10,35 @@
     "hex": "217346",
     "source": "https://cdn.jsdelivr.net/npm/simple-icons@12.4.0/icons/microsoftexcel.svg",
     "simple_icons_version": "12.4.0"
+  },
+  "motion": {
+    "title": "Motion",
+    "source": "https://motion.dev/favicon.svg",
+    "downloaded": "2026-09-15",
+    "format": "svg"
+  },
+  "manus": {
+    "title": "Manus",
+    "source": "https://manus.im/icon.svg",
+    "downloaded": "2026-09-15",
+    "format": "svg"
+  },
+  "bklitui": {
+    "title": "Bklit UI",
+    "source": "https://bklit.com/apple-icon.png",
+    "downloaded": "2026-09-15",
+    "format": "png"
+  },
+  "kokonutui": {
+    "title": "Kokonut UI",
+    "source": "https://kokonutui.com/icon.png",
+    "downloaded": "2026-09-15",
+    "format": "png"
+  },
+  "animejs": {
+    "title": "Anime.js",
+    "source": "https://animejs.com/assets/images/anime-js-logo-v4.svg",
+    "downloaded": "2026-09-15",
+    "format": "svg"
   }
 }
