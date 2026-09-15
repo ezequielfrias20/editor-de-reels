@@ -1,0 +1,23 @@
+{
+  "src": "VIDEOS ORIGINALES/1/animejs.mov",
+  "out": "assets/animejs-tour.mp4",
+  "size": [1920, 1080],
+  "fps": 30,
+  "_nota": "La card de la banda de arriba es 16:9 (960x540), no la cuadrada por defecto del script: size va a 1920x1080 (2x, para nitidez) y todos los recortes son 720x405 -> 1.33x en pantalla. Dos tramos: el hero (headline + el círculo de la animación) y un acercamiento al detalle con el panel de código.",
+  "segments": [
+    {
+      "label": "HERO",
+      "at": 0.4,
+      "dur": 2.4,
+      "crop": [16, 60, 720, 405],
+      "zoom": [1.0, 1.05]
+    },
+    {
+      "label": "ENGINE",
+      "at": 9.0,
+      "dur": 2.5,
+      "crop": [280, 140, 720, 405],
+      "zoom": [1.0, 1.06]
+    }
+  ]
+}

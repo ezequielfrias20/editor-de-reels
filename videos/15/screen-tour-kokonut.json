@@ -1,0 +1,34 @@
+{
+  "src": "VIDEOS ORIGINALES/1/kokonutui.mov",
+  "out": "assets/kokonutui-tour.mp4",
+  "size": [1920, 1080],
+  "fps": 30,
+  "_nota": "La barra promocional rosa vive fija en y 0-41 durante TODO el clip (verificado en 1.16s y en 10.4s): se excluye entera, y los tres recortes empiezan en y>=60 para no rozarla.",
+  "exclude": [
+    {"t": [0, 7.466], "rect": [0, 0, 1280, 44],
+     "why": "barra promocional rosa fija en el borde superior"}
+  ],
+  "segments": [
+    {
+      "label": "COMPONENTES",
+      "at": 0.4,
+      "dur": 3.0,
+      "crop": [250, 300, 720, 405],
+      "zoom": [1.0, 1.06]
+    },
+    {
+      "label": "INSTALAR",
+      "at": 4.6,
+      "dur": 2.0,
+      "crop": [250, 250, 720, 405],
+      "zoom": [1.0, 1.05]
+    },
+    {
+      "label": "COMUNIDAD",
+      "at": 5.8,
+      "dur": 1.6,
+      "crop": [250, 300, 720, 405],
+      "zoom": [1.0, 1.05]
+    }
+  ]
+}

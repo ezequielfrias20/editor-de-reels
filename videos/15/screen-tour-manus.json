@@ -1,0 +1,16 @@
+{
+  "src": "VIDEOS ORIGINALES/1/manusia.mov",
+  "out": "assets/manus-tour.mp4",
+  "size": [1920, 1080],
+  "fps": 30,
+  "_nota": "Toda la grabación es el mismo encuadre (el prompt 'What can I do for you?' mientras se escribe la idea): un solo tramo con un empuje de cámara lento basta, no hay a dónde cortar dentro del clip.",
+  "segments": [
+    {
+      "label": "PROMPT",
+      "at": 1.0,
+      "dur": 4.469,
+      "crop": [280, 180, 720, 405],
+      "zoom": [1.0, 1.06]
+    }
+  ]
+}

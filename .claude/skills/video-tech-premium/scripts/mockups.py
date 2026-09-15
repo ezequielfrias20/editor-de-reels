@@ -584,8 +584,7 @@ def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, st
     # falta sin depender de lo que traiga cada logo.
     logo_html, _ratio = logos.mark(slug, 72)
     css = f"""
-{p} .tc-card{{position:absolute;inset:0;display:flex;align-items:center;
-  justify-content:center}}
+{p} .tc-card{{display:flex;align-items:center;justify-content:center}}
 {p} .tc-tilt{{transform:perspective(1400px) rotateY(-6deg);transform-style:preserve-3d}}
 {p} .tc-root{{display:flex;align-items:center;gap:30px;background:{C['surface']};
   border:1px solid {LINE};border-radius:{RADIUS['lg']}px;box-shadow:{SHADOW};
@@ -608,8 +607,8 @@ def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, st
             + f'<span class="tc-word">{esc(name)}</span>'
             + "</div></div></div></div>")
     anims = [
-        ("glide-x", f'{p} #{cid}-logo', .10, .45),
-        ("drop-in", f'{p} #{cid}-name', .18, .42),
+        ("glide-x", f'#{cid}-logo', .10, .45),
+        ("drop-in", f'#{cid}-name', .18, .42),
     ]
     return css, html, anims
 
@@ -674,7 +673,7 @@ def tool_recording(cid: str, slug: str, name: str,
             f'<span class="tr-chip">{chip_html}</span>'
             f'<span class="tr-name">{esc(name)}</span>'
             f'</div></div>')
-    anims = [("slide-in", f'{p} #{cid}-head', .04, .26)]
+    anims = [("slide-in", f'#{cid}-head', .04, .26)]
     return css, html, anims
 
 
