@@ -3,6 +3,8 @@
   "chin_frac": 0.4531,
   "cx_frac": 0.4914,
   "cy_frac": 0.3625,
+  "top_px": 540.0,
+  "top_frac": 0.2812,
   "width": 1080,
   "height": 1920,
   "samples": 48,

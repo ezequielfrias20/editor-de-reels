@@ -1,7 +1,7 @@
 {
   "format": "REEL",
   "_": "REEL 15 — 5 herramientas para construir webs con Claude. Todos los tiempos están en la línea del CORTE (69.878 s) y salen del transcript remapeado (transcripts/15.json + cuts/15.json), no de una progresión estética. Hook y tesis van a plano lleno; las cinco herramientas y el CTA van en layout triband (nuevo).",
-  "layout": {"mode": "triband", "bands": {"top": [0, 820], "text": [820, 1120], "speaker": [1120, 1920]}},
+  "layout": {"mode": "triband", "bands": {"top": [0, 660], "text": [660, 960], "speaker": [960, 1920]}},
   "keywords": [
     "Claude",
     "5",
@@ -23,22 +23,23 @@
     "target_mean": -34.0
   },
   "_curva": "HOOK 0-7.8s a plano lleno, escalera de zoom hasta el remate en 'hecho por IA' · CINCO HERRAMIENTAS 8.2-55.4s en triband, card de logo -> grabación por cada una, clavadas a la palabra que nombra la herramienta · TESIS 55.4-61.4s vuelve al plano lleno con la cara quieta · CTA 61.8-69.9s en triband, comment_ui en 'Comenta WEBS'.",
+  "_mejora2": "anchor de los encuadres `band` bajó de 0.5714 a 0.38 — medido y verificado sobre out/15-rough.mp4 con Haar (49 muestras): borde superior de la cara p5=0.2833, barbilla (assets/face-15.json) 0.4531. Con la banda [960,1920] y escala 1.0 (object-fit: cover), top = 960 − 960·anchor; con 0.38 la caja de cara empieza en y1150 (190px por debajo del techo de banda, la coronilla entra con aire) y la barbilla en y1465 (por encima de y1536, la interfaz de la plataforma). NO tocar sin rehacer la medición completa — es la restricción dura de esta ronda.",
   "shots": [
     {"at": 0.0, "kind": "full", "zoom": 1.09, "anchor": 0.44},
     {"at": 2.826, "kind": "full", "zoom": 1.12, "anchor": 0.43},
     {"at": 4.383, "kind": "full", "zoom": 1.05, "anchor": 0.45},
     {"at": 6.069, "kind": "full", "zoom": 1.15, "anchor": 0.42},
 
-    {"at": 8.216, "kind": "band", "anchor": 0.5714},
-    {"at": 16.048, "kind": "band", "anchor": 0.5714},
-    {"at": 26.364, "kind": "band", "anchor": 0.5714},
-    {"at": 38.026, "kind": "band", "anchor": 0.5714},
-    {"at": 47.72, "kind": "band", "anchor": 0.5714},
+    {"at": 8.216, "kind": "band", "anchor": 0.38},
+    {"at": 16.048, "kind": "band", "anchor": 0.38},
+    {"at": 26.364, "kind": "band", "anchor": 0.38},
+    {"at": 38.026, "kind": "band", "anchor": 0.38},
+    {"at": 47.72, "kind": "band", "anchor": 0.38},
 
     {"at": 55.417, "kind": "full", "zoom": 1.0, "anchor": 0.46},
     {"at": 58.726, "kind": "full", "zoom": 1.06, "anchor": 0.44},
 
-    {"at": 61.805, "kind": "band", "anchor": 0.5714}
+    {"at": 61.805, "kind": "band", "anchor": 0.38}
   ],
   "cards": [],
   "visuals": [
@@ -46,13 +47,14 @@
       "id": "v-tool-1", "role": "takeover", "kind": "mockup",
       "start": 9.076, "end": 10.747,
       "band": "top",
-      "_": "card de logo, clavada a 'Anime.js' (9.076-9.895). Tarea 9c: band:\"top\" confina el host a la banda de arriba (0-820) y lo deja transparente, así la banda del hablante (1120-1920) se sigue viendo por debajo — antes el host a lienzo completo del mockup tapaba al hablante entero y mock_pad_bottom solo disimulaba subiendo la card, sin arreglar el fondo opaco.",
+      "_": "card de logo, clavada a 'Anime.js' (9.076-9.895). Tarea 9c: band:\"top\" confina el host a la banda de arriba (0-660) y lo deja transparente, así la banda del hablante (960-1920) se sigue viendo por debajo — antes el host a lienzo completo del mockup tapaba al hablante entero y mock_pad_bottom solo disimulaba subiendo la card, sin arreglar el fondo opaco. Mejora 1: la división pasó de [0,820]/[820,1120]/[1120,1920] a la mitad exacta del lienzo, [0,660]/[660,960]/[960,1920] — el hablante ocupa la mitad de abajo.",
       "mock": ["tool_card", {"slug": "animejs", "name": "Anime.js", "kicker": "LIBRERÍA"}]
     },
     {
       "id": "v-rec-1", "role": "takeover", "kind": "screen-video",
       "start": 10.747, "end": 15.648,
-      "src": "animejs-tour.mp4", "rect": [60, 140, 960, 540],
+      "src": "animejs-tour.mp4", "rect": [60, 60, 960, 540],
+      "_": "Mejora 1: la banda `top` bajó de 820 a 660 px de alto, así que el rect de la grabación (16:9, sin deformar) baja de 960x540+140 a 960x540+60 — mismo tamaño (540 < 607, el máximo a 1080 de ancho), margen simétrico de 60px arriba y abajo dentro de los 660px de la banda.",
       "tool_recording": {"slug": "animejs", "name": "Anime.js", "hairline": 1}
     },
 
@@ -66,7 +68,7 @@
     {
       "id": "v-rec-2", "role": "takeover", "kind": "screen-video",
       "start": 18.381, "end": 25.964,
-      "src": "motion-tour.mp4", "rect": [60, 140, 960, 540],
+      "src": "motion-tour.mp4", "rect": [60, 60, 960, 540],
       "tool_recording": {"slug": "motion", "name": "Motion", "hairline": 1}
     },
 
@@ -80,7 +82,7 @@
     {
       "id": "v-rec-3", "role": "takeover", "kind": "screen-video",
       "start": 28.824, "end": 35.424,
-      "src": "kokonutui-tour.mp4", "rect": [60, 140, 960, 540],
+      "src": "kokonutui-tour.mp4", "rect": [60, 60, 960, 540],
       "tool_recording": {"slug": "kokonutui", "name": "Kokonut UI", "hairline": 1}
     },
 
@@ -94,7 +96,7 @@
     {
       "id": "v-rec-4", "role": "takeover", "kind": "screen-video",
       "start": 40.737, "end": 47.258,
-      "src": "bklitui-tour.mp4", "rect": [60, 140, 960, 540],
+      "src": "bklitui-tour.mp4", "rect": [60, 60, 960, 540],
       "tool_recording": {"slug": "bklitui", "name": "Bklit UI", "hairline": 1}
     },
 
@@ -108,7 +110,7 @@
     {
       "id": "v-rec-5", "role": "takeover", "kind": "screen-video",
       "start": 50.548, "end": 55.017,
-      "src": "manus-tour.mp4", "rect": [60, 140, 960, 540],
+      "src": "manus-tour.mp4", "rect": [60, 60, 960, 540],
       "_": "hairline 3, y solo aquí: la grabación de Manus es la única de las cinco con fondo CLARO y necesita un marco más marcado para no perderse.",
       "tool_recording": {"slug": "manus", "name": "Manus", "hairline": 3}
     },

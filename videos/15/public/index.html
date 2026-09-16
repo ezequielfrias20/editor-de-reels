@@ -45,7 +45,7 @@
 .viz[data-viz-id="v-rec-1"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
 .viz[data-viz-id="v-rec-1"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
   border-radius:50%;border:6px solid #7C5CFF;opacity:0}
-.viz[data-viz-id="v-rec-1"] .tr-panel{position:absolute;left:60px;top:140px;width:960px;height:540px;
+.viz[data-viz-id="v-rec-1"] .tr-panel{position:absolute;left:60px;top:60px;width:960px;height:540px;
   border-radius:24px;overflow:hidden;pointer-events:none;
   border:1px solid rgba(255,255,255,.16);box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);z-index:11}
 .viz[data-viz-id="v-rec-1"] .tr-head{position:absolute;left:0;top:0;width:100%;height:84px;
@@ -91,7 +91,7 @@
 .viz[data-viz-id="v-rec-2"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
 .viz[data-viz-id="v-rec-2"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
   border-radius:50%;border:6px solid #7C5CFF;opacity:0}
-.viz[data-viz-id="v-rec-2"] .tr-panel{position:absolute;left:60px;top:140px;width:960px;height:540px;
+.viz[data-viz-id="v-rec-2"] .tr-panel{position:absolute;left:60px;top:60px;width:960px;height:540px;
   border-radius:24px;overflow:hidden;pointer-events:none;
   border:1px solid rgba(255,255,255,.16);box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);z-index:11}
 .viz[data-viz-id="v-rec-2"] .tr-head{position:absolute;left:0;top:0;width:100%;height:84px;
@@ -137,7 +137,7 @@
 .viz[data-viz-id="v-rec-3"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
 .viz[data-viz-id="v-rec-3"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
   border-radius:50%;border:6px solid #7C5CFF;opacity:0}
-.viz[data-viz-id="v-rec-3"] .tr-panel{position:absolute;left:60px;top:140px;width:960px;height:540px;
+.viz[data-viz-id="v-rec-3"] .tr-panel{position:absolute;left:60px;top:60px;width:960px;height:540px;
   border-radius:24px;overflow:hidden;pointer-events:none;
   border:1px solid rgba(255,255,255,.16);box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);z-index:11}
 .viz[data-viz-id="v-rec-3"] .tr-head{position:absolute;left:0;top:0;width:100%;height:84px;
@@ -183,7 +183,7 @@
 .viz[data-viz-id="v-rec-4"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
 .viz[data-viz-id="v-rec-4"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
   border-radius:50%;border:6px solid #7C5CFF;opacity:0}
-.viz[data-viz-id="v-rec-4"] .tr-panel{position:absolute;left:60px;top:140px;width:960px;height:540px;
+.viz[data-viz-id="v-rec-4"] .tr-panel{position:absolute;left:60px;top:60px;width:960px;height:540px;
   border-radius:24px;overflow:hidden;pointer-events:none;
   border:1px solid rgba(255,255,255,.16);box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);z-index:11}
 .viz[data-viz-id="v-rec-4"] .tr-head{position:absolute;left:0;top:0;width:100%;height:84px;
@@ -229,7 +229,7 @@
 .viz[data-viz-id="v-rec-5"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
 .viz[data-viz-id="v-rec-5"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
   border-radius:50%;border:6px solid #7C5CFF;opacity:0}
-.viz[data-viz-id="v-rec-5"] .tr-panel{position:absolute;left:60px;top:140px;width:960px;height:540px;
+.viz[data-viz-id="v-rec-5"] .tr-panel{position:absolute;left:60px;top:60px;width:960px;height:540px;
   border-radius:24px;overflow:hidden;pointer-events:none;
   border:3px solid rgba(255,255,255,.16);box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);z-index:11}
 .viz[data-viz-id="v-rec-5"] .tr-head{position:absolute;left:0;top:0;width:100%;height:84px;
@@ -342,6 +342,31 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   color:#FFFFFF}
 .cap.on-dark .w.key{-webkit-text-stroke:7px #0B0C10;paint-order:stroke fill}
 .cap.on-surface .w.key{-webkit-text-stroke:0}
+/* Karaoke del triband (Mejora 3, ver `build_captions`): AQUÍ no hay keyword.
+   `.w.kw` es CUALQUIER palabra del bloque —todas al mismo tamaño y color que
+   `.cap.on-surface .w` de arriba, sin agrandado ni cambio de tinta— y lo
+   único que se mueve es `.wbg`, un rectángulo violeta detrás de la palabra
+   que GSAP enciende y apaga por `opacity` (nunca por color, que reflowearía
+   nada porque el tamaño no cambia, pero SÍ obligaría a interpolar un color
+   sobre otro sin necesidad). `z-index:0` en `.w.kw` abre un contexto de
+   apilamiento PROPIO para que el `z-index:-1` de `.wbg` quede contenido ahí
+   dentro — sin él, un z-index negativo se escapa por debajo de TODO el
+   documento (incluida la capa de vídeo) en vez de quedarse solo detrás de su
+   propia palabra. El texto no lleva ninguna clase nueva: al no estar
+   posicionado, pinta por delante de `.wbg` sin necesidad de otro z-index.
+   El bleed (-8px horizontal, -4px vertical) es el padding: como es un
+   `inset` de un elemento ABSOLUTO no cuenta para el ancho que mide
+   `caption_metrics` (que sigue viendo solo el texto + su margen de
+   siempre), así que no puede desajustar el reparto en líneas ni el gate de
+   la banda del hablante.
+   Contraste medido con `tokens.contrast()`: blanco sobre `violet` (el de
+   toda la paleta) da 4.35:1 — por debajo del 4.5:1 que exige la doctrina
+   para texto pequeño — así que el fondo del karaoke usa `violet_dk`, más
+   oscuro, que sube a 6.72:1. */
+.cap .w.kw{z-index:0}
+.cap .wbg{position:absolute;left:-8px;right:-8px;top:-4px;bottom:-4px;
+  background:#5B3FD6;border-radius:10px;z-index:-1;
+  opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
@@ -372,27 +397,27 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
          data-media-start="6.0667" data-track-index="1"></video>
   <video class="vid band clip" id="shot-04" src="input-video.mp4"
          muted playsinline
-         style="left:0px;top:1120px;width:1080px;height:800px;object-position:50% 57%"
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 38%"
          data-start="8.2000" data-duration="7.8333"
          data-media-start="8.2000" data-track-index="1"></video>
   <video class="vid band clip" id="shot-05" src="input-video.mp4"
          muted playsinline
-         style="left:0px;top:1120px;width:1080px;height:800px;object-position:50% 57%"
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 38%"
          data-start="16.0333" data-duration="10.3334"
          data-media-start="16.0333" data-track-index="1"></video>
   <video class="vid band clip" id="shot-06" src="input-video.mp4"
          muted playsinline
-         style="left:0px;top:1120px;width:1080px;height:800px;object-position:50% 57%"
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 38%"
          data-start="26.3667" data-duration="11.6666"
          data-media-start="26.3667" data-track-index="1"></video>
   <video class="vid band clip" id="shot-07" src="input-video.mp4"
          muted playsinline
-         style="left:0px;top:1120px;width:1080px;height:800px;object-position:50% 57%"
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 38%"
          data-start="38.0333" data-duration="9.7000"
          data-media-start="38.0333" data-track-index="1"></video>
   <video class="vid band clip" id="shot-08" src="input-video.mp4"
          muted playsinline
-         style="left:0px;top:1120px;width:1080px;height:800px;object-position:50% 57%"
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 38%"
          data-start="47.7333" data-duration="7.7000"
          data-media-start="47.7333" data-track-index="1"></video>
   <video class="vid clip" id="shot-09" src="input-video.mp4"
@@ -407,33 +432,33 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
          data-media-start="58.7333" data-track-index="1"></video>
   <video class="vid band clip" id="shot-11" src="input-video.mp4"
          muted playsinline
-         style="left:0px;top:1120px;width:1080px;height:800px;object-position:50% 57%"
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 38%"
          data-start="61.8000" data-duration="8.0667"
          data-media-start="61.8000" data-track-index="1"></video>
 
   <video class="vizmed clip" id="v-rec-1-med" src="animejs-tour.mp4"
          muted playsinline
-         style="left:60px;top:140px;width:960px;height:540px;border-radius:24px"
+         style="left:60px;top:60px;width:960px;height:540px;border-radius:24px"
          data-start="10.7333" data-duration="4.9000"
          data-media-start="0.0000" data-track-index="2"></video>
   <video class="vizmed clip" id="v-rec-2-med" src="motion-tour.mp4"
          muted playsinline
-         style="left:60px;top:140px;width:960px;height:540px;border-radius:24px"
+         style="left:60px;top:60px;width:960px;height:540px;border-radius:24px"
          data-start="18.3667" data-duration="7.6000"
          data-media-start="0.0000" data-track-index="2"></video>
   <video class="vizmed clip" id="v-rec-3-med" src="kokonutui-tour.mp4"
          muted playsinline
-         style="left:60px;top:140px;width:960px;height:540px;border-radius:24px"
+         style="left:60px;top:60px;width:960px;height:540px;border-radius:24px"
          data-start="28.8333" data-duration="6.6000"
          data-media-start="0.0000" data-track-index="2"></video>
   <video class="vizmed clip" id="v-rec-4-med" src="bklitui-tour.mp4"
          muted playsinline
-         style="left:60px;top:140px;width:960px;height:540px;border-radius:24px"
+         style="left:60px;top:60px;width:960px;height:540px;border-radius:24px"
          data-start="40.7333" data-duration="6.5334"
          data-media-start="0.0000" data-track-index="2"></video>
   <video class="vizmed clip" id="v-rec-5-med" src="manus-tour.mp4"
          muted playsinline
-         style="left:60px;top:140px;width:960px;height:540px;border-radius:24px"
+         style="left:60px;top:60px;width:960px;height:540px;border-radius:24px"
          data-start="50.5333" data-duration="4.5000"
          data-media-start="0.0000" data-track-index="2"></video>
 
@@ -492,7 +517,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
 
 
 
-<div class="viz over clip" data-viz-id="v-tool-1" id="host-v-tool-1" data-start="9.0667" data-duration="1.6666" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:820px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-1-cam"><div class="tc-card" id="v-tool-1-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-1-logo"><span class="brandmark" style="width:72px;height:72px"><svg viewBox="0 0 580 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72" height="72">
+<div class="viz over clip" data-viz-id="v-tool-1" id="host-v-tool-1" data-start="9.0667" data-duration="1.6666" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-1-cam"><div class="tc-card" id="v-tool-1-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-1-logo"><span class="brandmark" style="width:72px;height:72px"><svg viewBox="0 0 580 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72" height="72">
     <title>Artboard Copy 151</title>
     <g id="Artboard-Copy-151" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <polygon id="Path" fill="#FF4B4B" fill-rule="nonzero" points="522.982356 20.6 525.570591 3 548.347062 3 545.888238 20.6"></polygon>
@@ -518,7 +543,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
         <path d="M473.150226,91.9058824 C464.263952,91.9058824 457.577677,91.5823529 453.091403,90.9352941 C448.605128,90.2882353 445.412971,89.0588235 443.514932,87.2470588 C441.616893,85.4352941 440.667873,82.6313725 440.667873,78.8352941 C440.667873,77.627451 440.732579,76.527451 440.861991,75.5352941 C440.991403,74.5431373 441.142383,73.4862745 441.314932,72.3647059 L444.032579,72.3647059 C443.601207,74.6941176 443.38552,76.7647059 443.38552,78.5764706 C443.38552,81.6823529 444.226697,83.9901961 445.90905,85.5 C447.591403,87.0098039 450.481599,88.045098 454.579638,88.6058824 C458.677677,89.1666667 464.867873,89.4470588 473.150226,89.4470588 L477.679638,89.4470588 C485.271795,89.4470588 491.052187,88.972549 495.020814,88.0235294 C498.989442,87.0745098 501.793363,85.6078431 503.432579,83.6235294 C505.071795,81.6392157 506.150226,78.7921569 506.667873,75.0823529 C507.012971,72.9254902 507.18552,71.1568627 507.18552,69.7764706 C507.18552,67.1882353 506.387481,65.2254902 504.791403,63.8882353 C503.195324,62.5509804 500.348265,61.6235294 496.250226,61.1058824 C492.152187,60.5882353 486.005128,60.2862745 477.80905,60.2 C469.440422,60.1137255 463.077677,59.7039216 458.720814,58.9705882 C454.363952,58.2372549 451.344344,57.0941176 449.661991,55.5411765 C447.979638,53.9882353 447.138462,51.7882353 447.138462,48.9411765 C447.138462,47.6470588 447.354148,45.6627451 447.78552,42.9882353 C448.303167,39.0196078 449.489442,35.9784314 451.344344,33.8647059 C453.199246,31.7509804 456.28356,30.2411765 460.597285,29.3352941 C464.911011,28.4294118 471.20905,27.9764706 479.491403,27.9764706 L482.726697,27.9764706 C490.146305,27.9764706 495.88356,28.3647059 499.938462,29.1411765 C503.993363,29.9176471 506.926697,31.254902 508.738462,33.1529412 C510.550226,35.0509804 511.456109,37.7686275 511.456109,41.3058824 C511.456109,42.6862745 511.28356,44.7137255 510.938462,47.3882353 L508.350226,47.3882353 C508.695324,44.972549 508.867873,42.9882353 508.867873,41.4352941 C508.867873,38.5019608 508.069834,36.2588235 506.473756,34.7058824 C504.877677,33.1529412 502.224736,32.0529412 498.514932,31.4058824 C494.805128,30.7588235 489.499246,30.4352941 482.597285,30.4352941 L479.361991,30.4352941 C471.597285,30.4352941 465.752187,30.845098 461.826697,31.6647059 C457.901207,32.4843137 455.140422,33.7784314 453.544344,35.5470588 C451.948265,37.3156863 450.891403,39.9686275 450.373756,43.5058824 C450.028658,45.7490196 449.856109,47.4313725 449.856109,48.5529412 C449.856109,50.9686275 450.611011,52.8019608 452.120814,54.0529412 C453.630618,55.3039216 456.369834,56.1882353 460.338462,56.7058824 C464.307089,57.2235294 470.216893,57.5254902 478.067873,57.6117647 C486.695324,57.6980392 493.230618,58.0862745 497.673756,58.7764706 C502.116893,59.4666667 505.244344,60.6313725 507.056109,62.2705882 C508.867873,63.9098039 509.773756,66.3254902 509.773756,69.5176471 C509.773756,70.8980392 509.601207,72.8392157 509.256109,75.3411765 C508.652187,79.654902 507.379638,82.9764706 505.438462,85.3058824 C503.497285,87.6352941 500.348265,89.3176471 495.991403,90.3529412 C491.63454,91.3882353 485.487481,91.9058824 477.550226,91.9058824 L473.150226,91.9058824 Z" id="Path" stroke="#FFFFFF" stroke-width="2" fill="#FFFFFF" fill-rule="nonzero"></path>
     </g>
 </svg></span></span><span class="tr-name">Anime.js</span></div></div></div></div>
-<div class="viz over clip" data-viz-id="v-tool-2" id="host-v-tool-2" data-start="17.0000" data-duration="1.3667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:820px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-2-cam"><div class="tc-card" id="v-tool-2-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-2-logo"><span class="brandmark" style="width:72px;height:72px"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+<div class="viz over clip" data-viz-id="v-tool-2" id="host-v-tool-2" data-start="17.0000" data-duration="1.3667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-2-cam"><div class="tc-card" id="v-tool-2-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-2-logo"><span class="brandmark" style="width:72px;height:72px"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
   <rect width="64" height="64" rx="14" fill="#0B0B0C" />
   <g transform="translate(10 24.2) scale(1.735)">
     <path
@@ -538,11 +563,11 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   </g>
 </svg>
 </span></span><span class="tr-name">Motion</span></div></div></div></div>
-<div class="viz over clip" data-viz-id="v-tool-3" id="host-v-tool-3" data-start="27.2333" data-duration="1.6000" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:820px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-3-cam"><div class="tc-card" id="v-tool-3-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-3-logo"><span class="brandmark" style="width:72px;height:72px"><img src="logos/kokonutui.png" alt="Kokonut UI" width="72" height="72" style="width:100%;height:100%;object-fit:contain;display:block" /></span></span></div><div class="tc-name" id="v-tool-3-name"><span class="tc-kick">COMPONENTES</span><span class="tc-word">Kokonut UI</span></div></div></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-tool-3" id="host-v-tool-3" data-start="27.2333" data-duration="1.6000" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-3-cam"><div class="tc-card" id="v-tool-3-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-3-logo"><span class="brandmark" style="width:72px;height:72px"><img src="logos/kokonutui.png" alt="Kokonut UI" width="72" height="72" style="width:100%;height:100%;object-fit:contain;display:block" /></span></span></div><div class="tc-name" id="v-tool-3-name"><span class="tc-kick">COMPONENTES</span><span class="tc-word">Kokonut UI</span></div></div></div></div></div></div>
 <div class="viz over clip" data-viz-id="v-rec-3" id="host-v-rec-3" data-start="28.8333" data-duration="6.6000" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-rec-3-cam"><div class="screenfx"><div class="bigcursor" id="v-rec-3-cursor"><span class="tap-ring" id="v-rec-3-ring" style="border-color:#7C5CFF"></span><svg viewBox="0 0 80 96" aria-hidden="true"><path fill="#FFFFFF" stroke="#0B0C10" stroke-width="6" stroke-linejoin="round" d="M8 7v70l18-17 14 29 17-8-14-28h27z"/></svg></div></div><div class="tr-panel" id="v-rec-3-panel"><div class="tr-head" id="v-rec-3-head"><span class="tr-chip"><span class="brandmark" style="width:40px;height:40px"><img src="logos/kokonutui.png" alt="Kokonut UI" width="40" height="40" style="width:100%;height:100%;object-fit:contain;display:block" /></span></span><span class="tr-name">Kokonut UI</span></div></div></div></div>
-<div class="viz over clip" data-viz-id="v-tool-4" id="host-v-tool-4" data-start="38.9667" data-duration="1.7666" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:820px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-4-cam"><div class="tc-card" id="v-tool-4-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-4-logo"><span class="brandmark" style="width:72px;height:72px"><img src="logos/bklitui.png" alt="Bklit UI" width="72" height="72" style="width:100%;height:100%;object-fit:contain;display:block" /></span></span></div><div class="tc-name" id="v-tool-4-name"><span class="tc-kick">GRÁFICOS</span><span class="tc-word">Bklit UI</span></div></div></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-tool-4" id="host-v-tool-4" data-start="38.9667" data-duration="1.7666" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-4-cam"><div class="tc-card" id="v-tool-4-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-4-logo"><span class="brandmark" style="width:72px;height:72px"><img src="logos/bklitui.png" alt="Bklit UI" width="72" height="72" style="width:100%;height:100%;object-fit:contain;display:block" /></span></span></div><div class="tc-name" id="v-tool-4-name"><span class="tc-kick">GRÁFICOS</span><span class="tc-word">Bklit UI</span></div></div></div></div></div></div>
 <div class="viz over clip" data-viz-id="v-rec-4" id="host-v-rec-4" data-start="40.7333" data-duration="6.5334" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-rec-4-cam"><div class="screenfx"><div class="bigcursor" id="v-rec-4-cursor"><span class="tap-ring" id="v-rec-4-ring" style="border-color:#7C5CFF"></span><svg viewBox="0 0 80 96" aria-hidden="true"><path fill="#FFFFFF" stroke="#0B0C10" stroke-width="6" stroke-linejoin="round" d="M8 7v70l18-17 14 29 17-8-14-28h27z"/></svg></div></div><div class="tr-panel" id="v-rec-4-panel"><div class="tr-head" id="v-rec-4-head"><span class="tr-chip"><span class="brandmark" style="width:40px;height:40px"><img src="logos/bklitui.png" alt="Bklit UI" width="40" height="40" style="width:100%;height:100%;object-fit:contain;display:block" /></span></span><span class="tr-name">Bklit UI</span></div></div></div></div>
-<div class="viz over clip" data-viz-id="v-tool-5" id="host-v-tool-5" data-start="48.8333" data-duration="1.7000" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:820px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-5-cam"><div class="tc-card" id="v-tool-5-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-5-logo"><span class="brandmark" style="width:72px;height:72px"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+<div class="viz over clip" data-viz-id="v-tool-5" id="host-v-tool-5" data-start="48.8333" data-duration="1.7000" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tool-5-cam"><div class="tc-card" id="v-tool-5-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-tool-5-logo"><span class="brandmark" style="width:72px;height:72px"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
 <rect width="32" height="32" rx="5.05263" fill="white"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.3269 6.97196C7.10886 7.41969 7.29244 7.96069 7.73694 8.18031C8.37539 8.49577 8.92943 8.80682 9.47799 9.42979C9.80652 9.80287 10.3731 9.83706 10.7435 9.50615C11.1139 9.17524 11.1478 8.60453 10.8193 8.23145C10.0376 7.34372 9.23299 6.90799 8.52654 6.55894C8.08204 6.33932 7.54494 6.52423 7.3269 6.97196Z" fill="#34322D"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1721 4.34285C11.6918 4.4638 11.3998 4.95405 11.5198 5.43786C11.6037 5.77586 11.682 6.06488 11.7536 6.32945C11.8907 6.83585 12.0035 7.25269 12.0854 7.75209C12.166 8.24413 12.6274 8.57716 13.1159 8.49593C13.6044 8.4147 13.935 7.94998 13.8543 7.45795C13.7576 6.8677 13.607 6.30922 13.4558 5.74868C13.3888 5.50045 13.3218 5.25183 13.2592 4.99985C13.1391 4.51605 12.6524 4.2219 12.1721 4.34285Z" fill="#34322D"/>
@@ -558,7 +583,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
 <path fill-rule="evenodd" clip-rule="evenodd" d="M21.8669 27.2046C23.6053 26.0937 24.8072 20.1356 24.5428 18.3615C24.5428 18.3615 24.2673 17.409 23.595 17.4089C23.0798 17.4089 22.7952 17.8277 22.6902 18.0236C22.5994 17.99 22.507 17.9596 22.4337 17.9359C22.3942 17.9232 22.3388 17.9056 22.2868 17.889L22.1883 17.8576C22.1079 17.8318 22.0321 17.807 21.9608 17.7824L21.961 17.7571C21.9641 17.1813 21.9056 16.2826 21.3091 15.3463C21.2137 15.1965 21.1236 15.0625 21.0466 14.9489L20.9983 14.8777C20.941 14.7933 20.896 14.7271 20.8528 14.661C20.7466 14.4989 20.7176 14.4364 20.7064 14.4076L20.7058 14.4063C20.7014 14.3951 20.6925 14.3724 20.69 14.3031C20.687 14.2179 20.6943 14.0567 20.7495 13.7747L21.0366 12.6274L21.0377 12.6215C21.0566 12.5161 21.0737 12.4215 21.0829 12.2673C21.0915 12.1254 21.0932 11.9192 21.0572 11.6801C20.9889 11.227 20.727 10.3683 19.8038 9.87044C19.5782 9.74879 19.308 9.67596 19.0416 9.64113C18.8625 9.61771 18.6231 9.60169 18.3451 9.62317C17.7779 9.66697 17.0336 9.8712 16.371 10.4787L16.206 10.6522C15.8209 11.1174 15.4141 11.6934 15.1055 12.2031C14.1686 11.762 13.0657 11.2557 12.2951 10.9835C11.4494 10.6847 10.5055 10.4347 9.61848 10.4669C8.63612 10.5025 7.53162 10.9143 6.95339 12.08C6.71585 12.5588 6.61449 13.1181 6.73647 13.7009C6.85304 14.2579 7.14133 14.6839 7.41667 14.9811C7.92789 15.5329 8.61265 15.8748 9.09526 16.082C9.46477 16.2407 9.84444 16.3727 10.1806 16.4795C10.1451 16.5438 10.1095 16.6103 10.0752 16.6778C9.97358 16.8776 9.85198 17.145 9.77193 17.4509C9.6921 17.756 9.62915 18.1907 9.74295 18.681C9.85975 19.1843 10.0909 19.5773 10.3662 19.8779C10.3558 20.0342 10.3519 20.1989 10.3577 20.3694C10.3964 21.5079 11.0916 22.2669 11.7031 22.6973C12.2857 23.1073 12.9718 23.359 13.5265 23.5282C14.0622 23.6916 14.6278 23.8213 15.0874 23.9267L15.1858 23.9492C15.6756 24.0617 16.1597 24.1919 16.6439 24.3221C17.1932 24.4698 17.7427 24.6176 18.301 24.7397C18.4837 24.7797 18.6611 24.8179 18.8243 24.8527L18.8838 25.0077C19.6081 26.8585 20.5752 28.0302 21.8669 27.2046ZM15.249 19.6293C15.1499 19.589 15.093 19.5623 15.0425 19.5369C14.6038 19.3086 14.0642 19.4807 13.836 19.9221C13.6073 20.3645 13.7784 20.91 14.2176 21.1403C14.2536 21.1591 14.2901 21.1768 14.3268 21.1941C14.3883 21.2231 14.474 21.2617 14.5784 21.3041C14.7841 21.3877 15.0766 21.4918 15.4083 21.5627C15.9969 21.6884 17.0848 21.7843 17.8224 20.9328C18.1765 20.524 18.3468 19.9868 18.4114 19.4846C18.478 18.9672 18.4448 18.3995 18.3148 17.8471C18.0587 16.7587 17.3808 15.5678 16.1149 15.003C15.0302 14.5191 13.9583 14.4053 13.0544 14.5074C12.4509 14.5756 11.8743 14.7466 11.4111 15.0073V14.9873C10.2785 14.6615 8.0244 14.0131 8.57949 12.8941C9.00028 12.0459 10.1531 12.116 11.7168 12.6684C12.352 12.8928 13.2346 13.2926 14.0671 13.6825C14.3251 13.8034 14.5784 13.9233 14.8179 14.0367C15.1671 14.202 15.7509 14.4743 15.7509 14.4743C16.4149 13.6717 16.6727 13.2296 16.9002 12.8393C17.0567 12.5709 17.1989 12.3271 17.4491 12.0074C17.8032 11.5548 18.3756 11.2752 18.9628 11.4389C19.372 11.6596 19.268 12.217 19.268 12.217L18.9836 13.3534C18.7121 14.6909 19.0126 15.1335 19.5079 15.8629C19.5949 15.991 19.688 16.1281 19.785 16.2803C20.18 16.9004 20.1617 17.4967 20.1468 17.9833C20.1373 18.2963 20.1291 18.564 20.2331 18.7635C20.4474 19.1743 21.2494 19.4291 21.7753 19.5961C21.9016 19.6363 22.012 19.6714 22.0945 19.7023L22.1508 19.7246C22.0767 19.9561 22.0094 20.1958 21.9421 20.4352C21.643 21.4999 21.3452 22.5598 20.4574 22.8774C19.3368 23.2782 18.2162 22.8989 18.2162 22.8989C18.0142 22.8395 17.8086 22.7934 17.6029 22.7474C17.3465 22.69 17.09 22.6326 16.8405 22.5492C16.4926 22.4191 16.0054 22.3073 15.4759 22.1858C14.215 21.8966 12.7144 21.5523 12.2847 20.7751C12.2123 20.6442 12.1703 20.501 12.1649 20.3437C12.1406 19.6291 12.3892 18.9892 12.3892 18.9892C12.3892 18.9892 12.0037 18.9908 11.7333 18.7288C11.6325 18.6312 11.5478 18.4969 11.5049 18.3122C11.4193 17.9434 11.4928 17.4088 11.941 16.9573L12.1656 16.7317C12.2791 16.6174 12.6155 16.3742 13.2542 16.3021C13.8604 16.2336 14.6109 16.3072 15.3887 16.6542C15.9854 16.9204 16.3979 17.5312 16.5702 18.2635C16.6544 18.6214 16.6699 18.9689 16.6334 19.2524C16.5949 19.551 16.5103 19.7007 16.4714 19.7455C16.4232 19.8012 16.2532 19.8971 15.7804 19.796C15.5813 19.7535 15.3922 19.6875 15.249 19.6293Z" fill="#34322D"/>
 </svg>
 </span></span><span class="tr-name">Manus</span></div></div></div></div>
-<div class="viz over clip" data-viz-id="v-cta" id="host-v-cta" data-start="67.8000" data-duration="2.0667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:820px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-cta-cam"><div class="cwrap"><div class="csay" id="v-cta-say">COMENTA LA PALABRA</div><div class="chead" id="v-cta-head">WEBS</div><div class="cbox" id="v-cta-box"><div class="cav"></div><div class="cfield" id="v-cta-field"><i>Añade un comentario…</i></div><div class="csend" id="v-cta-send">ENVIAR</div></div><div class="cposted" id="v-cta-posted">✓ COMENTARIO PUBLICADO</div></div></div></div>
+<div class="viz over clip" data-viz-id="v-cta" id="host-v-cta" data-start="67.8000" data-duration="2.0667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-cta-cam"><div class="cwrap"><div class="csay" id="v-cta-say">COMENTA LA PALABRA</div><div class="chead" id="v-cta-head">WEBS</div><div class="cbox" id="v-cta-box"><div class="cav"></div><div class="cfield" id="v-cta-field"><i>Añade un comentario…</i></div><div class="csend" id="v-cta-send">ENVIAR</div></div><div class="cposted" id="v-cta-posted">✓ COMENTARIO PUBLICADO</div></div></div></div>
 
   <!-- los bloques comparten posición a propósito: solo uno es visible a la vez -->
   <div id="caption-host" class="clip" data-layout-allow-overlap data-start="0"
@@ -569,42 +594,42 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     <div class="cap on-dark" id="cap3" data-layout-allow-overlap style="top:928px"><span class="w">pueden</span><span class="w">hacer</span><span class="w">que</span><span class="w">el</span><span class="w">resultado</span></div>
     <div class="cap on-dark" id="cap4" data-layout-allow-overlap style="top:937px"><span class="w">deje</span><span class="w">de</span><span class="w">verse</span><span class="w">tan</span><span class="w">hecho</span></div>
     <div class="cap on-dark" id="cap5" data-layout-allow-overlap style="top:937px"><span class="w">por</span><span class="w key" id="c5k1">IA</span></div>
-    <div class="cap on-surface" id="cap6" data-layout-allow-overlap style="top:844px"><span class="w">La</span><span class="w">primera</span><span class="w">es</span><span class="w key" id="c6k3">ANIME.JS</span></div>
-    <div class="cap on-surface" id="cap7" data-layout-allow-overlap style="top:844px"><span class="w">es</span><span class="w">una</span><span class="w">librería</span><span class="w">de</span><span class="w">animaciones</span></div>
-    <div class="cap on-surface" id="cap8" data-layout-allow-overlap style="top:844px"><span class="w">para</span><span class="w">darle</span><span class="w">vida</span><span class="w">a</span><span class="w">prácticamente</span></div>
-    <div class="cap on-surface" id="cap9" data-layout-allow-overlap style="top:844px"><span class="w">cualquier</span><span class="w">elemento</span><span class="w">de</span><span class="w">una</span><span class="w">web</span></div>
-    <div class="cap on-surface" id="cap10" data-layout-allow-overlap style="top:844px"><span class="w">La</span><span class="w">segunda</span><span class="w">es</span><span class="w key" id="c10k3">MOTION</span></div>
-    <div class="cap on-surface" id="cap11" data-layout-allow-overlap style="top:844px"><span class="w">yo</span><span class="w">lo</span><span class="w">usaría</span><span class="w">sobre</span></div>
-    <div class="cap on-surface" id="cap12" data-layout-allow-overlap style="top:844px"><span class="w">todo</span><span class="w">para</span><span class="w">transiciones</span></div>
-    <div class="cap on-surface" id="cap13" data-layout-allow-overlap style="top:844px"><span class="w">animaciones</span><span class="w">de</span><span class="w">scroll</span><span class="w">y</span></div>
-    <div class="cap on-surface" id="cap14" data-layout-allow-overlap style="top:844px"><span class="w">pequeños</span><span class="w">movimientos</span><span class="w">que</span><span class="w">hacen</span></div>
-    <div class="cap on-surface" id="cap15" data-layout-allow-overlap style="top:844px"><span class="w">que</span><span class="w">una</span><span class="w">interfaz</span><span class="w">se</span></div>
-    <div class="cap on-surface" id="cap16" data-layout-allow-overlap style="top:844px"><span class="w">sienta</span><span class="w">mucho</span><span class="w">más</span><span class="w">pulida</span></div>
-    <div class="cap on-surface" id="cap17" data-layout-allow-overlap style="top:844px"><span class="w">La</span><span class="w">tercera</span><span class="w">es</span><span class="w key" id="c17k3">COCONUT</span><span class="w">UI</span></div>
-    <div class="cap on-surface" id="cap18" data-layout-allow-overlap style="top:844px"><span class="w">Aquí</span><span class="w">tienes</span><span class="w">componentes</span><span class="w">visuales</span><span class="w">que</span></div>
-    <div class="cap on-surface" id="cap19" data-layout-allow-overlap style="top:844px"><span class="w">puedes</span><span class="w">usar</span><span class="w">como</span><span class="w">referencia</span><span class="w">o</span></div>
-    <div class="cap on-surface" id="cap20" data-layout-allow-overlap style="top:844px"><span class="w">integrar</span><span class="w">en</span><span class="w">tus</span><span class="w">proyectos</span><span class="w">en</span></div>
-    <div class="cap on-surface" id="cap21" data-layout-allow-overlap style="top:844px"><span class="w">vez</span><span class="w">de</span><span class="w">pedirle</span><span class="w">a</span><span class="w key" id="c21k4">CLAUDE</span></div>
-    <div class="cap on-surface" id="cap22" data-layout-allow-overlap style="top:844px"><span class="w">que</span><span class="w">se</span><span class="w">invente</span><span class="w">todo</span><span class="w">desde</span><span class="w">cero</span></div>
-    <div class="cap on-surface" id="cap23" data-layout-allow-overlap style="top:844px"><span class="w">La</span><span class="w">cuarta</span><span class="w">es</span><span class="w key" id="c23k3">BKLIT</span><span class="w">UI</span></div>
-    <div class="cap on-surface" id="cap24" data-layout-allow-overlap style="top:844px"><span class="w">Si</span><span class="w">estás</span><span class="w">haciendo</span><span class="w">dashboard</span></div>
-    <div class="cap on-surface" id="cap25" data-layout-allow-overlap style="top:844px"><span class="w">presta</span><span class="w">atención</span><span class="w">a</span><span class="w">esta</span><span class="w">porque</span></div>
-    <div class="cap on-surface" id="cap26" data-layout-allow-overlap style="top:844px"><span class="w">está</span><span class="w">enfocada</span><span class="w">en</span><span class="w">gráficos</span><span class="w">y</span></div>
-    <div class="cap on-surface" id="cap27" data-layout-allow-overlap style="top:844px"><span class="w">visualizaciones</span><span class="w">de</span><span class="w">datos</span></div>
-    <div class="cap on-surface" id="cap28" data-layout-allow-overlap style="top:844px"><span class="w">Y</span><span class="w">la</span><span class="w">quinta</span><span class="w">Es</span><span class="w key" id="c28k4">MANUS</span></div>
-    <div class="cap on-surface" id="cap29" data-layout-allow-overlap style="top:844px"><span class="w">puedes</span><span class="w">usar</span><span class="w">para</span><span class="w">pasar</span><span class="w">de</span></div>
-    <div class="cap on-surface" id="cap30" data-layout-allow-overlap style="top:844px"><span class="w">una</span><span class="w">idea</span><span class="w">a</span><span class="w">prototipos</span><span class="w">y</span></div>
-    <div class="cap on-surface" id="cap31" data-layout-allow-overlap style="top:844px"><span class="w">experiencias</span><span class="w">bastante</span><span class="w">completas</span></div>
+    <div class="cap on-surface" id="cap6" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c6w0"><span class="wbg" id="c6w0-bg"></span>La</span><span class="w kw" id="c6w1"><span class="wbg" id="c6w1-bg"></span>primera</span><span class="w kw" id="c6w2"><span class="wbg" id="c6w2-bg"></span>es</span><span class="w kw" id="c6w3"><span class="wbg" id="c6w3-bg"></span>Anime.js</span></div>
+    <div class="cap on-surface" id="cap7" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c7w0"><span class="wbg" id="c7w0-bg"></span>es</span><span class="w kw" id="c7w1"><span class="wbg" id="c7w1-bg"></span>una</span><span class="w kw" id="c7w2"><span class="wbg" id="c7w2-bg"></span>librería</span><span class="w kw" id="c7w3"><span class="wbg" id="c7w3-bg"></span>de</span><span class="w kw" id="c7w4"><span class="wbg" id="c7w4-bg"></span>animaciones</span></div>
+    <div class="cap on-surface" id="cap8" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c8w0"><span class="wbg" id="c8w0-bg"></span>para</span><span class="w kw" id="c8w1"><span class="wbg" id="c8w1-bg"></span>darle</span><span class="w kw" id="c8w2"><span class="wbg" id="c8w2-bg"></span>vida</span><span class="w kw" id="c8w3"><span class="wbg" id="c8w3-bg"></span>a</span><span class="w kw" id="c8w4"><span class="wbg" id="c8w4-bg"></span>prácticamente</span></div>
+    <div class="cap on-surface" id="cap9" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c9w0"><span class="wbg" id="c9w0-bg"></span>cualquier</span><span class="w kw" id="c9w1"><span class="wbg" id="c9w1-bg"></span>elemento</span><span class="w kw" id="c9w2"><span class="wbg" id="c9w2-bg"></span>de</span><span class="w kw" id="c9w3"><span class="wbg" id="c9w3-bg"></span>una</span><span class="w kw" id="c9w4"><span class="wbg" id="c9w4-bg"></span>web</span></div>
+    <div class="cap on-surface" id="cap10" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c10w0"><span class="wbg" id="c10w0-bg"></span>La</span><span class="w kw" id="c10w1"><span class="wbg" id="c10w1-bg"></span>segunda</span><span class="w kw" id="c10w2"><span class="wbg" id="c10w2-bg"></span>es</span><span class="w kw" id="c10w3"><span class="wbg" id="c10w3-bg"></span>Motion</span></div>
+    <div class="cap on-surface" id="cap11" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c11w0"><span class="wbg" id="c11w0-bg"></span>yo</span><span class="w kw" id="c11w1"><span class="wbg" id="c11w1-bg"></span>lo</span><span class="w kw" id="c11w2"><span class="wbg" id="c11w2-bg"></span>usaría</span><span class="w kw" id="c11w3"><span class="wbg" id="c11w3-bg"></span>sobre</span></div>
+    <div class="cap on-surface" id="cap12" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c12w0"><span class="wbg" id="c12w0-bg"></span>todo</span><span class="w kw" id="c12w1"><span class="wbg" id="c12w1-bg"></span>para</span><span class="w kw" id="c12w2"><span class="wbg" id="c12w2-bg"></span>transiciones</span></div>
+    <div class="cap on-surface" id="cap13" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c13w0"><span class="wbg" id="c13w0-bg"></span>animaciones</span><span class="w kw" id="c13w1"><span class="wbg" id="c13w1-bg"></span>de</span><span class="w kw" id="c13w2"><span class="wbg" id="c13w2-bg"></span>scroll</span><span class="w kw" id="c13w3"><span class="wbg" id="c13w3-bg"></span>y</span></div>
+    <div class="cap on-surface" id="cap14" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c14w0"><span class="wbg" id="c14w0-bg"></span>pequeños</span><span class="w kw" id="c14w1"><span class="wbg" id="c14w1-bg"></span>movimientos</span><span class="w kw" id="c14w2"><span class="wbg" id="c14w2-bg"></span>que</span><span class="w kw" id="c14w3"><span class="wbg" id="c14w3-bg"></span>hacen</span></div>
+    <div class="cap on-surface" id="cap15" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c15w0"><span class="wbg" id="c15w0-bg"></span>que</span><span class="w kw" id="c15w1"><span class="wbg" id="c15w1-bg"></span>una</span><span class="w kw" id="c15w2"><span class="wbg" id="c15w2-bg"></span>interfaz</span><span class="w kw" id="c15w3"><span class="wbg" id="c15w3-bg"></span>se</span></div>
+    <div class="cap on-surface" id="cap16" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c16w0"><span class="wbg" id="c16w0-bg"></span>sienta</span><span class="w kw" id="c16w1"><span class="wbg" id="c16w1-bg"></span>mucho</span><span class="w kw" id="c16w2"><span class="wbg" id="c16w2-bg"></span>más</span><span class="w kw" id="c16w3"><span class="wbg" id="c16w3-bg"></span>pulida</span></div>
+    <div class="cap on-surface" id="cap17" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c17w0"><span class="wbg" id="c17w0-bg"></span>La</span><span class="w kw" id="c17w1"><span class="wbg" id="c17w1-bg"></span>tercera</span><span class="w kw" id="c17w2"><span class="wbg" id="c17w2-bg"></span>es</span><span class="w kw" id="c17w3"><span class="wbg" id="c17w3-bg"></span>Coconut</span><span class="w kw" id="c17w4"><span class="wbg" id="c17w4-bg"></span>UI</span></div>
+    <div class="cap on-surface" id="cap18" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c18w0"><span class="wbg" id="c18w0-bg"></span>Aquí</span><span class="w kw" id="c18w1"><span class="wbg" id="c18w1-bg"></span>tienes</span><span class="w kw" id="c18w2"><span class="wbg" id="c18w2-bg"></span>componentes</span><span class="w kw" id="c18w3"><span class="wbg" id="c18w3-bg"></span>visuales</span><span class="w kw" id="c18w4"><span class="wbg" id="c18w4-bg"></span>que</span></div>
+    <div class="cap on-surface" id="cap19" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c19w0"><span class="wbg" id="c19w0-bg"></span>puedes</span><span class="w kw" id="c19w1"><span class="wbg" id="c19w1-bg"></span>usar</span><span class="w kw" id="c19w2"><span class="wbg" id="c19w2-bg"></span>como</span><span class="w kw" id="c19w3"><span class="wbg" id="c19w3-bg"></span>referencia</span><span class="w kw" id="c19w4"><span class="wbg" id="c19w4-bg"></span>o</span></div>
+    <div class="cap on-surface" id="cap20" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c20w0"><span class="wbg" id="c20w0-bg"></span>integrar</span><span class="w kw" id="c20w1"><span class="wbg" id="c20w1-bg"></span>en</span><span class="w kw" id="c20w2"><span class="wbg" id="c20w2-bg"></span>tus</span><span class="w kw" id="c20w3"><span class="wbg" id="c20w3-bg"></span>proyectos</span><span class="w kw" id="c20w4"><span class="wbg" id="c20w4-bg"></span>en</span></div>
+    <div class="cap on-surface" id="cap21" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c21w0"><span class="wbg" id="c21w0-bg"></span>vez</span><span class="w kw" id="c21w1"><span class="wbg" id="c21w1-bg"></span>de</span><span class="w kw" id="c21w2"><span class="wbg" id="c21w2-bg"></span>pedirle</span><span class="w kw" id="c21w3"><span class="wbg" id="c21w3-bg"></span>a</span><span class="w kw" id="c21w4"><span class="wbg" id="c21w4-bg"></span>Claude</span></div>
+    <div class="cap on-surface" id="cap22" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c22w0"><span class="wbg" id="c22w0-bg"></span>que</span><span class="w kw" id="c22w1"><span class="wbg" id="c22w1-bg"></span>se</span><span class="w kw" id="c22w2"><span class="wbg" id="c22w2-bg"></span>invente</span><span class="w kw" id="c22w3"><span class="wbg" id="c22w3-bg"></span>todo</span><span class="w kw" id="c22w4"><span class="wbg" id="c22w4-bg"></span>desde</span><span class="w kw" id="c22w5"><span class="wbg" id="c22w5-bg"></span>cero</span></div>
+    <div class="cap on-surface" id="cap23" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c23w0"><span class="wbg" id="c23w0-bg"></span>La</span><span class="w kw" id="c23w1"><span class="wbg" id="c23w1-bg"></span>cuarta</span><span class="w kw" id="c23w2"><span class="wbg" id="c23w2-bg"></span>es</span><span class="w kw" id="c23w3"><span class="wbg" id="c23w3-bg"></span>Bklit</span><span class="w kw" id="c23w4"><span class="wbg" id="c23w4-bg"></span>UI</span></div>
+    <div class="cap on-surface" id="cap24" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c24w0"><span class="wbg" id="c24w0-bg"></span>Si</span><span class="w kw" id="c24w1"><span class="wbg" id="c24w1-bg"></span>estás</span><span class="w kw" id="c24w2"><span class="wbg" id="c24w2-bg"></span>haciendo</span><span class="w kw" id="c24w3"><span class="wbg" id="c24w3-bg"></span>dashboard</span></div>
+    <div class="cap on-surface" id="cap25" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c25w0"><span class="wbg" id="c25w0-bg"></span>presta</span><span class="w kw" id="c25w1"><span class="wbg" id="c25w1-bg"></span>atención</span><span class="w kw" id="c25w2"><span class="wbg" id="c25w2-bg"></span>a</span><span class="w kw" id="c25w3"><span class="wbg" id="c25w3-bg"></span>esta</span><span class="w kw" id="c25w4"><span class="wbg" id="c25w4-bg"></span>porque</span></div>
+    <div class="cap on-surface" id="cap26" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c26w0"><span class="wbg" id="c26w0-bg"></span>está</span><span class="w kw" id="c26w1"><span class="wbg" id="c26w1-bg"></span>enfocada</span><span class="w kw" id="c26w2"><span class="wbg" id="c26w2-bg"></span>en</span><span class="w kw" id="c26w3"><span class="wbg" id="c26w3-bg"></span>gráficos</span><span class="w kw" id="c26w4"><span class="wbg" id="c26w4-bg"></span>y</span></div>
+    <div class="cap on-surface" id="cap27" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c27w0"><span class="wbg" id="c27w0-bg"></span>visualizaciones</span><span class="w kw" id="c27w1"><span class="wbg" id="c27w1-bg"></span>de</span><span class="w kw" id="c27w2"><span class="wbg" id="c27w2-bg"></span>datos</span></div>
+    <div class="cap on-surface" id="cap28" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c28w0"><span class="wbg" id="c28w0-bg"></span>Y</span><span class="w kw" id="c28w1"><span class="wbg" id="c28w1-bg"></span>la</span><span class="w kw" id="c28w2"><span class="wbg" id="c28w2-bg"></span>quinta</span><span class="w kw" id="c28w3"><span class="wbg" id="c28w3-bg"></span>Es</span><span class="w kw" id="c28w4"><span class="wbg" id="c28w4-bg"></span>Manus</span></div>
+    <div class="cap on-surface" id="cap29" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c29w0"><span class="wbg" id="c29w0-bg"></span>puedes</span><span class="w kw" id="c29w1"><span class="wbg" id="c29w1-bg"></span>usar</span><span class="w kw" id="c29w2"><span class="wbg" id="c29w2-bg"></span>para</span><span class="w kw" id="c29w3"><span class="wbg" id="c29w3-bg"></span>pasar</span><span class="w kw" id="c29w4"><span class="wbg" id="c29w4-bg"></span>de</span></div>
+    <div class="cap on-surface" id="cap30" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c30w0"><span class="wbg" id="c30w0-bg"></span>una</span><span class="w kw" id="c30w1"><span class="wbg" id="c30w1-bg"></span>idea</span><span class="w kw" id="c30w2"><span class="wbg" id="c30w2-bg"></span>a</span><span class="w kw" id="c30w3"><span class="wbg" id="c30w3-bg"></span>prototipos</span><span class="w kw" id="c30w4"><span class="wbg" id="c30w4-bg"></span>y</span></div>
+    <div class="cap on-surface" id="cap31" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c31w0"><span class="wbg" id="c31w0-bg"></span>experiencias</span><span class="w kw" id="c31w1"><span class="wbg" id="c31w1-bg"></span>bastante</span><span class="w kw" id="c31w2"><span class="wbg" id="c31w2-bg"></span>completas</span></div>
     <div class="cap on-dark" id="cap32" data-layout-allow-overlap style="top:928px"><span class="w">El</span><span class="w">truco</span><span class="w">no</span><span class="w">es</span></div>
     <div class="cap on-dark" id="cap33" data-layout-allow-overlap style="top:928px"><span class="w">conocer</span><span class="w">más</span><span class="w key" id="c33k2">HERRAMIENTAS</span></div>
     <div class="cap on-dark" id="cap34" data-layout-allow-overlap style="top:929px"><span class="w">es</span><span class="w">darle</span><span class="w">mejores</span><span class="w key" id="c34k3">INGREDIENTES</span></div>
     <div class="cap on-dark" id="cap35" data-layout-allow-overlap style="top:929px"><span class="w">a</span><span class="w">la</span><span class="w key" id="c35k2">IA</span></div>
-    <div class="cap on-surface" id="cap36" data-layout-allow-overlap style="top:844px"><span class="w">He</span><span class="w">juntado</span><span class="w">estas</span><span class="w">y</span><span class="w">varias</span></div>
-    <div class="cap on-surface" id="cap37" data-layout-allow-overlap style="top:844px"><span class="w">más</span><span class="w">en</span><span class="w">una</span><span class="w key" id="c37k3">GUÍA</span><span class="w">con</span></div>
-    <div class="cap on-surface" id="cap38" data-layout-allow-overlap style="top:844px"><span class="w">los</span><span class="w">enlaces</span><span class="w">y</span><span class="w">para</span><span class="w">qué</span></div>
-    <div class="cap on-surface" id="cap39" data-layout-allow-overlap style="top:844px"><span class="w">usar</span><span class="w">cada</span><span class="w">una</span></div>
-    <div class="cap on-surface" id="cap40" data-layout-allow-overlap style="top:844px"><span class="w">Comenta</span><span class="w key" id="c40k1">WEBS</span><span class="w">y</span></div>
-    <div class="cap on-surface" id="cap41" data-layout-allow-overlap style="top:844px"><span class="w">te</span><span class="w">la</span><span class="w">mando</span></div>
+    <div class="cap on-surface" id="cap36" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c36w0"><span class="wbg" id="c36w0-bg"></span>He</span><span class="w kw" id="c36w1"><span class="wbg" id="c36w1-bg"></span>juntado</span><span class="w kw" id="c36w2"><span class="wbg" id="c36w2-bg"></span>estas</span><span class="w kw" id="c36w3"><span class="wbg" id="c36w3-bg"></span>y</span><span class="w kw" id="c36w4"><span class="wbg" id="c36w4-bg"></span>varias</span></div>
+    <div class="cap on-surface" id="cap37" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c37w0"><span class="wbg" id="c37w0-bg"></span>más</span><span class="w kw" id="c37w1"><span class="wbg" id="c37w1-bg"></span>en</span><span class="w kw" id="c37w2"><span class="wbg" id="c37w2-bg"></span>una</span><span class="w kw" id="c37w3"><span class="wbg" id="c37w3-bg"></span>guía</span><span class="w kw" id="c37w4"><span class="wbg" id="c37w4-bg"></span>con</span></div>
+    <div class="cap on-surface" id="cap38" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c38w0"><span class="wbg" id="c38w0-bg"></span>los</span><span class="w kw" id="c38w1"><span class="wbg" id="c38w1-bg"></span>enlaces</span><span class="w kw" id="c38w2"><span class="wbg" id="c38w2-bg"></span>y</span><span class="w kw" id="c38w3"><span class="wbg" id="c38w3-bg"></span>para</span><span class="w kw" id="c38w4"><span class="wbg" id="c38w4-bg"></span>qué</span></div>
+    <div class="cap on-surface" id="cap39" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c39w0"><span class="wbg" id="c39w0-bg"></span>usar</span><span class="w kw" id="c39w1"><span class="wbg" id="c39w1-bg"></span>cada</span><span class="w kw" id="c39w2"><span class="wbg" id="c39w2-bg"></span>una</span></div>
+    <div class="cap on-surface" id="cap40" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c40w0"><span class="wbg" id="c40w0-bg"></span>Comenta</span><span class="w kw" id="c40w1"><span class="wbg" id="c40w1-bg"></span>webs</span><span class="w kw" id="c40w2"><span class="wbg" id="c40w2-bg"></span>y</span></div>
+    <div class="cap on-surface" id="cap41" data-layout-allow-overlap style="top:684px"><span class="w kw" id="c41w0"><span class="wbg" id="c41w0-bg"></span>te</span><span class="w kw" id="c41w1"><span class="wbg" id="c41w1-bg"></span>la</span><span class="w kw" id="c41w2"><span class="wbg" id="c41w2-bg"></span>mando</span></div>
   </div>
 
   <script src="vendor/gsap.min.js"></script>
@@ -817,28 +842,294 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
     tl.fromTo("#c2k2", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 2.8333);
     tl.fromTo("#c5k1", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 7.5333);
     tl.fromTo("#c5k1", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 7.5333);
-    tl.fromTo("#c6k3", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 9.0667);
-    tl.fromTo("#c6k3", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 9.0667);
-    tl.fromTo("#c10k3", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 17.0000);
-    tl.fromTo("#c10k3", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 17.0000);
-    tl.fromTo("#c17k3", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 27.2333);
-    tl.fromTo("#c17k3", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 27.2333);
-    tl.fromTo("#c21k4", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 35.2333);
-    tl.fromTo("#c21k4", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 35.2333);
-    tl.fromTo("#c23k3", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 38.9667);
-    tl.fromTo("#c23k3", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 38.9667);
-    tl.fromTo("#c28k4", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 48.8333);
-    tl.fromTo("#c28k4", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 48.8333);
+    tl.fromTo("#c6w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 8.2000);
+    tl.to("#c6w0-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 8.3333);
+    tl.fromTo("#c6w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 8.3333);
+    tl.to("#c6w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 8.8333);
+    tl.fromTo("#c6w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 8.8333);
+    tl.to("#c6w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 9.0667);
+    tl.fromTo("#c6w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 9.0667);
+    tl.to("#c6w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 9.9000);
+    tl.fromTo("#c7w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 10.1333);
+    tl.to("#c7w0-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 10.2000);
+    tl.fromTo("#c7w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 10.2000);
+    tl.to("#c7w1-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 10.3333);
+    tl.fromTo("#c7w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 10.3333);
+    tl.to("#c7w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 10.7333);
+    tl.fromTo("#c7w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 10.7333);
+    tl.to("#c7w3-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 10.8333);
+    tl.fromTo("#c7w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 10.8333);
+    tl.to("#c7w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 11.5333);
+    tl.fromTo("#c8w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 11.5333);
+    tl.to("#c8w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 11.8000);
+    tl.fromTo("#c8w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 11.8000);
+    tl.to("#c8w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 12.1000);
+    tl.fromTo("#c8w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 12.1000);
+    tl.to("#c8w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 12.5333);
+    tl.fromTo("#c8w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 12.5333);
+    tl.to("#c8w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 12.7667);
+    tl.fromTo("#c8w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 12.7667);
+    tl.to("#c8w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 13.6000);
+    tl.fromTo("#c9w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 13.6333);
+    tl.to("#c9w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 14.1333);
+    tl.fromTo("#c9w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 14.1333);
+    tl.to("#c9w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 15.1000);
+    tl.fromTo("#c9w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 15.1000);
+    tl.to("#c9w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 15.3333);
+    tl.fromTo("#c9w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 15.3333);
+    tl.to("#c9w3-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 15.5000);
+    tl.fromTo("#c9w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 15.5000);
+    tl.to("#c9w4-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 15.6333);
+    tl.fromTo("#c10w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 16.0333);
+    tl.to("#c10w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 16.2000);
+    tl.fromTo("#c10w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 16.2000);
+    tl.to("#c10w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 16.7667);
+    tl.fromTo("#c10w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 16.7667);
+    tl.to("#c10w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 17.0000);
+    tl.fromTo("#c10w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 17.0000);
+    tl.to("#c10w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 17.4667);
+    tl.fromTo("#c11w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 17.7333);
+    tl.to("#c11w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 17.9000);
+    tl.fromTo("#c11w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 17.9000);
+    tl.to("#c11w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 18.0000);
+    tl.fromTo("#c11w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 18.0000);
+    tl.to("#c11w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 18.3667);
+    tl.fromTo("#c11w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 18.3667);
+    tl.to("#c11w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 18.6667);
+    tl.fromTo("#c12w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 18.7000);
+    tl.to("#c12w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 19.0333);
+    tl.fromTo("#c12w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 19.0333);
+    tl.to("#c12w1-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 19.2000);
+    tl.fromTo("#c12w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 19.2000);
+    tl.to("#c12w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 20.0333);
+    tl.fromTo("#c13w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 20.3333);
+    tl.to("#c13w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 20.9000);
+    tl.fromTo("#c13w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 20.9000);
+    tl.to("#c13w1-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 21.0333);
+    tl.fromTo("#c13w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 21.0333);
+    tl.to("#c13w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 21.8000);
+    tl.fromTo("#c13w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 21.8000);
+    tl.to("#c13w3-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 21.8333);
+    tl.fromTo("#c14w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 21.8667);
+    tl.to("#c14w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 22.3000);
+    tl.fromTo("#c14w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 22.3000);
+    tl.to("#c14w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 23.0000);
+    tl.fromTo("#c14w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 23.0000);
+    tl.to("#c14w2-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 23.1000);
+    tl.fromTo("#c14w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 23.1000);
+    tl.to("#c14w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 23.3667);
+    tl.fromTo("#c15w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 23.4000);
+    tl.to("#c15w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 23.5667);
+    tl.fromTo("#c15w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 23.5667);
+    tl.to("#c15w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 23.6667);
+    tl.fromTo("#c15w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 23.6667);
+    tl.to("#c15w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 24.4667);
+    tl.fromTo("#c15w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 24.4667);
+    tl.to("#c15w3-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 24.5000);
+    tl.fromTo("#c16w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 24.5333);
+    tl.to("#c16w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 24.9333);
+    tl.fromTo("#c16w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 24.9333);
+    tl.to("#c16w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 25.2667);
+    tl.fromTo("#c16w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 25.2667);
+    tl.to("#c16w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 25.5667);
+    tl.fromTo("#c16w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 25.5667);
+    tl.to("#c16w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 25.9667);
+    tl.fromTo("#c17w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 26.3667);
+    tl.to("#c17w0-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 26.5000);
+    tl.fromTo("#c17w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 26.5000);
+    tl.to("#c17w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 27.0000);
+    tl.fromTo("#c17w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 27.0000);
+    tl.to("#c17w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 27.2333);
+    tl.fromTo("#c17w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 27.2333);
+    tl.to("#c17w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 27.6333);
+    tl.fromTo("#c17w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 27.6333);
+    tl.to("#c17w4-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 27.8333);
+    tl.fromTo("#c18w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 28.2667);
+    tl.to("#c18w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 28.5000);
+    tl.fromTo("#c18w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 28.5000);
+    tl.to("#c18w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 28.8333);
+    tl.fromTo("#c18w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 28.8333);
+    tl.to("#c18w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 29.5333);
+    tl.fromTo("#c18w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 29.5333);
+    tl.to("#c18w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 30.3333);
+    tl.fromTo("#c18w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 30.3333);
+    tl.to("#c18w4-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 30.4667);
+    tl.fromTo("#c19w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 30.5000);
+    tl.to("#c19w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 31.0000);
+    tl.fromTo("#c19w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 31.0000);
+    tl.to("#c19w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 31.3000);
+    tl.fromTo("#c19w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 31.3000);
+    tl.to("#c19w2-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 31.5000);
+    tl.fromTo("#c19w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 31.5000);
+    tl.to("#c19w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 32.3000);
+    tl.fromTo("#c19w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 32.3000);
+    tl.to("#c19w4-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 32.3333);
+    tl.fromTo("#c20w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 32.3667);
+    tl.to("#c20w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 33.3333);
+    tl.fromTo("#c20w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 33.3333);
+    tl.to("#c20w1-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 33.4667);
+    tl.fromTo("#c20w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 33.4667);
+    tl.to("#c20w2-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 33.6333);
+    tl.fromTo("#c20w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 33.6333);
+    tl.to("#c20w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 34.3667);
+    tl.fromTo("#c20w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 34.3667);
+    tl.to("#c20w4-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 34.5000);
+    tl.fromTo("#c21w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 34.5333);
+    tl.to("#c21w0-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 34.6000);
+    tl.fromTo("#c21w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 34.6000);
+    tl.to("#c21w1-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 34.7667);
+    tl.fromTo("#c21w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 34.7667);
+    tl.to("#c21w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 35.1000);
+    tl.fromTo("#c21w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 35.1000);
+    tl.to("#c21w3-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 35.2333);
+    tl.fromTo("#c21w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 35.2333);
+    tl.to("#c21w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 35.5667);
+    tl.fromTo("#c22w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 35.8000);
+    tl.to("#c22w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 35.9667);
+    tl.fromTo("#c22w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 35.9667);
+    tl.to("#c22w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 36.2333);
+    tl.fromTo("#c22w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 36.2333);
+    tl.to("#c22w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 36.8667);
+    tl.fromTo("#c22w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 36.8667);
+    tl.to("#c22w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 37.1667);
+    tl.fromTo("#c22w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 37.1667);
+    tl.to("#c22w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 37.4333);
+    tl.fromTo("#c22w5-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 37.4333);
+    tl.to("#c22w5-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 37.6333);
+    tl.fromTo("#c23w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 38.0333);
+    tl.to("#c23w0-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 38.2333);
+    tl.fromTo("#c23w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 38.2333);
+    tl.to("#c23w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 38.8333);
+    tl.fromTo("#c23w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 38.8333);
+    tl.to("#c23w2-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 38.9667);
+    tl.fromTo("#c23w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 38.9667);
+    tl.to("#c23w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 39.5333);
+    tl.fromTo("#c23w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 39.5333);
+    tl.to("#c23w4-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 39.6667);
+    tl.fromTo("#c24w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 40.1000);
+    tl.to("#c24w0-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 40.1333);
+    tl.fromTo("#c24w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 40.1333);
+    tl.to("#c24w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 40.4333);
+    tl.fromTo("#c24w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 40.4333);
+    tl.to("#c24w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 40.8333);
+    tl.fromTo("#c24w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 40.8333);
+    tl.to("#c24w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 41.2000);
+    tl.fromTo("#c25w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 41.4667);
+    tl.to("#c25w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 41.7667);
+    tl.fromTo("#c25w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 41.7667);
+    tl.to("#c25w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 42.3000);
+    tl.fromTo("#c25w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 42.3000);
+    tl.to("#c25w2-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 42.3667);
+    tl.fromTo("#c25w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 42.3667);
+    tl.to("#c25w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 42.8333);
+    tl.fromTo("#c25w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 42.8333);
+    tl.to("#c25w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 43.0667);
+    tl.fromTo("#c26w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 43.0667);
+    tl.to("#c26w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 43.4000);
+    tl.fromTo("#c26w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 43.4000);
+    tl.to("#c26w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 44.4333);
+    tl.fromTo("#c26w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 44.4333);
+    tl.to("#c26w2-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 44.6000);
+    tl.fromTo("#c26w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 44.6000);
+    tl.to("#c26w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 45.1667);
+    tl.fromTo("#c26w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 45.1667);
+    tl.to("#c26w4-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 45.2333);
+    tl.fromTo("#c27w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 45.3000);
+    tl.to("#c27w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 46.2667);
+    tl.fromTo("#c27w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 46.2667);
+    tl.to("#c27w1-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 46.4000);
+    tl.fromTo("#c27w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 46.4000);
+    tl.to("#c27w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 47.2667);
+    tl.fromTo("#c28w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 47.7333);
+    tl.to("#c28w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 47.9000);
+    tl.fromTo("#c28w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 47.9000);
+    tl.to("#c28w1-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 48.0333);
+    tl.fromTo("#c28w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 48.0333);
+    tl.to("#c28w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 48.7000);
+    tl.fromTo("#c28w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 48.7000);
+    tl.to("#c28w3-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 48.8333);
+    tl.fromTo("#c28w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 48.8333);
+    tl.to("#c28w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 49.2333);
+    tl.fromTo("#c29w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 49.4667);
+    tl.to("#c29w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 49.8000);
+    tl.fromTo("#c29w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 49.8000);
+    tl.to("#c29w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 50.8000);
+    tl.fromTo("#c29w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 50.8000);
+    tl.to("#c29w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 51.1333);
+    tl.fromTo("#c29w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 51.1333);
+    tl.to("#c29w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 51.4333);
+    tl.fromTo("#c29w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 51.4333);
+    tl.to("#c29w4-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 51.6000);
+    tl.fromTo("#c30w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 51.6000);
+    tl.to("#c30w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 51.7667);
+    tl.fromTo("#c30w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 51.7667);
+    tl.to("#c30w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 52.1333);
+    tl.fromTo("#c30w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 52.1333);
+    tl.to("#c30w2-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 52.1667);
+    tl.fromTo("#c30w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 52.1667);
+    tl.to("#c30w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 52.8667);
+    tl.fromTo("#c30w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 52.8667);
+    tl.to("#c30w4-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 52.9000);
+    tl.fromTo("#c31w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 52.9000);
+    tl.to("#c31w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 53.7000);
+    tl.fromTo("#c31w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 53.7000);
+    tl.to("#c31w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 54.3333);
+    tl.fromTo("#c31w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 54.3333);
+    tl.to("#c31w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 55.0333);
     tl.fromTo("#c33k2", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 57.3333);
     tl.fromTo("#c33k2", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 57.3333);
     tl.fromTo("#c34k3", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 60.0000);
     tl.fromTo("#c34k3", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 60.0000);
     tl.fromTo("#c35k2", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 61.2667);
     tl.fromTo("#c35k2", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 61.2667);
-    tl.fromTo("#c37k3", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 64.1333);
-    tl.fromTo("#c37k3", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 64.1333);
-    tl.fromTo("#c40k1", { color: "#FFFFFF" }, { color: "#9B85FF", duration: 0.16, ease: "power3.out" }, 68.4000);
-    tl.fromTo("#c40k1", { scale: 1 }, { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", overwrite: false }, 68.4000);
+    tl.fromTo("#c36w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 61.8000);
+    tl.to("#c36w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 61.9667);
+    tl.fromTo("#c36w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 61.9667);
+    tl.to("#c36w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 62.5333);
+    tl.fromTo("#c36w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 62.5333);
+    tl.to("#c36w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 63.1000);
+    tl.fromTo("#c36w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 63.1000);
+    tl.to("#c36w3-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 63.1667);
+    tl.fromTo("#c36w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 63.1667);
+    tl.to("#c36w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 63.4667);
+    tl.fromTo("#c37w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 63.5000);
+    tl.to("#c37w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 63.7333);
+    tl.fromTo("#c37w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 63.7333);
+    tl.to("#c37w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 63.9667);
+    tl.fromTo("#c37w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 63.9667);
+    tl.to("#c37w2-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 64.1333);
+    tl.fromTo("#c37w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 64.1333);
+    tl.to("#c37w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 64.4667);
+    tl.fromTo("#c37w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 64.4667);
+    tl.to("#c37w4-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 64.6000);
+    tl.fromTo("#c38w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 64.6000);
+    tl.to("#c38w0-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 64.8000);
+    tl.fromTo("#c38w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 64.8000);
+    tl.to("#c38w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 65.6000);
+    tl.fromTo("#c38w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 65.6000);
+    tl.to("#c38w2-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 65.6667);
+    tl.fromTo("#c38w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 65.6667);
+    tl.to("#c38w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 65.9667);
+    tl.fromTo("#c38w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 65.9667);
+    tl.to("#c38w4-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 66.1333);
+    tl.fromTo("#c39w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 66.1667);
+    tl.to("#c39w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 66.7000);
+    tl.fromTo("#c39w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 66.7000);
+    tl.to("#c39w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 67.2000);
+    tl.fromTo("#c39w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 67.2000);
+    tl.to("#c39w2-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 67.3000);
+    tl.fromTo("#c40w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 67.8000);
+    tl.to("#c40w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 68.4000);
+    tl.fromTo("#c40w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 68.4000);
+    tl.to("#c40w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 68.9667);
+    tl.fromTo("#c40w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 68.9667);
+    tl.to("#c40w2-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 69.0000);
+    tl.fromTo("#c41w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 69.0333);
+    tl.to("#c41w0-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 69.1333);
+    tl.fromTo("#c41w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 69.1333);
+    tl.to("#c41w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 69.2333);
+    tl.fromTo("#c41w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 69.2333);
+    tl.to("#c41w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 69.4667);
     window.__timelines = window.__timelines || {};
     window.__timelines["talking-head-recut"] = tl;
   })();

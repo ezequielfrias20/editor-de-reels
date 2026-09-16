@@ -291,12 +291,14 @@ Escala de zoom: **1.00 · 1.05 · 1.09 · 1.12 · 1.15**. El 1.15 es escaso.
 
 Un quinto `kind`, junto a `full` · `split` · `pip` · `off`: **`band`**. En vez de que el
 metraje ocupe el lienzo entero o una esquina, lo confina a la franja de ABAJO de tres
-bandas que cubren el lienzo de arriba a abajo **sin huecos** (medidas de la pieza 15, REEL):
+bandas que cubren el lienzo de arriba a abajo **sin huecos** (medidas de la pieza 15, REEL,
+tras la Mejora 1 — la división pasó a la MITAD exacta del lienzo; antes era `top` [0,820] ·
+`text` [820,1120] · `speaker` [1120,1920], con el hablante en menos de la mitad de abajo):
 
 ```
-top      y    0– 820   card de logo, grabación de producto — lo que se está explicando
-text     y  820–1120   el subtítulo (la excepción de §5)
-speaker  y 1120–1920   el hablante, SIEMPRE visible detrás del takeover
+top      y    0– 660   card de logo, grabación de producto — lo que se está explicando
+text     y  660– 960   el subtítulo (la excepción de §5)
+speaker  y  960–1920   el hablante, SIEMPRE visible detrás del takeover — la mitad de abajo
 ```
 
 La geometría se declara **una sola vez**, en el bloque `layout` del plan
@@ -315,6 +317,24 @@ de la pieza 15 — luma máxima **28** medida sobre el MP4, donde debía verse l
 blanca del presentador. Declarar `band` en un visual (o `camera: "BAND"` en un segmento) sin
 que el plan traiga `layout` **falla** en vez de caer a un lienzo completo por defecto: la
 geometría de las bandas no tiene un valor implícito razonable.
+
+### Que nunca se corte la cara (Mejora 2)
+
+Con `object-fit: cover` en un encuadre `band`, un `anchor` demasiado alto recorta más del
+techo de la FUENTE y se lleva la coronilla por delante — el mismo tipo de error que el de
+la banda tapada de arriba, sin arreglo en post. `check_face_top_clear` (al lado de
+`check_band_speaker_clear` en `build-composition.py`) lo caza en tiempo de compilación:
+proyecta `top_frac` —el borde superior de la caja de cara, un campo nuevo de
+`measure-face.py`, percentil 5 (el espejo del p95 de la barbilla) sobre las MISMAS
+muestras Haar— con la fórmula de `chin_at` para `band`, y si el resultado cae por encima
+del techo de la banda `speaker`, `sys.exit()` antes de renderizar. `top_frac` ausente
+(una medición de antes de esta mejora) salta el gate limpio, no rompe piezas viejas.
+
+Medido en la pieza 15 (`assets/face-15.json`, 48/48 muestras): borde superior p5 =
+**0.2812** del alto de la fuente, barbilla `chin_frac` **0.4531**. Con la banda `speaker`
+en [960,1920] y `anchor` **0.38** (bajado desde el 0.5714 por defecto del estilo), el
+borde superior de la cara proyectado cae en **y1135**, 175 px por debajo del techo de la
+banda — la coronilla entra con aire.
 
 ### Zona segura
 
@@ -377,22 +397,50 @@ apretando bien.
 ### La excepción `triband`
 
 En `full` · `split` · `pip` el subtítulo persigue la barbilla porque el metraje está detrás
-y puede taparla. En `triband` no: entre y820 (techo de la banda de texto) y y1120 (techo de
-la banda del hablante, §4) **no hay metraje**, es suelo grafito, así que no hay barbilla que
-esquivar — perseguirla ahí sería mover el subtítulo sin ningún motivo.
+y puede taparla. En `triband` no: entre el techo de la banda de texto y el techo de la banda
+del hablante (§4) **no hay metraje**, es suelo grafito, así que no hay barbilla que
+esquivar — perseguirla ahí sería mover el subtítulo sin ningún motivo. Los números de abajo
+son los de la pieza 15 tras la Mejora 1 (bandas a la mitad: `text` [660,960],
+`speaker` [960,1920]); antes eran y820/y1120 con el mismo mecanismo.
 
-- **Tope fijo en y844** (`bands.text.top` + 24 px de aire, no la barbilla).
+- **Tope fijo en y684** (`bands.text.top` + 24 px de aire, no la barbilla).
 - **Piel `on-surface`, sin filete.** El filete de grafito de 7 px existe para que la letra
   sobreviva encima de metraje que puede ser claro; sobre suelo liso no hace falta, y solo
   engordaría la letra sin razón.
-- **Gate en y1104** (`bands.speaker.top` − 16 px de margen): el bloque no puede invadir la
+- **Gate en y944** (`bands.speaker.top` − 16 px de margen): el bloque no puede invadir la
   banda del hablante, y si la cuenta lo cruza el compilador **para** en vez de recortar en
   silencio — «trocea el bloque más corto» en el mensaje de error.
-- **Máximo dos líneas**, y sale de medir, no de una regla puesta a mano. Con la keyword
-  resaltada: base **66 px**, keyword 66×1.22 = **81**, caja de línea 81×1.14 = **92**. Dos
-  líneas = 184 px → la tinta cae en **y1028** (844+184), 76 px de margen bajo el gate. Tres
-  líneas = 276 px → **y1120** exacto — toca la banda del hablante sin un solo píxel de aire,
-  y el gate lo rechaza antes de renderizar.
+- **Máximo dos líneas**, y sale de medir, no de una regla puesta a mano. La cuenta de ancho
+  se queda tal cual estaba (conservadora a propósito, ver Mejora 3 más abajo): base
+  **66 px**, un tamaño de referencia 66×1.22 = **81**, caja de línea 81×1.14 = **92**. Dos
+  líneas = 184 px → la tinta cae en **y868** (684+184), 76 px de margen bajo el gate — el
+  mismo margen de siempre, porque el techo y el suelo bajaron los mismos 160 px. Tres
+  líneas = 276 px → **y960**, 16 px por encima del gate (944) — el gate lo rechaza antes de
+  renderizar.
+
+### El karaoke del triband (Mejora 3)
+
+El resto de la doctrina de arriba —«resalta SOLO la keyword, agrandada y violeta»— **no
+aplica dentro de `band`**, a petición del usuario: ahí todas las palabras comparten tamaño
+y color, y lo que se mueve es un **fondo violeta con esquinas redondeadas** detrás de la
+palabra que suena en el instante exacto en que se pronuncia (su `start` en el transcript
+remapeado) — se apaga en cuanto arranca la siguiente, así que nunca hay dos fondos
+encendidos a la vez y al terminar el bloque no queda nada pintado. En `full`/`pip` (hook y
+tesis) nada cambió.
+
+- **Fuera el agrandado**: si la palabra además crece, el texto salta y se lee peor.
+- El fondo bleedea 8 px horizontal / 4 px vertical más allá del texto vía un `inset`
+  ABSOLUTO (`.wbg` dentro de `.w.kw`), así que no le añade nada al ancho que mide
+  `caption_metrics` — el cálculo de arriba (con la keyword "de referencia" a 1.22x) sigue
+  siendo válido para el gate, solo que ahora es más conservador de lo que hace falta en
+  vez de exacto: nunca deja pasar un bloque que de verdad desborde.
+- El fade de cada palabra se ESCALA a su propia ventana (`min(0.05, ventana×0.35)` de
+  entrada, `min(0.08, ventana×0.35)` de salida): con habla rápida, una palabra puede durar
+  menos que el fade fijo de 0.05+0.08s, y `hyperframes check` lo cazaba como
+  `overlapping_gsap_tweens`.
+- **Contraste**: blanco sobre `violet` (el de siempre, `#7C5CFF`) da 4.35:1 — por debajo del
+  4.5:1 que pide la doctrina para texto pequeño. El fondo del karaoke usa `violet_dk`
+  (`#5B3FD6`, más oscuro): **6.72:1**, medido con `tokens.contrast()`.
 
 ---
 
@@ -1291,10 +1339,20 @@ Kokonut UI, Bklit UI, Manus) · CTA **WEBS**.
   antes de escribirlo: se busca por lo que dice el `guion.md` y el transcript, no por el
   número de carpeta.
 - Fuente `VIDEOS ORIGINALES/1/pantalla.MOV`: **78.94 s → 69.87 s** (11.5 % fuera, 9 cortes).
-  178 palabras. Barbilla `chin_frac` **0.4531**, 48/48 muestras. Los encuadres `band` usan
-  el `anchor` por defecto del estilo, **0.5714**, que con esa barbilla coloca la cara en
-  **y1350** dentro de la banda del hablante (1120–1920) — cómodo, ni pegado al techo de la
-  banda ni a su suelo.
+  178 palabras. Barbilla `chin_frac` **0.4531**, borde superior `top_frac` **0.2812**,
+  48/48 muestras.
+- **Tres mejoras sobre el montaje inicial** (rama `triband-layout`, tras el primer render):
+  1. **La división de bandas pasa a la MITAD del lienzo** — `top` [0,660] · `text` [660,960]
+     · `speaker` [960,1920], antes 820/1120. Los `rect` de las cinco grabaciones bajan de
+     `[60,140,960,540]` a `[60,60,960,540]` (mismo 16:9, margen simétrico de 60 px arriba y
+     abajo dentro de los 660 px de la banda nueva).
+  2. **El `anchor` de los encuadres `band` baja de 0.5714 a 0.38** — con la banda `speaker`
+     más alta ahora (960 en vez de 1120) el default del estilo subía demasiado el recorte y
+     se llevaba la coronilla. `check_face_top_clear` (§4) es el gate nuevo que lo habría
+     cazado; con 0.38 el borde superior de la cara proyectado cae en y1135, 175 px de
+     margen sobre el techo de la banda.
+  3. **Karaoke en vez de keyword única dentro de `band`** (§5): fondo violeta (`violet_dk`,
+     contraste 6.72:1) que viaja palabra a palabra. `full`/`pip` no cambiaron.
 - **Cinco herramientas, la misma coreografía para las cinco**: card de logo (`tool_card`,
   `band: "top"`) clavada a su nombre → grabación dirigida (`tool_recording`, `screen-tour.py`)
   en triband. El hook y la tesis se quedan a **plano lleno** (`kind: "full"`), porque ahí la
@@ -1316,9 +1374,18 @@ Kokonut UI, Bklit UI, Manus) · CTA **WEBS**.
 - Validación **0 errores**. Verificado sobre el MP4 en el segundo exacto del hallazgo: en
   t=32.0 el encuadre de Kokonut ahora enseña «Get started in seconds» con las tarjetas
   Browse/Install/Customize, y el hablante sigue visible en la banda de abajo (luma máxima
-  **232** en y1120–1920, sobre el umbral de 200). Las otras cuatro herramientas no se
-  tocaron: sus `screen-tour-*.json` y el `plan.json` quedan sin diff.
-- Suite: **353 passed, 0 failed, 0 errors** (11 skipped — los de arriba).
+  **232** en y1120–1920, sobre el umbral de 200 — medido ANTES de la Mejora 1; la banda del
+  hablante de ese momento era [1120,1920]). Las otras cuatro herramientas no se tocaron: sus
+  `screen-tour-*.json` y el `plan.json` quedan sin diff.
+- **Re-verificado tras las tres mejoras** sobre el MP4 renderizado con las bandas nuevas:
+  barrido de luma cada 2 s en la banda `speaker` [960,1920] — máxima entre **251.2 y 255.0**
+  en los 30 puntos que caen dentro de un tramo `band`, todos sobre el umbral de 200. Borde
+  superior de la caja de cara (Haar, un frame de cada una de las cinco herramientas):
+  y1140–y1147, 180–187 px de margen sobre el techo de la banda (y960) en los cinco casos.
+  `blackdetect pix_th=0.03` sin resultados (sin negro real). Detalle completo, con la tabla
+  entera del barrido, en `.superpowers/sdd/2026-09-14-triband-layout/task-mejoras-report.md`.
+- Suite: **369 passed, 0 failed, 0 errors** (11 skipped — los de arriba, más 12 tests nuevos
+  de las mejoras: 6 de `check_face_top_clear`, 6 del karaoke).
 
 ---
 
