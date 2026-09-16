@@ -1,8 +1,15 @@
 """El subtítulo en la banda de texto del triband.
 
-Deja de perseguir la barbilla —no hay metraje entre y820 y y1120— y pasa a
-tope FIJO. Lo que se protege aquí es el gate: un bloque que se pase invade
-la banda del hablante, y eso tiene que fallar la compilación, no el frame.
+Deja de perseguir la barbilla —no hay metraje entre y820 y y1120— y ancla el
+bloque por ABAJO (Mejora 5, a petición del usuario): el SUELO es fijo —la
+tinta más baja se apoya en él, pegada a la separación con el hablante— y el
+tope sube o baja según cuántas líneas tenga el bloque. Antes era al revés
+(tope fijo, crecía hacia abajo) y un bloque corto dejaba un hueco muerto
+entre el subtítulo y el metraje del hablante. Lo que se protege aquí es el
+gate: cambia de sentido con el ancla —ahora falla si el tope SUBE por encima
+del techo de la banda de texto, no si la tinta baja hasta pisar la banda del
+hablante— pero sigue siendo el mismo rigor, y eso tiene que fallar la
+compilación, no el frame.
 """
 import pytest
 
@@ -69,28 +76,34 @@ def _words(*textos, paso=0.3, dur=0.25):
     return out
 
 
-def test_un_bloque_que_cabe_atraviesa_build_captions_con_el_tope_fijo(banda):
+def test_un_bloque_que_cabe_atraviesa_build_captions_con_el_suelo_fijo(banda):
     """El gate no es solo aritmética: hay que atravesar `build_captions()` de
-    verdad. Dos líneas (844 -> 1028) caben con 76 px de holgura sobre el
-    suelo (1104), así que la función devuelve normalmente y el `top` del
-    subtítulo emitido —no un literal— es el tope fijo y844."""
+    verdad. El bloque se ancla por ABAJO (Mejora 5): una línea (line_h 92)
+    deja el tope en suelo(1104) − 92 = y1012, muy por debajo del techo de la
+    banda de texto (820), así que la función devuelve normalmente y el `top`
+    del subtítulo emitido —no un literal— sale de restar al suelo fijo, no de
+    sumar a un tope fijo como antes de esta Mejora."""
     words = _words("la", "primera", "es", "anime.js")
     shots = [{"start": 0.0, "end": 10.0, "kind": "band", "zoom": 1.0, "anchor": 0.5}]
     banda.CAPTIONS = [{"words": [0, 3], "keyword": [3, 3]}]
     spans, anims, key_anims, rows = banda.build_captions(words, 10.0, shots, [])
     assert len(rows) == 1
-    assert rows[0][3] == 844
+    assert rows[0][3] == 1012
 
 
 def test_un_bloque_que_no_cabe_hace_salir_la_compilacion(banda):
     """El `sys.exit(...)` del gate es un fallo REAL, y solo se prueba de
-    verdad disparándolo: tres líneas (844 -> 1120) invaden la banda del
-    hablante (suelo 1104), y `build_captions()` tiene que salir con
-    `SystemExit` mencionando la banda del hablante, no devolver un plan que
-    la invade."""
-    words = _words("PACIENTES", "AUTOMÁTICAMENTE", "POR", "WHATSAPP")
+    verdad disparándolo. Con el ancla por ABAJO (Mejora 5) el gate cambió de
+    sentido: ya no es la tinta bajando hasta pisar la banda del hablante, es
+    el tope subiendo hasta pisar el TECHO de la banda de texto (820) según
+    crecen las líneas — 4 líneas (line_h 92) suben el tope a
+    1104 − 4×92 = y736, por encima de y820, y `build_captions()` tiene que
+    salir con `SystemExit` mencionando la banda de la animación, no devolver
+    un plan que la invade."""
+    words = _words("PACIENTES", "AUTOMÁTICAMENTE", "POR", "WHATSAPP", "TODOS",
+                   "LOS", "DÍAS", "SIN", "EXCEPCIÓN")
     shots = [{"start": 0.0, "end": 10.0, "kind": "band", "zoom": 1.0, "anchor": 0.5}]
-    banda.CAPTIONS = [{"words": [0, 3], "keyword": [0, 0]}]
+    banda.CAPTIONS = [{"words": [0, 8], "keyword": [0, 0]}]
     with pytest.raises(SystemExit) as ei:
         banda.build_captions(words, 10.0, shots, [])
-    assert "banda del hablante" in str(ei.value)
+    assert "banda de la animación" in str(ei.value)

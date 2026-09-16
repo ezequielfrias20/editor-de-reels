@@ -53,8 +53,8 @@
     {
       "id": "v-rec-1", "role": "takeover", "kind": "screen-video",
       "start": 10.747, "end": 15.648,
-      "src": "animejs-tour.mp4", "rect": [60, 60, 960, 540],
-      "_": "Mejora 1: la banda `top` bajó de 820 a 660 px de alto, así que el rect de la grabación (16:9, sin deformar) baja de 960x540+140 a 960x540+60 — mismo tamaño (540 < 607, el máximo a 1080 de ancho), margen simétrico de 60px arriba y abajo dentro de los 660px de la banda.",
+      "src": "animejs-tour.mp4", "rect": [60, 100, 960, 540],
+      "_": "Mejora 1: la banda `top` bajó de 820 a 660 px de alto, así que el rect de la grabación (16:9, sin deformar) baja de 960x540+140 a 960x540+60. Mejora 6 (a petición del usuario, bajar las animaciones para no dejar aire muerto): sube ry de 60 a 100 — mismo tamaño (540 < 607, el máximo a 1080 de ancho), ahora pegada al suelo de su banda (100+540=640, 20px hasta y660) en vez de centrada con 60px arriba y abajo.",
       "tool_recording": {"slug": "animejs", "name": "Anime.js", "hairline": 1}
     },
 
@@ -68,7 +68,7 @@
     {
       "id": "v-rec-2", "role": "takeover", "kind": "screen-video",
       "start": 18.381, "end": 25.964,
-      "src": "motion-tour.mp4", "rect": [60, 60, 960, 540],
+      "src": "motion-tour.mp4", "rect": [60, 100, 960, 540],
       "tool_recording": {"slug": "motion", "name": "Motion", "hairline": 1}
     },
 
@@ -82,7 +82,7 @@
     {
       "id": "v-rec-3", "role": "takeover", "kind": "screen-video",
       "start": 28.824, "end": 35.424,
-      "src": "kokonutui-tour.mp4", "rect": [60, 60, 960, 540],
+      "src": "kokonutui-tour.mp4", "rect": [60, 100, 960, 540],
       "tool_recording": {"slug": "kokonutui", "name": "Kokonut UI", "hairline": 1}
     },
 
@@ -96,7 +96,7 @@
     {
       "id": "v-rec-4", "role": "takeover", "kind": "screen-video",
       "start": 40.737, "end": 47.258,
-      "src": "bklitui-tour.mp4", "rect": [60, 60, 960, 540],
+      "src": "bklitui-tour.mp4", "rect": [60, 100, 960, 540],
       "tool_recording": {"slug": "bklitui", "name": "Bklit UI", "hairline": 1}
     },
 
@@ -110,7 +110,7 @@
     {
       "id": "v-rec-5", "role": "takeover", "kind": "screen-video",
       "start": 50.548, "end": 55.017,
-      "src": "manus-tour.mp4", "rect": [60, 60, 960, 540],
+      "src": "manus-tour.mp4", "rect": [60, 100, 960, 540],
       "_": "hairline 3, y solo aquí: la grabación de Manus es la única de las cinco con fondo CLARO y necesita un marco más marcado para no perderse.",
       "tool_recording": {"slug": "manus", "name": "Manus", "hairline": 3}
     },

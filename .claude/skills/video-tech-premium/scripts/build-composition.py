@@ -86,17 +86,22 @@ KEYWORDS = None
 CAPTIONS = None
 LAYOUT = {}         # bloque `layout` del plan (Tarea 3); {} si el plan no trae ninguno
 
-# Cuánto más grande es la keyword que el resto del bloque. El tope está
-# medido en `caption_metrics`: por encima, un bloque de dos líneas se queda
-# sin presupuesto de zona segura.
-KW_SCALE = caption_metrics.KEYWORD_SCALE_MAX
 CAPTION_SIZE = CAPTION_MAXW = CAPTION_MARGIN = None
 
-# Aire bajo el techo de la banda de texto, y holgura sobre la del hablante.
-# El tope es FIJO: un bloque de una línea y otro de dos tienen que empezar en
-# la misma y, o el ojo ve el texto saltar entre bloques.
-BAND_CAP_PAD = 24
+# Holgura sobre la banda del hablante. El bloque se ancla por ABAJO (Mejora 5,
+# a petición del usuario — antes era por arriba, con `BAND_CAP_PAD` de aire
+# bajo el techo): el suelo es fijo y el techo del bloque sube o baja según
+# cuántas líneas tenga, así que ya no hace falta un margen de aire por debajo
+# del techo de la banda de texto — ese techo pasa a ser el LÍMITE del gate,
+# no un punto de partida.
 BAND_CAP_MARGIN = 16
+
+# Margen al suelo de la banda `top` para un visual `band` sin `rect` (card de
+# logo, CTA) — Mejora 6, a petición del usuario. Mismo valor que ya deja el
+# `rect` de las grabaciones al suelo de esa banda (ry 100 + alto 540 = 640,
+# 20px hasta y660): las cards de logo, las grabaciones y la card del CTA
+# comparten el mismo borde inferior.
+BAND_MOCK_MARGIN = 20
 
 
 def q(t):
@@ -660,6 +665,28 @@ def build_visuals(dur):
                 pads.append(f'padding-bottom:{v["mock_pad_bottom"]}px')
             css.append(f'\n.viz[data-viz-id="{vid}"] .vizcam.mock'
                        f'{{{";".join(pads)}}}')
+        if band:
+            # Mejora 6 (a petición del usuario): un mockup sin `rect` (card de
+            # logo, CTA) se centraba VERTICALMENTE en el host entero de la
+            # banda, y con un componente corto eso dejaba tanto aire arriba
+            # como abajo — la banda `top` mide 660px y una card de ~300px de
+            # alto quedaba flotando en medio, con el mismo hueco muerto por
+            # debajo que las grabaciones (Mejora 1 ya arregladas con `rect`).
+            # Se alinea al FINAL del host en vez de al centro, con el mismo
+            # margen que ya usan las grabaciones al suelo de la banda (rect
+            # `ry` 100 + alto 540 = 640, 20px hasta y660) para que las cinco
+            # cards de logo, las cinco grabaciones y la card del CTA compartan
+            # el mismo borde inferior y el frame se lea como una sola fila, no
+            # como piezas sueltas a alturas distintas.
+            # `mock_pad_top`/`mock_pad_bottom` NO sirven aquí sin tocar su
+            # selector: apuntan a `.vizcam.mock`, y `camcls` (arriba) NUNCA le
+            # da la clase `mock` a un visual con `band` — ese padding nació
+            # para el 16% de zona segura de la plataforma en un mockup a
+            # lienzo completo, un caso distinto. Cambiar `align-items` es más
+            # directo y no puede afectar a ningún visual viejo: `band` es
+            # exclusivo del triband (pieza 15 en adelante).
+            css.append(f'\n.viz[data-viz-id="{vid}"] .vizcam'
+                       f'{{align-items:flex-end;padding-bottom:{BAND_MOCK_MARGIN}px}}')
         inner = (f'<div class="vizbg"></div>'
                  f'<div class="{camcls}" id="{vid}-cam">{body_html_}</div>'
                  f'{veil}{hud_html}')
@@ -1040,26 +1067,27 @@ def is_key(word_up, extra):
 
 
 def build_captions(words, dur, shots, viz_skins):
-    """Bloques de 2–6 palabras. Se resalta SOLO la keyword.
+    """Bloques de 2–6 palabras. Karaoke en TODA la pieza (Mejora 4).
 
-    Doctrina, y es lo contrario del karaoke que usaba el sistema anterior:
-    resaltar todas las palabras convierte el subtítulo en un metrónomo y el ojo
-    deja de leer. Resaltar una sola —una cifra, una herramienta, el concepto—
-    convierte esa palabra en el titular del frame.
+    El bloque entra entero y se queda quieto; lo que se mueve es un fondo
+    violeta con esquinas redondeadas que va DETRÁS de la palabra que suena en
+    cada instante y viaja con ella: nunca hay más de una encendida, y el
+    tamaño y el color del texto no cambian en ninguna palabra —resaltarlas
+    IGUAL Y A LA VEZ convertiría el subtítulo en un metrónomo y el ojo dejaría
+    de leer; lo que evita eso aquí no es dejar una sola quieta y grande (la
+    keyword violeta agrandada del esquema anterior a esta Mejora), sino que el
+    resaltado se MUEVA con la voz.
 
-    El bloque entra entero y se queda quieto; lo único que se mueve es la
-    keyword, en el instante exacto en que se pronuncia.
-
-    **Excepción `triband` (Mejora 3, a petición del usuario):** ahí SÍ es
-    karaoke, pero no el que la doctrina de arriba prohíbe —resaltar todas las
-    palabras IGUAL Y A LA VEZ, que es lo que las convertía en metrónomo—, sino
-    un fondo violeta que va DETRÁS de la palabra que suena en cada instante y
-    viaja con ella: nunca hay más de una encendida, y el tamaño y el color del
-    texto no cambian en ninguna palabra. Ni el crecimiento ni el color fijo de
-    la keyword tendrían sentido ahí: el subtítulo vive sobre suelo grafito
-    liso (§ triband en CLAUDE.md), no sobre metraje, así que la única función
-    que le queda al resaltado es marcar el ritmo de la voz, no jerarquizar una
-    palabra sobre las demás.
+    Nació limitado a `band` (Mejora 3, a petición del usuario): ahí el
+    subtítulo vive sobre suelo grafito liso (§ triband en CLAUDE.md), no sobre
+    metraje, así que la keyword agrandada y violeta de fuera de `band` no
+    tenía nada que esquivar y el karaoke era la única función que le quedaba
+    al resaltado. Esta Mejora quita esa frontera a petición del usuario: el
+    karaoke pasa a ser el tratamiento único, también en `full`/`pip` (el hook
+    y la tesis). Lo que NO cambia ahí es la PIEL: el subtítulo sigue ENCIMA
+    del metraje, así que sigue siendo `on-dark` con su filete de grafito de
+    7px — el filete existe para que la letra sobreviva sobre imagen, y eso no
+    lo decide el resaltado.
     """
     fnt = measure_font(CAPTION_SIZE)
 
@@ -1165,63 +1193,50 @@ def build_captions(words, dur, shots, viz_skins):
         klo, khi = krange if krange else (-1, -2)
         key_idx = klo if krange else -1
 
-        # La altura y el estilo de palabra dependen de LO QUE HAY DETRÁS en ese
-        # frame, así que el encuadre se resuelve ANTES de montar las palabras
-        # —el karaoke del triband (Mejora 3) necesita saberlo para decidir el
-        # marcado de CADA palabra, no solo el de la keyword. Se consulta por el
-        # PUNTO MEDIO del bloque, no por su inicio: un bloque que arranca 20 ms
-        # antes de que entre el plano siguiente pertenece al plano siguiente, y
-        # midiendo por el inicio heredaba la altura del anterior — o la de un
-        # tramo `off`, que no tiene cara que esquivar.
+        # La altura depende de LO QUE HAY DETRÁS en ese frame, así que el
+        # encuadre se resuelve ANTES de montar las palabras. Se consulta por
+        # el PUNTO MEDIO del bloque, no por su inicio: un bloque que arranca
+        # 20 ms antes de que entre el plano siguiente pertenece al plano
+        # siguiente, y midiendo por el inicio heredaba la altura del anterior
+        # — o la de un tramo `off`, que no tiene cara que esquivar.
         sh = shot_at(shots, (s + e) / 2)
-        is_band = bool(sh and sh["kind"] == "band")
 
-        # Las palabras normales van en CAJA DE FRASE y solo la keyword en
-        # MAYÚSCULA: el contraste de caja es lo que la convierte en el titular
-        # del frame. La mayúscula continua convertía la banda entera en un
-        # metrónomo y el ojo dejaba de leer. Esto sigue así en `full`/`pip`;
-        # `disp` (lo que MIDE el gate de zona segura) no cambia aunque en
-        # `band` el marcado que se RENDERIZA sea otro — mismo ancho medido,
-        # nunca menos conservador que antes.
+        # Karaoke (Mejora 4, a petición del usuario): tratamiento ÚNICO del
+        # subtítulo, sin excepción de encuadre — nació limitado a `band` en la
+        # Mejora 3 y aquí pierde esa frontera. TODAS las palabras van al mismo
+        # tamaño y color; lo único que se mueve es un fondo violeta con
+        # esquinas redondeadas detrás de la palabra que suena en el instante
+        # exacto en que se pronuncia (`w["start"]`, del transcript remapeado)
+        # y se apaga en cuanto arranca la siguiente: el resaltado viaja, no se
+        # acumula, y al terminar el bloque no queda nada pintado.
+        # `disp` (lo que MIDE el gate de zona segura) sigue viendo la keyword
+        # en mayúscula aunque ya no se RENDERICE agrandada — es más
+        # conservador de lo que hace falta, nunca menos, así que nunca deja
+        # pasar un bloque que de verdad desborde (mismo razonamiento que ya
+        # valía para `band` en la Mejora 3, ahora vale en todas partes).
         parts, disp = [], []
         for i, (w, up) in enumerate(ch):
             en_key = klo <= i <= khi
             frase = w["text"].strip().rstrip(",.:;!?")
             txt = up if en_key else frase
             disp.append(txt)
-            if is_band:
-                # Karaoke (Mejora 3): TODAS las palabras al mismo tamaño y
-                # color — nada de agrandado, que hace saltar el texto y se lee
-                # peor. Lo único que se mueve es un fondo violeta con esquinas
-                # redondeadas que aparece detrás de la palabra en el instante
-                # exacto en que se pronuncia (`w["start"]`, del transcript
-                # remapeado) y se apaga cuando arranca la siguiente: el
-                # resaltado viaja, no se acumula, y al final del bloque no
-                # queda nada pintado.
-                wid = f"c{ci}w{i}"
-                parts.append(f'<span class="w kw" id="{wid}">'
-                             f'<span class="wbg" id="{wid}-bg"></span>{esc(frase)}</span>')
-                start_at = q(max(w["start"], s))
-                end_at = (q(ch[i + 1][0]["start"]) if i + 1 < len(ch)
-                          else q(min(w["end"], e)))
-                end_at = max(end_at, q(start_at + 1.0 / FPS))
-                # El fade IN/OUT se ESCALA a la ventana de la propia palabra:
-                # a 0.05/0.08 fijos, una palabra corta —muy pegada a la
-                # siguiente, habla rápida— deja la entrada de una encimada con
-                # la salida de la anterior (`overlapping_gsap_tweens` en
-                # `hyperframes check`). 0.35 de la ventana para cada lado dejar
-                # siempre un 30% en medio a opacidad plena, por corta que sea
-                # la palabra, y nunca se pisan.
-                win = end_at - start_at
-                d_in = round(min(0.05, win * 0.35), 4)
-                d_out = round(min(0.08, win * 0.35), 4)
-                key_anims.append((wid, start_at, end_at, d_in, d_out))
-            elif en_key:
-                wid = f"c{ci}k{i}"
-                parts.append(f'<span class="w key" id="{wid}">{esc(txt)}</span>')
-                key_anims.append((wid, q(max(w["start"], s))))
-            else:
-                parts.append(f'<span class="w">{esc(frase)}</span>')
+            wid = f"c{ci}w{i}"
+            parts.append(f'<span class="w kw" id="{wid}">'
+                         f'<span class="wbg" id="{wid}-bg"></span>{esc(frase)}</span>')
+            start_at = q(max(w["start"], s))
+            end_at = (q(ch[i + 1][0]["start"]) if i + 1 < len(ch)
+                      else q(min(w["end"], e)))
+            end_at = max(end_at, q(start_at + 1.0 / FPS))
+            # El fade IN/OUT se ESCALA a la ventana de la propia palabra: a
+            # 0.05/0.08 fijos, una palabra corta —muy pegada a la siguiente,
+            # habla rápida— deja la entrada de una encimada con la salida de
+            # la anterior (`overlapping_gsap_tweens` en `hyperframes check`).
+            # 0.35 de la ventana para cada lado deja siempre un 30% en medio a
+            # opacidad plena, por corta que sea la palabra, y nunca se pisan.
+            win = end_at - start_at
+            d_in = round(min(0.05, win * 0.35), 4)
+            d_out = round(min(0.08, win * 0.35), 4)
+            key_anims.append((wid, start_at, end_at, d_in, d_out))
 
         skin = "on-dark"
         # La PIEL la decide quién ocupa la mayor parte del bloque. La ALTURA no:
@@ -1240,20 +1255,35 @@ def build_captions(words, dur, shots, viz_skins):
         if sh and sh["kind"] == "band":
             # En triband el subtítulo no persigue la barbilla: entre el techo y
             # el suelo de su banda NO hay metraje, así que no puede tapar la
-            # cara. Tope fijo, piel sin filete —el filete existe para sobrevivir
-            # encima del metraje— y un gate que impide invadir al hablante.
+            # cara. Piel sin filete —el filete existe para sobrevivir encima
+            # del metraje, y aquí no lo hay.
+            #
+            # Ancla por ABAJO (Mejora 5, a petición del usuario). Antes el
+            # tope era FIJO (`text.top` + aire) y el bloque crecía hacia
+            # abajo: un bloque corto dejaba ~200px de hueco muerto entre el
+            # subtítulo y el metraje del hablante, porque el ancla visual real
+            # es esa separación, no el techo de la banda de texto. Ahora el
+            # SUELO es el fijo —la tinta más baja se apoya en él, igual que
+            # antes— y el tope sube según cuántas líneas tenga el bloque:
+            # `top = suelo − líneas × alto_de_línea`.
             bandas = triband_panels()
-            top = bandas["text"]["top"] + BAND_CAP_PAD
+            techo = bandas["text"]["top"]
             suelo = bandas["speaker"]["top"] - BAND_CAP_MARGIN
             skin = "on-surface"
             m = caption_metrics.measure_block(disp, CAPTION_SIZE, krange, FMT, H, W,
                                               cache_dir=WORK, floor_px=suelo)
-            bajo = top + m["n_lines"] * m["line_h"]
-            if bajo > suelo:
+            top = suelo - m["n_lines"] * m["line_h"]
+            # El gate CAMBIA DE SENTIDO pero no desaparece: antes fallaba si
+            # la tinta se pasaba del suelo (creciendo hacia abajo desde un
+            # tope fijo); ahora falla si el tope sube por encima del TECHO de
+            # la banda de texto, porque eso invadiría la banda de la
+            # animación de arriba. Mismo rigor, otro borde.
+            if top < techo:
                 sys.exit(
                     f"bloque {ci} «{' '.join(u for _, u in ch)}»: {m['n_lines']} líneas "
-                    f"acaban en y{bajo} y la banda del hablante empieza en "
-                    f"y{bandas['speaker']['top']}. Trocea el bloque más corto.")
+                    f"empiezan en y{top}, por encima del techo de la banda de texto "
+                    f"(y{techo}) — invade la banda de la animación. Trocea el bloque "
+                    f"más corto.")
             n_lines = m["n_lines"]
         else:
             if sh and sh["kind"] == "pip":
@@ -1615,36 +1645,32 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   paint-order:stroke fill;text-shadow:0 4px 22px rgba(11,12,16,.8)}}
 .cap.on-surface .w{{color:{C['text']};-webkit-text-stroke:0;
   text-shadow:0 2px 16px rgba(11,12,16,.95)}}
-/* La keyword ya no es una pastilla: es TEXTO. Cuatro rasgos a la vez la
-   convierten en el titular del frame sin añadir un objeto — mayúscula (las
-   demás van en caja de frase), ExtraBold, {round(CAPTION_SIZE * KW_SCALE)}px
-   ({KW_SCALE}x) y violeta. Medido: violet_hi da 6.70:1 sobre bg y 6.07:1
-   sobre surface, así que aguanta texto normal en los dos suelos; `violet` a
-   secas se queda en 4.08:1 sobre surface y NO llega.
-   El color arranca en blanco y se enciende en el instante exacto en que la
-   palabra se pronuncia — el tamaño es estático para que el bloque no
-   reflowee. */
-.cap .w.key{{font-size:{round(CAPTION_SIZE * KW_SCALE)}px;font-weight:800;
-  color:{C['text']}}}
-.cap.on-dark .w.key{{-webkit-text-stroke:7px {C['bg']};paint-order:stroke fill}}
-.cap.on-surface .w.key{{-webkit-text-stroke:0}}
-/* Karaoke del triband (Mejora 3, ver `build_captions`): AQUÍ no hay keyword.
-   `.w.kw` es CUALQUIER palabra del bloque —todas al mismo tamaño y color que
-   `.cap.on-surface .w` de arriba, sin agrandado ni cambio de tinta— y lo
-   único que se mueve es `.wbg`, un rectángulo violeta detrás de la palabra
-   que GSAP enciende y apaga por `opacity` (nunca por color, que reflowearía
-   nada porque el tamaño no cambia, pero SÍ obligaría a interpolar un color
-   sobre otro sin necesidad). `z-index:0` en `.w.kw` abre un contexto de
-   apilamiento PROPIO para que el `z-index:-1` de `.wbg` quede contenido ahí
-   dentro — sin él, un z-index negativo se escapa por debajo de TODO el
-   documento (incluida la capa de vídeo) en vez de quedarse solo detrás de su
-   propia palabra. El texto no lleva ninguna clase nueva: al no estar
-   posicionado, pinta por delante de `.wbg` sin necesidad de otro z-index.
+/* Karaoke (Mejora 4, a petición del usuario, ver `build_captions`): trata-
+   miento ÚNICO del subtítulo, SIN excepción de encuadre — ya no hay una
+   keyword agrandada y violeta en `full`/`pip` (lo que había antes de esta
+   ronda; el karaoke nació limitado a `band` en la Mejora 3 y ahora pierde esa
+   frontera). `.w.kw` es CUALQUIER palabra del bloque —todas al mismo tamaño y
+   color— y lo único que se mueve es `.wbg`, un rectángulo violeta detrás de
+   la palabra que GSAP enciende y apaga por `opacity` (nunca por color, que
+   reflowearía nada porque el tamaño no cambia, pero SÍ obligaría a
+   interpolar un color sobre otro sin necesidad). `z-index:0` en `.w.kw` abre
+   un contexto de apilamiento PROPIO para que el `z-index:-1` de `.wbg` quede
+   contenido ahí dentro — sin él, un z-index negativo se escapa por debajo de
+   TODO el documento (incluida la capa de vídeo) en vez de quedarse solo
+   detrás de su propia palabra. El texto no lleva ninguna clase nueva: al no
+   estar posicionado, pinta por delante de `.wbg` sin necesidad de otro
+   z-index, y hereda el color y el filete de `.cap.on-dark .w` / `.cap.on-
+   surface .w` de arriba según la PIEL del bloque — lo que cambia con esta
+   Mejora es el resaltado, no la piel: en `full`/`pip` el subtítulo sigue
+   ENCIMA del metraje, así que ahí sigue con `on-dark` y su filete de grafito
+   de 7px; en `triband` sigue sin filete (`on-surface`, suelo liso, sin
+   metraje detrás).
    El bleed (-8px horizontal, -4px vertical) es el padding: como es un
    `inset` de un elemento ABSOLUTO no cuenta para el ancho que mide
    `caption_metrics` (que sigue viendo solo el texto + su margen de
    siempre), así que no puede desajustar el reparto en líneas ni el gate de
-   la banda del hablante.
+   zona segura (el 20% de la plataforma en `full`/`pip`, la banda del
+   hablante en `triband`).
    Contraste medido con `tokens.contrast()`: blanco sobre `violet` (el de
    toda la paleta) da 4.35:1 — por debajo del 4.5:1 que exige la doctrina
    para texto pequeño — así que el fondo del karaoke usa `violet_dk`, más
@@ -1707,42 +1733,26 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
                   f'ease: "power2.in" }}, {out_t:.4f});')
         js.append(f'tl.set(\'{sel}\', {{ opacity: 0 }}, {e:.4f});')
 
-    js.append("// keyword — el violeta se ENCIENDE justo al pronunciarse")
-    # `key_anims` mezcla dos formatos, distinguidos por longitud: 2-tuplas
-    # `(wid, at)` son el esquema de siempre (`full`/`pip`, una sola keyword por
-    # bloque, texto que cambia de color); 5-tuplas `(wid, at, hasta, d_in,
-    # d_out)` son el karaoke del triband (Mejora 3) — CADA palabra trae su
-    # propia ventana (con el fade YA escalado a lo que dura) y lo que anima no
-    # es el texto sino el `.wbg` que vive detrás.
-    for entry in key_anims:
-        if len(entry) == 2:
-            wid, at = entry
-            # Solo `color` y `scale`, los dos en el allowlist. El TAMAÑO no se
-            # anima: es estático en el CSS para que el bloque no reflowee a
-            # mitad de lectura. Lo que se mueve es el color, en el instante
-            # exacto en que la palabra suena, más un golpe corto de escala.
-            js.append(f'tl.fromTo("#{wid}", {{ color: "{C["text"]}" }}, '
-                      f'{{ color: "{C["violet_hi"]}", duration: 0.16, '
-                      f'ease: "power3.out" }}, {at:.4f});')
-            js.append(f'tl.fromTo("#{wid}", {{ scale: 1 }}, '
-                      f'{{ scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, '
-                      f'ease: "power2.out", overwrite: false }}, {at:.4f});')
-        else:
-            wid, at, until, d_in, d_out = entry
-            # El fondo aparece justo cuando suena la palabra y se apaga en
-            # cuanto arranca la siguiente (o al acabar la propia palabra, si
-            # es la última del bloque): por eso NO acumula — nunca hay dos
-            # fondos encendidos a la vez, y al terminar el bloque no queda
-            # nada pintado. Solo `opacity`: el texto no cambia de tamaño ni de
-            # color, así que no hay nada más que animar. `d_in`/`d_out` ya
-            # vienen escalados a la ventana de la palabra (`build_captions`),
-            # así que la entrada y la salida nunca se pisan aunque la palabra
-            # dure menos que 0.05+0.08s.
-            js.append(f'tl.fromTo("#{wid}-bg", {{ opacity: 0 }}, '
-                      f'{{ opacity: 1, duration: {d_in}, ease: "power1.out" }}, '
-                      f'{at:.4f});')
-            js.append(f'tl.to("#{wid}-bg", {{ opacity: 0, duration: {d_out}, '
-                      f'ease: "power1.in" }}, {until:.4f});')
+    js.append("// karaoke — el fondo violeta viaja palabra a palabra")
+    # Karaoke en toda la pieza (Mejora 4): `key_anims` es siempre una 5-tupla
+    # `(wid, at, hasta, d_in, d_out)`, una por PALABRA, no una sola por
+    # bloque — antes de la Mejora 4 convivía con un esquema de 2-tuplas
+    # (`full`/`pip`, una sola keyword por bloque, el texto cambiando de
+    # color), que desapareció junto con la excepción de encuadre.
+    for wid, at, until, d_in, d_out in key_anims:
+        # El fondo aparece justo cuando suena la palabra y se apaga en cuanto
+        # arranca la siguiente (o al acabar la propia palabra, si es la
+        # última del bloque): por eso NO acumula — nunca hay dos fondos
+        # encendidos a la vez, y al terminar el bloque no queda nada pintado.
+        # Solo `opacity`: el texto no cambia de tamaño ni de color, así que no
+        # hay nada más que animar. `d_in`/`d_out` ya vienen escalados a la
+        # ventana de la palabra (`build_captions`), así que la entrada y la
+        # salida nunca se pisan aunque la palabra dure menos que 0.05+0.08s.
+        js.append(f'tl.fromTo("#{wid}-bg", {{ opacity: 0 }}, '
+                  f'{{ opacity: 1, duration: {d_in}, ease: "power1.out" }}, '
+                  f'{at:.4f});')
+        js.append(f'tl.to("#{wid}-bg", {{ opacity: 0, duration: {d_out}, '
+                  f'ease: "power1.in" }}, {until:.4f});')
 
     js.append('window.__timelines = window.__timelines || {};')
     js.append(f'window.__timelines["{COMP_ID}"] = tl;')
