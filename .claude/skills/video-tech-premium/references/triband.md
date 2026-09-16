@@ -243,3 +243,112 @@ La única variación entre las cinco es `hairline`, y solo en Manus:
 porque su grabación es la única de las cinco con fondo CLARO y necesita un marco más
 marcado para no perderse contra un fondo también claro. El componente no conoce el slug
 `"manus"`; quien escribe el plan decide el grosor por grabación.
+
+## La banda `top` nunca se queda vacía
+
+Doctrina de 2026-09-15, a petición del usuario: **«en la parte de animaciones siempre se
+debe mostrar algo, en cualquier segundo, nunca debe estar el fondo vacío»**. Medido en la
+pieza 15 antes de esta regla: durante sus tramos `band`, la banda de arriba se quedaba en
+suelo grafito liso **15.0 s de 55.3 s (27 %)**, repartidos en siete huecos — desde 0.86 s
+(el arranque, antes de la primera card) hasta 5.98 s (un beat de guion entero sin visual).
+
+### La tensión con «nada entra antes de su palabra», y cómo se resuelve
+
+Esta regla choca de frente con la de siempre (`references/visuals.md`, §7 de `CLAUDE.md`):
+no se puede adelantar la card SIGUIENTE para tapar el hueco que la precede, porque
+entonces el espectador lee el nombre de la herramienta antes de que se diga.
+
+**La salida es sostener el visual ANTERIOR, nunca adelantar el siguiente.** El visual que
+ya está en pantalla —la grabación de Anime.js, por ejemplo— se queda puesto (se extiende
+su `end`) hasta que entra la card de Motion; la card de Motion sigue esperando su propia
+palabra, sin moverse ni un frame. El visual saliente cubre el hueco con algo que YA se
+dijo; el entrante no adelanta nada. Es la misma idea que ya usa `check_no_black` para el
+metraje (§9 de `CLAUDE.md`), aplicada aquí a los visuales de la banda `top` en vez de al
+metraje de la banda `speaker`.
+
+Documéntalo así porque es exactamente el tipo de arreglo que alguien intenta deshacer mal
+dentro de seis meses: la tentación, viendo un hueco antes de "Motion", es adelantar la
+card de Motion medio segundo — parece un arreglo más simple y ROMPE la regla de oro. El
+arreglo correcto siempre mira hacia ATRÁS en el tiempo, nunca hacia delante.
+
+Un solo hueco no se arregla sosteniendo, por no tener nada delante que sostener: el
+arranque del propio tramo `band`, si el encuadre cambia a `band` antes de que la primera
+card entre. Ahí la salida es mover el `at` del encuadre para que coincida con la entrada
+de esa primera card — el hook a plano lleno dura un poco más, no hay banda de arriba
+vacía que llenar porque todavía no hay banda.
+
+Y un hueco puede no ser un problema técnico sino un beat de guion sin visual asignado: en
+la pieza 15, «he juntado estas y varias más en una guía…» (5.98 s) no nombra ninguna
+herramienta nueva que clavar — las cinco ya se dijeron antes. Ahí la resolución no es
+sostener nada de lo anterior (la grabación de Manus ya cerró su propia cola), es un
+visual NUEVO: las cinco marcas juntas, en fila, entrando mientras él dice «estas y varias
+más» — no adelanta nada porque las cinco ya tuvieron su palabra. Ver `tool_lineup` más
+abajo.
+
+### `check_band_top_covered`
+
+Falla si en cualquier instante de un tramo `kind: "band"` ningún visual ocupa la banda
+`top` — mismo lugar de `build-composition.py` que los otros tres gates de este documento,
+misma filosofía: el hueco no tiene arreglo en post, así que para la compilación en vez de
+colarse hasta el MP4. El mensaje lista los huecos con sus tiempos exactos (como la tabla
+de arriba), porque un gate que solo dice «hay un hueco» obliga a buscarlo a mano.
+
+**«Ocupar la banda» tiene DOS mecanismos**, los mismos que ya conviven en `build_visuals`,
+y el gate tiene que reconocer los dos o falla en falso contra piezas que sí cumplen la
+regla:
+
+1. Un `kind: "mockup"` con `band: "top"` (una card de logo, el CTA) confina su host al
+   rect exacto de esa banda — cubre por definición.
+2. Un `kind: "screen-video"` (una grabación) **nunca declara `band`**: su `<video>` real
+   se coloca con `rect` en coordenadas de LIENZO, con host transparente por ser
+   `screen-video` sin que `band` tenga que ver nada. El gate lo detecta comprobando que el
+   `rect` solapa verticalmente con la banda `top`.
+
+⚠ **Mirar solo `v.get("band") == "top"` deja fuera las cinco grabaciones enteras** — el
+primer intento de este gate lo hizo así, y contra el `plan.json` real de la pieza 15
+marcó como «vacíos» los 4-10 segundos completos de CADA grabación, no solo los huecos de
+verdad entre ellas. Se cazó verificando el gate nuevo contra el plan SIN arreglar antes de
+tocar nada: los huecos que reportaba no coincidían con la tabla medida a mano.
+
+La cuenta usa las ventanas CRUDAS `start`/`end` de cada visual, **sin** el margen de
+`fade_in`/`fade_out` que sí aplica `check_no_black`. Es a propósito: dos visuales de banda
+que se TOCAN exactamente —la card de logo y su propia grabación, ya contiguas en las
+cinco herramientas— hacen un cruce de opacidades legítimo en ese instante, no un hueco.
+Medirlo con el margen de fundido marcaría en falso esas cinco transiciones que ya
+funcionan (⁓0.5 s cada una, 2.5 s falsos en total). Tolerancia de un frame (1/FPS), igual
+que `check_band_speaker_clear`, para no fallar por redondeo de cuantización.
+
+### `tool_lineup` — el beat de «la guía»
+
+El componente para el hueco que no se arregla sosteniendo: las herramientas ya nombradas,
+juntas en fila, construido sobre el mismo marco de logo que usa `tool_card`
+(`.tc-logoframe`: hairline `LINE_HI` + fondo `bg`) en vez de un componente nuevo desde
+cero. Se descartaron los otros dos candidatos de la librería que dibujan algo parecido:
+
+- `chip_grid` pinta **texto** en pastillas, no marcas — no sirve para «las cinco marcas».
+- `app_switch` sí dibuja logos, pero está diseñado para sistemas AISLADOS con un
+  conector ROTO entre tarjetas — la frase de este beat es la contraria («las he
+  juntado»), así que usarlo diría lo opuesto de lo que se cuenta.
+
+```jsonc
+{
+  "id": "v-tool-lineup", "role": "takeover", "kind": "mockup",
+  "start": 61.805, "end": 67.785,
+  "band": "top", "absolute_times": true,
+  "mock": ["tool_lineup", {
+    "tools": [["animejs", "Anime.js"], ["motion", "Motion"],
+              ["kokonutui", "Kokonut UI"], ["bklitui", "Bklit UI"], ["manus", "Manus"]],
+    "at": [62.547, 62.740, 63.108, 63.173, 63.493]
+  }]
+}
+```
+
+⚠ **`logos.mark()` devuelve `(html, ratio)` y `ratio` puede ser `None`** para una marca
+transparente (animejs, kokonutui aquí) — no hay tile que perderse contra el fondo. Y para
+las que SÍ traen un tile (Motion, 1.11:1 medido; Bklit UI, 1.18:1), el ratio que devuelve
+`mark()` está medido contra `surface` (su fondo por defecto), no contra `bg` — el fondo
+real de `.tlframe`/`.tc-logoframe` — así que un número bajo no describe lo que de verdad
+se renderiza. `tool_lineup` descarta el ratio a propósito, exactamente igual que
+`tool_card` con el mismo marco: no hay gate de contraste que tocar aquí, y si alguna vez
+se añade uno, tiene que tratar el caso `None` o revienta con la primera marca transparente
+de la lista — ya mordió una vez en un componente distinto.

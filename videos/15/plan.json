@@ -30,7 +30,7 @@
     {"at": 4.383, "kind": "full", "zoom": 1.05, "anchor": 0.45},
     {"at": 6.069, "kind": "full", "zoom": 1.15, "anchor": 0.42},
 
-    {"at": 8.216, "kind": "band", "anchor": 0.38},
+    {"at": 9.076, "kind": "band", "anchor": 0.38},
     {"at": 16.048, "kind": "band", "anchor": 0.38},
     {"at": 26.364, "kind": "band", "anchor": 0.38},
     {"at": 38.026, "kind": "band", "anchor": 0.38},
@@ -52,9 +52,10 @@
     },
     {
       "id": "v-rec-1", "role": "takeover", "kind": "screen-video",
-      "start": 10.747, "end": 15.648,
+      "start": 10.747, "end": 17.007,
       "src": "animejs-tour.mp4", "rect": [60, 100, 960, 540],
       "_": "Mejora 1: la banda `top` bajó de 820 a 660 px de alto, así que el rect de la grabación (16:9, sin deformar) baja de 960x540+140 a 960x540+60. Mejora 6 (a petición del usuario, bajar las animaciones para no dejar aire muerto): sube ry de 60 a 100 — mismo tamaño (540 < 607, el máximo a 1080 de ancho), ahora pegada al suelo de su banda (100+540=640, 20px hasta y660) en vez de centrada con 60px arriba y abajo.",
+      "_cobertura": "Mejora 7 (check_band_top_covered, a petición del usuario): `end` estirado de 15.648 (fin real de la grabación, 4.9s) a 17.007 (entrada de v-tool-2) para SOSTENER este visual hasta que llega la card de Motion — nunca se adelanta la siguiente. El <video> real (4.9s) se congela en su último frame los últimos 1.36s: el panel, el chip y el nombre de Anime.js siguen en pantalla, solo la grabación deja de avanzar. Cerraba el hueco 15.65-17.01 medido en el barrido de luma.",
       "tool_recording": {"slug": "animejs", "name": "Anime.js", "hairline": 1}
     },
 
@@ -67,8 +68,9 @@
     },
     {
       "id": "v-rec-2", "role": "takeover", "kind": "screen-video",
-      "start": 18.381, "end": 25.964,
+      "start": 18.381, "end": 27.217,
       "src": "motion-tour.mp4", "rect": [60, 100, 960, 540],
+      "_cobertura": "Mejora 7: `end` estirado de 25.964 a 27.217 (entrada de v-tool-3) — sostiene la grabación de Motion hasta la card de Kokonut UI, cerrando el hueco 25.96-27.22.",
       "tool_recording": {"slug": "motion", "name": "Motion", "hairline": 1}
     },
 
@@ -81,8 +83,9 @@
     },
     {
       "id": "v-rec-3", "role": "takeover", "kind": "screen-video",
-      "start": 28.824, "end": 35.424,
+      "start": 28.824, "end": 38.97,
       "src": "kokonutui-tour.mp4", "rect": [60, 100, 960, 540],
+      "_cobertura": "Mejora 7: `end` estirado de 35.424 a 38.97 (entrada de v-tool-4) — es el hueco más largo de los cinco (3.54s, el que más tarda en nombrarse Bklit UI), y sostener la grabación de Kokonut UI hasta ahí lo cierra entero.",
       "tool_recording": {"slug": "kokonutui", "name": "Kokonut UI", "hairline": 1}
     },
 
@@ -95,8 +98,9 @@
     },
     {
       "id": "v-rec-4", "role": "takeover", "kind": "screen-video",
-      "start": 40.737, "end": 47.258,
+      "start": 40.737, "end": 48.848,
       "src": "bklitui-tour.mp4", "rect": [60, 100, 960, 540],
+      "_cobertura": "Mejora 7: `end` estirado de 47.258 a 48.848 (entrada de v-tool-5) — sostiene la grabación de Bklit UI hasta la card de Manus, cerrando el hueco 47.26-48.85.",
       "tool_recording": {"slug": "bklitui", "name": "Bklit UI", "hairline": 1}
     },
 
@@ -109,10 +113,26 @@
     },
     {
       "id": "v-rec-5", "role": "takeover", "kind": "screen-video",
-      "start": 50.548, "end": 55.017,
+      "start": 50.548, "end": 55.417,
       "src": "manus-tour.mp4", "rect": [60, 100, 960, 540],
       "_": "hairline 3, y solo aquí: la grabación de Manus es la única de las cinco con fondo CLARO y necesita un marco más marcado para no perderse.",
+      "_cobertura": "Mejora 7: `end` estirado de 55.017 a 55.417 (el shot vuelve a `full` para la tesis en ese instante) — sostiene la grabación de Manus hasta la propia tesis, cerrando la cola de 0.40s del tramo `band`.",
       "tool_recording": {"slug": "manus", "name": "Manus", "hairline": 3}
+    },
+
+    {
+      "id": "v-tool-lineup", "role": "takeover", "kind": "mockup",
+      "start": 61.805, "end": 67.785,
+      "band": "top",
+      "_": "el beat de 'la guía' (Mejora 7): el ÚNICO de los siete huecos medidos que NO se arregla sosteniendo un visual anterior, porque no hay ninguno — justo antes es el tramo band de Manus, que ya cerró su propio hueco de cola, y antes de ESTE tramo band (61.805) el encuadre es 'full' (la tesis), así que no hay banda `top` que sostener hacia atrás. El guion dice 'He juntado ESTAS y varias más en una guía con los enlaces y para qué usar cada una' (61.805-67.312): las cinco herramientas YA se nombraron una a una entre 9.076 y 55.017, así que juntarlas aquí no adelanta nada — 'nada entra antes de su palabra' se cumple porque cada una ya tuvo la suya, y no hay una palabra nueva que esperar. Se queda puesto hasta que entra 'v-cta' (67.785), cerrando el recorrido visual y encadenando con el CTA.",
+      "_timing": "`at` son offsets RELATIVOS al inicio del visual (61.805), no `absolute_times`: el primer intento los clavó a las palabras 'estas'/'y'/'varias'/'más' (62.55-63.49, absolutos) y dejó 0.74s de banda `top` vacía ANTES de que arrancara la primera ficha — medido con el barrido de luma sobre el MP4 (t=62.0, Ymax=41, suelo grafito). Sin ninguna palabra concreta que adelantar (las cinco ya se dijeron), la fila entra pegada al propio fundido del host, igual que el `glide-x`/`drop-in` de `tool_card` (offsets .10/.18) — nunca a 0.7s de distancia.",
+      "mock": ["tool_lineup", {
+        "tools": [
+          ["animejs", "Anime.js"], ["motion", "Motion"],
+          ["kokonutui", "Kokonut UI"], ["bklitui", "Bklit UI"], ["manus", "Manus"]
+        ],
+        "at": [0.06, 0.20, 0.34, 0.48, 0.62]
+      }]
     },
 
     {
@@ -130,7 +150,7 @@
     [2.826, "pop", 0.85, "cinco herramientas"],
     [6.069, "impact-bass-1", 0.9, "remate del hook: hecho por IA"],
 
-    [8.216, "whoosh-short", 0.7, "corte a triband, primera herramienta"],
+    [9.076, "whoosh-short", 0.7, "corte a triband, primera herramienta"],
     [9.076, "pop", 0.85, "aparece la card de Anime.js"],
     [10.747, "whoosh", 0.75, "empieza la grabación de Anime.js"],
 

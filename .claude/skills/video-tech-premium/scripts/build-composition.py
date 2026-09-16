@@ -501,6 +501,108 @@ def check_face_top_clear(shots, dur):
                 f"medir con `measure-face.py` si hace falta, nunca a ojo.")
 
 
+def check_band_top_covered(shots, dur):
+    """La banda `top` no puede quedarse vacía durante un tramo `band`.
+
+    Doctrina de 2026-09-15, a petición del usuario: «en la parte de
+    animaciones siempre se debe mostrar algo, en cualquier segundo, nunca
+    debe estar el fondo vacío». Medido en la pieza 15 antes de este gate: la
+    banda de arriba se quedaba en suelo grafito liso **15.0 s de 55.3 s
+    (27 %)** de sus tramos `band`, en siete huecos — desde 0.86 s (el
+    arranque, antes de la primera card) hasta 5.98 s (el beat de la guía,
+    antes del CTA).
+
+    **La resolución de la tensión, y no se toca**: esta regla choca con
+    «nada entra antes de su palabra» (§7 / `references/visuals.md`) — no se
+    puede adelantar la card SIGUIENTE para tapar el hueco, porque entonces el
+    espectador lee el nombre de la herramienta antes de que se diga. La
+    salida es **sostener el visual ANTERIOR hasta que entra el siguiente**
+    (extender su `end`, nunca adelantar el `start` del que viene): el visual
+    saliente cubre el hueco con algo que ya fue dicho, el entrante sigue
+    esperando su palabra. Es la misma idea que ya usa `check_no_black` para
+    el metraje, aplicada aquí a los visuales de la banda `top`. El hueco de
+    ARRANQUE (nada delante que sostener) se cierra al revés: moviendo el
+    `at` del propio encuadre `band` para que coincida con la entrada de la
+    primera card, no con un visual.
+
+    **«Ocupar la banda» tiene DOS mecanismos, no uno** — los mismos que ya
+    conviven en `build_visuals`: un `kind: "mockup"` con `band: "top"` (una
+    card de logo, el CTA) confina su host al rect exacto de esa banda; un
+    `kind: "screen-video"` (una grabación) nunca declara `band` — su
+    `<video>` real se coloca con `rect` en coordenadas de LIENZO, siempre con
+    host transparente por ser `screen-video` — así que cuenta si su `rect`
+    solapa verticalmente con la banda `top`. Mirar solo `band=="top"` se
+    comprobó y deja fuera las cinco grabaciones enteras de la pieza 15 —
+    falso positivo del tamaño de la pieza, cazado verificando este mismo
+    gate contra el plan sin arreglar antes de escribir el fix.
+
+    La cuenta usa las ventanas CRUDAS `start`/`end` de cada visual que ocupa
+    la banda, sin el margen de `fade_in`/`fade_out` que sí aplica
+    `check_no_black`: dos visuales de banda que se TOCAN exactamente (la
+    card de logo y su propia grabación, ya contiguas en las cinco
+    herramientas) hacen un cruce de opacidades legítimo en ese instante, no
+    un hueco — medirlo con margen de fundido marcaría en falso esas cinco
+    transiciones que ya funcionan. Tolerancia de un frame (1/FPS), igual que
+    `check_band_speaker_clear`, para no fallar por redondeo de cuantización.
+    """
+    band_shots = [s for s in shots if s["kind"] == "band"]
+    if not band_shots:
+        return
+    frame = 1.0 / FPS
+    top = triband_panels()["top"]
+    top_y0, top_y1 = top["top"], top["top"] + top["height"]
+
+    def covers_top(v):
+        if v.get("band") == "top":
+            return True
+        rect = v.get("rect")
+        if not rect:
+            return False
+        _, ry, _, rh = rect
+        return ry < top_y1 and ry + rh > top_y0
+
+    # tramos `band` fundidos en intervalos contiguos (varios encuadres band
+    # seguidos, cada uno con su propio anchor, cuentan como un solo tramo)
+    band_ranges = sorted((s["start"], s["end"]) for s in band_shots)
+    merged = []
+    for a, b in band_ranges:
+        if merged and a <= merged[-1][1] + frame:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], b))
+        else:
+            merged.append((a, b))
+
+    cover = sorted(
+        (q(float(v["start"])), q(dur if v.get("end") is None else min(float(v["end"]), dur)))
+        for v in VISUALS if covers_top(v))
+
+    holes = []
+    for band_start, band_end in merged:
+        cursor = band_start
+        for a, b in cover:
+            a, b = max(a, band_start), min(b, band_end)
+            if b <= a:
+                continue
+            if a > cursor + frame:
+                holes.append((cursor, a))
+            cursor = max(cursor, b)
+        if cursor < band_end - frame:
+            holes.append((cursor, band_end))
+
+    if not holes:
+        return
+    msg = ["la banda `top` queda VACÍA durante un tramo `band` — la doctrina "
+           "exige que siempre se muestre algo, en cualquier segundo:"]
+    for a, b in holes:
+        msg.append(f"  {a:6.2f} - {b:6.2f}  ({b - a:.2f}s de banda `top` vacía)")
+    msg.append(
+        "  arréglalo SOSTENIENDO el visual `band: \"top\"` ANTERIOR hasta que "
+        "entra el siguiente (extiende su `end`) — nunca adelantando el "
+        "siguiente antes de su palabra. Si el hueco es el de ARRANQUE (nada "
+        "delante que sostener), mueve el `at` del propio encuadre `band` "
+        "para que coincida con la entrada de la primera card.")
+    sys.exit("\n".join(msg))
+
+
 def check_triband_default():
     """El triband es el layout por defecto de TODOS los reels del proyecto.
 
@@ -607,6 +709,7 @@ def build_visuals(dur):
                   "comment_ui": mockups.comment_ui,
                   "chat_unanswered": mockups.chat_unanswered,
                   "tool_card": mockups.tool_card,
+                  "tool_lineup": mockups.tool_lineup,
                   "motion_stage": objects.motion_stage}[which]
             body_css, body_html_, body_anims = fn(vid, **kw)
         elif v["kind"] == "image":
@@ -1591,6 +1694,7 @@ def build():
     check_no_black(shots, dur)
     check_band_speaker_clear(shots, dur)
     check_face_top_clear(shots, dur)
+    check_band_top_covered(shots, dur)
     (viz_css, viz_media, viz_back, viz_over,
      viz_anims, viz_skins, viz_assets) = build_visuals(dur)
     card_css, card_hosts, card_anims, story_cards = build_cards(dur)

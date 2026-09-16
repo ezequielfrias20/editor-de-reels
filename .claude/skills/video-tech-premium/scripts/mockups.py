@@ -677,6 +677,67 @@ def tool_recording(cid: str, slug: str, name: str,
     return css, html, anims
 
 
+def tool_lineup(cid: str, tools: list[tuple[str, str]], at: list[float],
+                kicker: str = "", kicker_at: float = 0.0) -> tuple[str, str, list]:
+    """El beat de «la guía»: las herramientas ya nombradas, juntas en fila.
+
+    Distinto de `tool_card`: aquella clava UNA marca a SU palabra, una a la
+    vez; esta reúne TODAS a la vez, porque el beat que la pide no vuelve a
+    nombrarlas («he juntado ESTAS y varias más») — para cuando suena, las
+    cinco ya se dijeron, así que no hay guion que adelantar poniéndolas
+    juntas. `nada entra antes de su palabra` se cumple igual: la fila entra
+    cuando él dice «estas», no antes de que la primera se nombrara.
+
+    Construido sobre el mismo marco de logo que `tool_card` (`.tc-logoframe`:
+    hairline `LINE_HI` + fondo `bg`) en vez de inventar uno nuevo — la CSS de
+    cada componente vive con el prefijo de su propio `data-viz-id`, así que
+    reutilizar la clase por nombre no basta entre dos visuales distintos; se
+    copia aquí la misma receta, no solo el nombre. Se descartó `app_switch`
+    (dibuja logos, pero con un conector ROTO y la etiqueta «AISLADO» — la
+    frase de este beat es la contraria, «las he juntado») y `chip_grid`
+    (pinta texto en pastillas, no marcas).
+    """
+    p = f'.viz[data-viz-id="{cid}"]'
+    tiles = []
+    for i, (slug, name) in enumerate(tools):
+        # `logos.mark()` devuelve (html, ratio) y `ratio` puede ser `None`
+        # para una marca transparente (animejs, kokonutui aquí) — no hay tile
+        # que perderse contra el fondo. Igual que `tool_card` (mismo marco,
+        # mismo fondo `bg`), el ratio se DESCARTA aquí a propósito: mide el
+        # tile contra `surface` (el default de `mark()`), no contra `bg` —
+        # el fondo real de `.tlframe` — así que un número bajo (Motion,
+        # 1.11:1; Bklit UI, 1.18:1) no describe lo que de verdad se renderiza
+        # y no hay que gatear sobre él, exactamente el mismo razonamiento
+        # documentado en `tool_card`.
+        logo_html, _ratio = logos.mark(slug, 56)
+        tiles.append(
+            f'<div class="tlcell" id="{cid}-t{i}">'
+            f'<div class="tlframe">{logo_html}</div>'
+            f'<div class="tlname">{esc(name)}</div></div>')
+    css = f"""
+{p} .tlwrap{{display:flex;flex-direction:column;align-items:center;gap:22px}}
+{p} .tlkick{{font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.18em;
+  color:{C['violet_hi']};background:{FILL['violet']};border-radius:{RADIUS['pill']}px;
+  padding:10px 24px;opacity:0}}
+{p} .tlrow{{display:flex;gap:22px;align-items:flex-start}}
+{p} .tlcell{{display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0}}
+{p} .tlframe{{width:104px;height:104px;border-radius:{RADIUS['md']}px;
+  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
+  align-items:center;justify-content:center;overflow:hidden}}
+{p} .tlname{{font-family:{MONO};font-weight:700;font-size:17px;letter-spacing:.05em;
+  color:{C['text2']};text-transform:uppercase;white-space:nowrap}}"""
+    html = (f'<div class="tlwrap">'
+            + (f'<div class="tlkick" id="{cid}-tk">{esc(kicker)}</div>' if kicker else "")
+            + f'<div class="tlrow">{"".join(tiles)}</div></div>')
+    anims = []
+    if kicker:
+        anims.append(("chip-in", f"#{cid}-tk", kicker_at, .30))
+    for i in range(len(tools)):
+        anims.append(("chip-in", f"#{cid}-t{i}",
+                      at[i] if i < len(at) else .20 + i * .22, .30))
+    return css, html, anims
+
+
 # ── cadena de consecuencias ───────────────────────────────────────────────────
 def flow_steps(cid: str, steps: list[str], at: list[float],
                tone: str = "ok") -> tuple[str, str, list]:

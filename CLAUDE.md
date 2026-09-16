@@ -383,6 +383,30 @@ en [960,1920] y `anchor` **0.38** (bajado desde el 0.5714 por defecto del estilo
 borde superior de la cara proyectado cae en **y1135**, 175 px por debajo del techo de la
 banda — la coronilla entra con aire.
 
+### La banda `top` nunca se queda vacía
+
+Doctrina de 2026-09-15, a petición del usuario: **«en la parte de animaciones siempre se
+debe mostrar algo, en cualquier segundo, nunca debe estar el fondo vacío»**. Medido en la
+pieza 15 antes de esta regla: durante sus tramos `band`, la banda de arriba se quedaba en
+suelo grafito liso 15.0 s de 55.3 s (27 %), en siete huecos.
+
+Choca de frente con «nada entra antes de su palabra» (§7): no se puede adelantar la card
+SIGUIENTE para tapar el hueco que la precede, porque el espectador leería el nombre de la
+herramienta antes de que se diga. **La resolución es sostener el visual ANTERIOR, nunca
+adelantar el siguiente** — se extiende su `end` hasta que entra el que viene; el que viene
+sigue esperando su propia palabra. Es la misma idea que `check_no_black` ya aplica al
+metraje, aquí aplicada a los visuales de la banda `top`. El hueco de ARRANQUE (nada
+delante que sostener) se cierra al revés: moviendo el `at` del propio encuadre `band` para
+que coincida con la entrada de la primera card. Y un hueco puede ser un beat de guion sin
+visual asignado, no un fallo de sostenido — en la pieza 15, «he juntado estas y varias más
+en una guía» no nombra nada nuevo que clavar, así que entra un visual nuevo (`tool_lineup`:
+las cinco marcas ya nombradas, juntas en fila) en vez de estirar la grabación anterior.
+
+`check_band_top_covered` (junto a los otros tres gates de arriba) para la compilación si
+algún instante de un tramo `band` no tiene ningún visual sobre la banda `top`, listando los
+huecos con sus tiempos. Detalle completo —incluida la trampa de mirar solo `band=="top"` y
+dejar fuera las grabaciones, que se posicionan con `rect`— en `references/triband.md`.
+
 ### Zona segura
 
 En REEL, **el 20 % inferior queda libre**: ahí pinta la plataforma su interfaz. El espacio

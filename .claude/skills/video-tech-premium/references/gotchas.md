@@ -109,6 +109,35 @@ presentador (**~253** esperado con el hablante visible). `check_band_speaker_cle
 confina su host al rect de esa banda y hace el fondo transparente. Detalle completo en
 `references/triband.md`.
 
+### 8b · La banda `top` vacía no se ve mirando SOLO `band=="top"`, y un reveal
+### clavado a una palabra puede reabrir el hueco que acaba de cerrar
+
+Dos trampas hermanas, cazadas escribiendo `check_band_top_covered` (la pieza 15,
+Mejora 7 — «la banda de arriba siempre tiene que mostrar algo»).
+
+**La primera**: la geometría de «qué ocupa la banda `top`» tiene DOS mecanismos, no uno —
+un `kind: "mockup"` con `band: "top"` (confina el host al rect de la banda) y un
+`kind: "screen-video"` posicionado con `rect` en coordenadas de lienzo, que NUNCA declara
+`band`. Un gate que solo mira `v.get("band") == "top"` deja fuera la segunda familia
+entera: contra el `plan.json` real de la pieza 15 marcó como «vacíos» los 4-10 s completos
+de cada una de las cinco grabaciones, no solo los huecos de verdad entre ellas. Se cazó
+verificando el gate nuevo contra el plan SIN arreglar antes de tocar nada — los huecos que
+reportaba no coincidían con la tabla medida a mano.
+
+**La segunda**: al escribir el visual que cierra el hueco de «la guía» (`tool_lineup`, las
+cinco marcas juntas), la primera versión clavaba la entrada de cada logo a una palabra del
+guion («estas», «y», «varias», «más» — 62.55-63.49 absolutos) porque parecía lo correcto
+por costumbre («todos los beats salen del transcript»). Pero el VISUAL empezaba en 61.805 y
+ninguna palabra nueva se estaba adelantando (las cinco herramientas ya se habían nombrado
+antes), así que esos 0.74 s entre el arranque del visual y la primera palabra eran un hueco
+vacío NUEVO — invisible para el gate (que solo mira si hay ALGÚN visual con ventana
+`start`/`end` solapando, no si su CONTENIDO ya se ve) y solo visible barriendo el MP4:
+`t=62.0` daba `Ymax=41` en la banda `top`, el suelo grafito de siempre. La regla no es
+«todo beat sale del transcript» sin excepción — es «nada entra antes de su palabra», y
+cuando no hay ninguna palabra que esperar (todo ya se dijo), la entrada va pegada al propio
+fundido del host (offsets de 0.06-0.20 s, como `glide-x`/`drop-in` en `tool_card`), no a
+0.7 s de distancia por estética narrativa.
+
 ### 9 · El prefijo del selector GSAP duplicado deja un elemento en `opacity:0` para siempre
 
 `build_visuals` ya antepone `.viz[data-viz-id="{vid}"] ` a cada selector de las
