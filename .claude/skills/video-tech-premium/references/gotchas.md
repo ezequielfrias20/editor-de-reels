@@ -96,7 +96,42 @@ opacidad. El arreglo es temporal, no cromático.
 **entera desde el primer frame**: el «dibujado» no dibuja nada, aparece ya hecho. El
 `tl.set` del dash va en el segundo 0 del timeline.
 
-### 8 · GSAP y los transforms
+### 8 · Un visual sin `band` tapa al hablante entero en `triband`
+
+Un `kind: "mockup"` normal es OPACO a lienzo completo (`grid()+vignette()` detrás). Sobre
+un encuadre `kind: "band"` —que confina el metraje a la banda de abajo— eso tapa al
+hablante durante todo el visual, y no se nota en el navegador porque ahí no hay ninguna
+banda con la que compararlo: es la misma familia de error que la trampa 5 (el PiP debajo
+de un mockup opaco), solo que aquí el mockup opaco tapa al METRAJE, no al PiP. Medido:
+**luma máxima 28** en la banda `speaker` donde debía verse la camiseta blanca del
+presentador (**~253** esperado con el hablante visible). `check_band_speaker_clear`
+(`build-composition.py`) lo caza en compilación: declarar `"band": "top"` en el visual
+confina su host al rect de esa banda y hace el fondo transparente. Detalle completo en
+`references/triband.md`.
+
+### 9 · El prefijo del selector GSAP duplicado deja un elemento en `opacity:0` para siempre
+
+`build_visuals` ya antepone `.viz[data-viz-id="{vid}"] ` a cada selector de las
+animaciones de un visual. `tool_card`/`tool_recording` lo anteponían TAMBIÉN dentro de sí
+mismos, así que el selector real quedaba `.viz[...] .viz[...] #id` — no matchea nada.
+GSAP no falla ni avisa por su cuenta: la animación simplemente no encuentra su objetivo y
+el elemento se queda en la opacidad inicial de su propio `fromTo`, es decir invisible, sin
+que nada lo marque como error. `hyperframes check` sí lo delata, como
+`console_warning: GSAP target ... not found` — es la señal a buscar cuando un logo o un
+nombre no aparecen y todo lo demás valida limpio.
+
+### 10 · El fundido de una palabra más corta que su propio fundido
+
+Con un fundido de entrada/salida FIJO para el karaoke del subtítulo (por ejemplo
+0.05 s/0.08 s), una palabra corta —habla rápida, dos palabras pegadas— puede durar MENOS
+que su propio fundido: la entrada del fondo violeta de la palabra siguiente se solapa con
+la salida de la anterior, y `hyperframes check` lo caza como `overlapping_gsap_tweens`. El
+arreglo no es acortar el fundido a un número más pequeño —eso solo mueve el umbral a otra
+palabra corta—, es ESCALARLO a la ventana real de cada palabra (una fracción fija de su
+duración, con el fundido fijo como tope), que deja siempre un margen a opacidad plena por
+corta que sea la palabra.
+
+### 11 · GSAP y los transforms
 
 - `left`/`top` se cuantizan a píxel entero y **tartamudean** → usar `x`/`y`.
 - Toda salida necesita un `tl.set(..., {opacity:0})` de **kill duro** en el borde.
@@ -116,6 +151,10 @@ opacidad. El arreglo es temporal, no cromático.
   Repetir `--at` **no acumula**.
 - `snapshot` sobrescribe entre corridas y añade siempre un frame de fin de timeline.
 - `check` sustituye a `validate` / `inspect`, deprecados.
+- **Desde HyperFrames 0.8.40, `render` ya no escribe en `<dir>/output.mp4` por defecto.**
+  Escribe en `renders/<nombre>-<timestamp>.mp4`, en la raíz del proyecto. Copiarlo a mano a
+  `videos/<n>/output.mp4` para seguir la convención del estudio, o fijar la ruta con
+  `-o`/`--output`.
 - Los checks de **contraste solo corren si hay muestras**: si el informe dice `0/0`, no es
   que pase, es que no midió.
 - Esperar un render por **el proceso**, nunca porque el archivo dejó de cambiar: si ya

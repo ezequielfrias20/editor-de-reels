@@ -18,12 +18,22 @@ Describe la pieza entera. Es lo único que cambia entre videos.
     "target_mean": -34.0             // dB de media; la voz está en −19.8
   },
 
+  "layout": {                         // opcional; solo si algún shot usa kind:"band"
+    "mode": "triband",
+    "bands": {"top": [0, 660], "text": [660, 960], "speaker": [960, 1920]}
+  },
+
   "shots":   [ … ],                  // el METRAJE
   "cards":   [ … ],                  // rótulos FLOTANTES
   "visuals": [ … ],                  // lo que OCUPA el lienzo
   "sfx":     [ … ]
 }
 ```
+
+`layout` declara la geometría del layout `triband` **una sola vez** para toda la pieza —
+`references/triband.md` tiene la geometría completa, la fórmula del `anchor` y los gates
+que fallan si algo no cuadra. Un encuadre `kind: "band"` o un visual con `"band": "top"`
+sin este bloque hace fallar la compilación: no hay lienzo-completo por defecto.
 
 Cualquier clave que empiece por `_` es un comentario y el generador la ignora. Úsalas para
 dejar escrito **por qué** un beat cae donde cae.
@@ -41,12 +51,19 @@ Una entrada por encuadre. Cada una vale hasta la siguiente.
 | Campo | Qué hace |
 | --- | --- |
 | `at` | desde cuándo, en la línea del corte |
-| `kind` | `full` · `split` · `pip` · `off` |
+| `kind` | `full` · `split` · `pip` · `off` · `band` |
 | `zoom` | solo en `full`. Escala: 1.00 · 1.05 · 1.09 · 1.12 · 1.15 |
 | `anchor` | fracción vertical del encuadre. 0.42–0.46 en `full`, 0.30 en `pip` |
 
 `off` no emite elemento: es el tramo que un visual está tapando, y mantener ahí un
 `<video>` invisible solo gasta memoria de decodificación.
+
+`band` confina el metraje a la banda `speaker` del bloque `layout` (requiere `layout` en
+el plan) y **no lleva `zoom`**: el rect de la banda ya recorta fuerte, y una escalera
+encima dejaría la cara irreconocible. Su `anchor` no es cosmético — se deriva con una
+fórmula a partir de dos mediciones de `measure-face.py` (`chin_frac`, `top_frac`) y dos
+gates de compilación lo verifican (`check_band_speaker_clear`, `check_face_top_clear`).
+Ver `references/triband.md`.
 
 **El `anchor` mueve la barbilla, y la barbilla decide la altura del subtítulo.** No hay
 que calcularlo a mano: el generador proyecta la medición de `measure-face.py` a cada
@@ -98,6 +115,7 @@ encuadre.
 | `role` | `takeover` sustituye lo que haya · `backdrop` va debajo, la tarjeta sigue encima |
 | `kind` | `mockup` · `screen-video` · `video` · `image` |
 | `start` / `end` | `end: null` llega al final de la pieza |
+| `band` | confina el host de este visual al rect de esa banda del `layout` (`"top"` · `"text"` · `"speaker"`) y hace su fondo transparente en vez de opaco. Requiere `layout` en el plan. Ver `references/triband.md` |
 | `skin` | piel del subtítulo mientras el visual está en pantalla |
 | `cap_top` | baja el subtítulo: un takeover ocupa el centro |
 | `hud` | `[etiqueta, índice]`. Da **contexto**, no repite un dato que ya está dentro |
@@ -126,6 +144,10 @@ encuadre.
   `"panel": false` lo quita del todo.
 - `chrome` `{url, brand}` dibuja en su lugar la barra de navegador — cuesta 74 px de alto
   y solo se justifica si la URL forma parte del mensaje. Ver `references/visuals.md`.
+- `tool_recording` `{slug, name, hairline}` — dibuja el panel de una card de herramienta en
+  `triband`: el logo persiste como chip en la cabecera. Gana sobre `chrome`/`panel` si
+  está declarado. `hairline` (grosor del marco en px, por defecto 1) lo decide quien
+  escribe el plan, no el componente. Ver `references/visuals.md` y `references/triband.md`.
 - `clicks` = `[t, x, y, etiqueta]` en píxeles del **lienzo**.
 - `boxes` = `[t_entra, t_sale, x, y, w, h]` — caja delimitadora con oscurecido alrededor.
   Es lo que dirige la mirada al punto exacto; sin ella el ojo barre la pantalla entera y
@@ -143,6 +165,7 @@ encuadre.
 | `keyword_hero` | una idea que cabe en una palabra | — |
 | `flow_steps` | una acción y lo que dispara (`tone`: `ok` · `fail`) | `at` |
 | `comment_ui` | el CTA, simulado | `type_at`, `send_at` |
+| `tool_card` | marca de una herramienta al nombrarla — pensada para `band: "top"` | — |
 
 ---
 

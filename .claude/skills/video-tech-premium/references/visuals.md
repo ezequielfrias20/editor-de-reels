@@ -117,6 +117,45 @@ la convierte en un error de sistema en vez de en el precio de haber llegado hast
 
 ---
 
+## Cards de herramienta (`triband`)
+
+Dos componentes de `mockups.py`, pensados para la coreografía «se nombra la herramienta →
+se ve su grabación» del layout `triband` (`references/triband.md`):
+
+| Componente | Cuándo | Qué hace |
+| --- | --- | --- |
+| `tool_card` | al NOMBRAR la herramienta | marca + nombre, en una card sobre `band: "top"` |
+| `tool_recording` | durante SU grabación (6–8 s) | el mismo logo persiste como **chip** en la cabecera del panel |
+
+El logo persistiendo en la cabecera de `tool_recording` es lo que ata la grabación a su
+nombre durante los 6–8 s que dura: sin él, pasados esos segundos el espectador ya no sabe
+qué está mirando. Los fragmentos exactos de `plan.json` para invocar cada uno —verificados
+contra la pieza 15— están en `references/triband.md`.
+
+**`tool_recording` se despacha al nivel de `chrome`/`panel`**, dentro de un visual
+`kind: "screen-video"`, no como un mockup suelto: los tres son alternativas de lo que se
+dibuja ALREDEDOR de un `<video>` que vive suelto en el stage (un `<video>` anidado en un
+elemento temporizado se congela — `references/gotchas.md`), así que ninguno de los tres
+envuelve el clip, solo lo enmarca. Si el visual declara `tool_recording`, gana sobre
+`chrome`; si no declara ninguno de los dos, cae a `panel` por defecto, igual que siempre.
+
+`hairline` (grosor del marco en px) lo decide **quien llama**, no el componente: de las
+cinco grabaciones de la pieza 15, la de Manus es la única con fondo CLARO y necesita un
+marco más grueso para no perderse contra un fondo también claro. El componente no conoce
+ningún slug especial — es una decisión de la pieza.
+
+**El aspecto 3D es estático, no animado.** `perspective()`+`rotateY()` viven en un wrapper
+HIJO que GSAP nunca toca; lo que se anima es `opacity`/`scale`/`x`/`y` del elemento de
+dentro (mismo mecanismo que los objetos de `objects.py`, §7 del CLAUDE.md). En
+`tool_recording` el tilt va **solo en el chip** de la cabecera (40×40 px), nunca en el
+marco ni en la cabecera entera: el `<video>` real se coloca PLANO en el mismo `rect`, y un
+marco inclinado dejaría de coincidir con su borde. Probado también al revés: el mismo
+`rotateY` sobre la cabecera entera (una franja ancha pegada al borde superior) se ve ROTA,
+no elegante — abre un hueco visible en la esquina donde el fondo se asoma por debajo. Un
+elemento pequeño y cuadrado como el chip no tiene ese problema.
+
+---
+
 ## Logos de terceros
 
 `logos.mark(slug, size, tone)` desde Simple Icons, vendorizados en `assets/logos/`.
@@ -124,6 +163,30 @@ la convierte en un error de sistema en vez de en el precio de haber llegado hast
 Sobre superficie oscura el color de marca hay que **aclararlo**: el verde de WhatsApp o el
 de Excel a su valor nominal se hunden en el fondo. `brand_tone()` mezcla hacia blanco
 hasta pasar 3:1 y devuelve el ratio medido.
+
+### Marcas fuera de Simple Icons
+
+No todas las marcas están ahí — ninguna de las cinco herramientas de la pieza 15 lo
+estaba. `fetch-logos.py --vendor <slug>` las descarga directo del sitio oficial, con dos
+gates antes de guardar nada:
+
+- **Resolución.** La marca se pinta a ~110 px en la card; una marca raster (PNG) por
+  debajo de 2× ese alto (220 px) se ve blanda, así que el script la **rechaza** en vez de
+  vendorizar algo que entraría estirado sin que nadie lo note.
+- **Saneado del SVG.** Un SVG vendorizado entra VERBATIM al HTML que renderiza Chrome —
+  `logos.mark()` solo le toca el `width`/`height` del `<svg>` raíz, nada de su contenido.
+  El fetcher rechaza cualquier SVG con `<script>`, un manejador `on...=` o
+  `<foreignObject>` **antes de escribirlo a disco**.
+
+`logos.mark()` devuelve `(html, ratio)` para las dos familias de marca (Simple Icons y
+vendorizada), pero el `ratio` de una marca vendorizada **puede ser `None`**: si la marca es
+transparente y no trae un tile de fondo propio, no hay nada contra qué medir contraste, y
+quien llama tiene que tratar ese caso — no asumir que siempre hay un número.
+
+`assets/logos/meta.json` guarda además `tile`: el color de fondo dominante que la marca
+trae consigo (de un `<rect>` a lienzo completo en el SVG, o de las esquinas del PNG), para
+poder medir si ese tile se distingue del `surface` del sistema — `None` si la marca es
+transparente.
 
 ---
 

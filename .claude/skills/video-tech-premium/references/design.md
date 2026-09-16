@@ -147,12 +147,44 @@ Bloques de 3–6 palabras, Inter 900 en mayúsculas, centrados.
 
 | Piel | Cuándo | Tratamiento |
 | --- | --- | --- |
-| `on-dark` | sobre el metraje | filete de grafito 7 px con `paint-order: stroke fill` + sombra |
-| `on-surface` | sobre un gráfico | sin filete, solo sombra |
+| `on-dark` | sobre el metraje (`full`/`pip`) | filete de grafito 7 px con `paint-order: stroke fill` + sombra |
+| `on-surface` | sobre un gráfico, o sobre suelo liso en `triband` | sin filete, solo sombra |
 
 `paint-order: stroke fill` pinta el trazo **detrás** del relleno: la letra no engorda y la
 grotesca conserva su peso. Con un borde normal Inter 900 se convierte en una mancha.
 
-**Keyword**: pastilla violeta que aparece bajo la palabra en el instante en que se
-pronuncia. Blanco sobre `#7C5CFF` da 4.35:1 — AA para texto grande, y este lo es con
-mucho margen.
+### El karaoke — tratamiento único del subtítulo
+
+Todas las palabras de un bloque van al **mismo tamaño y color**. Lo que se mueve es un
+fondo violeta con esquinas redondeadas que aparece DETRÁS de la palabra en el instante
+exacto en que se pronuncia (su `start` en el transcript remapeado) y se apaga en cuanto
+arranca la siguiente: el resaltado VIAJA, nunca hay dos fondos encendidos a la vez, y al
+terminar el bloque no queda nada pintado. Ya no existe la keyword agrandada 1.22× y sola
+que resaltaba una sola palabra mientras las demás quedaban quietas — competía por la
+atención con el fondo que viaja, y se quitó.
+
+- **El fondo usa `violet_dk` (`#5B3FD6`), no `violet` (`#7C5CFF`).** Blanco sobre `violet`
+  da 4.35:1 — por debajo del 4.5:1 que pide texto pequeño. Sobre `violet_dk` da **6.72:1**.
+  Medido con `tokens.contrast()`.
+- **El fundido de cada palabra se ESCALA a su propia ventana**, no a un valor fijo: con
+  habla rápida una palabra puede durar menos que un fundido fijo, y `hyperframes check` lo
+  caza como `overlapping_gsap_tweens` (`references/gotchas.md`).
+- La keyword sigue existiendo como concepto — se declara en `plan.json` o se detecta sola
+  en una cifra — pero ya no cambia el RENDERIZADO: solo hace el cálculo de zona segura más
+  conservador, midiéndola como si fuera 1.22× más grande aunque no se pinte así.
+
+### El anclaje en `triband`
+
+En `full`/`pip` el subtítulo persigue la barbilla proyectada (`measure-face.py` sobre el
+encuadre activo), porque el metraje está detrás y puede taparla.
+
+En `triband` no: entre el techo y el suelo de la banda de texto **no hay metraje**, así
+que no hay barbilla que esquivar. El bloque se ancla por el **suelo** de su banda (el techo
+de la banda `speaker` menos un margen) y crece hacia ARRIBA según cuántas líneas tenga, no
+al revés. Anclado por arriba, un bloque corto dejaba ~200 px de hueco muerto justo encima
+de la cara del presentador: el ojo usa de referencia la separación con la cara, no el
+techo de la banda de texto. El gate falla si el bloque crece tanto que su techo invade la
+banda de la animación de arriba — la geometría completa está en `references/triband.md`.
+
+Sin metraje detrás de la letra, la piel es `on-surface` sin filete — el filete de grafito
+existe para que la letra sobreviva encima de imagen, y ahí no la hay.

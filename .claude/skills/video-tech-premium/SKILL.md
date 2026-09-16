@@ -88,7 +88,8 @@ visuals   lo que OCUPA el lienzo: mockups, grabación de producto, imágenes.
 ```
 
 `kind`: `full` (a sangre) · `split` (gráfico + sujeto) · `pip` (ventana arriba a la
-derecha, **por encima** de un takeover) · `off` (lo tapa un visual: no se emite elemento).
+derecha, **por encima** de un takeover) · `off` (lo tapa un visual: no se emite elemento) ·
+`band` (confina el metraje a la banda de abajo del layout `triband` — ver más abajo).
 
 **Un encuadre es un elemento `<video>` nuevo, no un tween.** El renderer resuelve el rect
 del `<video>` una sola vez al cargar, así que animar la geometría no reescala la imagen
@@ -98,6 +99,21 @@ pide la pieza.
 
 Escala de zoom: **1.00 · 1.05 · 1.09 · 1.12 · 1.15**. El 1.15 es escaso — se reserva para
 el remate del hook y para un clímax.
+
+### El layout `triband`
+
+Un quinto modo de encuadre, por PIEZA: en vez de `full`/`pip` a lienzo entero, el lienzo
+REEL se parte en tres bandas fijas — animación arriba, subtítulo en medio, hablante
+abajo — y el metraje se confina a la de abajo. La geometría se declara **una sola vez** en
+`layout`; qué banda ocupa el metraje en cada instante se activa **por segmento** con
+`kind: "band"` (o `camera: "BAND"` en un EDL).
+
+Un visual puede vivir DENTRO de una banda con `"band": "top"` — sin eso, un mockup normal
+es opaco a lienzo completo y **tapa al hablante**, aunque en el navegador no se note nada
+raro. Dos gates paran la compilación en vez de dejarlo llegar al MP4: uno si un visual
+opaco solapa con un encuadre `band`, otro si el `anchor` de un encuadre `band` cortaría la
+cabeza por arriba. Ninguno de los dos se salta a ojo — la geometría, la fórmula del
+`anchor` y los `plan.json` que lo invocan están en `references/triband.md`.
 
 ### cards — rótulos flotantes
 
@@ -155,26 +171,31 @@ CTA simplifica: un solo elemento en pantalla.
 
 ## 5 · Subtítulos
 
-**Bloques de 3–6 palabras con UNA sola keyword resaltada.**
-
-Resaltar todas las palabras convierte el subtítulo en un metrónomo y el ojo deja de leer.
-Resaltar una —una cifra, una herramienta, el concepto— convierte esa palabra en el titular
-del frame. El bloque entra entero y se queda quieto; lo único que se mueve es la keyword,
-en el instante exacto en que se pronuncia.
+**Bloques de 3–6 palabras, todas al mismo tamaño y color.** El bloque entra entero y se
+queda quieto; lo que se mueve es un fondo violeta (`violet_dk`, no `violet`) que viaja
+palabra a palabra, encendiéndose bajo la que se pronuncia en ese instante exacto y
+apagándose en cuanto arranca la siguiente — nunca dos encendidos a la vez, y al terminar el
+bloque no queda nada pintado. Es el **karaoke**, tratamiento único del subtítulo en toda la
+pieza, también sobre metraje a plano lleno. Ya no hay una keyword agrandada y sola:
+resaltar todas las palabras igual y a la vez sería un metrónomo, pero resaltar solo una
+mientras el fondo viaja competiría por la atención — detalle completo en
+`references/design.md`.
 
 El troceo va por **jerarquía**: frase → cláusula → reparto parejo. Cortar solo por ancho
 pega el final de una idea con el principio de la siguiente («…empleados. Cuando…») y el
 espectador lee una frase que nadie dijo.
 
-Las keywords se declaran en `plan.json`; las cifras se detectan solas.
+Las keywords se declaran en `plan.json`; las cifras se detectan solas. Ya no cambian el
+render, solo hacen más conservador el cálculo de zona segura.
 
 **Nunca sobre la cara.** La altura sale de proyectar la barbilla medida
 (`measure-face.py`) al encuadre activo, y se consulta por el **punto medio** del bloque,
-no por su inicio.
+no por su inicio. En `triband` esto no aplica: ahí no hay metraje detrás del subtítulo, así
+que se ancla por el suelo de su banda y crece hacia arriba (`references/design.md`).
 
 Pieles: `on-dark` (sobre metraje — filete de grafito con `paint-order: stroke fill`, que
-pinta el trazo detrás del relleno y no engorda la letra) · `on-surface` (sobre un gráfico
-— sin filete, solo sombra).
+pinta el trazo detrás del relleno y no engorda la letra) · `on-surface` (sobre un gráfico,
+o sobre suelo liso en `triband` — sin filete, solo sombra).
 
 ---
 
@@ -276,6 +297,7 @@ anterior la condición se cumple al instante y acabas analizando el archivo viej
 | --- | --- |
 | Todos los campos de `plan.json` | `references/plan-schema.md` |
 | Paleta, tipografía, layout, subtítulos | `references/design.md` |
+| El layout `triband`: geometría, gates, `anchor`, cards de herramienta | `references/triband.md` |
 | Mockups, grabaciones de pantalla, IA | `references/visuals.md` |
 | Eases, punch-ins, sincronía con el habla | `references/motion.md` |
 | Efectos, música y cálculo de ganancia | `references/sound.md` |

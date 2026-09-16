@@ -55,6 +55,8 @@ choca con una pieza de producto. **Ninguna entrada lo usa.**
 | `slide-in` (kicker, HUD) | `power2.out` | y +14 | El desplazamiento solo acompaña al fundido |
 | `box-in` (caja delimitadora) | `power3.out` | escala 1.06 | Se clava sobre el punto de interés |
 | `scale-pop` | `power2.out` | escala 0.955 | |
+| `glide-x` (logo de una card de herramienta) | `power2.out` | x 72→0 | Recorrido horizontal corto: el logo llega, no barre |
+| `drop-in` (nombre junto al logo) | `power3.out` | y −22→0 | De arriba abajo, distinto del `glide-x` a propósito: dos recorridos hacen que el ojo lea DOS elementos, no un bloque |
 | `cam-push` / `cam-kb` | `power2.inOut` / `none` | — | Empuje pegado a un beat · Ken Burns continuo |
 
 **El peso manda en la duración.** Un visual a pantalla completa tarda más en aparecer que
@@ -65,11 +67,14 @@ una tarjeta porque es más grande.
 ## Subtítulos
 
 El bloque **entra entero y se queda quieto** (0.14 s, `power2.out`, desde escala 0.97).
-Lo único que se mueve dentro es la **keyword**: su pastilla violeta entra en 0.16 s
-justo en el instante en que se pronuncia la palabra, y el texto da un pulso de 1.06.
+Lo que viaja dentro es el fondo violeta del karaoke — no una keyword agrandada, ese
+esquema se quitó — y su fundido de entrada/salida se ESCALA a la ventana de cada palabra
+en vez de un valor fijo, para que una palabra corta con habla rápida no encime su fundido
+con el de la siguiente. Doctrina completa en `references/design.md`.
 
-Resaltar palabra a palabra —el karaoke del sistema anterior— convierte el subtítulo en un
-metrónomo y el ojo deja de leer el contenido.
+Resaltar todas las palabras IGUAL Y A LA VEZ, sin que nada viaje, convierte el subtítulo
+en un metrónomo y el ojo deja de leer el contenido — es la razón por la que el resaltado
+se mueve en vez de quedarse quieto en una sola palabra.
 
 ---
 
