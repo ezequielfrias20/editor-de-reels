@@ -27,6 +27,12 @@ Dos formatos. **El formato lo dicta el video fuente, no se pregunta.**
 | FPS | 30 | 30 |
 | Duración típica | 30–90 s | 60 s – 3 min |
 
+**Desde la doctrina de 2026-09-15, todo REEL usa el layout `triband` por defecto** (§4) —
+no un modo que se elige pieza a pieza. YOUTUBE no lo lleva: el triband reparte el lienzo en
+tres bandas verticales y no tiene sentido en 16:9. `check_triband_default`, en
+`build-composition.py`, para la compilación de un REEL sin `layout`; la escotilla para
+renunciar a él a sabiendas en una pieza concreta es `"layout": {"mode": "none"}`.
+
 ### Regla de detección — obligatoria antes de crear el proyecto
 
 ```bash
@@ -53,6 +59,7 @@ Orden fijo, todo re-ejecutable. Si cambia el plan de cortes, se vuelve a correr 
 | 2 | Transcribir | `scripts/transcribe.py assets/audio/2.flac transcripts/2.json` |
 | 2b | **Cuadrar el transcript con el audio** | `scripts/refine-timings.py assets/audio/2.flac transcripts/2.json --write` |
 | 3 | Planificar cortes | `scripts/plan-cuts.py transcripts/2.json cuts/2.json <dur_real> --audio assets/audio/2.flac` |
+| 3b | **Preguntar las animaciones de la banda de arriba** | conversación con el usuario — sin script, ver más abajo |
 | 4 | Corte bruto | `scripts/rough-cut.sh <src> cuts/2.json out/2-rough.mp4` |
 | 4b | **Auditar respiraciones — no se sigue si falla** | `scripts/audit-breaths.py --project . --piece 2` |
 | 5 | Medir la cara | `scripts/measure-face.py out/2-rough.mp4 assets/face-2.json` |
@@ -64,6 +71,37 @@ Orden fijo, todo re-ejecutable. Si cambia el plan de cortes, se vuelve a correr 
 | 10 | Componer | `scripts/build-composition.py --project . --piece 2` |
 | 11 | Validar | `npx hyperframes check public` |
 | 12 | Renderizar | `npx hyperframes render public --skill=talking-head-recut -o output.mp4 --fps 30 --sdr` |
+
+### 3b — preguntar las animaciones, no decidirlas solo
+
+Doctrina de 2026-09-15, a petición del usuario: el triband le da a cada beat una banda de
+arriba que hay que llenar con algo, y ese algo dejó de decidirse sobre la marcha mientras
+se escribe el plan. Se pregunta ANTES, en el hueco exacto entre saber qué se dice y
+construir cualquier cosa — el transcript ya está cortado (paso 3, con `refine-timings` ya
+aplicado), pero no existe corte bruto, ni recorrido de pantalla, ni `plan.json`.
+
+Lo que se presenta, por cada beat del guion:
+
+- **Los tiempos**, del transcript ya remapeado a la línea del corte (paso 3, con
+  `refine-timings` ya aplicado) — no del transcript crudo, que vive en la línea del fuente.
+- **El material de origen disponible** en `VIDEOS ORIGINALES/<n>/`: grabaciones de pantalla,
+  capturas, logos. Proponer un mockup para algo que ya está grabado va contra la regla de
+  oro de b-roll semántico (§7): si existe la grabación real, ella manda.
+- **Una propuesta por beat** de qué ocupa la banda de arriba, para que el usuario confirme o
+  cambie — no para montarla directo con la primera idea razonable.
+
+El vocabulario que hace la pregunta respondible: `tool_card` (marca cuando se nombra algo),
+`tool_recording` (grabación dirigida con chip de marca), los mockups de la librería
+(`keyword_hero`, `stat_grid`, `chip_grid`, `flow_steps`, `comment_ui`, `chat_unanswered`…),
+los objetos de `objects.py` (§7), y **dejar la banda vacía** como decisión deliberada, no
+como omisión.
+
+Dos criterios de la casa que siguen aplicando aquí sin excepción: **nada entra antes de su
+palabra** (§7) — la propuesta para un beat no puede adelantar un logo o una cifra que el
+guion todavía no dijo — y una banda de arriba vacía muchos segundos seguidos se nota más en
+un layout de tres bandas que en un `full` a pantalla completa: si un beat largo no tiene
+material que le corresponda, eso ES lo que hay que preguntarle al usuario, no un hueco que
+se resuelve solo con silencio.
 
 **Desde la pieza 10, el paso 9 tiene dos caminos.** El de siempre: escribir `plan.json` a
 mano. El nuevo: escribir un `edl.json` que referencia **índices de palabra** del transcript
@@ -289,6 +327,15 @@ Escala de zoom: **1.00 · 1.05 · 1.09 · 1.12 · 1.15**. El 1.15 es escaso.
 
 ### El layout `triband`
 
+**Desde la doctrina de 2026-09-15, es el layout por defecto de TODOS los reels de este
+proyecto** (§1) — ya no un modo que una pieza elige aparte. `check_triband_default`, en
+`build-composition.py`, para la compilación de cualquier pieza REEL sin bloque `layout`; no
+corre en YOUTUBE, porque el triband reparte el lienzo en tres bandas verticales y en 16:9
+no hay banda de arriba que llenar. La escotilla para renunciar a él a sabiendas en una
+pieza REEL concreta es `"layout": {"mode": "none"}` — el gate la nombra en su mensaje de
+error, porque una salida sin documentar es una salida que nadie usa y un gate que alguien
+acaba comentando.
+
 Un quinto `kind`, junto a `full` · `split` · `pip` · `off`: **`band`**. En vez de que el
 metraje ocupe el lienzo entero o una esquina, lo confina a la franja de ABAJO de tres
 bandas que cubren el lienzo de arriba a abajo **sin huecos** (medidas de la pieza 15, REEL,
@@ -395,6 +442,10 @@ el tope exacto que calcula el generador. Cuando el margen sale de 5 px, la cuent
 apretando bien.
 
 ### La excepción `triband`
+
+Se llama «excepción» por el mecanismo de anclaje, no por lo rara que es: desde que el
+triband es el layout por defecto de todo REEL (§4), este es el camino que toma la mayoría
+de las piezas nuevas, no el caso raro.
 
 En `full` · `split` · `pip` el subtítulo persigue la barbilla porque el metraje está detrás
 y puede taparla. En `triband` no: entre el techo de la banda de texto y el techo de la banda

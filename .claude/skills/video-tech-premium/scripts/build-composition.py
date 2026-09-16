@@ -501,6 +501,43 @@ def check_face_top_clear(shots, dur):
                 f"medir con `measure-face.py` si hace falta, nunca a ojo.")
 
 
+def check_triband_default():
+    """El triband es el layout por defecto de TODOS los reels del proyecto.
+
+    Doctrina de la sesión de 2026-09-15, a petición del usuario: hasta ahora
+    `layout` era un bloque que una pieza declaraba SI QUERÍA el triband, y la
+    mayoría de piezas REEL no lo traían — caían al full/pip/split de siempre
+    sin que nada lo señalara. Desde ahora es al revés: toda pieza REEL trae
+    un bloque `layout`, aunque sea para renunciar a él a sabiendas.
+
+    YOUTUBE queda FUERA a propósito. El triband reparte el lienzo en tres
+    bandas verticales (arriba / subtítulo / hablante); en 16:9 apaisado no
+    hay una banda de arriba que llenar sin aplastar al hablante contra un
+    borde del lienzo, así que el gate no tiene nada que exigir ahí.
+
+    La escotilla es `"layout": {"mode": "none"}`. Un gate sin salida
+    documentada es un gate que alguien acaba comentando la primera vez que
+    estorba de verdad, así que cualquier bloque `layout` no vacío lo
+    satisface — sea el de verdad (`mode: "triband"`, con sus `bands`) o la
+    renuncia explícita. El mensaje de error dice las dos salidas, no solo
+    la primera.
+    """
+    if FMT != "REEL":
+        return
+    if LAYOUT:
+        return
+    sys.exit(
+        "pieza REEL sin bloque `layout` en el plan: desde esta doctrina, el "
+        "triband (banda de arriba / subtítulo / hablante) es el layout por "
+        "defecto de TODOS los reels de este proyecto — ya no es un modo que "
+        "se elige aparte.\n"
+        "  declara `\"layout\": {\"mode\": \"triband\", \"bands\": {...}}` "
+        "(geometría, fórmula del `anchor` y gates en references/triband.md), "
+        "o si esta pieza concreta de verdad no lo necesita, renuncia a "
+        "sabiendas con la escotilla documentada: "
+        "`\"layout\": {\"mode\": \"none\"}`.")
+
+
 # ── capa de VISUALES ──────────────────────────────────────────────────────────
 def build_visuals(dur):
     """Materializa VISUALS. Devuelve (css, media suelta, hosts, anims, skins).
@@ -1549,6 +1586,7 @@ def build():
             if not dst.exists() or dst.stat().st_size != src.stat().st_size:
                 dst.write_bytes(src.read_bytes())
 
+    check_triband_default()
     shots, vid_els = build_shots(dur)
     check_no_black(shots, dur)
     check_band_speaker_clear(shots, dur)

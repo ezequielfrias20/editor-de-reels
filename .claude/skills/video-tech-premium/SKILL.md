@@ -53,6 +53,7 @@ ln -s .claude/skills/video-tech-premium/scripts scripts
 | 1 | Extraer audio | `ffmpeg -i <src> -vn -ac 1 -ar 16000 -c:a flac assets/audio/2.flac` |
 | 2 | Transcribir | `scripts/transcribe.py assets/audio/2.flac transcripts/2.json` |
 | 3 | Planificar cortes | `scripts/plan-cuts.py transcripts/2.json cuts/2.json <dur_real>` |
+| 3b | **Preguntar las animaciones de la banda de arriba** | conversación con el usuario — sin script, ver más abajo |
 | 4 | Corte bruto | `scripts/rough-cut.sh <src> cuts/2.json out/2-rough.mp4` |
 | 5 | Medir la cara | `scripts/measure-face.py out/2-rough.mp4 assets/face-2.json` |
 | 6 | Color (solo si es HDR) | `scripts/calibrate-hlg.py` + `scripts/make-hlg-lut.py` (§6) |
@@ -63,7 +64,39 @@ ln -s .claude/skills/video-tech-premium/scripts scripts
 | 11 | Validar | `npx hyperframes check public` |
 | 12 | Renderizar | `npx hyperframes render public --skill=talking-head-recut -o output.mp4 --fps 30 --sdr` |
 
-Los pasos 1–8 son mecánicos. **El 9 es donde se decide la pieza.**
+Los pasos 1–8 son mecánicos. **El 9 es donde se decide la pieza** — y el 3b es donde el
+usuario decide una parte de ella antes de que exista nada que montar.
+
+### 3b — preguntar las animaciones, no decidirlas solo
+
+El triband le da a cada beat una banda de arriba que hay que llenar con algo — y ese algo
+no se improvisa mientras se escribe el plan: se pregunta antes, con el transcript ya
+remapeado al corte (paso 3) y **todavía nada construido** (ni corte bruto, ni recorrido de
+pantalla, ni plan). Es el momento en que ya se sabe qué se dice y se puede hablar de qué se
+ve sin comprometerse con nada todavía.
+
+Lo que se le presenta al usuario, por cada beat del guion:
+
+- **Los tiempos**, sacados del transcript remapeado (la función `remap()`, §4 punto 3) — no
+  del transcript crudo, que vive en la línea del fuente.
+- **El material disponible** en `VIDEOS ORIGINALES/<n>/`: grabaciones de pantalla, capturas,
+  logos. Lo que hay decide lo que se puede proponer; inventar un mockup para algo que ya
+  existe grabado va contra la regla de oro de b-roll semántico.
+- **Una propuesta por beat** de qué ocupa la banda de arriba, para que el usuario confirme o
+  cambie — nunca para montarla directo.
+
+El vocabulario que hace la pregunta respondible (sin él, "qué animación" es una pregunta
+abierta que nadie sabe contestar): `tool_card` (marca cuando se nombra algo),
+`tool_recording` (grabación dirigida con chip de marca), los mockups de la librería
+(`keyword_hero`, `stat_grid`, `chip_grid`, `flow_steps`, `comment_ui`, `chat_unanswered`…),
+los objetos de `objects.py`, y **dejar la banda vacía** como decisión deliberada, no como
+omisión.
+
+Dos criterios de la casa que siguen aplicando aquí igual que en el resto de la pieza:
+**nada entra antes de su palabra** — un logo no aparece antes de que se nombre (§9) — y una
+banda de arriba vacía muchos segundos seguidos se nota más en un layout de tres bandas que
+en un `full` de siempre — así que si un beat largo no tiene material que le corresponda,
+eso es justo lo que hay que preguntarle al usuario, no lo que hay que resolver solo.
 
 ---
 
@@ -102,18 +135,26 @@ el remate del hook y para un clímax.
 
 ### El layout `triband`
 
-Un quinto modo de encuadre, por PIEZA: en vez de `full`/`pip` a lienzo entero, el lienzo
-REEL se parte en tres bandas fijas — animación arriba, subtítulo en medio, hablante
-abajo — y el metraje se confina a la de abajo. La geometría se declara **una sola vez** en
-`layout`; qué banda ocupa el metraje en cada instante se activa **por segmento** con
-`kind: "band"` (o `camera: "BAND"` en un EDL).
+**Desde ahora, el layout por defecto de TODOS los reels de este proyecto** — ya no un modo
+que una pieza elige aparte. En vez de `full`/`pip` a lienzo entero, el lienzo REEL se parte
+en tres bandas fijas — animación arriba, subtítulo en medio, hablante abajo — y el metraje
+se confina a la de abajo. La geometría se declara **una sola vez** en `layout`; qué banda
+ocupa el metraje en cada instante se activa **por segmento** con `kind: "band"` (o
+`camera: "BAND"` en un EDL). Declarar `layout` no obliga a que todo el metraje viva en
+banda: sigue conviviendo con `full`/`split`/`pip` segmento a segmento.
+
+**Una pieza REEL sin `layout` falla la compilación** (`check_triband_default`, al lado de
+los otros dos gates de abajo): la ausencia ya no es un estilo, es un olvido. YOUTUBE queda
+fuera del gate — el triband es un reparto vertical y no tiene sentido en 16:9. La escotilla
+para renunciar a él a sabiendas en una pieza concreta es `"layout": {"mode": "none"}`; el
+mensaje de error del gate la nombra.
 
 Un visual puede vivir DENTRO de una banda con `"band": "top"` — sin eso, un mockup normal
 es opaco a lienzo completo y **tapa al hablante**, aunque en el navegador no se note nada
-raro. Dos gates paran la compilación en vez de dejarlo llegar al MP4: uno si un visual
-opaco solapa con un encuadre `band`, otro si el `anchor` de un encuadre `band` cortaría la
-cabeza por arriba. Ninguno de los dos se salta a ojo — la geometría, la fórmula del
-`anchor` y los `plan.json` que lo invocan están en `references/triband.md`.
+raro. Otros dos gates paran la compilación en vez de dejarlo llegar al MP4: uno si un
+visual opaco solapa con un encuadre `band`, otro si el `anchor` de un encuadre `band`
+cortaría la cabeza por arriba. Ninguno de los tres se salta a ojo — la geometría, la
+fórmula del `anchor` y los `plan.json` que lo invocan están en `references/triband.md`.
 
 ### cards — rótulos flotantes
 

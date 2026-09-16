@@ -18,10 +18,12 @@ Describe la pieza entera. Es lo único que cambia entre videos.
     "target_mean": -34.0             // dB de media; la voz está en −19.8
   },
 
-  "layout": {                         // opcional; solo si algún shot usa kind:"band"
+  "layout": {                         // OBLIGATORIO en REEL desde la doctrina 2026-09-15
     "mode": "triband",
     "bands": {"top": [0, 660], "text": [660, 960], "speaker": [960, 1920]}
   },
+  // la escotilla, para una pieza REEL que de verdad no necesita el triband:
+  // "layout": {"mode": "none"},
 
   "shots":   [ … ],                  // el METRAJE
   "cards":   [ … ],                  // rótulos FLOTANTES
@@ -34,6 +36,12 @@ Describe la pieza entera. Es lo único que cambia entre videos.
 `references/triband.md` tiene la geometría completa, la fórmula del `anchor` y los gates
 que fallan si algo no cuadra. Un encuadre `kind: "band"` o un visual con `"band": "top"`
 sin este bloque hace fallar la compilación: no hay lienzo-completo por defecto.
+
+Desde la doctrina de 2026-09-15, **una pieza REEL sin `layout` falla la compilación**
+(`check_triband_default`): el triband es el layout por defecto de todos los reels del
+proyecto, no uno que se elige aparte. YOUTUBE no lleva esta exigencia — el triband es un
+reparto vertical. La escotilla para renunciar a sabiendas en una pieza REEL concreta es
+`"layout": {"mode": "none"}`.
 
 Cualquier clave que empiece por `_` es un comentario y el generador la ignora. Úsalas para
 dejar escrito **por qué** un beat cae donde cae.

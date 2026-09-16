@@ -1,8 +1,16 @@
 # El layout `triband`
 
-Un modo de pieza, no de sistema: convive con el `full`/`split`/`pip` de siempre y se activa
-**por segmento**. En vez de que el metraje ocupe el lienzo entero o una esquina, el lienzo
-REEL se parte en tres bandas fijas que lo cubren de arriba a abajo **sin huecos**:
+**Desde la doctrina de 2026-09-15, es el layout por defecto de TODOS los reels de este
+proyecto** — ya no un modo que una pieza elige aparte. Toda pieza REEL declara el bloque
+`layout`, aunque sea para renunciar a él a sabiendas con `"layout": {"mode": "none"}`
+(la escotilla; ver `check_triband_default` más abajo). YOUTUBE queda fuera: el triband
+reparte el lienzo en tres bandas verticales y no tiene sentido en 16:9 apaisado.
+
+Dentro de una pieza sigue conviviendo con el `full`/`split`/`pip` de siempre y se activa
+**por segmento**: declarar `layout` no obliga a que TODO el metraje viva en banda, solo
+declara la geometría disponible para quien quiera usarla. En vez de que el metraje ocupe
+el lienzo entero o una esquina, el lienzo REEL se parte en tres bandas fijas que lo cubren
+de arriba a abajo **sin huecos**:
 
 ```
 top      animación — card de logo, grabación de producto: lo que se está explicando
@@ -101,10 +109,24 @@ toca la opacidad del host — son dos mecanismos distintos y solo uno resuelve e
 Sin `layout` en el plan, declarar `band` en un visual falla igual que un encuadre `band`
 suelto: no hay rect de dónde sacarlo.
 
-## Los dos gates de `build-composition.py`
+## Los tres gates de `build-composition.py`
 
-Ambos viven uno al lado del otro, con la misma filosofía: el error no tiene arreglo en
-post, así que para la compilación en vez de colarse hasta el MP4.
+Los tres viven uno al lado del otro, con la misma filosofía: el error no tiene arreglo en
+post (o, en el caso del primero, es un olvido que nadie va a ver hasta que el reel ya está
+publicado), así que paran la compilación en vez de colarse hasta el MP4.
+
+### `check_triband_default`
+
+Falla si el plan es REEL y **no trae bloque `layout`**. Es el gate de la doctrina: antes
+`layout` era opt-in y una pieza sin él caía en silencio al full/pip/split de siempre; ahora
+la ausencia de `layout` en un REEL es indistinguible de un olvido, así que el compilador la
+trata como tal. No corre en YOUTUBE — el triband es un reparto vertical y no hay banda de
+arriba que llenar en 16:9.
+
+La escotilla es `"layout": {"mode": "none"}`: cualquier bloque `layout` no vacío satisface
+el gate, sea la geometría real del triband o esta renuncia explícita. El mensaje de error
+nombra las dos salidas — declarar el triband o declarar la renuncia — porque un gate sin
+salida documentada es un gate que alguien acaba comentando la primera vez que estorba.
 
 ### `check_band_speaker_clear`
 
