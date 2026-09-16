@@ -89,14 +89,27 @@ El vocabulario que hace la pregunta respondible (sin él, "qué animación" es u
 abierta que nadie sabe contestar): `tool_card` (marca cuando se nombra algo),
 `tool_recording` (grabación dirigida con chip de marca), los mockups de la librería
 (`keyword_hero`, `stat_grid`, `chip_grid`, `flow_steps`, `comment_ui`, `chat_unanswered`…),
-los objetos de `objects.py`, y **dejar la banda vacía** como decisión deliberada, no como
-omisión.
+los objetos de `objects.py`, y `tool_lineup` (varias marcas en fila, para un beat que las
+recoge todas).
 
-Dos criterios de la casa que siguen aplicando aquí igual que en el resto de la pieza:
-**nada entra antes de su palabra** — un logo no aparece antes de que se nombre (§9) — y una
-banda de arriba vacía muchos segundos seguidos se nota más en un layout de tres bandas que
-en un `full` de siempre — así que si un beat largo no tiene material que le corresponda,
-eso es justo lo que hay que preguntarle al usuario, no lo que hay que resolver solo.
+**Dejar la banda vacía NO es una opción.** La banda `top` muestra algo en cualquier
+segundo de un tramo `band`, y `check_band_top_covered` falla la compilación si no —
+ver `references/triband.md`. Esto cambia la forma de la pregunta: no es «qué animación
+quieres en este beat», es **«qué animación quieres en este beat, sabiendo que algo tiene
+que haber»**. Un beat sin material no se queda en blanco: o se sostiene el visual
+anterior, o se le inventa uno, y esa es la decisión que el usuario tiene que tomar.
+
+Los dos criterios de la casa que chocan aquí, y cómo se resuelven:
+
+- **Nada entra antes de su palabra** (§9): un logo no aparece antes de que se nombre. Así
+  que el hueco anterior a un visual NO se tapa adelantándolo.
+- **La banda nunca se queda vacía**: ese hueco se tapa **sosteniendo el visual anterior**
+  hasta que entra el siguiente. El saliente cubre; el entrante sigue esperando su palabra.
+
+El único hueco que no se arregla sosteniendo es el del primer visual de la pieza, porque
+no hay nada delante. Ahí se mueve el inicio del tramo `band` para que coincida con su
+entrada — el plano lleno dura un poco más y el triband empieza cuando hay algo que poner
+en él.
 
 ---
 

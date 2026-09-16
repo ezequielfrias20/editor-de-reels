@@ -93,15 +93,25 @@ Lo que se presenta, por cada beat del guion:
 El vocabulario que hace la pregunta respondible: `tool_card` (marca cuando se nombra algo),
 `tool_recording` (grabación dirigida con chip de marca), los mockups de la librería
 (`keyword_hero`, `stat_grid`, `chip_grid`, `flow_steps`, `comment_ui`, `chat_unanswered`…),
-los objetos de `objects.py` (§7), y **dejar la banda vacía** como decisión deliberada, no
-como omisión.
+los objetos de `objects.py` (§7), y `tool_lineup` (varias marcas en fila, para un beat que
+las recoge todas).
 
-Dos criterios de la casa que siguen aplicando aquí sin excepción: **nada entra antes de su
-palabra** (§7) — la propuesta para un beat no puede adelantar un logo o una cifra que el
-guion todavía no dijo — y una banda de arriba vacía muchos segundos seguidos se nota más en
-un layout de tres bandas que en un `full` a pantalla completa: si un beat largo no tiene
-material que le corresponda, eso ES lo que hay que preguntarle al usuario, no un hueco que
-se resuelve solo con silencio.
+**Dejar la banda vacía NO es una opción.** La banda `top` muestra algo en cualquier segundo
+de un tramo `band`, y `check_band_top_covered` falla la compilación si no (§4). Eso cambia
+la forma de la pregunta: no es «qué animación quieres aquí», es «qué animación quieres
+aquí, sabiendo que algo tiene que haber». Un beat sin material no se queda en blanco — o se
+sostiene el visual anterior, o se le inventa uno, y ESA es la decisión del usuario.
+
+Los dos criterios que chocan aquí, y cómo se resuelven:
+
+- **Nada entra antes de su palabra** (§7): la propuesta para un beat no puede adelantar un
+  logo ni una cifra que el guion todavía no dijo. El hueco previo a un visual NO se tapa
+  adelantándolo.
+- **La banda nunca se queda vacía** (§4): ese hueco se tapa **sosteniendo el visual
+  anterior** hasta que entra el siguiente. El saliente cubre; el entrante espera su palabra.
+
+El único que no se arregla sosteniendo es el hueco del primer visual, porque no hay nada
+delante: ahí se mueve el inicio del tramo `band` para que coincida con su entrada.
 
 **Desde la pieza 10, el paso 9 tiene dos caminos.** El de siempre: escribir `plan.json` a
 mano. El nuevo: escribir un `edl.json` que referencia **índices de palabra** del transcript
