@@ -23,8 +23,8 @@ import pytest
 
 
 @pytest.fixture(scope="module")
-def plan18(project_root):
-    p = project_root / "videos" / "18" / "plan.json"
+def plan18(fixtures_root, project_root):
+    p = fixtures_root / "videos" / "18" / "plan.json"
     if not p.exists():
         pytest.skip("la pieza 18 no está")
     return json.loads(p.read_text())

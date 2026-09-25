@@ -43,29 +43,29 @@ def test_text_of_une_el_rango(w10):
     assert w10.text_of(11, 13) == "simplemente contestó primero."
 
 
-def test_fingerprint_es_estable(w10, project_root):
-    otro = load_words(project_root / "transcripts" / "10.json",
-                      project_root / "cuts" / "10.json")
+def test_fingerprint_es_estable(fixtures_root, w10, project_root):
+    otro = load_words(fixtures_root / "transcripts" / "10.json",
+                      fixtures_root / "cuts" / "10.json")
     assert w10.fingerprint == otro.fingerprint and w10.fingerprint.startswith("sha256:")
 
 
-def test_el_fingerprint_cambia_si_cambian_los_cortes(w10, project_root, tmp_path):
+def test_el_fingerprint_cambia_si_cambian_los_cortes(fixtures_root, w10, project_root, tmp_path):
     """Recortar de nuevo la pieza mueve TODOS los beats sin tocar el transcript.
     Si el fingerprint no cubriera cuts/, ese cambio pasaría en silencio."""
     import json
-    cu = json.loads((project_root / "cuts" / "10.json").read_text())
+    cu = json.loads((fixtures_root / "cuts" / "10.json").read_text())
     cu["keeps"][0]["dur"] += 0.5
     p = tmp_path / "cuts.json"
     p.write_text(json.dumps(cu))
-    assert load_words(project_root / "transcripts" / "10.json", p).fingerprint \
+    assert load_words(fixtures_root / "transcripts" / "10.json", p).fingerprint \
         != w10.fingerprint
 
 
-def test_usar_el_rough_como_transcript_da_otro_fingerprint(w10, project_root):
+def test_usar_el_rough_como_transcript_da_otro_fingerprint(fixtures_root, w10, project_root):
     """El -rough.json parece un atajo razonable y da 130 palabras y tiempos
     16-60 ms distintos: valida y está mal."""
-    rough = load_words(project_root / "transcripts" / "10-rough.json",
-                       project_root / "cuts" / "10.json")
+    rough = load_words(fixtures_root / "transcripts" / "10-rough.json",
+                       fixtures_root / "cuts" / "10.json")
     assert len(rough.words) == 130
     assert rough.fingerprint != w10.fingerprint
 

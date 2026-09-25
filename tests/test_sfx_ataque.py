@@ -81,12 +81,12 @@ def test_un_fichero_vacio_no_revienta_la_compilacion(bc, tmp_path):
     assert bc._lead_in(vacio) == 0.0
 
 
-def test_el_html_adelanta_el_start_del_efecto_con_cabecera(project_root):
+def test_el_html_adelanta_el_start_del_efecto_con_cabecera(fixtures_root, project_root):
     """La comprobación de punta a punta, sobre el index.html ya compilado de la
     pieza 18: `error` se declara en 24.814 y su <audio> tiene que empezar
     ~604 ms antes para que el golpe caiga en la palabra."""
     import re
-    idx = project_root / "videos" / "18" / "public" / "index.html"
+    idx = fixtures_root / "videos" / "18" / "public" / "index.html"
     if not idx.exists():
         pytest.skip("la pieza 18 no está compilada")
     h = idx.read_text()
@@ -98,9 +98,9 @@ def test_el_html_adelanta_el_start_del_efecto_con_cabecera(project_root):
         "su cabecera, así que suena medio segundo tarde")
 
 
-def test_ningun_efecto_de_la_18_queda_con_start_negativo(project_root):
+def test_ningun_efecto_de_la_18_queda_con_start_negativo(fixtures_root, project_root):
     import re
-    idx = project_root / "videos" / "18" / "public" / "index.html"
+    idx = fixtures_root / "videos" / "18" / "public" / "index.html"
     if not idx.exists():
         pytest.skip("la pieza 18 no está compilada")
     for s in re.findall(r'<audio[^>]*class="clip"[^>]*data-start="(-?[\d.]+)"',

@@ -41,12 +41,12 @@ def test_apuntar_al_rough_falla(write_edl, edl_min, problems_of):
     assert "fingerprint" in problems_of(edl_min)
 
 
-def test_falta_cuts_falla(edl_min, tmp_path, project_root):
+def test_falta_cuts_falla(fixtures_root, edl_min, tmp_path, project_root):
     del edl_min["transcript"]["cuts"]
     p = tmp_path / "edl.json"
     p.write_text(json.dumps(edl_min, ensure_ascii=False))
     with pytest.raises(EdlError, match="cuts"):
-        load_edl(p, project_root)
+        load_edl(p, fixtures_root)
 
 
 # ── cobertura y contigüidad ─────────────────────────────────────────────────
@@ -256,11 +256,11 @@ def test_override_valido_pasa(write_edl, edl_min):
 
 
 # ── draft ───────────────────────────────────────────────────────────────────
-def test_un_draft_es_rechazado(edl_min, tmp_path, project_root):
+def test_un_draft_es_rechazado(fixtures_root, edl_min, tmp_path, project_root):
     p = tmp_path / "edl.draft.json"
     p.write_text(json.dumps(edl_min, ensure_ascii=False))
     with pytest.raises(EdlError, match="draft"):
-        load_edl(p, project_root)
+        load_edl(p, fixtures_root)
 
 
 # ── stages ──────────────────────────────────────────────────────────────────

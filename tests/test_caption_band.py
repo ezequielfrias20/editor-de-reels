@@ -17,24 +17,24 @@ BASE = 66          # CAPTION_SIZE en REEL
 FLOOR = 1104       # y1120 menos 16 px de holgura
 
 
-def test_floor_px_manda_sobre_el_20_por_ciento(project_root):
+def test_floor_px_manda_sobre_el_20_por_ciento(fixtures_root, project_root):
     """Sin `floor_px` el suelo es 0.80*H; con él, el que se pase."""
     import caption_metrics as cm
     libre = cm.measure_block(["hola", "mundo"], BASE, None, "REEL", 1920,
-                             cache_dir=project_root / "videos" / "10")
+                             cache_dir=fixtures_root / "videos" / "10")
     band = cm.measure_block(["hola", "mundo"], BASE, None, "REEL", 1920,
                             floor_px=FLOOR,
-                            cache_dir=project_root / "videos" / "10")
+                            cache_dir=fixtures_root / "videos" / "10")
     assert libre["floor_top"] == 1536 - libre["n_lines"] * libre["line_h"]
     assert band["floor_top"] == FLOOR - band["n_lines"] * band["line_h"]
 
 
-def test_dos_lineas_con_keyword_caben_en_la_banda(project_root):
+def test_dos_lineas_con_keyword_caben_en_la_banda(fixtures_root, project_root):
     """66 x 1.22 = 81; 81 x 1.14 = 92. Dos líneas son 184 px desde y844 -> y1028."""
     import caption_metrics as cm
     m = cm.measure_block(["la", "primera", "es", "anime.js"], BASE, (3, 3), "REEL",
                          1920, floor_px=FLOOR,
-                         cache_dir=project_root / "videos" / "10")
+                         cache_dir=fixtures_root / "videos" / "10")
     assert m["max_size"] == 81
     assert m["line_h"] == 92
     assert 844 + 2 * m["line_h"] <= FLOOR
@@ -44,7 +44,7 @@ BANDS = {"top": [0, 820], "text": [820, 1120], "speaker": [1120, 1920]}
 
 
 @pytest.fixture
-def banda(bc, project_root):
+def banda(fixtures_root, bc, project_root):
     """Fija los globals que `build_captions` lee (`bc` es de ámbito de SESIÓN
     en conftest.py, así que una fuga aquí contaminaría otros archivos de
     test) y los restaura al terminar — mismo patrón que
@@ -60,7 +60,7 @@ def banda(bc, project_root):
     bc.CAPTION_MARGIN = round(bc.W * 0.07)
     # El .inter900.ttf cacheado en videos/10 es lo que permite medir la
     # fuente real sin renderizar.
-    bc.WORK = project_root / "videos" / "10"
+    bc.WORK = fixtures_root / "videos" / "10"
     yield bc
     for k, v in prev.items():
         setattr(bc, k, v)

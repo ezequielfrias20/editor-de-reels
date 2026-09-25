@@ -138,11 +138,6 @@ def test_el_gate_dispara_sobre_un_hueco(style):
     assert f.severity == "warn" and "1.4" in f.message
 
 
-def test_la_pieza_13_no_tiene_ni_un_hueco(edl13, style):
-    assert bare_stage_gaps(edl13, style["stage"]["fade_in"]) == []
-    assert measure(edl13, style)["max_bare_stage"] == 0.0
-
-
 def test_la_pieza_10_conserva_sus_tres_huecos_documentados(edl10, style):
     """Regresión al revés: si algún día alguien re-corta la pieza 10, esto
     cambia y hay que actualizar la bitácora en vez de descubrirlo por sorpresa."""

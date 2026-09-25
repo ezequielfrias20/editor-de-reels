@@ -177,12 +177,12 @@ def test_los_cuatro_objetos_se_posicionan_por_slot():
         assert a["html"] != b["html"]
 
 
-def test_el_sillon_no_se_declara_crowd_en_la_pieza_10(project_root):
+def test_el_sillon_no_se_declara_crowd_en_la_pieza_10(fixtures_root, project_root):
     """El sillón es el punto fijo hacia el que convergen los demás — si
     alguien le añade `crowd: true` por error, la escena se cierra sobre un
     objeto que también se está moviendo y el efecto se rompe."""
     import json
-    edl = json.loads((project_root / "videos" / "10" / "edl.json").read_text())
+    edl = json.loads((fixtures_root / "videos" / "10" / "edl.json").read_text())
     seg = next(s for s in edl["segments"] if s["words"] == [57, 72])
     crowd_ids = {e["instanceId"] for e in seg["events"]
                 if e["type"] == "OBJECT_STATE" and e.get("crowd")}
@@ -191,15 +191,15 @@ def test_el_sillon_no_se_declara_crowd_en_la_pieza_10(project_root):
     assert chair_id not in crowd_ids
 
 
-def test_los_cuatro_objetos_entran_sin_solaparse_demasiado(project_root):
+def test_los_cuatro_objetos_entran_sin_solaparse_demasiado(fixtures_root, project_root):
     """Huecos de 0.56, 0.88 y 0.90 s entre los cuatro OBJECT_IN — muy por
     debajo del gate macro de 4.5 s, tal como dice el plan."""
     import json
     from edl_words import load_words
-    edl = json.loads((project_root / "videos" / "10" / "edl.json").read_text())
+    edl = json.loads((fixtures_root / "videos" / "10" / "edl.json").read_text())
     seg = next(s for s in edl["segments"] if s["words"] == [57, 72])
-    wt = load_words(project_root / "transcripts" / "10.json",
-                    project_root / "cuts" / "10.json")
+    wt = load_words(fixtures_root / "transcripts" / "10.json",
+                    fixtures_root / "cuts" / "10.json")
     ins = sorted(e["atWord"] for e in seg["events"] if e["type"] == "OBJECT_IN")
     assert len(ins) == 4
     times = [wt.at(w) for w in ins]

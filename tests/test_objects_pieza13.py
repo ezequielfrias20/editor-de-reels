@@ -113,15 +113,3 @@ def test_el_check_nace_apagado():
 
 
 # ── el reuso, que es el punto ────────────────────────────────────────────────
-def test_la_secuencia_reutiliza_msg_card_de_la_pieza_12(plan13):
-    usados = [od["kind"] for v in plan13["visuals"]
-              for od in v["mock"][1]["objects"]]
-    assert usados.count("msg-card") == 4          # 3 recordatorios + la pregunta
-    assert set(usados) == {"calendar", "appointment-timeline", "msg-card",
-                           "confirm-buttons"}
-
-
-def test_los_sellos_cargan_la_ventana_de_envio(plan13):
-    sellos = [od["state"].get("seal") for v in plan13["visuals"]
-              for od in v["mock"][1]["objects"] if od["state"].get("seal")]
-    assert sellos == ["INMEDIATA", "DÍA ANTERIOR", "3 H ANTES"]

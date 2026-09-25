@@ -54,7 +54,7 @@ def test_el_recorrido_es_pequeno(bc):
 #
 # No es hipotético: la pieza 12 sube su contador en dos tramos —12→18 y
 # 18→27, mismo id "counter"— dentro del MISMO stage (ver
-# tests/golden/12.plan.json:466-479), y eso son dos tuplas count-roll
+# el golden de la pieza 12, ya retirado), y eso son dos tuplas count-roll
 # consecutivas. Con el nonce roto, las dos declararían `const _cv0` y el
 # script ENTERO de la pieza rompería con `SyntaxError: Identifier '_cv0' has
 # already been declared` — no solo esa animación.
@@ -76,7 +76,7 @@ def _consts(js: str) -> list[str]:
 
 def test_count_roll_dos_tramos_no_colisiona(bc):
     """El contador de la pieza 12 sube en dos tramos, mismo id, mismo
-    documento (12→18 y 18→27 — ver tests/golden/12.plan.json:466-479). Dos
+    documento (12→18 y 18→27 — ver el golden de la pieza 12, ya retirado). Dos
     llamadas a `emit_anim` para ese mismo gesto no pueden declarar el mismo
     `const`, o el script de la pieza entera deja de parsear."""
     js1 = bc.emit_anim(("count-roll", "#counter-num", 3.1333, 0.4333, 12, 18, "#"))

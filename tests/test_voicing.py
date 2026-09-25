@@ -168,15 +168,15 @@ def test_auditar_un_corte_con_SU_umbral_esconde_respiraciones(audio14, project_r
 
 
 # ── y el resultado: el corte no conserva la respiración ─────────────────────
-def test_el_corte_de_la_pieza_14_no_conserva_la_respiracion(project_root):
+def test_el_corte_de_la_pieza_14_no_conserva_la_respiracion(fixtures_root, project_root):
     """La pausa que queda tras «decisión.» tiene que ser SILENCIO. Se mide
     sobre `cuts/14.json`, que es lo que de verdad se cortó."""
-    w = json.loads((project_root / "transcripts" / "14.json").read_text())["words"]
+    w = json.loads((fixtures_root / "transcripts" / "14.json").read_text())["words"]
     assert w[12]["text"] == "decisión."
     fin = w[12]["end"] / 1000
     assert fin < 5.7, ("«decisión.» vuelve a estar estirada sobre la "
                        "respiración: ese es el bug original")
-    cortes = json.loads((project_root / "cuts" / "14.json").read_text())["cuts"]
+    cortes = json.loads((fixtures_root / "cuts" / "14.json").read_text())["cuts"]
     tras = min((c for c in cortes if c["start"] > fin - 0.01),
                key=lambda c: c["start"])["start"]
     assert 0 < tras - fin <= 0.10, (

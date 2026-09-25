@@ -1,0 +1,575 @@
+{
+  "format": "REEL",
+  "piece": 10,
+  "style_profile": "motion-explainer",
+  "transcript": {
+    "words": "transcripts/10.json",
+    "cuts": "cuts/10.json",
+    "fingerprint": "sha256:e1026bcf9b30e607b1234f275d2aea18c23c5497254341312c35b939e6cefb67"
+  },
+  "voice_gain": 0.7,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.6
+  },
+  "segments": [
+    {
+      "words": [
+        0,
+        13
+      ],
+      "sceneType": "A_ROLL",
+      "camera": "CLOSE",
+      "semanticIntent": "no perdiste por calidad, perdiste por velocidad",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 0,
+          "type": "CAPTION",
+          "words": [
+            0,
+            4
+          ]
+        },
+        {
+          "atWord": 5,
+          "type": "CAPTION",
+          "words": [
+            5,
+            10
+          ]
+        },
+        {
+          "atWord": 11,
+          "type": "CAPTION",
+          "words": [
+            11,
+            13
+          ]
+        },
+        {
+          "atWord": 12,
+          "type": "KEYWORD",
+          "words": [
+            12,
+            13
+          ],
+          "preset": "punch",
+          "sfx": "auto"
+        }
+      ],
+      "reason": "es la acusación que abre la pieza; su cara sostiene el golpe y un gráfico se lo robaría"
+    },
+    {
+      "words": [
+        14,
+        30
+      ],
+      "sceneType": "MOTION_STAGE",
+      "representationType": "OBJECT",
+      "camera": "OFF",
+      "semanticIntent": "te escribieron mientras estabas ocupado",
+      "events": [
+        {
+          "atWord": 14,
+          "type": "THEME_CHANGE",
+          "theme": "problem"
+        },
+        {
+          "atWord": 14,
+          "type": "CAPTION",
+          "words": [
+            14,
+            17
+          ]
+        },
+        {
+          "atWord": 18,
+          "type": "OBJECT_IN",
+          "asset": "object:clock@1",
+          "instanceId": "clock-main",
+          "slot": "center",
+          "state": {
+            "time": "11:00"
+          },
+          "preset": "float-in",
+          "sfx": "auto"
+        },
+        {
+          "atWord": 18,
+          "type": "CAPTION",
+          "words": [
+            18,
+            21
+          ]
+        },
+        {
+          "atWord": 18,
+          "type": "KEYWORD",
+          "words": [
+            18,
+            18
+          ]
+        },
+        {
+          "atWord": 22,
+          "type": "CAPTION",
+          "words": [
+            22,
+            26
+          ]
+        },
+        {
+          "atWord": 27,
+          "type": "CAPTION",
+          "words": [
+            27,
+            30
+          ]
+        }
+      ],
+      "reason": "el reloj visualiza la hora concreta a la que escribieron: entra en su propia palabra, 11, y se queda como la presión que crece"
+    },
+    {
+      "words": [
+        31,
+        37
+      ],
+      "sceneType": "MOTION_STAGE",
+      "representationType": "STATE_CHANGE",
+      "camera": "OFF",
+      "transitionIn": "OBJECT_MATCH_CUT",
+      "semanticIntent": "pasaron ocho horas",
+      "events": [
+        {
+          "atWord": 31,
+          "type": "CAPTION",
+          "words": [
+            31,
+            33
+          ]
+        },
+        {
+          "atWord": 34,
+          "type": "CAPTION",
+          "words": [
+            34,
+            37
+          ]
+        },
+        {
+          "atWord": 34,
+          "type": "KEYWORD",
+          "words": [
+            34,
+            34
+          ]
+        },
+        {
+          "atWord": 34,
+          "type": "OBJECT_STATE",
+          "instanceId": "clock-main",
+          "state": {
+            "time": "19:00"
+          },
+          "preset": "hands-sweep",
+          "sfx": "auto"
+        }
+      ],
+      "reason": "es EL MISMO reloj con las agujas barridas: las ocho horas se ven en vez de calcularse"
+    },
+    {
+      "words": [
+        38,
+        48
+      ],
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "semanticIntent": "para cuando contestaste ya había tres competidores",
+      "events": [
+        {
+          "atWord": 38,
+          "type": "CAPTION",
+          "words": [
+            38,
+            41
+          ]
+        },
+        {
+          "atWord": 42,
+          "type": "CAPTION",
+          "words": [
+            42,
+            45
+          ]
+        },
+        {
+          "atWord": 46,
+          "type": "CAPTION",
+          "words": [
+            46,
+            48
+          ]
+        },
+        {
+          "atWord": 46,
+          "type": "KEYWORD",
+          "words": [
+            46,
+            46
+          ]
+        }
+      ],
+      "reason": "la cifra 3 es lo que convierte la anécdota en pérdida medible"
+    },
+    {
+      "words": [
+        49,
+        56
+      ],
+      "sceneType": "A_ROLL",
+      "camera": "WIDE",
+      "semanticIntent": "descarta al culpable obvio antes de dar el diagnóstico",
+      "events": [
+        {
+          "atWord": 49,
+          "type": "CAPTION",
+          "words": [
+            49,
+            53
+          ]
+        },
+        {
+          "atWord": 54,
+          "type": "CAPTION",
+          "words": [
+            54,
+            56
+          ]
+        },
+        {
+          "atWord": 56,
+          "type": "KEYWORD",
+          "words": [
+            56,
+            56
+          ]
+        }
+      ],
+      "reason": "abre una explicación nueva, así que WIDE; el giro necesita aire"
+    },
+    {
+      "words": [
+        57,
+        72
+      ],
+      "semanticIntent": "cuatro trabajos incompatibles cayendo sobre la misma persona",
+      "sceneType": "MOTION_STAGE",
+      "representationType": "QUANTITY",
+      "camera": "OFF",
+      "defaultPreset": "float-in",
+      "transitionIn": "DIAGONAL_WIPE",
+      "events": [
+        {
+          "atWord": 57,
+          "type": "CAPTION",
+          "words": [
+            57,
+            59
+          ]
+        },
+        {
+          "atWord": 62,
+          "type": "OBJECT_IN",
+          "asset": "object:dental-chair@1",
+          "instanceId": "task-chair",
+          "slot": "center",
+          "sfx": "auto"
+        },
+        {
+          "atWord": 60,
+          "type": "CAPTION",
+          "words": [
+            60,
+            64
+          ]
+        },
+        {
+          "atWord": 64,
+          "type": "OBJECT_IN",
+          "asset": "object:phone@1",
+          "instanceId": "task-phone",
+          "slot": "orbit-1"
+        },
+        {
+          "atWord": 66,
+          "type": "OBJECT_IN",
+          "asset": "object:card-payment@1",
+          "instanceId": "task-pay",
+          "slot": "orbit-2"
+        },
+        {
+          "atWord": 65,
+          "type": "CAPTION",
+          "words": [
+            65,
+            69
+          ]
+        },
+        {
+          "atWord": 69,
+          "type": "OBJECT_IN",
+          "asset": "object:instagram@1",
+          "instanceId": "task-ig",
+          "slot": "orbit-3"
+        },
+        {
+          "atWord": 70,
+          "type": "CAPTION",
+          "words": [
+            70,
+            72
+          ]
+        },
+        {
+          "atWord": 71,
+          "type": "KEYWORD",
+          "words": [
+            71,
+            72
+          ]
+        },
+        {
+          "atWord": 71,
+          "type": "OBJECT_STATE",
+          "instanceId": "task-phone",
+          "crowd": true,
+          "preset": "crowd-in",
+          "sfx": "auto"
+        },
+        {
+          "atWord": 71,
+          "type": "OBJECT_STATE",
+          "instanceId": "task-pay",
+          "crowd": true
+        },
+        {
+          "atWord": 71,
+          "type": "OBJECT_STATE",
+          "instanceId": "task-ig",
+          "crowd": true
+        }
+      ],
+      "reason": "los cuatro objetos SE QUEDAN: la escena se llena al ritmo en que él los nombra, y en «al mismo tiempo» se cierran sobre el sillón. La carga no se dice, se ve"
+    },
+    {
+      "words": [
+        73,
+        79
+      ],
+      "semanticIntent": "contratar a alguien más no arregla nada",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "events": [
+        {
+          "atWord": 73,
+          "type": "CAPTION",
+          "words": [
+            73,
+            76
+          ]
+        },
+        {
+          "atWord": 77,
+          "type": "CAPTION",
+          "words": [
+            77,
+            79
+          ]
+        }
+      ],
+      "reason": "rechaza la solución obvia en cámara, con su propia cara — el giro necesita que el espectador vea que él sabe lo que están pensando"
+    },
+    {
+      "words": [
+        80,
+        87
+      ],
+      "semanticIntent": "contratar solo mueve el cuello de botella, no lo quita",
+      "sceneType": "MOTION_STAGE",
+      "representationType": "OBJECT",
+      "camera": "OFF",
+      "defaultPreset": "float-in",
+      "events": [
+        {
+          "atWord": 80,
+          "type": "CAPTION",
+          "words": [
+            80,
+            82
+          ]
+        },
+        {
+          "atWord": 83,
+          "type": "OBJECT_IN",
+          "asset": "object:bottleneck@1",
+          "instanceId": "task-bottleneck",
+          "slot": "center",
+          "sfx": "auto"
+        },
+        {
+          "atWord": 83,
+          "type": "CAPTION",
+          "words": [
+            83,
+            87
+          ]
+        },
+        {
+          "atWord": 83,
+          "type": "KEYWORD",
+          "words": [
+            83,
+            85
+          ]
+        }
+      ],
+      "reason": "el embudo entra en su propia palabra, «cuello» — es un stage propio, separado del de acumulación por el rebote de arriba, para que el objeto no compita por el centro con el sillón que todavía no ha salido"
+    },
+    {
+      "words": [
+        88,
+        109
+      ],
+      "sceneType": "A_ROLL",
+      "camera": "WIDE",
+      "semanticIntent": "el problema no es la velocidad, es la dependencia",
+      "events": [
+        {
+          "atWord": 88,
+          "type": "CAPTION",
+          "words": [
+            88,
+            92
+          ]
+        },
+        {
+          "atWord": 93,
+          "type": "CAPTION",
+          "words": [
+            93,
+            97
+          ]
+        },
+        {
+          "atWord": 98,
+          "type": "CAPTION",
+          "words": [
+            98,
+            101
+          ]
+        },
+        {
+          "atWord": 102,
+          "type": "CAPTION",
+          "words": [
+            102,
+            105
+          ]
+        },
+        {
+          "atWord": 106,
+          "type": "CAPTION",
+          "words": [
+            106,
+            109
+          ]
+        },
+        {
+          "atWord": 98,
+          "type": "CAMERA",
+          "state": {
+            "camera": "MEDIUM"
+          }
+        }
+      ],
+      "reason": "es la tesis de la pieza; el cambio de cámara a mitad evita 6.8 s del mismo plano"
+    },
+    {
+      "words": [
+        110,
+        130
+      ],
+      "sceneType": "A_ROLL",
+      "camera": "CLOSE",
+      "semanticIntent": "la primera respuesta sostiene, no cierra",
+      "events": [
+        {
+          "atWord": 110,
+          "type": "CAPTION",
+          "words": [
+            110,
+            114
+          ]
+        },
+        {
+          "atWord": 115,
+          "type": "CAPTION",
+          "words": [
+            115,
+            118
+          ]
+        },
+        {
+          "atWord": 119,
+          "type": "CAPTION",
+          "words": [
+            119,
+            121
+          ]
+        },
+        {
+          "atWord": 122,
+          "type": "CAPTION",
+          "words": [
+            122,
+            124
+          ]
+        },
+        {
+          "atWord": 125,
+          "type": "CAPTION",
+          "words": [
+            125,
+            127
+          ]
+        },
+        {
+          "atWord": 128,
+          "type": "CAPTION",
+          "words": [
+            128,
+            130
+          ]
+        },
+        {
+          "atWord": 121,
+          "type": "CAMERA",
+          "state": {
+            "camera": "MEDIUM"
+          }
+        },
+        {
+          "atWord": 121,
+          "type": "KEYWORD",
+          "words": [
+            121,
+            121
+          ]
+        }
+      ],
+      "reason": "cierra con la reformulación; CLOSE porque es la frase que se recuerda"
+    }
+  ]
+}

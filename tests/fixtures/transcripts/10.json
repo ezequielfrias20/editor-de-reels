@@ -1,0 +1,1013 @@
+{
+  "id": "d88a8f53-9e3d-4753-b090-c73b88a26023",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/ddb98c764bddad361d4251f29829c5a644d11fbdb57c890ee78698c20a03608d/4a243f57-0eb5-4315-b7bf-fef06c31ca23",
+  "text": "La clínica de al lado no es mejor que la tuya, simplemente contestó primero. Te escribieron a las 11 de la mañana, estabas con un paciente adelante y con otro después. Contestaste a las 7 de la tarde. Para entonces, esa persona ya había escrito a 3 clínicas más. Y no, el problema no es tu recepcionista. Nadie puede atender en el sillón el teléfono, el cobro y el Instagram al mismo tiempo. Contratar otra persona te tampoco lo arregla, solo mueve el cuello de botella del lugar. Lo que hay que resolver no es contestar más rápido, es que la primera respuesta no dependa de que alguien esté libre. Esa primera respuesta no tiene que cerrar la cita, tiene que sostener a la persona hasta que ustedes puedan atenderla bien.",
+  "words": [
+    {
+      "text": "La",
+      "start": 416,
+      "end": 576,
+      "confidence": 0.9872154,
+      "speaker": null
+    },
+    {
+      "text": "clínica",
+      "start": 576,
+      "end": 977,
+      "confidence": 0.9999903,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 977,
+      "end": 1009,
+      "confidence": 0.99993885,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 1009,
+      "end": 1089,
+      "confidence": 0.9999932,
+      "speaker": null
+    },
+    {
+      "text": "lado",
+      "start": 1137,
+      "end": 1378,
+      "confidence": 0.9999951,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 1378,
+      "end": 1490,
+      "confidence": 0.9999683,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 1490,
+      "end": 1570,
+      "confidence": 0.99996734,
+      "speaker": null
+    },
+    {
+      "text": "mejor",
+      "start": 1570,
+      "end": 1858,
+      "confidence": 0.99997973,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 1858,
+      "end": 2019,
+      "confidence": 0.9999869,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 2019,
+      "end": 2179,
+      "confidence": 0.99998677,
+      "speaker": null
+    },
+    {
+      "text": "tuya,",
+      "start": 2179,
+      "end": 2387,
+      "confidence": 0.9993114,
+      "speaker": null
+    },
+    {
+      "text": "simplemente",
+      "start": 2419,
+      "end": 3140,
+      "confidence": 0.9999913,
+      "speaker": null
+    },
+    {
+      "text": "contestó",
+      "start": 3140,
+      "end": 3621,
+      "confidence": 0.99997395,
+      "speaker": null
+    },
+    {
+      "text": "primero.",
+      "start": 3621,
+      "end": 3990,
+      "confidence": 0.9999784,
+      "speaker": null
+    },
+    {
+      "text": "Te",
+      "start": 4663,
+      "end": 4727,
+      "confidence": 0.99986136,
+      "speaker": null
+    },
+    {
+      "text": "escribieron",
+      "start": 4727,
+      "end": 5239,
+      "confidence": 0.9999799,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 5239,
+      "end": 5288,
+      "confidence": 0.9999926,
+      "speaker": null
+    },
+    {
+      "text": "las",
+      "start": 5304,
+      "end": 5512,
+      "confidence": 0.9999857,
+      "speaker": null
+    },
+    {
+      "text": "11",
+      "start": 5560,
+      "end": 5736,
+      "confidence": 0.99997175,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 5736,
+      "end": 5864,
+      "confidence": 0.9995074,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 5864,
+      "end": 5977,
+      "confidence": 0.9999931,
+      "speaker": null
+    },
+    {
+      "text": "mañana,",
+      "start": 5977,
+      "end": 6313,
+      "confidence": 0.99969524,
+      "speaker": null
+    },
+    {
+      "text": "estabas",
+      "start": 6602,
+      "end": 6986,
+      "confidence": 0.9999914,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 6986,
+      "end": 7082,
+      "confidence": 0.9999602,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 7082,
+      "end": 7227,
+      "confidence": 0.99991083,
+      "speaker": null
+    },
+    {
+      "text": "paciente",
+      "start": 7227,
+      "end": 7771,
+      "confidence": 0.99999,
+      "speaker": null
+    },
+    {
+      "text": "adelante",
+      "start": 7771,
+      "end": 8348,
+      "confidence": 0.9994245,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 8685,
+      "end": 8749,
+      "confidence": 0.999338,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 8749,
+      "end": 9005,
+      "confidence": 0.99962425,
+      "speaker": null
+    },
+    {
+      "text": "otro",
+      "start": 9005,
+      "end": 9230,
+      "confidence": 0.9992625,
+      "speaker": null
+    },
+    {
+      "text": "después.",
+      "start": 9230,
+      "end": 9518,
+      "confidence": 0.8845819,
+      "speaker": null
+    },
+    {
+      "text": "Contestaste",
+      "start": 9951,
+      "end": 10688,
+      "confidence": 0.99992657,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 10688,
+      "end": 10752,
+      "confidence": 0.99996865,
+      "speaker": null
+    },
+    {
+      "text": "las",
+      "start": 10752,
+      "end": 10832,
+      "confidence": 0.99998856,
+      "speaker": null
+    },
+    {
+      "text": "7",
+      "start": 10832,
+      "end": 11313,
+      "confidence": 0.9999529,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 11313,
+      "end": 11393,
+      "confidence": 0.99996316,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 11393,
+      "end": 11553,
+      "confidence": 0.99998975,
+      "speaker": null
+    },
+    {
+      "text": "tarde.",
+      "start": 11553,
+      "end": 11761,
+      "confidence": 0.870613,
+      "speaker": null
+    },
+    {
+      "text": "Para",
+      "start": 11874,
+      "end": 12050,
+      "confidence": 0.99993646,
+      "speaker": null
+    },
+    {
+      "text": "entonces,",
+      "start": 12050,
+      "end": 12563,
+      "confidence": 0.7907921,
+      "speaker": null
+    },
+    {
+      "text": "esa",
+      "start": 13011,
+      "end": 13236,
+      "confidence": 0.9997141,
+      "speaker": null
+    },
+    {
+      "text": "persona",
+      "start": 13236,
+      "end": 13829,
+      "confidence": 0.9999435,
+      "speaker": null
+    },
+    {
+      "text": "ya",
+      "start": 14117,
+      "end": 14165,
+      "confidence": 0.9998833,
+      "speaker": null
+    },
+    {
+      "text": "había",
+      "start": 14213,
+      "end": 14373,
+      "confidence": 0.99990535,
+      "speaker": null
+    },
+    {
+      "text": "escrito",
+      "start": 14373,
+      "end": 14774,
+      "confidence": 0.9999911,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 14774,
+      "end": 14838,
+      "confidence": 0.99994504,
+      "speaker": null
+    },
+    {
+      "text": "3",
+      "start": 14838,
+      "end": 15078,
+      "confidence": 0.9999757,
+      "speaker": null
+    },
+    {
+      "text": "clínicas",
+      "start": 15078,
+      "end": 15527,
+      "confidence": 0.9999611,
+      "speaker": null
+    },
+    {
+      "text": "más.",
+      "start": 15559,
+      "end": 15768,
+      "confidence": 0.9998844,
+      "speaker": null
+    },
+    {
+      "text": "Y",
+      "start": 16336,
+      "end": 16441,
+      "confidence": 0.99949455,
+      "speaker": null
+    },
+    {
+      "text": "no,",
+      "start": 16441,
+      "end": 16689,
+      "confidence": 0.99973106,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 17288,
+      "end": 17482,
+      "confidence": 0.9998356,
+      "speaker": null
+    },
+    {
+      "text": "problema",
+      "start": 17482,
+      "end": 17835,
+      "confidence": 0.9999893,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 17835,
+      "end": 17915,
+      "confidence": 0.9999747,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 17915,
+      "end": 18027,
+      "confidence": 0.99994135,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 18043,
+      "end": 18123,
+      "confidence": 0.9998265,
+      "speaker": null
+    },
+    {
+      "text": "recepcionista.",
+      "start": 18123,
+      "end": 18672,
+      "confidence": 0.99994004,
+      "speaker": null
+    },
+    {
+      "text": "Nadie",
+      "start": 19305,
+      "end": 19726,
+      "confidence": 0.9999572,
+      "speaker": null
+    },
+    {
+      "text": "puede",
+      "start": 19726,
+      "end": 19902,
+      "confidence": 0.99991024,
+      "speaker": null
+    },
+    {
+      "text": "atender",
+      "start": 19902,
+      "end": 20463,
+      "confidence": 0.9995529,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 20463,
+      "end": 20543,
+      "confidence": 0.99034554,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 20543,
+      "end": 20639,
+      "confidence": 0.9998692,
+      "speaker": null
+    },
+    {
+      "text": "sillón",
+      "start": 20687,
+      "end": 21104,
+      "confidence": 0.9999931,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 21104,
+      "end": 21248,
+      "confidence": 0.9991235,
+      "speaker": null
+    },
+    {
+      "text": "teléfono,",
+      "start": 21248,
+      "end": 21777,
+      "confidence": 0.9999809,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 21905,
+      "end": 22001,
+      "confidence": 0.9997054,
+      "speaker": null
+    },
+    {
+      "text": "cobro",
+      "start": 22129,
+      "end": 22530,
+      "confidence": 0.99999464,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 22786,
+      "end": 22866,
+      "confidence": 0.9976139,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 22866,
+      "end": 22962,
+      "confidence": 0.9999176,
+      "speaker": null
+    },
+    {
+      "text": "Instagram",
+      "start": 23027,
+      "end": 23507,
+      "confidence": 0.99999404,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 23507,
+      "end": 23571,
+      "confidence": 0.9999157,
+      "speaker": null
+    },
+    {
+      "text": "mismo",
+      "start": 23571,
+      "end": 23892,
+      "confidence": 0.99994767,
+      "speaker": null
+    },
+    {
+      "text": "tiempo.",
+      "start": 23892,
+      "end": 24200,
+      "confidence": 0.99990666,
+      "speaker": null
+    },
+    {
+      "text": "Contratar",
+      "start": 24753,
+      "end": 25270,
+      "confidence": 0.9995475,
+      "speaker": null
+    },
+    {
+      "text": "otra",
+      "start": 25270,
+      "end": 25494,
+      "confidence": 0.8956692,
+      "speaker": null
+    },
+    {
+      "text": "persona",
+      "start": 25494,
+      "end": 25863,
+      "confidence": 0.9998416,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 25863,
+      "end": 25975,
+      "confidence": 0.7515453,
+      "speaker": null
+    },
+    {
+      "text": "tampoco",
+      "start": 26296,
+      "end": 26786,
+      "confidence": 0.8671397,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 26786,
+      "end": 26901,
+      "confidence": 0.9999615,
+      "speaker": null
+    },
+    {
+      "text": "arregla,",
+      "start": 26901,
+      "end": 27228,
+      "confidence": 0.9764217,
+      "speaker": null
+    },
+    {
+      "text": "solo",
+      "start": 27359,
+      "end": 27637,
+      "confidence": 0.9998995,
+      "speaker": null
+    },
+    {
+      "text": "mueve",
+      "start": 27637,
+      "end": 27947,
+      "confidence": 0.9999613,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 27947,
+      "end": 27996,
+      "confidence": 0.99999475,
+      "speaker": null
+    },
+    {
+      "text": "cuello",
+      "start": 28094,
+      "end": 28421,
+      "confidence": 0.9999978,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 28421,
+      "end": 28503,
+      "confidence": 0.99999547,
+      "speaker": null
+    },
+    {
+      "text": "botella",
+      "start": 28503,
+      "end": 28912,
+      "confidence": 0.999996,
+      "speaker": null
+    },
+    {
+      "text": "del",
+      "start": 28912,
+      "end": 28994,
+      "confidence": 0.82640576,
+      "speaker": null
+    },
+    {
+      "text": "lugar.",
+      "start": 28994,
+      "end": 29288,
+      "confidence": 0.9999697,
+      "speaker": null
+    },
+    {
+      "text": "Lo",
+      "start": 30830,
+      "end": 30972,
+      "confidence": 0.9996171,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 30972,
+      "end": 31132,
+      "confidence": 0.9999882,
+      "speaker": null
+    },
+    {
+      "text": "hay",
+      "start": 31132,
+      "end": 31181,
+      "confidence": 0.9999956,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 31181,
+      "end": 31277,
+      "confidence": 0.999998,
+      "speaker": null
+    },
+    {
+      "text": "resolver",
+      "start": 31277,
+      "end": 31904,
+      "confidence": 0.9999981,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 32080,
+      "end": 32177,
+      "confidence": 0.999959,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 32177,
+      "end": 32321,
+      "confidence": 0.9999958,
+      "speaker": null
+    },
+    {
+      "text": "contestar",
+      "start": 32321,
+      "end": 32884,
+      "confidence": 0.99999595,
+      "speaker": null
+    },
+    {
+      "text": "más",
+      "start": 32884,
+      "end": 33125,
+      "confidence": 0.9999976,
+      "speaker": null
+    },
+    {
+      "text": "rápido,",
+      "start": 33125,
+      "end": 33538,
+      "confidence": 0.9999923,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 34045,
+      "end": 34250,
+      "confidence": 0.99997175,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 34250,
+      "end": 34362,
+      "confidence": 0.99999297,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 34362,
+      "end": 34491,
+      "confidence": 0.9999813,
+      "speaker": null
+    },
+    {
+      "text": "primera",
+      "start": 34491,
+      "end": 34844,
+      "confidence": 0.99999297,
+      "speaker": null
+    },
+    {
+      "text": "respuesta",
+      "start": 34844,
+      "end": 35615,
+      "confidence": 0.99999547,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 35856,
+      "end": 36017,
+      "confidence": 0.9999782,
+      "speaker": null
+    },
+    {
+      "text": "dependa",
+      "start": 36017,
+      "end": 36580,
+      "confidence": 0.9999585,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 36580,
+      "end": 36740,
+      "confidence": 0.9999963,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 36740,
+      "end": 36997,
+      "confidence": 0.9999918,
+      "speaker": null
+    },
+    {
+      "text": "alguien",
+      "start": 36997,
+      "end": 37319,
+      "confidence": 0.9999969,
+      "speaker": null
+    },
+    {
+      "text": "esté",
+      "start": 37319,
+      "end": 37640,
+      "confidence": 0.99999607,
+      "speaker": null
+    },
+    {
+      "text": "libre.",
+      "start": 37640,
+      "end": 37913,
+      "confidence": 0.9999882,
+      "speaker": null
+    },
+    {
+      "text": "Esa",
+      "start": 38122,
+      "end": 38347,
+      "confidence": 0.99992937,
+      "speaker": null
+    },
+    {
+      "text": "primera",
+      "start": 38347,
+      "end": 38701,
+      "confidence": 0.99999774,
+      "speaker": null
+    },
+    {
+      "text": "respuesta",
+      "start": 38701,
+      "end": 39391,
+      "confidence": 0.9999943,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 39793,
+      "end": 39954,
+      "confidence": 0.9999808,
+      "speaker": null
+    },
+    {
+      "text": "tiene",
+      "start": 39954,
+      "end": 40195,
+      "confidence": 0.9999809,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 40195,
+      "end": 40356,
+      "confidence": 0.9999975,
+      "speaker": null
+    },
+    {
+      "text": "cerrar",
+      "start": 40356,
+      "end": 40823,
+      "confidence": 0.99999607,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 40919,
+      "end": 40967,
+      "confidence": 0.99994564,
+      "speaker": null
+    },
+    {
+      "text": "cita,",
+      "start": 41000,
+      "end": 41370,
+      "confidence": 0.99998033,
+      "speaker": null
+    },
+    {
+      "text": "tiene",
+      "start": 41724,
+      "end": 42046,
+      "confidence": 0.9999778,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 42046,
+      "end": 42159,
+      "confidence": 0.9999969,
+      "speaker": null
+    },
+    {
+      "text": "sostener",
+      "start": 42159,
+      "end": 42755,
+      "confidence": 0.99999917,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 42867,
+      "end": 42916,
+      "confidence": 0.99999285,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 42932,
+      "end": 43044,
+      "confidence": 0.9999894,
+      "speaker": null
+    },
+    {
+      "text": "persona",
+      "start": 43093,
+      "end": 43656,
+      "confidence": 0.99999344,
+      "speaker": null
+    },
+    {
+      "text": "hasta",
+      "start": 44075,
+      "end": 44268,
+      "confidence": 0.99998975,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 44365,
+      "end": 44413,
+      "confidence": 0.99999654,
+      "speaker": null
+    },
+    {
+      "text": "ustedes",
+      "start": 44413,
+      "end": 44944,
+      "confidence": 0.99999577,
+      "speaker": null
+    },
+    {
+      "text": "puedan",
+      "start": 44944,
+      "end": 45395,
+      "confidence": 0.99999636,
+      "speaker": null
+    },
+    {
+      "text": "atenderla",
+      "start": 45443,
+      "end": 45991,
+      "confidence": 0.9999948,
+      "speaker": null
+    },
+    {
+      "text": "bien.",
+      "start": 45991,
+      "end": 46214,
+      "confidence": 0.99994576,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.99104995,
+  "audio_duration": 50,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

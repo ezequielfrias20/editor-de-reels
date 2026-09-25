@@ -17,7 +17,7 @@ BANDS = {"top": [0, 660], "text": [660, 960], "speaker": [960, 1920]}
 
 
 @pytest.fixture
-def banda(bc, project_root):
+def banda(fixtures_root, bc, project_root):
     """Mismo patrón que `test_caption_band.py`: `bc` es de ámbito de SESIÓN,
     así que una fuga aquí contaminaría otros archivos de test."""
     prev = dict(W=bc.W, H=bc.H, FMT=bc.FMT, LAYOUT=bc.LAYOUT, CHIN=bc.CHIN,
@@ -30,7 +30,7 @@ def banda(bc, project_root):
     bc.CAPTION_SIZE = 66
     bc.CAPTION_MAXW = round(bc.W * 0.84)
     bc.CAPTION_MARGIN = round(bc.W * 0.07)
-    bc.WORK = project_root / "videos" / "10"
+    bc.WORK = fixtures_root / "videos" / "10"
     yield bc
     for k, v in prev.items():
         setattr(bc, k, v)

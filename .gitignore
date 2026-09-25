@@ -36,3 +36,6 @@ videos/*/review-snapshots/
 # Anclado a la raíz — sin la barra inicial también habría ignorado
 # docs/superpowers/spikes/, que sí se versiona.
 /spikes/
+
+# datos de prueba: el audio de la pieza 14 lo necesitan voicing y plan-cuts
+!tests/fixtures/assets/audio/*.flac
