@@ -1,88 +1,123 @@
 #!/usr/bin/env python3
-"""Sistema de diseño — grafito profundo + violeta eléctrico.
+"""Sistema de diseño — las dos paletas de la marca (claro / oscuro).
 
-Única fuente de verdad del look. Lo importan `mockups.py` y
-`build-composition.py`, así que un cambio aquí se propaga a toda la pieza.
+Única fuente de verdad del look. Lo importan `mockups.py`, `objects.py`,
+`logos.py` y `build-composition.py`, así que un cambio aquí se propaga a toda
+la pieza.
 
-La intención: **contenido educativo premium de tecnología, IA y negocios**.
-Fondo casi negro, superficies flotando encima con hairline y sombra ancha,
-tipografía grotesca pesada, y un único acento violeta de alto voltaje. El
-violeta no es decorativo: sale del producto real que se muestra en pantalla
-(el ERP), así que el gráfico y el screenshot pertenecen al mismo mundo.
+La intención: **contenido educativo premium de tecnología e IA** con la marca
+del proyecto — crema + terracota, tipografía grotesca pesada (Inter 900) y un
+único momento de acento por frame. Cada pieza elige su paleta (`"palette"` en
+el plan): `claro` (suelo crema, tinta casi negra) u `oscuro` (suelo casi negro
+cálido, texto crema). Los valores BASE salen del dashboard del proyecto
+(Marketing/dashboard/web/src/app/theme.css); todo lo demás se DERIVA con una
+regla y se MIDE en `tests/test_paletas.py`.
 
-Nada de blanco puro como fondo, nada de negro puro (#000): el fondo es
-#0B0C10, un grafito con una pizca de azul que deja respirar los oscuros del
-metraje en vez de aplastarlos.
+Nada de blanco ni negro puro como fondo.
 
-CONTRASTES YA MEDIDOS (no repetir el error):
-    blanco   / bg        19.55:1
-    blanco   / surface   17.73:1
-    text2    / surface    7.88:1
-    text3    / surface    5.76:1   ← ya aguanta texto pequeño
-    violet   / bg         4.50:1   AA-grande
-    violet_hi/ bg         6.70:1   AA-normal ← el violeta para TEXTO
-    blanco   / violet     4.35:1   AA-grande → solo ≥24px y en negrita
-    bg       / go        11.74:1   → sobre verde va tinta, no blanco
-    blanco   / alert      3.06:1   AA-grande
+⚠ Los escalares de color (`LINE`, `LINE_HI`, `SHADOW`, `SHADOW_LIFT`, `GLOW`)
+cambian con `use()`: se leen como `tokens.LINE`, nunca con
+`from tokens import LINE` (quedarían congelados en la paleta de arranque).
+Los diccionarios (`C`, `FILL`, `THEME`, `INK_ON_FILL`) se mutan en su lugar,
+así que importarlos por nombre sí es seguro.
 """
 
 # ── color ─────────────────────────────────────────────────────────────────────
-C = {
-    # suelo
-    "bg":        "#0B0C10",   # grafito profundo — el fondo de todo
-    "bg2":       "#101218",   # borde del viñeteado
-    "surface":   "#16181F",   # tarjeta / panel
-    "surface2":  "#1D2029",   # elevado (fila activa, celda destacada)
-    "surface3":  "#252935",   # bordes internos de UI, tracks de barra
-
-    # texto
-    "text":      "#FFFFFF",
-    "text2":     "#A7ADBB",   # secundario
-    "text3":     "#8C93A3",   # metadatos — verificado a 5.76:1, ya no es trampa
-
-    # acento (el voltaje)
-    "violet":    "#7C5CFF",   # PRIMARIO: fills, barras, pastillas, keyword
-    "violet_hi": "#9B85FF",   # el violeta cuando es TEXTO sobre oscuro
-    "violet_lt": "#B8AAFF",   # texto violeta que además va a FUNDIR: 8.22:1 en
-                              # reposo, así el transitorio de la entrada no cae
-                              # tan abajo. Ningún color sobrevive un fundido
-                              # entero, pero este llega mucho más lejos.
-    "violet_dk": "#5B3FD6",   # sombra/profundidad del violeta
-
-    # señal
-    "go":        "#34E39B",   # resuelto · conectado · CTA
-    "alert":     "#FF5A5A",   # problema · desconectado
-    "warn":      "#FFB84D",   # atención
-
-    # marcas de terceros (logos), tonos reales
-    "excel":     "#21A366",
-    "whatsapp":  "#25D366",
+# Las dos paletas de la marca. Valores BASE copiados de
+# Marketing/dashboard/web/src/app/theme.css; no se inventan aquí.
+PALETTES_BASE = {
+    "claro": {
+        "bg": "#ECE7DE", "surface": "#F7F4EE", "surface2": "#E4DED2",
+        "text": "#1C1A16", "text2": "#6F695F", "line": "#D8D1C4",
+        "accent": "#C45F38", "accent_soft": "#F1DDD2", "on_accent": "#FFFFFF",
+        "go": "#3F7D4E", "warn": "#A66A12", "alert": "#B23A2E",
+    },
+    "oscuro": {
+        "bg": "#161412", "surface": "#201D1A", "surface2": "#2B2723",
+        "text": "#EEE8DF", "text2": "#A39C91", "line": "#36312B",
+        "accent": "#E27B52", "accent_soft": "#3A2419", "on_accent": "#1A0F0A",
+        "go": "#7CC08C", "warn": "#E0A64A", "alert": "#EC7B6E",
+    },
 }
+PALETTES = tuple(sorted(PALETTES_BASE))
 
-# Rellenos translúcidos. Se escriben aquí para que ningún mockup invente su
-# propia opacidad y el sistema se desalinee.
-FILL = {
-    "violet":  "rgba(124,92,255,.16)",
-    "violet2": "rgba(124,92,255,.28)",
-    "go":      "rgba(52,227,155,.14)",
-    "alert":   "rgba(255,90,90,.14)",
-    "warn":    "rgba(255,184,77,.14)",
-    "white":   "rgba(255,255,255,.05)",
-}
-
-# El ÚNICO borde. Un hairline claro sobre fondo oscuro es lo que separa una
-# superficie premium de una caja plana.
-LINE = "rgba(255,255,255,.09)"
-LINE_HI = "rgba(255,255,255,.16)"
+# Marcas de terceros (logos), tonos reales: no dependen de la paleta.
+BRANDS = {"excel": "#21A366", "whatsapp": "#25D366"}
 
 # ── elevación ─────────────────────────────────────────────────────────────────
-# Sombra ancha y suave, nunca dura. Sobre fondo oscuro una sombra negra no se
-# ve, así que la elevación la dan DOS cosas: la sombra (que asienta el objeto)
-# y el hairline claro del borde superior (que lo separa del fondo).
-SHADOW = "0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55)"
-SHADOW_LIFT = "0 8px 20px rgba(0,0,0,.55), 0 40px 90px rgba(0,0,0,.65)"
-# El glow violeta es ESCASO: solo el objeto protagonista de un frame lo lleva.
-GLOW = "0 0 0 1px rgba(124,92,255,.35), 0 18px 60px rgba(124,92,255,.22)"
+# Sombras por paleta. La clara es la del dashboard (--shadow); la oscura, la de
+# siempre del editor: sobre fondo oscuro una sombra suave no se ve, así que la
+# elevación la dan la sombra (que asienta) y el hairline (que separa).
+_ELEVATION = {
+    "claro": {"shadow": "0 1px 2px rgba(28,26,22,.06), 0 8px 24px rgba(28,26,22,.08)",
+              "shadow_lift": "0 2px 4px rgba(28,26,22,.08), 0 16px 48px rgba(28,26,22,.12)"},
+    "oscuro": {"shadow": "0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55)",
+               "shadow_lift": "0 8px 20px rgba(0,0,0,.55), 0 40px 90px rgba(0,0,0,.65)"},
+}
+
+
+def _rgb(h: str) -> tuple:
+    h = h.lstrip("#")
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def mix(a: str, b: str, t: float) -> str:
+    """`a` mezclado hacia `b` en proporción `t` (0 = a, 1 = b)."""
+    return "#%02X%02X%02X" % tuple(round(x + (y - x) * t) for x, y in zip(_rgb(a), _rgb(b)))
+
+
+def rgba(h: str, a: float) -> str:
+    r, g, b = _rgb(h)
+    return f"rgba({r},{g},{b},{('%g' % a).lstrip('0') or '0'})"
+
+
+def _until(color: str, toward: str, against: str, ratio: float) -> str:
+    """El primer paso de `color` hacia `toward` (de 5 en 5 %) que llega a
+    `ratio` contra `against`. Falla si ni el extremo llega: mejor romper aquí
+    que renderizar texto ilegible."""
+    for i in range(21):
+        c = mix(color, toward, i / 20)
+        if contrast(c, against) >= ratio:
+            return c
+    raise ValueError(f"{color}→{toward} no llega a {ratio}:1 contra {against}")
+
+
+def _dimmest(color: str, toward: str, against: str, ratio: float) -> str:
+    """El paso MÁS tenue de `color` hacia `toward` que todavía llega a `ratio`."""
+    best = color
+    for i in range(21):
+        c = mix(color, toward, i / 20)
+        if contrast(c, against) < ratio:
+            break
+        best = c
+    return best
+
+
+def _derive(name: str) -> dict:
+    b = PALETTES_BASE[name]
+    dark = luminance(b["bg"]) < 0.2
+    c = dict(b)
+    c.update(BRANDS)
+    c["bg2"] = mix(b["bg"], b["surface"], .5)                       # centro del viñeteado
+    c["bg_edge"] = mix(b["bg"], "#000000", .30 if dark else .06)    # borde del viñeteado
+    c["surface3"] = mix(b["surface2"], b["text"], .06)              # bordes internos de UI
+    c["text3"] = _dimmest(b["text2"], b["surface"], b["surface"], 4.5)
+    # El acento como TEXTO sobre el suelo, y bajo el foco del stage (que aclara
+    # el suelo hasta SPOTLIGHT_MAX): se exige contra el peor de los dos.
+    c["accent_hi"] = _until(b["accent"], b["text"], lift(b["bg"], SPOTLIGHT_MAX), 4.5)
+    c["accent_lt"] = _until(b["accent"], b["text"], b["bg"], 7.0)   # texto que va a FUNDIR
+    # Fondo para una palabra de color `text` encima (pastilla del karaoke,
+    # rótulos): el acento empujado hacia el suelo hasta que `text` se lea.
+    c["accent_pill"] = _until(b["accent"], b["bg"], b["text"], 4.5)
+    return c
+
+
+C: dict = {}
+FILL: dict = {}
+THEME: dict = {}
+INK_ON_FILL: dict = {}
+PALETTE = ""
+LINE = LINE_HI = SHADOW = SHADOW_LIFT = GLOW = ""
 
 RADIUS = {"sm": 10, "md": 16, "lg": 24, "xl": 32, "pill": 9999}
 
@@ -135,13 +170,13 @@ def vignette(w: str = "120% 90%") -> str:
     """Fondo base. El viñeteado es sutil y su función es empujar la mirada al
     centro, no decorar: sin él un 1080×1920 de color plano se ve muerto."""
     return (f"radial-gradient({w} at 50% 42%, {C['bg2']} 0%, "
-            f"{C['bg']} 62%, #07080B 100%)")
+            f"{C['bg']} 62%, {C['bg_edge']} 100%)")
 
 
 def grid(size: int = 72, alpha: float = .022) -> str:
     """Rejilla técnica casi invisible. Le da al fondo una textura de producto
     —de plano, de blueprint— en vez de un degradado liso de plantilla."""
-    a = f"rgba(255,255,255,{alpha})"
+    a = ink_a(alpha)
     return (f"repeating-linear-gradient(0deg,{a} 0 1px,transparent 1px {size}px),"
             f"repeating-linear-gradient(90deg,{a} 0 1px,transparent 1px {size}px)")
 
@@ -158,8 +193,8 @@ def lift(hex_bg: str, alpha: float) -> str:
     return "#%02X%02X%02X" % tuple(round(c * (1 - alpha) + 255 * alpha) for c in rgb)
 
 
-# Medido: a alpha 0.05 el violet_hi sobre el fondo iluminado da 6.08:1; a 0.07
-# cae a 5.77 y deja de aguantar texto normal. El techo no es una opinión.
+# Techo del foco cenital. `accent_hi` se deriva para aguantar 4.5:1 sobre el
+# suelo iluminado HASTA este alfa (ver `_derive` y tests/test_paletas.py).
 SPOTLIGHT_MAX = 0.05
 
 
@@ -168,7 +203,7 @@ def spotlight(alpha: float = SPOTLIGHT_MAX) -> str:
     if alpha > SPOTLIGHT_MAX:
         raise ValueError(
             f"spotlight alpha {alpha} pasa del techo medido {SPOTLIGHT_MAX}: por "
-            f"encima, el violeta como texto cae por debajo de AA sobre el fondo "
+            f"encima, el acento como texto (accent_hi) cae por debajo de AA sobre el fondo "
             f"iluminado")
     return (f"radial-gradient(120% 62% at 50% 0%, rgba(255,255,255,{alpha}) 0%, "
             f"rgba(255,255,255,0) 58%)")
@@ -190,26 +225,72 @@ def grain(seed: int = 7, opacity: float = 0.035) -> str:
     return f"url(\"data:image/svg+xml,{quote(svg)}\")"
 
 
-# El tema cambia ACENTO, relleno y glow. Nunca el color del texto: si lo
-# cambiara, todo el trabajo de legibilidad habría que re-litigarlo cinco veces.
-THEME = {
-    "primary": {"accent": C["violet"], "accent_text": C["violet_hi"],
-                "fill": FILL["violet"], "glow": GLOW},
-    "problem": {"accent": C["alert"], "accent_text": C["alert"],
-                "fill": FILL["alert"],
-                "glow": "0 0 0 1px rgba(255,90,90,.32), 0 18px 60px rgba(255,90,90,.20)"},
-    "warning": {"accent": C["warn"], "accent_text": C["warn"],
-                "fill": FILL["warn"],
-                "glow": "0 0 0 1px rgba(255,184,77,.30), 0 18px 60px rgba(255,184,77,.18)"},
-    "success": {"accent": C["go"], "accent_text": C["go"], "fill": FILL["go"],
-                "glow": "0 0 0 1px rgba(52,227,155,.30), 0 18px 60px rgba(52,227,155,.18)"},
-    "neutral": {"accent": C["text"], "accent_text": C["text"], "fill": FILL["white"],
-                "glow": SHADOW},
-}
+# ── la paleta activa ──────────────────────────────────────────────────────────
+def use(name: str) -> None:
+    """Activa una paleta. Muta en su lugar C/FILL/THEME/INK_ON_FILL (quien los
+    importó por nombre ve el cambio) y reasigna los escalares, que los
+    consumidores leen como `tokens.LINE`, nunca con `from tokens import LINE`.
 
-# ⚠ Sobre un relleno `warn` va TINTA, nunca blanco: text/warn = 1.72:1. Misma
-# regla que ya está escrita para el verde (bg/go = 11.74:1).
-INK_ON_FILL = {"warning": C["bg"], "success": C["bg"]}
+    El tema semántico (`THEME`) cambia ACENTO, relleno y glow; nunca el color
+    del texto, que ya está medido contra cada superficie."""
+    global PALETTE, LINE, LINE_HI, SHADOW, SHADOW_LIFT, GLOW
+    if name not in PALETTES_BASE:
+        raise ValueError(f"paleta '{name}' no existe; las que hay son: {', '.join(PALETTES)}")
+    c = _derive(name)
+    C.clear()
+    C.update(c)
+    FILL.clear()
+    FILL.update({
+        "accent": rgba(c["accent"], .16), "accent2": rgba(c["accent"], .28),
+        "go": rgba(c["go"], .14), "alert": rgba(c["alert"], .14),
+        "warn": rgba(c["warn"], .14), "ink": rgba(c["text"], .05),
+    })
+    PALETTE = name
+    LINE = c["line"]
+    LINE_HI = mix(c["line"], c["text"], .15)
+    SHADOW = _ELEVATION[name]["shadow"]
+    SHADOW_LIFT = _ELEVATION[name]["shadow_lift"]
+    GLOW = f"0 0 0 1px {rgba(c['accent'], .35)}, 0 18px 60px {rgba(c['accent'], .22)}"
+
+    def glow(h):
+        return f"0 0 0 1px {rgba(h, .32)}, 0 18px 60px {rgba(h, .20)}"
+    THEME.clear()
+    THEME.update({
+        "primary": {"accent": c["accent"], "accent_text": c["accent_hi"],
+                    "fill": FILL["accent"], "glow": GLOW},
+        "problem": {"accent": c["alert"], "accent_text": c["alert"],
+                    "fill": FILL["alert"], "glow": glow(c["alert"])},
+        "warning": {"accent": c["warn"], "accent_text": c["warn"],
+                    "fill": FILL["warn"], "glow": glow(c["warn"])},
+        "success": {"accent": c["go"], "accent_text": c["go"], "fill": FILL["go"],
+                    "glow": glow(c["go"])},
+        "neutral": {"accent": c["text"], "accent_text": c["text"], "fill": FILL["ink"],
+                    "glow": SHADOW},
+    })
+    # Sobre un relleno de señal va la tinta que más contraste da con él.
+    INK_ON_FILL.clear()
+    INK_ON_FILL.update({
+        sem: max((c["bg"], c["text"]), key=lambda ink: contrast(ink, c[k]))
+        for sem, k in (("warning", "warn"), ("success", "go"))
+    })
+
+
+def accent_a(a: float) -> str:
+    """El acento de la paleta activa con opacidad `a`."""
+    return rgba(C["accent"], a)
+
+
+def ink_a(a: float) -> str:
+    """El texto de la paleta activa con opacidad `a` (hairlines, rejilla)."""
+    return rgba(C["text"], a)
+
+
+def shade_a(a: float) -> str:
+    """El suelo de la paleta activa con opacidad `a` (velos, halos de texto)."""
+    return rgba(C["bg"], a)
+
+
+use("oscuro")
 
 # Coordenadas HORNEADAS del lienzo REEL 1080×1920. Se calculan aquí, en Python,
 # no con cos/sin en el navegador. El centro va hacia y 820-880 porque un bloque
