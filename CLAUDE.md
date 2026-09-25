@@ -438,8 +438,13 @@ con la paleta. `SPOTLIGHT_MAX` (0.05) es el techo del foco cenital de un stage:
 - **Ningún componente escribe un color a mano.** Todo sale de `tokens`: un hex o un
   `rgba(255,255,255,…)` escrito en un mockup se queda igual en las dos paletas y en una de
   ellas deja de leerse. Lo vigila `tests/test_paletas_consumidores.py`: caza los colores y
-  claves del sistema viejo, los escalares importados por nombre, y que cada mockup de
-  muestra renderice distinto en `claro` y en `oscuro` sin arrastrar el acento de la otra.
+  claves del sistema viejo (grafito, violeta y las señales neón `go`/`alert`/`warn` de
+  antes), los escalares importados por nombre, y que cada mockup de muestra renderice
+  distinto en `claro` y en `oscuro` sin arrastrar el acento de la otra. ⚠ El guardián
+  conoce los valores VIEJOS: un color nuevo escrito a mano no lo caza, así que la regla
+  se cumple al escribir, no solo al testear. Excepciones a sabiendas, iguales en las dos
+  paletas porque son interfaz literal: el cursor blanco (con filete de la tinta más
+  oscura, `_ink_dark()`), el semáforo de ventana macOS y las sombras `rgba(0,0,0,…)`.
 - `logos.brand_tone()` mueve el color de una marca hacia el `text` de la paleta hasta 3:1
   contra `surface`: en `oscuro` lo aclara (el verde de WhatsApp a su valor nominal se hunde
   en el fondo), en `claro` lo oscurece. Misma regla, dos direcciones.
@@ -1257,10 +1262,13 @@ de vendorizar, todas pagadas:
   lo contiene sin deformar. Quien lo pinta le sube el `logo_px` para que llene el marco
   (≈118 en un marco de 140): al tamaño por defecto pesa la mitad que un icono cuadrado al
   lado.
-- **Una marca monocroma se vendoriza en la variante que contrasta con el marco**
-  (`.tc-logoframe`, fondo `bg`): la negra (tinta #000 sobre transparente) desaparece sobre
-  el `bg` de `oscuro`, y la blanca sobre el de `claro`. Una marca vendorizada con `tile`
-  `None` no la mide ningún gate: se mira en las dos paletas (`palette-sheet.py`).
+- **Una marca vendorizada SVG sin `tile` lleva placa cuando el suelo no la sostiene.**
+  `logos.mark_plate()` lee sus colores (fill, stroke, stop-color) y elige entre el suelo
+  (`bg`) y la tinta (`text`) la placa que deja legibles (≥3:1) más colores de la marca;
+  `mark()` la pinta detrás. Composio (toda blanca), Anime.js y HyperFrames van sobre
+  placa de tinta en `claro`. Lo fija `tests/test_logos_paletas.py`. ⚠ `tool_card` NO mira
+  el ratio que devuelve `mark()`: una marca PNG sin tile no la mide ningún gate y se
+  revisa a ojo en las dos paletas.
 - **Un repositorio no tiene marca propia**: la marca honesta de un repo es la de GitHub,
   que es donde vive. Inventarle un logotipo sería dibujar una identidad que no existe.
 - Un SVG de marca con ids internos (gradientes, clip-paths) necesita `uid=` en cada

@@ -73,14 +73,20 @@ def text_px(text: str, size: int, weight: int = 700) -> float:
     return _TTF_CACHE[key].getlength(text)
 
 
+def _ink_dark() -> str:
+    """La tinta MÁS OSCURA de la paleta activa (el suelo en `oscuro`, el texto
+    en `claro`): el filete de lo que es interfaz literal y va siempre en blanco."""
+    return min(C["bg"], C["text"], key=TK.luminance)
+
+
 def _cursor(cid: str, ring_color: str | None = None) -> str:
-    """Cursor macOS sobredimensionado. Sobre fondo oscuro va en blanco con
-    filete del suelo: al revés desaparece encima de cualquier UI clara."""
+    """Cursor macOS sobredimensionado: blanco con filete oscuro en las dos
+    paletas. Sin filete desaparece encima de cualquier UI clara."""
     ring = ring_color or C["accent"]
     return (f'<div class="bigcursor" id="{cid}-cursor">'
             f'<span class="tap-ring" id="{cid}-ring" style="border-color:{ring}"></span>'
             '<svg viewBox="0 0 80 96" aria-hidden="true"><path '
-            f'fill="#FFFFFF" stroke="{C["bg"]}" stroke-width="6" '
+            f'fill="#FFFFFF" stroke="{_ink_dark()}" stroke-width="6" '
             'stroke-linejoin="round" d="M8 7v70l18-17 14 29 17-8-14-28h27z"/></svg></div>')
 
 
@@ -273,11 +279,11 @@ def app_switch(cid: str, apps: list[tuple[str, str]], brand: str,
   display:block;text-decoration:none}}
 /* conector ROTO: dos muñones y un hueco. La desconexión se ve, no se explica. */
 {p} .brk{{position:absolute;top:198px;width:22px;height:5px;border-radius:3px;
-  background:rgba(255,90,90,.65);opacity:0}}
+  background:{TK.rgba(C["alert"], .65)};opacity:0}}
 {p} .brk:before,{p} .brk:after{{content:'';position:absolute;top:0;width:22px;height:5px;
-  border-radius:3px;background:rgba(255,90,90,.65)}}
+  border-radius:3px;background:{TK.rgba(C["alert"], .65)}}}
 {p} .brk:before{{left:-42px}}{p} .brk:after{{left:42px}}
-{p} .alertbar{{margin-top:30px;background:{FILL['alert']};border:1px solid rgba(255,90,90,.45);
+{p} .alertbar{{margin-top:30px;background:{FILL['alert']};border:1px solid {TK.rgba(C["alert"], .45)};
   color:{C['alert']};font-family:{FONT};font-weight:900;font-size:40px;letter-spacing:-.02em;
   text-align:center;padding:24px;border-radius:{RADIUS['md']}px;opacity:0}}"""
     html = (f'<div class="appboard" id="{cid}-board">'
@@ -454,7 +460,7 @@ def rate_mismatch(cid: str, subject: str, left: tuple[str, str],
 {p} .rmcol{{flex:1;background:{C['surface']};border:1px solid {TK.LINE};
   border-radius:{RADIUS['lg']}px;padding:40px 22px 34px;text-align:center;
   box-shadow:{TK.SHADOW};opacity:0}}
-{p} .rmcol.bad{{border-color:rgba(255,90,90,.45);
+{p} .rmcol.bad{{border-color:{TK.rgba(C["alert"], .45)};
   background:linear-gradient(180deg,{FILL['alert']} 0%,{C['surface']} 72%)}}
 {p} .rmval{{font-family:{FONT};font-weight:900;font-size:74px;line-height:.96;
   letter-spacing:-.04em;color:{C['text']};white-space:nowrap}}
@@ -467,7 +473,7 @@ def rate_mismatch(cid: str, subject: str, left: tuple[str, str],
   font-family:{FONT};font-weight:900;font-size:40px;color:{C['alert']};
   z-index:4;opacity:0}}
 {p} .rmverd{{display:flex;align-items:center;justify-content:center;gap:16px;
-  background:{FILL['alert']};border:1px solid rgba(255,90,90,.42);
+  background:{FILL['alert']};border:1px solid {TK.rgba(C["alert"], .42)};
   border-radius:{RADIUS['md']}px;padding:24px 30px;font-family:{FONT};
   font-weight:800;font-size:40px;letter-spacing:-.02em;color:{C['alert']};
   opacity:0}}"""
@@ -538,7 +544,7 @@ def chip_grid(cid: str, chips: list[str], at: list[float], kicker: str = "",
   display:flex;align-items:center;gap:18px}}
 {p} .cgic{{display:flex;color:{C['accent_hi']};flex:0 0 auto}}
 {p} .cgalert{{display:flex;align-items:center;gap:16px;background:{FILL['alert']};
-  border:1px solid rgba(255,90,90,.42);border-radius:{RADIUS['md']}px;
+  border:1px solid {TK.rgba(C["alert"], .42)};border-radius:{RADIUS['md']}px;
   padding:22px 32px;font-family:{FONT};font-weight:800;font-size:40px;
   letter-spacing:-.02em;color:{C['alert']};opacity:0}}
 {p} .cgalert s{{width:12px;height:12px;border-radius:50%;background:{C['alert']};
@@ -1236,7 +1242,7 @@ def flow_steps(cid: str, steps: list[str], at: list[float],
   letter-spacing:-.02em;color:{C['text']};box-shadow:{TK.SHADOW};opacity:0}}
 {p} .fstep.hot{{border-color:{accent_a(.5)};
   background:linear-gradient(90deg,{FILL['accent']} 0%,{C['surface']} 62%)}}
-{p} .fstep.bad{{border-color:rgba(255,90,90,.45);
+{p} .fstep.bad{{border-color:{TK.rgba(C["alert"], .45)};
   background:linear-gradient(90deg,{FILL['alert']} 0%,{C['surface']} 62%);
   color:{C['alert']}}}
 {p} .fnum{{font-family:{MONO};font-weight:700;font-size:22px;letter-spacing:.12em;
@@ -1315,7 +1321,7 @@ def chat_unanswered(cid: str, contact: str, message: str, kicker: str = "",
 {p} .chtick{{font-size:30px;line-height:1;color:{C['text3']}}}
 {p} .chwait{{align-self:center;margin-top:26px;font-family:{MONO};font-weight:700;
   font-size:28px;letter-spacing:.14em;color:{C['warn']};background:{FILL['warn']};
-  border:1px solid rgba(255,184,77,.34);border-radius:{RADIUS['pill']}px;
+  border:1px solid {TK.rgba(C["warn"], .34)};border-radius:{RADIUS['pill']}px;
   padding:14px 30px;opacity:0}}
 /* La entrante va pegada al otro lado y con la esquina espejada: el bando se
    lee en la geometría, no hace falta rotularlo. */
@@ -1382,7 +1388,7 @@ def comment_ui(cid: str, word: str, type_at: float = 0.6,
 {p} .csend.on{{color:{C['go']}}}
 {p} .cposted{{display:flex;align-items:center;gap:16px;font-family:{MONO};font-weight:700;
   font-size:26px;letter-spacing:.14em;color:{C['go']};background:{FILL['go']};
-  border:1px solid rgba(52,227,155,.4);border-radius:{RADIUS['pill']}px;
+  border:1px solid {TK.rgba(C["go"], .4)};border-radius:{RADIUS['pill']}px;
   padding:14px 28px;opacity:0}}"""
     html = (f'<div class="cwrap">'
             + (f'<div class="csay" id="{cid}-say">COMENTA LA PALABRA</div>'
@@ -1582,7 +1588,7 @@ def _cv_css(p: str) -> str:
 {p} .cvlab.hot{{color:{C['accent_hi']}}}
 {p} .cvlab.bad{{color:{C['alert']}}}
 {p} .cvbar{{height:12px;border-radius:{RADIUS['pill']}px;
-  background:rgba(167,173,187,.30);display:block}}
+  background:{TK.rgba(C["text2"], .30)};display:block}}
 {p} .cvbar.hot{{background:{C['accent']}}}
 {p} .cvbar.bad{{background:{C['alert']};opacity:.55}}
 {p} .cvtag{{align-self:flex-start;font-family:{MONO};font-weight:700;font-size:17px;
@@ -1591,7 +1597,7 @@ def _cv_css(p: str) -> str:
   flex:0 0 auto}}
 {p} .cvtag.hot{{color:{C['accent_hi']};border-color:{accent_a(.45)};
   background:{FILL['accent']}}}
-{p} .cvtag.go{{color:{C['go']};border-color:rgba(52,227,155,.40)}}"""
+{p} .cvtag.go{{color:{C['go']};border-color:{TK.rgba(C["go"], .40)}}}"""
 
 
 def cv_echo(cid: str, left: dict, right: dict, seal: str,
@@ -1632,8 +1638,8 @@ def cv_echo(cid: str, left: dict, right: dict, seal: str,
   align-items:center;justify-content:center;font-family:{FONT};font-weight:900;
   font-size:42px;color:{C['accent_hi']};opacity:0;z-index:3}}
 {p} .ceseal{{font-family:{MONO};font-weight:700;font-size:22px;letter-spacing:.13em;
-  text-transform:uppercase;color:{C['warn']};border:1px solid rgba(255,184,77,.42);
-  background:rgba(255,184,77,.10);border-radius:{RADIUS['pill']}px;
+  text-transform:uppercase;color:{C['warn']};border:1px solid {TK.rgba(C["warn"], .42)};
+  background:{TK.rgba(C["warn"], .10)};border-radius:{RADIUS['pill']}px;
   padding:12px 26px;opacity:0}}"""
     html = (f'<div class="cewrap">{kick}'
             f'<div class="cepair">{html_l}{html_r}'
@@ -1697,7 +1703,7 @@ def cv_vs_offer(cid: str, cv: dict, offer: dict, at: list[float],
   justify-content:center;font-family:{MONO};font-weight:700;font-size:20px;
   letter-spacing:.06em;color:{C['text3']};opacity:0;z-index:3}}
 {p} .cvx{{position:absolute;left:-8px;right:-8px;height:44px;
-  border:2px solid rgba(255,90,90,.55);border-radius:{RADIUS['sm']}px;
+  border:2px solid {TK.rgba(C["alert"], .55)};border-radius:{RADIUS['sm']}px;
   background:{FILL['alert']};opacity:0;z-index:2;pointer-events:none}}"""
     html = (f'<div class="cowrap">{kick}'
             f'<div class="copair">{html_l}{html_r}'
@@ -1757,7 +1763,7 @@ def offer_stack(cid: str, offers: list[str], offer_at: list[float],
 {p} .oft{{font-family:{FONT};font-weight:800;font-size:25px;letter-spacing:-.015em;
   color:{C['text']};line-height:1.14;min-height:58px}}
 {p} .ofbar{{height:9px;border-radius:{RADIUS['pill']}px;
-  background:rgba(167,173,187,.30);width:100%;display:block}}
+  background:{TK.rgba(C["text2"], .30)};width:100%;display:block}}
 {p} .ofbar.s{{width:62%}}
 {p} .ofblock{{width:100%;display:flex;flex-direction:column;gap:11px}}
 {p} .oflab{{font-family:{MONO};font-weight:700;font-size:19px;letter-spacing:.13em;
@@ -1933,7 +1939,7 @@ def interview_chat(cid: str, answer: str, followup: str, at: list[float],
   border:1px solid {accent_a(.48)};color:{C['text']}}}
 {p} .ivbadge{{position:absolute;right:16px;bottom:-17px;font-family:{MONO};
   font-weight:700;font-size:18px;letter-spacing:.11em;text-transform:uppercase;
-  color:{C['warn']};background:{C['bg']};border:1px solid rgba(255,184,77,.48);
+  color:{C['warn']};background:{C['bg']};border:1px solid {TK.rgba(C["warn"], .48)};
   border-radius:{RADIUS['pill']}px;padding:8px 16px;opacity:0;white-space:nowrap}}"""
     html = (f'<div class="ivwrap">{kick}'
             f'<div class="ivpanel" id="{cid}-panel">'
@@ -2018,7 +2024,7 @@ def keyframe_grind(cid: str, at: list[float], total: int = 240,
 {p} .kgdia{{position:absolute;top:11px;width:18px;height:18px;
   background:{C['accent']};transform:rotate(45deg);border-radius:3px;opacity:0}}
 {p} .kgclock{{font-family:{MONO};font-weight:700;font-size:26px;letter-spacing:.16em;
-  color:{C['warn']};background:{FILL['warn']};border:1px solid rgba(255,184,77,.48);
+  color:{C['warn']};background:{FILL['warn']};border:1px solid {TK.rgba(C["warn"], .48)};
   border-radius:{RADIUS['pill']}px;padding:12px 26px;opacity:0}}"""
     html = (f'<div class="kgwrap">{kick}'
             f'<div class="kgstage" id="{cid}-stage">'
@@ -2143,7 +2149,7 @@ def agent_editor(cid: str, prompt: str, at: list[float],
 {p} .aesend{{flex:0 0 auto;font-family:{MONO};font-weight:700;font-size:23px;
   letter-spacing:.12em;color:{C['text3']}}}
 {p} .aeout{{font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.16em;
-  color:{C['go']};background:{FILL['go']};border:1px solid rgba(52,227,155,.46);
+  color:{C['go']};background:{FILL['go']};border:1px solid {TK.rgba(C["go"], .46)};
   border-radius:{RADIUS['pill']}px;padding:11px 24px;opacity:0}}"""
     logo_html, _ = logos.mark("hyperframes", 40, uid=f"{cid}-ae")
     html = (f'<div class="aewrap">{kick}'
@@ -2452,7 +2458,7 @@ def idea_fate(cid: str, idea: str, exits: list[tuple[str, float]],
 {p} .ifcard.alive .ifname{{color:{C['text']}}}
 {p} .ifbadge{{position:absolute;right:34px;top:-18px;font-family:{MONO};
   font-weight:700;font-size:22px;letter-spacing:.14em;text-transform:uppercase;
-  color:{C['go']};background:{C['bg']};border:1px solid rgba(52,227,155,.5);
+  color:{C['go']};background:{C['bg']};border:1px solid {TK.rgba(C["go"], .5)};
   border-radius:{RADIUS['pill']}px;padding:10px 22px;opacity:0;white-space:nowrap}}
 {p} .ifbadge.off{{color:{C['text3']};border-color:{TK.LINE_HI}}}
 {p} .ifexits{{display:flex;flex-direction:column;gap:14px;width:100%}}
@@ -2676,7 +2682,7 @@ def agent_swarm(cid: str, variant: str, at: list[float],
   color:{C['text2']};opacity:0}}
 {p} .aspilerow .ic{{color:{C['text3']};flex:0 0 auto}}
 {p} .aspilebar{{flex:1 1 auto;height:16px;border-radius:8px;
-  background:rgba(167,173,187,.30)}}
+  background:{TK.rgba(C["text2"], .30)}}}
 
 {p} .ascount{{display:flex;align-items:baseline;gap:16px;opacity:0}}
 {p} .ascountn{{font-family:{FONT};font-weight:900;font-size:96px;line-height:.92;
@@ -2896,7 +2902,7 @@ def desktop_manager(cid: str, title: str, rows: list[tuple[str, str]],
   border-radius:{RADIUS['pill']}px;padding:12px 26px;font-family:{MONO};
   font-weight:700;font-size:22px;letter-spacing:.14em;color:{C['accent_hi']};
   opacity:0;white-space:nowrap}}
-{p} .dmbtn.done{{background:{FILL['go']};border-color:rgba(52,227,155,.42);
+{p} .dmbtn.done{{background:{FILL['go']};border-color:{TK.rgba(C["go"], .42)};
   color:{C['go']}}}"""
     html = (f'<div class="dmwin" id="{cid}-win">'
             f'<div class="dmbar"><span class="dmdots">{dots}</span>'
@@ -3236,7 +3242,7 @@ def money_button(cid: str, label: str, at: list[float],
 {p} .mbbtnt{{font-family:{FONT};font-weight:900;font-size:52px;letter-spacing:-.03em;
   color:{C['on_accent']};line-height:1}}
 {p} .mbcur{{position:absolute;right:-26px;bottom:-34px;color:#FFFFFF;
-  filter:drop-shadow(0 8px 12px rgba(0,0,0,.6));opacity:0}}
+  filter:drop-shadow(0 0 2px {_ink_dark()}) drop-shadow(0 8px 12px rgba(0,0,0,.6));opacity:0}}
 {p} .mbring{{position:absolute;right:-6px;bottom:-14px;width:64px;height:64px;
   border-radius:50%;border:5px solid {C['accent_hi']};opacity:0}}
 {p} .mbarrow{{width:2px;height:30px;background:{C['text3']};opacity:0}}

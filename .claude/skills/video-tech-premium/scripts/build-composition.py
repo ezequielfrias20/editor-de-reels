@@ -1202,7 +1202,7 @@ def card_body(kind, cid, cfg):
 {p} .ctabtn{{background:{C['go']};border-radius:{RADIUS['pill']}px;
   padding:26px 54px;font-family:{FONT};font-weight:900;
   font-size:{round(T['card_title']*1.12)}px;letter-spacing:-.02em;
-  color:{C['bg']};box-shadow:0 18px 50px rgba(52,227,155,.28);opacity:0}}"""
+  color:{C['bg']};box-shadow:0 18px 50px {TK.rgba(C["go"], .28)};opacity:0}}"""
         return css, f'<div class="ctabtn" id="{cid}-cta">{label}</div>', [
             ("stamp", f"#{cid}-cta", cfg.get("cta_at", 0.34), 0.44)]
 
@@ -1758,7 +1758,7 @@ def emit_anim(a) -> str:
                   f'{{ opacity: 0, scale: 1.6, duration: {d}, ease: "power2.out" }}, {t:.4f});')
     elif kind == "focus-app":
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1, borderColor: "{TK.LINE}" }}, '
-                  f'{{ scale: 1.04, borderColor: "rgba(255,90,90,.6)", '
+                  f'{{ scale: 1.04, borderColor: "{TK.rgba(C["alert"], .6)}", '
                   f'duration: {d * .45:.4f}, ease: "power2.out", yoyo: true, repeat: 1 }}, '
                   f'{t:.4f});')
     elif kind == "alert-hit":

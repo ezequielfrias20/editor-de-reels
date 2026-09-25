@@ -122,6 +122,42 @@ def namespace_svg_ids(raw: str, uid: str) -> str:
     return _ID_REF.sub(ref, out)
 
 
+_NAMED = {"white": "#FFFFFF", "black": "#000000"}
+_COLOR = re.compile(r'(?:fill|stroke|stop-color)\s*[=:]\s*"?\s*(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3}\b|white|black)')
+
+
+def _svg_colors(raw: str) -> list[str]:
+    """Los colores con que se pinta una marca SVG (fill, stroke, stop-color)."""
+    out = []
+    for c in _COLOR.findall(raw):
+        c = _NAMED.get(c.lower(), c).upper()
+        if len(c) == 4:
+            c = "#" + "".join(ch * 2 for ch in c[1:])
+        if c not in out:
+            out.append(c)
+    return out
+
+
+def mark_plate(slug: str, bg: str | None = None) -> tuple[str, list[str]]:
+    """(placa, colores) para una marca vendorizada SVG sin tile propio.
+
+    Una marca transparente se pinta directo sobre el marco, y hay marcas que en
+    una paleta desaparecen: Composio es toda blanca y sobre el suelo crema de
+    `claro` queda a 1.2:1. La placa es el suelo (`bg`) si la sostiene; si no, la
+    tinta de la paleta (`text`). Gana la que deja legibles (≥3:1) MÁS colores de
+    la marca; a igualdad, la de mejor peor caso, y a igualdad total, el suelo.
+    """
+    bg = bg or C["bg"]
+    raw = (Path.cwd() / "assets" / "logos" / f"{slug}.svg").read_text()
+    colores = _svg_colors(raw)
+
+    def score(placa):
+        ratios = [contrast(c, placa) for c in colores] or [0.0]
+        return (sum(r >= 3.0 for r in ratios), min(ratios))
+    placa = bg if score(bg) >= score(C["text"]) else C["text"]
+    return placa, colores
+
+
 def mark(slug: str, size: int, tone: str = "brand", bg: str | None = None,
          uid: str = "") -> tuple[str, float | None]:
     """(html, ratio).
@@ -182,5 +218,10 @@ def mark(slug: str, size: int, tone: str = "brand", bg: str | None = None,
 
     tile = info.get("tile")
     ratio = contrast(tile, bg) if tile else None
-    html = f'<span class="brandmark" style="width:{size}px;height:{size}px">{inner}</span>'
+    placa = ""
+    if fmt == "svg" and not tile:
+        color, _ = mark_plate(slug, bg)
+        if color != bg:
+            placa = f";background:{color};border-radius:22%;padding:12%;box-sizing:border-box"
+    html = f'<span class="brandmark" style="width:{size}px;height:{size}px{placa}">{inner}</span>'
     return html, ratio

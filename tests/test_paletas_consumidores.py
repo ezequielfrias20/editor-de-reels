@@ -13,8 +13,10 @@ SCRIPTS = Path(__file__).resolve().parent.parent / ".claude" / "skills" / "video
 
 # Colores del sistema viejo (grafito + violeta) y de su suelo, escritos a mano.
 VIEJOS = re.compile(
-    r"rgba\((124, ?92, ?255|155, ?133, ?255|91, ?63, ?214|184, ?170, ?255|43, ?29, ?122|11, ?12, ?16|22, ?24, ?31)"
-    r"|#7C5CFF|#9B85FF|#5B3FD6|#B8AAFF|#2B1D7A|#0B0C10|#07080B|#16181F|#1D2029|#252935|#A7ADBB|#8C93A3",
+    r"rgba\((124, ?92, ?255|155, ?133, ?255|91, ?63, ?214|184, ?170, ?255|43, ?29, ?122|11, ?12, ?16|22, ?24, ?31"
+    r"|52, ?227, ?155|255, ?90, ?90|255, ?184, ?77|167, ?173, ?187)"
+    r"|#7C5CFF|#9B85FF|#5B3FD6|#B8AAFF|#2B1D7A|#0B0C10|#07080B|#16181F|#1D2029|#252935|#A7ADBB|#8C93A3"
+    r"|#34E39B|#FF5A5A|#FFB84D",
     re.I)
 CLAVES_VIEJAS = re.compile(r"""C\[['"]violet|FILL\[['"](violet|white)['"]\]""")
 ESCALARES = {"LINE", "LINE_HI", "SHADOW", "SHADOW_LIFT", "GLOW"}
@@ -45,8 +47,9 @@ def test_ningun_script_escribe_colores_del_sistema_viejo(f):
 
 
 def test_todos_los_logos_se_leen_en_las_dos_paletas(project_root):
-    """`tool_card` falla si el logo no llega a 3:1 contra la superficie, así
-    que construirla con cada logo vendorizado en cada paleta es la prueba."""
+    """Construir `tool_card` con cada logo vendorizado en cada paleta no
+    revienta. (Que el logo SE LEA lo fija `tests/test_logos_paletas.py`:
+    `tool_card` no mira el ratio que devuelve `logos.mark()`.)"""
     import mockups
     meta = json.loads((project_root / "assets" / "logos" / "meta.json").read_text())
     for nombre in T.PALETTES:
@@ -128,3 +131,25 @@ def test_brand_tone_se_adapta_a_la_paleta():
         T.use(nombre)
         tono = logos.brand_tone("25D366")   # verde WhatsApp
         assert T.contrast(tono, T.C["surface"]) >= 3.0, nombre
+
+
+@pytest.mark.parametrize("paleta", ["claro", "oscuro"])
+def test_el_cursor_blanco_conserva_su_filete_oscuro(paleta):
+    """El cursor es interfaz literal (blanco con filete), igual en las dos
+    paletas: el filete es la tinta MÁS OSCURA de la paleta, no el suelo — en
+    `claro` el suelo es crema y el cursor blanco se perdía (1.1:1)."""
+    import mockups
+    T.use(paleta)
+    html = mockups._cursor("c1")
+    trazo = re.search(r'stroke="(#[0-9A-Fa-f]{6})"', html).group(1)
+    assert T.contrast("#FFFFFF", trazo) >= 3.0, (paleta, trazo)
+
+
+@pytest.mark.parametrize("paleta", ["claro", "oscuro"])
+def test_el_cursor_de_money_button_lleva_contorno(paleta):
+    import mockups
+    T.use(paleta)
+    css, _, _ = mockups.money_button("mb", "GANAR DINERO", [0.2, 0.6, 1.0, 1.4, 1.8], question="¿Un botón?", empty_label="VACÍO")
+    regla = re.search(r"\.mbcur\{[^}]*\}", css).group(0)
+    oscura = min(T.C["bg"], T.C["text"], key=T.luminance)
+    assert f"drop-shadow(0 0 2px {oscura})" in regla, regla

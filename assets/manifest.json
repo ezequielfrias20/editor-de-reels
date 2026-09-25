@@ -2,7 +2,7 @@
   "assets": {
     "object:answer-approved@1": {
       "added": "2026-09-08",
-      "hash": "sha256:a514ed3c64e99bb74a7777f5cbd0448ae9dee82ee4a7f16cc5490573bfe38bff",
+      "hash": "sha256:2405644f914a0719b8cc9c35658757f22d0c12c1be9daa38386c9843a283f2cf",
       "kind": "object"
     },
     "object:answer-counter@1": {
@@ -37,7 +37,7 @@
     },
     "object:confirm-buttons@1": {
       "added": "2026-09-08",
-      "hash": "sha256:7400f36d19664616672c6a9451fa7fd7e7a22a575d0ff376c37b9ca040b14601",
+      "hash": "sha256:f26d4ec71b3ebec4dc52333c590e2941d76a5ae21f7ee943aec6a8fe599edbc3",
       "kind": "object"
     },
     "object:dental-chair@1": {

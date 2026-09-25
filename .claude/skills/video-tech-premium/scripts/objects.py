@@ -667,7 +667,7 @@ def answer_approved(cid: str, iid: str, state: dict, slot: str = "foot", **_) ->
   </svg>
   <div style="width:100%;height:100%;box-sizing:border-box;display:flex;
        align-items:center;gap:20px;padding:0 28px;background:{t.C['surface2']};
-       border:1px solid rgba(52,227,155,.42);border-radius:{t.RADIUS['lg']}px;
+       border:1px solid {t.rgba(t.C["go"], .42)};border-radius:{t.RADIUS['lg']}px;
        box-shadow:{t.SHADOW}">
     <span style="width:44px;height:44px;border-radius:50%;background:{t.C['go']};
           display:flex;align-items:center;justify-content:center;flex:0 0 auto">
@@ -919,7 +919,7 @@ def confirm_buttons(cid: str, iid: str, state: dict, slot: str = "stack-3",
     <span style="flex:1 1 0;height:100%;box-sizing:border-box;display:flex;
           align-items:center;justify-content:center;gap:14px;
           background:{t.C['go']};border-radius:{t.RADIUS['lg']}px;
-          box-shadow:0 14px 40px rgba(52,227,155,.24)">
+          box-shadow:0 14px 40px {t.rgba(t.C["go"], .24)}">
       <span id="{eid}-check" style="width:34px;height:34px;flex:0 0 auto;
             opacity:0">
         <svg viewBox="0 0 24 24" width="34" height="34">
