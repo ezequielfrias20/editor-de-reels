@@ -1,0 +1,1118 @@
+{
+  "id": "ac7d1d9e-1095-46e4-b39a-5815ea71b17c",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/cd2209b48d9161fe85ae79bc1016e04abb136a508beef729ad765ad4a21c3efb/b9732928-26c9-4e10-b365-34cbcab6a216",
+  "text": "Hay una integración de Claude que creo que mucha gente todavía está pasando por alto: Canva. Puedes conectar Canva con Claude y pedirle cosas como crear un diseño, buscar contenido que ya tengas, trabajar con plantilla o exportar resultados sin estar saltando constantemente entre aplicaciones. Y aquí está la parte importante: no pienses solo en Claude, ¿puede hacerme un post? Piensa en el flujo completo. Le das contexto sobre tu negocio, el formato que necesitas, la idea del contenido y las referencias. Y haces que Claude trabaje con Canva dentro del mismo proceso. Además, si quieres ir mucho más allá de Canva, herramientas como Composeo permiten conectar el agente con muchísimas otras aplicaciones. La oportunidad no es automatizar Canva, es empezar a utilizar Claude como una capa encima de tus herramientas. Si quieres mi configuración y algunos prompts para probarlo, comenta Canva y te lo mando.",
+  "words": [
+    {
+      "text": "Hay",
+      "start": 192,
+      "end": 256,
+      "confidence": 0.9907436,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 352,
+      "end": 448,
+      "confidence": 0.99988055,
+      "speaker": null
+    },
+    {
+      "text": "integración",
+      "start": 448,
+      "end": 1137,
+      "confidence": 0.9999389,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 1137,
+      "end": 1185,
+      "confidence": 0.9977956,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 1297,
+      "end": 1778,
+      "confidence": 0.95203555,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 1858,
+      "end": 1954,
+      "confidence": 0.9989471,
+      "speaker": null
+    },
+    {
+      "text": "creo",
+      "start": 1954,
+      "end": 2098,
+      "confidence": 0.999826,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 2130,
+      "end": 2258,
+      "confidence": 0.9999175,
+      "speaker": null
+    },
+    {
+      "text": "mucha",
+      "start": 2258,
+      "end": 2531,
+      "confidence": 0.9999566,
+      "speaker": null
+    },
+    {
+      "text": "gente",
+      "start": 2531,
+      "end": 2899,
+      "confidence": 0.99998856,
+      "speaker": null
+    },
+    {
+      "text": "todavía",
+      "start": 2979,
+      "end": 3396,
+      "confidence": 0.9999531,
+      "speaker": null
+    },
+    {
+      "text": "está",
+      "start": 3396,
+      "end": 3620,
+      "confidence": 0.99965906,
+      "speaker": null
+    },
+    {
+      "text": "pasando",
+      "start": 3620,
+      "end": 4101,
+      "confidence": 0.9999762,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 4101,
+      "end": 4277,
+      "confidence": 0.99996793,
+      "speaker": null
+    },
+    {
+      "text": "alto:",
+      "start": 4277,
+      "end": 4549,
+      "confidence": 0.9159366,
+      "speaker": null
+    },
+    {
+      "text": "Canva.",
+      "start": 4902,
+      "end": 5150,
+      "confidence": 0.999941,
+      "speaker": null
+    },
+    {
+      "text": "Puedes",
+      "start": 5783,
+      "end": 6103,
+      "confidence": 0.9999499,
+      "speaker": null
+    },
+    {
+      "text": "conectar",
+      "start": 6103,
+      "end": 6584,
+      "confidence": 0.99998486,
+      "speaker": null
+    },
+    {
+      "text": "Canva",
+      "start": 6584,
+      "end": 6984,
+      "confidence": 0.9995608,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 6984,
+      "end": 7225,
+      "confidence": 0.99937904,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 7225,
+      "end": 7705,
+      "confidence": 0.99999857,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 7721,
+      "end": 7786,
+      "confidence": 0.9990688,
+      "speaker": null
+    },
+    {
+      "text": "pedirle",
+      "start": 7786,
+      "end": 8266,
+      "confidence": 0.99996275,
+      "speaker": null
+    },
+    {
+      "text": "cosas",
+      "start": 8266,
+      "end": 8747,
+      "confidence": 0.9999726,
+      "speaker": null
+    },
+    {
+      "text": "como",
+      "start": 8747,
+      "end": 8987,
+      "confidence": 0.9994943,
+      "speaker": null
+    },
+    {
+      "text": "crear",
+      "start": 8987,
+      "end": 9324,
+      "confidence": 0.99960357,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 9324,
+      "end": 9388,
+      "confidence": 0.99982697,
+      "speaker": null
+    },
+    {
+      "text": "diseño,",
+      "start": 9388,
+      "end": 9916,
+      "confidence": 0.998446,
+      "speaker": null
+    },
+    {
+      "text": "buscar",
+      "start": 10028,
+      "end": 10333,
+      "confidence": 0.9991844,
+      "speaker": null
+    },
+    {
+      "text": "contenido",
+      "start": 10349,
+      "end": 10910,
+      "confidence": 0.9996056,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 10990,
+      "end": 11102,
+      "confidence": 0.99527067,
+      "speaker": null
+    },
+    {
+      "text": "ya",
+      "start": 11102,
+      "end": 11310,
+      "confidence": 0.9993819,
+      "speaker": null
+    },
+    {
+      "text": "tengas,",
+      "start": 11310,
+      "end": 11743,
+      "confidence": 0.9998809,
+      "speaker": null
+    },
+    {
+      "text": "trabajar",
+      "start": 12031,
+      "end": 12496,
+      "confidence": 0.99949014,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 12512,
+      "end": 12672,
+      "confidence": 0.9999696,
+      "speaker": null
+    },
+    {
+      "text": "plantilla",
+      "start": 12672,
+      "end": 13249,
+      "confidence": 0.7800799,
+      "speaker": null
+    },
+    {
+      "text": "o",
+      "start": 13249,
+      "end": 13265,
+      "confidence": 0.99414164,
+      "speaker": null
+    },
+    {
+      "text": "exportar",
+      "start": 13265,
+      "end": 13873,
+      "confidence": 0.99998796,
+      "speaker": null
+    },
+    {
+      "text": "resultados",
+      "start": 13873,
+      "end": 14594,
+      "confidence": 0.99956816,
+      "speaker": null
+    },
+    {
+      "text": "sin",
+      "start": 14594,
+      "end": 14771,
+      "confidence": 0.98665446,
+      "speaker": null
+    },
+    {
+      "text": "estar",
+      "start": 14771,
+      "end": 15139,
+      "confidence": 0.9993612,
+      "speaker": null
+    },
+    {
+      "text": "saltando",
+      "start": 15155,
+      "end": 15636,
+      "confidence": 0.9999744,
+      "speaker": null
+    },
+    {
+      "text": "constantemente",
+      "start": 15636,
+      "end": 16437,
+      "confidence": 0.9999853,
+      "speaker": null
+    },
+    {
+      "text": "entre",
+      "start": 16533,
+      "end": 16789,
+      "confidence": 0.9999571,
+      "speaker": null
+    },
+    {
+      "text": "aplicaciones.",
+      "start": 16789,
+      "end": 17286,
+      "confidence": 0.99947,
+      "speaker": null
+    },
+    {
+      "text": "Y",
+      "start": 17849,
+      "end": 17895,
+      "confidence": 0.9996985,
+      "speaker": null
+    },
+    {
+      "text": "aquí",
+      "start": 17895,
+      "end": 18071,
+      "confidence": 0.9999248,
+      "speaker": null
+    },
+    {
+      "text": "está",
+      "start": 18071,
+      "end": 18279,
+      "confidence": 0.99991894,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 18279,
+      "end": 18439,
+      "confidence": 0.99994826,
+      "speaker": null
+    },
+    {
+      "text": "parte",
+      "start": 18439,
+      "end": 18631,
+      "confidence": 0.9999685,
+      "speaker": null
+    },
+    {
+      "text": "importante:",
+      "start": 18631,
+      "end": 19208,
+      "confidence": 0.9511891,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 19641,
+      "end": 19801,
+      "confidence": 0.99909353,
+      "speaker": null
+    },
+    {
+      "text": "pienses",
+      "start": 19801,
+      "end": 20202,
+      "confidence": 0.99981034,
+      "speaker": null
+    },
+    {
+      "text": "solo",
+      "start": 20202,
+      "end": 20618,
+      "confidence": 0.9979911,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 20618,
+      "end": 20810,
+      "confidence": 0.999708,
+      "speaker": null
+    },
+    {
+      "text": "Claude,",
+      "start": 20842,
+      "end": 21131,
+      "confidence": 0.8934488,
+      "speaker": null
+    },
+    {
+      "text": "¿puede",
+      "start": 21163,
+      "end": 21595,
+      "confidence": 0.8784167,
+      "speaker": null
+    },
+    {
+      "text": "hacerme",
+      "start": 21595,
+      "end": 21836,
+      "confidence": 0.999833,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 21836,
+      "end": 21964,
+      "confidence": 0.9998399,
+      "speaker": null
+    },
+    {
+      "text": "post?",
+      "start": 21964,
+      "end": 22252,
+      "confidence": 0.9993685,
+      "speaker": null
+    },
+    {
+      "text": "Piensa",
+      "start": 22745,
+      "end": 23181,
+      "confidence": 0.9995061,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 23181,
+      "end": 23342,
+      "confidence": 0.999946,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 23342,
+      "end": 23486,
+      "confidence": 0.99981886,
+      "speaker": null
+    },
+    {
+      "text": "flujo",
+      "start": 23486,
+      "end": 23854,
+      "confidence": 0.99999255,
+      "speaker": null
+    },
+    {
+      "text": "completo.",
+      "start": 23966,
+      "end": 24335,
+      "confidence": 0.99898183,
+      "speaker": null
+    },
+    {
+      "text": "Le",
+      "start": 25088,
+      "end": 25248,
+      "confidence": 0.99971205,
+      "speaker": null
+    },
+    {
+      "text": "das",
+      "start": 25248,
+      "end": 25488,
+      "confidence": 0.9999516,
+      "speaker": null
+    },
+    {
+      "text": "contexto",
+      "start": 25488,
+      "end": 26049,
+      "confidence": 0.99795616,
+      "speaker": null
+    },
+    {
+      "text": "sobre",
+      "start": 26049,
+      "end": 26337,
+      "confidence": 0.9998883,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 26369,
+      "end": 26450,
+      "confidence": 0.9999206,
+      "speaker": null
+    },
+    {
+      "text": "negocio,",
+      "start": 26450,
+      "end": 26978,
+      "confidence": 0.9999062,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 27427,
+      "end": 27475,
+      "confidence": 0.99968874,
+      "speaker": null
+    },
+    {
+      "text": "formato",
+      "start": 27491,
+      "end": 28052,
+      "confidence": 0.9999677,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 28052,
+      "end": 28164,
+      "confidence": 0.9998035,
+      "speaker": null
+    },
+    {
+      "text": "necesitas,",
+      "start": 28164,
+      "end": 28740,
+      "confidence": 0.99989444,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 28869,
+      "end": 29029,
+      "confidence": 0.9991704,
+      "speaker": null
+    },
+    {
+      "text": "idea",
+      "start": 29029,
+      "end": 29285,
+      "confidence": 0.9999862,
+      "speaker": null
+    },
+    {
+      "text": "del",
+      "start": 29285,
+      "end": 29445,
+      "confidence": 0.9995055,
+      "speaker": null
+    },
+    {
+      "text": "contenido",
+      "start": 29493,
+      "end": 30054,
+      "confidence": 0.99987555,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 30150,
+      "end": 30214,
+      "confidence": 0.9974854,
+      "speaker": null
+    },
+    {
+      "text": "las",
+      "start": 30214,
+      "end": 30471,
+      "confidence": 0.9987085,
+      "speaker": null
+    },
+    {
+      "text": "referencias.",
+      "start": 30471,
+      "end": 30983,
+      "confidence": 0.9899604,
+      "speaker": null
+    },
+    {
+      "text": "Y",
+      "start": 31602,
+      "end": 31753,
+      "confidence": 0.64700925,
+      "speaker": null
+    },
+    {
+      "text": "haces",
+      "start": 31753,
+      "end": 32233,
+      "confidence": 0.9998076,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 32378,
+      "end": 32538,
+      "confidence": 0.9999647,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 32538,
+      "end": 32826,
+      "confidence": 0.9997559,
+      "speaker": null
+    },
+    {
+      "text": "trabaje",
+      "start": 32858,
+      "end": 33339,
+      "confidence": 0.9999642,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 33339,
+      "end": 33499,
+      "confidence": 0.9999063,
+      "speaker": null
+    },
+    {
+      "text": "Canva",
+      "start": 33499,
+      "end": 34012,
+      "confidence": 0.9999763,
+      "speaker": null
+    },
+    {
+      "text": "dentro",
+      "start": 34060,
+      "end": 34493,
+      "confidence": 0.9991048,
+      "speaker": null
+    },
+    {
+      "text": "del",
+      "start": 34493,
+      "end": 34653,
+      "confidence": 0.9999584,
+      "speaker": null
+    },
+    {
+      "text": "mismo",
+      "start": 34653,
+      "end": 35022,
+      "confidence": 0.9999615,
+      "speaker": null
+    },
+    {
+      "text": "proceso.",
+      "start": 35022,
+      "end": 35455,
+      "confidence": 0.9998054,
+      "speaker": null
+    },
+    {
+      "text": "Además,",
+      "start": 36320,
+      "end": 36753,
+      "confidence": 0.9999546,
+      "speaker": null
+    },
+    {
+      "text": "si",
+      "start": 37105,
+      "end": 37266,
+      "confidence": 0.9999844,
+      "speaker": null
+    },
+    {
+      "text": "quieres",
+      "start": 37266,
+      "end": 37602,
+      "confidence": 0.99996316,
+      "speaker": null
+    },
+    {
+      "text": "ir",
+      "start": 37602,
+      "end": 37730,
+      "confidence": 0.99999034,
+      "speaker": null
+    },
+    {
+      "text": "mucho",
+      "start": 37746,
+      "end": 38019,
+      "confidence": 0.99991524,
+      "speaker": null
+    },
+    {
+      "text": "más",
+      "start": 38019,
+      "end": 38243,
+      "confidence": 0.9999963,
+      "speaker": null
+    },
+    {
+      "text": "allá",
+      "start": 38243,
+      "end": 38467,
+      "confidence": 0.9999947,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 38467,
+      "end": 38516,
+      "confidence": 0.9996315,
+      "speaker": null
+    },
+    {
+      "text": "Canva,",
+      "start": 38628,
+      "end": 38996,
+      "confidence": 0.999987,
+      "speaker": null
+    },
+    {
+      "text": "herramientas",
+      "start": 39365,
+      "end": 39910,
+      "confidence": 0.9999903,
+      "speaker": null
+    },
+    {
+      "text": "como",
+      "start": 39910,
+      "end": 40150,
+      "confidence": 0.9999906,
+      "speaker": null
+    },
+    {
+      "text": "Composeo",
+      "start": 40230,
+      "end": 40871,
+      "confidence": 0.6244497,
+      "speaker": null
+    },
+    {
+      "text": "permiten",
+      "start": 40871,
+      "end": 41432,
+      "confidence": 0.9995677,
+      "speaker": null
+    },
+    {
+      "text": "conectar",
+      "start": 41432,
+      "end": 41929,
+      "confidence": 0.99995935,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 41929,
+      "end": 42089,
+      "confidence": 0.9728597,
+      "speaker": null
+    },
+    {
+      "text": "agente",
+      "start": 42089,
+      "end": 42554,
+      "confidence": 0.99978864,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 42875,
+      "end": 43035,
+      "confidence": 0.999846,
+      "speaker": null
+    },
+    {
+      "text": "muchísimas",
+      "start": 43035,
+      "end": 43772,
+      "confidence": 0.9999934,
+      "speaker": null
+    },
+    {
+      "text": "otras",
+      "start": 43772,
+      "end": 44012,
+      "confidence": 0.99992025,
+      "speaker": null
+    },
+    {
+      "text": "aplicaciones.",
+      "start": 44012,
+      "end": 44846,
+      "confidence": 0.9998697,
+      "speaker": null
+    },
+    {
+      "text": "La",
+      "start": 45198,
+      "end": 45295,
+      "confidence": 0.99975663,
+      "speaker": null
+    },
+    {
+      "text": "oportunidad",
+      "start": 45295,
+      "end": 45920,
+      "confidence": 0.99999404,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 45920,
+      "end": 46016,
+      "confidence": 0.999959,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 46016,
+      "end": 46096,
+      "confidence": 0.9999722,
+      "speaker": null
+    },
+    {
+      "text": "automatizar",
+      "start": 46096,
+      "end": 46705,
+      "confidence": 0.9999675,
+      "speaker": null
+    },
+    {
+      "text": "Canva,",
+      "start": 46801,
+      "end": 47154,
+      "confidence": 0.99952084,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 47314,
+      "end": 47698,
+      "confidence": 0.99951136,
+      "speaker": null
+    },
+    {
+      "text": "empezar",
+      "start": 47698,
+      "end": 48339,
+      "confidence": 0.9999406,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 48339,
+      "end": 48355,
+      "confidence": 0.99999034,
+      "speaker": null
+    },
+    {
+      "text": "utilizar",
+      "start": 48355,
+      "end": 49029,
+      "confidence": 0.9999219,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 49045,
+      "end": 49333,
+      "confidence": 0.99992466,
+      "speaker": null
+    },
+    {
+      "text": "como",
+      "start": 49605,
+      "end": 49862,
+      "confidence": 0.9997458,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 49862,
+      "end": 50086,
+      "confidence": 0.99997616,
+      "speaker": null
+    },
+    {
+      "text": "capa",
+      "start": 50086,
+      "end": 50487,
+      "confidence": 0.9999959,
+      "speaker": null
+    },
+    {
+      "text": "encima",
+      "start": 50583,
+      "end": 51080,
+      "confidence": 0.99996215,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 51080,
+      "end": 51288,
+      "confidence": 0.99999464,
+      "speaker": null
+    },
+    {
+      "text": "tus",
+      "start": 51288,
+      "end": 51464,
+      "confidence": 0.99986374,
+      "speaker": null
+    },
+    {
+      "text": "herramientas.",
+      "start": 51464,
+      "end": 52138,
+      "confidence": 0.99990916,
+      "speaker": null
+    },
+    {
+      "text": "Si",
+      "start": 52651,
+      "end": 52811,
+      "confidence": 0.99978036,
+      "speaker": null
+    },
+    {
+      "text": "quieres",
+      "start": 52811,
+      "end": 53019,
+      "confidence": 0.99988055,
+      "speaker": null
+    },
+    {
+      "text": "mi",
+      "start": 53019,
+      "end": 53131,
+      "confidence": 0.9996251,
+      "speaker": null
+    },
+    {
+      "text": "configuración",
+      "start": 53131,
+      "end": 54189,
+      "confidence": 0.9999894,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 54189,
+      "end": 54269,
+      "confidence": 0.9995671,
+      "speaker": null
+    },
+    {
+      "text": "algunos",
+      "start": 54269,
+      "end": 54654,
+      "confidence": 0.9999027,
+      "speaker": null
+    },
+    {
+      "text": "prompts",
+      "start": 54654,
+      "end": 55054,
+      "confidence": 0.99925846,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 55054,
+      "end": 55295,
+      "confidence": 0.99994075,
+      "speaker": null
+    },
+    {
+      "text": "probarlo,",
+      "start": 55295,
+      "end": 55663,
+      "confidence": 0.9998331,
+      "speaker": null
+    },
+    {
+      "text": "comenta",
+      "start": 56016,
+      "end": 56497,
+      "confidence": 0.99995315,
+      "speaker": null
+    },
+    {
+      "text": "Canva",
+      "start": 56497,
+      "end": 56897,
+      "confidence": 0.9995362,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 56913,
+      "end": 56977,
+      "confidence": 0.9993637,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 56977,
+      "end": 57138,
+      "confidence": 0.99988985,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 57138,
+      "end": 57218,
+      "confidence": 0.99507505,
+      "speaker": null
+    },
+    {
+      "text": "mando.",
+      "start": 57218,
+      "end": 57346,
+      "confidence": 0.99966407,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.989928,
+  "audio_duration": 63,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

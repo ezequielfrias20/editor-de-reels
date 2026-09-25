@@ -7,6 +7,7 @@ nominal se hunden en el fondo. Se mezcla hacia blanco hasta pasar 3:1 y se
 devuelve el ratio medido para que el mockup pueda fallar en vez de renderizar
 un logo ilegible.
 """
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -69,7 +70,58 @@ def _fit_svg(raw: str, size: int) -> str:
     return re.sub(r"<svg\b[^>]*>", repl, raw, count=1)
 
 
-def mark(slug: str, size: int, tone: str = "brand", bg: str = SURFACE) -> tuple[str, float | None]:
+_ID_ATTR = re.compile(r'\bid="([^"]+)"')
+_ID_REF = re.compile(r'url\(#([^)]+)\)|(?:xlink:)?href="#([^"]+)"')
+
+
+def svg_has_internal_refs(raw: str) -> bool:
+    """¿Este SVG apunta a sus propios ids? (gradientes, clip-paths, máscaras)"""
+    return _ID_REF.search(raw) is not None
+
+
+def namespace_svg_ids(raw: str, uid: str) -> str:
+    """Los ids internos del SVG, renombrados para ESTA instancia.
+
+    ⚠ **Un SVG vendorizado inlineado dos veces rompe el documento, y no se ve
+    venir.** La marca de Canva trae seis `<radialGradient>` con ids fijos que
+    exporta su herramienta (`_2002046508__a`…) y seis `fill="url(#…)"` que los
+    apuntan. La pieza 16 la pinta CINCO veces —la card de la pareja, su
+    reaparición, la pastilla del conector, la fila de teselas y el lineup— y el
+    navegador resuelve cada `url(#id)` al PRIMER elemento con ese id del
+    documento, que vive dentro del host de la primera card. En cuanto el
+    renderer oculta ese host, las otras cuatro se quedan sin relleno: **el
+    marco se sigue viendo y la marca desaparece**. Medido sobre snapshots en
+    t=15.5 y t=17.5 — el hueco del logo estaba a fondo `bg` liso.
+
+    El sufijo sale de un sha1 del `uid`, no de un contador: un contador
+    dependería del ORDEN de las llamadas y el mismo plan compilado dos veces
+    daría HTML distinto — los golden files no lo perdonarían. Con el hash, el
+    id de un visual depende solo de qué visual es.
+
+    Se renombran TODOS los ids, no solo los referenciados: dos ids iguales en
+    un documento son HTML inválido aunque nadie los apunte (el wordmark de
+    Anime.js trae nueve sin una sola referencia), y dejar la mitad limpia es
+    dejar el gate a medias.
+    """
+    token = hashlib.sha1(uid.encode()).hexdigest()[:8]
+    ids = set(_ID_ATTR.findall(raw))
+    if not ids:
+        return raw
+    out = _ID_ATTR.sub(lambda m: f'id="{m.group(1)}__{token}"', raw)
+
+    def ref(m):
+        old = m.group(1) or m.group(2)
+        if old not in ids:
+            # Una referencia a algo que este SVG no define se deja intacta:
+            # renombrarla la rompería en vez de arreglarla.
+            return m.group(0)
+        return (f'url(#{old}__{token})' if m.group(1)
+                else m.group(0).replace(f'#{old}', f'#{old}__{token}'))
+    return _ID_REF.sub(ref, out)
+
+
+def mark(slug: str, size: int, tone: str = "brand", bg: str = SURFACE,
+         uid: str = "") -> tuple[str, float | None]:
     """(html, ratio).
 
     Dos familias de marca, con contratos distintos:
@@ -107,6 +159,16 @@ def mark(slug: str, size: int, tone: str = "brand", bg: str = SURFACE) -> tuple[
     fmt = info["format"]
     if fmt == "svg":
         raw = (root / f"{slug}.svg").read_text()
+        if uid:
+            raw = namespace_svg_ids(raw, uid)
+        elif svg_has_internal_refs(raw):
+            raise ValueError(
+                f"{slug}: este SVG apunta a sus propios ids (gradiente, "
+                f"clip-path o máscara) y `mark()` se ha llamado sin `uid`. "
+                f"Inlineado dos veces en la misma composición, el navegador "
+                f"resuelve las dos referencias al PRIMER id del documento y "
+                f"la segunda marca se renderiza vacía. Pasa `uid=` con algo "
+                f"único por instancia — los mockups pasan su `cid`.")
         inner = _fit_svg(raw, size)
     elif fmt == "png":
         inner = (f'<img src="logos/{slug}.png" alt="{info["title"]}" '

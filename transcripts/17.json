@@ -1,0 +1,1062 @@
+{
+  "id": "215c9401-588a-445d-aa51-fce1bb7e224d",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/4ad38a07e072b086c78fe2b1c9b127fc791d3e2ad47111f233901e6fbf70e7f1/60493555-33f2-42fe-afc2-a29b0c2bcd8a",
+  "text": "Si para mejorar tu currículum haces esto: lo subes a una IA y escribes mejora mi currículum, estás desaprovechando casi todo lo que puede hacer. Yo lo dividiría en 4 pasos. Primero: diagnóstico. Pídele que analice el currículum contra la vacante concreta y encuentre desajustes. Segundo: keywords y competencias. Que compare varias ofertas del mismo perfil y detecte qué habilidades aparecen constantemente y cuáles faltan en tu currículum. Tercero, reescritura. En lugar de era responsable de, transforma cada experiencia en resultado, métrica e impacto cuando realmente existan. Y cuarto, entrevista. Dale la descripción del puesto y haz que te entreviste como si fuera el hiring manager, repreguntando cuando una respuesta sea débil. Analizar, detectar huecos, reescribir, practicar. Eso es mucho más potente que escribir Mejora mi currículum. Tengo los 4 prompts preparados. Comenta CV y te los mando.",
+  "words": [
+    {
+      "text": "Si",
+      "start": 176,
+      "end": 336,
+      "confidence": 0.9979528,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 336,
+      "end": 496,
+      "confidence": 0.99855715,
+      "speaker": null
+    },
+    {
+      "text": "mejorar",
+      "start": 496,
+      "end": 801,
+      "confidence": 0.99991405,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 817,
+      "end": 977,
+      "confidence": 0.99986935,
+      "speaker": null
+    },
+    {
+      "text": "currículum",
+      "start": 977,
+      "end": 1602,
+      "confidence": 0.9983459,
+      "speaker": null
+    },
+    {
+      "text": "haces",
+      "start": 1714,
+      "end": 2035,
+      "confidence": 0.99906814,
+      "speaker": null
+    },
+    {
+      "text": "esto:",
+      "start": 2035,
+      "end": 2307,
+      "confidence": 0.8111429,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 2660,
+      "end": 2772,
+      "confidence": 0.99703443,
+      "speaker": null
+    },
+    {
+      "text": "subes",
+      "start": 2772,
+      "end": 3077,
+      "confidence": 0.9999713,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 3077,
+      "end": 3157,
+      "confidence": 0.9995937,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 3157,
+      "end": 3381,
+      "confidence": 0.999736,
+      "speaker": null
+    },
+    {
+      "text": "IA",
+      "start": 3477,
+      "end": 3622,
+      "confidence": 0.99948186,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 3702,
+      "end": 3718,
+      "confidence": 0.9986873,
+      "speaker": null
+    },
+    {
+      "text": "escribes",
+      "start": 3718,
+      "end": 4343,
+      "confidence": 0.9115943,
+      "speaker": null
+    },
+    {
+      "text": "mejora",
+      "start": 4343,
+      "end": 4776,
+      "confidence": 0.9405447,
+      "speaker": null
+    },
+    {
+      "text": "mi",
+      "start": 4776,
+      "end": 4904,
+      "confidence": 0.99968517,
+      "speaker": null
+    },
+    {
+      "text": "currículum,",
+      "start": 4904,
+      "end": 5493,
+      "confidence": 0.9989659,
+      "speaker": null
+    },
+    {
+      "text": "estás",
+      "start": 5962,
+      "end": 6346,
+      "confidence": 0.9996552,
+      "speaker": null
+    },
+    {
+      "text": "desaprovechando",
+      "start": 6346,
+      "end": 7228,
+      "confidence": 0.9999695,
+      "speaker": null
+    },
+    {
+      "text": "casi",
+      "start": 7228,
+      "end": 7596,
+      "confidence": 0.9999502,
+      "speaker": null
+    },
+    {
+      "text": "todo",
+      "start": 7628,
+      "end": 7949,
+      "confidence": 0.9999223,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 7949,
+      "end": 8109,
+      "confidence": 0.99996984,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 8109,
+      "end": 8318,
+      "confidence": 0.9999845,
+      "speaker": null
+    },
+    {
+      "text": "puede",
+      "start": 8350,
+      "end": 8686,
+      "confidence": 0.99262846,
+      "speaker": null
+    },
+    {
+      "text": "hacer.",
+      "start": 8686,
+      "end": 8959,
+      "confidence": 0.9992838,
+      "speaker": null
+    },
+    {
+      "text": "Yo",
+      "start": 9632,
+      "end": 9792,
+      "confidence": 0.9996767,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 9792,
+      "end": 9872,
+      "confidence": 0.99946004,
+      "speaker": null
+    },
+    {
+      "text": "dividiría",
+      "start": 9872,
+      "end": 10626,
+      "confidence": 0.9999627,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 10690,
+      "end": 10754,
+      "confidence": 0.999775,
+      "speaker": null
+    },
+    {
+      "text": "4",
+      "start": 10754,
+      "end": 11395,
+      "confidence": 0.9998915,
+      "speaker": null
+    },
+    {
+      "text": "pasos.",
+      "start": 11395,
+      "end": 11763,
+      "confidence": 0.8824963,
+      "speaker": null
+    },
+    {
+      "text": "Primero:",
+      "start": 11956,
+      "end": 12324,
+      "confidence": 0.79573065,
+      "speaker": null
+    },
+    {
+      "text": "diagnóstico.",
+      "start": 12787,
+      "end": 13446,
+      "confidence": 0.99036956,
+      "speaker": null
+    },
+    {
+      "text": "Pídele",
+      "start": 14039,
+      "end": 14504,
+      "confidence": 0.9999772,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 14504,
+      "end": 14616,
+      "confidence": 0.9999101,
+      "speaker": null
+    },
+    {
+      "text": "analice",
+      "start": 14616,
+      "end": 15161,
+      "confidence": 0.99993277,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 15257,
+      "end": 15305,
+      "confidence": 0.9808344,
+      "speaker": null
+    },
+    {
+      "text": "currículum",
+      "start": 15402,
+      "end": 15882,
+      "confidence": 0.9967103,
+      "speaker": null
+    },
+    {
+      "text": "contra",
+      "start": 15882,
+      "end": 16235,
+      "confidence": 0.9995826,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 16235,
+      "end": 16315,
+      "confidence": 0.99977154,
+      "speaker": null
+    },
+    {
+      "text": "vacante",
+      "start": 16315,
+      "end": 16844,
+      "confidence": 0.99998194,
+      "speaker": null
+    },
+    {
+      "text": "concreta",
+      "start": 16844,
+      "end": 17213,
+      "confidence": 0.9994922,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 17581,
+      "end": 17661,
+      "confidence": 0.9980615,
+      "speaker": null
+    },
+    {
+      "text": "encuentre",
+      "start": 17661,
+      "end": 18287,
+      "confidence": 0.99983525,
+      "speaker": null
+    },
+    {
+      "text": "desajustes.",
+      "start": 18287,
+      "end": 19040,
+      "confidence": 0.99942565,
+      "speaker": null
+    },
+    {
+      "text": "Segundo:",
+      "start": 19408,
+      "end": 19937,
+      "confidence": 0.9998597,
+      "speaker": null
+    },
+    {
+      "text": "keywords",
+      "start": 20130,
+      "end": 20787,
+      "confidence": 0.9977124,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 20867,
+      "end": 21011,
+      "confidence": 0.99980146,
+      "speaker": null
+    },
+    {
+      "text": "competencias.",
+      "start": 21011,
+      "end": 21604,
+      "confidence": 0.9969539,
+      "speaker": null
+    },
+    {
+      "text": "Que",
+      "start": 22183,
+      "end": 22373,
+      "confidence": 0.99974614,
+      "speaker": null
+    },
+    {
+      "text": "compare",
+      "start": 22373,
+      "end": 22854,
+      "confidence": 0.99950767,
+      "speaker": null
+    },
+    {
+      "text": "varias",
+      "start": 22854,
+      "end": 23191,
+      "confidence": 0.99978787,
+      "speaker": null
+    },
+    {
+      "text": "ofertas",
+      "start": 23191,
+      "end": 23656,
+      "confidence": 0.99992514,
+      "speaker": null
+    },
+    {
+      "text": "del",
+      "start": 23656,
+      "end": 23816,
+      "confidence": 0.9974316,
+      "speaker": null
+    },
+    {
+      "text": "mismo",
+      "start": 23816,
+      "end": 24136,
+      "confidence": 0.9999392,
+      "speaker": null
+    },
+    {
+      "text": "perfil",
+      "start": 24136,
+      "end": 24593,
+      "confidence": 0.99998426,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 25034,
+      "end": 25098,
+      "confidence": 0.99906236,
+      "speaker": null
+    },
+    {
+      "text": "detecte",
+      "start": 25098,
+      "end": 25739,
+      "confidence": 0.99974823,
+      "speaker": null
+    },
+    {
+      "text": "qué",
+      "start": 25739,
+      "end": 25835,
+      "confidence": 0.9998259,
+      "speaker": null
+    },
+    {
+      "text": "habilidades",
+      "start": 25835,
+      "end": 26476,
+      "confidence": 0.999971,
+      "speaker": null
+    },
+    {
+      "text": "aparecen",
+      "start": 26476,
+      "end": 27021,
+      "confidence": 0.9998705,
+      "speaker": null
+    },
+    {
+      "text": "constantemente",
+      "start": 27021,
+      "end": 27903,
+      "confidence": 0.9998596,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 27919,
+      "end": 28063,
+      "confidence": 0.9956976,
+      "speaker": null
+    },
+    {
+      "text": "cuáles",
+      "start": 28063,
+      "end": 28464,
+      "confidence": 0.99988496,
+      "speaker": null
+    },
+    {
+      "text": "faltan",
+      "start": 28464,
+      "end": 28800,
+      "confidence": 0.99885476,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 28800,
+      "end": 28945,
+      "confidence": 0.99707735,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 28945,
+      "end": 29105,
+      "confidence": 0.9986528,
+      "speaker": null
+    },
+    {
+      "text": "currículum.",
+      "start": 29105,
+      "end": 29313,
+      "confidence": 0.9994147,
+      "speaker": null
+    },
+    {
+      "text": "Tercero,",
+      "start": 29986,
+      "end": 30516,
+      "confidence": 0.96828556,
+      "speaker": null
+    },
+    {
+      "text": "reescritura.",
+      "start": 30708,
+      "end": 31367,
+      "confidence": 0.9962368,
+      "speaker": null
+    },
+    {
+      "text": "En",
+      "start": 31786,
+      "end": 31926,
+      "confidence": 0.99998534,
+      "speaker": null
+    },
+    {
+      "text": "lugar",
+      "start": 31926,
+      "end": 32231,
+      "confidence": 0.9999933,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 32231,
+      "end": 32407,
+      "confidence": 0.99992657,
+      "speaker": null
+    },
+    {
+      "text": "era",
+      "start": 32407,
+      "end": 32551,
+      "confidence": 0.96018577,
+      "speaker": null
+    },
+    {
+      "text": "responsable",
+      "start": 32551,
+      "end": 33353,
+      "confidence": 0.9998982,
+      "speaker": null
+    },
+    {
+      "text": "de,",
+      "start": 33353,
+      "end": 33481,
+      "confidence": 0.99959815,
+      "speaker": null
+    },
+    {
+      "text": "transforma",
+      "start": 33754,
+      "end": 34395,
+      "confidence": 0.9999606,
+      "speaker": null
+    },
+    {
+      "text": "cada",
+      "start": 34395,
+      "end": 34587,
+      "confidence": 0.9999769,
+      "speaker": null
+    },
+    {
+      "text": "experiencia",
+      "start": 34587,
+      "end": 35213,
+      "confidence": 0.99999774,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 35213,
+      "end": 35309,
+      "confidence": 0.9999614,
+      "speaker": null
+    },
+    {
+      "text": "resultado,",
+      "start": 35309,
+      "end": 35806,
+      "confidence": 0.8289842,
+      "speaker": null
+    },
+    {
+      "text": "métrica",
+      "start": 36078,
+      "end": 36639,
+      "confidence": 0.99838334,
+      "speaker": null
+    },
+    {
+      "text": "e",
+      "start": 36736,
+      "end": 36768,
+      "confidence": 0.99996233,
+      "speaker": null
+    },
+    {
+      "text": "impacto",
+      "start": 36816,
+      "end": 37441,
+      "confidence": 0.9999962,
+      "speaker": null
+    },
+    {
+      "text": "cuando",
+      "start": 37441,
+      "end": 37714,
+      "confidence": 0.9996655,
+      "speaker": null
+    },
+    {
+      "text": "realmente",
+      "start": 37714,
+      "end": 38259,
+      "confidence": 0.9999888,
+      "speaker": null
+    },
+    {
+      "text": "existan.",
+      "start": 38259,
+      "end": 38531,
+      "confidence": 0.9820289,
+      "speaker": null
+    },
+    {
+      "text": "Y",
+      "start": 39271,
+      "end": 39365,
+      "confidence": 0.99994755,
+      "speaker": null
+    },
+    {
+      "text": "cuarto,",
+      "start": 39445,
+      "end": 39814,
+      "confidence": 0.9996115,
+      "speaker": null
+    },
+    {
+      "text": "entrevista.",
+      "start": 40022,
+      "end": 40615,
+      "confidence": 0.9984283,
+      "speaker": null
+    },
+    {
+      "text": "Dale",
+      "start": 41048,
+      "end": 41289,
+      "confidence": 0.999464,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 41289,
+      "end": 41337,
+      "confidence": 0.99996626,
+      "speaker": null
+    },
+    {
+      "text": "descripción",
+      "start": 41369,
+      "end": 41882,
+      "confidence": 0.9999961,
+      "speaker": null
+    },
+    {
+      "text": "del",
+      "start": 41930,
+      "end": 42042,
+      "confidence": 0.99999547,
+      "speaker": null
+    },
+    {
+      "text": "puesto",
+      "start": 42170,
+      "end": 42587,
+      "confidence": 0.999997,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 42587,
+      "end": 42667,
+      "confidence": 0.99997616,
+      "speaker": null
+    },
+    {
+      "text": "haz",
+      "start": 42667,
+      "end": 42811,
+      "confidence": 0.9999275,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 42811,
+      "end": 42892,
+      "confidence": 0.9999889,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 42892,
+      "end": 42988,
+      "confidence": 0.99986494,
+      "speaker": null
+    },
+    {
+      "text": "entreviste",
+      "start": 42988,
+      "end": 43613,
+      "confidence": 0.99765414,
+      "speaker": null
+    },
+    {
+      "text": "como",
+      "start": 43693,
+      "end": 43854,
+      "confidence": 0.99996173,
+      "speaker": null
+    },
+    {
+      "text": "si",
+      "start": 43854,
+      "end": 44014,
+      "confidence": 0.99999523,
+      "speaker": null
+    },
+    {
+      "text": "fuera",
+      "start": 44014,
+      "end": 44383,
+      "confidence": 0.9773834,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 44511,
+      "end": 44751,
+      "confidence": 0.9998765,
+      "speaker": null
+    },
+    {
+      "text": "hiring",
+      "start": 44751,
+      "end": 44976,
+      "confidence": 0.9968989,
+      "speaker": null
+    },
+    {
+      "text": "manager,",
+      "start": 44976,
+      "end": 45425,
+      "confidence": 0.9944429,
+      "speaker": null
+    },
+    {
+      "text": "repreguntando",
+      "start": 45809,
+      "end": 46611,
+      "confidence": 0.9997014,
+      "speaker": null
+    },
+    {
+      "text": "cuando",
+      "start": 46611,
+      "end": 47220,
+      "confidence": 0.96680784,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 47300,
+      "end": 47412,
+      "confidence": 0.9998311,
+      "speaker": null
+    },
+    {
+      "text": "respuesta",
+      "start": 47412,
+      "end": 48022,
+      "confidence": 0.9999943,
+      "speaker": null
+    },
+    {
+      "text": "sea",
+      "start": 48022,
+      "end": 48182,
+      "confidence": 0.9998381,
+      "speaker": null
+    },
+    {
+      "text": "débil.",
+      "start": 48182,
+      "end": 48390,
+      "confidence": 0.99557775,
+      "speaker": null
+    },
+    {
+      "text": "Analizar,",
+      "start": 48970,
+      "end": 49593,
+      "confidence": 0.9999031,
+      "speaker": null
+    },
+    {
+      "text": "detectar",
+      "start": 49705,
+      "end": 50250,
+      "confidence": 0.9999958,
+      "speaker": null
+    },
+    {
+      "text": "huecos,",
+      "start": 50587,
+      "end": 51100,
+      "confidence": 0.9998601,
+      "speaker": null
+    },
+    {
+      "text": "reescribir,",
+      "start": 51340,
+      "end": 52013,
+      "confidence": 0.99877524,
+      "speaker": null
+    },
+    {
+      "text": "practicar.",
+      "start": 52110,
+      "end": 52558,
+      "confidence": 0.99975544,
+      "speaker": null
+    },
+    {
+      "text": "Eso",
+      "start": 52927,
+      "end": 53136,
+      "confidence": 0.99983317,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 53136,
+      "end": 53184,
+      "confidence": 0.99999,
+      "speaker": null
+    },
+    {
+      "text": "mucho",
+      "start": 53184,
+      "end": 53552,
+      "confidence": 0.99998355,
+      "speaker": null
+    },
+    {
+      "text": "más",
+      "start": 53552,
+      "end": 53793,
+      "confidence": 0.99997544,
+      "speaker": null
+    },
+    {
+      "text": "potente",
+      "start": 53793,
+      "end": 54226,
+      "confidence": 0.99999166,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 54274,
+      "end": 54418,
+      "confidence": 0.9998779,
+      "speaker": null
+    },
+    {
+      "text": "escribir",
+      "start": 54418,
+      "end": 54899,
+      "confidence": 0.9999545,
+      "speaker": null
+    },
+    {
+      "text": "Mejora",
+      "start": 55156,
+      "end": 55559,
+      "confidence": 0.9014942,
+      "speaker": null
+    },
+    {
+      "text": "mi",
+      "start": 55559,
+      "end": 55640,
+      "confidence": 0.999708,
+      "speaker": null
+    },
+    {
+      "text": "currículum.",
+      "start": 55640,
+      "end": 56334,
+      "confidence": 0.88870347,
+      "speaker": null
+    },
+    {
+      "text": "Tengo",
+      "start": 56608,
+      "end": 56850,
+      "confidence": 0.99973303,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 56850,
+      "end": 56931,
+      "confidence": 0.9998779,
+      "speaker": null
+    },
+    {
+      "text": "4",
+      "start": 56931,
+      "end": 57415,
+      "confidence": 0.99997866,
+      "speaker": null
+    },
+    {
+      "text": "prompts",
+      "start": 57415,
+      "end": 57819,
+      "confidence": 0.99873334,
+      "speaker": null
+    },
+    {
+      "text": "preparados.",
+      "start": 57819,
+      "end": 58240,
+      "confidence": 0.9720827,
+      "speaker": null
+    },
+    {
+      "text": "Comenta",
+      "start": 58666,
+      "end": 59110,
+      "confidence": 0.99975175,
+      "speaker": null
+    },
+    {
+      "text": "CV",
+      "start": 59110,
+      "end": 59513,
+      "confidence": 0.9864455,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 59771,
+      "end": 59836,
+      "confidence": 0.9990644,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 59917,
+      "end": 59997,
+      "confidence": 0.99993026,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 59997,
+      "end": 60078,
+      "confidence": 0.99957734,
+      "speaker": null
+    },
+    {
+      "text": "mando.",
+      "start": 60078,
+      "end": 60368,
+      "confidence": 0.99966806,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.9903025,
+  "audio_duration": 64,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

@@ -1,0 +1,125 @@
+{
+  "source_duration": 64.235737,
+  "final_duration": 53.47500000000001,
+  "removed": 10.760736999999994,
+  "cuts": [
+    {
+      "start": 0.0,
+      "end": 0.108,
+      "dur": 0.108,
+      "reason": "cabeza muerta"
+    },
+    {
+      "start": 9.331,
+      "end": 9.682,
+      "dur": 0.351,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 11.263,
+      "end": 13.13,
+      "dur": 1.867,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 21.339,
+      "end": 21.872,
+      "dur": 0.533,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 23.745,
+      "end": 24.078,
+      "dur": 0.333,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 33.942,
+      "end": 34.277,
+      "dur": 0.335,
+      "reason": "pausa interna"
+    },
+    {
+      "start": 38.415,
+      "end": 39.144,
+      "dur": 0.729,
+      "reason": "pausa interna"
+    },
+    {
+      "start": 41.865,
+      "end": 42.301,
+      "dur": 0.436,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 44.899,
+      "end": 45.472,
+      "dur": 0.573,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 46.42,
+      "end": 47.812,
+      "dur": 1.392,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 60.132,
+      "end": 64.236,
+      "dur": 4.104,
+      "reason": "cola muerta"
+    }
+  ],
+  "keeps": [
+    {
+      "start": 0.108,
+      "end": 9.331,
+      "dur": 9.223
+    },
+    {
+      "start": 9.682,
+      "end": 11.263,
+      "dur": 1.581
+    },
+    {
+      "start": 13.13,
+      "end": 21.339,
+      "dur": 8.209
+    },
+    {
+      "start": 21.872,
+      "end": 23.745,
+      "dur": 1.873
+    },
+    {
+      "start": 24.078,
+      "end": 33.942,
+      "dur": 9.864
+    },
+    {
+      "start": 34.277,
+      "end": 38.415,
+      "dur": 4.138
+    },
+    {
+      "start": 39.144,
+      "end": 41.865,
+      "dur": 2.721
+    },
+    {
+      "start": 42.301,
+      "end": 44.899,
+      "dur": 2.598
+    },
+    {
+      "start": 45.472,
+      "end": 46.42,
+      "dur": 0.948
+    },
+    {
+      "start": 47.812,
+      "end": 60.132,
+      "dur": 12.32
+    }
+  ]
+}

@@ -1,0 +1,712 @@
+{
+  "format": "REEL",
+  "_": "REEL 19 — Agency Agents: una agencia entera dentro de Claude Code. ⚠ `VIDEOS ORIGINALES/7` es la pieza 19, NO la 7: la numeración de la carpeta fuente no es la del estudio (1→15, 2→16, 3→17, 4→18, 7→19). Quinta vez que esta nota hace falta. Todos los tiempos están en la línea del CORTE (58.86 s) y salen del transcript remapeado, no del crudo.",
+  "_fuente": "`VIDEOS ORIGINALES/7/pantalla.MOV`: 72.72 s, HEVC SDR bt709, 1080x1920, rot 0 → corte 58.86 s (19 % fuera, 14 cortes). 144 palabras, confianza 0.987. Cara `chin_frac` 0.4778, `top_frac` 0.3031, 48/48 muestras. `anchor` 0.42 → barbilla proyectada y1474 (62 px bajo el suelo seguro y1536) y borde superior de la cara y1139 (179 px de aire bajo el techo de la banda `speaker`).",
+  "_verificacion_transcript": "`refine-timings` cuadró 17 bordes y marcó CUATRO palabras con alineación imposible. Se re-transcribieron los cuatro tramos sueltos, como manda la regla dura, y los cuatro son FALSOS POSITIVOS — pero el cuarto solo se pudo descartar MIDIENDO, no comparando transcripciones. «único» (+34 ms), «tiene» (+27) y «para» (+15) volvieron pegados a los originales. «especialistas.» volvió en 4.746-5.674 frente a 4.782-5.217: 457 ms más larga, que habría convertido el hueco de 516 ms anterior a «Se» en uno de 114 y movido el corte. La envolvente y `voicing.py` sobre ese tramo dicen que entre 5.22 y 5.71 el audio está en el SUELO DE RUIDO (-52 a -71 dB, umbral -45): silencio real. La re-transcripción suelta estiró la palabra sobre el silencio, y el transcript largo tenía razón. La lección de la pieza 18 se invierte otra vez, y en la misma dirección que dice §14: la conclusión no se hereda, se vuelve a medir — y aquí quien desempata no es la segunda transcripción, es el audio.",
+  "_transcripcion": "El modelo oye «Cloud Code», «Agency Agent.» y «agency» en el CTA. El audio no se toca; lo que se corrige es el TEXTO de tres palabras para que el subtítulo escriba las marcas bien: «Claude», «Agents.» y «AGENCY». Misma disciplina que la 15 con Kokonut UI y la 18 con HyperFrames.",
+  "_instrucciones": "El usuario dejó `instrucciones.md` pidiendo la grabación de la página de Agency Agents, mockups «para que se vea más dinámico», y una cosa concreta sobre las animaciones: «me gusta que las animaciones también lleven iconos y así, no solo textos y recuadros». Esa frase es la que define la pieza — la librería estaba hecha casi entera de pastillas, tarjetas y titulares. Nace `scripts/icons.py` (16 glifos de línea en `currentColor`, NUNCA un emoji: §14) y los cinco componentes que lo usan. Las cuatro decisiones abiertas se le preguntaron ANTES de construir nada (paso 3b) y eligió: P1 triband desde el segundo 0, con el asistente único multiplicándose · P2 mockup de gestor de escritorio para la app (no hay grabación) · P3 cinco chips con icono, uno por palabra · P4 la lectura fácil tachada y el problema partiéndose en tres.",
+  "_material": "`2026-09-22 08-39-25.mov` (23.4 s, 1280x720) es la WEB de agencyagents.dev. Tiene hero, banda de cifras, rejilla de 13 divisiones, «One command. Any tool.», «Agent of the day», «Roles think. Skills just execute.», «How it works» y la sección de comunidad. NO tiene la aplicación de escritorio, que es justo el beat más largo del guion (7.2 s) — por eso `desktop_manager` es un mockup declarado y no un redibujo. La regla de oro de §7 manda usar la grabación real *cuando existe*; para ese beat no existe. Mismo caso que `agent_editor` en la 18.\nMESETAS MEDIDAS a 10 fps por correlación cruzada columna a columna: 0.00-1.30 · 4.00-4.70 · 6.90-7.50 · 9.50-10.20 · 10.60-11.40 · 11.90-12.40 · 16.20-17.90 · 22.10-23.30.",
+  "_curva": "HOOK 0-6.2 s la agencia llenándose de especialistas, en triband desde el primer frame (P1) · PRODUCTO 6.2-13.7 s la marca, el agente solo aplastado y la rejilla REAL de 13 divisiones · ENUMERACIÓN 13.7-23.2 s los cinco especialistas con su icono y lo que cada uno trae · SELECCIÓN 23.2-31.8 s los 146 bajando y el equipo de tres · MÉTODO 31.8-39.9 s los tres pasos encadenados · HERRAMIENTA 39.9-47.9 s el gestor de escritorio · TESIS 47.9-54.6 s la lectura fácil tachada y el problema repartido · CTA 54.6-fin el repo real y el comentario.",
+  "layout": {
+    "mode": "triband",
+    "bands": {
+      "top": [
+        0,
+        660
+      ],
+      "text": [
+        660,
+        960
+      ],
+      "speaker": [
+        960,
+        1920
+      ]
+    }
+  },
+  "keywords": [
+    "Agency",
+    "Agents.",
+    "especialistas.",
+    "agentes",
+    "frontend,",
+    "marketing,",
+    "ingeniería.",
+    "entregables.",
+    "todos.",
+    "equipo",
+    "estrategia,",
+    "escritorio",
+    "gratis,",
+    "especialistas.",
+    "AGENCY"
+  ],
+  "voice_gain": 0.7,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "target_mean": -34.0
+  },
+  "_shots": "Catorce encuadres, todos `band` con `anchor` 0.42 — el layout por defecto de todo REEL (§4), y además la P1 del usuario: triband desde el segundo 0, así que no hay ningún tramo a plano lleno. Los cortes caen exactamente en los bordes de beat, que es donde también cambia la banda de arriba. `band` no lleva escalera de zoom: el rect de la banda ya recorta fuerte.",
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 6.189,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 7.82,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 10.459,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 13.749,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 18.758,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 21.088,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 23.223,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 27.381,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 32.036,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 39.919,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 45.623,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 54.553,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 56.884,
+      "kind": "band",
+      "anchor": 0.42
+    }
+  ],
+  "cards": [],
+  "_visuales": "Catorce visuales y la banda `top` no se queda vacía ni un instante: el `end` de cada uno ES el `start` del siguiente, y el primer elemento de cada visual entra EN ese borde. ⚠ Eso último no salió del plan sino de medir el MP4: la cobertura declarada que garantiza `check_band_top_covered` no dice nada de la luma, y seis relevos pasaban entre 200 y 663 ms en suelo grafito porque el visual entrante esperaba su palabra desde dentro. El suelo real del sistema son 133 ms —el fundido de relevo que aplica el runtime de HyperFrames a los `class=\"clip\"`, medido limpio en el corte a la grabación del hero— y a cuatro frames se lee como el CORTE DURO que pide §6. Los dos huecos que el guion abría se cerraron como manda la doctrina: SOSTENIENDO el visual anterior (el roster cubre «Puedes», el equipo cubre «Por ejemplo») y moviendo el LÍMITE del segmento, nunca adelantando el visual siguiente (§7). Y el de la tesis, DIBUJANDO el hueco de la tarjeta: el idioma que `calendar` usa para la hora sin paciente y `tool_pair` para la marca que aún no se ha dicho.",
+  "visuals": [
+    {
+      "id": "v-hook",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 0.0,
+      "end": 6.189,
+      "absolute_times": true,
+      "_": "El hook, y la P1 del usuario: triband desde el primer frame. ⚠ El primer montaje dejaba la banda `top` en SUELO GRAFITO hasta 0.955 —luma 27 medida sobre el MP4— porque el visual estaba declarado desde 0.000 pero su primer elemento esperaba a «open». `check_band_top_covered` lo daba por bueno y tenía razón: garantiza cobertura DECLARADA, no luma renderizada (§4), y lo que el usuario pidió es lo segundo. Ahora la ESTRUCTURA —el marco del hub y los doce huecos discontinuos— entra en «Hay» (0.150): es chrome, no nombra nada, igual que el área de trabajo dibujada de `agent_editor`. Lo que espera su palabra es el contenido: la pastilla OPEN SOURCE en «open» (0.955), la marca de Claude dentro del marco en «Claude» (2.791), y en «una agencia» (3.661) las tres bajantes se DIBUJAN —lo que se afirma es que la marca ALCANZA a cada especialista— y los doce agentes tapan sus huecos escalonados 62 ms dentro de la ventana de «llena de especialistas» (hasta 5.013). Los doce NO van uno por palabra: el guion no nombra doce cosas, nombra una que está llena.",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "fanout",
+          "kicker": "OPEN SOURCE",
+          "slug": "claude",
+          "at": [
+            0.15,
+            0.955,
+            2.791,
+            3.661
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-brand",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 6.189,
+      "end": 7.82,
+      "_": "«Se llama Agency Agents.» La card de marca clavada a «Agency» (6.189). El logo se vendorizó del favicon.ico del sitio — ver `_marca`.",
+      "mock": [
+        "tool_card",
+        {
+          "slug": "agencyagents",
+          "name": "Agency Agents",
+          "kicker": "EL PROYECTO"
+        }
+      ]
+    },
+    {
+      "id": "v-solo",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 7.82,
+      "end": 10.459,
+      "absolute_times": true,
+      "_": "«En vez de tener un único asistente haciendo de todo.» La tarjeta entra en «En» (7.820) —que es literalmente su rótulo, EN VEZ DE— y no en «tener»: medido sobre el MP4, con la tarjeta en 8.347 la banda pasaba 663 ms en suelo grafito, de los cuales 530 eran míos y solo 133 del relevo que aplica el runtime. Las cuatro cargas caen en «tener» (8.347), «único» (8.846), «asistente» (9.056) y «haciendo» (9.523). Las filas van SIN etiqueta: las especialidades no se nombran hasta 13.7 s y rotularlas aquí dejaría leer «marketing» seis segundos antes de oírlo. Lo que el frame dice no es QUÉ trabajos son, es cuántos caen sobre uno solo, y eso es volumen, no contenido (la respuesta de `spreadsheet`, pieza 14).",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "solo",
+          "kicker": "EN VEZ DE",
+          "label": "UN SOLO AGENTE",
+          "tasks": [
+            [
+              "stack",
+              ""
+            ],
+            [
+              "stack",
+              ""
+            ],
+            [
+              "stack",
+              ""
+            ],
+            [
+              "stack",
+              ""
+            ]
+          ],
+          "at": [
+            7.82,
+            8.347,
+            8.846,
+            9.056,
+            9.523
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-rec-grid",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 10.459,
+      "end": 13.749,
+      "src": "agency-grid.mp4",
+      "rect": [
+        60,
+        100,
+        960,
+        540
+      ],
+      "_": "«El proyecto reúne agentes con funciones diferentes.» La rejilla REAL de 13 divisiones, que es exactamente lo que la frase enuncia — la regla de oro de §7: si existe la grabación, ella manda. Tres tramos: la banda de cifras (146 Agents · 13 Divisions · 60k+ Stars · 6 Tools) y dos recortes de la MISMA ventana quieta sobre la rejilla, uno ancho y otro cerrado. Entrada y salida de los tres verificadas sobre el MP4 del tour.",
+      "tool_recording": {
+        "slug": "agencyagents",
+        "name": "Agency Agents",
+        "hairline": 1
+      }
+    },
+    {
+      "id": "v-specs",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 13.749,
+      "end": 18.758,
+      "absolute_times": true,
+      "_": "Los cinco especialistas, cada uno clavado a su palabra — la P3 del usuario. Es `chip_grid`, el componente que ya contesta «cuántas cosas a la vez», con el campo `icons_` nuevo: un glifo dibujado por especialidad (llaves, megáfono, hoja, tres personas, engranaje) en vez de cinco pastillas de texto. La pastilla FUNCIONES DIFERENTES no adelanta nada: «funciones diferentes» se dice en 12.136-13.394, antes de que este visual entre.",
+      "mock": [
+        "chip_grid",
+        {
+          "chips": [
+            "FRONTEND",
+            "MARKETING",
+            "CONTENIDO",
+            "COMUNIDAD",
+            "INGENIERÍA"
+          ],
+          "icons_": [
+            "code",
+            "megaphone",
+            "doc",
+            "people",
+            "gear"
+          ],
+          "kicker": "FUNCIONES DIFERENTES",
+          "at": [
+            13.749,
+            14.591,
+            15.543,
+            16.623,
+            17.634
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-rec-roles",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 18.758,
+      "end": 21.088,
+      "src": "agency-roles.mp4",
+      "rect": [
+        60,
+        100,
+        960,
+        540
+      ],
+      "_": "«Cada uno tiene sus propias instrucciones.» La sección «Roles think. Skills just execute.» de la página real, cuyo panel Role-based lleva tres instrucciones literales («You are the Reality Checker…», «You are the Security Engineer…», «You are the Code Reviewer…»). Es la frase, escrita por el propio producto. Dos recortes de la meseta 16.20-17.90: el titular y el panel.",
+      "tool_recording": {
+        "slug": "agencyagents",
+        "name": "Agency Agents",
+        "hairline": 1
+      }
+    },
+    {
+      "id": "v-kit",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 21.088,
+      "end": 23.223,
+      "absolute_times": true,
+      "_": "«…forma de trabajar y entregables.» El relevo de la grabación al gráfico: INSTRUCCIONES recapitula lo que el panel real acaba de enseñar y las otras dos esperan su palabra — «forma» (21.088) y «entregables.» (22.309). Tres chips con icono, el mismo componente que los cinco especialistas, así que el frame se lee como la continuación de aquél y no como un gráfico nuevo.",
+      "mock": [
+        "chip_grid",
+        {
+          "chips": [
+            "INSTRUCCIONES",
+            "FORMA DE TRABAJAR",
+            "ENTREGABLES"
+          ],
+          "icons_": [
+            "doc",
+            "gear",
+            "repo"
+          ],
+          "at": [
+            21.088,
+            21.489,
+            22.309
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-roster",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 23.223,
+      "end": 27.381,
+      "absolute_times": true,
+      "_": "«Y aquí está lo interesante: no necesitas utilizar todos.» Los 146 encendidos con el contador subiendo desde 0 en «Y» (23.223), y en «no» (25.292) los 143 que sobran BAJAN de intensidad — no se apagan. A opacidad 0 el frame diría que dejaron de existir; la frase dice que siguen ahí sin usarse, la misma distinción que `idea_fate` hace entre una salida apagada y una en rojo. Los 143 son UN tween (`fade-to` sobre un selector que casa con todos), no 143 decisiones editoriales.",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "roster",
+          "label": "AGENTES",
+          "total": 146,
+          "lit": 3,
+          "at": [
+            23.223,
+            25.292
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-team",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 27.381,
+      "end": 32.036,
+      "absolute_times": true,
+      "_": "«Puedes montar un pequeño equipo dependiendo de la tarea.» El MISMO tablero en su cuarto estado: tres, con su icono. Los tres nombres son especialidades ya dichas en 13.7-18.4, así que ninguno adelanta el guion. El roster SOSTIENE hasta 27.381 en vez de que el equipo entre en 27.060 y se pase 320 ms con la banda vacía esperando su palabra: es el mismo tablero, así que sostenerlo no cuenta nada que no se haya dicho. La pastilla espera a «tarea.» (30.275), no a «dependiendo» (29.149): decir SEGÚN LA TAREA un segundo antes de la palabra es el error del kicker de `layer_stack` en la pieza 16. Se estira hasta 32.036 para cubrir «Por ejemplo, un» — el límite del segmento siguiente se mueve, no se adelanta su primer paso (trampa 6b).",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "team",
+          "label": "SEGÚN LA TAREA",
+          "team": [
+            [
+              "code",
+              "FRONTEND"
+            ],
+            [
+              "megaphone",
+              "MARKETING"
+            ],
+            [
+              "gear",
+              "INGENIERÍA"
+            ]
+          ],
+          "at": [
+            27.381,
+            28.056,
+            28.522,
+            30.275
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-flow",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 32.036,
+      "end": 39.919,
+      "absolute_times": true,
+      "_": "«Un agente plantea la estrategia, otro construye, y otro busca problemas antes de publicar.» Aquí SÍ es una cadena —cada paso existe porque el anterior ocurrió— así que es `flow_steps` y no otra rejilla de chips: la distinción que §7 hace entre «cuántas cosas a la vez» y «qué dispara qué». Con `icons_`, el campo nuevo. Cada paso en su verbo: «agente» (32.036), «construye,» (34.319), «busca» (35.958). Arranca EN «agente» (32.036) y no en «Por ejemplo» (30.947): la ventana de un segmento empieza donde entra su primer elemento, que es como la trampa 6b manda cerrar un hueco sin adelantar el guion. Se sostiene hasta «aplicación» (39.919) para cubrir «Incluso existe una», que no nombra nada nuevo que clavar.",
+      "mock": [
+        "flow_steps",
+        {
+          "steps": [
+            "PLANTEA LA ESTRATEGIA",
+            "CONSTRUYE",
+            "BUSCA PROBLEMAS"
+          ],
+          "icons_": [
+            "strategy",
+            "build",
+            "inspect"
+          ],
+          "at": [
+            32.036,
+            34.319,
+            35.958
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-desktop",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 39.919,
+      "end": 45.623,
+      "absolute_times": true,
+      "_": "«Incluso existe una aplicación de escritorio para gestionar e instalar estos agentes.» El beat más largo del guion y el único sin grabación posible: la web enseña una línea de terminal (`cp -r agency-agents/* ~/.claude/agents/`), o sea lo contrario de lo que dice la frase. Lo que la hace de ESCRITORIO y no un navegador es el semáforo y la ausencia de barra de direcciones. La ventana sube en «aplicación» (39.919) CON sus cuatro filas puestas —dibujarla vacía tres segundos la leería como un panel roto— y lo que espera su palabra es el ESTADO: los dos INSTALADO en «gestionar» (41.616) e «instalar» (42.191), y los dos INSTALAR en «agentes» (43.438) y «sencilla.» (44.636). Las cuatro filas son especialidades ya nombradas.",
+      "mock": [
+        "desktop_manager",
+        {
+          "title": "Agency Agents",
+          "kicker": "ESCRITORIO",
+          "installed": 2,
+          "rows": [
+            [
+              "code",
+              "Frontend"
+            ],
+            [
+              "megaphone",
+              "Marketing"
+            ],
+            [
+              "doc",
+              "Contenido"
+            ],
+            [
+              "gear",
+              "Ingeniería"
+            ]
+          ],
+          "at": [
+            39.919,
+            41.616,
+            42.191,
+            43.438,
+            44.636
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-thesis",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 45.623,
+      "end": 54.553,
+      "absolute_times": true,
+      "_": "La tesis, y la P4 del usuario. Son DOS afirmaciones encadenadas, no dos gráficos: una sustituye a la otra, y eso se dibuja tachando la primera en su sitio (el mecanismo de `rewrite_line`, pieza 17). El hueco discontinuo entra en «Yo» (45.623) y espera: la tarjeta no puede decir «EMPLEADO GRATIS» hasta que se diga, y son 2.3 s. El texto llega en «empleado» (47.889), el tachado en «lo vería» (49.169) —cuando la frase completa la negación—, el nudo en «problemas» (50.776) y las tres bajantes se DIBUJAN en «especialistas.» (52.641), porque lo que se afirma es que el problema ALCANZA a cada uno. El nudo no se tiñe ni se apaga al repartirse: rojo diría que el problema falla, apagarlo que desaparece.",
+      "mock": [
+        "split_problem",
+        {
+          "hire": "+1 EMPLEADO GRATIS",
+          "problem": "PROBLEMA COMPLEJO",
+          "at": [
+            45.623,
+            47.889,
+            49.169,
+            50.776,
+            52.641
+          ],
+          "specialists": [
+            [
+              "code",
+              "FRONTEND"
+            ],
+            [
+              "megaphone",
+              "MARKETING"
+            ],
+            [
+              "gear",
+              "INGENIERÍA"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-rec-hero",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 54.553,
+      "end": 56.884,
+      "src": "agency-hero.mp4",
+      "rect": [
+        60,
+        100,
+        960,
+        540
+      ],
+      "_": "«Si quieres el repo…» — «repo» cae en 54.553 y el hero real lleva el botón «View on GitHub» en cuadro. Dos tramos: el titular con la marca, y la banda de cifras con los contadores de la propia página trepando (95→145 agentes, 8→12 divisiones, 39k→59k estrellas). Esa segunda ventana la había DESCARTADO la correlación cruzada por «cambio»: una medida de desplazamiento no distingue un scroll de un número subiendo, y resultó ser la mejor del tour.",
+      "tool_recording": {
+        "slug": "agencyagents",
+        "name": "Agency Agents",
+        "hairline": 1
+      }
+    },
+    {
+      "id": "v-cta",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 56.884,
+      "end": null,
+      "_": "«Comenta AGENCY y te la mando.» El comentario simulado: pedir el gesto y ENSEÑARLO. `end: null` a propósito — el último visual no se funde a la salida, porque ese es el frame que se congela cuando el reel vuelve a empezar (trampa 6c).",
+      "mock": [
+        "comment_ui",
+        {
+          "word": "AGENCY",
+          "headline": "AGENCY",
+          "type_at": 0.66,
+          "send_at": 1.55
+        }
+      ]
+    }
+  ],
+  "_marca": "`agencyagents` vendorizado del sitio oficial. ⚠ La trampa de la pieza 18 con `hyperframes.dev`, otra vez y peor: de las cinco rutas probadas, `favicon.svg`, `icon.svg`, `apple-touch-icon.png` y `logo.svg` responden 200 — con `text/html`, que es el fallback de la SPA. La única imagen real es `favicon.ico` (256x256). Y todavía traía fondo BLANCO OPACO alrededor del tile redondeado, que sobre grafito habría pintado un cuadrado blanco: se le devolvió el alfa con un relleno por inundación desde las cuatro esquinas y se recortó al tile (162x162). `tile` medido #9C79DF, 5.25:1 contra `surface`.",
+  "_sfx": "30 efectos, en el esquema [t, fichero, trim, por qué]. Ninguno es relleno: cada uno marca algo que se puede señalar en el frame, y los tiempos son los MISMOS beats del transcript que mueven la imagen (§12). Los cinco `pop` de los especialistas bajan de trim 0.72 a 0.64 según avanzan — la enumeración no puede subir de intensidad mientras la voz se mantiene. Los `data-start` los adelanta `build_sfx` por la cabecera de silencio de cada fichero: 16 de los 19 la traen, y escribirlos a mano sería volver al bug que se llevó diecisiete piezas.",
+  "sfx": [
+    [
+      0.955,
+      "whoosh-short",
+      0.8,
+      "la pastilla OPEN SOURCE"
+    ],
+    [
+      2.791,
+      "impact-bass-2",
+      0.7,
+      "la marca de Claude aterrizando"
+    ],
+    [
+      3.841,
+      "pop",
+      0.68,
+      "el primero de los doce agentes"
+    ],
+    [
+      4.523,
+      "sparkle",
+      0.62,
+      "la rejilla ya llena"
+    ],
+    [
+      6.189,
+      "impact-bass-1",
+      0.72,
+      "la card de Agency Agents"
+    ],
+    [
+      8.347,
+      "whoosh",
+      0.62,
+      "el agente solo entrando"
+    ],
+    [
+      8.846,
+      "click-soft",
+      0.72,
+      "la primera carga que le cae"
+    ],
+    [
+      9.523,
+      "click-soft",
+      0.66,
+      "la cuarta carga"
+    ],
+    [
+      10.081,
+      "click-soft",
+      0.6,
+      "la quinta, la que remata la pila"
+    ],
+    [
+      10.459,
+      "whoosh-short",
+      0.7,
+      "el corte a la grabación de la rejilla"
+    ],
+    [
+      13.749,
+      "pop",
+      0.72,
+      "FRONTEND"
+    ],
+    [
+      14.591,
+      "pop",
+      0.7,
+      "MARKETING"
+    ],
+    [
+      15.543,
+      "pop",
+      0.68,
+      "CONTENIDO"
+    ],
+    [
+      16.623,
+      "pop",
+      0.66,
+      "COMUNIDAD"
+    ],
+    [
+      17.634,
+      "pop",
+      0.64,
+      "INGENIERÍA"
+    ],
+    [
+      18.758,
+      "whoosh-short",
+      0.68,
+      "el corte a «Roles think»"
+    ],
+    [
+      21.088,
+      "click-soft",
+      0.62,
+      "INSTRUCCIONES, el relevo de la grabación al gráfico"
+    ],
+    [
+      22.309,
+      "ping",
+      0.6,
+      "ENTREGABLES, el chip que cierra los tres"
+    ],
+    [
+      23.223,
+      "riser",
+      0.55,
+      "el contador subiendo hacia 146"
+    ],
+    [
+      25.292,
+      "glitch-1",
+      0.62,
+      "los 143 bajando de intensidad"
+    ],
+    [
+      28.522,
+      "chime",
+      0.58,
+      "el equipo de tres ya formado"
+    ],
+    [
+      32.036,
+      "click",
+      0.7,
+      "el paso 01"
+    ],
+    [
+      34.319,
+      "click",
+      0.68,
+      "el paso 02"
+    ],
+    [
+      35.958,
+      "click",
+      0.66,
+      "el paso 03"
+    ],
+    [
+      39.919,
+      "whoosh",
+      0.6,
+      "la ventana de escritorio subiendo"
+    ],
+    [
+      42.191,
+      "notification",
+      0.6,
+      "INSTALADO, el estado que cambia"
+    ],
+    [
+      45.623,
+      "click-soft",
+      0.55,
+      "el hueco discontinuo de la lectura fácil"
+    ],
+    [
+      49.169,
+      "error",
+      0.62,
+      "el tachado de «empleado gratis»"
+    ],
+    [
+      52.641,
+      "impact-bass-1",
+      0.68,
+      "el problema repartiéndose en tres"
+    ],
+    [
+      56.884,
+      "whoosh-short",
+      0.62,
+      "el corte al CTA"
+    ]
+  ]
+}

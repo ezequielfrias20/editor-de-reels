@@ -1,0 +1,12 @@
+{
+  "src": "VIDEOS ORIGINALES/9/2026-09-22 08-45-19.mov",
+  "out": "assets/mpt-gallery.mp4",
+  "size": [1920, 1080],
+  "fps": 30,
+  "_nota": "La galería «Portrait 9:16» del README, para «También permite generar diferentes formatos y varias versiones del contenido» (21.716-25.777, 4.06 s). Es la única otra ventana quieta de la grabación (meseta 15.90-17.30) y enseña ocho vídeos generados con su título y su duración, que es exactamente lo que la frase enuncia.\nTres recortes de esa misma ventana, cada uno por debajo de 1.40 s: el rótulo «Portrait 9:16» con la primera fila, la fila entera de cuatro con sus títulos y duraciones, y un cierre sobre dos de ellos para que se lea que son vídeos de verdad y no marcadores.",
+  "segments": [
+    {"label": "PORTRAIT 9:16", "at": 15.98, "dur": 1.36, "crop": [300, 40, 960, 540], "zoom": [1.00, 1.03]},
+    {"label": "VARIAS VERSIONES", "at": 15.98, "dur": 1.35, "crop": [330, 100, 900, 506], "zoom": [1.00, 1.04]},
+    {"label": "VARIAS VERSIONES", "at": 15.98, "dur": 1.35, "crop": [360, 105, 620, 349], "zoom": [1.00, 1.05]}
+  ]
+}

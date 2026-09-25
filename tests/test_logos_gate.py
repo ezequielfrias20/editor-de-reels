@@ -43,8 +43,29 @@ def test_el_limite_es_exactamente_el_doble(fl, tmp_path):
         assert fl.check_raster(p, 110)[1] is esperado
 
 
-def test_las_cinco_marcas_estan_declaradas(fl):
-    assert set(fl.VENDOR) == {"animejs", "motion", "kokonutui", "bklitui", "manus"}
+def test_las_marcas_vendorizadas_estan_declaradas(fl):
+    """Cada marca fuera de Simple Icons, con su fuente oficial escrita.
+
+    Se comprueba el conjunto EXACTO, no una inclusión: lo que este test
+    protege es que nadie añada un slug sin pasar por `VENDOR` —y por tanto sin
+    dejar escrito de dónde salió el archivo— así que crece a mano cada vez que
+    una pieza trae una marca nueva. Las cinco primeras son de la pieza 15; las
+    dos siguientes, de la 16; `hyperframes`, de la 18.
+    """
+    assert set(fl.VENDOR) == {"animejs", "motion", "kokonutui", "bklitui",
+                              "manus", "canva", "composio", "hyperframes"}
+
+
+def test_hyperframes_se_vendoriza_del_subdominio_del_producto(fl):
+    """⚠ `hyperframes.dev/favicon.svg` responde 200 y NO es la marca: devuelve
+    un icono titulado «EdgeNova App Icon». Un 200 no es una verificación de
+    que el archivo sea el logo correcto, y la única forma de saberlo fue
+    abrirlo. La fuente buena es el subdominio del producto, que además es el
+    que sale en la grabación de la pieza."""
+    _titulo, url, fmt = fl.VENDOR["hyperframes"]
+    assert url.startswith("https://hyperframes.heygen.com/")
+    assert "hyperframes.dev" not in url
+    assert fmt == "svg"
 
 
 # ── Fix round 2/5 — HALLAZGO 2: gate de seguridad del SVG vendorizado ───────

@@ -1,0 +1,72 @@
+{
+  "src": "VIDEOS ORIGINALES/2/composio.mov",
+  "out": "assets/composio-tour.mp4",
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "_nota": "Beat 40.05-44.38 del corte: «herramientas como Composio permiten conectar el agente con muchísimas otras aplicaciones». Barrida la grabación entera (8.60 s): es un scroll continuo por la página «Connect my agent» de Composio con los tres pasos del conector MCP. No hay ningún tramo que enseñe un catálogo de apps, así que el recorrido NO afirma «muchísimas»: eso lo dice la voz. Lo que se enseña es lo que la grabación tiene — que el agente se conecta — en tres tramos.\n⚠ REVISADO tras verificar sobre el MP4: el primer montaje eran DOS tramos de 2.2 s, y un tramo largo sobre una página que SCROLLEA no enseña lo que enseñaba el frame con el que se eligió el recorte. El tramo A empezaba en la cabecera «Claude Cowork» y a los 1.9 s ya había pasado de largo; el B terminaba en el selector de cuenta de Google del final de la grabación — fuera de mensaje, y con datos de una cuenta ajena en pantalla. Ahora son tres tramos CORTOS (1.3-1.6 s), cada uno verificado en su frame de entrada Y en el de salida. Ninguno pasa de source 7.0 s, donde empieza el login.\n`cropdetect` sobre 0.5-7.5 s da crop=1280:706:0:6 (barras negras de 6 px arriba y 8 abajo): los tres recortes viven dentro de y 6..712.",
+  "exclude": [
+    {
+      "t": [
+        0,
+        8.6
+      ],
+      "rect": [
+        0,
+        0,
+        216,
+        26
+      ],
+      "why": "barra promocional «FOR YOU / Switch» cortada por el borde de la captura — no es la interfaz del producto"
+    }
+  ],
+  "segments": [
+    {
+      "label": "CONECTAR EL AGENTE",
+      "at": 0.3,
+      "dur": 1.5,
+      "crop": [
+        492,
+        48,
+        528,
+        297
+      ],
+      "zoom": [
+        1.0,
+        1.04
+      ]
+    },
+    {
+      "label": "EL CONECTOR",
+      "at": 1.9,
+      "dur": 1.6,
+      "crop": [
+        512,
+        130,
+        528,
+        297
+      ],
+      "zoom": [
+        1.0,
+        1.05
+      ]
+    },
+    {
+      "label": "CONECTADO",
+      "at": 5.7,
+      "dur": 1.3,
+      "crop": [
+        512,
+        250,
+        528,
+        297
+      ],
+      "zoom": [
+        1.0,
+        1.05
+      ]
+    }
+  ]
+}

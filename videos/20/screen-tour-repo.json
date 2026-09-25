@@ -1,0 +1,57 @@
+{
+  "src": "VIDEOS ORIGINALES/9/2026-09-22 08-45-19.mov",
+  "out": "assets/mpt-repo.mp4",
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "_nota": "Grabación de github.com/harry0703/MoneyPrinterTurbo (17.47 s, 1280x720). `cropdetect` da crop=1280:706:0:6 en 59 de 60 frames: el contenido vive en y 6..712, sin barras laterales.\nMESETAS MEDIDAS a 10 fps por correlación cruzada columna a columna sobre el área de contenido (x 280..1280): SOLO DOS, 0.00-1.10 y 15.90-17.30. Los otros 15 s son un scroll continuo y rápido por el README — el WebUI, la API, los patrocinadores y la lista de features pasan de largo sin que la página se pare en ninguno. El usuario eligió usar solo las dos ventanas quietas y dibujar el resto.\nESTE TOUR es la cabecera del repo, para «Se llama MoneyPrinterTurbo y dejando de lado el nombre» (5.979-9.241, 3.26 s). Tres recortes de la MISMA ventana quieta (el arreglo de Kokonut UI, pieza 15), cada uno por debajo de 1.10 s: la identidad del repo con sus cifras, el titular con la descripción que enumera lo que el guion va a decir, y los dos distintivos. Ninguno estira el metraje más allá de la meseta.\n⚠ El gate de dimensiones rechazó el segundo recorte: la fuente mide 1280x720 y un recorte de 529 de alto no puede empezar en y280. Los dos últimos tramos se diferencian por ESCALA y no por posición —uno ancho de 900 px sobre titular, descripción y distintivos, otro cerrado de 620 sobre los dos distintivos—, porque la cabecera solo tiene 706 px de alto y bajar el recorte los habría dejado casi idénticos.\n⚠ Medido frame a frame sobre el recorte real: la página es IDÉNTICA píxel a píxel hasta t=1.03 y solo deriva 5 px a 1.13, 24 a 1.23 y se pierde del todo a 1.63. Los tres tramos de 1.09 s (0.06→1.15) caben dentro de esa deriva invisible; la meseta de 1.10 que dio el detector es conservadora porque exige correlación ≥0.99.\n⚠ Y los tres recortes son un EMPUJE DE CÁMARA (1000 → 920 → 880 px de ancho), no tres encuadres distintos: la cabecera solo tiene 706 px de alto y todo está apilado, así que bajar el recorte da frames casi idénticos. Ninguno puede ser más estrecho de 880 px desde x330: la línea de descripción mide x 354..1197 y cualquier recorte más cerrado la parte por la mitad — se vio en el frame, no en el JSON.",
+  "segments": [
+    {
+      "label": "EL REPO",
+      "at": 0.06,
+      "dur": 1.08,
+      "crop": [
+        260,
+        24,
+        1000,
+        563
+      ],
+      "zoom": [
+        1.0,
+        1.02
+      ]
+    },
+    {
+      "label": "QUE HACE",
+      "at": 0.06,
+      "dur": 1.09,
+      "crop": [
+        300,
+        120,
+        920,
+        518
+      ],
+      "zoom": [
+        1.0,
+        1.02
+      ]
+    },
+    {
+      "label": "DISTINTIVOS",
+      "at": 0.06,
+      "dur": 1.09,
+      "crop": [
+        330,
+        217,
+        880,
+        495
+      ],
+      "zoom": [
+        1.0,
+        1.03
+      ]
+    }
+  ]
+}

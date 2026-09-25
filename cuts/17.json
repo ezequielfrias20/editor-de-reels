@@ -1,0 +1,53 @@
+{
+  "source_duration": 63.951882,
+  "final_duration": 59.882,
+  "removed": 4.069881999999998,
+  "cuts": [
+    {
+      "start": 9.159,
+      "end": 9.432,
+      "dur": 0.273,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 29.513,
+      "end": 29.786,
+      "dur": 0.273,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 38.731,
+      "end": 39.071,
+      "dur": 0.34,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 60.768,
+      "end": 63.952,
+      "dur": 3.184,
+      "reason": "cola muerta"
+    }
+  ],
+  "keeps": [
+    {
+      "start": 0.0,
+      "end": 9.159,
+      "dur": 9.159
+    },
+    {
+      "start": 9.432,
+      "end": 29.513,
+      "dur": 20.081
+    },
+    {
+      "start": 29.786,
+      "end": 38.731,
+      "dur": 8.945
+    },
+    {
+      "start": 39.071,
+      "end": 60.768,
+      "dur": 21.697
+    }
+  ]
+}

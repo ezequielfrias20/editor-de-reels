@@ -1,0 +1,57 @@
+{
+  "src": "VIDEOS ORIGINALES/7/2026-09-22 08-39-25.mov",
+  "out": "assets/agency-grid.mp4",
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "_nota": "La rejilla de divisiones, para «el proyecto reúne agentes con funciones diferentes» (10.459-13.749, 3.29 s).\nTRAMO A (meseta 4.00-4.70): la banda de cifras REALES — 146 Agents · 13 Divisions · 60k+ GitHub Stars · 6 Tools Supported — y el titular «Assembled by specialty». No adelanta el guion: son datos de la propia página, no ninguna de las cinco especialidades que él enumera después.\nTRAMO B (meseta 6.90-7.50): la rejilla entera de 13 divisiones. La meseta dura 0.60 s y el tramo pide 1.79, así que se resuelve con DOS RECORTES de la misma ventana quieta (el arreglo de Kokonut UI, pieza 15): uno sobre las dos primeras filas y otro bajado a las dos últimas. Estirar un solo recorte hasta 8.7 s lo sacaría de la meseta y el frame de salida ya estaría scrolleando.\n⚠ El gate de barras negras rechazó los dos recortes de la rejilla: a t=6.95 el contenido vive en x 124..1280, y 8..712. Los dos tramos B se reencuadran dentro de eso y además dejan de ser el mismo recorte bajado 145 px —que se habría leído como un salto de scroll— para ser uno ANCHO (filas 1-3) y otro más CERRADO sobre las filas 2-4.\n⚠ Segundo ajuste del tramo A sobre sus frames: el recorte de 683 de ancho partía las cifras («146» se leía «46») y el titular («Assembled» se leía «embled»). La banda de cifras mide x 280..1000 y el titular x 220..1055, así que el recorte va a 960 de ancho desde x160. La página scrollea durante ese tramo y eso aquí NO es el fallo de la pieza 16: entrada y salida enseñan las dos la misma sección —cifras y tarjetas de división—, no dos secciones distintas.",
+  "segments": [
+    {
+      "label": "146 AGENTES",
+      "at": 4.05,
+      "dur": 1.5,
+      "crop": [
+        160,
+        16,
+        960,
+        540
+      ],
+      "zoom": [
+        1.0,
+        1.03
+      ]
+    },
+    {
+      "label": "13 DIVISIONES",
+      "at": 6.95,
+      "dur": 0.9,
+      "crop": [
+        130,
+        30,
+        1040,
+        585
+      ],
+      "zoom": [
+        1.0,
+        1.03
+      ]
+    },
+    {
+      "label": "13 DIVISIONES",
+      "at": 6.95,
+      "dur": 0.89,
+      "crop": [
+        130,
+        190,
+        800,
+        450
+      ],
+      "zoom": [
+        1.0,
+        1.04
+      ]
+    }
+  ]
+}

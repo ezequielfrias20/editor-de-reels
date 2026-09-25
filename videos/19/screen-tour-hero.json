@@ -1,0 +1,42 @@
+{
+  "src": "VIDEOS ORIGINALES/7/2026-09-22 08-39-25.mov",
+  "out": "assets/agency-hero.mp4",
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "_nota": "Grabación de agencyagents.dev (23.4 s, 1280x720). `cropdetect` da crop=1200:706:80:6 en las secciones claras y 1162:568:118:8 en las oscuras: el contenido vive dentro de x 80..1280, y 6..712. Todos los recortes de los tres tours se quedan dentro de x>=96, y>=16.\nMESETAS MEDIDAS por correlación cruzada columna a columna a 10 fps (la lección de la pieza 18: medir dice dónde está el tramo bueno; mirar dos frames solo confirma el que ya elegiste). La página está QUIETA en 0.00-1.30 · 4.00-4.70 · 6.90-7.50 · 9.50-10.20 · 10.60-11.40 · 11.90-12.40 · 16.20-17.90 · 22.10-23.30. Todo lo demás es scroll.\nESTE TOUR es el hero, para «Si quieres el repo» (54.553-56.884, 2.33 s). La meseta del hero dura 1.30 s y el beat 2.33, así que son DOS RECORTES DE LA MISMA VENTANA QUIETA en vez de un tramo estirado sobre metraje que ya se movió — exactamente el arreglo de Kokonut UI en la pieza 15. El primero es el titular con la marca; el segundo baja a los dos botones, con «View on GitHub» que es lo que la palabra «repo» nombra.\n⚠ El gate de barras negras de `screen-tour.py` rechazó el primer recorte del tramo REPO: en el hero el contenido REAL vive en x 118..1280 e y 8..576 (debajo del botón la página es fondo liso y `cropdetect` lo cuenta como barra), así que un recorte de 384 de alto no puede empezar más abajo de y192. No se ajustó a ojo: los límites los dio el propio gate.\n⚠ Segundo ajuste, sobre los frames de entrada y salida (no sobre el que eligió el recorte): los dos primeros recortes CORTABAN el titular —«team, ready to ship» se leía «eam, ready to ship»—, que mide x 260..1010 en la fuente. Y los dos tramos no podían diferenciarse bajando el recorte: el hero solo tiene 568 px de contenido (y 8..576), así que a 506 de alto solo caben 62 px de desplazamiento y los dos frames habrían salido casi idénticos. Se diferencian por ESCALA: uno ancho con la marca y el titular enteros, y otro cerrado sobre los dos botones, con «View on GitHub» — que es lo que nombra la palabra «repo».\n⚠ Tercer ajuste, y el hallazgo del tour. El segundo tramo no podía ser un recorte más CERRADO del hero: entre el titular y los botones solo hay 568 px de contenido y un recorte 16:9 tan bajo parte el titular por la mitad («team, ready to ship» se leía «am, ready to sh»). Mirando la fuente entre 1.9 y 2.5 se ve por qué la correlación cruzada marcaba ahí «cambio» y no «quieto»: la maqueta NO se mueve, lo que cambia son los CONTADORES de la propia página animándose (86→112→130→140 agentes, 7→10→11→12 divisiones, 35k+→46k+→53k+ estrellas). Una medida de desplazamiento no puede distinguir un scroll de un número subiendo, y esa ventana —descartada por la métrica— es justo la mejor del tour: las cifras reales trepando con «View on GitHub» todavía en cuadro. La métrica dice dónde mirar; lo que hay ahí lo dice el frame.",
+  "segments": [
+    {
+      "label": "AGENCY AGENTS",
+      "at": 0.06,
+      "dur": 1.22,
+      "crop": [
+        160,
+        12,
+        960,
+        540
+      ],
+      "zoom": [
+        1.0,
+        1.03
+      ]
+    },
+    {
+      "label": "REPO",
+      "at": 1.9,
+      "dur": 1.11,
+      "crop": [
+        200,
+        140,
+        880,
+        495
+      ],
+      "zoom": [
+        1.0,
+        1.04
+      ]
+    }
+  ]
+}

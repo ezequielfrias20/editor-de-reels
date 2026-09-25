@@ -1,0 +1,868 @@
+{
+ "words": [
+  {
+   "i": 0,
+   "text": "Hay",
+   "start": 0.15,
+   "end": 0.23
+  },
+  {
+   "i": 1,
+   "text": "un",
+   "start": 0.23,
+   "end": 0.295
+  },
+  {
+   "i": 2,
+   "text": "proyecto",
+   "start": 0.295,
+   "end": 0.778
+  },
+  {
+   "i": 3,
+   "text": "open",
+   "start": 0.955,
+   "end": 1.148
+  },
+  {
+   "i": 4,
+   "text": "source",
+   "start": 1.18,
+   "end": 1.583
+  },
+  {
+   "i": 5,
+   "text": "que",
+   "start": 1.583,
+   "end": 1.664
+  },
+  {
+   "i": 6,
+   "text": "básicamente",
+   "start": 1.664,
+   "end": 2.227
+  },
+  {
+   "i": 7,
+   "text": "convierte",
+   "start": 2.227,
+   "end": 2.71
+  },
+  {
+   "i": 8,
+   "text": "Claude",
+   "start": 2.791,
+   "end": 3.016
+  },
+  {
+   "i": 9,
+   "text": "Code",
+   "start": 3.113,
+   "end": 3.355
+  },
+  {
+   "i": 10,
+   "text": "en",
+   "start": 3.371,
+   "end": 3.435
+  },
+  {
+   "i": 11,
+   "text": "una",
+   "start": 3.532,
+   "end": 3.644
+  },
+  {
+   "i": 12,
+   "text": "agencia",
+   "start": 3.661,
+   "end": 4.24
+  },
+  {
+   "i": 13,
+   "text": "llena",
+   "start": 4.24,
+   "end": 4.514
+  },
+  {
+   "i": 14,
+   "text": "de",
+   "start": 4.514,
+   "end": 4.578
+  },
+  {
+   "i": 15,
+   "text": "especialistas.",
+   "start": 4.578,
+   "end": 5.013
+  },
+  {
+   "i": 16,
+   "text": "Se",
+   "start": 5.529,
+   "end": 5.69
+  },
+  {
+   "i": 17,
+   "text": "llama",
+   "start": 5.69,
+   "end": 6.092
+  },
+  {
+   "i": 18,
+   "text": "Agency",
+   "start": 6.189,
+   "end": 6.736
+  },
+  {
+   "i": 19,
+   "text": "Agents.",
+   "start": 6.801,
+   "end": 7.348
+  },
+  {
+   "i": 20,
+   "text": "En",
+   "start": 7.82,
+   "end": 7.96
+  },
+  {
+   "i": 21,
+   "text": "vez",
+   "start": 8.025,
+   "end": 8.154
+  },
+  {
+   "i": 22,
+   "text": "de",
+   "start": 8.186,
+   "end": 8.266
+  },
+  {
+   "i": 23,
+   "text": "tener",
+   "start": 8.347,
+   "end": 8.685
+  },
+  {
+   "i": 24,
+   "text": "un",
+   "start": 8.685,
+   "end": 8.846
+  },
+  {
+   "i": 25,
+   "text": "único",
+   "start": 8.846,
+   "end": 9.056
+  },
+  {
+   "i": 26,
+   "text": "asistente",
+   "start": 9.056,
+   "end": 9.523
+  },
+  {
+   "i": 27,
+   "text": "haciendo",
+   "start": 9.572,
+   "end": 9.959
+  },
+  {
+   "i": 28,
+   "text": "de",
+   "start": 9.959,
+   "end": 10.039
+  },
+  {
+   "i": 29,
+   "text": "todo,",
+   "start": 10.12,
+   "end": 10.33
+  },
+  {
+   "i": 30,
+   "text": "el",
+   "start": 10.459,
+   "end": 10.604
+  },
+  {
+   "i": 31,
+   "text": "proyecto",
+   "start": 10.604,
+   "end": 11.12
+  },
+  {
+   "i": 32,
+   "text": "reúne",
+   "start": 11.12,
+   "end": 11.443
+  },
+  {
+   "i": 33,
+   "text": "agentes",
+   "start": 11.443,
+   "end": 11.975
+  },
+  {
+   "i": 34,
+   "text": "con",
+   "start": 11.975,
+   "end": 12.136
+  },
+  {
+   "i": 35,
+   "text": "funciones",
+   "start": 12.136,
+   "end": 12.701
+  },
+  {
+   "i": 36,
+   "text": "diferentes:",
+   "start": 12.701,
+   "end": 13.394
+  },
+  {
+   "i": 37,
+   "text": "frontend,",
+   "start": 13.749,
+   "end": 14.341
+  },
+  {
+   "i": 38,
+   "text": "marketing,",
+   "start": 14.591,
+   "end": 15.293
+  },
+  {
+   "i": 39,
+   "text": "contenido,",
+   "start": 15.543,
+   "end": 16.373
+  },
+  {
+   "i": 40,
+   "text": "comunidad,",
+   "start": 16.623,
+   "end": 17.384
+  },
+  {
+   "i": 41,
+   "text": "ingeniería.",
+   "start": 17.634,
+   "end": 18.358
+  },
+  {
+   "i": 42,
+   "text": "Cada",
+   "start": 18.758,
+   "end": 19.176
+  },
+  {
+   "i": 43,
+   "text": "uno",
+   "start": 19.176,
+   "end": 19.514
+  },
+  {
+   "i": 44,
+   "text": "tiene",
+   "start": 19.562,
+   "end": 19.803
+  },
+  {
+   "i": 45,
+   "text": "sus",
+   "start": 19.803,
+   "end": 20.044
+  },
+  {
+   "i": 46,
+   "text": "propias",
+   "start": 20.044,
+   "end": 20.365
+  },
+  {
+   "i": 47,
+   "text": "instrucciones,",
+   "start": 20.365,
+   "end": 21.056
+  },
+  {
+   "i": 48,
+   "text": "forma",
+   "start": 21.088,
+   "end": 21.489
+  },
+  {
+   "i": 49,
+   "text": "de",
+   "start": 21.489,
+   "end": 21.57
+  },
+  {
+   "i": 50,
+   "text": "trabajar",
+   "start": 21.57,
+   "end": 22.116
+  },
+  {
+   "i": 51,
+   "text": "y",
+   "start": 22.228,
+   "end": 22.309
+  },
+  {
+   "i": 52,
+   "text": "entregables.",
+   "start": 22.309,
+   "end": 22.823
+  },
+  {
+   "i": 53,
+   "text": "Y",
+   "start": 23.223,
+   "end": 23.333
+  },
+  {
+   "i": 54,
+   "text": "aquí",
+   "start": 23.333,
+   "end": 23.751
+  },
+  {
+   "i": 55,
+   "text": "está",
+   "start": 23.976,
+   "end": 24.282
+  },
+  {
+   "i": 56,
+   "text": "lo",
+   "start": 24.282,
+   "end": 24.378
+  },
+  {
+   "i": 57,
+   "text": "interesante:",
+   "start": 24.378,
+   "end": 24.892
+  },
+  {
+   "i": 58,
+   "text": "no",
+   "start": 25.292,
+   "end": 25.453
+  },
+  {
+   "i": 59,
+   "text": "necesitas",
+   "start": 25.453,
+   "end": 26.031
+  },
+  {
+   "i": 60,
+   "text": "utilizar",
+   "start": 26.031,
+   "end": 26.562
+  },
+  {
+   "i": 61,
+   "text": "todos.",
+   "start": 26.578,
+   "end": 26.947
+  },
+  {
+   "i": 62,
+   "text": "Puedes",
+   "start": 27.06,
+   "end": 27.381
+  },
+  {
+   "i": 63,
+   "text": "montar",
+   "start": 27.381,
+   "end": 27.912
+  },
+  {
+   "i": 64,
+   "text": "un",
+   "start": 27.96,
+   "end": 28.056
+  },
+  {
+   "i": 65,
+   "text": "pequeño",
+   "start": 28.056,
+   "end": 28.506
+  },
+  {
+   "i": 66,
+   "text": "equipo",
+   "start": 28.522,
+   "end": 28.876
+  },
+  {
+   "i": 67,
+   "text": "dependiendo",
+   "start": 29.149,
+   "end": 30.033
+  },
+  {
+   "i": 68,
+   "text": "de",
+   "start": 30.033,
+   "end": 30.178
+  },
+  {
+   "i": 69,
+   "text": "la",
+   "start": 30.178,
+   "end": 30.275
+  },
+  {
+   "i": 70,
+   "text": "tarea.",
+   "start": 30.275,
+   "end": 30.547
+  },
+  {
+   "i": 71,
+   "text": "Por",
+   "start": 30.947,
+   "end": 31.126
+  },
+  {
+   "i": 72,
+   "text": "ejemplo,",
+   "start": 31.126,
+   "end": 31.514
+  },
+  {
+   "i": 73,
+   "text": "un",
+   "start": 31.764,
+   "end": 32.036
+  },
+  {
+   "i": 74,
+   "text": "agente",
+   "start": 32.036,
+   "end": 32.509
+  },
+  {
+   "i": 75,
+   "text": "plantea",
+   "start": 32.509,
+   "end": 33.079
+  },
+  {
+   "i": 76,
+   "text": "la",
+   "start": 33.079,
+   "end": 33.112
+  },
+  {
+   "i": 77,
+   "text": "estrategia,",
+   "start": 33.112,
+   "end": 33.698
+  },
+  {
+   "i": 78,
+   "text": "otro",
+   "start": 33.948,
+   "end": 34.319
+  },
+  {
+   "i": 79,
+   "text": "construye,",
+   "start": 34.319,
+   "end": 34.93
+  },
+  {
+   "i": 80,
+   "text": "y",
+   "start": 35.18,
+   "end": 35.33
+  },
+  {
+   "i": 81,
+   "text": "otro",
+   "start": 35.33,
+   "end": 35.717
+  },
+  {
+   "i": 82,
+   "text": "busca",
+   "start": 35.958,
+   "end": 36.361
+  },
+  {
+   "i": 83,
+   "text": "problemas",
+   "start": 36.361,
+   "end": 36.892
+  },
+  {
+   "i": 84,
+   "text": "antes",
+   "start": 37.021,
+   "end": 37.327
+  },
+  {
+   "i": 85,
+   "text": "de",
+   "start": 37.327,
+   "end": 37.407
+  },
+  {
+   "i": 86,
+   "text": "publicar.",
+   "start": 37.407,
+   "end": 37.939
+  },
+  {
+   "i": 87,
+   "text": "Incluso",
+   "start": 38.4,
+   "end": 39.098
+  },
+  {
+   "i": 88,
+   "text": "existe",
+   "start": 39.194,
+   "end": 39.774
+  },
+  {
+   "i": 89,
+   "text": "una",
+   "start": 39.774,
+   "end": 39.919
+  },
+  {
+   "i": 90,
+   "text": "aplicación",
+   "start": 39.919,
+   "end": 40.483
+  },
+  {
+   "i": 91,
+   "text": "de",
+   "start": 40.483,
+   "end": 40.563
+  },
+  {
+   "i": 92,
+   "text": "escritorio",
+   "start": 40.563,
+   "end": 41.272
+  },
+  {
+   "i": 93,
+   "text": "para",
+   "start": 41.436,
+   "end": 41.616
+  },
+  {
+   "i": 94,
+   "text": "gestionar",
+   "start": 41.616,
+   "end": 42.109
+  },
+  {
+   "i": 95,
+   "text": "e",
+   "start": 42.109,
+   "end": 42.191
+  },
+  {
+   "i": 96,
+   "text": "instalar",
+   "start": 42.191,
+   "end": 42.699
+  },
+  {
+   "i": 97,
+   "text": "estos",
+   "start": 42.699,
+   "end": 43.011
+  },
+  {
+   "i": 98,
+   "text": "agentes",
+   "start": 43.011,
+   "end": 43.438
+  },
+  {
+   "i": 99,
+   "text": "de",
+   "start": 43.438,
+   "end": 43.585
+  },
+  {
+   "i": 100,
+   "text": "una",
+   "start": 43.585,
+   "end": 43.733
+  },
+  {
+   "i": 101,
+   "text": "manera",
+   "start": 43.733,
+   "end": 44.094
+  },
+  {
+   "i": 102,
+   "text": "mucho",
+   "start": 44.094,
+   "end": 44.471
+  },
+  {
+   "i": 103,
+   "text": "más",
+   "start": 44.471,
+   "end": 44.636
+  },
+  {
+   "i": 104,
+   "text": "sencilla.",
+   "start": 44.636,
+   "end": 45.095
+  },
+  {
+   "i": 105,
+   "text": "Yo",
+   "start": 45.623,
+   "end": 45.671
+  },
+  {
+   "i": 106,
+   "text": "no",
+   "start": 45.736,
+   "end": 45.864
+  },
+  {
+   "i": 107,
+   "text": "lo",
+   "start": 45.864,
+   "end": 45.944
+  },
+  {
+   "i": 108,
+   "text": "vería",
+   "start": 45.944,
+   "end": 46.346
+  },
+  {
+   "i": 109,
+   "text": "como",
+   "start": 46.346,
+   "end": 46.684
+  },
+  {
+   "i": 110,
+   "text": "acabo",
+   "start": 46.684,
+   "end": 46.957
+  },
+  {
+   "i": 111,
+   "text": "de",
+   "start": 46.989,
+   "end": 47.069
+  },
+  {
+   "i": 112,
+   "text": "conseguir",
+   "start": 47.15,
+   "end": 47.728
+  },
+  {
+   "i": 113,
+   "text": "un",
+   "start": 47.728,
+   "end": 47.841
+  },
+  {
+   "i": 114,
+   "text": "empleado",
+   "start": 47.889,
+   "end": 48.436
+  },
+  {
+   "i": 115,
+   "text": "gratis,",
+   "start": 48.436,
+   "end": 48.789
+  },
+  {
+   "i": 116,
+   "text": "lo",
+   "start": 49.039,
+   "end": 49.169
+  },
+  {
+   "i": 117,
+   "text": "vería",
+   "start": 49.169,
+   "end": 49.491
+  },
+  {
+   "i": 118,
+   "text": "como",
+   "start": 49.491,
+   "end": 49.668
+  },
+  {
+   "i": 119,
+   "text": "una",
+   "start": 49.668,
+   "end": 49.844
+  },
+  {
+   "i": 120,
+   "text": "forma",
+   "start": 49.844,
+   "end": 50.246
+  },
+  {
+   "i": 121,
+   "text": "de",
+   "start": 50.246,
+   "end": 50.294
+  },
+  {
+   "i": 122,
+   "text": "dividir",
+   "start": 50.294,
+   "end": 50.76
+  },
+  {
+   "i": 123,
+   "text": "problemas",
+   "start": 50.776,
+   "end": 51.259
+  },
+  {
+   "i": 124,
+   "text": "complejos",
+   "start": 51.259,
+   "end": 52.03
+  },
+  {
+   "i": 125,
+   "text": "entre",
+   "start": 52.4,
+   "end": 52.641
+  },
+  {
+   "i": 126,
+   "text": "especialistas.",
+   "start": 52.641,
+   "end": 53.477
+  },
+  {
+   "i": 127,
+   "text": "Si",
+   "start": 53.911,
+   "end": 54.071
+  },
+  {
+   "i": 128,
+   "text": "quieres",
+   "start": 54.071,
+   "end": 54.409
+  },
+  {
+   "i": 129,
+   "text": "el",
+   "start": 54.409,
+   "end": 54.457
+  },
+  {
+   "i": 130,
+   "text": "repo",
+   "start": 54.553,
+   "end": 54.843
+  },
+  {
+   "i": 131,
+   "text": "y",
+   "start": 54.891,
+   "end": 54.955
+  },
+  {
+   "i": 132,
+   "text": "mi",
+   "start": 54.955,
+   "end": 55.116
+  },
+  {
+   "i": 133,
+   "text": "selección",
+   "start": 55.116,
+   "end": 55.598
+  },
+  {
+   "i": 134,
+   "text": "de",
+   "start": 55.598,
+   "end": 55.727
+  },
+  {
+   "i": 135,
+   "text": "agentes",
+   "start": 55.727,
+   "end": 56.0
+  },
+  {
+   "i": 136,
+   "text": "para",
+   "start": 56.0,
+   "end": 56.161
+  },
+  {
+   "i": 137,
+   "text": "empezar,",
+   "start": 56.161,
+   "end": 56.611
+  },
+  {
+   "i": 138,
+   "text": "comenta",
+   "start": 56.884,
+   "end": 57.479
+  },
+  {
+   "i": 139,
+   "text": "AGENCY",
+   "start": 57.543,
+   "end": 57.929
+  },
+  {
+   "i": 140,
+   "text": "y",
+   "start": 58.025,
+   "end": 58.089
+  },
+  {
+   "i": 141,
+   "text": "te",
+   "start": 58.089,
+   "end": 58.202
+  },
+  {
+   "i": 142,
+   "text": "la",
+   "start": 58.202,
+   "end": 58.282
+  },
+  {
+   "i": 143,
+   "text": "mando.",
+   "start": 58.282,
+   "end": 58.459
+  }
+ ]
+}

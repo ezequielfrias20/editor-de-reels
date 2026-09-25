@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+@font-face{font-family:'Inter';src:url('fonts/Inter-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-800.woff2') format('woff2');font-weight:800;font-style:normal;font-display:block}
+@font-face{font-family:'Inter';src:url('fonts/Inter-900.woff2') format('woff2');font-weight:900;font-style:normal;font-display:block}
+@font-face{font-family:'JetBrains Mono';src:url('fonts/JetBrainsMono-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'JetBrains Mono';src:url('fonts/JetBrainsMono-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+
+.viz[data-viz-id="v-hook"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-hook"] .vpwrap{width:980px;display:flex;flex-direction:column;
+  align-items:center;gap:22px}
+.viz[data-viz-id="v-hook"] .vpkick{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-weight:700;font-size:23px;letter-spacing:.18em;color:#8C93A3;
+  background:#0B0C10;border:1px solid rgba(255,255,255,.16);border-radius:9999px;
+  padding:10px 22px;opacity:0}
+.viz[data-viz-id="v-hook"] .vprow{display:flex;align-items:stretch;gap:12px;width:100%}
+.viz[data-viz-id="v-hook"] .vpcell{flex:1 1 0;min-width:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;height:132px;
+  border-radius:16px;position:relative}
+.viz[data-viz-id="v-hook"] .vpslot{border:2px dashed #8C93A3;opacity:0}
+.viz[data-viz-id="v-hook"] .vpstep{background:#16181F;border:1px solid rgba(124,92,255,.42);
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-hook"] .vpwork{background:#1D2029;border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-hook"] .vpic{display:flex;color:#9B85FF}
+.viz[data-viz-id="v-hook"] .vpwork .vpic{color:#8C93A3}
+.viz[data-viz-id="v-hook"] .vpname{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:15px;letter-spacing:.03em;
+  color:#A7ADBB;text-align:center;line-height:1.1;padding:0 3px}
+.viz[data-viz-id="v-hook"] .vpstack{display:grid;width:100%}
+.viz[data-viz-id="v-hook"] .vpstack > *{grid-area:1/1}
+.viz[data-viz-id="v-hook"] .vpgap{flex:0 0 132px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;height:132px;border-radius:16px;
+  border:2px dashed #8C93A3;color:#8C93A3;opacity:0}
+.viz[data-viz-id="v-hook"] .vpgapn{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:15px;letter-spacing:.03em;
+  opacity:0}
+.viz[data-viz-id="v-hook"] .vparrow{width:2px;height:34px;background:#7C5CFF;opacity:0}
+.viz[data-viz-id="v-hook"] .vpout{display:flex;align-items:center;gap:22px;background:#16181F;
+  border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:20px 34px;
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-hook"] .vpoutfr{width:76px;height:132px;border-radius:10px;
+  background:#0B0C10;border:1px solid rgba(255,255,255,.16);display:flex;
+  align-items:center;justify-content:center;color:#9B85FF}
+.viz[data-viz-id="v-hook"] .vpoutstack{display:grid;min-width:250px}
+.viz[data-viz-id="v-hook"] .vpoutstack > *{grid-area:1/1;align-self:center}
+.viz[data-viz-id="v-hook"] .vpoutslot{display:flex;flex-direction:column;gap:14px}
+.viz[data-viz-id="v-hook"] .vpoutslot i{display:block;height:14px;border-radius:7px;
+  border:2px dashed #8C93A3}
+.viz[data-viz-id="v-hook"] .vpoutslot i:last-child{width:58%}
+.viz[data-viz-id="v-hook"] .vpoutx{display:flex;flex-direction:column;gap:8px;opacity:0}
+.viz[data-viz-id="v-hook"] .vpoutt{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:40px;letter-spacing:-.03em;
+  color:#FFFFFF;line-height:1}
+.viz[data-viz-id="v-hook"] .vpouts{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:20px;letter-spacing:.14em;
+  color:#8C93A3}
+
+.viz[data-viz-id="v-hook"] .vizcam{align-items:flex-end;padding-bottom:20px}
+
+.viz[data-viz-id="v-rec-repo"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-rec-repo"] .screenfx{position:absolute;inset:0;z-index:12}
+.viz[data-viz-id="v-rec-repo"] .scbadge{position:absolute;background:#7C5CFF;color:#FFFFFF;
+  border-radius:9999px;padding:13px 24px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:24px;letter-spacing:.10em;opacity:0;white-space:nowrap;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);z-index:16}
+.viz[data-viz-id="v-rec-repo"] .scbox{position:absolute;border:5px solid #7C5CFF;border-radius:16px;
+  box-shadow:0 0 0 9999px rgba(11,12,16,.55);opacity:0;z-index:14}
+
+.viz[data-viz-id="v-rec-repo"] .bigcursor{position:absolute;left:0;top:0;width:76px;height:92px;z-index:20;opacity:0}
+.viz[data-viz-id="v-rec-repo"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
+.viz[data-viz-id="v-rec-repo"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
+  border-radius:50%;border:6px solid #7C5CFF;opacity:0}
+.viz[data-viz-id="v-rec-repo"] .tr-panel{position:absolute;left:60px;top:100px;width:960px;height:540px;
+  border-radius:24px;overflow:hidden;pointer-events:none;
+  border:3px solid rgba(255,255,255,.16);box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);z-index:11}
+.viz[data-viz-id="v-rec-repo"] .tr-head{position:absolute;left:0;top:0;width:100%;height:84px;
+  display:flex;align-items:center;gap:16px;padding:0 26px;
+  background:#16181F;border-bottom:1px solid rgba(255,255,255,.16);opacity:0}
+.viz[data-viz-id="v-rec-repo"] .tr-chip{flex:0 0 auto;width:40px;height:40px;border-radius:10px;
+  background:#0B0C10;border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;
+  justify-content:center;overflow:hidden;
+  transform:perspective(800px) rotateY(-8deg);transform-style:preserve-3d}
+.viz[data-viz-id="v-rec-repo"] .tr-name{font-family:'Inter', system-ui, sans-serif;font-weight:800;font-size:28px;
+  letter-spacing:-.02em;color:#FFFFFF}
+
+.viz[data-viz-id="v-pipeline"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-pipeline"] .vpwrap{width:980px;display:flex;flex-direction:column;
+  align-items:center;gap:22px}
+.viz[data-viz-id="v-pipeline"] .vpkick{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-weight:700;font-size:23px;letter-spacing:.18em;color:#8C93A3;
+  background:#0B0C10;border:1px solid rgba(255,255,255,.16);border-radius:9999px;
+  padding:10px 22px;opacity:0}
+.viz[data-viz-id="v-pipeline"] .vprow{display:flex;align-items:stretch;gap:12px;width:100%}
+.viz[data-viz-id="v-pipeline"] .vpcell{flex:1 1 0;min-width:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;height:132px;
+  border-radius:16px;position:relative}
+.viz[data-viz-id="v-pipeline"] .vpslot{border:2px dashed #8C93A3;opacity:0}
+.viz[data-viz-id="v-pipeline"] .vpstep{background:#16181F;border:1px solid rgba(124,92,255,.42);
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-pipeline"] .vpwork{background:#1D2029;border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-pipeline"] .vpic{display:flex;color:#9B85FF}
+.viz[data-viz-id="v-pipeline"] .vpwork .vpic{color:#8C93A3}
+.viz[data-viz-id="v-pipeline"] .vpname{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:15px;letter-spacing:.03em;
+  color:#A7ADBB;text-align:center;line-height:1.1;padding:0 3px}
+.viz[data-viz-id="v-pipeline"] .vpstack{display:grid;width:100%}
+.viz[data-viz-id="v-pipeline"] .vpstack > *{grid-area:1/1}
+.viz[data-viz-id="v-pipeline"] .vpgap{flex:0 0 132px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;height:132px;border-radius:16px;
+  border:2px dashed #8C93A3;color:#8C93A3;opacity:0}
+.viz[data-viz-id="v-pipeline"] .vpgapn{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:15px;letter-spacing:.03em;
+  opacity:0}
+.viz[data-viz-id="v-pipeline"] .vparrow{width:2px;height:34px;background:#7C5CFF;opacity:0}
+.viz[data-viz-id="v-pipeline"] .vpout{display:flex;align-items:center;gap:22px;background:#16181F;
+  border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:20px 34px;
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-pipeline"] .vpoutfr{width:76px;height:132px;border-radius:10px;
+  background:#0B0C10;border:1px solid rgba(255,255,255,.16);display:flex;
+  align-items:center;justify-content:center;color:#9B85FF}
+.viz[data-viz-id="v-pipeline"] .vpoutstack{display:grid;min-width:250px}
+.viz[data-viz-id="v-pipeline"] .vpoutstack > *{grid-area:1/1;align-self:center}
+.viz[data-viz-id="v-pipeline"] .vpoutslot{display:flex;flex-direction:column;gap:14px}
+.viz[data-viz-id="v-pipeline"] .vpoutslot i{display:block;height:14px;border-radius:7px;
+  border:2px dashed #8C93A3}
+.viz[data-viz-id="v-pipeline"] .vpoutslot i:last-child{width:58%}
+.viz[data-viz-id="v-pipeline"] .vpoutx{display:flex;flex-direction:column;gap:8px;opacity:0}
+.viz[data-viz-id="v-pipeline"] .vpoutt{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:40px;letter-spacing:-.03em;
+  color:#FFFFFF;line-height:1}
+.viz[data-viz-id="v-pipeline"] .vpouts{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:20px;letter-spacing:.14em;
+  color:#8C93A3}
+
+.viz[data-viz-id="v-pipeline"] .vizcam{align-items:flex-end;padding-bottom:20px}
+
+.viz[data-viz-id="v-rec-gallery"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-rec-gallery"] .screenfx{position:absolute;inset:0;z-index:12}
+.viz[data-viz-id="v-rec-gallery"] .scbadge{position:absolute;background:#7C5CFF;color:#FFFFFF;
+  border-radius:9999px;padding:13px 24px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:24px;letter-spacing:.10em;opacity:0;white-space:nowrap;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);z-index:16}
+.viz[data-viz-id="v-rec-gallery"] .scbox{position:absolute;border:5px solid #7C5CFF;border-radius:16px;
+  box-shadow:0 0 0 9999px rgba(11,12,16,.55);opacity:0;z-index:14}
+
+.viz[data-viz-id="v-rec-gallery"] .bigcursor{position:absolute;left:0;top:0;width:76px;height:92px;z-index:20;opacity:0}
+.viz[data-viz-id="v-rec-gallery"] .bigcursor svg{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}
+.viz[data-viz-id="v-rec-gallery"] .tap-ring{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
+  border-radius:50%;border:6px solid #7C5CFF;opacity:0}
+.viz[data-viz-id="v-rec-gallery"] .tr-panel{position:absolute;left:60px;top:100px;width:960px;height:540px;
+  border-radius:24px;overflow:hidden;pointer-events:none;
+  border:3px solid rgba(255,255,255,.16);box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);z-index:11}
+.viz[data-viz-id="v-rec-gallery"] .tr-head{position:absolute;left:0;top:0;width:100%;height:84px;
+  display:flex;align-items:center;gap:16px;padding:0 26px;
+  background:#16181F;border-bottom:1px solid rgba(255,255,255,.16);opacity:0}
+.viz[data-viz-id="v-rec-gallery"] .tr-chip{flex:0 0 auto;width:40px;height:40px;border-radius:10px;
+  background:#0B0C10;border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;
+  justify-content:center;overflow:hidden;
+  transform:perspective(800px) rotateY(-8deg);transform-style:preserve-3d}
+.viz[data-viz-id="v-rec-gallery"] .tr-name{font-family:'Inter', system-ui, sans-serif;font-weight:800;font-size:28px;
+  letter-spacing:-.02em;color:#FFFFFF}
+
+.viz[data-viz-id="v-button"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-button"] .mbwrap{width:980px;display:flex;flex-direction:column;
+  align-items:center;gap:20px}
+.viz[data-viz-id="v-button"] .mbq{font-family:'Inter', system-ui, sans-serif;font-weight:800;font-size:38px;letter-spacing:-.02em;
+  color:#A7ADBB;text-align:center;opacity:0}
+.viz[data-viz-id="v-button"] .mbbtn{position:relative;display:flex;align-items:center;justify-content:center;
+  gap:20px;background:linear-gradient(180deg,#7C5CFF 0%,#5B3FD6 100%);
+  border:1px solid rgba(155,133,255,.55);border-radius:24px;
+  padding:30px 64px;box-shadow:0 0 0 1px rgba(124,92,255,.35), 0 18px 60px rgba(124,92,255,.22);opacity:0}
+.viz[data-viz-id="v-button"] .mbbtnt{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:52px;letter-spacing:-.03em;
+  color:#FFFFFF;line-height:1}
+.viz[data-viz-id="v-button"] .mbcur{position:absolute;right:-26px;bottom:-34px;color:#FFFFFF;
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,.6));opacity:0}
+.viz[data-viz-id="v-button"] .mbring{position:absolute;right:-6px;bottom:-14px;width:64px;height:64px;
+  border-radius:50%;border:5px solid #9B85FF;opacity:0}
+.viz[data-viz-id="v-button"] .mbarrow{width:2px;height:30px;background:#8C93A3;opacity:0}
+.viz[data-viz-id="v-button"] .mbtray{width:520px;height:150px;border-radius:24px;
+  border:2px dashed #8C93A3;display:flex;align-items:center;
+  justify-content:center;opacity:0}
+.viz[data-viz-id="v-button"] .mbempty{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:24px;letter-spacing:.18em;
+  color:#8C93A3;opacity:0}
+
+.viz[data-viz-id="v-button"] .vizcam{align-items:flex-end;padding-bottom:20px}
+
+.viz[data-viz-id="v-gap"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-gap"] .vpwrap{width:980px;display:flex;flex-direction:column;
+  align-items:center;gap:22px}
+.viz[data-viz-id="v-gap"] .vpkick{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-weight:700;font-size:23px;letter-spacing:.18em;color:#8C93A3;
+  background:#0B0C10;border:1px solid rgba(255,255,255,.16);border-radius:9999px;
+  padding:10px 22px;opacity:0}
+.viz[data-viz-id="v-gap"] .vprow{display:flex;align-items:stretch;gap:12px;width:100%}
+.viz[data-viz-id="v-gap"] .vpcell{flex:1 1 0;min-width:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;height:132px;
+  border-radius:16px;position:relative}
+.viz[data-viz-id="v-gap"] .vpslot{border:2px dashed #8C93A3;opacity:0}
+.viz[data-viz-id="v-gap"] .vpstep{background:#16181F;border:1px solid rgba(124,92,255,.42);
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-gap"] .vpwork{background:#1D2029;border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-gap"] .vpic{display:flex;color:#9B85FF}
+.viz[data-viz-id="v-gap"] .vpwork .vpic{color:#8C93A3}
+.viz[data-viz-id="v-gap"] .vpname{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:15px;letter-spacing:.03em;
+  color:#A7ADBB;text-align:center;line-height:1.1;padding:0 3px}
+.viz[data-viz-id="v-gap"] .vpstack{display:grid;width:100%}
+.viz[data-viz-id="v-gap"] .vpstack > *{grid-area:1/1}
+.viz[data-viz-id="v-gap"] .vpgap{flex:0 0 132px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;height:132px;border-radius:16px;
+  border:2px dashed #8C93A3;color:#8C93A3;opacity:0}
+.viz[data-viz-id="v-gap"] .vpgapn{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:15px;letter-spacing:.03em;
+  opacity:0}
+.viz[data-viz-id="v-gap"] .vparrow{width:2px;height:34px;background:#7C5CFF;opacity:0}
+.viz[data-viz-id="v-gap"] .vpout{display:flex;align-items:center;gap:22px;background:#16181F;
+  border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:20px 34px;
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-gap"] .vpoutfr{width:76px;height:132px;border-radius:10px;
+  background:#0B0C10;border:1px solid rgba(255,255,255,.16);display:flex;
+  align-items:center;justify-content:center;color:#9B85FF}
+.viz[data-viz-id="v-gap"] .vpoutstack{display:grid;min-width:250px}
+.viz[data-viz-id="v-gap"] .vpoutstack > *{grid-area:1/1;align-self:center}
+.viz[data-viz-id="v-gap"] .vpoutslot{display:flex;flex-direction:column;gap:14px}
+.viz[data-viz-id="v-gap"] .vpoutslot i{display:block;height:14px;border-radius:7px;
+  border:2px dashed #8C93A3}
+.viz[data-viz-id="v-gap"] .vpoutslot i:last-child{width:58%}
+.viz[data-viz-id="v-gap"] .vpoutx{display:flex;flex-direction:column;gap:8px;opacity:0}
+.viz[data-viz-id="v-gap"] .vpoutt{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:40px;letter-spacing:-.03em;
+  color:#FFFFFF;line-height:1}
+.viz[data-viz-id="v-gap"] .vpouts{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:20px;letter-spacing:.14em;
+  color:#8C93A3}
+
+.viz[data-viz-id="v-gap"] .vizcam{align-items:flex-end;padding-bottom:20px}
+
+.viz[data-viz-id="v-output"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-output"] .vowrap{width:980px;display:flex;flex-direction:column;
+  align-items:center;gap:20px}
+.viz[data-viz-id="v-output"] .vokick{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-weight:700;font-size:23px;letter-spacing:.16em;color:#9B85FF;
+  background:rgba(124,92,255,.16);border-radius:9999px;padding:10px 24px;
+  opacity:0}
+.viz[data-viz-id="v-output"] .vomach{width:100%;display:flex;align-items:center;justify-content:center;
+  gap:16px;background:#16181F;border:1px solid rgba(124,92,255,.42);
+  border-radius:16px;padding:18px 26px;box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);opacity:0}
+.viz[data-viz-id="v-output"] .vomachic{display:flex;color:#9B85FF}
+.viz[data-viz-id="v-output"] .vomacht{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:22px;letter-spacing:.14em;
+  color:#A7ADBB}
+.viz[data-viz-id="v-output"] .vodot{width:9px;height:9px;border-radius:50%;background:#7C5CFF}
+.viz[data-viz-id="v-output"] .vorow{display:flex;gap:18px;justify-content:center;width:100%}
+.viz[data-viz-id="v-output"] .vocard{flex:1 1 0;display:flex;flex-direction:column;align-items:center;
+  gap:12px;opacity:0}
+.viz[data-viz-id="v-output"] .vofr{width:100%;height:188px;border-radius:16px;
+  background:#1D2029;border:1px solid rgba(255,255,255,.09);display:flex;
+  align-items:center;justify-content:center;color:#8C93A3;
+  box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55)}
+.viz[data-viz-id="v-output"] .voviews{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-weight:700;font-size:26px;letter-spacing:.08em;color:#8C93A3}
+.viz[data-viz-id="v-output"] .voin{display:flex;gap:18px;justify-content:center;width:640px}
+.viz[data-viz-id="v-output"] .voincard{flex:1 1 0;display:flex;align-items:center;gap:14px;
+  background:#1D2029;border:1px solid rgba(255,255,255,.09);border-radius:16px;
+  padding:16px 22px;opacity:0}
+.viz[data-viz-id="v-output"] .voinic{display:flex;color:#8C93A3;flex:0 0 auto}
+.viz[data-viz-id="v-output"] .voinx{display:flex;flex-direction:column;gap:8px;flex:1 1 auto;min-width:0}
+.viz[data-viz-id="v-output"] .voinn{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:19px;letter-spacing:.12em;
+  color:#A7ADBB}
+.viz[data-viz-id="v-output"] .voinbar{height:12px;border-radius:6px;border:2px dashed #8C93A3}
+.viz[data-viz-id="v-output"] .voseal{display:flex;align-items:center;gap:14px;background:#0B0C10;
+  border:1px solid rgba(255,255,255,.16);border-radius:9999px;padding:12px 26px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:24px;letter-spacing:.16em;
+  color:#8C93A3;opacity:0}
+
+.viz[data-viz-id="v-output"] .vizcam{align-items:flex-end;padding-bottom:20px}
+
+.viz[data-viz-id="v-tradeoff"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-tradeoff"] .tbwrap{width:980px;display:flex;flex-direction:column;gap:26px}
+.viz[data-viz-id="v-tradeoff"] .tbstack{display:grid}
+.viz[data-viz-id="v-tradeoff"] .tbstack > *{grid-area:1/1}
+.viz[data-viz-id="v-tradeoff"] .tbrails,.viz[data-viz-id="v-tradeoff"] .tbrows{display:flex;flex-direction:column;gap:26px}
+.viz[data-viz-id="v-tradeoff"] .tbrails{opacity:0;justify-content:flex-end}
+.viz[data-viz-id="v-tradeoff"] .tbrails .tbtrack{border-style:dashed;border-color:#8C93A3;
+  background:transparent}
+.viz[data-viz-id="v-tradeoff"] .tbkick{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:23px;letter-spacing:.18em;
+  color:#8C93A3;align-self:center;opacity:0}
+.viz[data-viz-id="v-tradeoff"] .tbrow{display:flex;flex-direction:column;gap:12px;opacity:0}
+.viz[data-viz-id="v-tradeoff"] .tbhead{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-weight:700;font-size:24px;letter-spacing:.14em;color:#A7ADBB}
+.viz[data-viz-id="v-tradeoff"] .tbhead .ic{color:#9B85FF}
+.viz[data-viz-id="v-tradeoff"] .tbtag{margin-left:auto;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:21px;
+  letter-spacing:.14em;opacity:0}
+.viz[data-viz-id="v-tradeoff"] .tbtrack{height:64px;border-radius:16px;background:#16181F;
+  border:1px solid rgba(255,255,255,.09);position:relative;overflow:hidden}
+.viz[data-viz-id="v-tradeoff"] .tbfill{height:100%;border-radius:16px}
+.viz[data-viz-id="v-tradeoff"] .tbfill.hot{background:linear-gradient(90deg,#5B3FD6,#7C5CFF)}
+.viz[data-viz-id="v-tradeoff"] .tbfill.keep{background:rgba(124,92,255,.28);
+  border-right:3px solid #9B85FF}
+
+.viz[data-viz-id="v-tradeoff"] .vizcam{align-items:flex-end;padding-bottom:20px}
+
+.viz[data-viz-id="v-repo-card"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-repo-card"] .tc-card{display:flex;align-items:center;justify-content:center}
+.viz[data-viz-id="v-repo-card"] .tc-tilt{transform:perspective(1400px) rotateY(-6deg);transform-style:preserve-3d}
+.viz[data-viz-id="v-repo-card"] .tc-root{display:flex;align-items:center;gap:30px;background:#16181F;
+  border:1px solid rgba(255,255,255,.09);border-radius:24px;box-shadow:0 2px 6px rgba(0,0,0,.45), 0 18px 50px rgba(0,0,0,.55);
+  padding:30px 46px}
+.viz[data-viz-id="v-repo-card"] .tc-logoframe{flex:0 0 auto;width:112px;height:112px;
+  border-radius:16px;background:#0B0C10;border:1px solid rgba(255,255,255,.16);
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.viz[data-viz-id="v-repo-card"] .tc-logo{opacity:0;display:flex;align-items:center;justify-content:center}
+.viz[data-viz-id="v-repo-card"] .tc-name{display:flex;flex-direction:column;gap:8px;opacity:0}
+.viz[data-viz-id="v-repo-card"] .tc-kick{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:22px;
+  letter-spacing:.16em;color:#9B85FF;text-transform:uppercase}
+.viz[data-viz-id="v-repo-card"] .tc-word{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:58px;line-height:1;
+  letter-spacing:-.03em;color:#FFFFFF}
+
+.viz[data-viz-id="v-repo-card"] .vizcam{align-items:flex-end;padding-bottom:20px}
+
+.viz[data-viz-id="v-cta"] .vizbg{position:absolute;inset:0;background:transparent}
+
+
+.viz[data-viz-id="v-cta"] .cwrap{display:flex;flex-direction:column;align-items:center;gap:34px;width:980px}
+.viz[data-viz-id="v-cta"] .chead{font-family:'Inter', system-ui, sans-serif;font-weight:900;font-size:190px;line-height:.92;
+  letter-spacing:-.05em;color:#FFFFFF;opacity:0}
+.viz[data-viz-id="v-cta"] .csay{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:26px;letter-spacing:.20em;
+  color:#B8AAFF;background:rgba(124,92,255,.16);border-radius:9999px;
+  padding:12px 26px;opacity:0;margin-bottom:-14px}
+.viz[data-viz-id="v-cta"] .cbox{width:100%;display:flex;align-items:center;gap:20px;background:#16181F;
+  border:1px solid rgba(255,255,255,.16);border-radius:9999px;padding:22px 26px;
+  box-shadow:0 8px 20px rgba(0,0,0,.55), 0 40px 90px rgba(0,0,0,.65);opacity:0}
+.viz[data-viz-id="v-cta"] .cav{width:66px;height:66px;border-radius:50%;flex:0 0 66px;
+  background:linear-gradient(135deg,#7C5CFF 0%,#5B3FD6 100%)}
+.viz[data-viz-id="v-cta"] .cfield{flex:1;min-width:0;font-family:'Inter', system-ui, sans-serif;font-weight:700;font-size:42px;
+  letter-spacing:-.01em;color:#FFFFFF;white-space:nowrap;overflow:hidden}
+.viz[data-viz-id="v-cta"] .cfield i{color:#8C93A3;font-style:normal;font-weight:500}
+.viz[data-viz-id="v-cta"] .ccaret{display:inline-block;width:4px;height:44px;background:#7C5CFF;
+  vertical-align:-8px;margin-left:6px}
+.viz[data-viz-id="v-cta"] .csend{font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;font-size:24px;letter-spacing:.12em;
+  color:#8C93A3;flex:0 0 auto}
+.viz[data-viz-id="v-cta"] .csend.on{color:#34E39B}
+.viz[data-viz-id="v-cta"] .cposted{display:flex;align-items:center;gap:16px;font-family:'JetBrains Mono', ui-monospace, monospace;font-weight:700;
+  font-size:26px;letter-spacing:.14em;color:#34E39B;background:rgba(52,227,155,.14);
+  border:1px solid rgba(52,227,155,.4);border-radius:9999px;
+  padding:14px 28px;opacity:0}
+
+.viz[data-viz-id="v-cta"] .vizcam{align-items:flex-end;padding-bottom:20px}
+
+:root{--bg:#0B0C10;--surface:#16181F;--text:#FFFFFF;
+  --violet:#7C5CFF;--go:#34E39B;--alert:#FF5A5A;
+  --accent-0:#7C5CFF;--accent-1:#34E39B;--accent-2:#FFB84D;
+  --accent-3:#9B85FF;--accent-4:#FF5A5A}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
+  background:#0B0C10;font-family:'Inter', system-ui, sans-serif}
+#stage{position:relative;width:100%;height:100%;overflow:hidden;background:#0B0C10}
+/* El suelo DEBE ser un elemento del DOM, no el background de la página: la
+   captura es por capas y descarta el fondo de html/body/#stage, con lo que todo
+   lo que no es video saldría negro en el MP4 (en el navegador se ve bien, así
+   que solo se detecta mirando el render). */
+#ground{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:0;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),repeating-linear-gradient(90deg,rgba(255,255,255,0.022) 0 1px,transparent 1px 72px),radial-gradient(120% 90% at 50% 42%, #101218 0%, #0B0C10 62%, #07080B 100%)}
+/* Geometría ESTÁTICA por encuadre. El renderer resuelve el rect del <video> una
+   sola vez al cargar: animar width/height no reescala la imagen, solo la
+   recorta. Por eso un punch-in es un ELEMENTO nuevo y el salto entre encuadres
+   es un corte duro — que además es el lenguaje que pide la pieza. */
+.vid{position:absolute;object-fit:cover;display:block;z-index:1}
+.vid.panel{border-radius:32px 32px 0 0;
+  box-shadow:0 -10px 50px rgba(0,0,0,.6)}
+/* El PiP se pinta POR ENCIMA del takeover. El índice de pista ordena el
+   TIEMPO, no el apilado: eso lo decide el z-index (y, sin él, el orden del
+   DOM). Como los <video> se emiten antes que los hosts, sin esta regla el
+   mockup opaco se comía la ventana del creador — y solo se notaba en los
+   visuales con fondo, porque sobre la grabación, que es transparente, se veía
+   perfectamente. */
+.vid.pip{border-radius:24px;box-shadow:0 8px 20px rgba(0,0,0,.55), 0 40px 90px rgba(0,0,0,.65);
+  outline:3px solid rgba(255,255,255,.14);outline-offset:-3px;z-index:6}
+/* ── capa de visuales ──────────────────────────────────────────────────────
+   `.vizcam` es la CÁMARA: el único elemento que GSAP escala o desplaza, para
+   que ni el mockup ni la imagen tengan que ceder su propio transform. */
+/* Apilado explícito, de abajo a arriba: suelo · metraje · media de un visual ·
+   fondo · tarjetas · takeover · PiP · subtítulos. */
+.viz{position:absolute;pointer-events:none;overflow:hidden;z-index:3}
+.viz.over{z-index:5}
+.vizcam{position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;will-change:transform}
+.vizcam.mock{padding-bottom:307px}
+.vizimg{width:100%;height:100%;object-fit:cover;display:block}
+.vizveil{position:absolute;inset:0;pointer-events:none}
+.vizmed{position:absolute;object-fit:cover;display:block;z-index:2}
+.card-host{position:absolute;pointer-events:none;overflow:hidden;z-index:4}
+.card-host .card{position:relative;width:100%;height:100%;overflow:hidden}
+#caption-host{position:absolute;left:0;top:0;width:1080px;height:1920px;
+  pointer-events:none;overflow:hidden;z-index:7}
+/* ── subtítulos ───────────────────────────────────────────────────────────
+   Bloques cortos, Inter 900 en mayúsculas. Sobre metraje el texto necesita
+   separarse del fondo sin engordar: filete de grafito con `paint-order: stroke
+   fill`, que pinta el trazo DETRÁS del relleno, más una sombra que lo asienta.
+   Un borde normal engorda la letra y le quita el peso de grotesca. */
+.cap{position:absolute;left:76px;right:76px;
+  text-align:center;opacity:0;font-family:'Inter', system-ui, sans-serif;font-weight:900;
+  font-size:66px;line-height:1.14;letter-spacing:-.02em;
+  pointer-events:none}
+.cap .w{display:inline-block;margin:0 9px;position:relative}
+.cap.on-dark .w{color:#FFFFFF;-webkit-text-stroke:7px #0B0C10;
+  paint-order:stroke fill;text-shadow:0 4px 22px rgba(11,12,16,.8)}
+.cap.on-surface .w{color:#FFFFFF;-webkit-text-stroke:0;
+  text-shadow:0 2px 16px rgba(11,12,16,.95)}
+/* Karaoke (Mejora 4, a petición del usuario, ver `build_captions`): trata-
+   miento ÚNICO del subtítulo, SIN excepción de encuadre — ya no hay una
+   keyword agrandada y violeta en `full`/`pip` (lo que había antes de esta
+   ronda; el karaoke nació limitado a `band` en la Mejora 3 y ahora pierde esa
+   frontera). `.w.kw` es CUALQUIER palabra del bloque —todas al mismo tamaño y
+   color— y lo único que se mueve es `.wbg`, un rectángulo violeta detrás de
+   la palabra que GSAP enciende y apaga por `opacity` (nunca por color, que
+   reflowearía nada porque el tamaño no cambia, pero SÍ obligaría a
+   interpolar un color sobre otro sin necesidad). `z-index:0` en `.w.kw` abre
+   un contexto de apilamiento PROPIO para que el `z-index:-1` de `.wbg` quede
+   contenido ahí dentro — sin él, un z-index negativo se escapa por debajo de
+   TODO el documento (incluida la capa de vídeo) en vez de quedarse solo
+   detrás de su propia palabra. El texto no lleva ninguna clase nueva: al no
+   estar posicionado, pinta por delante de `.wbg` sin necesidad de otro
+   z-index, y hereda el color y el filete de `.cap.on-dark .w` / `.cap.on-
+   surface .w` de arriba según la PIEL del bloque — lo que cambia con esta
+   Mejora es el resaltado, no la piel: en `full`/`pip` el subtítulo sigue
+   ENCIMA del metraje, así que ahí sigue con `on-dark` y su filete de grafito
+   de 7px; en `triband` sigue sin filete (`on-surface`, suelo liso, sin
+   metraje detrás).
+   El bleed (-8px horizontal, -4px vertical) es el padding: como es un
+   `inset` de un elemento ABSOLUTO no cuenta para el ancho que mide
+   `caption_metrics` (que sigue viendo solo el texto + su margen de
+   siempre), así que no puede desajustar el reparto en líneas ni el gate de
+   zona segura (el 20% de la plataforma en `full`/`pip`, la banda del
+   hablante en `triband`).
+   Contraste medido con `tokens.contrast()`: blanco sobre `violet` (el de
+   toda la paleta) da 4.35:1 — por debajo del 4.5:1 que exige la doctrina
+   para texto pequeño — así que el fondo del karaoke usa `violet_dk`, más
+   oscuro, que sube a 6.72:1. */
+.cap .w.kw{z-index:0}
+.cap .wbg{position:absolute;left:-8px;right:-8px;top:-4px;bottom:-4px;
+  background:#5B3FD6;border-radius:10px;z-index:-1;
+  opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="stage" data-composition-id="talking-head-recut" data-start="0" data-duration="55.1333"
+     data-fps="30" data-width="1080" data-height="1920">
+
+  <div id="ground"></div>
+
+  <video class="vid band clip" id="shot-00" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="0.0000" data-duration="5.9667"
+         data-media-start="0.0000" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-01" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="5.9667" data-duration="3.2666"
+         data-media-start="5.9667" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-02" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="9.2333" data-duration="12.4667"
+         data-media-start="9.2333" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-03" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="21.7000" data-duration="4.0667"
+         data-media-start="21.7000" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-04" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="25.7667" data-duration="4.2666"
+         data-media-start="25.7667" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-05" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="30.0333" data-duration="7.6667"
+         data-media-start="30.0333" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-06" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="37.7000" data-duration="7.7333"
+         data-media-start="37.7000" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-07" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="45.4333" data-duration="4.6334"
+         data-media-start="45.4333" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-08" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="50.0667" data-duration="3.3333"
+         data-media-start="50.0667" data-track-index="1"></video>
+  <video class="vid band clip" id="shot-09" src="input-video.mp4"
+         muted playsinline
+         style="left:0px;top:960px;width:1080px;height:960px;object-position:50% 42%"
+         data-start="53.4000" data-duration="1.7333"
+         data-media-start="53.4000" data-track-index="1"></video>
+
+  <video class="vizmed clip" id="v-rec-repo-med" src="mpt-repo.mp4"
+         muted playsinline
+         style="left:60px;top:100px;width:960px;height:540px;border-radius:24px"
+         data-start="5.9667" data-duration="3.2666"
+         data-media-start="0.0000" data-track-index="2"></video>
+  <video class="vizmed clip" id="v-rec-gallery-med" src="mpt-gallery.mp4"
+         muted playsinline
+         style="left:60px;top:100px;width:960px;height:540px;border-radius:24px"
+         data-start="21.7000" data-duration="4.0667"
+         data-media-start="0.0000" data-track-index="2"></video>
+
+  <audio id="source-audio" src="input-video.mp4" data-start="0"
+         data-duration="55.1333" data-track-index="10"
+         data-volume="0.7"></audio>
+
+  <audio id="music-bed" class="clip" src="music/bed.mp3" data-start="0" data-duration="55.1333" data-track-index="11" data-volume="0.1289"></audio>
+
+  <!-- el primer bloque de la cadena -->
+  <audio id="sfx-00-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="1.8333" data-duration="0.5667" data-track-index="12" data-volume="0.148"></audio>
+  <!-- el último bloque, la cadena ya entera -->
+  <audio id="sfx-01-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="3.3333" data-duration="0.5667" data-track-index="12" data-volume="0.13"></audio>
+  <!-- el vídeo faceless que la cadena produce -->
+  <audio id="sfx-02-impact-bass-2" class="clip" src="sfx/impact-bass-2.mp3" data-start="4.1667" data-duration="2.6000" data-track-index="12" data-volume="0.029"></audio>
+  <!-- el corte a la cabecera real del repo -->
+  <audio id="sfx-03-impact-bass-1" class="clip" src="sfx/impact-bass-1.mp3" data-start="5.9333" data-duration="2.1000" data-track-index="13" data-volume="0.039"></audio>
+  <!-- los siete huecos discontinuos apareciendo -->
+  <audio id="sfx-04-whoosh" class="clip" src="sfx/whoosh.mp3" data-start="9.1667" data-duration="0.5666" data-track-index="12" data-volume="0.13"></audio>
+  <!-- TEMA -->
+  <audio id="sfx-05-pop" class="clip" src="sfx/pop.mp3" data-start="11.6333" data-duration="0.7334" data-track-index="12" data-volume="0.183"></audio>
+  <!-- GUIÓN -->
+  <audio id="sfx-06-pop" class="clip" src="sfx/pop.mp3" data-start="13.6667" data-duration="0.7333" data-track-index="12" data-volume="0.178"></audio>
+  <!-- MATERIAL -->
+  <audio id="sfx-07-pop" class="clip" src="sfx/pop.mp3" data-start="14.7667" data-duration="0.7333" data-track-index="12" data-volume="0.173"></audio>
+  <!-- NARRACIÓN -->
+  <audio id="sfx-08-pop" class="clip" src="sfx/pop.mp3" data-start="16.0000" data-duration="0.7333" data-track-index="12" data-volume="0.168"></audio>
+  <!-- SUBTÍTULOS -->
+  <audio id="sfx-09-pop" class="clip" src="sfx/pop.mp3" data-start="17.5667" data-duration="0.7333" data-track-index="12" data-volume="0.163"></audio>
+  <!-- MÚSICA -->
+  <audio id="sfx-10-pop" class="clip" src="sfx/pop.mp3" data-start="18.5333" data-duration="0.7334" data-track-index="12" data-volume="0.158"></audio>
+  <!-- RENDER -->
+  <audio id="sfx-11-pop" class="clip" src="sfx/pop.mp3" data-start="20.0667" data-duration="0.7333" data-track-index="12" data-volume="0.152"></audio>
+  <!-- la salida, con la cadena ya completa -->
+  <audio id="sfx-12-chime" class="clip" src="sfx/chime.mp3" data-start="20.6000" data-duration="2.5000" data-track-index="13" data-volume="0.287"></audio>
+  <!-- el corte a la galería real -->
+  <audio id="sfx-13-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="21.6333" data-duration="0.5667" data-track-index="12" data-volume="0.148"></audio>
+  <!-- la pregunta del botón -->
+  <audio id="sfx-14-glitch-1" class="clip" src="sfx/glitch-1.mp3" data-start="25.6667" data-duration="2.6333" data-track-index="12" data-volume="0.102"></audio>
+  <!-- el botón aterrizando -->
+  <audio id="sfx-15-impact-bass-2" class="clip" src="sfx/impact-bass-2.mp3" data-start="27.6667" data-duration="2.6000" data-track-index="13" data-volume="0.028"></audio>
+  <!-- el clic sobre el botón -->
+  <audio id="sfx-16-click" class="clip" src="sfx/click.mp3" data-start="28.4667" data-duration="0.3666" data-track-index="12" data-volume="0.262"></audio>
+  <!-- la bandeja vacía en «No.» -->
+  <audio id="sfx-17-error" class="clip" src="sfx/error.mp3" data-start="28.6667" data-duration="1.6333" data-track-index="14" data-volume="0.62"></audio>
+  <!-- la cadena volviendo con su hueco delante -->
+  <audio id="sfx-18-whoosh" class="clip" src="sfx/whoosh.mp3" data-start="29.9333" data-duration="0.5667" data-track-index="12" data-volume="0.125"></audio>
+  <!-- CRITERIO, el hueco que nadie llena -->
+  <audio id="sfx-19-ping" class="clip" src="sfx/ping.mp3" data-start="35.8667" data-duration="1.3333" data-track-index="12" data-volume="0.223"></audio>
+  <!-- la ficha del tema entrando a la máquina -->
+  <audio id="sfx-20-click-soft" class="clip" src="sfx/click-soft.mp3" data-start="37.6667" data-duration="0.3666" data-track-index="12" data-volume="0.196"></audio>
+  <!-- la ficha del guión -->
+  <audio id="sfx-21-click-soft" class="clip" src="sfx/click-soft.mp3" data-start="39.5333" data-duration="0.3667" data-track-index="12" data-volume="0.183"></audio>
+  <!-- la máquina arrancando -->
+  <audio id="sfx-22-riser" class="clip" src="sfx/riser.mp3" data-start="39.0667" data-duration="10.0333" data-track-index="13" data-volume="0.081"></audio>
+  <!-- el primer vídeo a cero -->
+  <audio id="sfx-23-pop" class="clip" src="sfx/pop.mp3" data-start="41.1000" data-duration="0.7333" data-track-index="12" data-volume="0.147"></audio>
+  <!-- el tercero -->
+  <audio id="sfx-24-pop" class="clip" src="sfx/pop.mp3" data-start="42.8000" data-duration="0.7333" data-track-index="12" data-volume="0.137"></audio>
+  <!-- NADIE LO VE -->
+  <audio id="sfx-25-error" class="clip" src="sfx/error.mp3" data-start="44.0000" data-duration="1.6333" data-track-index="12" data-volume="0.58"></audio>
+  <!-- la ejecución comprimiéndose -->
+  <audio id="sfx-26-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="47.0667" data-duration="0.5666" data-track-index="12" data-volume="0.134"></audio>
+  <!-- el corte al CTA -->
+  <audio id="sfx-27-whoosh-short" class="clip" src="sfx/whoosh-short.mp3" data-start="53.3000" data-duration="0.5667" data-track-index="12" data-volume="0.139"></audio>
+
+
+
+
+
+<div class="viz over clip" data-viz-id="v-hook" id="host-v-hook" data-start="0.0000" data-duration="5.9667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-hook-cam"><div class="vpwrap"><div class="vprow"><div class="vpstack" style="flex:1 1 0"><div class="vprow" id="v-hook-slots"><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div></div><div class="vprow"><div class="vpcell vpwork" id="v-hook-c0"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.4 8.4 4.1-8.4 4.1-8.4-4.1Z"/><path d="m3.6 12 8.4 4.1 8.4-4.1"/><path d="m3.6 16.4 8.4 4.1 8.4-4.1"/></svg></span></div><div class="vpcell vpwork" id="v-hook-c1"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.4 8.4 4.1-8.4 4.1-8.4-4.1Z"/><path d="m3.6 12 8.4 4.1 8.4-4.1"/><path d="m3.6 16.4 8.4 4.1 8.4-4.1"/></svg></span></div><div class="vpcell vpwork" id="v-hook-c2"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.4 8.4 4.1-8.4 4.1-8.4-4.1Z"/><path d="m3.6 12 8.4 4.1 8.4-4.1"/><path d="m3.6 16.4 8.4 4.1 8.4-4.1"/></svg></span></div><div class="vpcell vpwork" id="v-hook-c3"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.4 8.4 4.1-8.4 4.1-8.4-4.1Z"/><path d="m3.6 12 8.4 4.1 8.4-4.1"/><path d="m3.6 16.4 8.4 4.1 8.4-4.1"/></svg></span></div><div class="vpcell vpwork" id="v-hook-c4"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.4 8.4 4.1-8.4 4.1-8.4-4.1Z"/><path d="m3.6 12 8.4 4.1 8.4-4.1"/><path d="m3.6 16.4 8.4 4.1 8.4-4.1"/></svg></span></div><div class="vpcell vpwork" id="v-hook-c5"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.4 8.4 4.1-8.4 4.1-8.4-4.1Z"/><path d="m3.6 12 8.4 4.1 8.4-4.1"/><path d="m3.6 16.4 8.4 4.1 8.4-4.1"/></svg></span></div><div class="vpcell vpwork" id="v-hook-c6"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.4 8.4 4.1-8.4 4.1-8.4-4.1Z"/><path d="m3.6 12 8.4 4.1 8.4-4.1"/><path d="m3.6 16.4 8.4 4.1 8.4-4.1"/></svg></span></div></div></div></div><div class="vparrow" id="v-hook-arrow"></div><div class="vpout" id="v-hook-out"><div class="vpoutfr"><svg class="ic" viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></div><div class="vpoutstack"><div class="vpoutslot" id="v-hook-outslot"><i></i><i></i></div><div class="vpoutx" id="v-hook-outx"><span class="vpoutt">VÍDEO</span><span class="vpouts">FACELESS</span></div></div></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-rec-repo" id="host-v-rec-repo" data-start="5.9667" data-duration="3.2666" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-rec-repo-cam"><div class="screenfx"><div class="bigcursor" id="v-rec-repo-cursor"><span class="tap-ring" id="v-rec-repo-ring" style="border-color:#7C5CFF"></span><svg viewBox="0 0 80 96" aria-hidden="true"><path fill="#FFFFFF" stroke="#0B0C10" stroke-width="6" stroke-linejoin="round" d="M8 7v70l18-17 14 29 17-8-14-28h27z"/></svg></div></div><div class="tr-panel" id="v-rec-repo-panel"><div class="tr-head" id="v-rec-repo-head"><span class="tr-chip"><span class="brandmark" style="width:40px;height:40px"><svg viewBox="0 0 24 24" aria-label="GitHub"><path fill="#696868" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span></span><span class="tr-name">MoneyPrinterTurbo</span></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-pipeline" id="host-v-pipeline" data-start="9.2333" data-duration="12.4667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-pipeline-cam"><div class="vpwrap"><div class="vprow"><div class="vpstack" style="flex:1 1 0"><div class="vprow" id="v-pipeline-slots"><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div></div><div class="vprow"><div class="vpcell vpstep" id="v-pipeline-c0"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6v3.4M12 18v3.4M2.6 12H6M18 12h3.4"/><path d="m5.4 5.4 2.4 2.4M16.2 16.2l2.4 2.4M18.6 5.4l-2.4 2.4M7.8 16.2l-2.4 2.4"/><circle cx="12" cy="12" r="3.4"/></svg></span><span class="vpname">TEMA</span></div><div class="vpcell vpstep" id="v-pipeline-c1"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5Z"/><path d="M14 3v4.5h4.5"/><path d="M8.5 12.5h7"/><path d="M8.5 16.5h5"/></svg></span><span class="vpname">GUIÓN</span></div><div class="vpcell vpstep" id="v-pipeline-c2"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="4.6" width="17.6" height="14.8" rx="2.2"/><circle cx="8.6" cy="9.8" r="1.7"/><path d="m3.7 16.6 4.6-4.2 3.4 3 3.1-2.6 5.1 4.4"/></svg></span><span class="vpname">MATERIAL</span></div><div class="vpcell vpstep" id="v-pipeline-c3"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.6" width="6" height="11.2" rx="3"/><path d="M5.4 11.4a6.6 6.6 0 0 0 13.2 0"/><path d="M12 18v3.4"/><path d="M8.6 21.4h6.8"/></svg></span><span class="vpname">NARRACIÓN</span></div><div class="vpcell vpstep" id="v-pipeline-c4"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M6.6 11.4h5.2M6.6 15h8.8M15.2 11.4h2.2"/></svg></span><span class="vpname">SUBTÍTULOS</span></div><div class="vpcell vpstep" id="v-pipeline-c5"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.4 18.2V5.4l9.2-2v12.4"/><circle cx="6.8" cy="18.2" r="2.6"/><circle cx="16" cy="15.8" r="2.6"/></svg></span><span class="vpname">MÚSICA</span></div><div class="vpcell vpstep" id="v-pipeline-c6"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></span><span class="vpname">RENDER</span></div></div></div></div><div class="vparrow" id="v-pipeline-arrow"></div><div class="vpout" id="v-pipeline-out"><div class="vpoutfr"><svg class="ic" viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></div><div class="vpoutstack"><div class="vpoutslot" id="v-pipeline-outslot"><i></i><i></i></div><div class="vpoutx" id="v-pipeline-outx"><span class="vpoutt">VÍDEO</span><span class="vpouts">LISTO</span></div></div></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-rec-gallery" id="host-v-rec-gallery" data-start="21.7000" data-duration="4.0667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:1920px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-rec-gallery-cam"><div class="screenfx"><div class="bigcursor" id="v-rec-gallery-cursor"><span class="tap-ring" id="v-rec-gallery-ring" style="border-color:#7C5CFF"></span><svg viewBox="0 0 80 96" aria-hidden="true"><path fill="#FFFFFF" stroke="#0B0C10" stroke-width="6" stroke-linejoin="round" d="M8 7v70l18-17 14 29 17-8-14-28h27z"/></svg></div></div><div class="tr-panel" id="v-rec-gallery-panel"><div class="tr-head" id="v-rec-gallery-head"><span class="tr-chip"><span class="brandmark" style="width:40px;height:40px"><svg viewBox="0 0 24 24" aria-label="GitHub"><path fill="#696868" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span></span><span class="tr-name">MoneyPrinterTurbo</span></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-button" id="host-v-button" data-start="25.7667" data-duration="4.2666" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-button-cam"><div class="mbwrap"><div class="mbq" id="v-button-q">¿Un botón para ganar dinero?</div><div class="mbbtn" id="v-button-btn"><span class="mbbtnt">GANAR DINERO</span><span class="mbring" id="v-button-ring"></span><span class="mbcur" id="v-button-cur"><svg class="ic" viewBox="0 0 24 24" width="58" height="58" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.6 3.4 18.2 11l-5.4 1.5-2.6 5.2Z"/><path d="m13.4 13.6 4.6 5.2"/></svg></span></div><div class="mbarrow" id="v-button-arr"></div><div class="mbtray" id="v-button-tray"><span class="mbempty" id="v-button-empty">VACÍO</span></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-gap" id="host-v-gap" data-start="30.0333" data-duration="7.6667" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-gap-cam"><div class="vpwrap"><div class="vprow"><div class="vpgap" id="v-gap-gap"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="4.7"/><circle cx="12" cy="12" r="1.15" fill="currentColor" stroke="none"/></svg><span class="vpgapn" id="v-gap-gapn">CRITERIO</span></div><div class="vpstack" style="flex:1 1 0"><div class="vprow" id="v-gap-slots"><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div><div class="vpcell vpslot"></div></div><div class="vprow"><div class="vpcell vpstep" id="v-gap-c0"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6v3.4M12 18v3.4M2.6 12H6M18 12h3.4"/><path d="m5.4 5.4 2.4 2.4M16.2 16.2l2.4 2.4M18.6 5.4l-2.4 2.4M7.8 16.2l-2.4 2.4"/><circle cx="12" cy="12" r="3.4"/></svg></span><span class="vpname">TEMA</span></div><div class="vpcell vpstep" id="v-gap-c1"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5Z"/><path d="M14 3v4.5h4.5"/><path d="M8.5 12.5h7"/><path d="M8.5 16.5h5"/></svg></span><span class="vpname">GUIÓN</span></div><div class="vpcell vpstep" id="v-gap-c2"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="4.6" width="17.6" height="14.8" rx="2.2"/><circle cx="8.6" cy="9.8" r="1.7"/><path d="m3.7 16.6 4.6-4.2 3.4 3 3.1-2.6 5.1 4.4"/></svg></span><span class="vpname">MATERIAL</span></div><div class="vpcell vpstep" id="v-gap-c3"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.6" width="6" height="11.2" rx="3"/><path d="M5.4 11.4a6.6 6.6 0 0 0 13.2 0"/><path d="M12 18v3.4"/><path d="M8.6 21.4h6.8"/></svg></span><span class="vpname">NARRACIÓN</span></div><div class="vpcell vpstep" id="v-gap-c4"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M6.6 11.4h5.2M6.6 15h8.8M15.2 11.4h2.2"/></svg></span><span class="vpname">SUBTÍTULOS</span></div><div class="vpcell vpstep" id="v-gap-c5"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.4 18.2V5.4l9.2-2v12.4"/><circle cx="6.8" cy="18.2" r="2.6"/><circle cx="16" cy="15.8" r="2.6"/></svg></span><span class="vpname">MÚSICA</span></div><div class="vpcell vpstep" id="v-gap-c6"><span class="vpic"><svg class="ic" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></span><span class="vpname">RENDER</span></div></div></div></div><div class="vparrow" id="v-gap-arrow"></div><div class="vpout" id="v-gap-out"><div class="vpoutfr"><svg class="ic" viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></div><div class="vpoutstack"><div class="vpoutslot" id="v-gap-outslot"><i></i><i></i></div><div class="vpoutx" id="v-gap-outx"><span class="vpoutt">VÍDEO</span><span class="vpouts">LISTO</span></div></div></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-output" id="host-v-output" data-start="37.7000" data-duration="7.7333" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-output-cam"><div class="vowrap"><div class="voin"><div class="voincard" id="v-output-i0"><span class="voinic"><svg class="ic" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6v3.4M12 18v3.4M2.6 12H6M18 12h3.4"/><path d="m5.4 5.4 2.4 2.4M16.2 16.2l2.4 2.4M18.6 5.4l-2.4 2.4M7.8 16.2l-2.4 2.4"/><circle cx="12" cy="12" r="3.4"/></svg></span><span class="voinx"><span class="voinn">TEMA</span><span class="voinbar"></span></span></div><div class="voincard" id="v-output-i1"><span class="voinic"><svg class="ic" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5Z"/><path d="M14 3v4.5h4.5"/><path d="M8.5 12.5h7"/><path d="M8.5 16.5h5"/></svg></span><span class="voinx"><span class="voinn">GUIÓN</span><span class="voinbar"></span></span></div></div><div class="vomach" id="v-output-m"><span class="vomachic"><svg class="ic" viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.1"/><path d="M19.5 14.6a1.6 1.6 0 0 0 .32 1.77l.06.06a1.94 1.94 0 1 1-2.75 2.75l-.06-.06a1.6 1.6 0 0 0-1.77-.32 1.6 1.6 0 0 0-.97 1.47v.17a1.94 1.94 0 1 1-3.88 0v-.09a1.6 1.6 0 0 0-1.05-1.47 1.6 1.6 0 0 0-1.77.32l-.06.06a1.94 1.94 0 1 1-2.75-2.75l.06-.06a1.6 1.6 0 0 0 .32-1.77 1.6 1.6 0 0 0-1.47-.97h-.17a1.94 1.94 0 1 1 0-3.88h.09a1.6 1.6 0 0 0 1.47-1.05 1.6 1.6 0 0 0-.32-1.77l-.06-.06a1.94 1.94 0 1 1 2.75-2.75l.06.06a1.6 1.6 0 0 0 1.77.32h.08a1.6 1.6 0 0 0 .97-1.47v-.17a1.94 1.94 0 1 1 3.88 0v.09a1.6 1.6 0 0 0 .97 1.47 1.6 1.6 0 0 0 1.77-.32l.06-.06a1.94 1.94 0 1 1 2.75 2.75l-.06.06a1.6 1.6 0 0 0-.32 1.77v.08a1.6 1.6 0 0 0 1.47.97h.17a1.94 1.94 0 1 1 0 3.88h-.09a1.6 1.6 0 0 0-1.47.97Z"/></svg></span><span class="vomacht">PRODUCCIÓN AUTOMÁTICA</span><span class="vodot"></span><span class="vodot"></span><span class="vodot"></span></div><div class="vorow"><div class="vocard" id="v-output-v0"><div class="vofr"><svg class="ic" viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></div><div class="voviews"><svg class="ic" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.4 12s3.5-6.4 9.6-6.4S21.6 12 21.6 12s-3.5 6.4-9.6 6.4S2.4 12 2.4 12Z"/><circle cx="12" cy="12" r="2.8"/></svg>0</div></div><div class="vocard" id="v-output-v1"><div class="vofr"><svg class="ic" viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></div><div class="voviews"><svg class="ic" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.4 12s3.5-6.4 9.6-6.4S21.6 12 21.6 12s-3.5 6.4-9.6 6.4S2.4 12 2.4 12Z"/><circle cx="12" cy="12" r="2.8"/></svg>0</div></div><div class="vocard" id="v-output-v2"><div class="vofr"><svg class="ic" viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></div><div class="voviews"><svg class="ic" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.4 12s3.5-6.4 9.6-6.4S21.6 12 21.6 12s-3.5 6.4-9.6 6.4S2.4 12 2.4 12Z"/><circle cx="12" cy="12" r="2.8"/></svg>0</div></div><div class="vocard" id="v-output-v3"><div class="vofr"><svg class="ic" viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.4"/><path d="M2.8 9.6h18.4M8.4 5v4.6M15.6 5v4.6"/><path d="m10.6 12.6 4.4 2.6-4.4 2.6Z"/></svg></div><div class="voviews"><svg class="ic" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.4 12s3.5-6.4 9.6-6.4S21.6 12 21.6 12s-3.5 6.4-9.6 6.4S2.4 12 2.4 12Z"/><circle cx="12" cy="12" r="2.8"/></svg>0</div></div></div><div class="voseal" id="v-output-s"><svg class="ic" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.4 12s3.5-6.4 9.6-6.4S21.6 12 21.6 12s-3.5 6.4-9.6 6.4S2.4 12 2.4 12Z"/><circle cx="12" cy="12" r="2.8"/></svg>NADIE LO VE</div></div></div></div>
+<div class="viz over clip" data-viz-id="v-tradeoff" id="host-v-tradeoff" data-start="45.4333" data-duration="4.6334" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-tradeoff-cam"><div class="tbwrap"><div class="tbstack"><div class="tbrails" id="v-tradeoff-rails"><div class="tbtrack"></div><div class="tbtrack"></div></div><div class="tbrows"><div class="tbrow" id="v-tradeoff-r0"><div class="tbhead"><span class="ic"><svg class="ic" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.1"/><path d="M19.5 14.6a1.6 1.6 0 0 0 .32 1.77l.06.06a1.94 1.94 0 1 1-2.75 2.75l-.06-.06a1.6 1.6 0 0 0-1.77-.32 1.6 1.6 0 0 0-.97 1.47v.17a1.94 1.94 0 1 1-3.88 0v-.09a1.6 1.6 0 0 0-1.05-1.47 1.6 1.6 0 0 0-1.77.32l-.06.06a1.94 1.94 0 1 1-2.75-2.75l.06-.06a1.6 1.6 0 0 0 .32-1.77 1.6 1.6 0 0 0-1.47-.97h-.17a1.94 1.94 0 1 1 0-3.88h.09a1.6 1.6 0 0 0 1.47-1.05 1.6 1.6 0 0 0-.32-1.77l-.06-.06a1.94 1.94 0 1 1 2.75-2.75l.06.06a1.6 1.6 0 0 0 1.77.32h.08a1.6 1.6 0 0 0 .97-1.47v-.17a1.94 1.94 0 1 1 3.88 0v.09a1.6 1.6 0 0 0 .97 1.47 1.6 1.6 0 0 0 1.77-.32l.06-.06a1.94 1.94 0 1 1 2.75 2.75l-.06.06a1.6 1.6 0 0 0-.32 1.77v.08a1.6 1.6 0 0 0 1.47.97h.17a1.94 1.94 0 1 1 0 3.88h-.09a1.6 1.6 0 0 0-1.47.97Z"/></svg></span>EJECUCIÓN<span class="tbtag" id="v-tradeoff-t0" style="color:#34E39B">SE COMPRIME</span></div><div class="tbtrack"><div class="tbfill hot" id="v-tradeoff-f0" style="width:880px"></div></div></div><div class="tbrow" id="v-tradeoff-r1"><div class="tbhead"><span class="ic"><svg class="ic" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="4.7"/><circle cx="12" cy="12" r="1.15" fill="currentColor" stroke="none"/></svg></span>ESTRATEGIA<span class="tbtag" id="v-tradeoff-t1" style="color:#9B85FF">NO SE SALTA</span></div><div class="tbtrack"><div class="tbfill keep" id="v-tradeoff-f1" style="width:880px"></div></div></div></div></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-repo-card" id="host-v-repo-card" data-start="50.0667" data-duration="3.3333" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-repo-card-cam"><div class="tc-card" id="v-repo-card-card"><div class="tc-tilt"><div class="tc-root"><div class="tc-logoframe"><span class="tc-logo" id="v-repo-card-logo"><span class="brandmark" style="width:72px;height:72px"><svg viewBox="0 0 24 24" aria-label="GitHub"><path fill="#696868" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span></span></div><div class="tc-name" id="v-repo-card-name"><span class="tc-kick">OPEN SOURCE</span><span class="tc-word">MoneyPrinterTurbo</span></div></div></div></div></div></div>
+<div class="viz over clip" data-viz-id="v-cta" id="host-v-cta" data-start="53.4000" data-duration="1.7333" data-track-index="5" data-layout-allow-overlap style="left:0px;top:0px;width:1080px;height:660px;visibility:hidden;opacity:0;"><div class="vizbg"></div><div class="vizcam" id="v-cta-cam"><div class="cwrap"><div class="csay" id="v-cta-say">COMENTA LA PALABRA</div><div class="chead" id="v-cta-head">TURBO</div><div class="cbox" id="v-cta-box"><div class="cav"></div><div class="cfield" id="v-cta-field"><i>Añade un comentario…</i></div><div class="csend" id="v-cta-send">ENVIAR</div></div><div class="cposted" id="v-cta-posted">✓ COMENTARIO PUBLICADO</div></div></div></div>
+
+  <!-- los bloques comparten posición a propósito: solo uno es visible a la vez -->
+  <div id="caption-host" class="clip" data-layout-allow-overlap data-start="0"
+       data-duration="55.1333" data-track-index="7">
+    <div class="cap on-surface" id="cap0" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c0w0"><span class="wbg" id="c0w0-bg"></span>Encontré</span><span class="w kw" id="c0w1"><span class="wbg" id="c0w1-bg"></span>un</span><span class="w kw" id="c0w2"><span class="wbg" id="c0w2-bg"></span>proyecto</span><span class="w kw" id="c0w3"><span class="wbg" id="c0w3-bg"></span>open</span><span class="w kw" id="c0w4"><span class="wbg" id="c0w4-bg"></span>source</span></div>
+    <div class="cap on-surface" id="cap1" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c1w0"><span class="wbg" id="c1w0-bg"></span>que</span><span class="w kw" id="c1w1"><span class="wbg" id="c1w1-bg"></span>automatiza</span><span class="w kw" id="c1w2"><span class="wbg" id="c1w2-bg"></span>casi</span><span class="w kw" id="c1w3"><span class="wbg" id="c1w3-bg"></span>todo</span><span class="w kw" id="c1w4"><span class="wbg" id="c1w4-bg"></span>el</span></div>
+    <div class="cap on-surface" id="cap2" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c2w0"><span class="wbg" id="c2w0-bg"></span>flujo</span><span class="w kw" id="c2w1"><span class="wbg" id="c2w1-bg"></span>de</span><span class="w kw" id="c2w2"><span class="wbg" id="c2w2-bg"></span>un</span><span class="w kw" id="c2w3"><span class="wbg" id="c2w3-bg"></span>video</span><span class="w kw" id="c2w4"><span class="wbg" id="c2w4-bg"></span>faceless</span></div>
+    <div class="cap on-surface" id="cap3" data-layout-allow-overlap style="top:668px"><span class="w kw" id="c3w0"><span class="wbg" id="c3w0-bg"></span>Se</span><span class="w kw" id="c3w1"><span class="wbg" id="c3w1-bg"></span>llama</span><span class="w kw" id="c3w2"><span class="wbg" id="c3w2-bg"></span>MoneyPrinterTurbo</span><span class="w kw" id="c3w3"><span class="wbg" id="c3w3-bg"></span>y</span><span class="w kw" id="c3w4"><span class="wbg" id="c3w4-bg"></span>dejando</span></div>
+    <div class="cap on-surface" id="cap4" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c4w0"><span class="wbg" id="c4w0-bg"></span>de</span><span class="w kw" id="c4w1"><span class="wbg" id="c4w1-bg"></span>lado</span><span class="w kw" id="c4w2"><span class="wbg" id="c4w2-bg"></span>el</span><span class="w kw" id="c4w3"><span class="wbg" id="c4w3-bg"></span>nombre</span></div>
+    <div class="cap on-surface" id="cap5" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c5w0"><span class="wbg" id="c5w0-bg"></span>la</span><span class="w kw" id="c5w1"><span class="wbg" id="c5w1-bg"></span>idea</span><span class="w kw" id="c5w2"><span class="wbg" id="c5w2-bg"></span>es</span><span class="w kw" id="c5w3"><span class="wbg" id="c5w3-bg"></span>bastante</span><span class="w kw" id="c5w4"><span class="wbg" id="c5w4-bg"></span>interesante</span></div>
+    <div class="cap on-surface" id="cap6" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c6w0"><span class="wbg" id="c6w0-bg"></span>Le</span><span class="w kw" id="c6w1"><span class="wbg" id="c6w1-bg"></span>das</span><span class="w kw" id="c6w2"><span class="wbg" id="c6w2-bg"></span>un</span><span class="w kw" id="c6w3"><span class="wbg" id="c6w3-bg"></span>tema</span></div>
+    <div class="cap on-surface" id="cap7" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c7w0"><span class="wbg" id="c7w0-bg"></span>puede</span><span class="w kw" id="c7w1"><span class="wbg" id="c7w1-bg"></span>ayudarte</span><span class="w kw" id="c7w2"><span class="wbg" id="c7w2-bg"></span>a</span></div>
+    <div class="cap on-surface" id="cap8" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c8w0"><span class="wbg" id="c8w0-bg"></span>generar</span><span class="w kw" id="c8w1"><span class="wbg" id="c8w1-bg"></span>el</span><span class="w kw" id="c8w2"><span class="wbg" id="c8w2-bg"></span>guión</span></div>
+    <div class="cap on-surface" id="cap9" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c9w0"><span class="wbg" id="c9w0-bg"></span>buscar</span><span class="w kw" id="c9w1"><span class="wbg" id="c9w1-bg"></span>material</span></div>
+    <div class="cap on-surface" id="cap10" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c10w0"><span class="wbg" id="c10w0-bg"></span>crear</span><span class="w kw" id="c10w1"><span class="wbg" id="c10w1-bg"></span>narración</span></div>
+    <div class="cap on-surface" id="cap11" data-layout-allow-overlap style="top:760px"><span class="w kw" id="c11w0"><span class="wbg" id="c11w0-bg"></span>añadir</span><span class="w kw" id="c11w1"><span class="wbg" id="c11w1-bg"></span>subtítulos</span><span class="w kw" id="c11w2"><span class="wbg" id="c11w2-bg"></span>y</span><span class="w kw" id="c11w3"><span class="wbg" id="c11w3-bg"></span>música</span></div>
+    <div class="cap on-surface" id="cap12" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c12w0"><span class="wbg" id="c12w0-bg"></span>y</span><span class="w kw" id="c12w1"><span class="wbg" id="c12w1-bg"></span>terminar</span><span class="w kw" id="c12w2"><span class="wbg" id="c12w2-bg"></span>renderizando</span><span class="w kw" id="c12w3"><span class="wbg" id="c12w3-bg"></span>el</span><span class="w kw" id="c12w4"><span class="wbg" id="c12w4-bg"></span>video</span></div>
+    <div class="cap on-surface" id="cap13" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c13w0"><span class="wbg" id="c13w0-bg"></span>También</span><span class="w kw" id="c13w1"><span class="wbg" id="c13w1-bg"></span>permite</span><span class="w kw" id="c13w2"><span class="wbg" id="c13w2-bg"></span>generar</span><span class="w kw" id="c13w3"><span class="wbg" id="c13w3-bg"></span>diferentes</span><span class="w kw" id="c13w4"><span class="wbg" id="c13w4-bg"></span>formatos</span></div>
+    <div class="cap on-surface" id="cap14" data-layout-allow-overlap style="top:760px"><span class="w kw" id="c14w0"><span class="wbg" id="c14w0-bg"></span>y</span><span class="w kw" id="c14w1"><span class="wbg" id="c14w1-bg"></span>varias</span><span class="w kw" id="c14w2"><span class="wbg" id="c14w2-bg"></span>versiones</span><span class="w kw" id="c14w3"><span class="wbg" id="c14w3-bg"></span>del</span><span class="w kw" id="c14w4"><span class="wbg" id="c14w4-bg"></span>contenido</span></div>
+    <div class="cap on-surface" id="cap15" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c15w0"><span class="wbg" id="c15w0-bg"></span>¿Significa</span><span class="w kw" id="c15w1"><span class="wbg" id="c15w1-bg"></span>esto</span><span class="w kw" id="c15w2"><span class="wbg" id="c15w2-bg"></span>que</span><span class="w kw" id="c15w3"><span class="wbg" id="c15w3-bg"></span>acabas</span></div>
+    <div class="cap on-surface" id="cap16" data-layout-allow-overlap style="top:852px"><span class="w kw" id="c16w0"><span class="wbg" id="c16w0-bg"></span>de</span><span class="w kw" id="c16w1"><span class="wbg" id="c16w1-bg"></span>encontrar</span><span class="w kw" id="c16w2"><span class="wbg" id="c16w2-bg"></span>un</span><span class="w kw" id="c16w3"><span class="wbg" id="c16w3-bg"></span>botón</span></div>
+    <div class="cap on-surface" id="cap17" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c17w0"><span class="wbg" id="c17w0-bg"></span>para</span><span class="w kw" id="c17w1"><span class="wbg" id="c17w1-bg"></span>ganar</span><span class="w kw" id="c17w2"><span class="wbg" id="c17w2-bg"></span>dinero</span></div>
+    <div class="cap on-surface" id="cap18" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c18w0"><span class="wbg" id="c18w0-bg"></span>No</span></div>
+    <div class="cap on-surface" id="cap19" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c19w0"><span class="wbg" id="c19w0-bg"></span>Y</span><span class="w kw" id="c19w1"><span class="wbg" id="c19w1-bg"></span>esa</span><span class="w kw" id="c19w2"><span class="wbg" id="c19w2-bg"></span>es</span><span class="w kw" id="c19w3"><span class="wbg" id="c19w3-bg"></span>precisamente</span></div>
+    <div class="cap on-surface" id="cap20" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c20w0"><span class="wbg" id="c20w0-bg"></span>la</span><span class="w kw" id="c20w1"><span class="wbg" id="c20w1-bg"></span>parte</span><span class="w kw" id="c20w2"><span class="wbg" id="c20w2-bg"></span>que</span><span class="w kw" id="c20w3"><span class="wbg" id="c20w3-bg"></span>casi</span></div>
+    <div class="cap on-surface" id="cap21" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c21w0"><span class="wbg" id="c21w0-bg"></span>siempre</span><span class="w kw" id="c21w1"><span class="wbg" id="c21w1-bg"></span>se</span><span class="w kw" id="c21w2"><span class="wbg" id="c21w2-bg"></span>omite</span></div>
+    <div class="cap on-surface" id="cap22" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c22w0"><span class="wbg" id="c22w0-bg"></span>Optimizar</span><span class="w kw" id="c22w1"><span class="wbg" id="c22w1-bg"></span>la</span><span class="w kw" id="c22w2"><span class="wbg" id="c22w2-bg"></span>producción</span><span class="w kw" id="c22w3"><span class="wbg" id="c22w3-bg"></span>no</span></div>
+    <div class="cap on-surface" id="cap23" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c23w0"><span class="wbg" id="c23w0-bg"></span>automatiza</span><span class="w kw" id="c23w1"><span class="wbg" id="c23w1-bg"></span>el</span><span class="w kw" id="c23w2"><span class="wbg" id="c23w2-bg"></span>criterio</span></div>
+    <div class="cap on-surface" id="cap24" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c24w0"><span class="wbg" id="c24w0-bg"></span>Si</span><span class="w kw" id="c24w1"><span class="wbg" id="c24w1-bg"></span>eliges</span><span class="w kw" id="c24w2"><span class="wbg" id="c24w2-bg"></span>un</span><span class="w kw" id="c24w3"><span class="wbg" id="c24w3-bg"></span>tema</span><span class="w kw" id="c24w4"><span class="wbg" id="c24w4-bg"></span>que</span></div>
+    <div class="cap on-surface" id="cap25" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c25w0"><span class="wbg" id="c25w0-bg"></span>a</span><span class="w kw" id="c25w1"><span class="wbg" id="c25w1-bg"></span>nadie</span><span class="w kw" id="c25w2"><span class="wbg" id="c25w2-bg"></span>le</span><span class="w kw" id="c25w3"><span class="wbg" id="c25w3-bg"></span>importa</span><span class="w kw" id="c25w4"><span class="wbg" id="c25w4-bg"></span>y</span></div>
+    <div class="cap on-surface" id="cap26" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c26w0"><span class="wbg" id="c26w0-bg"></span>generas</span><span class="w kw" id="c26w1"><span class="wbg" id="c26w1-bg"></span>un</span><span class="w kw" id="c26w2"><span class="wbg" id="c26w2-bg"></span>guión</span><span class="w kw" id="c26w3"><span class="wbg" id="c26w3-bg"></span>genérico</span></div>
+    <div class="cap on-surface" id="cap27" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c27w0"><span class="wbg" id="c27w0-bg"></span>solo</span><span class="w kw" id="c27w1"><span class="wbg" id="c27w1-bg"></span>has</span><span class="w kw" id="c27w2"><span class="wbg" id="c27w2-bg"></span>encontrado</span><span class="w kw" id="c27w3"><span class="wbg" id="c27w3-bg"></span>una</span><span class="w kw" id="c27w4"><span class="wbg" id="c27w4-bg"></span>forma</span></div>
+    <div class="cap on-surface" id="cap28" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c28w0"><span class="wbg" id="c28w0-bg"></span>más</span><span class="w kw" id="c28w1"><span class="wbg" id="c28w1-bg"></span>rápida</span><span class="w kw" id="c28w2"><span class="wbg" id="c28w2-bg"></span>de</span><span class="w kw" id="c28w3"><span class="wbg" id="c28w3-bg"></span>crear</span><span class="w kw" id="c28w4"><span class="wbg" id="c28w4-bg"></span>un</span></div>
+    <div class="cap on-surface" id="cap29" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c29w0"><span class="wbg" id="c29w0-bg"></span>video</span><span class="w kw" id="c29w1"><span class="wbg" id="c29w1-bg"></span>que</span><span class="w kw" id="c29w2"><span class="wbg" id="c29w2-bg"></span>nadie</span><span class="w kw" id="c29w3"><span class="wbg" id="c29w3-bg"></span>quiere</span><span class="w kw" id="c29w4"><span class="wbg" id="c29w4-bg"></span>ver</span></div>
+    <div class="cap on-surface" id="cap30" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c30w0"><span class="wbg" id="c30w0-bg"></span>La</span><span class="w kw" id="c30w1"><span class="wbg" id="c30w1-bg"></span>ventaja</span><span class="w kw" id="c30w2"><span class="wbg" id="c30w2-bg"></span>está</span><span class="w kw" id="c30w3"><span class="wbg" id="c30w3-bg"></span>en</span></div>
+    <div class="cap on-surface" id="cap31" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c31w0"><span class="wbg" id="c31w0-bg"></span>comprimir</span><span class="w kw" id="c31w1"><span class="wbg" id="c31w1-bg"></span>la</span><span class="w kw" id="c31w2"><span class="wbg" id="c31w2-bg"></span>ejecución</span></div>
+    <div class="cap on-surface" id="cap32" data-layout-allow-overlap style="top:794px"><span class="w kw" id="c32w0"><span class="wbg" id="c32w0-bg"></span>no</span><span class="w kw" id="c32w1"><span class="wbg" id="c32w1-bg"></span>en</span><span class="w kw" id="c32w2"><span class="wbg" id="c32w2-bg"></span>saltarte</span><span class="w kw" id="c32w3"><span class="wbg" id="c32w3-bg"></span>la</span><span class="w kw" id="c32w4"><span class="wbg" id="c32w4-bg"></span>estrategia</span></div>
+    <div class="cap on-surface" id="cap33" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c33w0"><span class="wbg" id="c33w0-bg"></span>Si</span><span class="w kw" id="c33w1"><span class="wbg" id="c33w1-bg"></span>quieres</span><span class="w kw" id="c33w2"><span class="wbg" id="c33w2-bg"></span>el</span><span class="w kw" id="c33w3"><span class="wbg" id="c33w3-bg"></span>proyecto</span></div>
+    <div class="cap on-surface" id="cap34" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c34w0"><span class="wbg" id="c34w0-bg"></span>y</span><span class="w kw" id="c34w1"><span class="wbg" id="c34w1-bg"></span>el</span><span class="w kw" id="c34w2"><span class="wbg" id="c34w2-bg"></span>flujo</span><span class="w kw" id="c34w3"><span class="wbg" id="c34w3-bg"></span>que</span></div>
+    <div class="cap on-surface" id="cap35" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c35w0"><span class="wbg" id="c35w0-bg"></span>usaría</span><span class="w kw" id="c35w1"><span class="wbg" id="c35w1-bg"></span>yo</span><span class="w kw" id="c35w2"><span class="wbg" id="c35w2-bg"></span>para</span><span class="w kw" id="c35w3"><span class="wbg" id="c35w3-bg"></span>probarlo</span></div>
+    <div class="cap on-surface" id="cap36" data-layout-allow-overlap style="top:852px"><span class="w kw" id="c36w0"><span class="wbg" id="c36w0-bg"></span>comenta</span><span class="w kw" id="c36w1"><span class="wbg" id="c36w1-bg"></span>TURBO</span><span class="w kw" id="c36w2"><span class="wbg" id="c36w2-bg"></span>y</span></div>
+    <div class="cap on-surface" id="cap37" data-layout-allow-overlap style="top:869px"><span class="w kw" id="c37w0"><span class="wbg" id="c37w0-bg"></span>te</span><span class="w kw" id="c37w1"><span class="wbg" id="c37w1-bg"></span>la</span><span class="w kw" id="c37w2"><span class="wbg" id="c37w2-bg"></span>mando</span></div>
+  </div>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script>
+  (function () {
+    const tl = window.gsap.timeline({ paused: true });
+    tl.set('.viz[data-viz-id="v-hook"]', { visibility: "visible" }, 0.0000);
+    tl.fromTo('.viz[data-viz-id="v-hook"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 0.0000);
+    tl.to('.viz[data-viz-id="v-hook"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 5.7067);
+    tl.set('.viz[data-viz-id="v-hook"]', { opacity: 0, visibility: "hidden" }, 5.9667);
+    tl.set('.viz[data-viz-id="v-rec-repo"]', { visibility: "visible" }, 5.9667);
+    tl.fromTo('.viz[data-viz-id="v-rec-repo"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 5.9667);
+    tl.to('.viz[data-viz-id="v-rec-repo"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 8.9733);
+    tl.set('.viz[data-viz-id="v-rec-repo"]', { opacity: 0, visibility: "hidden" }, 9.2333);
+    tl.set('.viz[data-viz-id="v-pipeline"]', { visibility: "visible" }, 9.2333);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 9.2333);
+    tl.to('.viz[data-viz-id="v-pipeline"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 21.4400);
+    tl.set('.viz[data-viz-id="v-pipeline"]', { opacity: 0, visibility: "hidden" }, 21.7000);
+    tl.set('.viz[data-viz-id="v-rec-gallery"]', { visibility: "visible" }, 21.7000);
+    tl.fromTo('.viz[data-viz-id="v-rec-gallery"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 21.7000);
+    tl.to('.viz[data-viz-id="v-rec-gallery"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 25.5067);
+    tl.set('.viz[data-viz-id="v-rec-gallery"]', { opacity: 0, visibility: "hidden" }, 25.7667);
+    tl.set('.viz[data-viz-id="v-button"]', { visibility: "visible" }, 25.7667);
+    tl.fromTo('.viz[data-viz-id="v-button"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 25.7667);
+    tl.to('.viz[data-viz-id="v-button"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 29.7733);
+    tl.set('.viz[data-viz-id="v-button"]', { opacity: 0, visibility: "hidden" }, 30.0333);
+    tl.set('.viz[data-viz-id="v-gap"]', { visibility: "visible" }, 30.0333);
+    tl.fromTo('.viz[data-viz-id="v-gap"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 30.0333);
+    tl.to('.viz[data-viz-id="v-gap"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 37.4400);
+    tl.set('.viz[data-viz-id="v-gap"]', { opacity: 0, visibility: "hidden" }, 37.7000);
+    tl.set('.viz[data-viz-id="v-output"]', { visibility: "visible" }, 37.7000);
+    tl.fromTo('.viz[data-viz-id="v-output"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 37.7000);
+    tl.to('.viz[data-viz-id="v-output"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 45.1733);
+    tl.set('.viz[data-viz-id="v-output"]', { opacity: 0, visibility: "hidden" }, 45.4333);
+    tl.set('.viz[data-viz-id="v-tradeoff"]', { visibility: "visible" }, 45.4333);
+    tl.fromTo('.viz[data-viz-id="v-tradeoff"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 45.4333);
+    tl.to('.viz[data-viz-id="v-tradeoff"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 49.8067);
+    tl.set('.viz[data-viz-id="v-tradeoff"]', { opacity: 0, visibility: "hidden" }, 50.0667);
+    tl.set('.viz[data-viz-id="v-repo-card"]', { visibility: "visible" }, 50.0667);
+    tl.fromTo('.viz[data-viz-id="v-repo-card"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 50.0667);
+    tl.to('.viz[data-viz-id="v-repo-card"]', { opacity: 0, duration: 0.26, ease: "power1.inOut" }, 53.1400);
+    tl.set('.viz[data-viz-id="v-repo-card"]', { opacity: 0, visibility: "hidden" }, 53.4000);
+    tl.set('.viz[data-viz-id="v-cta"]', { visibility: "visible" }, 53.4000);
+    tl.fromTo('.viz[data-viz-id="v-cta"]', { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power1.inOut" }, 53.4000);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-slots', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.0333);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-arrow', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1000);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-out', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 0.0667);
+    tl.to('.viz[data-viz-id="v-hook"] #v-hook-outslot', { opacity: 0, scale: .97, duration: 0.2, ease: "power2.in" }, 4.1667);
+    tl.set('.viz[data-viz-id="v-hook"] #v-hook-outslot', { opacity: 0 }, 4.3667);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-outx', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 4.1667);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-c0', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 1.9333);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-c1', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.1667);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-c2', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.4000);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-c3', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.6667);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-c4', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.9000);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-c5', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 3.1333);
+    tl.fromTo('.viz[data-viz-id="v-hook"] #v-hook-c6', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 3.4000);
+    tl.fromTo('.viz[data-viz-id="v-rec-repo"] #v-rec-repo-head', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.325, ease: "power2.out" }, 6.0000);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-slots', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power2.out" }, 9.2333);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-arrow', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "power2.out" }, 9.3000);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-out', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 9.2667);
+    tl.to('.viz[data-viz-id="v-pipeline"] #v-pipeline-outslot', { opacity: 0, scale: .97, duration: 0.2, ease: "power2.in" }, 21.0333);
+    tl.set('.viz[data-viz-id="v-pipeline"] #v-pipeline-outslot', { opacity: 0 }, 21.2333);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-outx', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 21.0333);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-c0', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 11.7667);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-c1', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 13.7667);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-c2', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 14.9000);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-c3', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 16.1000);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-c4', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 17.6667);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-c5', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 18.6333);
+    tl.fromTo('.viz[data-viz-id="v-pipeline"] #v-pipeline-c6', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 20.1667);
+    tl.fromTo('.viz[data-viz-id="v-rec-gallery"] #v-rec-gallery-head', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.325, ease: "power2.out" }, 21.7333);
+    tl.fromTo('.viz[data-viz-id="v-button"] #v-button-q', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 25.7667);
+    tl.fromTo('.viz[data-viz-id="v-button"] #v-button-btn', { opacity: 0, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.54, ease: "power3.out" }, 27.6667);
+    tl.fromTo('.viz[data-viz-id="v-button"] #v-button-arr', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.275, ease: "power2.out" }, 27.8000);
+    tl.fromTo('.viz[data-viz-id="v-button"] #v-button-tray', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 27.8667);
+    tl.fromTo('.viz[data-viz-id="v-button"] #v-button-cur', { opacity: 0, x: 130, y: 230 }, { opacity: 1, x: 0, y: 0, duration: 0.34, ease: "power3.out" }, 28.0000);
+    tl.to('.viz[data-viz-id="v-button"] #v-button-btn', { scale: 0.86, duration: 0.08, ease: "power2.in", overwrite: "auto" }, 28.5000);
+    tl.to('.viz[data-viz-id="v-button"] #v-button-btn', { scale: 1, duration: 0.15, ease: "power2.out", overwrite: "auto" }, 28.5800);
+    tl.fromTo('#v-button-ring', { opacity: .8, scale: .30 }, { opacity: 0, scale: 1.6, duration: 0.42, ease: "power2.out" }, 28.5000);
+    tl.fromTo('.viz[data-viz-id="v-button"] #v-button-empty', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 29.3000);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-slots', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power2.out" }, 30.0333);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-arrow', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "power2.out" }, 30.1000);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-out', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 30.0667);
+    tl.to('.viz[data-viz-id="v-gap"] #v-gap-outslot', { opacity: 0, scale: .97, duration: 0.2, ease: "power2.in" }, 30.4000);
+    tl.set('.viz[data-viz-id="v-gap"] #v-gap-outslot', { opacity: 0 }, 30.6000);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-outx', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 30.4000);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-gap', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 30.0333);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-c0', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 30.5000);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-c1', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 30.5667);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-c2', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 30.6667);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-c3', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 30.7333);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-c4', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 30.8333);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-c5', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 30.9000);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-c6', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 30.9667);
+    tl.fromTo('.viz[data-viz-id="v-gap"] #v-gap-gapn', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 36.2000);
+    tl.fromTo('.viz[data-viz-id="v-output"] #v-output-i0', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 37.7000);
+    tl.fromTo('.viz[data-viz-id="v-output"] #v-output-i1', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.375, ease: "power2.out" }, 39.5667);
+    tl.fromTo('.viz[data-viz-id="v-output"] #v-output-m', { opacity: 0, y: 26, scale: 0.985 }, { opacity: 1, y: 0, scale: 1, duration: 0.459, ease: "power3.out" }, 40.8000);
+    tl.fromTo('.viz[data-viz-id="v-output"] #v-output-v0', { opacity: 0, y: -22 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 41.2000);
+    tl.fromTo('.viz[data-viz-id="v-output"] #v-output-v1', { opacity: 0, y: -22 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 42.0667);
+    tl.fromTo('.viz[data-viz-id="v-output"] #v-output-v2', { opacity: 0, y: -22 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 42.9333);
+    tl.fromTo('.viz[data-viz-id="v-output"] #v-output-v3', { opacity: 0, y: -22 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 43.5333);
+    tl.fromTo('.viz[data-viz-id="v-output"] #v-output-s', { opacity: 0, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.54, ease: "power3.out" }, 44.6000);
+    tl.fromTo('.viz[data-viz-id="v-tradeoff"] #v-tradeoff-rails', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power2.out" }, 45.4333);
+    tl.fromTo('.viz[data-viz-id="v-tradeoff"] #v-tradeoff-r0', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power2.out" }, 47.1333);
+    tl.fromTo('.viz[data-viz-id="v-tradeoff"] #v-tradeoff-f0', { width: 0 }, { width: 300, duration: 0.6, ease: "power2.out" }, 47.5000);
+    tl.fromTo('.viz[data-viz-id="v-tradeoff"] #v-tradeoff-t0', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 47.9000);
+    tl.fromTo('.viz[data-viz-id="v-tradeoff"] #v-tradeoff-r1', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power2.out" }, 49.0667);
+    tl.fromTo('.viz[data-viz-id="v-tradeoff"] #v-tradeoff-t1', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power2.out" }, 49.4000);
+    tl.fromTo('.viz[data-viz-id="v-repo-card"] #v-repo-card-logo', { opacity: 0, x: 72 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 50.1667);
+    tl.fromTo('.viz[data-viz-id="v-repo-card"] #v-repo-card-name', { opacity: 0, y: -22 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 50.2333);
+    tl.fromTo('.viz[data-viz-id="v-cta"] #v-cta-say', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.275, ease: "power2.out" }, 53.4333);
+    tl.fromTo('.viz[data-viz-id="v-cta"] #v-cta-head', { opacity: 0, scale: 1.045, y: -8 }, { opacity: 1, scale: 1, y: 0, duration: 0.638, ease: "expo.out" }, 53.5333);
+    tl.fromTo('.viz[data-viz-id="v-cta"] #v-cta-box', { opacity: 0, scale: 0.94, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.375, ease: "power2.out" }, 53.7333);
+    tl.set('.viz[data-viz-id="v-cta"] #v-cta-field', { innerHTML: "<span class='ccaret'></span>" }, 54.0333);
+    tl.set('.viz[data-viz-id="v-cta"] #v-cta-field', { innerHTML: "T<span class='ccaret'></span>" }, 54.1733);
+    tl.set('.viz[data-viz-id="v-cta"] #v-cta-field', { innerHTML: "TU<span class='ccaret'></span>" }, 54.3133);
+    tl.set('.viz[data-viz-id="v-cta"] #v-cta-field', { innerHTML: "TUR<span class='ccaret'></span>" }, 54.4533);
+    tl.set('.viz[data-viz-id="v-cta"] #v-cta-field', { innerHTML: "TURB<span class='ccaret'></span>" }, 54.5933);
+    tl.set('.viz[data-viz-id="v-cta"] #v-cta-field', { innerHTML: "TURBO<span class='ccaret'></span>" }, 54.7333);
+    tl.set('.viz[data-viz-id="v-cta"] #v-cta-send', { color: "#34E39B" }, 54.8667);
+    tl.fromTo('.viz[data-viz-id="v-cta"] #v-cta-send', { scale: 1 }, { scale: 1.12, duration: 0.1040, yoyo: true, repeat: 1, ease: "power2.out" }, 54.8667);
+    tl.fromTo('.viz[data-viz-id="v-cta"] #v-cta-posted', { opacity: 0, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.513, ease: "power3.out" }, 55.0667);
+    // bloques de subtítulo — entran enteros y se quedan quietos
+    tl.fromTo('#cap0', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.1000);
+    tl.to('#cap0', { opacity: 0, duration: 0.1, ease: "power2.in" }, 1.7000);
+    tl.set('#cap0', { opacity: 0 }, 1.8000);
+    tl.fromTo('#cap1', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 1.7667);
+    tl.to('#cap1', { opacity: 0, duration: 0.1, ease: "power2.in" }, 3.1333);
+    tl.set('#cap1', { opacity: 0 }, 3.2333);
+    tl.fromTo('#cap2', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 3.2000);
+    tl.to('#cap2', { opacity: 0, duration: 0.1, ease: "power2.in" }, 4.8667);
+    tl.set('#cap2', { opacity: 0 }, 4.9667);
+    tl.fromTo('#cap3', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 5.1000);
+    tl.to('#cap3', { opacity: 0, duration: 0.1, ease: "power2.in" }, 8.1667);
+    tl.set('#cap3', { opacity: 0 }, 8.2667);
+    tl.fromTo('#cap4', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 8.2333);
+    tl.to('#cap4', { opacity: 0, duration: 0.1, ease: "power2.in" }, 9.3667);
+    tl.set('#cap4', { opacity: 0 }, 9.4667);
+    tl.fromTo('#cap5', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 9.4667);
+    tl.to('#cap5', { opacity: 0, duration: 0.1, ease: "power2.in" }, 10.9667);
+    tl.set('#cap5', { opacity: 0 }, 11.0667);
+    tl.fromTo('#cap6', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 11.2000);
+    tl.to('#cap6', { opacity: 0, duration: 0.1, ease: "power2.in" }, 12.1000);
+    tl.set('#cap6', { opacity: 0 }, 12.2000);
+    tl.fromTo('#cap7', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 12.1667);
+    tl.to('#cap7', { opacity: 0, duration: 0.1, ease: "power2.in" }, 13.0000);
+    tl.set('#cap7', { opacity: 0 }, 13.1000);
+    tl.fromTo('#cap8', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 13.0667);
+    tl.to('#cap8', { opacity: 0, duration: 0.1, ease: "power2.in" }, 14.3000);
+    tl.set('#cap8', { opacity: 0 }, 14.4000);
+    tl.fromTo('#cap9', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 14.4000);
+    tl.to('#cap9', { opacity: 0, duration: 0.1, ease: "power2.in" }, 15.6000);
+    tl.set('#cap9', { opacity: 0 }, 15.7000);
+    tl.fromTo('#cap10', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 15.6667);
+    tl.to('#cap10', { opacity: 0, duration: 0.1, ease: "power2.in" }, 16.9667);
+    tl.set('#cap10', { opacity: 0 }, 17.0667);
+    tl.fromTo('#cap11', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 17.0333);
+    tl.to('#cap11', { opacity: 0, duration: 0.1, ease: "power2.in" }, 19.2667);
+    tl.set('#cap11', { opacity: 0 }, 19.3667);
+    tl.fromTo('#cap12', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 19.3333);
+    tl.to('#cap12', { opacity: 0, duration: 0.1, ease: "power2.in" }, 21.4333);
+    tl.set('#cap12', { opacity: 0 }, 21.5333);
+    tl.fromTo('#cap13', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 21.6667);
+    tl.to('#cap13', { opacity: 0, duration: 0.1, ease: "power2.in" }, 23.8000);
+    tl.set('#cap13', { opacity: 0 }, 23.9000);
+    tl.fromTo('#cap14', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 23.8667);
+    tl.to('#cap14', { opacity: 0, duration: 0.1, ease: "power2.in" }, 25.5000);
+    tl.set('#cap14', { opacity: 0 }, 25.6000);
+    tl.fromTo('#cap15', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 25.7333);
+    tl.to('#cap15', { opacity: 0, duration: 0.1, ease: "power2.in" }, 26.8333);
+    tl.set('#cap15', { opacity: 0 }, 26.9333);
+    tl.fromTo('#cap16', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 26.9000);
+    tl.to('#cap16', { opacity: 0, duration: 0.1, ease: "power2.in" }, 27.8667);
+    tl.set('#cap16', { opacity: 0 }, 27.9667);
+    tl.fromTo('#cap17', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 27.9667);
+    tl.to('#cap17', { opacity: 0, duration: 0.1, ease: "power2.in" }, 29.0000);
+    tl.set('#cap17', { opacity: 0 }, 29.1000);
+    tl.fromTo('#cap18', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 29.2333);
+    tl.to('#cap18', { opacity: 0, duration: 0.1, ease: "power2.in" }, 29.7333);
+    tl.set('#cap18', { opacity: 0 }, 29.8333);
+    tl.fromTo('#cap19', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 29.9667);
+    tl.to('#cap19', { opacity: 0, duration: 0.1, ease: "power2.in" }, 31.2333);
+    tl.set('#cap19', { opacity: 0 }, 31.3333);
+    tl.fromTo('#cap20', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 31.3000);
+    tl.to('#cap20', { opacity: 0, duration: 0.1, ease: "power2.in" }, 32.1000);
+    tl.set('#cap20', { opacity: 0 }, 32.2000);
+    tl.fromTo('#cap21', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 32.1667);
+    tl.to('#cap21', { opacity: 0, duration: 0.1, ease: "power2.in" }, 33.1333);
+    tl.set('#cap21', { opacity: 0 }, 33.2333);
+    tl.fromTo('#cap22', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 33.3667);
+    tl.to('#cap22', { opacity: 0, duration: 0.1, ease: "power2.in" }, 35.2000);
+    tl.set('#cap22', { opacity: 0 }, 35.3000);
+    tl.fromTo('#cap23', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 35.2667);
+    tl.to('#cap23', { opacity: 0, duration: 0.1, ease: "power2.in" }, 36.7667);
+    tl.set('#cap23', { opacity: 0 }, 36.8667);
+    tl.fromTo('#cap24', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 37.0000);
+    tl.to('#cap24', { opacity: 0, duration: 0.1, ease: "power2.in" }, 38.0667);
+    tl.set('#cap24', { opacity: 0 }, 38.1667);
+    tl.fromTo('#cap25', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 38.1667);
+    tl.to('#cap25', { opacity: 0, duration: 0.1, ease: "power2.in" }, 39.0333);
+    tl.set('#cap25', { opacity: 0 }, 39.1333);
+    tl.fromTo('#cap26', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 39.1000);
+    tl.to('#cap26', { opacity: 0, duration: 0.1, ease: "power2.in" }, 40.5333);
+    tl.set('#cap26', { opacity: 0 }, 40.6333);
+    tl.fromTo('#cap27', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 40.7333);
+    tl.to('#cap27', { opacity: 0, duration: 0.1, ease: "power2.in" }, 42.2333);
+    tl.set('#cap27', { opacity: 0 }, 42.3333);
+    tl.fromTo('#cap28', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 42.3000);
+    tl.to('#cap28', { opacity: 0, duration: 0.1, ease: "power2.in" }, 43.4000);
+    tl.set('#cap28', { opacity: 0 }, 43.5000);
+    tl.fromTo('#cap29', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 43.4667);
+    tl.to('#cap29', { opacity: 0, duration: 0.1, ease: "power2.in" }, 45.1333);
+    tl.set('#cap29', { opacity: 0 }, 45.2333);
+    tl.fromTo('#cap30', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 45.3667);
+    tl.to('#cap30', { opacity: 0, duration: 0.1, ease: "power2.in" }, 46.4333);
+    tl.set('#cap30', { opacity: 0 }, 46.5333);
+    tl.fromTo('#cap31', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 46.5000);
+    tl.to('#cap31', { opacity: 0, duration: 0.1, ease: "power2.in" }, 47.9333);
+    tl.set('#cap31', { opacity: 0 }, 48.0333);
+    tl.fromTo('#cap32', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 48.0000);
+    tl.to('#cap32', { opacity: 0, duration: 0.1, ease: "power2.in" }, 49.7000);
+    tl.set('#cap32', { opacity: 0 }, 49.8000);
+    tl.fromTo('#cap33', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 50.0333);
+    tl.to('#cap33', { opacity: 0, duration: 0.1, ease: "power2.in" }, 51.1000);
+    tl.set('#cap33', { opacity: 0 }, 51.2000);
+    tl.fromTo('#cap34', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 51.1667);
+    tl.to('#cap34', { opacity: 0, duration: 0.1, ease: "power2.in" }, 51.7000);
+    tl.set('#cap34', { opacity: 0 }, 51.8000);
+    tl.fromTo('#cap35', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 51.7667);
+    tl.to('#cap35', { opacity: 0, duration: 0.1, ease: "power2.in" }, 53.2667);
+    tl.set('#cap35', { opacity: 0 }, 53.3667);
+    tl.fromTo('#cap36', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 53.3333);
+    tl.to('#cap36', { opacity: 0, duration: 0.1, ease: "power2.in" }, 54.2333);
+    tl.set('#cap36', { opacity: 0 }, 54.3333);
+    tl.fromTo('#cap37', { opacity: 0, scale: 0.97, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "power2.out" }, 54.3000);
+    tl.to('#cap37', { opacity: 0, duration: 0.1, ease: "power2.in" }, 54.8333);
+    tl.set('#cap37', { opacity: 0 }, 54.9333);
+    // karaoke — el fondo violeta viaja palabra a palabra
+    tl.fromTo("#c0w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 0.1333);
+    tl.to("#c0w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 0.6000);
+    tl.fromTo("#c0w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 0.6000);
+    tl.to("#c0w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 0.7000);
+    tl.fromTo("#c0w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 0.7000);
+    tl.to("#c0w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 1.1333);
+    tl.fromTo("#c0w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 1.1333);
+    tl.to("#c0w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 1.4333);
+    tl.fromTo("#c0w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 1.4333);
+    tl.to("#c0w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 1.7333);
+    tl.fromTo("#c1w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 1.8333);
+    tl.to("#c1w0-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 1.9333);
+    tl.fromTo("#c1w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 1.9333);
+    tl.to("#c1w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 2.4667);
+    tl.fromTo("#c1w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 2.4667);
+    tl.to("#c1w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 2.8667);
+    tl.fromTo("#c1w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 2.8667);
+    tl.to("#c1w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 3.1333);
+    tl.fromTo("#c1w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 3.1333);
+    tl.to("#c1w4-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 3.2333);
+    tl.fromTo("#c2w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 3.2667);
+    tl.to("#c2w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 3.6333);
+    tl.fromTo("#c2w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 3.6333);
+    tl.to("#c2w1-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 3.7000);
+    tl.fromTo("#c2w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 3.7000);
+    tl.to("#c2w2-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 3.8333);
+    tl.fromTo("#c2w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 3.8333);
+    tl.to("#c2w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 4.1667);
+    tl.fromTo("#c2w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 4.1667);
+    tl.to("#c2w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 4.7333);
+    tl.fromTo("#c3w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 5.1333);
+    tl.to("#c3w0-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 5.3333);
+    tl.fromTo("#c3w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 5.3333);
+    tl.to("#c3w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 5.9667);
+    tl.fromTo("#c3w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 5.9667);
+    tl.to("#c3w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 7.8000);
+    tl.fromTo("#c3w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 7.8000);
+    tl.to("#c3w3-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 7.9333);
+    tl.fromTo("#c3w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 7.9333);
+    tl.to("#c3w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 8.2667);
+    tl.fromTo("#c4w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 8.3000);
+    tl.to("#c4w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 8.4667);
+    tl.fromTo("#c4w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 8.4667);
+    tl.to("#c4w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 8.7333);
+    tl.fromTo("#c4w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 8.7333);
+    tl.to("#c4w2-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 8.8667);
+    tl.fromTo("#c4w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 8.8667);
+    tl.to("#c4w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 9.2333);
+    tl.fromTo("#c5w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 9.5000);
+    tl.to("#c5w0-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 9.6333);
+    tl.fromTo("#c5w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 9.6333);
+    tl.to("#c5w1-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 9.8333);
+    tl.fromTo("#c5w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 9.8333);
+    tl.to("#c5w2-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 9.8667);
+    tl.fromTo("#c5w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 9.8667);
+    tl.to("#c5w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 10.4000);
+    tl.fromTo("#c5w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 10.4000);
+    tl.to("#c5w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 10.8333);
+    tl.fromTo("#c6w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 11.2333);
+    tl.to("#c6w0-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 11.4333);
+    tl.fromTo("#c6w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 11.4333);
+    tl.to("#c6w1-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 11.6000);
+    tl.fromTo("#c6w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 11.6000);
+    tl.to("#c6w2-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 11.7667);
+    tl.fromTo("#c6w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 11.7667);
+    tl.to("#c6w3-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 11.9667);
+    tl.fromTo("#c7w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 12.2333);
+    tl.to("#c7w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 12.6000);
+    tl.fromTo("#c7w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 12.6000);
+    tl.to("#c7w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 13.0000);
+    tl.fromTo("#c7w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 13.0000);
+    tl.to("#c7w2-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 13.0667);
+    tl.fromTo("#c8w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 13.1333);
+    tl.to("#c8w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 13.6333);
+    tl.fromTo("#c8w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 13.6333);
+    tl.to("#c8w1-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 13.7667);
+    tl.fromTo("#c8w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 13.7667);
+    tl.to("#c8w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 14.2000);
+    tl.fromTo("#c9w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 14.4333);
+    tl.to("#c9w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 14.9000);
+    tl.fromTo("#c9w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 14.9000);
+    tl.to("#c9w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 15.4667);
+    tl.fromTo("#c10w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 15.7333);
+    tl.to("#c10w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 16.1000);
+    tl.fromTo("#c10w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 16.1000);
+    tl.to("#c10w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 16.8333);
+    tl.fromTo("#c11w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 17.1000);
+    tl.to("#c11w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 17.6667);
+    tl.fromTo("#c11w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 17.6667);
+    tl.to("#c11w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 18.5667);
+    tl.fromTo("#c11w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 18.5667);
+    tl.to("#c11w2-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 18.6333);
+    tl.fromTo("#c11w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 18.6333);
+    tl.to("#c11w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 19.1333);
+    tl.fromTo("#c12w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 19.4000);
+    tl.to("#c12w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 19.6667);
+    tl.fromTo("#c12w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 19.6667);
+    tl.to("#c12w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 20.1667);
+    tl.fromTo("#c12w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 20.1667);
+    tl.to("#c12w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 20.9667);
+    tl.fromTo("#c12w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 20.9667);
+    tl.to("#c12w3-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 21.0333);
+    tl.fromTo("#c12w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 21.0333);
+    tl.to("#c12w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 21.3000);
+    tl.fromTo("#c13w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 21.7000);
+    tl.to("#c13w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 22.1333);
+    tl.fromTo("#c13w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 22.1333);
+    tl.to("#c13w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 22.5333);
+    tl.fromTo("#c13w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 22.5333);
+    tl.to("#c13w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 22.8333);
+    tl.fromTo("#c13w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 22.8333);
+    tl.to("#c13w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 23.2667);
+    tl.fromTo("#c13w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 23.2667);
+    tl.to("#c13w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 23.9000);
+    tl.fromTo("#c14w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 23.9000);
+    tl.to("#c14w0-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 23.9667);
+    tl.fromTo("#c14w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 23.9667);
+    tl.to("#c14w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 24.3000);
+    tl.fromTo("#c14w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 24.3000);
+    tl.to("#c14w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 24.8667);
+    tl.fromTo("#c14w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 24.8667);
+    tl.to("#c14w3-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 24.9333);
+    tl.fromTo("#c14w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 24.9333);
+    tl.to("#c14w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 25.3667);
+    tl.fromTo("#c15w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 25.7667);
+    tl.to("#c15w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 26.4667);
+    tl.fromTo("#c15w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 26.4667);
+    tl.to("#c15w1-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 26.6000);
+    tl.fromTo("#c15w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 26.6000);
+    tl.to("#c15w2-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 26.7000);
+    tl.fromTo("#c15w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 26.7000);
+    tl.to("#c15w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 26.9333);
+    tl.fromTo("#c16w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 26.9667);
+    tl.to("#c16w0-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 27.0333);
+    tl.fromTo("#c16w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 27.0333);
+    tl.to("#c16w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 27.5333);
+    tl.fromTo("#c16w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 27.5333);
+    tl.to("#c16w2-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 27.6667);
+    tl.fromTo("#c16w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 27.6667);
+    tl.to("#c16w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 27.9667);
+    tl.fromTo("#c17w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 28.0000);
+    tl.to("#c17w0-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 28.2000);
+    tl.fromTo("#c17w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 28.2000);
+    tl.to("#c17w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 28.5000);
+    tl.fromTo("#c17w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 28.5000);
+    tl.to("#c17w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 28.9000);
+    tl.fromTo("#c18w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 29.3000);
+    tl.to("#c18w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 29.6333);
+    tl.fromTo("#c19w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 30.0333);
+    tl.to("#c19w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 30.2000);
+    tl.fromTo("#c19w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 30.2000);
+    tl.to("#c19w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 30.5000);
+    tl.fromTo("#c19w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 30.5000);
+    tl.to("#c19w2-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 30.7000);
+    tl.fromTo("#c19w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 30.7000);
+    tl.to("#c19w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 31.3333);
+    tl.fromTo("#c20w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 31.3667);
+    tl.to("#c20w0-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 31.5000);
+    tl.fromTo("#c20w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 31.5000);
+    tl.to("#c20w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 31.8333);
+    tl.fromTo("#c20w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 31.8333);
+    tl.to("#c20w2-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 32.0000);
+    tl.fromTo("#c20w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 32.0000);
+    tl.to("#c20w3-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 32.2000);
+    tl.fromTo("#c21w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 32.2333);
+    tl.to("#c21w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 32.7333);
+    tl.fromTo("#c21w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 32.7333);
+    tl.to("#c21w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 32.8333);
+    tl.fromTo("#c21w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 32.8333);
+    tl.to("#c21w2-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 33.0333);
+    tl.fromTo("#c22w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 33.4333);
+    tl.to("#c22w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 34.5000);
+    tl.fromTo("#c22w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 34.5000);
+    tl.to("#c22w1-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 34.5667);
+    tl.fromTo("#c22w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 34.5667);
+    tl.to("#c22w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 35.2333);
+    tl.fromTo("#c22w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 35.2333);
+    tl.to("#c22w3-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 35.3000);
+    tl.fromTo("#c23w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 35.3333);
+    tl.to("#c23w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 36.0333);
+    tl.fromTo("#c23w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 36.0333);
+    tl.to("#c23w1-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 36.2000);
+    tl.fromTo("#c23w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 36.2000);
+    tl.to("#c23w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 36.6333);
+    tl.fromTo("#c24w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 37.0333);
+    tl.to("#c24w0-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 37.2333);
+    tl.fromTo("#c24w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 37.2333);
+    tl.to("#c24w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 37.5667);
+    tl.fromTo("#c24w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 37.5667);
+    tl.to("#c24w2-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 37.7000);
+    tl.fromTo("#c24w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 37.7000);
+    tl.to("#c24w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 38.1000);
+    tl.fromTo("#c24w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 38.1000);
+    tl.to("#c24w4-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 38.1667);
+    tl.fromTo("#c25w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 38.2000);
+    tl.to("#c25w0-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 38.2333);
+    tl.fromTo("#c25w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 38.2333);
+    tl.to("#c25w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 38.5333);
+    tl.fromTo("#c25w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 38.5333);
+    tl.to("#c25w2-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 38.5667);
+    tl.fromTo("#c25w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 38.5667);
+    tl.to("#c25w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 39.1000);
+    tl.fromTo("#c25w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 39.1000);
+    tl.to("#c25w4-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 39.1333);
+    tl.fromTo("#c26w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 39.1667);
+    tl.to("#c26w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 39.5000);
+    tl.fromTo("#c26w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 39.5000);
+    tl.to("#c26w1-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 39.5667);
+    tl.fromTo("#c26w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 39.5667);
+    tl.to("#c26w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 39.9000);
+    tl.fromTo("#c26w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 39.9000);
+    tl.to("#c26w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 40.4333);
+    tl.fromTo("#c27w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 40.8000);
+    tl.to("#c27w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 41.2000);
+    tl.fromTo("#c27w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 41.2000);
+    tl.to("#c27w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 41.3000);
+    tl.fromTo("#c27w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 41.3000);
+    tl.to("#c27w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 41.8667);
+    tl.fromTo("#c27w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 41.8667);
+    tl.to("#c27w3-bg", { opacity: 0, duration: 0.07, ease: "power1.in" }, 42.0667);
+    tl.fromTo("#c27w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 42.0667);
+    tl.to("#c27w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 42.3333);
+    tl.fromTo("#c28w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 42.3667);
+    tl.to("#c28w0-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 42.5000);
+    tl.fromTo("#c28w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 42.5000);
+    tl.to("#c28w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 43.0333);
+    tl.fromTo("#c28w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 43.0333);
+    tl.to("#c28w2-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 43.2000);
+    tl.fromTo("#c28w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 43.2000);
+    tl.to("#c28w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 43.4667);
+    tl.fromTo("#c28w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 43.4667);
+    tl.to("#c28w4-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 43.5000);
+    tl.fromTo("#c29w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 43.5333);
+    tl.to("#c29w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 44.0333);
+    tl.fromTo("#c29w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 44.0333);
+    tl.to("#c29w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 44.1333);
+    tl.fromTo("#c29w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 44.1333);
+    tl.to("#c29w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 44.6000);
+    tl.fromTo("#c29w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 44.6000);
+    tl.to("#c29w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 44.9000);
+    tl.fromTo("#c29w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 44.9000);
+    tl.to("#c29w4-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 45.0333);
+    tl.fromTo("#c30w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 45.4333);
+    tl.to("#c30w0-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 45.5333);
+    tl.fromTo("#c30w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 45.5333);
+    tl.to("#c30w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 46.1667);
+    tl.fromTo("#c30w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 46.1667);
+    tl.to("#c30w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 46.4000);
+    tl.fromTo("#c30w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0467, ease: "power1.out" }, 46.4000);
+    tl.to("#c30w3-bg", { opacity: 0, duration: 0.0467, ease: "power1.in" }, 46.5333);
+    tl.fromTo("#c31w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 46.5333);
+    tl.to("#c31w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 47.1000);
+    tl.fromTo("#c31w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 47.1000);
+    tl.to("#c31w1-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 47.1333);
+    tl.fromTo("#c31w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 47.1333);
+    tl.to("#c31w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 47.8000);
+    tl.fromTo("#c32w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 48.0667);
+    tl.to("#c32w0-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 48.2333);
+    tl.fromTo("#c32w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 48.2333);
+    tl.to("#c32w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 48.3333);
+    tl.fromTo("#c32w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 48.3333);
+    tl.to("#c32w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 49.0333);
+    tl.fromTo("#c32w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 49.0333);
+    tl.to("#c32w3-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 49.0667);
+    tl.fromTo("#c32w4-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 49.0667);
+    tl.to("#c32w4-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 49.5667);
+    tl.fromTo("#c33w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 50.0667);
+    tl.to("#c33w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 50.4000);
+    tl.fromTo("#c33w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 50.4000);
+    tl.to("#c33w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 50.6667);
+    tl.fromTo("#c33w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 50.6667);
+    tl.to("#c33w2-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 50.7333);
+    tl.fromTo("#c33w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 50.7333);
+    tl.to("#c33w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 51.2000);
+    tl.fromTo("#c34w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.0233, ease: "power1.out" }, 51.2333);
+    tl.to("#c34w0-bg", { opacity: 0, duration: 0.0233, ease: "power1.in" }, 51.3000);
+    tl.fromTo("#c34w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 51.3000);
+    tl.to("#c34w1-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 51.4667);
+    tl.fromTo("#c34w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 51.4667);
+    tl.to("#c34w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 51.7667);
+    tl.fromTo("#c34w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 51.7667);
+    tl.to("#c34w3-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 51.8000);
+    tl.fromTo("#c35w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 51.8333);
+    tl.to("#c35w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 52.1667);
+    tl.fromTo("#c35w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 52.1667);
+    tl.to("#c35w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 52.6667);
+    tl.fromTo("#c35w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 52.6667);
+    tl.to("#c35w2-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 52.9000);
+    tl.fromTo("#c35w3-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 52.9000);
+    tl.to("#c35w3-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 53.2667);
+    tl.fromTo("#c36w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 53.4000);
+    tl.to("#c36w0-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 53.8667);
+    tl.fromTo("#c36w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 53.8667);
+    tl.to("#c36w1-bg", { opacity: 0, duration: 0.08, ease: "power1.in" }, 54.3000);
+    tl.fromTo("#c36w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.0117, ease: "power1.out" }, 54.3000);
+    tl.to("#c36w2-bg", { opacity: 0, duration: 0.0117, ease: "power1.in" }, 54.3333);
+    tl.fromTo("#c37w0-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 54.3667);
+    tl.to("#c37w0-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 54.4667);
+    tl.fromTo("#c37w1-bg", { opacity: 0 }, { opacity: 1, duration: 0.035, ease: "power1.out" }, 54.4667);
+    tl.to("#c37w1-bg", { opacity: 0, duration: 0.035, ease: "power1.in" }, 54.5667);
+    tl.fromTo("#c37w2-bg", { opacity: 0 }, { opacity: 1, duration: 0.05, ease: "power1.out" }, 54.5667);
+    tl.to("#c37w2-bg", { opacity: 0, duration: 0.0583, ease: "power1.in" }, 54.7333);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["talking-head-recut"] = tl;
+  })();
+  </script>
+</div>
+</body>
+</html>

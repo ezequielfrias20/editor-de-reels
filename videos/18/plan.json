@@ -1,0 +1,731 @@
+{
+  "format": "REEL",
+  "_": "REEL 18 — Motion design con Claude Code + HyperFrames. ⚠ `VIDEOS ORIGINALES/4` es la pieza 18, NO la 4: la 4 es el reel del ERP de inventario, de agosto. Es la cuarta vez que esta nota hace falta (ver piezas 11, 15 y 17). Todos los tiempos están en la línea del CORTE (53.48 s) y salen del transcript remapeado, con `refine-timings` ya aplicado.",
+  "_fuente": "`VIDEOS ORIGINALES/4/pantalla.MOV`: 64.24 s, HEVC SDR, 1080x1920, rot 0 → corte 53.48 s (17 % fuera, 11 cortes). 138 palabras. Cara `chin_frac` 0.4768, `top_frac` 0.2911, 48/48 muestras.",
+  "_verificacion_transcript": "`refine-timings` marcó 10 palabras con alineación imposible y 1 hueco con sonido sin transcribir. Se re-transcribieron CINCO tramos sueltos para comprobarlo, y a diferencia de la pieza 17 —donde los tres avisos eran falsos positivos— aquí DOS eran reales:\n· «HeyGen» volvió en 8.765-9.041 frente a 9.009-9.131: el arranque estaba 244 ms tarde, con un hueco de 227 ms entre «de» y «HeyGen» que era parte de la propia palabra.\n· «Antes» volvió en 24.348-24.659 frente a 24.496-24.657, y esos 148 ms son EXACTAMENTE el blob audible sin transcribir que el script marcó en 24.275-24.485. Los dos avisos eran el mismo hecho visto desde dos medidas distintas. Con el borde corregido, el corte que separa «flujo.» de «Antes» pasó de terminar en 24.296 —dentro del ataque— a 24.08.\nLos otros 8 volvieron a menos de 65 ms de su original: falsos positivos, no se empalmó nada. La lección de la 17 sigue en pie (mirar puede confirmar que no pasa nada) pero esta vez mirar encontró algo, y era un corte sobre el ataque de una palabra.",
+  "_transcripcion": "El modelo oye «Cloud Code» y «Hyperframe». El audio no se toca; lo que se corrige es el TEXTO de cuatro palabras para que el subtítulo escriba las marcas bien: «Claude», «HyperFrames» x2 y «MOTION» en el CTA. Misma disciplina que la pieza 15 con Kokonut UI — el subtítulo transcribe lo dicho, con el nombre real de la marca.",
+  "_instrucciones": "El usuario dejó `instrucciones.md` con una secuencia concreta y se le preguntaron las cuatro decisiones abiertas antes de construir nada (paso 3b). Eligió: P1 keyframes a mano de uno en uno para el hook · P2 la grabación real en «de HeyGen» y en «cambia el flujo» · P3 los cuatro ejemplos SE SUCEDEN con corte duro, cada uno a banda entera · P4 la animación espectacular encima de la idea gris para la tesis, sabiendo que choca con la doctrina de «quietud antes del clímax».",
+  "_material": "`hyperframes.mov` (25.6 s, 1280x720) es la WEB de HyperFrames, no su Studio: no existe grabación de Claude Code ni del editor. Por eso el editor con el chat debajo que pidió el usuario es un MOCKUP declarado (`agent_editor`) y no un redibujo — la regla de oro de §7 manda usar la grabación real cuando existe, y aquí para ese beat no existe.",
+  "_curva": "HOOK 0-6.3 s el vídeo muerto y los keyframes cayendo uno a uno · PRODUCTO 6.3-19.6 s los dos logos, la landing real y el editor tecleándose · CONTRASTE 19.6-30.9 s la grabación de motion y la misma idea en dos estados · EJEMPLOS 30.9-37.8 s cuatro demos con corte duro, uno por palabra · TESIS 37.8-48.5 s el hueco que nada llena y el espectáculo que se apaga · CTA 48.5-fin un solo elemento, encendido en el último frame.",
+  "layout": {
+    "mode": "triband",
+    "bands": {
+      "top": [
+        0,
+        660
+      ],
+      "text": [
+        660,
+        960
+      ],
+      "speaker": [
+        960,
+        1920
+      ]
+    }
+  },
+  "keywords": [
+    "motion",
+    "design",
+    "HyperFrames",
+    "Claude",
+    "composiciones",
+    "animación",
+    "captions",
+    "audio",
+    "criterio",
+    "prototiparla",
+    "MOTION",
+    "aburrida",
+    "herramienta"
+  ],
+  "voice_gain": 0.7,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "target_mean": -34.0
+  },
+  "_shots": "Todos `band`: es el layout por defecto de todo REEL desde la doctrina de 2026-09-15, y el usuario pidió además que SIEMPRE se muestre algo arriba, así que no hay ningún tramo a plano lleno. Los cortes caen en los bordes de beat, que es donde también cambia la banda de arriba.",
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 6.296,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 9.423,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 19.582,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 21.086,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 28.671,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 30.875,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 32.401,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 34.058,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 35.013,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 37.809,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 41.456,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 48.456,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 51.289,
+      "kind": "band",
+      "anchor": 0.38
+    }
+  ],
+  "cards": [],
+  "visuals": [
+    {
+      "id": "v-hook",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 0.0,
+      "end": 6.296,
+      "absolute_times": true,
+      "_": "El vídeo muerto entra en el primer frame (no hay nada delante que sostener, así que el hueco de arranque se cierra empezando el visual en 0.0, §4). El rótulo SIN MOTION espera a «motion» (0.765). Los 14 rombos caen entre «animar» (2.512) y «mano» (3.466) y el contador sube con ellos. El reloj se sella en «demasiado» (3.628): es la conclusión del beat, no un dato más.",
+      "mock": [
+        "keyframe_grind",
+        {
+          "at": [
+            0.06,
+            0.765,
+            2.512,
+            3.466,
+            3.628
+          ],
+          "total": 240,
+          "tag": "SIN MOTION",
+          "clock": "6 H A MANO"
+        }
+      ]
+    },
+    {
+      "id": "v-pair",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 6.296,
+      "end": 8.173,
+      "absolute_times": true,
+      "_": "Las dos marcas con 0.81 s entre ellas. El hueco de la derecha se DIBUJA discontinuo desde 6.296 («para»), así que el frame plantea la pregunta que «HyperFrames» (7.348) contesta — el mecanismo de la pieza 16. `tool_pair` es el componente correcto y no `tool_card`: son dos marcas y una llega después.",
+      "mock": [
+        "tool_pair",
+        {
+          "left": {
+            "slug": "claude",
+            "name": "Claude Code"
+          },
+          "right": {
+            "slug": "hyperframes",
+            "name": "HyperFrames"
+          },
+          "at": [
+            6.539,
+            6.296,
+            7.348
+          ],
+          "kicker": "UN PLUGIN"
+        }
+      ]
+    },
+    {
+      "id": "v-rec-landing",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 8.173,
+      "end": 9.423,
+      "src": "hyperframes-landing.mp4",
+      "rect": [
+        60,
+        100,
+        960,
+        540
+      ],
+      "_": "La landing REAL en «de HeyGen» (8.657), decisión P2 del usuario. Entra en 8.173, en cuanto «HyperFrames» termina de decirse: la marca ya está nombrada, así que enseñar su página no adelanta nada. 1.25 s, y el titular no se mueve ni un píxel entre el frame de entrada y el de salida (verificado sobre el MP4 del tour).",
+      "tool_recording": {
+        "slug": "hyperframes",
+        "name": "HyperFrames",
+        "hairline": 1
+      }
+    },
+    {
+      "id": "v-editor",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 9.423,
+      "end": 19.582,
+      "absolute_times": true,
+      "_": "El editor con el chat debajo que pidió el usuario, y el orden sale del guion: el marco vacío en «la idea es bastante sencilla» (9.423), el tecleo en «puedes describir» (11.004), las tres pistas en «composiciones» (13.217) y las piezas en el lienzo en «y generar» (15.259). La pastilla A TU VÍDEO en «que después puedes llevar» (16.704). Diez segundos de un solo visual, pero ninguno de ellos quieto: la coreografía interna cubre los cuatro beats.",
+      "mock": [
+        "agent_editor",
+        {
+          "prompt": "un titular que entra palabra a palabra",
+          "at": [
+            9.423,
+            11.004,
+            15.259,
+            16.704
+          ],
+          "layers": [
+            [
+              "composición",
+              13.217
+            ],
+            [
+              "texto",
+              13.63
+            ],
+            [
+              "audio",
+              14.05
+            ]
+          ],
+          "elements": [
+            "UN TITULAR",
+            "PALABRA A PALABRA",
+            "COMP · 01"
+          ],
+          "out_label": "A TU VÍDEO"
+        }
+      ]
+    },
+    {
+      "id": "v-rec-motion",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 19.582,
+      "end": 21.086,
+      "src": "hyperframes-motion.mp4",
+      "rect": [
+        60,
+        100,
+        960,
+        540
+      ],
+      "_": "La sección «Motion, sound & effects» de la doc real, en «cambia bastante el flujo» (19.582). Es la única parte de la grabación que está ON MESSAGE para una pieza de motion design: tres fichas reproduciéndose. ⚠ El primer montaje empezaba en 23.5 y el frame de SALIDA ya se había ido a «Workflows & integrations» — la trampa de la pieza 16. La maquetación da un salto de ~140 px entre 23.6 y 23.9 y a partir de ahí no se mueve: el tramo vive entero dentro de esa meseta.",
+      "tool_recording": {
+        "slug": "hyperframes",
+        "name": "HyperFrames",
+        "hairline": 1
+      }
+    },
+    {
+      "id": "v-idea-dead",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 21.086,
+      "end": 28.671,
+      "absolute_times": true,
+      "_": "El marco y el kicker en «Antes podías tener» (21.086); el NOMBRE de la idea espera a «buena idea» (22.42) y hasta entonces su sitio es un hueco discontinuo. Las dos salidas se tachan en sus palabras —«no sabías hacerla» (24.814) y «externalizarla» (26.335)— y la pastilla DESCARTADA se sella en «compensaba» (27.674). Va apagada, no roja: la idea no falló, se quedó fuera.",
+      "mock": [
+        "idea_fate",
+        {
+          "idea": "Una animación que lo explique",
+          "at": [
+            21.086,
+            22.42,
+            27.674
+          ],
+          "exits": [
+            [
+              "no sabías hacerla",
+              24.814
+            ],
+            [
+              "externalizarla no compensaba",
+              26.335
+            ]
+          ],
+          "badge": "descartada"
+        }
+      ]
+    },
+    {
+      "id": "v-idea-alive",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 28.671,
+      "end": 30.875,
+      "absolute_times": true,
+      "_": "LA MISMA tarjeta, viva. Es la rima visual de la pieza 12 aplicada a un estado: dos tarjetas distintas dirían «hay dos ideas», y lo que dice el guion es que es la misma. Entre las dos hay un CORTE DURO en 28.671 («Ahora»), que es lo que deja ver qué cambió — el mecanismo de `chat_unanswered`. El nombre vuelve en «prototiparla» (29.362) y la pastilla en «con IA» (30.165).",
+      "mock": [
+        "idea_fate",
+        {
+          "idea": "Una animación que lo explique",
+          "at": [
+            28.671,
+            29.362,
+            30.165
+          ],
+          "exits": [],
+          "revive": true,
+          "badge": "con IA"
+        }
+      ]
+    },
+    {
+      "id": "v-demo-text",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 30.875,
+      "end": 32.401,
+      "absolute_times": true,
+      "_": "Cada palabra entra EN su palabra: «textos» 30.875, «que» 31.276, «entran» 31.453. El ejemplo de «textos que entran» es el propio enunciado entrando, que es la lectura más corta posible. Sin rótulo: el subtítulo ya dice las tres palabras y el HUD da contexto, no repite (§7).",
+      "mock": [
+        "motion_demo",
+        {
+          "variant": "text",
+          "label": "",
+          "words": [
+            "TEXTOS",
+            "QUE",
+            "ENTRAN"
+          ],
+          "at": [
+            30.875,
+            31.276,
+            31.453
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-demo-chart",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 32.401,
+      "end": 34.058,
+      "absolute_times": true,
+      "_": "Seis barras que crecen desde su base y una línea que se dibuja, en «gráficos animados» (32.401). Las barras usan `rise-bar`, un gesto nuevo: `chip-in` escala desde el centro y una barra que sale de su centro no se lee como una barra que crece.",
+      "mock": [
+        "motion_demo",
+        {
+          "variant": "chart",
+          "label": "",
+          "at": [
+            32.401
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-demo-captions",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 34.058,
+      "end": 35.013,
+      "absolute_times": true,
+      "_": "El ejemplo de captions son los captions de ESTA pieza: el mismo fondo violeta corriendo palabra a palabra que usa el karaoke del triband (§5). Es el beat más corto (0.955 s) y las cuatro palabras caben en 0.68 s de recorrido.",
+      "mock": [
+        "motion_demo",
+        {
+          "variant": "captions",
+          "label": "",
+          "words": [
+            "esto",
+            "es",
+            "un",
+            "caption"
+          ],
+          "at": [
+            34.058
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-demo-audio",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 35.013,
+      "end": 37.809,
+      "absolute_times": true,
+      "_": "La onda salta TRES veces, no una: «elementos que reaccionan al audio» dura 2.4 s y una sola cascada dejaría dos segundos de barras quietas, que es justo lo contrario de lo que la frase afirma. Los golpes van a 0.9 s y cada cascada dura 0.57+0.34: no se solapan dos tweens sobre la misma propiedad.",
+      "mock": [
+        "motion_demo",
+        {
+          "variant": "audio",
+          "label": "",
+          "at": [
+            35.013,
+            36.0,
+            36.9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-recap",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 37.809,
+      "end": 41.456,
+      "absolute_times": true,
+      "_": "Las cuatro capacidades que se acaban de ver, ahora quietas y pequeñas, y un QUINTO hueco discontinuo que ninguna de ellas llena. El hueco sostiene «hay una parte que ninguna herramienta arregla» (38.774-40.007) sin decir cuál, y «criterio» (40.683) lo rellena. Es el idioma de la ausencia de `calendar`/`tool_pair`/`step_grid`, aquí como remate de una enumeración.",
+      "mock": [
+        "motion_demo",
+        {
+          "variant": "recap",
+          "label": "",
+          "at": [
+            37.809
+          ],
+          "slots": [
+            "TEXTOS",
+            "GRÁFICOS",
+            "CAPTIONS",
+            "AUDIO"
+          ],
+          "fill": "CRITERIO",
+          "fill_at": 40.683
+        }
+      ]
+    },
+    {
+      "id": "v-veneer",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 41.456,
+      "end": 48.456,
+      "absolute_times": true,
+      "_": "La tesis, dibujada literal (P4). La tarjeta gris entra en «Una» (41.456); el espectáculo se le monta ENCIMA en «espectacular» (42.234) y se apaga en «sigue siendo» (44.884), dejando la misma tarjeta gris intacta. ⚠ La tarjeta no recibe NI UN tween al apagarse lo de arriba: si se encogiera o se tiñera, el frame diría «y entonces pasó algo», y lo que la frase dice es que no pasó nada. Los 3.6 s de tarjeta sola que siguen son la quietud antes del CTA, y no son banda vacía: hay algo, y ese algo es el argumento.",
+      "mock": [
+        "idea_veneer",
+        {
+          "idea": "Otro vídeo más",
+          "spectacle": "ESPECTACULAR",
+          "at": [
+            41.456,
+            42.234,
+            44.884
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-hf-card",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 48.456,
+      "end": 51.289,
+      "absolute_times": true,
+      "_": "La marca sola en «HyperFrames» (48.456), dentro del CTA. ⚠ `logos.mark()` recibe `uid=` desde el propio componente: el SVG de HyperFrames trae dos gradientes con id propio (`paint0_linear_2204_3074`) y se inlinea TRES veces en la pieza (aquí y en las dos cabeceras de `tool_recording`), así que sin namespacing la segunda y la tercera saldrían vacías y el JSON no lo diría (regla dura de §14).",
+      "mock": [
+        "tool_card",
+        {
+          "slug": "hyperframes",
+          "name": "HyperFrames",
+          "kicker": "TE LO MANDO"
+        }
+      ]
+    },
+    {
+      "id": "v-cta",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 51.289,
+      "end": 53.475,
+      "absolute_times": true,
+      "_": "Un solo elemento, como pide la curva de intensidad (§6). Se teclea en «Comenta» (51.289-51.693) y se envía en «y te la envío» (52.518). No lleva fundido de salida: el último frame tiene que tener el CTA ENCENDIDO (trampa 6c).",
+      "mock": [
+        "comment_ui",
+        {
+          "word": "MOTION",
+          "headline": "MOTION",
+          "type_at": 51.6,
+          "send_at": 52.518
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    [
+      0.0,
+      "whoosh-short",
+      0.85,
+      "abre la pieza y entra el vídeo muerto"
+    ],
+    [
+      0.765,
+      "pop",
+      0.7,
+      "el rótulo SIN MOTION"
+    ],
+    [
+      2.512,
+      "click-soft",
+      0.75,
+      "el primer keyframe, en «animar»"
+    ],
+    [
+      2.826,
+      "click-soft",
+      0.62,
+      "los rombos siguen cayendo"
+    ],
+    [
+      3.14,
+      "click-soft",
+      0.62,
+      "los rombos siguen cayendo"
+    ],
+    [
+      3.466,
+      "click-soft",
+      0.75,
+      "el último, en «mano»"
+    ],
+    [
+      3.628,
+      "impact-bass-1",
+      0.8,
+      "el reloj: 6 H A MANO"
+    ],
+    [
+      6.296,
+      "whoosh-short",
+      0.7,
+      "corte a la card de las dos marcas"
+    ],
+    [
+      6.539,
+      "pop",
+      0.75,
+      "entra el logo de Claude Code"
+    ],
+    [
+      7.348,
+      "pop",
+      0.8,
+      "entra el logo de HyperFrames en su hueco"
+    ],
+    [
+      8.173,
+      "whoosh",
+      0.72,
+      "corte a la landing real"
+    ],
+    [
+      9.423,
+      "whoosh-short",
+      0.75,
+      "corte al editor"
+    ],
+    [
+      11.004,
+      "typing",
+      0.6,
+      "se teclea el prompt en el chat"
+    ],
+    [
+      13.217,
+      "click-soft",
+      0.7,
+      "cae la primera pista de composición"
+    ],
+    [
+      15.259,
+      "sparkle",
+      0.65,
+      "las piezas aparecen en el lienzo"
+    ],
+    [
+      16.704,
+      "chime",
+      0.7,
+      "la pastilla A TU VÍDEO"
+    ],
+    [
+      19.582,
+      "whoosh",
+      0.75,
+      "corte a la grabación de motion"
+    ],
+    [
+      21.086,
+      "whoosh-short",
+      0.7,
+      "corte a la idea"
+    ],
+    [
+      22.42,
+      "pop",
+      0.68,
+      "el nombre de la idea llena su hueco"
+    ],
+    [
+      24.814,
+      "error",
+      0.5,
+      "primera salida cerrada"
+    ],
+    [
+      26.335,
+      "error",
+      0.5,
+      "segunda salida cerrada"
+    ],
+    [
+      27.674,
+      "impact-bass-2",
+      0.72,
+      "la idea queda descartada"
+    ],
+    [
+      28.671,
+      "riser",
+      0.6,
+      "«Ahora» — corte duro a la idea viva"
+    ],
+    [
+      30.165,
+      "sparkle",
+      0.65,
+      "la pastilla CON IA"
+    ],
+    [
+      30.875,
+      "pop",
+      0.75,
+      "ejemplo 1 · textos que entran"
+    ],
+    [
+      32.401,
+      "pop",
+      0.75,
+      "ejemplo 2 · gráficos animados"
+    ],
+    [
+      34.058,
+      "pop",
+      0.75,
+      "ejemplo 3 · captions"
+    ],
+    [
+      35.013,
+      "pop",
+      0.75,
+      "ejemplo 4 · reacciona al audio"
+    ],
+    [
+      36.0,
+      "click-soft",
+      0.55,
+      "segundo golpe de la onda"
+    ],
+    [
+      36.9,
+      "click-soft",
+      0.55,
+      "tercer golpe de la onda"
+    ],
+    [
+      37.809,
+      "whoosh-short",
+      0.7,
+      "las cuatro, quietas, y el hueco"
+    ],
+    [
+      40.683,
+      "impact-bass-1",
+      0.85,
+      "CRITERIO llena el hueco"
+    ],
+    [
+      42.234,
+      "sparkle",
+      0.75,
+      "el espectáculo se monta encima"
+    ],
+    [
+      44.884,
+      "glitch-1",
+      0.55,
+      "se apaga y queda la tarjeta gris"
+    ],
+    [
+      48.456,
+      "pop",
+      0.75,
+      "la card de HyperFrames en el CTA"
+    ],
+    [
+      51.289,
+      "whoosh-short",
+      0.7,
+      "corte al comentario"
+    ],
+    [
+      51.6,
+      "typing",
+      0.6,
+      "se teclea MOTION"
+    ],
+    [
+      52.518,
+      "chime",
+      0.75,
+      "enviado"
+    ]
+  ],
+  "_visuales": "15 visuales. La banda `top` no se queda vacía en ningún instante de la pieza: los `end` de cada uno son el `start` del siguiente, sin huecos que tapar sosteniendo — algo que solo se pudo hacer porque el usuario pidió material para TODOS los beats y no hubo ninguno sin asignar.",
+  "_sfx": "38 efectos. Ninguno es relleno: cada uno marca algo que se puede señalar en el frame, y los tiempos son los MISMOS beats del transcript que mueven la imagen (§12). Los cuatro `click-soft` del hook están repartidos sobre la caída de los rombos —no uno por rombo, que serían catorce— y los dos de 36.0 y 36.9 marcan los golpes segundo y tercero de la onda. El volumen lo CALCULA el generador desde la media y el pico de cada archivo; estos números son el peso relativo."
+}

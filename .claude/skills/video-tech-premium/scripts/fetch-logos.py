@@ -16,6 +16,10 @@ KNOWN = {
     # Microsoft retired this glyph from later Simple Icons catalogs. Pin the
     # last verified package family instead of substituting an invented mark.
     "microsoftexcel": ("Microsoft Excel", "217346", "12.4.0"),
+    # Pieza 16. `claude` SÍ está en Simple Icons v16 — es el sol de Anthropic,
+    # no el wordmark. Se prefiere a `anthropic` (también presente) porque lo
+    # que el guion nombra es el producto, no la empresa.
+    "claude": ("Claude", "D97757", "16"),
 }
 
 # Las cinco marcas de la pieza 15. NINGUNA está en Simple Icons v16
@@ -35,6 +39,35 @@ VENDOR = {
     # tiene un "alto real" que estirar.
     "animejs":   ("Anime.js", "https://animejs.com/assets/images/"
                               "anime-js-logo-v4.svg", "svg"),
+    # Las dos marcas de la pieza 16 que NO están en Simple Icons v16 (canva y
+    # composio → 404; `canvas`, que sí existe, es el LMS: la marca equivocada).
+    #
+    # Canva sirve su wordmark oficial desde su CDN estático. NO hay icono
+    # cuadrado vendorizable: `canva.com` responde 403 a todo (favicon, manifest
+    # y apple-touch incluidos) y el favicon.ico que sí sale mide 32 px, muy por
+    # debajo del gate de resolución. El wordmark es 80x30, así que entra
+    # apaisado en un marco cuadrado — `_fit_svg` conserva el viewBox y lo
+    # contiene sin deformarlo, el mismo caso que el wordmark 580x118 de
+    # Anime.js. Quien lo pinte sube su `logo_px` para que llene el marco.
+    "canva":    ("Canva", "https://static.canva.com/web/images/"
+                          "8439b51bb7a19f6e65ce1064bc37c197.svg", "svg"),
+    # Composio publica dos variantes; se vendoriza la BLANCA a propósito: la
+    # negra (`composio-black.svg`) es tinta #000 sobre transparente y el marco
+    # de logo de `tool_card` tiene fondo `bg` (#0B0C10), donde desaparecería.
+    "composio": ("Composio", "https://composio.dev/logos/composio-white.svg",
+                 "svg"),
+    # Pieza 18. HyperFrames no está en Simple Icons v16 (`hyperframes`,
+    # `heygen` → 404). La marca buena la sirve el PROPIO subdominio del
+    # producto, que es el que sale en la grabación de la pieza:
+    # `hyperframes.heygen.com`, las dos alas verde/teal del encabezado. ⚠ NO
+    # se vendoriza desde `hyperframes.dev`: ese dominio responde 200 a
+    # /favicon.svg pero devuelve un icono titulado «EdgeNova App Icon», que no
+    # es la marca — un 200 no es una verificación de que sea el logo correcto.
+    # El SVG trae DOS gradientes con id propio (`paint0_linear_2204_3074`,
+    # `paint1_...`), así que quien lo pinte tiene que pasar `uid=` a
+    # `logos.mark()` o la segunda instancia sale vacía (regla dura de §14).
+    "hyperframes": ("HyperFrames",
+                    "https://hyperframes.heygen.com/favicon.svg", "svg"),
 }
 
 # La marca se pinta a ~110 px en la card. Por debajo de 2x se ve blanda.

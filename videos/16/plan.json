@@ -1,0 +1,580 @@
+{
+  "format": "REEL",
+  "_": "REEL 16 — Claude + Canva (VIDEOS ORIGINALES/2 → pieza 16; la numeración de carpeta NO es la de pieza). Todos los tiempos están en la línea del CORTE (56.928 s) y salen del transcript remapeado (transcripts/16.json + cuts/16.json). Fuente SDR (bt709), así que no hay paso de color. Hook a plano lleno hasta que se dice «Claude» (1.297) y de ahí triband hasta el final.",
+  "_curva": "HOOK 0-1.30 a plano lleno · LA PAREJA 1.30-14.59 card Claude + hueco + Canva, luego las cuatro capacidades · EL CONTRASTE 19.64-35.50 prompt pobre vs prompt completo, dos instancias de la misma card con corte duro entre ellas · MÁS ALLÁ 35.50-44.38 Composio, card y grabación · LA TESIS 44.38-51.83 la capa cae sobre las herramientas en «capa» · CIERRE 51.83-fin la configuración y el CTA.",
+  "layout": {
+    "mode": "triband",
+    "bands": {
+      "top": [
+        0,
+        660
+      ],
+      "text": [
+        660,
+        960
+      ],
+      "speaker": [
+        960,
+        1920
+      ]
+    }
+  },
+  "keywords": [
+    "Claude",
+    "Canva",
+    "diseño",
+    "plantilla",
+    "aplicaciones",
+    "importante",
+    "post",
+    "completo",
+    "contexto",
+    "formato",
+    "referencias",
+    "Composeo",
+    "automatizar",
+    "capa",
+    "prompts",
+    "Canva"
+  ],
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "target_mean": -34.0
+  },
+  "_mejora2": "anchor 0.38 en todos los encuadres `band`, el mismo valor verificado en la pieza 15. Medido aquí sobre out/16-rough.mp4 (assets/face-16.json, 48/48 muestras): borde superior de la cara top_frac 0.2625, barbilla chin_frac 0.4542. Con la banda `speaker` [960,1920] y object-fit cover a escala 1.0, el borde superior proyectado cae en y1099 — 139 px por debajo del techo de la banda. `check_face_top_clear` es quien lo comprueba, no este comentario.",
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.44
+    },
+    {
+      "at": 1.297,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 8.987,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 19.641,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 24.735,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 35.502,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 44.38,
+      "kind": "band",
+      "anchor": 0.38
+    },
+    {
+      "at": 51.833,
+      "kind": "band",
+      "anchor": 0.38
+    }
+  ],
+  "cards": [],
+  "visuals": [
+    {
+      "id": "v-pair",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 1.297,
+      "end": 8.987,
+      "band": "top",
+      "absolute_times": true,
+      "_": "El hueco de ARRANQUE se cierra moviendo el `at` del encuadre `band` (1.297) para que coincida con la entrada de esta card, no adelantándola: es la salida que documenta `check_band_top_covered`. Claude entra en su palabra (1.297-1.778); el `+` y el hueco discontinuo, 0.65 s después; y Canva llena el hueco en «Canva.» (4.902-5.150). Los 3.6 s del hueco son el beat, no un descuido: el guion plantea «hay una integración que mucha gente pasa por alto» y la pregunta se dibuja antes de contestarse.",
+      "_logo_px": "Canva a 118 px dentro de un marco de 140. Su marca oficial es un wordmark 80x30 (canva.com responde 403 a favicon, manifest y apple-touch; el único icono que sale mide 32 px y no pasa el gate de resolución), y `_fit_svg` la contiene sin deformar: a los 84 px por defecto se quedaría en 84x31, la mitad de peso que el sol de Claude que tiene al lado.",
+      "mock": [
+        "tool_pair",
+        {
+          "left": {
+            "slug": "claude",
+            "name": "Claude"
+          },
+          "right": {
+            "slug": "canva",
+            "name": "Canva",
+            "logo_px": 118
+          },
+          "at": [
+            1.297,
+            1.95,
+            4.902
+          ],
+          "kicker": "LA INTEGRACIÓN"
+        }
+      ]
+    },
+    {
+      "id": "v-caps",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 8.987,
+      "end": 14.594,
+      "band": "top",
+      "absolute_times": true,
+      "_": "Las cuatro cosas que el guion enumera, cada chip en su palabra: «crear un diseño» (8.987), «buscar contenido» (10.028), «trabajar con plantilla» (12.031), «exportar resultados» (13.265). `chip_grid` y no `stat_grid`: la pregunta que contesta es «cuántas cosas a la vez», no «cuánto». Lo que comunica es el montón que queda, por eso ningún chip se va.",
+      "mock": [
+        "chip_grid",
+        {
+          "chips": [
+            "CREAR UN DISEÑO",
+            "BUSCAR CONTENIDO",
+            "PLANTILLAS",
+            "EXPORTAR"
+          ],
+          "at": [
+            8.987,
+            10.028,
+            12.031,
+            13.265
+          ],
+          "kicker": "DESDE EL CHAT"
+        }
+      ]
+    },
+    {
+      "id": "v-pair2",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 14.594,
+      "end": 19.641,
+      "band": "top",
+      "absolute_times": true,
+      "_": "«sin estar saltando constantemente entre aplicaciones» (14.594-17.286). Vuelve la misma pareja, pero YA FORMADA: `at` con el hueco igual a la marca derecha, así que `tool_pair` no emite el slot discontinuo. La rima con la card del arranque es lo que deja ver qué cambió — el mismo mecanismo que `chat_unanswered` usa con sus dos instancias. Se sostiene hasta 19.641 para cubrir «Y aquí está la parte importante:», un beat que no nombra nada nuevo que clavar.",
+      "mock": [
+        "tool_pair",
+        {
+          "left": {
+            "slug": "claude",
+            "name": "Claude"
+          },
+          "right": {
+            "slug": "canva",
+            "name": "Canva",
+            "logo_px": 118
+          },
+          "at": [
+            14.594,
+            14.594,
+            14.594
+          ],
+          "kicker": "UNA SOLA VENTANA"
+        }
+      ]
+    },
+    {
+      "id": "v-chat-pobre",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 19.641,
+      "end": 22.745,
+      "band": "top",
+      "absolute_times": true,
+      "_": "«no pienses solo en Claude, ¿puede hacerme un post?» — la card se teclea en 21.163 («¿puede hacerme un post?») y se queda ahí, con el cursor parpadeando y sin conector. Lo que comunica es lo POBRE del prompt: una sola línea y nada más. Sin `connector` a propósito; el contraste con la instancia siguiente es el argumento del guion.",
+      "mock": [
+        "claude_prompt",
+        {
+          "lines": [
+            "hazme un post"
+          ],
+          "at": [
+            21.163
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-flujo",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 22.745,
+      "end": 24.735,
+      "band": "top",
+      "_": "«Piensa en el flujo completo.» (22.745-24.335). Cuando una idea cabe en una palabra, la palabra ES el gráfico. Dura 1.99 s, el corte más corto de la pieza: es una bisagra entre las dos cards de chat, no un beat con contenido propio.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "EL FLUJO COMPLETO",
+          "kicker": "NO EL ENCARGO",
+          "size": 96
+        }
+      ]
+    },
+    {
+      "id": "v-chat-completo",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 24.735,
+      "end": 35.502,
+      "band": "top",
+      "absolute_times": true,
+      "_": "El corazón de la pieza. Corte duro desde la card pobre a la misma card vacía, y se teclea una línea por palabra dicha: «contexto» 25.135, «formato» 27.138, «idea» 28.676, «referencias» 30.118. Y en «trabaje con Canva» (33.146) se enciende la pastilla del conector. La imagen cambia cada ~2 s durante 10.8 s sin que el plano se mueva: el ritmo lo lleva el tecleo.",
+      "_texto": "Las cuatro líneas son genéricas a propósito (decisión del usuario en el gate 3b): describen un encargo plausible de marca personal sin exponer ningún dato real del negocio.",
+      "mock": [
+        "claude_prompt",
+        {
+          "lines": [
+            "Contexto: marca personal de IA y automatizacion",
+            "Formato: carrusel 4 slides · 1080x1350",
+            "Idea: 3 errores al automatizar con IA",
+            "Referencias: 2 disenos adjuntos"
+          ],
+          "at": [
+            25.135,
+            27.138,
+            28.676,
+            30.118
+          ],
+          "connector": {
+            "slug": "canva",
+            "name": "Canva"
+          },
+          "connector_at": 33.146
+        }
+      ]
+    },
+    {
+      "id": "v-mas-alla",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 35.502,
+      "end": 39.412,
+      "band": "top",
+      "_": "«Además, si quieres ir mucho más allá de Canva,» (35.502-38.178). Es la bisagra de la pieza y necesita visual propio: sostener la card del chat otros 3.9 s la dejaría 14.7 s en pantalla, y adelantar el logo de Composio rompería «nada entra antes de su palabra» (se dice en 39.412). El segundo `keyword_hero` de la pieza, y el único otro está a 12 s de distancia y con tres técnicas distintas en medio.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "MÁS ALLÁ",
+          "kicker": "Y ESTO NO PARA EN CANVA",
+          "sub": "de una sola herramienta",
+          "size": 124
+        }
+      ]
+    },
+    {
+      "id": "v-tool-composio",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 39.412,
+      "end": 40.053,
+      "band": "top",
+      "_": "Card de logo clavada a «Composio» (39.412-40.053; el transcript lo oye «Composeo», que no mueve el tiempo). La regla del usuario: cada vez que el guion nombra una herramienta, se ve su logo.",
+      "_marca": "composio.svg es la variante BLANCA que publica composio.dev. La negra desaparecería sobre el fondo `bg` del marco de logo.",
+      "mock": [
+        "tool_card",
+        {
+          "slug": "composio",
+          "name": "Composio",
+          "kicker": "CONECTOR"
+        }
+      ]
+    },
+    {
+      "id": "v-rec-composio",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 40.053,
+      "end": 44.38,
+      "src": "composio-tour.mp4",
+      "rect": [
+        60,
+        100,
+        960,
+        540
+      ],
+      "_": "«permiten conectar el agente con muchísimas otras aplicaciones» (40.053-44.028). Corte duro desde la card: la grabación es un <video> nuevo, no una transición. Tres tramos cortos (recorrido en videos/16/screen-tour-composio.json): el conector de Composio para Claude, el menú de Connectors dentro de Claude, y el remate con la URL MCP y el aviso «Connected to Composio.». `end` en 44.38 (entrada de v-layers) sostiene los últimos 0.07 s, que el clip de 4.40 s ya cubre.",
+      "tool_recording": {
+        "slug": "composio",
+        "name": "Composio",
+        "hairline": 3
+      },
+      "_hairline": "hairline 3, el mismo caso que la grabación de Manus en la pieza 15 y por el mismo motivo: la documentación de Composio tiene fondo BLANCO y con el filete de 1 px el panel se derrama sobre el suelo grafito sin borde que lo contenga."
+    },
+    {
+      "id": "v-layers",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 44.38,
+      "end": 51.833,
+      "band": "top",
+      "absolute_times": true,
+      "_": "La tesis, en dos tiempos, y el reparto ES el argumento. Primero la fila de herramientas sola, en «La oportunidad no es automatizar Canva» (44.38) — exactamente lo que la frase descarta. Y solo en «capa» (49.268) baja el panel de Claude con sus bajantes. Adelantarlo contaría la conclusión mientras se enuncia la premisa contraria.",
+      "_teselas": "Canva y Composio ya se nombraron las dos (4.902 y 39.412), así que repetirlas no adelanta guion. Las otras dos van MUDAS, sin marca: el guion dice «muchísimas otras aplicaciones» sin nombrar ninguna, y poner logos que nadie mencionó sería inventarse guion. La ausencia de marca es el dato.",
+      "mock": [
+        "layer_stack",
+        {
+          "apps": [
+            {
+              "slug": "canva",
+              "name": "Canva",
+              "logo_px": 96
+            },
+            {
+              "slug": "composio",
+              "name": "Composio",
+              "logo_px": 62
+            },
+            {
+              "name": ""
+            },
+            {
+              "name": ""
+            }
+          ],
+          "at": [
+            44.44,
+            44.62,
+            44.8,
+            44.98
+          ],
+          "layer_slug": "claude",
+          "layer_name": "CLAUDE",
+          "layer_at": 49.268,
+          "kicker": "UNA CAPA ENCIMA"
+        }
+      ]
+    },
+    {
+      "id": "v-lineup",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 51.833,
+      "end": 55.198,
+      "band": "top",
+      "_": "«Si quieres mi configuración y algunos prompts para probarlo» (51.833-54.845): las tres marcas de la pieza, juntas en fila. Mismo caso que el `tool_lineup` de la pieza 15 — para cuando suena, las tres ya se dijeron, así que reunirlas no adelanta nada. `at` son offsets RELATIVOS al inicio del visual, pegados al propio fundido del host: clavarlos a palabras concretas dejaría la banda vacía los primeros décimas.",
+      "mock": [
+        "tool_lineup",
+        {
+          "tools": [
+            [
+              "claude",
+              "Claude"
+            ],
+            [
+              "canva",
+              "Canva"
+            ],
+            [
+              "composio",
+              "Composio"
+            ]
+          ],
+          "at": [
+            0.06,
+            0.2,
+            0.34
+          ],
+          "kicker": "LA CONFIGURACIÓN"
+        }
+      ]
+    },
+    {
+      "id": "v-cta",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 55.198,
+      "end": null,
+      "skin": "on-surface",
+      "absolute_times": true,
+      "band": "top",
+      "_": "El CTA se enseña, no se explica: la palabra se teclea en 55.679 (cuando él dice «Canva») y el comentario se publica en 56.4 («mando»).",
+      "mock": [
+        "comment_ui",
+        {
+          "word": "CANVA",
+          "type_at": 55.679,
+          "send_at": 56.4,
+          "headline": "CANVA"
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    [
+      0.0,
+      "whoosh-short",
+      0.85,
+      "abre la pieza"
+    ],
+    [
+      1.297,
+      "whoosh-short",
+      0.7,
+      "corte a triband, entra la card de Claude"
+    ],
+    [
+      1.297,
+      "pop",
+      0.85,
+      "el logo de Claude"
+    ],
+    [
+      1.95,
+      "click-soft",
+      0.7,
+      "el + y el hueco que falta"
+    ],
+    [
+      4.902,
+      "chime",
+      0.8,
+      "Canva llena el hueco"
+    ],
+    [
+      8.987,
+      "pop",
+      0.75,
+      "primer chip: crear un diseño"
+    ],
+    [
+      10.028,
+      "pop",
+      0.7,
+      "buscar contenido"
+    ],
+    [
+      12.031,
+      "pop",
+      0.7,
+      "plantillas"
+    ],
+    [
+      13.265,
+      "pop",
+      0.7,
+      "exportar"
+    ],
+    [
+      14.594,
+      "whoosh-short",
+      0.7,
+      "vuelve la pareja ya formada"
+    ],
+    [
+      19.641,
+      "whoosh-short",
+      0.7,
+      "corte a la card del prompt pobre"
+    ],
+    [
+      21.163,
+      "typing",
+      0.6,
+      "se teclea hazme un post"
+    ],
+    [
+      22.745,
+      "impact-bass-1",
+      0.85,
+      "el flujo completo"
+    ],
+    [
+      24.735,
+      "whoosh-short",
+      0.7,
+      "corte duro a la card vacía"
+    ],
+    [
+      25.135,
+      "typing",
+      0.55,
+      "contexto"
+    ],
+    [
+      27.138,
+      "typing",
+      0.55,
+      "formato"
+    ],
+    [
+      28.676,
+      "typing",
+      0.55,
+      "idea"
+    ],
+    [
+      30.118,
+      "typing",
+      0.55,
+      "referencias"
+    ],
+    [
+      33.146,
+      "chime",
+      0.75,
+      "se enciende el conector de Canva"
+    ],
+    [
+      35.502,
+      "whoosh",
+      0.75,
+      "más allá de Canva"
+    ],
+    [
+      39.412,
+      "pop",
+      0.85,
+      "aparece la card de Composio"
+    ],
+    [
+      40.053,
+      "whoosh",
+      0.75,
+      "empieza la grabación de Composio"
+    ],
+    [
+      44.38,
+      "whoosh-short",
+      0.7,
+      "caen las herramientas sueltas"
+    ],
+    [
+      49.268,
+      "impact-bass-2",
+      0.9,
+      "la capa baja encima"
+    ],
+    [
+      51.833,
+      "whoosh-short",
+      0.7,
+      "la configuración"
+    ],
+    [
+      55.198,
+      "whoosh-short",
+      0.7,
+      "corte al CTA"
+    ],
+    [
+      55.679,
+      "typing",
+      0.6,
+      "se teclea CANVA"
+    ],
+    [
+      56.4,
+      "sparkle",
+      0.85,
+      "comentario publicado"
+    ]
+  ],
+  "voice_gain": 0.7,
+  "_mezcla": "misma calibración que el resto de la serie: la voz baja a 0.70 para abrir cabecera y efectos/música se desplazan los mismos dB."
+}

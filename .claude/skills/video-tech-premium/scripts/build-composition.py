@@ -32,6 +32,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import numpy as np
 from PIL import ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -693,10 +694,42 @@ def build_visuals(dur):
             # Los tiempos de un mockup se escriben en la línea del CORTE (que es
             # donde vive el transcript) y aquí se pasan a offsets del visual.
             if v.get("absolute_times"):
-                for key in ("switch_at", "draw_at", "at", "stamp_at"):
+                for key in ("switch_at", "draw_at", "at", "stamp_at",
+                            "offer_at", "common_at"):
                     if key in kw:
-                        kw[key] = [q(t - s) for t in kw[key]]
-                for key in ("alert_at", "type_at", "send_at"):
+                        # `step_grid` (pieza 17) trae `None` en los slots que
+                        # todavía son un hueco: ese None es el DATO —esta
+                        # casilla no se llena en esta instancia— y tiene que
+                        # sobrevivir al remapeo, no reventarlo.
+                        kw[key] = [None if t is None else q(t - s)
+                                   for t in kw[key]]
+                # `rewrite_line` lleva su tiempo DENTRO de cada fragmento, así
+                # que el bucle de claves planas no lo alcanza. Se escribe en la
+                # línea del corte como todo lo demás y aquí baja a offsets.
+                if "parts" in kw:
+                    kw["parts"] = [dict(pt, at=q(pt["at"] - s))
+                                   for pt in kw["parts"]]
+                # Pieza 18. `idea_fate` y `agent_editor` llevan el tiempo
+                # DENTRO de cada tupla (etiqueta, t) en vez de en una lista
+                # aparte, igual que `parts` en `rewrite_line`: sin esto
+                # llegarían al componente en la línea del corte y se sumarían
+                # dos veces, que es la trampa que documenta `motion_stage`.
+                for key in ("exits", "layers"):
+                    if key in kw:
+                        kw[key] = [[lab, q(t - s)] for lab, t in kw[key]]
+                # `fill_at` es el escalar de `motion_demo` en su variante
+                # `recap` — el instante en que la palabra rellena el hueco.
+                if kw.get("fill_at") is not None:
+                    kw["fill_at"] = q(kw["fill_at"] - s)
+                # Escalares. `connector_at` y `layer_at` los trajo la pieza
+                # 16: la pastilla del conector de `claude_prompt` y la bajada
+                # de la capa de `layer_stack` se escriben en la línea del
+                # corte como todo lo demás, y sin estar en esta lista
+                # llegarían al componente como tiempo ABSOLUTO y se sumarían
+                # dos veces (la misma trampa que documenta `motion_stage`).
+                for key in ("alert_at", "type_at", "send_at", "connector_at",
+                            "layer_at", "attach_at", "gap_at", "missing_at",
+                            "strike_at", "after_at"):
                     if key in kw:
                         kw[key] = q(kw[key] - s)
             fn = {"app_switch": mockups.app_switch,
@@ -710,6 +743,27 @@ def build_visuals(dur):
                   "chat_unanswered": mockups.chat_unanswered,
                   "tool_card": mockups.tool_card,
                   "tool_lineup": mockups.tool_lineup,
+                  "tool_pair": mockups.tool_pair,
+                  "claude_prompt": mockups.claude_prompt,
+                  "layer_stack": mockups.layer_stack,
+                  "step_grid": mockups.step_grid,
+                  "cv_echo": mockups.cv_echo,
+                  "cv_vs_offer": mockups.cv_vs_offer,
+                  "offer_stack": mockups.offer_stack,
+                  "rewrite_line": mockups.rewrite_line,
+                  "interview_chat": mockups.interview_chat,
+                  "keyframe_grind": mockups.keyframe_grind,
+                  "agent_editor": mockups.agent_editor,
+                  "motion_demo": mockups.motion_demo,
+                  "idea_fate": mockups.idea_fate,
+                  "idea_veneer": mockups.idea_veneer,
+                  "agent_swarm": mockups.agent_swarm,
+                  "desktop_manager": mockups.desktop_manager,
+                  "split_problem": mockups.split_problem,
+                  "video_pipeline": mockups.video_pipeline,
+                  "money_button": mockups.money_button,
+                  "video_output": mockups.video_output,
+                  "tradeoff_bars": mockups.tradeoff_bars,
                   "motion_stage": objects.motion_stage}[which]
             body_css, body_html_, body_anims = fn(vid, **kw)
         elif v["kind"] == "image":
@@ -870,13 +924,57 @@ def _measure(path, cache={}):
     return cache[key]
 
 
+# Por debajo de esto, el silencio de cabecera de un efecto no se oye como
+# retraso: son menos de dos frames a 30 fps y no se compensa, para no mover
+# tiempos por ruido de medición.
+SFX_LEAD_MIN = 0.030
+
+
+def _lead_in(path, cache={}):
+    """Cuánto SILENCIO trae un efecto antes de sonar de verdad.
+
+    ⚠ Medido en la pieza 18, y estaba mal en TODAS las anteriores: `data-start`
+    se escribía con el tiempo del beat y el navegador empieza a REPRODUCIR ahí,
+    pero 16 de los 19 archivos de la librería tienen silencio de cabecera —
+    `error` 604 ms, `typing` 437, `chime` 416, `ping` 323, `riser` 1727. Un
+    efecto declarado en «no sabías hacerla» sonaba sobre la palabra siguiente.
+
+    Es el mismo error de forma que el volumen escrito a mano que documenta §12
+    —dar por hecho que los archivos vienen iguales— y se arregla igual: se
+    MIDE. El nivel ya se medía; el ataque no, y nadie lo vio porque el efecto
+    sí suena y el desfase solo se nota si se busca.
+
+    Se detectó con un filtro adaptado sobre el MP4: la plantilla de 350 ms de
+    `error` correlaba CERO contra la mezcla porque esos 350 ms del archivo son
+    silencio. El fallo del test era el hallazgo.
+    """
+    key = str(path)
+    if key not in cache:
+        raw = subprocess.run(
+            ["ffmpeg", "-v", "error", "-i", str(path), "-ac", "1", "-ar", "48000",
+             "-f", "s16le", "-"], capture_output=True).stdout
+        a = np.frombuffer(raw, np.int16).astype(np.float32)
+        if a.size == 0:
+            cache[key] = 0.0
+        else:
+            env = np.abs(a)
+            on = np.flatnonzero(env > env.max() * 0.05)
+            cache[key] = float(on[0]) / 48000.0 if on.size else 0.0
+    return cache[key]
+
+
 def build_sfx(dur):
-    """Los efectos, con el volumen CALCULADO por medición.
+    """Los efectos, con el volumen y el ATAQUE calculados por medición.
 
     Los archivos no vienen igualados —hay 27 dB entre el más caliente y el más
     flojo—, así que un número escrito a mano tapa la voz con unos y hace
     inaudibles otros. Se lleva la media de cada uno al objetivo y se recorta si
     el transitorio se pasa del techo; manda el más restrictivo.
+
+    Y tampoco vienen alineados: el `data-start` se adelanta el silencio de
+    cabecera de cada archivo (`_lead_in`) para que lo que caiga en el beat sea
+    el SONIDO y no el principio del fichero. Lo que el plan declara es cuándo
+    se OYE el efecto, que es lo único que el espectador puede notar.
     """
     src_dir = SKILL / "assets" / "sfx"
     out_dir = PUB / "sfx"
@@ -889,6 +987,7 @@ def build_sfx(dur):
         return round(max(0.02, v * trim), 3)
 
     els, lanes = [], []
+    compensados, tarde = 0, []
     for start, name, trim, why in sorted(SFX):
         src = src_dir / f"{name}.mp3"
         if not src.exists():
@@ -901,7 +1000,15 @@ def build_sfx(dur):
         d = float(subprocess.run(
             ["ffprobe", "-v", "error", "-show_entries", "format=duration",
              "-of", "csv=p=0", str(src)], capture_output=True, text=True).stdout.strip())
-        s = q(start)
+        # El beat es cuándo se OYE. Si el archivo trae silencio delante, se
+        # empieza a reproducir antes para que el ataque caiga en su sitio.
+        lead = _lead_in(src)
+        s = q(max(0.0, start - lead)) if lead >= SFX_LEAD_MIN else q(start)
+        if lead >= SFX_LEAD_MIN:
+            real = s + lead
+            if real - start > 0.034:   # no cupo: el efecto vive antes del 0
+                tarde.append((name, start, round(real - start, 3)))
+            compensados += 1
         e = q(min(s + d, dur))
         if e <= s:
             continue
@@ -919,6 +1026,15 @@ def build_sfx(dur):
                    f'src="sfx/{src.name}" data-start="{s:.4f}" '
                    f'data-duration="{e - s:.4f}" data-track-index="{TRK_SFX + lane}" '
                    f'data-volume="{gain(src, trim)}"></audio>')
+    if compensados:
+        print(f"  efectos: {compensados} con silencio de cabecera compensado "
+              f"(el ataque cae en el beat, no el principio del fichero)")
+    for name, beat, off in tarde:
+        # No bloquea: es un aviso con número, no un misterio. Pasa cuando el
+        # efecto se declara tan al principio que su cabecera no cabe antes
+        # del 0 — la única salida es mover el beat o recortar el archivo.
+        print(f"  ⚠ «{name}» en {beat:.3f}s no cabe entero: suena {off*1000:.0f} ms "
+              f"tarde porque su cabecera no entra antes del segundo 0")
     return els, len(lanes)
 
 
@@ -1518,6 +1634,31 @@ def emit_anim(a) -> str:
         dx, dy = a[4], a[5]
         js.append(f'tl.to(\'{sel}\', {{ x: {dx}, y: {dy}, scale: 1.06, '
                   f'duration: {d}, ease: "power2.inOut" }}, {t:.4f});')
+    elif kind == "set-hidden":
+        # La base explícita de un elemento que va a recibir VARIOS `fromTo`.
+        # Sin ella, el estado previo al primer tween es el que dejó el último
+        # `fromTo` autorado, que es un orden, no una decisión.
+        js.append(f'tl.set(\'{sel}\', {{ opacity: 0, scaleY: 0.04 }}, {t:.4f});')
+    elif kind == "rise-bar":
+        # Una barra que CRECE. `chip-in` escala desde el centro y una barra que
+        # sale de su propio centro no se lee como una barra que crece: se lee
+        # como una barra que aparece. El origen lo pone el CSS del componente
+        # (`transform-origin:50% 100%` en `.mdbar`), aquí solo se escala en Y —
+        # transform, nunca `height`, que sería reflow (§6).
+        js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0, scaleY: 0.04 }}, '
+                  f'{{ opacity: 1, scaleY: 1, duration: {round(d*1.30,4)}, '
+                  f'ease: "power3.out" }}, {t:.4f});')
+    elif kind == "fade-to":
+        # Bajar la intensidad de un grupo SIN apagarlo. Nace del roster de la
+        # pieza 19: «no necesitas utilizar todos» apaga 143 agentes de 146, y
+        # `badge-out` no sirve porque los deja en opacidad 0 — el frame diría
+        # que esos agentes ya no existen, y lo que dice la frase es que siguen
+        # ahí sin usarse. El selector puede casar con MUCHOS elementos a la
+        # vez: GSAP los tuenea como uno solo, que es lo que evita escribir 143
+        # decisiones editoriales para un único gesto (la lección de
+        # «coreografía interna» de la pieza 12).
+        js.append(f'tl.to(\'{sel}\', {{ opacity: {a[4]}, duration: {d}, '
+                  f'ease: "power2.inOut", overwrite: "auto" }}, {t:.4f});')
     elif kind == "grow-x":
         js.append(f'tl.fromTo(\'{sel}\', {{ width: 0 }}, '
                   f'{{ width: {a[4]}, duration: {d}, ease: "power2.out" }}, {t:.4f});')
@@ -1645,6 +1786,18 @@ def emit_anim(a) -> str:
             js.append(f'tl.set(\'{sel}\', {{ innerHTML: '
                       f'{json.dumps(txt + "<span class=\'ccaret\'></span>")} }}, '
                       f'{t + ci * step:.4f});')
+    elif kind == "caret-off":
+        # La otra mitad de `type-word`, y existe porque `type-word` deja el
+        # cursor DENTRO del innerHTML de su destino: con varias líneas
+        # tecleándose una tras otra (el prompt de la pieza 16) cada línea
+        # terminada conserva su cursor y al llegar la cuarta hay cuatro
+        # parpadeando a la vez. Esto reescribe la línea sin el `<span
+        # class="ccaret">`, y nada más — el texto se vuelve a pasar entero
+        # en vez de recortar el span por DOM, para que el estado de este
+        # instante no dependa de cuál fue el anterior (mismo contrato de
+        # seek que `type-word`: un `set` por instante, sin `onUpdate`).
+        js.append(f'tl.set(\'{sel}\', {{ innerHTML: '
+                  f'{json.dumps(esc(a[4]))} }}, {t:.4f});')
     elif kind == "send-on":
         js.append(f'tl.set(\'{sel}\', {{ color: "{C["go"]}" }}, {t:.4f});')
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1 }}, '
@@ -1660,6 +1813,41 @@ def emit_anim(a) -> str:
 
 
 # ── construcción ──────────────────────────────────────────────────────────────
+def check_unique_element_ids(doc: str):
+    """Ningún `id` se repite en la composición.
+
+    ⚠ **Un SVG de marca inlineado dos veces se renderiza VACÍO la segunda vez,
+    y el frame parece correcto hasta que miras el hueco.** La marca de Canva
+    trae seis `<radialGradient>` con ids fijos de exportador y seis
+    `fill="url(#…)"` que los apuntan; la pieza 16 la pinta cinco veces. El
+    navegador resuelve cada referencia al PRIMER id del documento, así que en
+    cuanto el renderer oculta el host de esa primera instancia las otras
+    cuatro pierden su relleno: el marco se sigue viendo, la marca no. Medido
+    sobre snapshots (t=15.5 y t=17.5 de la pieza 16) antes de que
+    `logos.namespace_svg_ids` existiera.
+
+    `logos.mark(uid=…)` es quien lo evita, renombrando los ids por instancia.
+    Este gate es la red: comprueba el HTML YA ENSAMBLADO, así que caza también
+    una colisión entre dos componentes distintos que `logos.py` no puede ver
+    desde dentro de una sola llamada.
+    """
+    # `(?<![-\w])` y no `\b`: con `\b` el patrón casa DENTRO de
+    # `data-viz-id="…"` (el límite de palabra cae en el guion) y los doce
+    # visuales salían como ids repetidos — un falso positivo que llegó a
+    # parar una compilación buena antes de afinarlo.
+    ids = re.findall(r'(?<![-\w])id="([^"]+)"', doc)
+    dupes = sorted({i for i in ids if ids.count(i) > 1})
+    if dupes:
+        muestra = ", ".join(dupes[:6]) + (" …" if len(dupes) > 6 else "")
+        sys.exit(
+            f"{len(dupes)} id(s) repetidos en la composición: {muestra}\n"
+            f"  Un id duplicado es HTML inválido, y si algo lo apunta con "
+            f"`url(#id)` —un gradiente o un clip-path de una marca "
+            f"vendorizada— la segunda copia se renderiza vacía.\n"
+            f"  Si viene de un logo, pasa `uid=` a `logos.mark()` con algo "
+            f"único por instancia.")
+
+
 def build():
     words, dur = load()
     dur = q(dur)
@@ -1847,9 +2035,19 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
         js.append(f'tl.set(\'{sel}\', {{ visibility: "visible" }}, {vs:.4f});')
         js.append(f'tl.fromTo(\'{sel}\', {{ opacity: 0 }}, '
                   f'{{ opacity: 1, duration: {d_in}, ease: "power1.inOut" }}, {vs:.4f});')
-        js.append(f'tl.to(\'{sel}\', {{ opacity: 0, duration: {d_out}, '
-                  f'ease: "power1.inOut" }}, {max(vs, ve-d_out):.4f});')
-        js.append(f'tl.set(\'{sel}\', {{ opacity: 0, visibility: "hidden" }}, {ve:.4f});')
+        # ⚠ **El visual que llega al final NO se funde a la salida.** Es una
+        # regla que la bitácora ya escribía (§9, trampa 6) y que este emisor
+        # no cumplía: le ponía a TODOS un `fade_out` que termina justo en `ve`,
+        # así que un CTA con `end: null` pasaba sus últimos 0.26 s
+        # apagándose y el último frame —el que congela la plataforma cuando
+        # el reel vuelve a empezar— quedaba casi vacío. Medido sobre un
+        # snapshot en t=56.8 de la pieza 16: el titular «CANVA» en gris a
+        # medio fundir. La pieza 15 se entregó con el mismo defecto.
+        if ve < dur - 1.0 / FPS:
+            js.append(f'tl.to(\'{sel}\', {{ opacity: 0, duration: {d_out}, '
+                      f'ease: "power1.inOut" }}, {max(vs, ve-d_out):.4f});')
+            js.append(f'tl.set(\'{sel}\', '
+                      f'{{ opacity: 0, visibility: "hidden" }}, {ve:.4f});')
 
     for a in anims:
         # `emit_anim` devuelve varias líneas unidas por "\n" cuando un gesto
@@ -1947,6 +2145,7 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
 </body>
 </html>
 """
+    check_unique_element_ids(doc)
     (PUB / "index.html").write_text(doc, encoding="utf-8")
 
     (WORK / "storyboard.json").write_text(json.dumps(dict(

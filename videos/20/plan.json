@@ -1,0 +1,613 @@
+{
+  "format": "REEL",
+  "_": "REEL 20 — MoneyPrinterTurbo: automatizar vídeos faceless con IA. ⚠ `VIDEOS ORIGINALES/9` es la pieza 20, NO la 9: la numeración de la carpeta fuente no es la del estudio (1→15, 2→16, 3→17, 4→18, 7→19, 9→20) y ya ni siquiera va en orden, porque las carpetas 5, 6 y 8 siguen sin editar. Sexta vez que esta nota hace falta. Todos los tiempos están en la línea del CORTE (55.17 s) y salen del transcript remapeado.",
+  "_fuente": "`VIDEOS ORIGINALES/9/pantalla.MOV`: 67.95 s, HEVC SDR bt709, 1080x1920, rot 0 → corte 55.17 s (19 % fuera, 17 cortes). 151 palabras, confianza 0.988. Cara `chin_frac` 0.4795, `top_frac` 0.3089, 48/48 muestras. `anchor` 0.42 → barbilla proyectada y1477 (59 px bajo el suelo seguro y1536) y coronilla y1150 (190 px de aire bajo el techo de la banda `speaker`).",
+  "_verificacion_transcript": "⚠ EL HALLAZGO DE LA PIEZA, y no estaba en ninguno de los ocho avisos de alineación. `refine-timings` marcó un hueco de 330 ms con sonido AUDIBLE sin transcribir en 35.925-36.255 (pico -21.3 dB) y lo clasificó como voz. Lo era: armonicidad 0.74-0.80, un ataque limpio desde -71 dB. Es la palabra «No.» — el beat que sostiene el guion entero— y AssemblyAI la había colocado en 37.212-37.277, 1.2 s TARDE y de 65 ms. Tal cual venía, `plan-cuts` veía una pausa de 2.1 s entre «dinero?» y «No.» y la colapsaba: el corte se comía la palabra. Corregida al span medido (35.920-36.255), los cortes 11 y 12 la dejan intacta.\nDe los OCHO avisos de alineación imposible, seis son falsos positivos (todos a menos de 60 ms tras re-transcribir el tramo suelto). Los otros dos enseñan la lección desde los dos lados: «contenido.» acababa 117 ms antes de que su vocal se apagara de verdad (medido: sigue sonorizada hasta 30.25), y en «Optimizar» el pase AISLADO devolvió 42.536 mientras `refine-timings` decía 42.280 — y el audio da la razón al segundo: salta de -75 dB a -35 exactamente en 42.28, o sea que el aislado se comió la plosiva inicial. En la pieza 19 el aislado estiró una palabra sobre silencio; aquí recortó un ataque. **La re-transcripción suelta no es un árbitro, es una segunda opinión; el árbitro es el audio.**",
+  "_transcripcion": "El modelo oye «Money Printing Turbo» (tres palabras) y «turbo» en el CTA. El audio no se toca: se funden las tres en «MoneyPrinterTurbo» conservando el span completo (6.523-7.970 en la línea de la fuente) y se pasa el CTA a «TURBO». ⚠ Y una que NO se corrige: el guion escrito dice «Automatizar la producción no automatiza el criterio» y él dice «Optimizar». El aislado lo confirma. El subtítulo transcribe lo DICHO — corregir ahí sería reescribirle la frase, no arreglarle una marca.",
+  "_instrucciones": "El usuario dejó `instrucciones.md` pidiendo la grabación de la página, mockups «para que se vea más dinámico» y, otra vez, que las animaciones lleven iconos. ⚠ El archivo está TRUNCADO a media palabra (302 bytes, acaba en «Qu»), así que su última frase se desconoce y se le avisó al entregar. Las cuatro decisiones abiertas se preguntaron ANTES de construir nada (paso 3b) y eligió: P1 el botón se pulsa y no sale nada · P2 la cadena de siete pasos con icono · P3 solo las dos ventanas quietas de la grabación · P4 la máquina escupiendo vídeos a cero.",
+  "_material": "`2026-09-22 08-45-19.mov` (17.47 s, 1280x720) es la página de GitHub del repo `harry0703/MoneyPrinterTurbo`. ⚠ MESETAS MEDIDAS a 10 fps: SOLO DOS, 0.00-1.10 (la cabecera) y 15.90-17.30 (la galería «Portrait 9:16»). Los otros 15 s son un scroll continuo y rápido por el README — el WebUI, la API, los patrocinadores y la lista de features pasan de largo sin que la página se pare en ninguno, así que no hay ningún tramo verificable sobre ellos. 2.5 s de metraje quieto en total, y el usuario eligió (P3) usar solo eso y dibujar el resto.",
+  "_curva": "HOOK 0-6.0 s la cadena de producción entera, sin nombres, y el vídeo que produce · PRODUCTO 6.0-9.2 s la cabecera REAL del repo · ENUMERACIÓN 9.2-21.7 s las siete etapas llenándose, una por palabra · PRUEBA 21.7-25.8 s la galería REAL de vídeos generados · GIRO 25.8-30.0 s el botón que se pulsa y no da nada · TESIS 30.0-37.0 s la misma cadena, y el hueco que la herramienta no llena · COSTE 37.0-45.4 s la máquina escupiendo vídeos a cero · CIERRE 45.4-50.1 s lo que se comprime y lo que no · CTA 50.1-fin el repo y el comentario.",
+  "layout": {
+    "mode": "triband",
+    "bands": {
+      "top": [
+        0,
+        660
+      ],
+      "text": [
+        660,
+        960
+      ],
+      "speaker": [
+        960,
+        1920
+      ]
+    }
+  },
+  "keywords": [
+    "MoneyPrinterTurbo",
+    "faceless.",
+    "tema,",
+    "guión,",
+    "material,",
+    "narración,",
+    "subtítulos",
+    "música,",
+    "video.",
+    "versiones",
+    "botón",
+    "No.",
+    "omite.",
+    "criterio.",
+    "genérico,",
+    "ver.",
+    "ejecución,",
+    "estrategia.",
+    "TURBO"
+  ],
+  "voice_gain": 0.7,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.6,
+    "target_mean": -34.0
+  },
+  "_shots": "Once encuadres, todos `band` con `anchor` 0.42 — el layout por defecto de todo REEL (§4). Los cortes caen exactamente en los bordes de beat, que es donde también cambia la banda de arriba. `band` no lleva escalera de zoom: el rect de la banda ya recorta fuerte.",
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 5.979,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 9.241,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 21.716,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 25.777,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 30.021,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 37.712,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 45.418,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 50.082,
+      "kind": "band",
+      "anchor": 0.42
+    },
+    {
+      "at": 53.39,
+      "kind": "band",
+      "anchor": 0.42
+    }
+  ],
+  "cards": [],
+  "_visuales": "Diez visuales, y el `start` de cada uno es la palabra de su PRIMER elemento — la regla que salió de medir el MP4 de la pieza 19, donde seis relevos pasaban entre 200 y 663 ms con la banda en suelo grafito porque el visual entrante esperaba su palabra desde dentro. La espina de la pieza es la CADENA DE PRODUCCIÓN: el mismo tablero aparece tres veces (sin nombres en el hook, llenándose en la enumeración, y con un hueco delante en la tesis), que es `agent_swarm` de la 19 aplicado a un flujo. Los dos huecos que el guion abría se cerraron DIBUJANDO la estructura y dejando que el contenido espere su palabra (§7), nunca adelantando el visual siguiente.",
+  "visuals": [
+    {
+      "id": "v-hook",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 0.0,
+      "end": 5.979,
+      "absolute_times": true,
+      "_": "«Encontré un proyecto open source que automatiza casi todo el flujo de un vídeo faceless.» La cadena entera, y lo que produce. Los siete bloques entran SIN NOMBRE, escalonados 246 ms sobre «automatiza casi todo el flujo» (1.918→3.394): las siete palabras no se dicen hasta 11.2-21.0 s y rotularlas aquí sería leer «subtítulos» nueve segundos antes de oírlo (§7). Lo que el frame afirma no es QUÉ etapas son, es que son muchas — volumen, no contenido, la respuesta de `spreadsheet` (pieza 14). La estructura entra en 0.030, antes de la primera palabra, porque es chrome y porque la banda no puede abrir en suelo grafito (§4). La etiqueta de la salida espera a «faceless» (4.183).",
+      "mock": [
+        "video_pipeline",
+        {
+          "variant": "manual",
+          "n": 7,
+          "out_label": "VÍDEO",
+          "tag": "FACELESS",
+          "at": [
+            0.03,
+            4.183,
+            1.918,
+            2.164,
+            2.41,
+            2.656,
+            2.902,
+            3.148,
+            3.394
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-rec-repo",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 5.979,
+      "end": 9.241,
+      "src": "mpt-repo.mp4",
+      "rect": [
+        60,
+        100,
+        960,
+        540
+      ],
+      "_": "«Se llama MoneyPrinterTurbo y dejando de lado el nombre.» La cabecera REAL del repo, clavada a la palabra que lo nombra (5.979). Enseña lo que ningún mockup podría afirmar: 125k estrellas, 19.4k forks, #1 Repository Of The Day y Global Rank #86 — y la descripción del propio proyecto, que enumera guion, material, subtítulos y música antes de que él lo diga. Tres tramos, un empuje de cámara sobre la única meseta de la grabación; entrada y salida de los tres verificadas sobre el MP4 del tour.",
+      "tool_recording": {
+        "slug": "github",
+        "name": "MoneyPrinterTurbo",
+        "hairline": 3
+      }
+    },
+    {
+      "id": "v-pipeline",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 9.241,
+      "end": 21.716,
+      "absolute_times": true,
+      "_": "El beat más largo de la pieza (12.5 s) y la P2 del usuario: los siete pasos con icono, cada uno clavado a su palabra. Es la MISMA cadena del hook —misma geometría, mismas siete casillas— y eso es lo que hace que se lea como «esto es lo que automatiza» y no como otro gráfico. La estructura entra en 9.241 y cubre «dejando de lado el nombre, la idea es bastante interesante», que no nombra nada nuevo que clavar: los huecos discontinuos plantean la pregunta que las siete palabras siguientes contestan (el idioma de `step_grid`, pieza 17). Luego TEMA en «tema,» (11.760), GUIÓN en «guión,» (13.775), MATERIAL en «material,» (14.886), NARRACIÓN en «narración,» (16.115), SUBTÍTULOS en «subtítulos» (17.669), MÚSICA en «música,» (18.633) y RENDER en «renderizando» (20.176). La etiqueta de salida cierra en «video.» (21.027).",
+      "mock": [
+        "video_pipeline",
+        {
+          "variant": "auto",
+          "n": 7,
+          "out_label": "VÍDEO",
+          "tag": "LISTO",
+          "steps": [
+            [
+              "tema",
+              "TEMA"
+            ],
+            [
+              "guion",
+              "GUIÓN"
+            ],
+            [
+              "material",
+              "MATERIAL"
+            ],
+            [
+              "narracion",
+              "NARRACIÓN"
+            ],
+            [
+              "subtitulos",
+              "SUBTÍTULOS"
+            ],
+            [
+              "musica",
+              "MÚSICA"
+            ],
+            [
+              "render",
+              "RENDER"
+            ]
+          ],
+          "at": [
+            9.241,
+            21.027,
+            11.76,
+            13.775,
+            14.886,
+            16.115,
+            17.669,
+            18.633,
+            20.176
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-rec-gallery",
+      "role": "takeover",
+      "kind": "screen-video",
+      "start": 21.716,
+      "end": 25.777,
+      "src": "mpt-gallery.mp4",
+      "rect": [
+        60,
+        100,
+        960,
+        540
+      ],
+      "_": "«También permite generar diferentes formatos y varias versiones del contenido.» La galería «Portrait 9:16» del propio README: ocho vídeos generados, cada uno con su título y su duración. Es la frase, enseñada por el proyecto — la regla de oro de §7. Tres tramos sobre la segunda y última meseta de la grabación (15.90-17.30).",
+      "tool_recording": {
+        "slug": "github",
+        "name": "MoneyPrinterTurbo",
+        "hairline": 3
+      }
+    },
+    {
+      "id": "v-button",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 25.777,
+      "end": 30.021,
+      "absolute_times": true,
+      "_": "La bisagra, y la P1 del usuario: la respuesta se da en MECÁNICA y no en texto. La pregunta entra en «¿Significa» (25.777), el botón en «botón» (27.681) con su bandeja de salida ya DIBUJADA y vacía debajo, el cursor llega en «para ganar» (28.011) y pulsa en «dinero?» (28.507). Y en «No.» (29.286) lo único que pasa es que la bandeja se rotula VACÍO. La bandeja está desde el principio a propósito: si apareciera con el «No», el frame diría «y entonces salió una bandeja»; lo que dice la frase es que siempre estuvo vacía y pulsar no la llena.",
+      "mock": [
+        "money_button",
+        {
+          "label": "GANAR DINERO",
+          "question": "¿Un botón para ganar dinero?",
+          "empty_label": "VACÍO",
+          "at": [
+            25.777,
+            27.681,
+            28.011,
+            28.507,
+            29.286
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-gap",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 30.021,
+      "end": 37.712,
+      "absolute_times": true,
+      "_": "«Y esa es precisamente la parte que casi siempre se omite. Optimizar la producción no automatiza el criterio.» La MISMA cadena por tercera vez, ya completa, y DELANTE un hueco discontinuo que no se rotula hasta «criterio.» (36.193). Las siete casillas vuelven juntas y rápido (80 ms de escalonado) porque ya se dijeron todas: lo nuevo del frame es el hueco, no ellas. Y entre 33.4 y 36.2 el tablero se queda QUIETO mientras él dice la tesis — §6 pide quietud antes del clímax, y aquí la quietud es lo que deja que la frase pese. ⚠ Se sostiene hasta 37.712 y no hasta 37.046: medido sobre el MP4, con el corte en «Si» la banda pasaba 733 ms en suelo grafito porque el primer elemento del visual siguiente —la ficha del tema— espera a su palabra desde dentro. El suelo del sistema son 133 ms (el fundido de relevo del runtime); todo lo que pase de ahí es del montaje. Sostener el tablero del criterio sobre «Si eliges un tema que a nadie le importa» además encaja: es exactamente el criterio que la frase dice que falta.",
+      "mock": [
+        "video_pipeline",
+        {
+          "variant": "gap",
+          "n": 7,
+          "out_label": "VÍDEO",
+          "tag": "LISTO",
+          "gap_label": "CRITERIO",
+          "steps": [
+            [
+              "tema",
+              "TEMA"
+            ],
+            [
+              "guion",
+              "GUIÓN"
+            ],
+            [
+              "material",
+              "MATERIAL"
+            ],
+            [
+              "narracion",
+              "NARRACIÓN"
+            ],
+            [
+              "subtitulos",
+              "SUBTÍTULOS"
+            ],
+            [
+              "musica",
+              "MÚSICA"
+            ],
+            [
+              "render",
+              "RENDER"
+            ]
+          ],
+          "at": [
+            30.021,
+            30.4,
+            30.5,
+            30.58,
+            30.66,
+            30.74,
+            30.82,
+            30.9,
+            30.98,
+            36.193
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-output",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 37.712,
+      "end": 45.418,
+      "absolute_times": true,
+      "_": "La P4 del usuario. «Si eliges un tema que a nadie le importa y generas un guion genérico, solo has encontrado una forma más rápida de crear un vídeo que nadie quiere ver.» Las dos fichas de entrada llegan en «tema» (37.712) y «guión» (39.571) con su contenido como barra DISCONTINUA: lo que las descalifica no es lo que dicen, es que da igual lo que digan. La máquina arranca en «solo» (40.784) y los cuatro vídeos caen uno tras otro, cada uno con su contador a cero. El ritmo es el argumento: un montón de vídeos ya puestos diría «hay muchos»; que caigan a este ritmo dice «esto sale así de rápido», que es la frase. El sello cierra en «nadie quiere ver» (44.610). ⚠ El cero no va en rojo ni lleva ✕: no es un error, funcionó perfectamente y no le importó a nadie.",
+      "mock": [
+        "video_output",
+        {
+          "count": 4,
+          "views": "0",
+          "seal": "NADIE LO VE",
+          "inputs": [
+            [
+              "tema",
+              "TEMA"
+            ],
+            [
+              "guion",
+              "GUIÓN"
+            ]
+          ],
+          "at": [
+            37.712,
+            39.571,
+            40.784,
+            41.204,
+            42.077,
+            42.918,
+            43.542,
+            44.61
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-tradeoff",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 45.418,
+      "end": 50.082,
+      "absolute_times": true,
+      "_": "«La ventaja está en comprimir la ejecución, no en saltarte la estrategia.» Dos magnitudes y lo que le pasa a cada una. Los dos raíles vacíos entran en «La ventaja» (45.418) sin nombre —el beat abre 1.7 s antes de que se diga «ejecución» y 3.6 antes de «estrategia»—, EJECUCIÓN se rotula en su palabra (47.128) y se comprime justo después, y ESTRATEGIA entra en la suya (49.050). ⚠ La barra de ESTRATEGIA no recibe ni un tween: si se encogiera un poco o se tiñera, el frame diría «y a esta también le pasó algo», y lo que la frase afirma es que no le pasa nada. Es la lección de `idea_veneer` (pieza 18).",
+      "mock": [
+        "tradeoff_bars",
+        {
+          "rows": [
+            {
+              "icon": "gear",
+              "name": "EJECUCIÓN",
+              "from": 880,
+              "to": 300,
+              "shrink": true,
+              "tag": "SE COMPRIME"
+            },
+            {
+              "icon": "strategy",
+              "name": "ESTRATEGIA",
+              "from": 880,
+              "to": 880,
+              "tag": "NO SE SALTA"
+            }
+          ],
+          "at": [
+            45.418,
+            47.128,
+            49.05,
+            47.5,
+            47.9,
+            49.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-repo-card",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 50.082,
+      "end": 53.39,
+      "_": "«Si quieres el proyecto y el flujo que usaría yo para probarlo.» La card del repo. ⚠ MoneyPrinterTurbo no tiene marca propia: es un REPO, no un producto con logo. La marca honesta de un repo es la de GitHub, que es donde vive — inventarle un logotipo sería dibujar una identidad que no existe.",
+      "mock": [
+        "tool_card",
+        {
+          "slug": "github",
+          "name": "MoneyPrinterTurbo",
+          "kicker": "OPEN SOURCE"
+        }
+      ]
+    },
+    {
+      "id": "v-cta",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 53.39,
+      "end": null,
+      "_": "«Comenta TURBO y te la mando.» El comentario simulado: pedir el gesto y ENSEÑARLO. `end: null` a propósito — el último visual no se funde a la salida, porque ese es el frame que se congela cuando el reel vuelve a empezar (trampa 6c).",
+      "mock": [
+        "comment_ui",
+        {
+          "word": "TURBO",
+          "headline": "TURBO",
+          "type_at": 0.62,
+          "send_at": 1.45
+        }
+      ]
+    }
+  ],
+  "_sfx": "28 efectos, en el esquema [t, fichero, trim, por qué]. Ninguno es relleno: cada uno marca algo que se puede señalar en el frame, y los tiempos son los MISMOS beats del transcript que mueven la imagen (§12). Los siete `pop` de la cadena bajan de trim 0.72 a 0.60 según avanzan — una enumeración no puede subir de intensidad mientras la voz se mantiene. Los `data-start` los adelanta `build_sfx` por la cabecera de silencio de cada fichero: 16 de los 19 la traen.",
+  "sfx": [
+    [
+      1.918,
+      "whoosh-short",
+      0.66,
+      "el primer bloque de la cadena"
+    ],
+    [
+      3.394,
+      "whoosh-short",
+      0.58,
+      "el último bloque, la cadena ya entera"
+    ],
+    [
+      4.183,
+      "impact-bass-2",
+      0.66,
+      "el vídeo faceless que la cadena produce"
+    ],
+    [
+      5.979,
+      "impact-bass-1",
+      0.7,
+      "el corte a la cabecera real del repo"
+    ],
+    [
+      9.241,
+      "whoosh",
+      0.58,
+      "los siete huecos discontinuos apareciendo"
+    ],
+    [
+      11.76,
+      "pop",
+      0.72,
+      "TEMA"
+    ],
+    [
+      13.775,
+      "pop",
+      0.7,
+      "GUIÓN"
+    ],
+    [
+      14.886,
+      "pop",
+      0.68,
+      "MATERIAL"
+    ],
+    [
+      16.115,
+      "pop",
+      0.66,
+      "NARRACIÓN"
+    ],
+    [
+      17.669,
+      "pop",
+      0.64,
+      "SUBTÍTULOS"
+    ],
+    [
+      18.633,
+      "pop",
+      0.62,
+      "MÚSICA"
+    ],
+    [
+      20.176,
+      "pop",
+      0.6,
+      "RENDER"
+    ],
+    [
+      21.027,
+      "chime",
+      0.56,
+      "la salida, con la cadena ya completa"
+    ],
+    [
+      21.716,
+      "whoosh-short",
+      0.66,
+      "el corte a la galería real"
+    ],
+    [
+      25.777,
+      "glitch-1",
+      0.58,
+      "la pregunta del botón"
+    ],
+    [
+      27.681,
+      "impact-bass-2",
+      0.64,
+      "el botón aterrizando"
+    ],
+    [
+      28.507,
+      "click",
+      0.8,
+      "el clic sobre el botón"
+    ],
+    [
+      29.286,
+      "error",
+      0.62,
+      "la bandeja vacía en «No.»"
+    ],
+    [
+      30.021,
+      "whoosh",
+      0.56,
+      "la cadena volviendo con su hueco delante"
+    ],
+    [
+      36.193,
+      "ping",
+      0.62,
+      "CRITERIO, el hueco que nadie llena"
+    ],
+    [
+      37.712,
+      "click-soft",
+      0.6,
+      "la ficha del tema entrando a la máquina"
+    ],
+    [
+      39.571,
+      "click-soft",
+      0.56,
+      "la ficha del guión"
+    ],
+    [
+      40.784,
+      "riser",
+      0.5,
+      "la máquina arrancando"
+    ],
+    [
+      41.204,
+      "pop",
+      0.58,
+      "el primer vídeo a cero"
+    ],
+    [
+      42.918,
+      "pop",
+      0.54,
+      "el tercero"
+    ],
+    [
+      44.61,
+      "error",
+      0.58,
+      "NADIE LO VE"
+    ],
+    [
+      47.128,
+      "whoosh-short",
+      0.6,
+      "la ejecución comprimiéndose"
+    ],
+    [
+      53.39,
+      "whoosh-short",
+      0.62,
+      "el corte al CTA"
+    ]
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 3,
+  "composition": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 55.1333,
+    "layout": "portrait",
+    "themeId": "graphite-violet",
+    "seed": 42
+  },
+  "videoTrack": {
+    "sourcePath": "input-video.mp4",
+    "startSec": 0,
+    "endSec": 55.1333,
+    "bounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1920
+    }
+  },
+  "subtitles": {
+    "enabled": true,
+    "style": "chunk-keyword"
+  },
+  "cards": []
+}

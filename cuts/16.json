@@ -1,0 +1,42 @@
+{
+  "source_duration": 62.183152,
+  "final_duration": 56.928,
+  "removed": 5.2551520000000025,
+  "cuts": [
+    {
+      "start": 24.535,
+      "end": 24.888,
+      "dur": 0.353,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 35.655,
+      "end": 36.12,
+      "dur": 0.465,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 57.746,
+      "end": 62.183,
+      "dur": 4.437,
+      "reason": "cola muerta"
+    }
+  ],
+  "keeps": [
+    {
+      "start": 0.0,
+      "end": 24.535,
+      "dur": 24.535
+    },
+    {
+      "start": 24.888,
+      "end": 35.655,
+      "dur": 10.767
+    },
+    {
+      "start": 36.12,
+      "end": 57.746,
+      "dur": 21.626
+    }
+  ]
+}
