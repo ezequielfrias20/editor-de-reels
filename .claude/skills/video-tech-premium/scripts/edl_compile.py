@@ -334,6 +334,7 @@ def compile_edl(edl: Edl, style: dict, src_w: int | None = None) -> dict:
     """
     plan = {
         "format": edl.fmt,
+        "palette": edl.palette,
         "voice_gain": edl.voice_gain,
         "music": edl.music,
         "keywords": _keywords(edl),

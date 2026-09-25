@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Logos oficiales de Simple Icons, entintados para superficie OSCURA.
+"""Logos oficiales de Simple Icons, entintados para la superficie de la paleta activa.
 
-El logo se dibuja sobre `surface` (#16181F), así que el color de marca hay que
-ACLARARLO, no oscurecerlo: el verde de WhatsApp o el de Excel a su valor
-nominal se hunden en el fondo. Se mezcla hacia blanco hasta pasar 3:1 y se
-devuelve el ratio medido para que el mockup pueda fallar en vez de renderizar
-un logo ilegible.
+El logo se dibuja sobre `surface`, así que el color de marca se mueve hacia el
+TEXTO de la paleta hasta pasar 3:1: en la oscura se aclara (el verde de WhatsApp
+o el de Excel a su valor nominal se hunden en el fondo) y en la clara se
+oscurece, con la misma regla. Se devuelve el ratio medido para que el mockup
+pueda fallar en vez de renderizar un logo ilegible.
 """
 import hashlib
 import json
@@ -14,8 +14,6 @@ from pathlib import Path
 
 from tokens import C
 
-SURFACE = C["surface"]
-WHITE = "#FFFFFF"
 
 
 def _rgb(h):
@@ -40,16 +38,20 @@ def contrast(a, b):
     return (x + .05) / (y + .05)
 
 
-def brand_tone(hex_brand, bg=SURFACE, ratio_min=3.0):
-    """El color de marca, aclarado lo justo para sobrevivir al fondo oscuro."""
-    a, b = _rgb("#" + hex_brand.lstrip("#")), _rgb(WHITE)
+def brand_tone(hex_brand, bg=None, ratio_min=3.0):
+    """El color de marca, movido hacia el TEXTO de la paleta activa lo justo
+    para leerse sobre `surface`: se aclara en la oscura y se oscurece en la
+    clara, con la misma regla."""
+    bg = bg or C["surface"]
+    toward = C["text"]
+    a, b = _rgb("#" + hex_brand.lstrip("#")), _rgb(toward)
     if contrast(_hex(a), bg) >= ratio_min:
         return _hex(a)
     for mix in (.15, .25, .35, .45, .55, .70):
         c = _hex(tuple(x + (y - x) * mix for x, y in zip(a, b)))
         if contrast(c, bg) >= ratio_min:
             return c
-    return WHITE
+    return toward
 
 
 def _fit_svg(raw: str, size: int) -> str:
@@ -120,7 +122,7 @@ def namespace_svg_ids(raw: str, uid: str) -> str:
     return _ID_REF.sub(ref, out)
 
 
-def mark(slug: str, size: int, tone: str = "brand", bg: str = SURFACE,
+def mark(slug: str, size: int, tone: str = "brand", bg: str | None = None,
          uid: str = "") -> tuple[str, float | None]:
     """(html, ratio).
 
@@ -140,6 +142,7 @@ def mark(slug: str, size: int, tone: str = "brand", bg: str = SURFACE,
       medir y el ratio devuelto es `None`: el llamador tiene que tratar ese
       caso aparte, no asumir que siempre hay un número.
     """
+    bg = bg or C["surface"]
     root = Path.cwd() / "assets" / "logos"
     meta = json.loads((root / "meta.json").read_text())
     info = meta[slug]

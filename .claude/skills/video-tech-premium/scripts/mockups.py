@@ -12,9 +12,9 @@ Cada componente devuelve la misma terna:
               offset es RELATIVO al inicio del visual; el generador le suma el
               tiempo absoluto.
 
-Todo está dibujado con `tokens.py`: grafito profundo, superficies flotando con
-hairline claro y sombra ancha, tipografía Inter/JetBrains Mono y un único
-acento violeta por frame.
+Todo está dibujado con `tokens.py` y la paleta activa (claro u oscuro):
+superficies flotando con hairline y sombra, tipografía Inter/JetBrains Mono y
+un único momento de acento por frame.
 
 DOCTRINA DE ESTOS MOCKUPS
 - **Nunca una captura de pantalla real dibujada a mano.** O es el producto de
@@ -34,8 +34,8 @@ porque el visual ocupa el lienzo entero; para 16:9 se escalan desde el host.
 
 import icons
 import logos
-from tokens import (C, FILL, FONT, GLOW, LINE, LINE_HI, MONO, RADIUS, SHADOW,
-                    SHADOW_LIFT, esc)
+import tokens as TK
+from tokens import C, FILL, FONT, MONO, RADIUS, accent_a, esc, ink_a, mix, shade_a
 
 # Ancho de trabajo de un mockup a pantalla completa en REEL.
 BOARD_W = 980
@@ -75,8 +75,8 @@ def text_px(text: str, size: int, weight: int = 700) -> float:
 
 def _cursor(cid: str, ring_color: str | None = None) -> str:
     """Cursor macOS sobredimensionado. Sobre fondo oscuro va en blanco con
-    filete grafito: al revés desaparece encima de cualquier UI clara."""
-    ring = ring_color or C["violet"]
+    filete del suelo: al revés desaparece encima de cualquier UI clara."""
+    ring = ring_color or C["accent"]
     return (f'<div class="bigcursor" id="{cid}-cursor">'
             f'<span class="tap-ring" id="{cid}-ring" style="border-color:{ring}"></span>'
             '<svg viewBox="0 0 80 96" aria-hidden="true"><path '
@@ -89,7 +89,7 @@ def _cursor_css(p: str) -> str:
 {p} .bigcursor{{position:absolute;left:0;top:0;width:76px;height:92px;z-index:20;opacity:0}}
 {p} .bigcursor svg{{width:76px;height:92px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.6))}}
 {p} .tap-ring{{position:absolute;left:-22px;top:-22px;width:74px;height:74px;
-  border-radius:50%;border:6px solid {C['violet']};opacity:0}}"""
+  border-radius:50%;border:6px solid {C['accent']};opacity:0}}"""
 
 
 # ── chrome de navegador ───────────────────────────────────────────────────────
@@ -119,10 +119,10 @@ def browser_frame(cid: str, rect: tuple[int, int, int, int], url: str,
     css = browser_css(p) + f"""
 {p} .bframe{{position:absolute;left:{x}px;top:{y - CH}px;width:{w}px;height:{CH}px;
   border-radius:{RADIUS['lg']}px {RADIUS['lg']}px 0 0;overflow:hidden;
-  border:1px solid {LINE};border-bottom:0;z-index:10;opacity:0}}
+  border:1px solid {TK.LINE};border-bottom:0;z-index:10;opacity:0}}
 {p} .bring{{position:absolute;left:{x}px;top:{y - CH}px;width:{w}px;height:{h + CH}px;
-  border:1px solid {LINE};border-radius:{RADIUS['lg']}px;pointer-events:none;
-  box-shadow:{SHADOW_LIFT};z-index:11;opacity:0}}"""
+  border:1px solid {TK.LINE};border-radius:{RADIUS['lg']}px;pointer-events:none;
+  box-shadow:{TK.SHADOW_LIFT};z-index:11;opacity:0}}"""
     html = (f'<div class="bframe" id="{cid}-chrome">{browser_chrome(url, brand)}</div>'
             f'<div class="bring" id="{cid}-ring2"></div>')
     anims = [("chip-in", f"#{cid}-chrome", .02, .30),
@@ -149,8 +149,8 @@ def screen_panel(cid: str, rect: tuple[int, int, int, int],
     chip = ""
     css = f"""
 {p} .spring{{position:absolute;left:{x}px;top:{y}px;width:{w}px;height:{h}px;
-  border:1px solid {LINE_HI};border-radius:{RADIUS['lg']}px;pointer-events:none;
-  box-shadow:{SHADOW_LIFT};z-index:11;opacity:0}}"""
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['lg']}px;pointer-events:none;
+  box-shadow:{TK.SHADOW_LIFT};z-index:11;opacity:0}}"""
     if label:
         css += f"""
 {p} .splabel{{position:absolute;left:{x + 22}px;top:{y - 58}px;
@@ -167,21 +167,21 @@ def screen_panel(cid: str, rect: tuple[int, int, int, int],
 def browser_css(p: str) -> str:
     return f"""
 {p} .bchrome{{display:flex;align-items:center;gap:18px;height:74px;padding:0 24px;
-  background:{C['surface2']};border-bottom:1px solid {LINE}}}
+  background:{C['surface2']};border-bottom:1px solid {TK.LINE}}}
 {p} .bdots{{display:flex;gap:11px}}
 {p} .bdots i{{width:17px;height:17px;border-radius:50%;display:block}}
 {p} .burl{{flex:1;height:44px;border-radius:{RADIUS['pill']}px;background:{C['bg']};
-  border:1px solid {LINE};display:flex;align-items:center;padding:0 22px;
+  border:1px solid {TK.LINE};display:flex;align-items:center;padding:0 22px;
   font-family:{MONO};font-size:22px;color:{C['text3']};overflow:hidden;white-space:nowrap}}
 {p} .bchip{{font-family:{MONO};font-weight:700;font-size:19px;letter-spacing:.14em;
-  color:{C['violet_hi']};background:{FILL['violet']};border-radius:{RADIUS['pill']}px;
+  color:{C['accent_hi']};background:{FILL['accent']};border-radius:{RADIUS['pill']}px;
   padding:8px 16px;white-space:nowrap}}"""
 
 
 # ── HUD ───────────────────────────────────────────────────────────────────────
 def hud(cid: str, label: str, corner: str = "01") -> tuple[str, str, list]:
     """Etiqueta de contexto del visual. Minimal: una pastilla mono a la
-    izquierda con punto violeta y un índice a la derecha.
+    izquierda con punto de acento y un índice a la derecha.
 
     Los corchetes de encuadre del sistema anterior se han quitado a propósito:
     son lenguaje de cámara retro y aquí compiten con la UI del producto.
@@ -193,13 +193,13 @@ def hud(cid: str, label: str, corner: str = "01") -> tuple[str, str, list]:
 {p} .hud{{position:absolute;inset:0;pointer-events:none;z-index:30}}
 {p} .hlabel{{position:absolute;left:44px;top:96px;display:flex;align-items:center;gap:12px;
   font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
-  color:{C['text2']};background:rgba(22,24,31,.92);border:1px solid {LINE};
+  color:{C['text2']};background:{TK.rgba(C["surface"], .92)};border:1px solid {TK.LINE};
   border-radius:{RADIUS['pill']}px;padding:11px 20px;white-space:nowrap;opacity:0}}
-{p} .hlabel s{{width:11px;height:11px;border-radius:50%;background:{C['violet']};
+{p} .hlabel s{{width:11px;height:11px;border-radius:50%;background:{C['accent']};
   display:block;text-decoration:none;flex:0 0 11px}}
 {p} .htick{{position:absolute;left:{left_tick}px;top:96px;
   font-family:{MONO};font-weight:700;font-size:21px;letter-spacing:.18em;
-  color:{C['text3']};background:rgba(22,24,31,.92);border:1px solid {LINE};
+  color:{C['text3']};background:{TK.rgba(C["surface"], .92)};border:1px solid {TK.LINE};
   border-radius:{RADIUS['pill']}px;padding:11px 18px;white-space:nowrap;opacity:0}}"""
     html = (f'<div class="hud">'
             f'<div class="hlabel" id="{cid}-hl"><s></s>{esc(label)}</div>'
@@ -250,21 +250,21 @@ def app_switch(cid: str, apps: list[tuple[str, str]], brand: str,
         for i in range(2))
     css = f"""
 {p} .appboard{{position:relative;width:{BOARD_W}px;padding:38px 30px 34px;
-  background:{C['surface']};border:1px solid {LINE};border-radius:{RADIUS['xl']}px;
-  box-shadow:{SHADOW_LIFT}}}
+  background:{C['surface']};border:1px solid {TK.LINE};border-radius:{RADIUS['xl']}px;
+  box-shadow:{TK.SHADOW_LIFT}}}
 {p} .apphead{{display:flex;align-items:center;justify-content:space-between;
   margin-bottom:30px;font-family:{MONO};font-weight:700;font-size:22px;
   letter-spacing:.16em;color:{C['text3']}}}
 {p} .apphead b{{color:{C['alert']};font-weight:700}}
 {p} .appline{{display:flex;gap:22px;align-items:stretch;position:relative}}
-{p} .apptile{{flex:1;height:400px;background:{C['surface2']};border:1px solid {LINE};
+{p} .apptile{{flex:1;height:400px;background:{C['surface2']};border:1px solid {TK.LINE};
   border-radius:{RADIUS['lg']}px;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:26px;box-shadow:{SHADOW};position:relative;opacity:0}}
+  justify-content:center;gap:26px;box-shadow:{TK.SHADOW};position:relative;opacity:0}}
 {p} .appicon{{width:132px;height:132px;border-radius:{RADIUS['lg']}px;background:{C['bg']};
-  border:1px solid {LINE};display:flex;align-items:center;justify-content:center}}
+  border:1px solid {TK.LINE};display:flex;align-items:center;justify-content:center}}
 {p} .brandmark{{display:block}}{p} .brandmark svg{{width:100%;height:100%;display:block}}
 {p} .erpmark{{font-family:{MONO};font-weight:700;font-size:34px;letter-spacing:.06em;
-  color:{C['violet_hi']}}}
+  color:{C['accent_hi']}}}
 {p} .appname{{font-family:{FONT};font-weight:800;font-size:38px;letter-spacing:-.02em;
   color:{C['text']};text-align:center}}
 {p} .appstate{{display:flex;align-items:center;gap:10px;font-family:{MONO};
@@ -316,20 +316,20 @@ def connection_map(cid: str, nodes: list[str], draw_at: list[float],
             f'<s></s>{esc(label)}</div>')
     css = f"""
 {p} .mapboard{{position:relative;width:{BOARD_W}px;height:860px;background:{C['surface']};
-  border:1px solid {LINE};border-radius:{RADIUS['xl']}px;box-shadow:{SHADOW_LIFT};
-  background-image:radial-gradient(circle at 50% 50%,{FILL['violet']} 0%,transparent 58%)}}
+  border:1px solid {TK.LINE};border-radius:{RADIUS['xl']}px;box-shadow:{TK.SHADOW_LIFT};
+  background-image:radial-gradient(circle at 50% 50%,{FILL['accent']} 0%,transparent 58%)}}
 {p} .maplines{{position:absolute;inset:0;width:100%;height:100%}}
-{p} .maplines path{{fill:none;stroke:{C['violet']};stroke-width:5;stroke-linecap:round}}
+{p} .maplines path{{fill:none;stroke:{C['accent']};stroke-width:5;stroke-linecap:round}}
 {p} .maphub{{position:absolute;left:{cx-115}px;top:{cy-115}px;width:230px;height:230px;
-  border-radius:{RADIUS['xl']}px;background:{C['violet']};color:#FFFFFF;
+  border-radius:{RADIUS['xl']}px;background:{C['accent']};color:{C['on_accent']};
   display:flex;align-items:center;justify-content:center;
   font-family:{FONT};font-weight:900;font-size:66px;letter-spacing:-.03em;
-  box-shadow:{GLOW},{SHADOW_LIFT};z-index:4}}
+  box-shadow:{TK.GLOW},{TK.SHADOW_LIFT};z-index:4}}
 {p} .mapnode{{position:absolute;width:236px;height:104px;background:{C['surface2']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['md']}px;display:flex;align-items:center;
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['md']}px;display:flex;align-items:center;
   justify-content:center;gap:13px;text-align:center;padding:0 14px;
   font-family:{FONT};font-weight:700;font-size:26px;letter-spacing:-.01em;
-  color:{C['text']};z-index:5;opacity:0;box-shadow:{SHADOW}}}
+  color:{C['text']};z-index:5;opacity:0;box-shadow:{TK.SHADOW}}}
 {p} .mapnode s{{width:11px;height:11px;border-radius:50%;background:{C['go']};
   display:block;text-decoration:none;flex:0 0 11px}}"""
     html = (f'<div class="mapboard" id="{cid}-map">'
@@ -370,12 +370,12 @@ def screen_overlay(cid: str, clicks: list[tuple[float, int, int, str]],
         for i, (_, _, x, y, w, h) in enumerate(boxes))
     css = f"""
 {p} .screenfx{{position:absolute;inset:0;z-index:12}}
-{p} .scbadge{{position:absolute;background:{C['violet']};color:#FFFFFF;
+{p} .scbadge{{position:absolute;background:{C['accent']};color:{C['on_accent']};
   border-radius:{RADIUS['pill']}px;padding:13px 24px;font-family:{MONO};font-weight:700;
   font-size:24px;letter-spacing:.10em;opacity:0;white-space:nowrap;
   box-shadow:0 10px 30px rgba(0,0,0,.55);z-index:16}}
-{p} .scbox{{position:absolute;border:5px solid {C['violet']};border-radius:{RADIUS['md']}px;
-  box-shadow:0 0 0 9999px rgba(11,12,16,.55);opacity:0;z-index:14}}
+{p} .scbox{{position:absolute;border:5px solid {C['accent']};border-radius:{RADIUS['md']}px;
+  box-shadow:0 0 0 9999px {shade_a(.55)};opacity:0;z-index:14}}
 {_cursor_css(p)}"""
     html = f'<div class="screenfx">{bxs}{badges}{_cursor(cid)}</div>'
     anims = []
@@ -403,7 +403,7 @@ def stat_grid(cid: str, items: list[tuple[str, str]], at: list[float],
               accent: int = -1) -> tuple[str, str, list]:
     """Tres cifras como elemento gráfico protagonista, una por beat del habla.
 
-    `items` = [(valor, etiqueta)]. `accent` marca cuál lleva el violeta: solo
+    `items` = [(valor, etiqueta)]. `accent` marca cuál lleva el acento: solo
     una, porque el sistema pide un único momento de alto voltaje por frame.
     """
     p = f'.viz[data-viz-id="{cid}"]'
@@ -413,14 +413,14 @@ def stat_grid(cid: str, items: list[tuple[str, str]], at: list[float],
         for i, (v, l) in enumerate(items))
     css = f"""
 {p} .sgrid{{display:flex;gap:20px;width:{BOARD_W}px}}
-{p} .scell{{flex:1;background:{C['surface']};border:1px solid {LINE};
+{p} .scell{{flex:1;background:{C['surface']};border:1px solid {TK.LINE};
   border-radius:{RADIUS['lg']}px;padding:44px 18px 38px;text-align:center;
-  box-shadow:{SHADOW};opacity:0}}
-{p} .scell.hot{{border-color:rgba(124,92,255,.5);background:
-  linear-gradient(180deg,{FILL['violet']} 0%,{C['surface']} 70%)}}
+  box-shadow:{TK.SHADOW};opacity:0}}
+{p} .scell.hot{{border-color:{accent_a(.5)};background:
+  linear-gradient(180deg,{FILL['accent']} 0%,{C['surface']} 70%)}}
 {p} .sval{{font-family:{FONT};font-weight:900;font-size:88px;line-height:.96;
   letter-spacing:-.04em;color:{C['text']}}}
-{p} .scell.hot .sval{{color:{C['violet_hi']}}}
+{p} .scell.hot .sval{{color:{C['accent_hi']}}}
 {p} .slab{{font-family:{MONO};font-weight:700;font-size:21px;letter-spacing:.14em;
   color:{C['text3']};margin-top:20px}}"""
     anims = [("stamp", f"#{cid}-s{i}", at[i] if i < len(at) else .3 + i * .16, .40)
@@ -451,9 +451,9 @@ def rate_mismatch(cid: str, subject: str, left: tuple[str, str],
 {p} .rmsub{{font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.16em;
   color:{C['text3']};text-align:center;opacity:0}}
 {p} .rmrow{{display:flex;gap:20px;align-items:stretch;position:relative}}
-{p} .rmcol{{flex:1;background:{C['surface']};border:1px solid {LINE};
+{p} .rmcol{{flex:1;background:{C['surface']};border:1px solid {TK.LINE};
   border-radius:{RADIUS['lg']}px;padding:40px 22px 34px;text-align:center;
-  box-shadow:{SHADOW};opacity:0}}
+  box-shadow:{TK.SHADOW};opacity:0}}
 {p} .rmcol.bad{{border-color:rgba(255,90,90,.45);
   background:linear-gradient(180deg,{FILL['alert']} 0%,{C['surface']} 72%)}}
 {p} .rmval{{font-family:{FONT};font-weight:900;font-size:74px;line-height:.96;
@@ -463,7 +463,7 @@ def rate_mismatch(cid: str, subject: str, left: tuple[str, str],
   color:{C['text3']};margin-top:18px}}
 {p} .rmneq{{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   width:78px;height:78px;border-radius:50%;background:{C['bg']};
-  border:1px solid {LINE_HI};display:flex;align-items:center;justify-content:center;
+  border:1px solid {TK.LINE_HI};display:flex;align-items:center;justify-content:center;
   font-family:{FONT};font-weight:900;font-size:40px;color:{C['alert']};
   z-index:4;opacity:0}}
 {p} .rmverd{{display:flex;align-items:center;justify-content:center;gap:16px;
@@ -531,12 +531,12 @@ def chip_grid(cid: str, chips: list[str], at: list[float], kicker: str = "",
 {p} .cgkick{{font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.18em;
   color:{C['text3']};opacity:0}}
 {p} .cggrid{{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}}
-{p} .cgchip{{background:{C['surface2']};border:1px solid {LINE};
+{p} .cgchip{{background:{C['surface2']};border:1px solid {TK.LINE};
   border-radius:{RADIUS['pill']}px;padding:24px 36px;font-family:{FONT};
   font-weight:800;font-size:44px;letter-spacing:-.02em;color:{C['text']};
-  box-shadow:{SHADOW};opacity:0;white-space:nowrap;
+  box-shadow:{TK.SHADOW};opacity:0;white-space:nowrap;
   display:flex;align-items:center;gap:18px}}
-{p} .cgic{{display:flex;color:{C['violet_hi']};flex:0 0 auto}}
+{p} .cgic{{display:flex;color:{C['accent_hi']};flex:0 0 auto}}
 {p} .cgalert{{display:flex;align-items:center;gap:16px;background:{FILL['alert']};
   border:1px solid rgba(255,90,90,.42);border-radius:{RADIUS['md']}px;
   padding:22px 32px;font-family:{FONT};font-weight:800;font-size:40px;
@@ -572,11 +572,11 @@ def keyword_hero(cid: str, word: str, kicker: str = "",
 {p} .khero{{display:flex;flex-direction:column;align-items:center;gap:26px;
   width:{BOARD_W}px;text-align:center}}
 {p} .kkick{{font-family:{MONO};font-weight:700;font-size:26px;letter-spacing:.20em;
-  color:{C['violet_hi']};background:{FILL['violet']};border-radius:{RADIUS['pill']}px;
+  color:{C['accent_hi']};background:{FILL['accent']};border-radius:{RADIUS['pill']}px;
   padding:12px 26px;opacity:0}}
 {p} .kword{{font-family:{FONT};font-weight:900;font-size:{size}px;line-height:.94;
   letter-spacing:-.045em;color:{C['text']};opacity:0}}
-{p} .kbar{{width:0;height:12px;border-radius:6px;background:{C['violet']}}}
+{p} .kbar{{width:0;height:12px;border-radius:6px;background:{C['accent']}}}
 {p} .ksub{{font-family:{FONT};font-weight:500;font-size:36px;line-height:1.3;
   color:{C['text2']};max-width:820px;opacity:0}}"""
     html = (f'<div class="khero">'
@@ -611,10 +611,10 @@ def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, st
     (`#0B0B0C`, 1.11:1) y Bklit UI (`#000000`, 1.18:1) se hunden sin él; Manus
     (17.73:1), Anime.js y Kokonut UI (transparentes) no lo necesitan pero
     tampoco lo penaliza — es una regla del componente, no un caso especial
-    escrito para dos slugs. El hairline es `LINE_HI` (no el `LINE` de
+    escrito para dos slugs. El hairline es `TK.LINE_HI` (no el `TK.LINE` de
     costumbre): compuesto sobre `surface` da 1.63:1 (`tokens.lift`), un
     margen real sobre el 1.11–1.18:1 de los dos tiles que motivaron el
-    arreglo — con `LINE` a secas quedaba en 1.29:1, apenas por encima del
+    arreglo — con `TK.LINE` a secas quedaba en 1.29:1, apenas por encima del
     peor tile, y el marco tiene que separar más de lo que ya fallaba.
 
     `tc-tilt` es el wrapper HIJO estático de `perspective()+rotateY()`: GSAP
@@ -634,15 +634,15 @@ def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, st
 {p} .tc-card{{display:flex;align-items:center;justify-content:center}}
 {p} .tc-tilt{{transform:perspective(1400px) rotateY(-6deg);transform-style:preserve-3d}}
 {p} .tc-root{{display:flex;align-items:center;gap:30px;background:{C['surface']};
-  border:1px solid {LINE};border-radius:{RADIUS['lg']}px;box-shadow:{SHADOW};
+  border:1px solid {TK.LINE};border-radius:{RADIUS['lg']}px;box-shadow:{TK.SHADOW};
   padding:30px 46px}}
 {p} .tc-logoframe{{flex:0 0 auto;width:112px;height:112px;
-  border-radius:{RADIUS['md']}px;background:{C['bg']};border:1px solid {LINE_HI};
+  border-radius:{RADIUS['md']}px;background:{C['bg']};border:1px solid {TK.LINE_HI};
   display:flex;align-items:center;justify-content:center;overflow:hidden}}
 {p} .tc-logo{{opacity:0;display:flex;align-items:center;justify-content:center}}
 {p} .tc-name{{display:flex;flex-direction:column;gap:8px;opacity:0}}
 {p} .tc-kick{{font-family:{MONO};font-weight:700;font-size:22px;
-  letter-spacing:.16em;color:{C['violet_hi']};text-transform:uppercase}}
+  letter-spacing:.16em;color:{C['accent_hi']};text-transform:uppercase}}
 {p} .tc-word{{font-family:{FONT};font-weight:900;font-size:58px;line-height:1;
   letter-spacing:-.03em;color:{C['text']}}}"""
     html = (f'<div class="tc-card" id="{cid}-card"><div class="tc-tilt">'
@@ -708,23 +708,23 @@ def tool_pair(cid: str, left: dict, right: dict, at: list[float],
 {p} .tp-card{{display:flex;align-items:center;justify-content:center}}
 {p} .tp-tilt{{transform:perspective(1400px) rotateY(-6deg);transform-style:preserve-3d}}
 {p} .tp-root{{display:flex;flex-direction:column;align-items:center;gap:26px;
-  background:{C['surface']};border:1px solid {LINE};border-radius:{RADIUS['lg']}px;
-  box-shadow:{SHADOW};padding:34px 54px}}
+  background:{C['surface']};border:1px solid {TK.LINE};border-radius:{RADIUS['lg']}px;
+  box-shadow:{TK.SHADOW};padding:34px 54px}}
 {p} .tp-kick{{font-family:{MONO};font-weight:700;font-size:22px;
-  letter-spacing:.16em;color:{C['violet_hi']};text-transform:uppercase;opacity:0}}
+  letter-spacing:.16em;color:{C['accent_hi']};text-transform:uppercase;opacity:0}}
 {p} .tp-row{{display:flex;align-items:center;gap:30px}}
 {p} .tp-cell{{display:flex;flex-direction:column;align-items:center;gap:14px;
   width:{frame}px}}
 {p} .tp-frame{{width:{frame}px;height:{frame}px;border-radius:{RADIUS['md']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
   align-items:center;justify-content:center;overflow:hidden}}
 {p} .tp-name{{font-family:{MONO};font-weight:700;font-size:20px;letter-spacing:.05em;
   color:{C['text2']};text-transform:uppercase;white-space:nowrap}}
 {p} .tp-plus{{font-family:{FONT};font-weight:900;font-size:64px;line-height:1;
-  color:{C['violet_hi']};opacity:0;margin-bottom:34px}}
+  color:{C['accent_hi']};opacity:0;margin-bottom:34px}}
 {p} .tp-slotwrap{{position:relative;width:{frame}px;height:{frame}px}}
 {p} .tp-slot{{position:absolute;inset:0;border-radius:{RADIUS['md']}px;
-  border:2px dashed {LINE_HI};background:none;opacity:0}}
+  border:2px dashed {TK.LINE_HI};background:none;opacity:0}}
 {p} .tp-fill{{position:absolute;inset:0;opacity:0}}
 {p} .tp-right{{opacity:0}}
 {p} .tp-leftcell{{opacity:0}}"""
@@ -797,7 +797,7 @@ def tool_recording(cid: str, slug: str, name: str,
     durante los 6–8 s que dura, sin él se desatan (§3).
 
     ⚠ **La cabecera es OPACA, y antes no lo era.** Nació con
-    `rgba(11,12,16,.72)`, que sobre las cuatro grabaciones OSCURAS de la
+    el suelo al 72 % de opacidad, que sobre las cuatro grabaciones OSCURAS de la
     pieza 15 se leía como un cristal elegante. Sobre la grabación de Composio
     —documentación con fondo BLANCO— el texto de la página se transparentaba
     por detrás del chip y del nombre: dos textos superpuestos, cazado sobre un
@@ -836,12 +836,12 @@ def tool_recording(cid: str, slug: str, name: str,
     css = f"""
 {p} .tr-panel{{position:absolute;left:{x}px;top:{y}px;width:{w}px;height:{h}px;
   border-radius:{RADIUS['lg']}px;overflow:hidden;pointer-events:none;
-  border:{hairline}px solid {LINE_HI};box-shadow:{SHADOW};z-index:11}}
+  border:{hairline}px solid {TK.LINE_HI};box-shadow:{TK.SHADOW};z-index:11}}
 {p} .tr-head{{position:absolute;left:0;top:0;width:100%;height:{head_h}px;
   display:flex;align-items:center;gap:16px;padding:0 26px;
-  background:{C['surface']};border-bottom:1px solid {LINE_HI};opacity:0}}
+  background:{C['surface']};border-bottom:1px solid {TK.LINE_HI};opacity:0}}
 {p} .tr-chip{{flex:0 0 auto;width:40px;height:40px;border-radius:{RADIUS['sm']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;align-items:center;
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;align-items:center;
   justify-content:center;overflow:hidden;
   transform:perspective(800px) rotateY(-8deg);transform-style:preserve-3d}}
 {p} .tr-name{{font-family:{FONT};font-weight:800;font-size:28px;
@@ -869,7 +869,7 @@ def claude_prompt(cid: str, lines: list[str], at: list[float],
     """El compositor de un asistente, escribiéndose línea a línea.
 
     Es un MOCKUP declarado, no la captura redibujada (§7): lleva la
-    tipografía, el grafito y el violeta del sistema, y lo que lo ata a la
+    tipografía y la paleta del sistema, y lo que lo ata a la
     marca es el logo de la cabecera, igual que el chip de `tool_recording`.
     La estructura sí sale de la captura real que trajo la pieza 16
     (`VIDEOS ORIGINALES/2/chat_claude.png`): campo grande, fila de `+`,
@@ -943,13 +943,13 @@ def claude_prompt(cid: str, lines: list[str], at: list[float],
         f'<div class="cp-line" id="{cid}-l{i}"></div>' for i in range(len(lines)))
     css = f"""
 {p} .cp-panel{{position:absolute;left:{x}px;top:{y}px;width:{w}px;height:{h}px;
-  background:{C['surface']};border:1px solid {LINE_HI};
-  border-radius:{RADIUS['lg']}px;box-shadow:{SHADOW_LIFT};overflow:hidden;
+  background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['lg']}px;box-shadow:{TK.SHADOW_LIFT};overflow:hidden;
   display:flex;flex-direction:column;opacity:0}}
 {p} .cp-head{{flex:0 0 {head_h}px;display:flex;align-items:center;gap:18px;
-  padding:0 30px;border-bottom:1px solid {LINE};opacity:0}}
+  padding:0 30px;border-bottom:1px solid {TK.LINE};opacity:0}}
 {p} .cp-mark{{width:52px;height:52px;border-radius:{RADIUS['sm']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
   align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto;
   transform:perspective(800px) rotateY(-8deg);transform-style:preserve-3d}}
 {p} .cp-title{{font-family:{FONT};font-weight:800;font-size:30px;
@@ -962,14 +962,14 @@ def claude_prompt(cid: str, lines: list[str], at: list[float],
   letter-spacing:-.01em;color:{C['text3']}}}
 {p} .cp-line{{font-family:{FONT};font-weight:700;font-size:34px;line-height:1.28;
   letter-spacing:-.01em;color:{C['text']};white-space:nowrap;overflow:hidden}}
-{p} .ccaret{{display:inline-block;width:4px;height:34px;background:{C['violet']};
+{p} .ccaret{{display:inline-block;width:4px;height:34px;background:{C['accent']};
   vertical-align:-6px;margin-left:6px}}
 {p} .cp-att{{display:flex;align-items:center;gap:16px;align-self:flex-start;
-  background:{C['surface2']};border:1px solid {LINE_HI};
+  background:{C['surface2']};border:1px solid {TK.LINE_HI};
   border-radius:{RADIUS['md']}px;padding:16px 22px;margin-bottom:6px;opacity:0}}
 {p} .cp-attico{{width:48px;height:48px;border-radius:{RADIUS['sm']}px;
-  background:{FILL['violet']};border:1px solid rgba(124,92,255,.42);
-  color:{C['violet_hi']};display:flex;align-items:center;justify-content:center;
+  background:{FILL['accent']};border:1px solid {accent_a(.42)};
+  color:{C['accent_hi']};display:flex;align-items:center;justify-content:center;
   flex:0 0 auto}}
 {p} .cp-attxt{{display:flex;flex-direction:column;gap:5px}}
 {p} .cp-attname{{font-family:{FONT};font-weight:800;font-size:27px;
@@ -977,18 +977,18 @@ def claude_prompt(cid: str, lines: list[str], at: list[float],
 {p} .cp-attmeta{{font-family:{MONO};font-weight:700;font-size:17px;
   letter-spacing:.11em;text-transform:uppercase;color:{C['text3']}}}
 {p} .cp-bar{{flex:0 0 {bar_h}px;display:flex;align-items:center;gap:16px;
-  padding:0 30px;border-top:1px solid {LINE};opacity:0}}
+  padding:0 30px;border-top:1px solid {TK.LINE};opacity:0}}
 {p} .cp-plus{{font-family:{FONT};font-weight:400;font-size:40px;line-height:1;
   color:{C['text3']};flex:0 0 auto}}
 {p} .cp-chip{{font-family:{FONT};font-weight:700;font-size:24px;
   letter-spacing:-.01em;color:{C['text3']};border-radius:{RADIUS['sm']}px;
   padding:10px 20px}}
 {p} .cp-chip.on{{color:{C['text']};background:{C['surface2']};
-  border:1px solid {LINE_HI}}}
+  border:1px solid {TK.LINE_HI}}}
 {p} .cp-conn{{margin-left:auto;display:flex;align-items:center;gap:12px;
   font-family:{MONO};font-weight:700;font-size:21px;letter-spacing:.08em;
-  text-transform:uppercase;color:{C['violet_lt']};background:{FILL['violet']};
-  border:1px solid rgba(124,92,255,.42);border-radius:{RADIUS['pill']}px;
+  text-transform:uppercase;color:{C['accent_lt']};background:{FILL['accent']};
+  border:1px solid {accent_a(.42)};border-radius:{RADIUS['pill']}px;
   padding:11px 22px;opacity:0}}
 {p} .cp-connmark{{width:26px;height:26px;display:flex;align-items:center;
   justify-content:center;overflow:hidden;flex:0 0 auto}}"""
@@ -1042,7 +1042,7 @@ def tool_lineup(cid: str, tools: list[tuple[str, str]], at: list[float],
     cuando él dice «estas», no antes de que la primera se nombrara.
 
     Construido sobre el mismo marco de logo que `tool_card` (`.tc-logoframe`:
-    hairline `LINE_HI` + fondo `bg`) en vez de inventar uno nuevo — la CSS de
+    hairline `TK.LINE_HI` + fondo `bg`) en vez de inventar uno nuevo — la CSS de
     cada componente vive con el prefijo de su propio `data-viz-id`, así que
     reutilizar la clase por nombre no basta entre dos visuales distintos; se
     copia aquí la misma receta, no solo el nombre. Se descartó `app_switch`
@@ -1070,12 +1070,12 @@ def tool_lineup(cid: str, tools: list[tuple[str, str]], at: list[float],
     css = f"""
 {p} .tlwrap{{display:flex;flex-direction:column;align-items:center;gap:22px}}
 {p} .tlkick{{font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.18em;
-  color:{C['violet_hi']};background:{FILL['violet']};border-radius:{RADIUS['pill']}px;
+  color:{C['accent_hi']};background:{FILL['accent']};border-radius:{RADIUS['pill']}px;
   padding:10px 24px;opacity:0}}
 {p} .tlrow{{display:flex;gap:22px;align-items:flex-start}}
 {p} .tlcell{{display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0}}
 {p} .tlframe{{width:104px;height:104px;border-radius:{RADIUS['md']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
   align-items:center;justify-content:center;overflow:hidden}}
 {p} .tlname{{font-family:{MONO};font-weight:700;font-size:17px;letter-spacing:.05em;
   color:{C['text2']};text-transform:uppercase;white-space:nowrap}}"""
@@ -1141,17 +1141,17 @@ def layer_stack(cid: str, apps: list[dict], at: list[float],
         # lienzo: el bloque se centra con flex y el SVG viaja con él.
         cx = i * (tile + gap) + tile / 2
         drops.append(f'<path class="ls-drop" id="{cid}-d{i}" d="M{cx:.1f} 0 '
-                     f'L{cx:.1f} 46" stroke="{C["violet"]}" stroke-width="3" '
+                     f'L{cx:.1f} 46" stroke="{C["accent"]}" stroke-width="3" '
                      f'stroke-linecap="round" fill="none"/>')
     css = f"""
 {p} .ls-wrap{{display:flex;flex-direction:column;align-items:center;gap:0}}
 {p} .ls-kick{{font-family:{MONO};font-weight:700;font-size:22px;letter-spacing:.18em;
-  color:{C['violet_hi']};text-transform:uppercase;margin-bottom:22px;opacity:0}}
+  color:{C['accent_hi']};text-transform:uppercase;margin-bottom:22px;opacity:0}}
 {p} .ls-layer{{display:flex;align-items:center;justify-content:center;gap:22px;
-  width:{row_w}px;background:{C['surface']};border:1px solid {LINE_HI};
-  border-radius:{RADIUS['lg']}px;box-shadow:{GLOW};padding:26px 0;opacity:0}}
+  width:{row_w}px;background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['lg']}px;box-shadow:{TK.GLOW};padding:26px 0;opacity:0}}
 {p} .ls-lmark{{width:62px;height:62px;border-radius:{RADIUS['sm']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
   align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}}
 {p} .ls-lname{{font-family:{FONT};font-weight:900;font-size:46px;line-height:1;
   letter-spacing:-.03em;color:{C['text']}}}
@@ -1160,10 +1160,10 @@ def layer_stack(cid: str, apps: list[dict], at: list[float],
 {p} .ls-cell{{display:flex;flex-direction:column;align-items:center;gap:12px;
   width:{tile}px;opacity:0}}
 {p} .ls-tile{{width:{tile}px;height:{tile}px;border-radius:{RADIUS['md']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
   align-items:center;justify-content:center;overflow:hidden}}
 {p} .ls-mute{{width:46px;height:46px;border-radius:{RADIUS['sm']}px;
-  border:2px solid {LINE_HI};background:{FILL['white']}}}
+  border:2px solid {TK.LINE_HI};background:{FILL['ink']}}}
 {p} .ls-name{{font-family:{MONO};font-weight:700;font-size:17px;letter-spacing:.05em;
   color:{C['text2']};text-transform:uppercase;white-space:nowrap}}"""
     layer_logo, _ = logos.mark(layer_slug, 40, uid=f"{cid}-layer")
@@ -1231,23 +1231,23 @@ def flow_steps(cid: str, steps: list[str], at: list[float],
     css = f"""
 {p} .fflow{{display:flex;flex-direction:column;align-items:center;gap:8px;width:{BOARD_W}px}}
 {p} .fstep{{width:100%;display:flex;align-items:center;gap:22px;
-  background:{C['surface']};border:1px solid {LINE};border-radius:{RADIUS['md']}px;
+  background:{C['surface']};border:1px solid {TK.LINE};border-radius:{RADIUS['md']}px;
   padding:28px 30px;font-family:{FONT};font-weight:700;font-size:40px;
-  letter-spacing:-.02em;color:{C['text']};box-shadow:{SHADOW};opacity:0}}
-{p} .fstep.hot{{border-color:rgba(124,92,255,.5);
-  background:linear-gradient(90deg,{FILL['violet']} 0%,{C['surface']} 62%)}}
+  letter-spacing:-.02em;color:{C['text']};box-shadow:{TK.SHADOW};opacity:0}}
+{p} .fstep.hot{{border-color:{accent_a(.5)};
+  background:linear-gradient(90deg,{FILL['accent']} 0%,{C['surface']} 62%)}}
 {p} .fstep.bad{{border-color:rgba(255,90,90,.45);
   background:linear-gradient(90deg,{FILL['alert']} 0%,{C['surface']} 62%);
   color:{C['alert']}}}
 {p} .fnum{{font-family:{MONO};font-weight:700;font-size:22px;letter-spacing:.12em;
-  color:{C['violet_hi']};flex:0 0 auto}}
-{p} .fic{{display:flex;flex:0 0 auto;color:{C['violet_hi']};margin-right:-6px}}
+  color:{C['accent_hi']};flex:0 0 auto}}
+{p} .fic{{display:flex;flex:0 0 auto;color:{C['accent_hi']};margin-right:-6px}}
 {p} .fstep.bad .fic{{color:{C['alert']}}}
 {p} .fstep.bad .fnum{{color:{C['alert']}}}
 {p} .fok{{margin-left:auto;color:{C['go']};font-size:36px;font-weight:900}}
-{p} .fstep.hot .fok{{color:{C['violet_hi']}}}
+{p} .fstep.hot .fok{{color:{C['accent_hi']}}}
 {p} .fstep.bad .fok{{color:{C['alert']}}}
-{p} .farrow{{font-family:{FONT};font-size:34px;font-weight:700;color:{C['violet']};
+{p} .farrow{{font-family:{FONT};font-size:34px;font-weight:700;color:{C['accent']};
   opacity:0;line-height:1}}"""
     anims = []
     for i in range(len(steps)):
@@ -1286,14 +1286,14 @@ def chat_unanswered(cid: str, contact: str, message: str, kicker: str = "",
 {p} .chwrap{{display:flex;flex-direction:column;align-items:center;gap:26px;width:{BOARD_W}px}}
 {p} .chkick{{font-family:{MONO};font-weight:700;font-size:26px;letter-spacing:.20em;
   color:{C['text3']};opacity:0}}
-{p} .chpane{{width:100%;height:880px;background:{C['surface']};border:1px solid {LINE};
-  border-radius:{RADIUS['xl']}px;box-shadow:{SHADOW_LIFT};padding:0 0 34px;
+{p} .chpane{{width:100%;height:880px;background:{C['surface']};border:1px solid {TK.LINE};
+  border-radius:{RADIUS['xl']}px;box-shadow:{TK.SHADOW_LIFT};padding:0 0 34px;
   display:flex;flex-direction:column;overflow:hidden;opacity:0}}
 {p} .chtop{{display:flex;align-items:center;gap:20px;padding:26px 30px;
-  border-bottom:1px solid {LINE};background:{C['surface2']}}}
+  border-bottom:1px solid {TK.LINE};background:{C['surface2']}}}
 {p} .chav{{width:58px;height:58px;border-radius:50%;flex:0 0 58px;
   background:linear-gradient(135deg,{C['surface3']} 0%,{C['bg2']} 100%);
-  border:1px solid {LINE_HI}}}
+  border:1px solid {TK.LINE_HI}}}
 {p} .chname{{font-family:{FONT};font-weight:700;font-size:38px;letter-spacing:-.01em;
   color:{C['text']};flex:1}}
 /* La marca va a la IZQUIERDA, pegada al avatar: el borde derecho de la
@@ -1306,7 +1306,7 @@ def chat_unanswered(cid: str, contact: str, message: str, kicker: str = "",
 {p} .chbrand svg{{width:100%;height:100%;display:block}}
 {p} .chbody{{flex:1;display:flex;flex-direction:column;justify-content:flex-start;
   align-items:flex-end;padding:34px 30px 0;gap:10px}}
-{p} .chbub{{max-width:78%;background:{FILL['violet2']};border:1px solid rgba(124,92,255,.34);
+{p} .chbub{{max-width:78%;background:{FILL['accent2']};border:1px solid {accent_a(.34)};
   border-radius:24px 10px 24px 24px;
   padding:24px 28px;font-family:{FONT};font-weight:500;font-size:36px;line-height:1.34;
   color:{C['text']};opacity:0}}
@@ -1320,7 +1320,7 @@ def chat_unanswered(cid: str, contact: str, message: str, kicker: str = "",
 /* La entrante va pegada al otro lado y con la esquina espejada: el bando se
    lee en la geometría, no hace falta rotularlo. */
 {p} .chin{{align-self:flex-start;max-width:78%;margin-top:26px;background:{C['surface3']};
-  border:1px solid {LINE_HI};border-radius:10px 24px 24px 24px;
+  border:1px solid {TK.LINE_HI};border-radius:10px 24px 24px 24px;
   padding:24px 28px;font-family:{FONT};font-weight:500;font-size:36px;line-height:1.34;
   color:{C['text']};opacity:0}}"""
     html = (f'<div class="chwrap">'
@@ -1365,17 +1365,17 @@ def comment_ui(cid: str, word: str, type_at: float = 0.6,
 {p} .chead{{font-family:{FONT};font-weight:900;font-size:190px;line-height:.92;
   letter-spacing:-.05em;color:{C['text']};opacity:0}}
 {p} .csay{{font-family:{MONO};font-weight:700;font-size:26px;letter-spacing:.20em;
-  color:{C['violet_lt']};background:{FILL['violet']};border-radius:{RADIUS['pill']}px;
+  color:{C['accent_lt']};background:{FILL['accent']};border-radius:{RADIUS['pill']}px;
   padding:12px 26px;opacity:0;margin-bottom:-14px}}
 {p} .cbox{{width:100%;display:flex;align-items:center;gap:20px;background:{C['surface']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['pill']}px;padding:22px 26px;
-  box-shadow:{SHADOW_LIFT};opacity:0}}
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['pill']}px;padding:22px 26px;
+  box-shadow:{TK.SHADOW_LIFT};opacity:0}}
 {p} .cav{{width:66px;height:66px;border-radius:50%;flex:0 0 66px;
-  background:linear-gradient(135deg,{C['violet']} 0%,{C['violet_dk']} 100%)}}
+  background:linear-gradient(135deg,{C['accent']} 0%,{C['accent_pill']} 100%)}}
 {p} .cfield{{flex:1;min-width:0;font-family:{FONT};font-weight:700;font-size:42px;
   letter-spacing:-.01em;color:{C['text']};white-space:nowrap;overflow:hidden}}
 {p} .cfield i{{color:{C['text3']};font-style:normal;font-weight:500}}
-{p} .ccaret{{display:inline-block;width:4px;height:44px;background:{C['violet']};
+{p} .ccaret{{display:inline-block;width:4px;height:44px;background:{C['accent']};
   vertical-align:-8px;margin-left:6px}}
 {p} .csend{{font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.12em;
   color:{C['text3']};flex:0 0 auto}}
@@ -1398,7 +1398,7 @@ def comment_ui(cid: str, word: str, type_at: float = 0.6,
     # no pasa el linter, y de hecho se ve pastoso. Además, dos fundidos
     # encadenados leen peor que uno.
     # ⚠ El primer gesto va en .03, no en .16. Medido sobre el MP4 de la pieza
-    # 19: el relevo entre dos visuales ya cuesta ~130 ms de suelo grafito
+    # 19: el relevo entre dos visuales ya cuesta ~130 ms de suelo
     # (§4, cobertura declarada ≠ luma renderizada) y cualquier retraso del
     # elemento ENTRANTE se suma a ese hueco en vez de esconderse dentro de él.
     # Con .16 el CTA abría con 203 ms de banda vacía; con .03, con los 133 del
@@ -1486,17 +1486,17 @@ def step_grid(cid: str, slots: list[str], at: list[float],
 {p} .sgwrap{{display:flex;flex-direction:column;align-items:center;gap:20px;
   width:{BOARD_W}px}}
 {p} .sgkick{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
-  text-transform:uppercase;color:{C['violet_hi']};opacity:0}}
+  text-transform:uppercase;color:{C['accent_hi']};opacity:0}}
 {p} .sggrid{{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%}}
 {p} .sgcell{{position:relative;height:196px;border-radius:{RADIUS['md']}px;
   padding:24px 28px;display:flex;flex-direction:column;gap:14px;
   justify-content:flex-start;background:transparent;
   border:2px dashed {C['text3']};opacity:0}}
 {p} .sgfill{{position:absolute;inset:-2px;border-radius:{RADIUS['md']}px;
-  background:{C['surface']};border:1px solid {LINE_HI};box-shadow:{SHADOW};
+  background:{C['surface']};border:1px solid {TK.LINE_HI};box-shadow:{TK.SHADOW};
   opacity:0;z-index:0}}
-{p} .sgcell.hot .sgfill{{border-color:rgba(124,92,255,.55);
-  background:linear-gradient(135deg,{C['violet_dk']} 0%,{C['surface']} 64%)}}
+{p} .sgcell.hot .sgfill{{border-color:{accent_a(.55)};
+  background:linear-gradient(135deg,{C['accent_pill']} 0%,{C['surface']} 64%)}}
 {p} .sgnum{{position:relative;z-index:1;font-family:{MONO};font-weight:700;
   font-size:24px;letter-spacing:.14em;color:{C['text3']}}}
 {p} .sgtxt{{position:relative;z-index:1;min-height:90px;
@@ -1530,7 +1530,7 @@ def _cv_card(cid: str, iid: str, title: str, sub: str, rows: list[dict],
     puede depender del azar, y el contenido concreto de la línea no es el
     argumento.
 
-    `tone` por fila: `plain` (gris, existe), `hot` (violeta, es lo que se está
+    `tone` por fila: `plain` (gris, existe), `hot` (acento, es lo que se está
     señalando) y `bad` (alert, es un desajuste). Un `bad` no tiñe la tarjeta
     entera: teñirla convertiría «a este CV le faltan cosas» en «este CV está
     roto», que es otra frase — la misma lección que `flow_steps` con `fail`.
@@ -1545,8 +1545,8 @@ def _cv_card(cid: str, iid: str, title: str, sub: str, rows: list[dict],
         rs.append(f'<div class="cvrow" id="{iid}-r{i}">{lab}{bar}</div>')
     tg = (f'<span class="cvtag {tag_tone}">{esc(tag)}</span>') if tag else ""
     css = f"""
-{p} #{iid}{{width:{width}px;background:{C['surface']};border:1px solid {LINE_HI};
-  border-radius:{RADIUS['md']}px;box-shadow:{SHADOW};padding:26px 26px 28px;
+{p} #{iid}{{width:{width}px;background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['md']}px;box-shadow:{TK.SHADOW};padding:26px 26px 28px;
   display:flex;flex-direction:column;gap:18px;opacity:0}}
 {p} #{iid} .cvhead{{display:flex;align-items:flex-start;gap:14px}}
 {p} #{iid} .cvname{{min-height:70px}}
@@ -1579,18 +1579,18 @@ def _cv_css(p: str) -> str:
 {p} .cvrow{{display:flex;flex-direction:column;gap:7px}}
 {p} .cvlab{{font-family:{FONT};font-weight:700;font-size:23px;
   letter-spacing:-.01em;color:{C['text2']};line-height:1.2}}
-{p} .cvlab.hot{{color:{C['violet_hi']}}}
+{p} .cvlab.hot{{color:{C['accent_hi']}}}
 {p} .cvlab.bad{{color:{C['alert']}}}
 {p} .cvbar{{height:12px;border-radius:{RADIUS['pill']}px;
   background:rgba(167,173,187,.30);display:block}}
-{p} .cvbar.hot{{background:{C['violet']}}}
+{p} .cvbar.hot{{background:{C['accent']}}}
 {p} .cvbar.bad{{background:{C['alert']};opacity:.55}}
 {p} .cvtag{{align-self:flex-start;font-family:{MONO};font-weight:700;font-size:17px;
   letter-spacing:.12em;text-transform:uppercase;color:{C['text3']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['pill']}px;padding:7px 14px;
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['pill']}px;padding:7px 14px;
   flex:0 0 auto}}
-{p} .cvtag.hot{{color:{C['violet_hi']};border-color:rgba(124,92,255,.45);
-  background:{FILL['violet']}}}
+{p} .cvtag.hot{{color:{C['accent_hi']};border-color:{accent_a(.45)};
+  background:{FILL['accent']}}}
 {p} .cvtag.go{{color:{C['go']};border-color:rgba(52,227,155,.40)}}"""
 
 
@@ -1628,9 +1628,9 @@ def cv_echo(cid: str, left: dict, right: dict, seal: str,
   position:relative}}
 {p} .ceeq{{position:absolute;left:50%;top:50%;margin-left:-38px;margin-top:-38px;
   width:76px;height:76px;border-radius:{RADIUS['pill']}px;background:{C['bg']};
-  border:1px solid rgba(124,92,255,.45);box-shadow:{GLOW};display:flex;
+  border:1px solid {accent_a(.45)};box-shadow:{TK.GLOW};display:flex;
   align-items:center;justify-content:center;font-family:{FONT};font-weight:900;
-  font-size:42px;color:{C['violet_hi']};opacity:0;z-index:3}}
+  font-size:42px;color:{C['accent_hi']};opacity:0;z-index:3}}
 {p} .ceseal{{font-family:{MONO};font-weight:700;font-size:22px;letter-spacing:.13em;
   text-transform:uppercase;color:{C['warn']};border:1px solid rgba(255,184,77,.42);
   background:rgba(255,184,77,.10);border-radius:{RADIUS['pill']}px;
@@ -1688,12 +1688,12 @@ def cv_vs_offer(cid: str, cv: dict, offer: dict, at: list[float],
 {p} .cowrap{{display:flex;flex-direction:column;align-items:center;gap:20px;
   width:{BOARD_W}px}}
 {p} .cokick{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
-  text-transform:uppercase;color:{C['violet_hi']};opacity:0}}
+  text-transform:uppercase;color:{C['accent_hi']};opacity:0}}
 {p} .copair{{display:flex;align-items:flex-start;gap:96px;width:100%;
   position:relative}}
 {p} .covs{{position:absolute;left:50%;top:50%;margin-left:-32px;margin-top:-32px;
   width:64px;height:64px;border-radius:{RADIUS['pill']}px;background:{C['bg']};
-  border:1px solid {LINE_HI};display:flex;align-items:center;
+  border:1px solid {TK.LINE_HI};display:flex;align-items:center;
   justify-content:center;font-family:{MONO};font-weight:700;font-size:20px;
   letter-spacing:.06em;color:{C['text3']};opacity:0;z-index:3}}
 {p} .cvx{{position:absolute;left:-8px;right:-8px;height:44px;
@@ -1747,11 +1747,11 @@ def offer_stack(cid: str, offers: list[str], offer_at: list[float],
 {p} .ofwrap{{display:flex;flex-direction:column;align-items:center;gap:18px;
   width:{BOARD_W}px}}
 {p} .ofkick{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
-  text-transform:uppercase;color:{C['violet_hi']};opacity:0}}
+  text-transform:uppercase;color:{C['accent_hi']};opacity:0}}
 {p} .ofrow{{display:flex;gap:16px;width:100%}}
-{p} .ofcard{{flex:1 1 0;background:{C['surface']};border:1px solid {LINE};
+{p} .ofcard{{flex:1 1 0;background:{C['surface']};border:1px solid {TK.LINE};
   border-radius:{RADIUS['md']}px;padding:20px 20px 22px;display:flex;
-  flex-direction:column;gap:11px;box-shadow:{SHADOW};opacity:0}}
+  flex-direction:column;gap:11px;box-shadow:{TK.SHADOW};opacity:0}}
 {p} .ofn{{font-family:{MONO};font-weight:700;font-size:17px;letter-spacing:.13em;
   color:{C['text3']}}}
 {p} .oft{{font-family:{FONT};font-weight:800;font-size:25px;letter-spacing:-.015em;
@@ -1762,11 +1762,11 @@ def offer_stack(cid: str, offers: list[str], offer_at: list[float],
 {p} .ofblock{{width:100%;display:flex;flex-direction:column;gap:11px}}
 {p} .oflab{{font-family:{MONO};font-weight:700;font-size:19px;letter-spacing:.13em;
   text-transform:uppercase;color:{C['text3']};opacity:0}}
-{p} .oflab.go{{color:{C['violet_hi']}}}
+{p} .oflab.go{{color:{C['accent_hi']}}}
 {p} .ofchips{{display:flex;flex-wrap:wrap;gap:11px}}
 {p} .ofchip{{font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.08em;
-  text-transform:uppercase;color:{C['text']};background:{C['violet_dk']};
-  border:1px solid rgba(124,92,255,.5);border-radius:{RADIUS['pill']}px;
+  text-transform:uppercase;color:{C['text']};background:{C['accent_pill']};
+  border:1px solid {accent_a(.5)};border-radius:{RADIUS['pill']}px;
   padding:13px 24px;opacity:0}}
 {p} .ofchip.gap{{background:transparent;border:2px dashed {C['text3']};
   color:{C['text3']}}}"""
@@ -1832,9 +1832,9 @@ def rewrite_line(cid: str, before: str, after: str, parts: list[dict],
 {p} .rwwrap{{display:flex;flex-direction:column;align-items:flex-start;gap:18px;
   width:{BOARD_W}px}}
 {p} .rwkick{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
-  text-transform:uppercase;color:{C['violet_hi']};opacity:0}}
-{p} .rwcard{{width:100%;background:{C['surface']};border:1px solid {LINE_HI};
-  border-radius:{RADIUS['md']}px;box-shadow:{SHADOW};padding:26px 28px;
+  text-transform:uppercase;color:{C['accent_hi']};opacity:0}}
+{p} .rwcard{{width:100%;background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['md']}px;box-shadow:{TK.SHADOW};padding:26px 28px;
   display:flex;flex-direction:column;gap:10px}}
 {p} .rwlab{{font-family:{MONO};font-weight:700;font-size:18px;letter-spacing:.14em;
   text-transform:uppercase;color:{C['text3']}}}
@@ -1844,17 +1844,17 @@ def rewrite_line(cid: str, before: str, after: str, parts: list[dict],
 {p} .rwstrike{{position:absolute;left:0;top:calc(50% - 2px);height:4px;width:0;
   background:{C['alert']};border-radius:2px;pointer-events:none}}
 {p} .rwarrow{{align-self:center;font-family:{FONT};font-weight:700;font-size:34px;
-  color:{C['violet']};line-height:1;opacity:0}}
+  color:{C['accent']};line-height:1;opacity:0}}
 {p} .rwafter{{font-family:{FONT};font-weight:900;font-size:36px;line-height:1.24;
   letter-spacing:-.02em;color:{C['text']};opacity:0}}
-{p} .rwcard.good{{border-color:rgba(124,92,255,.42)}}
+{p} .rwcard.good{{border-color:{accent_a(.42)}}}
 {p} .rwf{{position:relative;display:inline-block;z-index:0}}
 {p} .rwbg{{position:absolute;left:-8px;right:-8px;top:-3px;bottom:-3px;
-  background:{C['violet_dk']};border-radius:{RADIUS['sm']}px;z-index:-1;opacity:0}}
+  background:{C['accent_pill']};border-radius:{RADIUS['sm']}px;z-index:-1;opacity:0}}
 {p} .rwtags{{display:flex;gap:12px;flex-wrap:wrap}}
 {p} .rwtag{{font-family:{MONO};font-weight:700;font-size:21px;letter-spacing:.12em;
-  text-transform:uppercase;color:{C['violet_hi']};border:1px solid rgba(124,92,255,.42);
-  background:{FILL['violet']};border-radius:{RADIUS['pill']}px;padding:11px 20px;
+  text-transform:uppercase;color:{C['accent_hi']};border:1px solid {accent_a(.42)};
+  background:{FILL['accent']};border-radius:{RADIUS['pill']}px;padding:11px 20px;
   opacity:0}}"""
     html = (f'<div class="rwwrap">{kick}'
             f'<div class="rwcard"><span class="rwlab">ANTES</span>'
@@ -1912,14 +1912,14 @@ def interview_chat(cid: str, answer: str, followup: str, at: list[float],
 {p} .ivwrap{{display:flex;flex-direction:column;align-items:center;gap:16px;
   width:{BOARD_W}px}}
 {p} .ivkick{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
-  text-transform:uppercase;color:{C['violet_hi']};opacity:0}}
-{p} .ivpanel{{width:100%;background:{C['surface']};border:1px solid {LINE_HI};
-  border-radius:{RADIUS['lg']}px;box-shadow:{SHADOW_LIFT};overflow:hidden;
+  text-transform:uppercase;color:{C['accent_hi']};opacity:0}}
+{p} .ivpanel{{width:100%;background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['lg']}px;box-shadow:{TK.SHADOW_LIFT};overflow:hidden;
   display:flex;flex-direction:column;opacity:0}}
 {p} .ivhead{{display:flex;align-items:center;gap:14px;padding:20px 26px;
-  border-bottom:1px solid {LINE};background:{C['surface']}}}
+  border-bottom:1px solid {TK.LINE};background:{C['surface']}}}
 {p} .ivmark{{width:40px;height:40px;border-radius:{RADIUS['sm']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
   align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}}
 {p} .ivrole{{font-family:{MONO};font-weight:700;font-size:20px;letter-spacing:.12em;
   text-transform:uppercase;color:{C['text2']}}}
@@ -1928,9 +1928,9 @@ def interview_chat(cid: str, answer: str, followup: str, at: list[float],
   font-family:{FONT};font-weight:700;font-size:31px;line-height:1.26;
   letter-spacing:-.015em;position:relative;opacity:0}}
 {p} .ivbub.them{{align-self:flex-end;background:{C['surface2']};
-  border:1px solid {LINE_HI};color:{C['text2']}}}
-{p} .ivbub.ia{{align-self:flex-start;background:{FILL['violet']};
-  border:1px solid rgba(124,92,255,.48);color:{C['text']}}}
+  border:1px solid {TK.LINE_HI};color:{C['text2']}}}
+{p} .ivbub.ia{{align-self:flex-start;background:{FILL['accent']};
+  border:1px solid {accent_a(.48)};color:{C['text']}}}
 {p} .ivbadge{{position:absolute;right:16px;bottom:-17px;font-family:{MONO};
   font-weight:700;font-size:18px;letter-spacing:.11em;text-transform:uppercase;
   color:{C['warn']};background:{C['bg']};border:1px solid rgba(255,184,77,.48);
@@ -1990,9 +1990,9 @@ def keyframe_grind(cid: str, at: list[float], total: int = 240,
 {p} .kgwrap{{display:flex;flex-direction:column;align-items:center;gap:18px;
   width:{BOARD_W}px}}
 {p} .kgkick{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
-  text-transform:uppercase;color:{C['violet_hi']};opacity:0}}
+  text-transform:uppercase;color:{C['accent_hi']};opacity:0}}
 {p} .kgstage{{position:relative;width:100%;height:296px;border-radius:{RADIUS['lg']}px;
-  background:{C['surface']};border:1px solid {LINE};box-shadow:{SHADOW};
+  background:{C['surface']};border:1px solid {TK.LINE};box-shadow:{TK.SHADOW};
   overflow:hidden;opacity:0}}
 {p} .kgscene{{position:absolute;inset:0;display:flex;flex-direction:column;
   align-items:flex-start;justify-content:center;gap:20px;padding:0 54px}}
@@ -2002,10 +2002,10 @@ def keyframe_grind(cid: str, at: list[float], total: int = 240,
 {p} .kgbar.b3{{width:30%;background:{C['surface2']}}}
 {p} .kgtag{{position:absolute;left:34px;top:28px;font-family:{MONO};font-weight:700;
   font-size:21px;letter-spacing:.16em;color:{C['text3']};background:{C['bg']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['pill']}px;padding:9px 18px;
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['pill']}px;padding:9px 18px;
   opacity:0}}
 {p} .kgtl{{position:relative;width:100%;height:150px;border-radius:{RADIUS['md']}px;
-  background:{C['surface']};border:1px solid {LINE};box-shadow:{SHADOW};
+  background:{C['surface']};border:1px solid {TK.LINE};box-shadow:{TK.SHADOW};
   padding:20px 26px;display:flex;flex-direction:column;gap:18px;opacity:0}}
 {p} .kghead{{display:flex;align-items:baseline;justify-content:space-between;
   font-family:{MONO};font-weight:700;font-size:22px;letter-spacing:.14em;
@@ -2014,9 +2014,9 @@ def keyframe_grind(cid: str, at: list[float], total: int = 240,
   color:{C['text']}}}
 {p} .kgnum b{{color:{C['text3']};font-weight:700}}
 {p} .kgtrack{{position:relative;height:42px;border-radius:{RADIUS['sm']}px;
-  background:{C['bg']};border:1px solid {LINE}}}
+  background:{C['bg']};border:1px solid {TK.LINE}}}
 {p} .kgdia{{position:absolute;top:11px;width:18px;height:18px;
-  background:{C['violet']};transform:rotate(45deg);border-radius:3px;opacity:0}}
+  background:{C['accent']};transform:rotate(45deg);border-radius:3px;opacity:0}}
 {p} .kgclock{{font-family:{MONO};font-weight:700;font-size:26px;letter-spacing:.16em;
   color:{C['warn']};background:{FILL['warn']};border:1px solid rgba(255,184,77,.48);
   border-radius:{RADIUS['pill']}px;padding:12px 26px;opacity:0}}"""
@@ -2055,7 +2055,7 @@ def agent_editor(cid: str, prompt: str, at: list[float],
     Lo pidió el usuario con esas palabras —«que se vea como un editor de vídeo
     y escribiendo bajo un chat, que todo sea animado»— y no había grabación
     que lo enseñara: la captura de la pieza es la WEB de HyperFrames, no su
-    Studio. Así que es un MOCKUP declarado, con la tipografía y el grafito del
+    Studio. Así que es un MOCKUP declarado, con la tipografía y la paleta del
     sistema, igual que `claude_prompt` en la 16: lo que lo ata al producto es
     el orden de los gestos, no un redibujo de su interfaz.
 
@@ -2099,14 +2099,14 @@ def agent_editor(cid: str, prompt: str, at: list[float],
 {p} .aewrap{{display:flex;flex-direction:column;align-items:center;gap:16px;
   width:{BOARD_W}px}}
 {p} .aekick{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
-  text-transform:uppercase;color:{C['violet_hi']};opacity:0}}
+  text-transform:uppercase;color:{C['accent_hi']};opacity:0}}
 {p} .aepanel{{width:100%;border-radius:{RADIUS['lg']}px;background:{C['surface']};
-  border:1px solid {LINE};box-shadow:{SHADOW};padding:18px;
+  border:1px solid {TK.LINE};box-shadow:{TK.SHADOW};padding:18px;
   display:flex;flex-direction:column;gap:16px;opacity:0}}
 {p} .aecanvas{{position:relative;height:244px;border-radius:{RADIUS['md']}px;
-  background:{C['bg']};border:1px solid {LINE};overflow:hidden}}
+  background:{C['bg']};border:1px solid {TK.LINE};overflow:hidden}}
 {p} .aeguide{{position:absolute;left:28px;right:28px;top:20px;bottom:20px;
-  border:2px dashed rgba(255,255,255,.13);border-radius:{RADIUS['sm']}px}}
+  border:2px dashed {ink_a(.13)};border-radius:{RADIUS['sm']}px}}
 {p} .aetick{{position:absolute;width:26px;height:26px;border:2px solid {C['surface3']}}}
 {p} .aetick.t0{{left:16px;top:12px;border-right:0;border-bottom:0}}
 {p} .aetick.t1{{right:16px;top:12px;border-left:0;border-bottom:0}}
@@ -2123,19 +2123,19 @@ def agent_editor(cid: str, prompt: str, at: list[float],
 {p} .aeel{{position:absolute;font-family:{FONT};font-weight:900;
   letter-spacing:-.03em;color:{C['text']};opacity:0;white-space:nowrap}}
 {p} .aeel.e0{{left:44px;top:52px;font-size:62px}}
-{p} .aeel.e1{{left:44px;top:132px;font-size:62px;color:{C['violet_hi']}}}
+{p} .aeel.e1{{left:44px;top:132px;font-size:62px;color:{C['accent_hi']}}}
 {p} .aeel.e2{{right:40px;top:44px;font-family:{MONO};font-weight:700;font-size:22px;
   letter-spacing:.14em;color:{C['text3']};background:{C['surface']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['pill']}px;padding:9px 18px}}
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['pill']}px;padding:9px 18px}}
 {p} .aetracks{{display:flex;flex-direction:column;gap:10px}}
 {p} .aerow{{display:flex;align-items:center;gap:14px;opacity:0}}
 {p} .aelab{{flex:0 0 150px;font-family:{MONO};font-weight:700;font-size:19px;
   letter-spacing:.12em;text-transform:uppercase;color:{C['text3']}}}
 {p} .aeclip{{height:26px;border-radius:{RADIUS['sm']}px;
-  background:linear-gradient(90deg,{C['violet']} 0%,{C['violet_dk']} 100%)}}
+  background:linear-gradient(90deg,{C['accent']} 0%,{C['accent_pill']} 100%)}}
 {p} .aechat{{width:100%;display:flex;align-items:center;gap:18px;
-  background:{C['surface']};border:1px solid {LINE_HI};
-  border-radius:{RADIUS['pill']}px;padding:20px 26px;box-shadow:{SHADOW_LIFT};
+  background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['pill']}px;padding:20px 26px;box-shadow:{TK.SHADOW_LIFT};
   opacity:0}}
 {p} .aemark{{flex:0 0 auto;display:flex;align-items:center}}
 {p} .aefield{{flex:1;min-width:0;font-family:{FONT};font-weight:700;font-size:34px;
@@ -2211,7 +2211,7 @@ def motion_demo(cid: str, variant: str, label: str, at: list[float],
 
     · `text`     las palabras entran una a una — es la capacidad, literal.
     · `chart`    barras que crecen desde su base y una línea que se dibuja.
-    · `captions` un bloque de subtítulo con el fondo violeta corriendo palabra
+    · `captions` un bloque de subtítulo con el fondo de acento corriendo palabra
                  a palabra: el MISMO mecanismo del karaoke del triband (§5),
                  que es lo honesto — el ejemplo de captions de esta pieza son
                  sus propios captions.
@@ -2326,17 +2326,17 @@ def motion_demo(cid: str, variant: str, label: str, at: list[float],
 {p} .mdwrap{{display:flex;flex-direction:column;align-items:center;gap:26px;
   width:{BOARD_W}px}}
 {p} .mdlab{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.18em;
-  text-transform:uppercase;color:{C['violet_hi']};opacity:0}}
+  text-transform:uppercase;color:{C['accent_hi']};opacity:0}}
 {p} .mdtext{{display:flex;flex-direction:column;align-items:center;gap:6px}}
 {p} .mdw{{font-family:{FONT};font-weight:900;font-size:104px;line-height:1.02;
   letter-spacing:-.04em;color:{C['text']};opacity:0}}
-{p} .mdw:nth-child(2){{color:{C['violet_hi']}}}
+{p} .mdw:nth-child(2){{color:{C['accent_hi']}}}
 {p} .mdchart{{position:relative;width:100%;height:300px;display:flex;
   align-items:flex-end;justify-content:space-between;gap:26px;
   padding:26px 30px;border-radius:{RADIUS['lg']}px;background:{C['surface']};
-  border:1px solid {LINE};box-shadow:{SHADOW}}}
+  border:1px solid {TK.LINE};box-shadow:{TK.SHADOW}}}
 {p} .mdbar{{flex:1;border-radius:{RADIUS['sm']}px {RADIUS['sm']}px 0 0;
-  background:linear-gradient(180deg,{C['violet']} 0%,{C['violet_dk']} 100%);
+  background:linear-gradient(180deg,{C['accent']} 0%,{C['accent_pill']} 100%);
   transform-origin:50% 100%;opacity:0}}
 {p} .mdline{{position:absolute;left:30px;right:30px;top:26px;bottom:26px;
   width:calc(100% - 60px);height:calc(100% - 52px)}}
@@ -2345,28 +2345,28 @@ def motion_demo(cid: str, variant: str, label: str, at: list[float],
 {p} .mdcw{{position:relative;font-family:{FONT};font-weight:900;font-size:74px;
   line-height:1.1;letter-spacing:-.03em;color:{C['text']}}}
 {p} .mdcbg{{position:absolute;left:-8px;right:-8px;top:2px;bottom:6px;
-  border-radius:{RADIUS['sm']}px;background:{C['violet_dk']};z-index:-1;opacity:0}}
+  border-radius:{RADIUS['sm']}px;background:{C['accent_pill']};z-index:-1;opacity:0}}
 {p} .mdwave{{width:100%;height:290px;display:flex;align-items:center;
   justify-content:space-between;gap:9px;padding:24px 30px;
-  border-radius:{RADIUS['lg']}px;background:{C['surface']};border:1px solid {LINE};
-  box-shadow:{SHADOW}}}
+  border-radius:{RADIUS['lg']}px;background:{C['surface']};border:1px solid {TK.LINE};
+  box-shadow:{TK.SHADOW}}}
 {p} .mdwb{{flex:1;border-radius:{RADIUS['pill']}px;transform-origin:50% 50%;
-  background:linear-gradient(180deg,{C['violet_hi']} 0%,{C['violet_dk']} 100%);
+  background:linear-gradient(180deg,{C['accent_hi']} 0%,{C['accent_pill']} 100%);
   opacity:0}}
 {p} .mdrecap{{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;
   max-width:{BOARD_W}px}}
 {p} .mdslot{{font-family:{MONO};font-weight:700;font-size:27px;letter-spacing:.12em;
   text-transform:uppercase;color:{C['text2']};background:{C['surface']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['pill']}px;padding:16px 28px;
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['pill']}px;padding:16px 28px;
   opacity:0}}
 {p} .mdgap{{position:relative;display:inline-flex}}
 {p} .mdhole{{display:inline-block;width:286px;height:66px;border-radius:{RADIUS['pill']}px;
   border:2px dashed {C['text3']};opacity:0}}
 {p} .mdfill{{position:absolute;left:0;top:0;display:inline-flex;align-items:center;
   justify-content:center;width:286px;height:66px;border-radius:{RADIUS['pill']}px;
-  background:{FILL['violet']};border:1px solid rgba(124,92,255,.55);
+  background:{FILL['accent']};border:1px solid {accent_a(.55)};
   font-family:{MONO};font-weight:700;font-size:27px;letter-spacing:.12em;
-  text-transform:uppercase;color:{C['violet_lt']};opacity:0}}"""
+  text-transform:uppercase;color:{C['accent_lt']};opacity:0}}"""
     return css, f'<div class="mdwrap">{lab}{body}</div>', anims
 
 
@@ -2389,13 +2389,13 @@ def idea_fate(cid: str, idea: str, exits: list[tuple[str, float]],
 
     ⚠ Y las dos existen como HUECO desde que entra la tarjeta, aunque su texto
     llegue tres y cinco segundos después. Con las filas naciendo de la nada, el
-    frame de t=23.5 era una tarjeta pequeña con media banda de grafito debajo —
+    frame de t=23.5 era una tarjeta pequeña con media banda de suelo debajo —
     el usuario pidió explícitamente que nunca hubiera fondo vacío (§4), y un
     hueco discontinuo llena el sitio diciendo algo («aquí faltan dos cosas»)
     en vez de llenarlo por llenarlo. Es el mismo reparto que `step_grid`: la
     estructura entra entera, cada nombre espera su palabra.
 
-    Con `revive` la tarjeta entra ya viva: violeta, con su glow y con la
+    Con `revive` la tarjeta entra ya viva: en acento, con su glow y con la
     pastilla de estado. No se anima la transición de una a otra porque entre
     las dos hay un CORTE DURO — son dos visuales, y el corte es lo que deja
     ver que cambió, exactamente como `chat_unanswered` hace su contraste.
@@ -2430,21 +2430,21 @@ def idea_fate(cid: str, idea: str, exits: list[tuple[str, float]],
   width:{BOARD_W}px}}
 {p} .ifcard{{position:relative;width:100%;border-radius:{RADIUS['lg']}px;
   padding:38px 44px;display:flex;align-items:center;gap:30px;
-  background:{C['surface']};border:1px solid {LINE};box-shadow:{SHADOW};opacity:0}}
-{p} .ifcard.alive{{border-color:rgba(124,92,255,.55);box-shadow:{GLOW};
-  background:linear-gradient(135deg,{C['violet_dk']} 0%,{C['surface']} 62%)}}
+  background:{C['surface']};border:1px solid {TK.LINE};box-shadow:{TK.SHADOW};opacity:0}}
+{p} .ifcard.alive{{border-color:{accent_a(.55)};box-shadow:{TK.GLOW};
+  background:linear-gradient(135deg,{C['accent_pill']} 0%,{C['surface']} 62%)}}
 {p} .ifspark{{flex:0 0 auto;width:96px;height:96px;border-radius:{RADIUS['md']}px;
   display:flex;align-items:center;justify-content:center;
-  background:{C['bg']};border:1px solid {LINE_HI};color:{C['text3']}}}
-{p} .ifcard.alive .ifspark{{color:{C['violet_hi']};
-  border-color:rgba(124,92,255,.45)}}
+  background:{C['bg']};border:1px solid {TK.LINE_HI};color:{C['text3']}}}
+{p} .ifcard.alive .ifspark{{color:{C['accent_hi']};
+  border-color:{accent_a(.45)}}}
 {p} .ifspark svg{{width:48px;height:48px;display:block}}
 {p} .iftext{{display:flex;flex-direction:column;gap:10px;min-width:0}}
 {p} .ifnamewrap{{position:relative;display:flex;align-items:center;min-height:62px}}
 {p} .ifnamehole{{position:absolute;left:0;top:23px}}
 {p} .ifkick{{font-family:{MONO};font-weight:700;font-size:21px;letter-spacing:.16em;
   text-transform:uppercase;color:{C['text3']}}}
-{p} .ifcard.alive .ifkick{{color:{C['violet_lt']}}}
+{p} .ifcard.alive .ifkick{{color:{C['accent_lt']}}}
 {p} .ifname{{font-family:{FONT};font-weight:900;font-size:60px;line-height:1.02;
   letter-spacing:-.03em;color:{C['text2']};opacity:0}}
 {p} .ifnamehole{{display:block;height:16px;width:58%;border-radius:{RADIUS['pill']}px;
@@ -2454,14 +2454,14 @@ def idea_fate(cid: str, idea: str, exits: list[tuple[str, float]],
   font-weight:700;font-size:22px;letter-spacing:.14em;text-transform:uppercase;
   color:{C['go']};background:{C['bg']};border:1px solid rgba(52,227,155,.5);
   border-radius:{RADIUS['pill']}px;padding:10px 22px;opacity:0;white-space:nowrap}}
-{p} .ifbadge.off{{color:{C['text3']};border-color:{LINE_HI}}}
+{p} .ifbadge.off{{color:{C['text3']};border-color:{TK.LINE_HI}}}
 {p} .ifexits{{display:flex;flex-direction:column;gap:14px;width:100%}}
 {p} .ifxrow{{position:relative;height:78px}}
 {p} .ifxhole{{position:absolute;inset:0;border-radius:{RADIUS['md']}px;
   border:2px dashed {C['text3']};opacity:0}}
 {p} .ifx{{position:absolute;inset:0;display:flex;align-items:center;gap:18px;
   padding:20px 26px;border-radius:{RADIUS['md']}px;background:{C['surface']};
-  border:1px solid {LINE};opacity:0}}
+  border:1px solid {TK.LINE};opacity:0}}
 {p} .ifxmark{{flex:0 0 auto;font-family:{MONO};font-weight:700;font-size:28px;
   color:{C['text3']}}}
 {p} .ifxlab{{font-family:{FONT};font-weight:700;font-size:36px;
@@ -2531,7 +2531,7 @@ def idea_veneer(cid: str, idea: str, spectacle: str, at: list[float],
 {p} .ivekick{{font-family:{MONO};font-weight:700;font-size:23px;letter-spacing:.16em;
   text-transform:uppercase;color:{C['text3']};opacity:0}}
 {p} .iveslab{{position:relative;width:100%;height:352px;border-radius:{RADIUS['lg']}px;
-  background:{C['surface']};border:1px solid {LINE};box-shadow:{SHADOW};
+  background:{C['surface']};border:1px solid {TK.LINE};box-shadow:{TK.SHADOW};
   padding:40px 46px;display:flex;flex-direction:column;justify-content:center;
   gap:20px;opacity:0;overflow:hidden}}
 {p} .ivetag{{font-family:{MONO};font-weight:700;font-size:21px;letter-spacing:.16em;
@@ -2544,14 +2544,14 @@ def idea_veneer(cid: str, idea: str, spectacle: str, at: list[float],
 {p} .ivelayer{{position:absolute;left:0;top:0;right:0;bottom:0;
   border-radius:{RADIUS['lg']}px;display:flex;align-items:center;
   justify-content:center;overflow:hidden;opacity:0;
-  background:linear-gradient(118deg,{C['violet_dk']} 0%,{C['violet']} 42%,
-    #2B1D7A 78%,{C['violet_dk']} 100%);
-  box-shadow:{GLOW}}}
+  background:linear-gradient(118deg,{C['accent_pill']} 0%,{mix(C['accent_pill'], C['bg'], .25)} 42%,
+    {mix(C["accent"], C["bg"], .6)} 78%,{C['accent_pill']} 100%);
+  box-shadow:{TK.GLOW}}}
 {p} .iveword{{font-family:{FONT};font-weight:900;font-size:92px;line-height:1;
   letter-spacing:-.045em;color:{C['text']};text-align:center;
   text-shadow:0 10px 40px rgba(0,0,0,.45);opacity:0}}
 {p} .ivespark{{position:absolute;width:14px;height:14px;border-radius:50%;
-  background:{C['text']};opacity:0;box-shadow:0 0 22px rgba(255,255,255,.85)}}
+  background:{C['text']};opacity:0;box-shadow:0 0 22px {ink_a(.85)}}}
 {p} .ivespark.s0{{left:9%;top:22%}}  {p} .ivespark.s1{{left:23%;top:74%}}
 {p} .ivespark.s2{{left:41%;top:14%}} {p} .ivespark.s3{{left:58%;top:81%}}
 {p} .ivespark.s4{{left:72%;top:28%}} {p} .ivespark.s5{{left:86%;top:64%}}
@@ -2637,11 +2637,11 @@ def agent_swarm(cid: str, variant: str, at: list[float],
 {p} .aswrap{{width:{BOARD_W}px;display:flex;flex-direction:column;
   align-items:center;gap:26px}}
 {p} .askick{{font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.20em;
-  color:{C['violet_hi']};background:{FILL['violet']};border-radius:{RADIUS['pill']}px;
+  color:{C['accent_hi']};background:{FILL['accent']};border-radius:{RADIUS['pill']}px;
   padding:12px 26px;opacity:0}}
 {p} .ashub{{width:132px;height:132px;border-radius:{RADIUS['lg']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
-  align-items:center;justify-content:center;box-shadow:{SHADOW};opacity:0}}
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
+  align-items:center;justify-content:center;box-shadow:{TK.SHADOW};opacity:0}}
 {p} .ashublogo{{opacity:0;display:flex}}
 {p} .asgridstack{{display:grid;width:704px}}
 {p} .asgridstack > *{{grid-area:1/1}}
@@ -2654,24 +2654,24 @@ def agent_swarm(cid: str, variant: str, at: list[float],
 {p} .asgrid{{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;
   width:704px}}
 {p} .astile{{width:104px;height:104px;border-radius:{RADIUS['md']}px;
-  background:{C['surface']};border:1px solid {LINE};display:flex;
+  background:{C['surface']};border:1px solid {TK.LINE};display:flex;
   align-items:center;justify-content:center;color:{C['text2']};
-  box-shadow:{SHADOW};opacity:0}}
-{p} .astile.on{{border-color:rgba(124,92,255,.55);background:{FILL['violet']};
-  color:{C['violet_hi']}}}
+  box-shadow:{TK.SHADOW};opacity:0}}
+{p} .astile.on{{border-color:{accent_a(.55)};background:{FILL['accent']};
+  color:{C['accent_hi']}}}
 
 {p} .assolo{{display:flex;flex-direction:column;align-items:center;gap:20px;
   width:100%}}
 {p} .assolocard{{display:flex;align-items:center;gap:26px;background:{C['surface']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['lg']}px;padding:26px 40px;
-  box-shadow:{SHADOW};opacity:0;color:{C['text']}}}
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['lg']}px;padding:26px 40px;
+  box-shadow:{TK.SHADOW};opacity:0;color:{C['text']}}}
 {p} .assololbl{{font-family:{MONO};font-weight:700;font-size:24px;
   letter-spacing:.16em;color:{C['text3']}}}
 {p} .assoloname{{font-family:{FONT};font-weight:900;font-size:50px;
   letter-spacing:-.03em;color:{C['text']};line-height:1.05}}
 {p} .aspile{{display:flex;flex-direction:column;gap:12px;width:760px}}
 {p} .aspilerow{{display:flex;align-items:center;gap:22px;background:{C['surface2']};
-  border:1px solid {LINE};border-radius:{RADIUS['md']}px;padding:18px 28px;
+  border:1px solid {TK.LINE};border-radius:{RADIUS['md']}px;padding:18px 28px;
   font-family:{FONT};font-weight:700;font-size:34px;letter-spacing:-.02em;
   color:{C['text2']};opacity:0}}
 {p} .aspilerow .ic{{color:{C['text3']};flex:0 0 auto}}
@@ -2686,22 +2686,22 @@ def agent_swarm(cid: str, variant: str, at: list[float],
 {p} .asdots{{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
   width:890px}}
 {p} .asdot{{width:40px;height:40px;border-radius:8px;
-  background:{C['surface2']};border:1px solid {LINE};opacity:0}}
-{p} .asdot.pick{{background:{FILL['violet2']};border-color:rgba(124,92,255,.6)}}
+  background:{C['surface2']};border:1px solid {TK.LINE};opacity:0}}
+{p} .asdot.pick{{background:{FILL['accent2']};border-color:{accent_a(.6)}}}
 
 {p} .asteam{{display:flex;gap:22px;justify-content:center;width:100%}}
 {p} .asmember{{flex:1 1 0;display:flex;flex-direction:column;align-items:center;
-  gap:16px;background:{C['surface']};border:1px solid rgba(124,92,255,.42);
-  border-radius:{RADIUS['lg']}px;padding:34px 18px;box-shadow:{SHADOW};opacity:0}}
+  gap:16px;background:{C['surface']};border:1px solid {accent_a(.42)};
+  border-radius:{RADIUS['lg']}px;padding:34px 18px;box-shadow:{TK.SHADOW};opacity:0}}
 {p} .asmemberic{{width:96px;height:96px;border-radius:{RADIUS['md']}px;
-  background:{FILL['violet']};display:flex;align-items:center;
-  justify-content:center;color:{C['violet_hi']}}}
+  background:{FILL['accent']};display:flex;align-items:center;
+  justify-content:center;color:{C['accent_hi']}}}
 {p} .asmembern{{font-family:{FONT};font-weight:800;font-size:34px;
   letter-spacing:-.02em;color:{C['text']};text-align:center;line-height:1.1}}
-{p} .aspill{{display:flex;align-items:center;gap:14px;background:{FILL['violet']};
-  border:1px solid rgba(124,92,255,.42);border-radius:{RADIUS['pill']}px;
+{p} .aspill{{display:flex;align-items:center;gap:14px;background:{FILL['accent']};
+  border:1px solid {accent_a(.42)};border-radius:{RADIUS['pill']}px;
   padding:14px 30px;font-family:{MONO};font-weight:700;font-size:24px;
-  letter-spacing:.16em;color:{C['violet_hi']};opacity:0}}"""
+  letter-spacing:.16em;color:{C['accent_hi']};opacity:0}}"""
 
     anims: list = []
     t = list(at) + [at[-1] if at else 0.4] * 8
@@ -2713,11 +2713,11 @@ def agent_swarm(cid: str, variant: str, at: list[float],
         # que las líneas existen (la lección de `layer_stack`, pieza 16).
         stem = ('<svg viewBox="0 0 980 54" preserveAspectRatio="none" '
                 'fill="none" aria-hidden="true">'
-                f'<path id="{cid}-s0" d="M490 0v22H150v32" stroke="{C["violet"]}" '
+                f'<path id="{cid}-s0" d="M490 0v22H150v32" stroke="{C["accent"]}" '
                 'stroke-width="2.5" stroke-linecap="round"/>'
-                f'<path id="{cid}-s1" d="M490 0v54" stroke="{C["violet"]}" '
+                f'<path id="{cid}-s1" d="M490 0v54" stroke="{C["accent"]}" '
                 'stroke-width="2.5" stroke-linecap="round"/>'
-                f'<path id="{cid}-s2" d="M490 0v22h340v32" stroke="{C["violet"]}" '
+                f'<path id="{cid}-s2" d="M490 0v22h340v32" stroke="{C["accent"]}" '
                 'stroke-width="2.5" stroke-linecap="round"/></svg>')
         tiles = "".join(f'<div class="astile" id="{cid}-t{i}">'
                         f'{icons.icon("agent", 52)}</div>' for i in range(12))
@@ -2733,7 +2733,7 @@ def agent_swarm(cid: str, variant: str, at: list[float],
                 f'<div class="asgrid">{tiles}</div></div></div>')
         # ⚠ LA ESTRUCTURA ENTRA CON LA PRIMERA PALABRA, no con el primer dato.
         # Medido sobre el MP4 de la pieza 19 antes de esto: en t=0.5 la banda
-        # `top` daba luma 27 —suelo grafito liso— porque el visual estaba
+        # `top` daba luma 27 —suelo liso— porque el visual estaba
         # declarado desde 0.000 pero su primer elemento no entraba hasta 0.955.
         # `check_band_top_covered` lo daba por bueno, y con razón: garantiza
         # COBERTURA DECLARADA, no luma renderizada (§4). Lo que el usuario pidió
@@ -2874,10 +2874,10 @@ def desktop_manager(cid: str, title: str, rows: list[tuple[str, str]],
                else f'{icons.icon("download", 26)}INSTALAR')
             + '</span></div>')
     css = f"""
-{p} .dmwin{{width:{BOARD_W}px;background:{C['surface']};border:1px solid {LINE_HI};
-  border-radius:{RADIUS['lg']}px;box-shadow:{SHADOW_LIFT};overflow:hidden}}
+{p} .dmwin{{width:{BOARD_W}px;background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['lg']}px;box-shadow:{TK.SHADOW_LIFT};overflow:hidden}}
 {p} .dmbar{{display:flex;align-items:center;gap:16px;padding:20px 26px;
-  background:{C['surface2']};border-bottom:1px solid {LINE}}}
+  background:{C['surface2']};border-bottom:1px solid {TK.LINE}}}
 {p} .dmdots{{display:flex;gap:10px}}
 {p} .dmdots i{{width:16px;height:16px;border-radius:50%;display:block}}
 {p} .dmtitle{{font-family:{FONT};font-weight:800;font-size:30px;
@@ -2886,15 +2886,15 @@ def desktop_manager(cid: str, title: str, rows: list[tuple[str, str]],
   letter-spacing:.16em;color:{C['text3']}}}
 {p} .dmlist{{display:flex;flex-direction:column}}
 {p} .dmrow{{display:flex;align-items:center;gap:24px;padding:22px 30px;
-  border-bottom:1px solid {LINE}}}
+  border-bottom:1px solid {TK.LINE}}}
 {p} .dmrow:last-child{{border-bottom:none}}
-{p} .dmic{{display:flex;color:{C['violet_hi']};flex:0 0 auto}}
+{p} .dmic{{display:flex;color:{C['accent_hi']};flex:0 0 auto}}
 {p} .dmname{{font-family:{FONT};font-weight:700;font-size:38px;
   letter-spacing:-.02em;color:{C['text']}}}
 {p} .dmbtn{{margin-left:auto;display:flex;align-items:center;gap:12px;
-  background:{FILL['violet']};border:1px solid rgba(124,92,255,.45);
+  background:{FILL['accent']};border:1px solid {accent_a(.45)};
   border-radius:{RADIUS['pill']}px;padding:12px 26px;font-family:{MONO};
-  font-weight:700;font-size:22px;letter-spacing:.14em;color:{C['violet_hi']};
+  font-weight:700;font-size:22px;letter-spacing:.14em;color:{C['accent_hi']};
   opacity:0;white-space:nowrap}}
 {p} .dmbtn.done{{background:{FILL['go']};border-color:rgba(52,227,155,.42);
   color:{C['go']}}}"""
@@ -2956,8 +2956,8 @@ def split_problem(cid: str, hire: str, problem: str,
 {p} .sphireslot span{{display:block;width:16px;height:16px;border-radius:50%;
   border:2px solid {C['text3']}}}
 {p} .sphire{{position:relative;display:flex;align-items:center;gap:22px;
-  background:{C['surface']};border:1px solid {LINE};border-radius:{RADIUS['lg']}px;
-  padding:22px 36px;box-shadow:{SHADOW};opacity:0}}
+  background:{C['surface']};border:1px solid {TK.LINE};border-radius:{RADIUS['lg']}px;
+  padding:22px 36px;box-shadow:{TK.SHADOW};opacity:0}}
 {p} .sphirestack{{display:grid}}
 {p} .sphirestack > *{{grid-area:1/1}}
 {p} .sphireic{{display:flex;color:{C['text3']};flex:0 0 auto}}
@@ -2966,27 +2966,27 @@ def split_problem(cid: str, hire: str, problem: str,
 {p} .spstrike{{position:absolute;left:0;top:52%;height:5px;width:0;
   border-radius:3px;background:{C['alert']};pointer-events:none}}
 {p} .spknot{{display:flex;align-items:center;gap:24px;background:{C['surface2']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['lg']}px;padding:24px 40px;
-  box-shadow:{SHADOW};opacity:0}}
-{p} .spknotic{{display:flex;color:{C['violet_hi']};flex:0 0 auto}}
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['lg']}px;padding:24px 40px;
+  box-shadow:{TK.SHADOW};opacity:0}}
+{p} .spknotic{{display:flex;color:{C['accent_hi']};flex:0 0 auto}}
 {p} .spknottx{{font-family:{FONT};font-weight:900;font-size:46px;
   letter-spacing:-.03em;color:{C['text']}}}
 {p} .spstem{{height:58px;width:100%}}
 {p} .spstem svg{{width:100%;height:58px;overflow:visible}}
 {p} .spparts{{display:flex;gap:20px;justify-content:center;width:100%}}
 {p} .sppart{{flex:1 1 0;display:flex;flex-direction:column;align-items:center;
-  gap:14px;background:{C['surface']};border:1px solid rgba(124,92,255,.42);
-  border-radius:{RADIUS['md']}px;padding:26px 14px;box-shadow:{SHADOW};opacity:0}}
-{p} .sppartic{{display:flex;color:{C['violet_hi']}}}
+  gap:14px;background:{C['surface']};border:1px solid {accent_a(.42)};
+  border-radius:{RADIUS['md']}px;padding:26px 14px;box-shadow:{TK.SHADOW};opacity:0}}
+{p} .sppartic{{display:flex;color:{C['accent_hi']}}}
 {p} .sppartn{{font-family:{MONO};font-weight:700;font-size:22px;
   letter-spacing:.14em;color:{C['text2']};text-align:center}}"""
     stem = ('<svg viewBox="0 0 980 58" preserveAspectRatio="none" fill="none" '
             'aria-hidden="true">'
-            f'<path id="{cid}-e0" d="M490 0v24H163v34" stroke="{C["violet"]}" '
+            f'<path id="{cid}-e0" d="M490 0v24H163v34" stroke="{C["accent"]}" '
             'stroke-width="2.5" stroke-linecap="round"/>'
-            f'<path id="{cid}-e1" d="M490 0v58" stroke="{C["violet"]}" '
+            f'<path id="{cid}-e1" d="M490 0v58" stroke="{C["accent"]}" '
             'stroke-width="2.5" stroke-linecap="round"/>'
-            f'<path id="{cid}-e2" d="M490 0v24h327v34" stroke="{C["violet"]}" '
+            f'<path id="{cid}-e2" d="M490 0v24h327v34" stroke="{C["accent"]}" '
             'stroke-width="2.5" stroke-linecap="round"/></svg>')
     cards = "".join(
         f'<div class="sppart" id="{cid}-p{i}">'
@@ -3097,18 +3097,18 @@ def video_pipeline(cid: str, variant: str, at: list[float],
   align-items:center;gap:22px}}
 {p} .vpkick{{display:flex;align-items:center;gap:14px;font-family:{MONO};
   font-weight:700;font-size:23px;letter-spacing:.18em;color:{C['text3']};
-  background:{C['bg']};border:1px solid {LINE_HI};border-radius:{RADIUS['pill']}px;
+  background:{C['bg']};border:1px solid {TK.LINE_HI};border-radius:{RADIUS['pill']}px;
   padding:10px 22px;opacity:0}}
 {p} .vprow{{display:flex;align-items:stretch;gap:12px;width:100%}}
 {p} .vpcell{{flex:1 1 0;min-width:0;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:10px;height:132px;
   border-radius:{RADIUS['md']}px;position:relative}}
 {p} .vpslot{{border:2px dashed {C['text3']};opacity:0}}
-{p} .vpstep{{background:{C['surface']};border:1px solid rgba(124,92,255,.42);
-  box-shadow:{SHADOW};opacity:0}}
-{p} .vpwork{{background:{C['surface2']};border:1px solid {LINE};
-  box-shadow:{SHADOW};opacity:0}}
-{p} .vpic{{display:flex;color:{C['violet_hi']}}}
+{p} .vpstep{{background:{C['surface']};border:1px solid {accent_a(.42)};
+  box-shadow:{TK.SHADOW};opacity:0}}
+{p} .vpwork{{background:{C['surface2']};border:1px solid {TK.LINE};
+  box-shadow:{TK.SHADOW};opacity:0}}
+{p} .vpic{{display:flex;color:{C['accent_hi']}}}
 {p} .vpwork .vpic{{color:{C['text3']}}}
 {p} .vpname{{font-family:{MONO};font-weight:700;font-size:15px;letter-spacing:.03em;
   color:{C['text2']};text-align:center;line-height:1.1;padding:0 3px}}
@@ -3119,13 +3119,13 @@ def video_pipeline(cid: str, variant: str, at: list[float],
   border:2px dashed {C['text3']};color:{C['text3']};opacity:0}}
 {p} .vpgapn{{font-family:{MONO};font-weight:700;font-size:15px;letter-spacing:.03em;
   opacity:0}}
-{p} .vparrow{{width:2px;height:34px;background:{C['violet']};opacity:0}}
+{p} .vparrow{{width:2px;height:34px;background:{C['accent']};opacity:0}}
 {p} .vpout{{display:flex;align-items:center;gap:22px;background:{C['surface']};
-  border:1px solid {LINE};border-radius:{RADIUS['lg']}px;padding:20px 34px;
-  box-shadow:{SHADOW};opacity:0}}
+  border:1px solid {TK.LINE};border-radius:{RADIUS['lg']}px;padding:20px 34px;
+  box-shadow:{TK.SHADOW};opacity:0}}
 {p} .vpoutfr{{width:76px;height:132px;border-radius:{RADIUS['sm']}px;
-  background:{C['bg']};border:1px solid {LINE_HI};display:flex;
-  align-items:center;justify-content:center;color:{C['violet_hi']}}}
+  background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
+  align-items:center;justify-content:center;color:{C['accent_hi']}}}
 {p} .vpoutstack{{display:grid;min-width:250px}}
 {p} .vpoutstack > *{{grid-area:1/1;align-self:center}}
 {p} .vpoutslot{{display:flex;flex-direction:column;gap:14px}}
@@ -3230,15 +3230,15 @@ def money_button(cid: str, label: str, at: list[float],
 {p} .mbq{{font-family:{FONT};font-weight:800;font-size:38px;letter-spacing:-.02em;
   color:{C['text2']};text-align:center;opacity:0}}
 {p} .mbbtn{{position:relative;display:flex;align-items:center;justify-content:center;
-  gap:20px;background:linear-gradient(180deg,{C['violet']} 0%,{C['violet_dk']} 100%);
-  border:1px solid rgba(155,133,255,.55);border-radius:{RADIUS['lg']}px;
-  padding:30px 64px;box-shadow:{GLOW};opacity:0}}
+  gap:20px;background:linear-gradient(180deg,{C['accent']} 0%,{C['accent_pill']} 100%);
+  border:1px solid {accent_a(.55)};border-radius:{RADIUS['lg']}px;
+  padding:30px 64px;box-shadow:{TK.GLOW};opacity:0}}
 {p} .mbbtnt{{font-family:{FONT};font-weight:900;font-size:52px;letter-spacing:-.03em;
-  color:#FFFFFF;line-height:1}}
+  color:{C['on_accent']};line-height:1}}
 {p} .mbcur{{position:absolute;right:-26px;bottom:-34px;color:#FFFFFF;
   filter:drop-shadow(0 8px 12px rgba(0,0,0,.6));opacity:0}}
 {p} .mbring{{position:absolute;right:-6px;bottom:-14px;width:64px;height:64px;
-  border-radius:50%;border:5px solid {C['violet_hi']};opacity:0}}
+  border-radius:50%;border:5px solid {C['accent_hi']};opacity:0}}
 {p} .mbarrow{{width:2px;height:30px;background:{C['text3']};opacity:0}}
 {p} .mbtray{{width:520px;height:150px;border-radius:{RADIUS['lg']}px;
   border:2px dashed {C['text3']};display:flex;align-items:center;
@@ -3306,28 +3306,28 @@ def video_output(cid: str, at: list[float], count: int = 4,
 {p} .vowrap{{width:{BOARD_W}px;display:flex;flex-direction:column;
   align-items:center;gap:20px}}
 {p} .vokick{{display:flex;align-items:center;gap:14px;font-family:{MONO};
-  font-weight:700;font-size:23px;letter-spacing:.16em;color:{C['violet_hi']};
-  background:{FILL['violet']};border-radius:{RADIUS['pill']}px;padding:10px 24px;
+  font-weight:700;font-size:23px;letter-spacing:.16em;color:{C['accent_hi']};
+  background:{FILL['accent']};border-radius:{RADIUS['pill']}px;padding:10px 24px;
   opacity:0}}
 {p} .vomach{{width:100%;display:flex;align-items:center;justify-content:center;
-  gap:16px;background:{C['surface']};border:1px solid rgba(124,92,255,.42);
-  border-radius:{RADIUS['md']}px;padding:18px 26px;box-shadow:{SHADOW};opacity:0}}
-{p} .vomachic{{display:flex;color:{C['violet_hi']}}}
+  gap:16px;background:{C['surface']};border:1px solid {accent_a(.42)};
+  border-radius:{RADIUS['md']}px;padding:18px 26px;box-shadow:{TK.SHADOW};opacity:0}}
+{p} .vomachic{{display:flex;color:{C['accent_hi']}}}
 {p} .vomacht{{font-family:{MONO};font-weight:700;font-size:22px;letter-spacing:.14em;
   color:{C['text2']}}}
-{p} .vodot{{width:9px;height:9px;border-radius:50%;background:{C['violet']}}}
+{p} .vodot{{width:9px;height:9px;border-radius:50%;background:{C['accent']}}}
 {p} .vorow{{display:flex;gap:18px;justify-content:center;width:100%}}
 {p} .vocard{{flex:1 1 0;display:flex;flex-direction:column;align-items:center;
   gap:12px;opacity:0}}
 {p} .vofr{{width:100%;height:188px;border-radius:{RADIUS['md']}px;
-  background:{C['surface2']};border:1px solid {LINE};display:flex;
+  background:{C['surface2']};border:1px solid {TK.LINE};display:flex;
   align-items:center;justify-content:center;color:{C['text3']};
-  box-shadow:{SHADOW}}}
+  box-shadow:{TK.SHADOW}}}
 {p} .voviews{{display:flex;align-items:center;gap:10px;font-family:{MONO};
   font-weight:700;font-size:26px;letter-spacing:.08em;color:{C['text3']}}}
 {p} .voin{{display:flex;gap:18px;justify-content:center;width:640px}}
 {p} .voincard{{flex:1 1 0;display:flex;align-items:center;gap:14px;
-  background:{C['surface2']};border:1px solid {LINE};border-radius:{RADIUS['md']}px;
+  background:{C['surface2']};border:1px solid {TK.LINE};border-radius:{RADIUS['md']}px;
   padding:16px 22px;opacity:0}}
 {p} .voinic{{display:flex;color:{C['text3']};flex:0 0 auto}}
 {p} .voinx{{display:flex;flex-direction:column;gap:8px;flex:1 1 auto;min-width:0}}
@@ -3335,7 +3335,7 @@ def video_output(cid: str, at: list[float], count: int = 4,
   color:{C['text2']}}}
 {p} .voinbar{{height:12px;border-radius:6px;border:2px dashed {C['text3']}}}
 {p} .voseal{{display:flex;align-items:center;gap:14px;background:{C['bg']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['pill']}px;padding:12px 26px;
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['pill']}px;padding:12px 26px;
   font-family:{MONO};font-weight:700;font-size:24px;letter-spacing:.16em;
   color:{C['text3']};opacity:0}}"""
     cards = "".join(
@@ -3409,15 +3409,15 @@ def tradeoff_bars(cid: str, rows: list[dict], at: list[float],
 {p} .tbrow{{display:flex;flex-direction:column;gap:12px;opacity:0}}
 {p} .tbhead{{display:flex;align-items:center;gap:14px;font-family:{MONO};
   font-weight:700;font-size:24px;letter-spacing:.14em;color:{C['text2']}}}
-{p} .tbhead .ic{{color:{C['violet_hi']}}}
+{p} .tbhead .ic{{color:{C['accent_hi']}}}
 {p} .tbtag{{margin-left:auto;font-family:{MONO};font-weight:700;font-size:21px;
   letter-spacing:.14em;opacity:0}}
 {p} .tbtrack{{height:64px;border-radius:{RADIUS['md']}px;background:{C['surface']};
-  border:1px solid {LINE};position:relative;overflow:hidden}}
+  border:1px solid {TK.LINE};position:relative;overflow:hidden}}
 {p} .tbfill{{height:100%;border-radius:{RADIUS['md']}px}}
-{p} .tbfill.hot{{background:linear-gradient(90deg,{C['violet_dk']},{C['violet']})}}
-{p} .tbfill.keep{{background:{FILL['violet2']};
-  border-right:3px solid {C['violet_hi']}}}"""
+{p} .tbfill.hot{{background:linear-gradient(90deg,{C['accent_pill']},{C['accent']})}}
+{p} .tbfill.keep{{background:{FILL['accent2']};
+  border-right:3px solid {C['accent_hi']}}}"""
     # CONTRATO DE TIEMPOS: at = [estructura, fila_0, fila_1, …, encoger, tag_0, …]
     # La estructura —los dos raíles vacíos— entra la primera y sin nombre: el
     # beat abre 1.7 s antes de que se diga «ejecución» y cinco antes de
@@ -3428,7 +3428,7 @@ def tradeoff_bars(cid: str, rows: list[dict], at: list[float],
     base = 1
     for i, r in enumerate(rows):
         tag = (f'<span class="tbtag" id="{cid}-t{i}" '
-               f'style="color:{C["go"] if r.get("shrink") else C["violet_hi"]}">'
+               f'style="color:{C["go"] if r.get("shrink") else C["accent_hi"]}">'
                f'{esc(r.get("tag", ""))}</span>') if r.get("tag") else ""
         cls = "hot" if r.get("shrink") else "keep"
         filas.append(

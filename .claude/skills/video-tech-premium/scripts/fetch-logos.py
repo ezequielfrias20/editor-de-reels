@@ -53,7 +53,7 @@ VENDOR = {
                           "8439b51bb7a19f6e65ce1064bc37c197.svg", "svg"),
     # Composio publica dos variantes; se vendoriza la BLANCA a propósito: la
     # negra (`composio-black.svg`) es tinta #000 sobre transparente y el marco
-    # de logo de `tool_card` tiene fondo `bg` (#0B0C10), donde desaparecería.
+    # de logo de `tool_card` tiene el fondo `bg` de la paleta activa, donde desaparecería.
     "composio": ("Composio", "https://composio.dev/logos/composio-white.svg",
                  "svg"),
     # Pieza 18. HyperFrames no está en Simple Icons v16 (`hyperframes`,

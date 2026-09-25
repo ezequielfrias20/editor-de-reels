@@ -247,7 +247,7 @@ def clock(cid: str, iid: str, state: dict, slot: str = "center", **_) -> dict:
     <g id="{eid}-m" transform="rotate({a['minute_from']} 150 150)">
       <rect x="146" y="46" width="8" height="108" rx="4" fill="{t.C['text2']}"/>
     </g>
-    <circle cx="150" cy="150" r="10" fill="{t.C['violet']}"/>
+    <circle cx="150" cy="150" r="10" fill="{t.C['accent']}"/>
   </svg>
 </div>"""
     return {"html": html, "anims": [], "eid": eid}
@@ -1021,7 +1021,7 @@ def spreadsheet(cid: str, iid: str, state: dict, slot: str = "center", **_) -> d
                     f'<span id="{eid}-valiosa" style="position:absolute;'
                     f'left:10px;right:10px;top:-5px;bottom:-5px;opacity:0;'
                     f'display:flex;align-items:center;justify-content:center;'
-                    f'background:{t.C["violet_dk"]};border:1px solid {t.C["violet_hi"]};'
+                    f'background:{t.C["accent_pill"]};border:1px solid {t.C["accent_hi"]};'
                     f'border-radius:{t.RADIUS["sm"]}px;font-family:{t.MONO};'
                     f'font-weight:700;font-size:{TR["chip"]}px;'
                     f'color:{t.C["text"]}">{celda}</span></span>')

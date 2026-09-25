@@ -142,6 +142,7 @@ class Edl:
     music: dict
     planner: dict
     layout: dict = field(default_factory=dict)
+    palette: str = "oscuro"
 
 
 def segment_windows(segments, wt: WordTable) -> tuple[tuple[float, float], ...]:
@@ -461,7 +462,7 @@ def _check_transitions(segments, problems: list[str]) -> None:
 def validate_layout(layout: dict, segments, canvas_h: int) -> list[str]:
     """Las bandas tienen que cubrir el lienzo entero, en orden y sin huecos.
 
-    Un hueco entre dos bandas es suelo grafito que nadie decidió dejar, y en un
+    Un hueco entre dos bandas es suelo que nadie decidió dejar, y en un
     lienzo de 1920 px pasa desapercibido en el JSON y no en el frame.
     """
     problems: list[str] = []
@@ -663,6 +664,13 @@ def load_edl(path: Path, project_root: Path) -> Edl:
             problems.append(f"override {i} ({target}): falta 'why'")
         overrides.append(Override(target=target, value=ro.get("value"), why=why))
 
+    palette = raw.get("palette")
+    if palette is None:
+        problems.append("falta 'palette': cada pieza elige la paleta de la marca "
+                        "('claro' u 'oscuro'); no hay paleta por defecto")
+    elif palette not in ("claro", "oscuro"):
+        problems.append(f"palette '{palette}' no existe; las que hay son: claro, oscuro")
+
     if problems:
         raise EdlError(problems)
 
@@ -672,4 +680,4 @@ def load_edl(path: Path, project_root: Path) -> Edl:
                wt=wt, segments=tuple(segments), overrides=tuple(overrides),
                voice_gain=float(raw.get("voice_gain", 0.70)),
                music=raw.get("music", {}), planner=raw.get("planner", {}),
-               layout=layout)
+               layout=layout, palette=palette or "oscuro")

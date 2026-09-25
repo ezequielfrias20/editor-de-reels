@@ -134,7 +134,7 @@ def bare_stage_gaps(edl: Edl, fade_in: float) -> list[tuple[str, float]]:
     Es la hermana de `check_no_black()` y nace del mismo tipo de fallo, con la
     diferencia que lo hacía invisible: el frame no cae a negro, porque el suelo
     del stage SÍ se pinta —con su viñeta y su retícula—, así que ninguna
-    comprobación existente lo veía. Lo que se ve es un fondo grafito vacío con
+    comprobación existente lo veía. Lo que se ve es un fondo del suelo vacío con
     un subtítulo encima, y eso se lee como un error de montaje.
 
     Medido cuando esta función se escribió: **1.63 s** en el stage de la

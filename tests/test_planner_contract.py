@@ -108,14 +108,14 @@ def _load_edl_plan():
 
 def test_las_frases_de_la_pieza_10_dan_9_segmentos(w10):
     edl_plan = _load_edl_plan()
-    draft = edl_plan.build_draft(w10, 10, "REEL", "motion-explainer", "0.1.0", "draft")
+    draft = edl_plan.build_draft(w10, 10, "REEL", "motion-explainer", "0.1.0", "draft", "oscuro")
     assert len(draft["segments"]) == 9
     assert draft["segments"][0]["words"] == [0, 13]
 
 
 def test_el_andamiaje_no_elige_nada_creativo(w10):
     edl_plan = _load_edl_plan()
-    draft = edl_plan.build_draft(w10, 10, "REEL", "motion-explainer", "0.1.0", "draft")
+    draft = edl_plan.build_draft(w10, 10, "REEL", "motion-explainer", "0.1.0", "draft", "oscuro")
     for seg in draft["segments"]:
         assert seg["sceneType"] == "A_ROLL"
         assert "representationType" not in seg
@@ -127,7 +127,7 @@ def test_el_andamiaje_pasa_por_core_directamente(fixtures_root, w10, tmp_path, p
     """Sin OBJECT_IN no hace falta ni el Asset Resolver: el andamiaje solo
     A_ROLL/CAPTION tiene que ser ejecutable tal cual sale."""
     edl_plan = _load_edl_plan()
-    draft = edl_plan.build_draft(w10, 10, "REEL", "motion-explainer", "0.1.0", "draft")
+    draft = edl_plan.build_draft(w10, 10, "REEL", "motion-explainer", "0.1.0", "draft", "oscuro")
     p = tmp_path / "edl.json"
     p.write_text(json.dumps(draft, ensure_ascii=False))
     load_edl(p, fixtures_root)

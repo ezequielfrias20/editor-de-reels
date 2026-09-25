@@ -31,10 +31,16 @@ def test_hay_seis_orbitas():
 
 
 # ── spotlight ───────────────────────────────────────────────────────────────
-def test_el_spotlight_no_rompe_el_contraste_del_violeta_texto():
-    """Medido: aclara el fondo y a alpha 0.07 el violet_hi cae a 5.77."""
-    lit = tokens.lift(tokens.C["bg"], 0.05)
-    assert tokens.contrast(tokens.C["violet_hi"], lit) >= 6.0
+@pytest.mark.parametrize("paleta", ["claro", "oscuro"])
+def test_el_spotlight_no_rompe_el_contraste_del_acento_texto(paleta):
+    """El foco aclara el suelo; `accent_hi` se deriva para aguantar 4.5:1
+    hasta SPOTLIGHT_MAX (tokens._derive)."""
+    tokens.use(paleta)
+    try:
+        lit = tokens.lift(tokens.C["bg"], tokens.SPOTLIGHT_MAX)
+        assert tokens.contrast(tokens.C["accent_hi"], lit) >= 4.5
+    finally:
+        tokens.use("oscuro")
 
 
 def test_un_spotlight_demasiado_fuerte_falla():

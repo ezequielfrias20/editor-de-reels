@@ -10,7 +10,7 @@ ESPECIALIDADES, donde cada una tiene una forma reconocible antes de leerse.
 ⚠ **NUNCA UN EMOJI.** Es la lección que la pieza 18 pagó entera: el navegador
 pinta un emoji con su propia paleta, pero el linter de contraste lee el `color`
 HEREDADO del elemento —negro, si nadie lo declara— y midió **1.11:1** contra el
-grafito para un 💡 que en el frame se veía perfecto. Un glifo dibujado no tiene
+suelo para un 💡 que en el frame se veía perfecto. Un glifo dibujado no tiene
 ese problema por construcción: va en `currentColor`, así que lo tiñe quien lo
 hospeda y el par que mide el linter es el mismo que se ve.
 

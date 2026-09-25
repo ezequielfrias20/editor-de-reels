@@ -31,9 +31,9 @@ def meta():
 # ── retrocompatibilidad: Simple Icons, congelada ────────────────────────────
 
 def test_whatsapp_congelado():
-    """Valor medido ANTES del fix: ratio=8.938580282905505, len(html)=1248."""
+    """Recongelado con la paleta `oscuro` (2026-09-25): ratio=8.456530632366457, len(html)=1248."""
     html, ratio = logos.mark("whatsapp", 110)
-    assert ratio == pytest.approx(8.938580282905505)
+    assert ratio == pytest.approx(8.456530632366457)
     assert len(html) == 1248
     assert html == (
         '<span class="brandmark" style="width:110px;height:110px">'
@@ -57,14 +57,14 @@ def test_whatsapp_congelado():
 
 
 def test_microsoftexcel_congelado():
-    """Valor medido ANTES del fix: ratio=3.0436767002596676, len(html)=595."""
+    """Recongelado con la paleta `oscuro` (2026-09-25): ratio=3.778577834572168, len(html)=595."""
     html, ratio = logos.mark("microsoftexcel", 110)
-    assert ratio == pytest.approx(3.0436767002596676)
+    assert ratio == pytest.approx(3.778577834572168)
     assert len(html) == 595
     assert html == (
         '<span class="brandmark" style="width:110px;height:110px">'
         '<svg viewBox="0 0 24 24" aria-label="Microsoft Excel">'
-        '<path fill="#217346" d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-'
+        '<path fill="#40855D" d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-'
         '.41 0-.7-.3-.3-.29-.3-.7V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h5V'
         '2.5q0-.41.3-.7.29-.3.7-.3zM6 13.28l1.42 2.66h2.14l-2.38-3.87 2.34-3.8H7.46l-1.3 '
         '2.4-.05.08-.04.09-.64-1.28-.66-1.29H2.59l2.27 3.82-2.48 3.85h2.16zM14.25 21v-3H7.'
@@ -84,7 +84,7 @@ def test_motion_svg_verbatim_y_tile_oscuro(meta):
     assert html
     assert body in html, "el SVG de Motion no se conserva verbatim"
     assert meta["motion"]["tile"] == "#0B0B0C"
-    assert ratio == pytest.approx(logos.contrast("#0B0B0C", logos.SURFACE))
+    assert ratio == pytest.approx(logos.contrast("#0B0B0C", logos.C["surface"]))
 
 
 def test_manus_svg_verbatim_y_tile_blanco(meta):
@@ -95,7 +95,7 @@ def test_manus_svg_verbatim_y_tile_blanco(meta):
     assert html
     assert body in html, "el SVG de Manus no se conserva verbatim"
     assert meta["manus"]["tile"] == "#FFFFFF"
-    assert ratio == pytest.approx(logos.contrast("#FFFFFF", logos.SURFACE))
+    assert ratio == pytest.approx(logos.contrast("#FFFFFF", logos.C["surface"]))
 
 
 def test_animejs_svg_verbatim_sin_tile(meta):
@@ -117,7 +117,7 @@ def test_bklitui_png_referencia_el_asset_y_tile_negro(meta):
     assert 'src="logos/bklitui.png"' in html
     assert (LOGOS_DIR / "bklitui.png").exists()
     assert meta["bklitui"]["tile"] == "#000000"
-    assert ratio == pytest.approx(logos.contrast("#000000", logos.SURFACE))
+    assert ratio == pytest.approx(logos.contrast("#000000", logos.C["surface"]))
 
 
 def test_kokonutui_png_referencia_el_asset_sin_tile(meta):

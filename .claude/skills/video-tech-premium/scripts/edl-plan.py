@@ -50,7 +50,7 @@ def _sentences(words) -> list[tuple[int, int]]:
 
 
 def build_draft(wt, piece: int, fmt: str, style_profile: str,
-                planner_version: str, prompt_version: str) -> dict:
+                planner_version: str, prompt_version: str, palette: str) -> dict:
     segments = []
     for lo, hi in _sentences(wt.words):
         segments.append({
@@ -67,6 +67,7 @@ def build_draft(wt, piece: int, fmt: str, style_profile: str,
 
     return {
         "format": fmt.upper(),
+        "palette": palette,
         "piece": piece,
         "style_profile": style_profile,
         "transcript": {
@@ -93,6 +94,8 @@ def main(argv=None) -> int:
     ap.add_argument("--piece", required=True, type=int)
     ap.add_argument("--style", default="motion-explainer")
     ap.add_argument("--format", default="REEL", choices=("REEL", "YOUTUBE"))
+    ap.add_argument("--palette", required=True, choices=("claro", "oscuro"),
+                    help="paleta de la marca: la elige el brief o el usuario, no el andamiaje")
     ap.add_argument("--planner-version", default="0.1.0")
     ap.add_argument("--prompt-version", default="draft")
     ap.add_argument("-o", "--out", type=Path, default=None)
@@ -106,7 +109,7 @@ def main(argv=None) -> int:
 
     wt = load_words(tr, cu)
     draft = build_draft(wt, a.piece, a.format, a.style,
-                        a.planner_version, a.prompt_version)
+                        a.planner_version, a.prompt_version, a.palette)
 
     out = a.out or (root / "videos" / str(a.piece) / "edl.draft.json")
     out.parent.mkdir(parents=True, exist_ok=True)

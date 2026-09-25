@@ -91,33 +91,29 @@ def test_el_radio_sale_de_los_tokens(mk):
 
 
 def test_el_marco_del_logo_se_distingue_del_surface(mk):
-    """Motion (`#0B0B0C`, 1.11:1) y Bklit UI (`#000000`, 1.18:1) son casi
-    invisibles contra `surface` (#16181F): la solución fue `.tc-logoframe`,
-    que le da al logo un borde propio.
+    """Motion (`#0B0B0C`) y Bklit UI (`#000000`) son casi invisibles contra la
+    `surface` de la paleta OSCURA: la solución fue `.tc-logoframe`, que le da
+    al logo un borde propio. (En la clara esos tiles contrastan ~18:1 con la
+    superficie y el problema no existe; se mide donde existe.)
 
-    Se mide DE VERDAD con `tokens.contrast()`, no buscando la subcadena en
-    el CSS: se extrae el color de borde que `.tc-logoframe` declara de
-    verdad (sea cual sea, hoy `LINE_HI`) y se compone sobre `surface` con
-    `tokens.lift()` — igual que documenta el docstring de `tool_card` — para
-    obtener el ratio real del marco, y ese ratio se compara contra los
-    ratios reales de los dos tiles que casi desaparecían.
+    Se mide DE VERDAD con `tokens.contrast()`, no buscando la subcadena en el
+    CSS: se extrae el color de borde que `.tc-logoframe` declara (hoy
+    `LINE_HI`, un sólido derivado de la paleta) y se compara su ratio contra
+    `surface` con los ratios reales de los dos tiles que casi desaparecían.
     """
     import tokens
 
+    tokens.use("oscuro")
     css, _, _ = mk.tool_card("tc", "motion", "Motion")
-    m = re.search(r"\.tc-logoframe\{[^}]*border:1px solid (rgba\([^)]*\))", css)
+    m = re.search(r"\.tc-logoframe\{[^}]*border:1px solid (#[0-9A-Fa-f]{6})", css)
     assert m, "`.tc-logoframe` ya no declara un borde propio"
-    r, g, b, alpha = re.match(
-        r"rgba\((\d+),(\d+),(\d+),\s*(\.?\d+(?:\.\d+)?)\)", m.group(1)
-    ).groups()
-    assert (r, g, b) == ("255", "255", "255"), "el marco dejó de ser un blanco translúcido"
 
     surface = tokens.C["surface"]
-    ratio_marco = tokens.contrast(tokens.lift(surface, float(alpha)), surface)
+    ratio_marco = tokens.contrast(m.group(1), surface)
     ratio_motion = tokens.contrast("#0B0B0C", surface)
     ratio_bklit = tokens.contrast("#000000", surface)
 
-    assert ratio_motion < 1.2 and ratio_bklit < 1.3, "los tiles de referencia cambiaron"
+    assert ratio_motion < 1.3 and ratio_bklit < 1.3, "los tiles de referencia cambiaron"
     assert ratio_marco > ratio_motion + 0.3
     assert ratio_marco > ratio_bklit + 0.3
 

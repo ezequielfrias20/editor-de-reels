@@ -40,8 +40,9 @@ import caption_fonts  # noqa: E402
 import caption_metrics  # noqa: E402
 import mockups  # noqa: E402
 import objects  # noqa: E402
-from tokens import C, FILL, FONT, GLOW, LINE, LINE_HI, MONO, RADIUS  # noqa: E402
-from tokens import SHADOW, SHADOW_LIFT, TRACK, TYPE, grid, vignette  # noqa: E402
+import tokens as TK  # noqa: E402
+from tokens import C, FILL, FONT, MONO, RADIUS, TRACK, TYPE, grid, vignette  # noqa: E402
+from tokens import accent_a, ink_a, shade_a  # noqa: E402
 
 SKILL = Path(__file__).resolve().parent.parent
 FPS = 30
@@ -141,7 +142,7 @@ def pip_panel():
 def triband_panels():
     """Las tres bandas del layout triband, en coordenadas del lienzo.
 
-    Van a ancho completo y NO a hueso: entre ellas queda suelo grafito, que es
+    Van a ancho completo y NO a hueso: entre ellas queda suelo, que es
     lo que hace que la card de arriba flote en vez de parecer un recorte
     pegado. La geometría viene del EDL, no se inventa aquí.
     """
@@ -224,6 +225,11 @@ def configure(project, piece):
         sys.exit(f"falta el plan de la pieza: {plan_path}\n"
                  f"Descríbela ahí (encuadres, tarjetas, visuales, sonido).")
     plan = json.loads(plan_path.read_text())
+    palette = plan.get("palette")
+    if palette not in TK.PALETTES:
+        sys.exit(f"palette {palette!r} en {plan_path}: cada pieza declara la paleta de la "
+                 f"marca, \"claro\" u \"oscuro\" (tokens.PALETTES). No hay paleta por defecto.")
+    TK.use(palette)
 
     FMT = plan.get("format", "REEL").upper()
     W, H = canvas(FMT)
@@ -362,7 +368,7 @@ def check_no_black(shots, dur):
     Es la trampa 6 del renderer y la más difícil de ver revisando el plan: un
     `off` que empieza en el mismo segundo que el takeover deja el frame vacío
     justo mientras el takeover está fundiendo, y esos 0.15-0.25 s de suelo
-    grafito se leen como un fallo del video. En el navegador no se nota porque
+    liso se leen como un fallo del video. En el navegador no se nota porque
     uno no mira ese cuarto de segundo; en el MP4 sí.
 
     La regla es fija, así que no hace falta recordarla: el encuadre se queda
@@ -508,7 +514,7 @@ def check_band_top_covered(shots, dur):
     Doctrina de 2026-09-15, a petición del usuario: «en la parte de
     animaciones siempre se debe mostrar algo, en cualquier segundo, nunca
     debe estar el fondo vacío». Medido en la pieza 15 antes de este gate: la
-    banda de arriba se quedaba en suelo grafito liso **15.0 s de 55.3 s
+    banda de arriba se quedaba en suelo liso **15.0 s de 55.3 s
     (27 %)** de sus tramos `band`, en siete huecos — desde 0.86 s (el
     arranque, antes de la primera card) hasta 5.98 s (el beat de la guía,
     antes del CTA).
@@ -835,7 +841,7 @@ def build_visuals(dur):
         if body_css:
             css.append(body_css)
 
-        veil = (f'<div class="vizveil" style="background:rgba(11,12,16,{v["veil"]})"></div>'
+        veil = (f'<div class="vizveil" style="background:{shade_a(v["veil"])}"></div>'
                 if v.get("veil") else "")
         # `.vizcam.mock` resta un 16% de alto para dejar la zona segura de la
         # PLATAFORMA (el 20% inferior del LIENZO ENTERO) libre de mockup. Con
@@ -1089,8 +1095,8 @@ def card_body(kind, cid, cfg):
         css = f"""
 {p} .crow{{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}}
 {p} .cchip{{font-family:{MONO};font-weight:700;font-size:{T['chip']}px;
-  letter-spacing:.10em;color:{C['text2']};background:rgba(22,24,31,.9);
-  border:1px solid {LINE};border-radius:{RADIUS['pill']}px;padding:14px 24px;opacity:0}}"""
+  letter-spacing:.10em;color:{C['text2']};background:{TK.rgba(C["surface"], .9)};
+  border:1px solid {TK.LINE};border-radius:{RADIUS['pill']}px;padding:14px 24px;opacity:0}}"""
         at = cfg.get("beats_rel") or [0.30 + i * 0.12 for i in range(len(items))]
         return css, f'<div class="crow">{cells}</div>', [
             ("chip-in", f"#{cid}-c{i}", at[i] if i < len(at) else 0.3 + i * .12, 0.30)
@@ -1104,14 +1110,14 @@ def card_body(kind, cid, cfg):
             for i, (v, l) in enumerate(items))
         css = f"""
 {p} .mrow{{display:flex;gap:16px;width:100%}}
-{p} .mcell{{flex:1;background:rgba(22,24,31,.94);border:1px solid {LINE};
+{p} .mcell{{flex:1;background:{TK.rgba(C["surface"], .94)};border:1px solid {TK.LINE};
   border-radius:{RADIUS['lg']}px;padding:28px 14px 24px;text-align:center;
-  box-shadow:{SHADOW};opacity:0}}
-{p} .mcell.hot{{border-color:rgba(124,92,255,.5);
-  background:linear-gradient(180deg,{FILL['violet']} 0%,rgba(22,24,31,.94) 72%)}}
+  box-shadow:{TK.SHADOW};opacity:0}}
+{p} .mcell.hot{{border-color:{accent_a(.5)};
+  background:linear-gradient(180deg,{FILL['accent']} 0%,{TK.rgba(C["surface"], .94)} 72%)}}
 {p} .mval{{font-family:{FONT};font-weight:900;font-size:{round(T['card_title']*1.35)}px;
   line-height:.98;letter-spacing:-.04em;color:{C['text']}}}
-{p} .mcell.hot .mval{{color:{C['violet_hi']}}}
+{p} .mcell.hot .mval{{color:{C['accent_hi']}}}
 {p} .mlab{{font-family:{MONO};font-weight:700;font-size:{T['label']-4}px;
   letter-spacing:.14em;color:{C['text3']};margin-top:14px}}"""
         at = cfg.get("beats_rel") or [0.30 + i * 0.16 for i in range(len(items))]
@@ -1140,9 +1146,9 @@ def card_body(kind, cid, cfg):
   width:{round(W*0.72)}px}}
 {p} .mtrow{{display:flex;align-items:center;gap:16px;height:74px;
   box-sizing:border-box;padding:0 22px;background:{C['surface']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['md']}px;
-  box-shadow:{SHADOW};opacity:0}}
-{p} .mtdot{{width:14px;height:14px;border-radius:50%;background:{C['violet']};
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['md']}px;
+  box-shadow:{TK.SHADOW};opacity:0}}
+{p} .mtdot{{width:14px;height:14px;border-radius:50%;background:{C['accent']};
   flex:0 0 auto}}
 {p} .mttxt{{font-family:{FONT};font-weight:600;font-size:{T['body']-2}px;
   color:{C['text']};white-space:nowrap}}
@@ -1177,12 +1183,12 @@ def card_body(kind, cid, cfg):
             for w in (86, 64, 78, 52, 71, 44, 68))
         css = f"""
 {p} .tsdoc{{position:relative;width:{round(W*0.60)}px;background:{C['surface']};
-  border:1px solid {LINE_HI};border-radius:{RADIUS['lg']}px;padding:30px 32px;
-  display:flex;flex-direction:column;gap:18px;box-shadow:{SHADOW};
+  border:1px solid {TK.LINE_HI};border-radius:{RADIUS['lg']}px;padding:30px 32px;
+  display:flex;flex-direction:column;gap:18px;box-shadow:{TK.SHADOW};
   filter:blur(5px);opacity:.85}}
-{p} .tsbar{{height:30px;width:52%;border-radius:8px;background:{C['violet']};
+{p} .tsbar{{height:30px;width:52%;border-radius:8px;background:{C['accent']};
   margin-bottom:8px}}
-{p} .tsrow{{height:20px;border-radius:10px;background:{LINE_HI};display:block}}
+{p} .tsrow{{height:20px;border-radius:10px;background:{TK.LINE_HI};display:block}}
 {p} .tswrap{{position:relative;display:flex;flex-direction:column;
   align-items:center;opacity:0}}"""
         html = (f'<div class="tswrap" id="{cid}-ts">'
@@ -1225,10 +1231,10 @@ def build_cards(dur):
 
         # Sobre el metraje el rótulo necesita su propio suelo: la tinta clara
         # sobre una pared iluminada se pierde. El kicker lo resuelve con su
-        # pastilla, y el titular con el MISMO filete de grafito que el
+        # pastilla, y el titular con el MISMO filete del suelo que el
         # subtítulo (`paint-order: stroke fill`, el trazo detrás del relleno,
         # que no engorda la letra). Una sombra sola no basta: se difumina y
-        # deja el violeta de la keyword por debajo de 3:1 en cuanto el fondo
+        # deja el acento de la keyword por debajo de 3:1 en cuanto el fondo
         # es una pared iluminada — medido, no supuesto.
         pad_top = {"top": round(H * 0.075), "center": 0,
                    "bottom": 0}[place]
@@ -1254,27 +1260,27 @@ def build_cards(dur):
   padding:{pad_top}px {round(W*0.06)}px {pad_bottom}px;background:transparent}}
 {p} .kick{{display:flex;align-items:center;gap:12px;font-family:{MONO};font-weight:700;
   font-size:{T['chip']}px;letter-spacing:{TRACK['chip']};color:{C['text2']};
-  background:rgba(11,12,16,.72);border:1px solid {LINE};
+  background:{shade_a(.72)};border:1px solid {TK.LINE};
   border-radius:{RADIUS['pill']}px;padding:12px 22px;white-space:nowrap;opacity:0}}
-{p} .kick s{{width:10px;height:10px;border-radius:50%;background:{C['violet']};
+{p} .kick s{{width:10px;height:10px;border-radius:50%;background:{C['accent']};
   display:block;text-decoration:none}}
 {p} .ttl{{display:flex;flex-direction:column;align-items:center;gap:2px;
   font-family:{FONT};font-weight:900;font-size:{T['headline']}px;line-height:1.02;
   letter-spacing:{TRACK['headline']};color:{C['text']};text-align:center;
   -webkit-text-stroke:7px {C['bg']};paint-order:stroke fill;
-  text-shadow:0 3px 18px rgba(11,12,16,.85),0 1px 3px rgba(11,12,16,.9)}}
+  text-shadow:0 3px 18px {shade_a(.85)},0 1px 3px {shade_a(.9)}}}
 {p} .tline{{display:block}}
 /* La keyword del titular lleva SU PROPIO suelo opaco, no solo el filete.
-   El filete salva la tinta blanca, pero el violeta sobre una pared iluminada
-   se queda en 1.4:1 — medido. Con la pastilla grafito el par es siempre
-   violet_hi sobre bg = 6.70:1, pase lo que pase detrás en el metraje, y
-   además rima con la pastilla del kicker. */
-{p} .tkey{{color:{C['violet_hi']};background:{C['bg']};-webkit-text-stroke:0;
+   El filete salva la tinta, pero el acento sobre una pared iluminada se
+   queda muy por debajo de 3:1 — medido. Con la pastilla del suelo el par es
+   siempre accent_hi sobre bg (≥ 4.5:1, lo fija tests/test_paletas.py), pase
+   lo que pase detrás en el metraje, y además rima con la pastilla del kicker. */
+{p} .tkey{{color:{C['accent_hi']};background:{C['bg']};-webkit-text-stroke:0;
   border-radius:{RADIUS['sm']}px;padding:0 .10em;
   -webkit-box-decoration-break:clone;box-decoration-break:clone}}
 {p} .sub{{font-family:{FONT};font-weight:500;font-size:{T['body']}px;line-height:1.32;
   color:{C['text2']};text-align:center;max-width:{round(W*0.76)}px;
-  text-shadow:0 2px 12px rgba(11,12,16,.9);opacity:0}}
+  text-shadow:0 2px 12px {shade_a(.9)};opacity:0}}
 {bcss}""")
 
         html = (f'<div class="card" data-card-id="{cid}">\n'
@@ -1326,22 +1332,22 @@ def build_captions(words, dur, shots, viz_skins):
     """Bloques de 2–6 palabras. Karaoke en TODA la pieza (Mejora 4).
 
     El bloque entra entero y se queda quieto; lo que se mueve es un fondo
-    violeta con esquinas redondeadas que va DETRÁS de la palabra que suena en
+    de acento con esquinas redondeadas que va DETRÁS de la palabra que suena en
     cada instante y viaja con ella: nunca hay más de una encendida, y el
     tamaño y el color del texto no cambian en ninguna palabra —resaltarlas
     IGUAL Y A LA VEZ convertiría el subtítulo en un metrónomo y el ojo dejaría
     de leer; lo que evita eso aquí no es dejar una sola quieta y grande (la
-    keyword violeta agrandada del esquema anterior a esta Mejora), sino que el
+    keyword agrandada y de acento del esquema anterior a esta Mejora), sino que el
     resaltado se MUEVA con la voz.
 
     Nació limitado a `band` (Mejora 3, a petición del usuario): ahí el
-    subtítulo vive sobre suelo grafito liso (§ triband en CLAUDE.md), no sobre
-    metraje, así que la keyword agrandada y violeta de fuera de `band` no
+    subtítulo vive sobre suelo liso (§ triband en CLAUDE.md), no sobre
+    metraje, así que la keyword agrandada y de acento de fuera de `band` no
     tenía nada que esquivar y el karaoke era la única función que le quedaba
     al resaltado. Esta Mejora quita esa frontera a petición del usuario: el
     karaoke pasa a ser el tratamiento único, también en `full`/`pip` (el hook
     y la tesis). Lo que NO cambia ahí es la PIEL: el subtítulo sigue ENCIMA
-    del metraje, así que sigue siendo `on-dark` con su filete de grafito de
+    del metraje, así que sigue siendo `on-dark` con su filete del suelo de
     7px — el filete existe para que la letra sobreviva sobre imagen, y eso no
     lo decide el resaltado.
     """
@@ -1460,7 +1466,7 @@ def build_captions(words, dur, shots, viz_skins):
         # Karaoke (Mejora 4, a petición del usuario): tratamiento ÚNICO del
         # subtítulo, sin excepción de encuadre — nació limitado a `band` en la
         # Mejora 3 y aquí pierde esa frontera. TODAS las palabras van al mismo
-        # tamaño y color; lo único que se mueve es un fondo violeta con
+        # tamaño y color; lo único que se mueve es un fondo de acento con
         # esquinas redondeadas detrás de la palabra que suena en el instante
         # exacto en que se pronuncia (`w["start"]`, del transcript remapeado)
         # y se apaga en cuanto arranca la siguiente: el resaltado viaja, no se
@@ -1751,7 +1757,7 @@ def emit_anim(a) -> str:
         js.append(f'tl.fromTo(\'{ring}\', {{ opacity: .8, scale: .30 }}, '
                   f'{{ opacity: 0, scale: 1.6, duration: {d}, ease: "power2.out" }}, {t:.4f});')
     elif kind == "focus-app":
-        js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1, borderColor: "{LINE}" }}, '
+        js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1, borderColor: "{TK.LINE}" }}, '
                   f'{{ scale: 1.04, borderColor: "rgba(255,90,90,.6)", '
                   f'duration: {d * .45:.4f}, ease: "power2.out", yoyo: true, repeat: 1 }}, '
                   f'{t:.4f});')
@@ -1916,9 +1922,9 @@ def build():
 {viz_css}
 {card_css}
 :root{{--bg:{C['bg']};--surface:{C['surface']};--text:{C['text']};
-  --violet:{C['violet']};--go:{C['go']};--alert:{C['alert']};
-  --accent-0:{C['violet']};--accent-1:{C['go']};--accent-2:{C['warn']};
-  --accent-3:{C['violet_hi']};--accent-4:{C['alert']}}}
+  --accent:{C['accent']};--go:{C['go']};--alert:{C['alert']};
+  --accent-0:{C['accent']};--accent-1:{C['go']};--accent-2:{C['warn']};
+  --accent-3:{C['accent_hi']};--accent-4:{C['alert']}}}
 *{{box-sizing:border-box}}
 html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   background:{C['bg']};font-family:{FONT}}}
@@ -1942,8 +1948,8 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
    mockup opaco se comía la ventana del creador — y solo se notaba en los
    visuales con fondo, porque sobre la grabación, que es transparente, se veía
    perfectamente. */
-.vid.pip{{border-radius:{RADIUS['lg']}px;box-shadow:{SHADOW_LIFT};
-  outline:3px solid rgba(255,255,255,.14);outline-offset:-3px;z-index:6}}
+.vid.pip{{border-radius:{RADIUS['lg']}px;box-shadow:{TK.SHADOW_LIFT};
+  outline:3px solid {ink_a(.14)};outline-offset:-3px;z-index:6}}
 /* ── capa de visuales ──────────────────────────────────────────────────────
    `.vizcam` es la CÁMARA: el único elemento que GSAP escala o desplaza, para
    que ni el mockup ni la imagen tengan que ceder su propio transform. */
@@ -1963,7 +1969,7 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   pointer-events:none;overflow:hidden;z-index:7}}
 /* ── subtítulos ───────────────────────────────────────────────────────────
    Bloques cortos, Inter 900 en mayúsculas. Sobre metraje el texto necesita
-   separarse del fondo sin engordar: filete de grafito con `paint-order: stroke
+   separarse del fondo sin engordar: filete del suelo con `paint-order: stroke
    fill`, que pinta el trazo DETRÁS del relleno, más una sombra que lo asienta.
    Un borde normal engorda la letra y le quita el peso de grotesca. */
 .cap{{position:absolute;left:{CAPTION_MARGIN}px;right:{CAPTION_MARGIN}px;
@@ -1972,15 +1978,15 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
   pointer-events:none}}
 .cap .w{{display:inline-block;margin:0 9px;position:relative}}
 .cap.on-dark .w{{color:{C['text']};-webkit-text-stroke:7px {C['bg']};
-  paint-order:stroke fill;text-shadow:0 4px 22px rgba(11,12,16,.8)}}
+  paint-order:stroke fill;text-shadow:0 4px 22px {shade_a(.8)}}}
 .cap.on-surface .w{{color:{C['text']};-webkit-text-stroke:0;
-  text-shadow:0 2px 16px rgba(11,12,16,.95)}}
+  text-shadow:0 2px 16px {shade_a(.95)}}}
 /* Karaoke (Mejora 4, a petición del usuario, ver `build_captions`): trata-
    miento ÚNICO del subtítulo, SIN excepción de encuadre — ya no hay una
-   keyword agrandada y violeta en `full`/`pip` (lo que había antes de esta
+   keyword agrandada y de acento en `full`/`pip` (lo que había antes de esta
    ronda; el karaoke nació limitado a `band` en la Mejora 3 y ahora pierde esa
    frontera). `.w.kw` es CUALQUIER palabra del bloque —todas al mismo tamaño y
-   color— y lo único que se mueve es `.wbg`, un rectángulo violeta detrás de
+   color— y lo único que se mueve es `.wbg`, un rectángulo de acento detrás de
    la palabra que GSAP enciende y apaga por `opacity` (nunca por color, que
    reflowearía nada porque el tamaño no cambia, pero SÍ obligaría a
    interpolar un color sobre otro sin necesidad). `z-index:0` en `.w.kw` abre
@@ -1992,7 +1998,7 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
    z-index, y hereda el color y el filete de `.cap.on-dark .w` / `.cap.on-
    surface .w` de arriba según la PIEL del bloque — lo que cambia con esta
    Mejora es el resaltado, no la piel: en `full`/`pip` el subtítulo sigue
-   ENCIMA del metraje, así que ahí sigue con `on-dark` y su filete de grafito
+   ENCIMA del metraje, así que ahí sigue con `on-dark` y su filete del suelo
    de 7px; en `triband` sigue sin filete (`on-surface`, suelo liso, sin
    metraje detrás).
    El bleed (-8px horizontal, -4px vertical) es el padding: como es un
@@ -2001,13 +2007,13 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
    siempre), así que no puede desajustar el reparto en líneas ni el gate de
    zona segura (el 20% de la plataforma en `full`/`pip`, la banda del
    hablante en `triband`).
-   Contraste medido con `tokens.contrast()`: blanco sobre `violet` (el de
-   toda la paleta) da 4.35:1 — por debajo del 4.5:1 que exige la doctrina
-   para texto pequeño — así que el fondo del karaoke usa `violet_dk`, más
-   oscuro, que sube a 6.72:1. */
+   Contraste: la palabra lleva el color de TEXTO de la paleta y el fondo
+   del karaoke es `accent_pill` —el acento empujado hacia el suelo hasta que
+   ese texto pase 4.5:1 encima (tokens._derive, fijado en
+   tests/test_paletas.py)—, en las dos paletas. */
 .cap .w.kw{{z-index:0}}
 .cap .wbg{{position:absolute;left:-8px;right:-8px;top:-4px;bottom:-4px;
-  background:{C['violet_dk']};border-radius:{RADIUS['sm']}px;z-index:-1;
+  background:{C['accent_pill']};border-radius:{RADIUS['sm']}px;z-index:-1;
   opacity:0;pointer-events:none}}"""
 
     # ── timeline ───────────────────────────────────────────────────────────────
@@ -2073,7 +2079,7 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
                   f'ease: "power2.in" }}, {out_t:.4f});')
         js.append(f'tl.set(\'{sel}\', {{ opacity: 0 }}, {e:.4f});')
 
-    js.append("// karaoke — el fondo violeta viaja palabra a palabra")
+    js.append("// karaoke — el fondo de acento viaja palabra a palabra")
     # Karaoke en toda la pieza (Mejora 4): `key_anims` es siempre una 5-tupla
     # `(wid, at, hasta, d_in, d_out)`, una por PALABRA, no una sola por
     # bloque — antes de la Mejora 4 convivía con un esquema de 2-tuplas
@@ -2152,7 +2158,7 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
         schemaVersion=3,
         composition=dict(fps=FPS, width=W, height=H, durationSeconds=dur,
                          layout="portrait" if FMT == "REEL" else "landscape",
-                         themeId="graphite-violet", seed=42),
+                         themeId=f"marca-{TK.PALETTE}", seed=42),
         videoTrack=dict(sourcePath="input-video.mp4", startSec=0, endSec=dur,
                         bounds=dict(x=0, y=0, width=W, height=H)),
         subtitles=dict(enabled=True, style="chunk-keyword"),

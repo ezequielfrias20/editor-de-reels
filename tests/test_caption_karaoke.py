@@ -132,13 +132,19 @@ def test_en_full_tambien_hay_karaoke_pero_con_piel_on_dark(banda):
         assert len(entry) == 5
 
 
-def test_el_contraste_del_texto_sobre_el_fondo_del_karaoke_cumple_4_5(project_root):
-    """La doctrina exige ≥4.5:1 para texto pequeño y blanco sobre `violet` (el
-    de siempre) da 4.35:1 — no llega. El fondo del karaoke usa `violet_dk`,
-    más oscuro, que sí cumple."""
+@pytest.mark.parametrize("paleta", ["claro", "oscuro"])
+def test_el_contraste_del_texto_sobre_el_fondo_del_karaoke_cumple_4_5(project_root, paleta):
+    """La doctrina exige ≥4.5:1 para texto pequeño y el texto sobre el acento
+    puro no llega en ninguna de las dos paletas. El fondo del karaoke usa
+    `accent_pill`, el acento empujado hacia el suelo, que sí cumple."""
     import sys
     sys.path.insert(0, str(project_root / ".claude" / "skills" /
                           "video-tech-premium" / "scripts"))
-    from tokens import C, contrast
-    assert contrast(C["violet"], C["text"]) < 4.5   # el motivo del cambio
-    assert contrast(C["violet_dk"], C["text"]) >= 4.5
+    import tokens
+    tokens.use(paleta)
+    try:
+        C, contrast = tokens.C, tokens.contrast
+        assert contrast(C["accent"], C["text"]) < 4.5   # el motivo del cambio
+        assert contrast(C["accent_pill"], C["text"]) >= 4.5
+    finally:
+        tokens.use("oscuro")

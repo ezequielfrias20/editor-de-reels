@@ -47,6 +47,7 @@ def edl_min(w10):
     """El EDL más pequeño que es válido: un A_ROLL sobre las 131 palabras."""
     return {
         "format": "REEL", "piece": 10, "style_profile": "motion-explainer",
+        "palette": "oscuro",
         "transcript": {"words": "transcripts/10.json", "cuts": "cuts/10.json",
                        "fingerprint": w10.fingerprint},
         "voice_gain": 0.70,

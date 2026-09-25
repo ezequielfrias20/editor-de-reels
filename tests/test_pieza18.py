@@ -208,10 +208,16 @@ def test_el_destello_NO_es_un_emoji():
     assert "currentColor" in html, "el destello se tiñe con el estado, no propio"
 
 
-def test_el_destello_pasa_AA_en_los_dos_estados():
+@pytest.mark.parametrize("paleta", ["claro", "oscuro"])
+def test_el_destello_pasa_AA_en_los_dos_estados(paleta):
     """Lo que el emoji no hacía. Se mide, no se estima."""
-    assert contrast(C["text3"], C["bg"]) >= 3.0
-    assert contrast(C["violet_hi"], C["bg"]) >= 3.0
+    import tokens
+    tokens.use(paleta)
+    try:
+        assert contrast(C["text3"], C["bg"]) >= 3.0
+        assert contrast(C["accent_hi"], C["bg"]) >= 3.0
+    finally:
+        tokens.use("oscuro")
 
 
 # ── idea_veneer: lo de arriba se va y lo de abajo NO cambia ─────────────────
@@ -247,11 +253,23 @@ def test_los_dos_avisos_de_layout_se_responden_por_separado():
     assert "data-layout-allow-overlap" in html
 
 
-def test_la_palabra_espectacular_pasa_AA_sobre_todo_el_degradado():
+@pytest.mark.parametrize("paleta", ["claro", "oscuro"])
+def test_la_palabra_espectacular_pasa_AA_sobre_todo_el_degradado(paleta):
     """Sale del muestreo por el `allow-overlap`, así que se mide a mano — 92px
-    y peso 900 la ponen en «texto grande», umbral 3:1."""
-    for fondo in (C["violet_dk"], C["violet"], "#2B1D7A"):
-        assert contrast(C["text"], fondo) >= 3.0
+    y peso 900 la ponen en «texto grande», umbral 3:1. Se mide contra CADA
+    parada del degradado que el componente emite de verdad."""
+    import tokens
+    tokens.use(paleta)
+    try:
+        css, _, _ = mockups.idea_veneer("v", "Idea", "WOW", [0.0, 1.0, 3.0])
+        grad = re.search(r"\.ivelayer\{\{?[^}]*?linear-gradient\(([^;]*)\);", css)
+        assert grad, "`.ivelayer` ya no declara su degradado"
+        paradas = re.findall(r"#[0-9A-Fa-f]{6}", grad.group(1))
+        assert len(paradas) >= 3
+        for fondo in paradas:
+            assert contrast(C["text"], fondo) >= 3.0, (paleta, fondo)
+    finally:
+        tokens.use("oscuro")
 
 
 # ── el gesto nuevo ──────────────────────────────────────────────────────────

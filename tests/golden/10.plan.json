@@ -278,6 +278,7 @@
     "fade_out": 2.6,
     "src": "assets/music/bed-tech.mp3"
   },
+  "palette": "oscuro",
   "sfx": [
     [
       2.8667,
