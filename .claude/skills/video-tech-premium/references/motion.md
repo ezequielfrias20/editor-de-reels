@@ -67,7 +67,7 @@ una tarjeta porque es más grande.
 ## Subtítulos
 
 El bloque **entra entero y se queda quieto** (0.14 s, `power2.out`, desde escala 0.97).
-Lo que viaja dentro es el fondo violeta del karaoke — no una keyword agrandada, ese
+Lo que viaja dentro es el fondo de acento del karaoke (`accent_pill`) — no una keyword agrandada, ese
 esquema se quitó — y su fundido de entrada/salida se ESCALA a la ventana de cada palabra
 en vez de un valor fijo, para que una palabra corta con habla rápida no encime su fundido
 con el de la siguiente. Doctrina completa en `references/design.md`.

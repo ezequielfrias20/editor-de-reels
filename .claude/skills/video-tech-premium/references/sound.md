@@ -55,9 +55,8 @@ solo matiza el nivel **ya normalizado**.
 
 ## La cabecera de la mezcla
 
-**El metraje de iPhone llega pegado al techo.** La grabación de la pieza 2 trae 7690
-muestras a 0 dB *antes* de que la toquemos: no es algo que introduzca el pipeline, viene
-así de cámara. Sumarle música y efectos encima satura.
+**El metraje de iPhone llega pegado al techo.** Puede traer miles de muestras a 0 dB
+*antes* de que lo toquemos: no es algo que introduzca el pipeline, viene así de cámara. Sumarle música y efectos encima satura.
 
 `voice_gain` (por defecto **0.70**) baja la voz para abrir margen. Y para que bajarla no
 cambie el balance, el generador **desplaza los mismos dB** los objetivos de efectos y

@@ -133,7 +133,7 @@ creativo de toda pieza vieja cada vez que se añade un objeto nuevo a la librer�
 ## `edl-plan.py` — el andamiaje determinista, no el Planner
 
 ```bash
-scripts/edl-plan.py --project . --piece 12 [--style motion-explainer]
+scripts/edl-plan.py --project . --piece 12 --palette claro|oscuro [--style motion-explainer]
 ```
 
 Escribe un `edl.draft.json` **mínimo y honesto**: un segmento `A_ROLL` por frase del
@@ -142,6 +142,6 @@ transcript (dividido en los signos de puntuación que ya trae AssemblyAI), con u
 sceneType, objetos y cámara"`. **No elige `MOTION_STAGE`, no asigna objetos, no resalta
 keywords** — esas son las decisiones no deterministas de verdad, y este script no las
 toma por nadie. Es el punto de partida mecánico que un agente o un humano termina de
-editar; el propio EDL final de la pieza 10 (Tareas 1–11) se escribió sin este andamiaje,
-a mano, palabra por palabra — `edl-plan.py` ahorra exactamente esa parte repetitiva, no la
+editar; el primer EDL completo (hoy la fixture `tests/fixtures/videos/10/edl.json`) se
+escribió sin este andamiaje, a mano, palabra por palabra — `edl-plan.py` ahorra exactamente esa parte repetitiva, no la
 parte creativa.

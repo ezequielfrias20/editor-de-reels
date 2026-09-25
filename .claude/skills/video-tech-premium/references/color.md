@@ -13,7 +13,8 @@ ffprobe -v error -show_entries stream=color_transfer,color_primaries,color_space
 SDR (bt709) y **este documento no aplica**: se convierte directo y `--sdr` sigue siendo lo
 correcto.
 
-> La pieza 1 es HLG. La pieza 2 es SDR y se saltó todo este tramo.
+> Lo habitual es SDR bt709: este tramo se salta. Cuando una toma sale HLG, se calibra por
+> pieza.
 
 ---
 
@@ -61,8 +62,8 @@ La referencia sale de `qlmanage`, que aplica el mismo pipeline de color que Quic
 ella se buscan los parámetros que minimizan el error en saturación, negros, luminancia
 media y altas luces.
 
-Para la pieza 1: **gamma 1.65, gain 0.85, lift +0.06, sat 1.20**, error 6.6 sobre las
-cuatro métricas (la conversión física pura daba 53).
+Una calibración real de iPhone HLG quedó en **gamma 1.65, gain 0.85, lift +0.06, sat 1.20**,
+error 6.6 sobre las cuatro métricas (la conversión física pura daba 53).
 
 Se usa un modelo de **curva tonal** porque HLG está diseñado para ser retrocompatible con
 SDR: su señal ya está cerca de una gamma.

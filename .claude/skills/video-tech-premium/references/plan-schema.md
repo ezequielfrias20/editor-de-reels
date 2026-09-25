@@ -6,6 +6,7 @@ Describe la pieza entera. Es lo único que cambia entre videos.
 ```jsonc
 {
   "format": "REEL",                  // REEL 1080×1920 · YOUTUBE 1920×1080
+  "palette": "oscuro",               // OBLIGATORIO: "claro" | "oscuro"
   "keywords": ["ERP", "stock"],      // palabras que el subtítulo resalta
   "caption_size": 66,                // opcional; por defecto la escala del formato
   "sfx_target_mean": -27.0,          // opcional
@@ -42,6 +43,18 @@ Desde la doctrina de 2026-09-15, **una pieza REEL sin `layout` falla la compilac
 proyecto, no uno que se elige aparte. YOUTUBE no lleva esta exigencia — el triband es un
 reparto vertical. La escotilla para renunciar a sabiendas en una pieza REEL concreta es
 `"layout": {"mode": "none"}`.
+
+### `palette` — obligatorio
+
+`"palette": "claro" | "oscuro"` elige cuál de las dos paletas de la marca pinta la pieza.
+Va en la raíz de `plan.json` y de `edl.json` (el EDL la copia al plan al compilar;
+`edl-plan.py` la exige con `--palette`). `build-composition.py` **falla** si falta o si no
+es una de las dos, y si es válida llama a `tokens.use(palette)` antes de emitir nada. Si la
+pieza viene de un brief de `plan-edicion`, se usa la que trae el brief. Valores, derivados
+y contrastes en `references/design.md`.
+
+⚠ No es `theme`: `theme` es el tema semántico de un stage (`primary` · `problem` ·
+`warning` · `success` · `neutral`), que cambia `THEME_CHANGE`.
 
 Cualquier clave que empiece por `_` es un comentario y el generador la ignora. Úsalas para
 dejar escrito **por qué** un beat cae donde cae.
@@ -95,7 +108,7 @@ encuadre.
 | Campo | Qué hace |
 | --- | --- |
 | `place` | `top` · `center` · `bottom` |
-| `key` | palabra del titular que se pinta en violeta |
+| `key` | palabra del titular que se pinta en el acento como texto (`accent_hi`) |
 | `body` | `none` · `stat` · `chips` · `cta` |
 | `accent` | índice de la celda que lleva el voltaje (solo una) |
 | `beats` | tiempos **absolutos**; el generador los pasa a offsets |
@@ -130,7 +143,7 @@ encuadre.
 | `mock_pad_top` | empuja el mockup hacia abajo para dejarle sitio al PiP |
 | `mock_pad_bottom` | el contrapeso: lo sube. Un mockup corto centrado en el lienzo deja medio frame vacío bajo el PiP. El bloque debe quedar centrado hacia **y 820-880** |
 | `absolute_times` | los tiempos del `mock` están en la línea del corte, no en offsets |
-| `veil` | velo grafito sobre una imagen, para casarla con el fondo |
+| `veil` | velo del color del suelo (`shade_a`) sobre una imagen, para casarla con el fondo; el valor es su opacidad |
 | `cam` | `{at, scale, y}` empuje · `{at, scale, to_scale}` Ken Burns |
 | `fade_in` / `fade_out` | por defecto 0.28 / 0.26. Bájalos a ~0.14 para un corte duro |
 

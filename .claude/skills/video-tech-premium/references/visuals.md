@@ -65,7 +65,7 @@ y aun así se paga el precio a sabiendas.
 **El recorte manda sobre el marco.** Que se vea el flujo no se arregla con el contenedor,
 se arregla en `screen-tour.json`: un `crop` estrecho sobre la zona que se está nombrando,
 y una salida cuadrada — un origen apaisado dentro de un lienzo vertical solo cabe grande
-si el recorte deja de ser apaisado. Referencia medida: en la pieza 2 el recorte
+si el recorte deja de ser apaisado. Referencia medida: un recorte
 1350×854 acababa a **0.73×** dentro del `rect` (la interfaz se veía más pequeña que en el
 monitor original); un recorte de ~900×880 en un panel de 1000×980 va a **1.11×**.
 
@@ -112,7 +112,10 @@ la convierte en un error de sistema en vez de en el precio de haber llegado hast
   mete un `y` o un `scale`, toma el transform y descarta el centrado.
 - **Contraste medido antes de renderizar**: `tokens.contrast(a, b)`. `logos.mark()` ya
   devuelve el ratio y el mockup debe **fallar** si baja de 3:1.
-- **Un solo momento violeta de alto voltaje por frame.**
+- **Un solo momento de acento de alto voltaje por frame.**
+- **Ningún color escrito a mano**: todo sale de `tokens` (`C[…]`, `TK.LINE`, `accent_a()`…),
+  para que el mockup se lea en las dos paletas. Lo vigila `tests/test_paletas_consumidores.py`,
+  y `scripts/palette-sheet.py` enseña el resultado en `claro` y `oscuro` lado a lado.
 - El **HUD da contexto, no repite** un dato que ya está dentro del gráfico.
 
 ---
@@ -129,8 +132,8 @@ se ve su grabación» del layout `triband` (`references/triband.md`):
 
 El logo persistiendo en la cabecera de `tool_recording` es lo que ata la grabación a su
 nombre durante los 6–8 s que dura: sin él, pasados esos segundos el espectador ya no sabe
-qué está mirando. Los fragmentos exactos de `plan.json` para invocar cada uno —verificados
-contra la pieza 15— están en `references/triband.md`.
+qué está mirando. Los fragmentos exactos de `plan.json` para invocar cada uno están en
+`references/triband.md`.
 
 **`tool_recording` se despacha al nivel de `chrome`/`panel`**, dentro de un visual
 `kind: "screen-video"`, no como un mockup suelto: los tres son alternativas de lo que se
@@ -139,9 +142,9 @@ elemento temporizado se congela — `references/gotchas.md`), así que ninguno d
 envuelve el clip, solo lo enmarca. Si el visual declara `tool_recording`, gana sobre
 `chrome`; si no declara ninguno de los dos, cae a `panel` por defecto, igual que siempre.
 
-`hairline` (grosor del marco en px) lo decide **quien llama**, no el componente: de las
-cinco grabaciones de la pieza 15, la de Manus es la única con fondo CLARO y necesita un
-marco más grueso para no perderse contra un fondo también claro. El componente no conoce
+`hairline` (grosor del marco en px) lo decide **quien llama**, no el componente: una
+grabación cuyo fondo tiene el mismo valor que el suelo de la paleta (una web clara en
+`claro`, una oscura en `oscuro`) necesita un marco más grueso para no perderse contra él. El componente no conoce
 ningún slug especial — es una decisión de la pieza.
 
 **El aspecto 3D es estático, no animado.** `perspective()`+`rotateY()` viven en un wrapper
@@ -160,14 +163,14 @@ elemento pequeño y cuadrado como el chip no tiene ese problema.
 
 `logos.mark(slug, size, tone)` desde Simple Icons, vendorizados en `assets/logos/`.
 
-Sobre superficie oscura el color de marca hay que **aclararlo**: el verde de WhatsApp o el
-de Excel a su valor nominal se hunden en el fondo. `brand_tone()` mezcla hacia blanco
-hasta pasar 3:1 y devuelve el ratio medido.
+El color de marca se mueve hacia el `text` de la paleta hasta pasar 3:1 contra `surface`:
+en `oscuro` se **aclara** (el verde de WhatsApp o el de Excel a su valor nominal se hunden en
+el fondo) y en `claro` se **oscurece**. Lo hace `brand_tone()`, y `mark()` devuelve el ratio
+medido.
 
 ### Marcas fuera de Simple Icons
 
-No todas las marcas están ahí — ninguna de las cinco herramientas de la pieza 15 lo
-estaba. `fetch-logos.py --vendor <slug>` las descarga directo del sitio oficial, con dos
+No todas las marcas están ahí — muchas herramientas nuevas no lo están. `fetch-logos.py --vendor <slug>` las descarga directo del sitio oficial, con dos
 gates antes de guardar nada:
 
 - **Resolución.** La marca se pinta a ~110 px en la card; una marca raster (PNG) por
@@ -187,6 +190,13 @@ quien llama tiene que tratar ese caso — no asumir que siempre hay un número.
 trae consigo (de un `<rect>` a lienzo completo en el SVG, o de las esquinas del PNG), para
 poder medir si ese tile se distingue del `surface` del sistema — `None` si la marca es
 transparente.
+
+⚠ **Una marca vendorizada no se re-entinta**, así que no cambia con la paleta. Una marca
+monocroma se vendoriza en la variante que contrasta con el marco de logo (fondo `bg`): la
+negra desaparece sobre `oscuro` y la blanca sobre `claro`. Con `tile` `None` ningún gate lo
+mide: se mira en `scripts/palette-sheet.py` o en el frame. Las demás trampas de vendorizar
+(un 200 que no es el logo, SPAs que devuelven `text/html`, favicons con fondo blanco opaco,
+marcas sin icono cuadrado) están en `CLAUDE.md` §7, «Logos de terceros».
 
 ---
 
@@ -213,6 +223,10 @@ en `assets/gen/ledger.json` con prompt, modelo, taskId y créditos. El pipeline 
 volver a correr entero sin pagar dos veces.
 
 **Prompts.** Pedir explícitamente `no text, no letters, no words, no numbers` — los
-generadores meten texto ilegible que delata el asset. Nombrar la paleta del proyecto
-(*deep graphite, electric violet, near-black*) hace que el resultado caiga dentro del
-sistema en lugar de tener que corregirlo después.
+generadores meten texto ilegible que delata el asset. Nombrar la paleta de la pieza hace
+que el resultado caiga dentro del sistema en lugar de tener que corregirlo después:
+
+| paleta | en el prompt |
+| --- | --- |
+| `claro` | `warm cream, terracotta, near-black ink` |
+| `oscuro` | `warm near-black, terracotta, cream` |

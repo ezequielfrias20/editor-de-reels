@@ -1,6 +1,6 @@
 ---
 name: video-tech-premium
-description: Edita un video de talking head de punta a punta en un lenguaje visual moderno de contenido educativo sobre tecnología, IA y negocios — grafito profundo, violeta eléctrico, mockups de producto, punch-ins, subtítulos karaoke palabra a palabra, layout de bandas, grabaciones de pantalla dirigidas, sound design y música — y lo renderiza con HyperFrames. Úsala SIEMPRE que el usuario entregue un video suyo (.MOV/.mp4/grabación a cámara) para editar, montar, "dejarlo listo" para Reels/TikTok/Shorts/YouTube, quitarle pausas, ponerle subtítulos, gráficos, b-roll, mockups o sonido — aunque no nombre el estilo, aunque solo diga "edítame esto" o "hazme un reel con este video". Úsala también para retomar, ajustar o re-renderizar una pieza ya montada con este flujo, y para planificar cortes o transcribir con AssemblyAI dentro de él.
+description: Edita un video de talking head de punta a punta en un lenguaje visual moderno de contenido educativo sobre tecnología, IA y negocios — dos paletas de la marca (claro crema y oscuro casi negro, acento terracota), mockups de producto, punch-ins, subtítulos karaoke palabra a palabra, layout de bandas, grabaciones de pantalla dirigidas, sound design y música — y lo renderiza con HyperFrames. Úsala SIEMPRE que el usuario entregue un video suyo (.MOV/.mp4/grabación a cámara) para editar, montar, "dejarlo listo" para Reels/TikTok/Shorts/YouTube, quitarle pausas, ponerle subtítulos, gráficos, b-roll, mockups o sonido — aunque no nombre el estilo, aunque solo diga "edítame esto" o "hazme un reel con este video". Úsala también para retomar, ajustar o re-renderizar una pieza ya montada con este flujo, y para planificar cortes o transcribir con AssemblyAI dentro de él.
 ---
 
 # Video Tech Premium
@@ -64,10 +64,28 @@ ln -s .claude/skills/video-tech-premium/scripts scripts
 | 11 | Validar | `npx hyperframes check public` |
 | 12 | Renderizar | `npx hyperframes render public --skill=talking-head-recut -o output.mp4 --fps 30 --sdr` |
 
+En el paso 9 (o en su EDL) **se declara `"palette": "claro" | "oscuro"`**, obligatorio: sin
+él `build-composition.py` falla. Si la pieza viene de un brief de `plan-edicion`, se usa la
+que trae; si no, se pregunta en el 3b. Ver `references/design.md`.
+
 Los pasos 1–8 son mecánicos. **El 9 es donde se decide la pieza** — y el 3b es donde el
 usuario decide una parte de ella antes de que exista nada que montar.
 
 ### 3b — preguntar las animaciones, no decidirlas solo
+
+**Si el usuario pega un brief de `plan-edicion`** (empieza con `Video fuente:` y trae
+beats anclados a frases), ese brief ES la propuesta por beat:
+
+1. Toma la `palette` que indica el brief para el plan/EDL.
+2. Cuadra cada frase ancla con el transcript ya remapeado (paso 3). Una frase que no
+   se dijo igual se busca por sentido y se le muestra al usuario el cambio.
+3. Pregunta **solo** lo que no cuadra: frases que no aparecen, material marcado como
+   faltante que no está en `VIDEOS ORIGINALES/<n>/`, componentes marcados *nuevo*,
+   logos marcados *descargar* (`scripts/fetch-logos.py`).
+4. La sección **"Ideas para sumar al editor"** se lista aparte como no soportada; no
+   se construye en esta pieza salvo que el usuario lo pida.
+
+Sin brief, el paso 3b sigue igual.
 
 El triband le da a cada beat una banda de arriba que hay que llenar con algo — y ese algo
 no se improvisa mientras se escribe el plan: se pregunta antes, con el transcript ya
@@ -171,7 +189,7 @@ fórmula del `anchor` y los `plan.json` que lo invocan están en `references/tri
 
 ### cards — rótulos flotantes
 
-`place`: `top` · `center` · `bottom`. `key` pinta de violeta una palabra del titular.
+`place`: `top` · `center` · `bottom`. `key` pinta una palabra del titular en el acento como texto (`accent_hi`).
 `body`: `none` · `stat` · `chips` · `cta`. `beats` son tiempos **absolutos** de la línea
 del corte; el generador los convierte a offsets.
 
@@ -226,7 +244,8 @@ CTA simplifica: un solo elemento en pantalla.
 ## 5 · Subtítulos
 
 **Bloques de 3–6 palabras, todas al mismo tamaño y color.** El bloque entra entero y se
-queda quieto; lo que se mueve es un fondo violeta (`violet_dk`, no `violet`) que viaja
+queda quieto; lo que se mueve es un fondo de acento (`accent_pill`, no `accent`: el
+acento empujado hacia el suelo hasta que el texto encima pase 4.5:1) que viaja
 palabra a palabra, encendiéndose bajo la que se pronuncia en ese instante exacto y
 apagándose en cuanto arranca la siguiente — nunca dos encendidos a la vez, y al terminar el
 bloque no queda nada pintado. Es el **karaoke**, tratamiento único del subtítulo en toda la
@@ -247,8 +266,8 @@ render, solo hacen más conservador el cálculo de zona segura.
 no por su inicio. En `triband` esto no aplica: ahí no hay metraje detrás del subtítulo, así
 que se ancla por el suelo de su banda y crece hacia arriba (`references/design.md`).
 
-Pieles: `on-dark` (sobre metraje — filete de grafito con `paint-order: stroke fill`, que
-pinta el trazo detrás del relleno y no engorda la letra) · `on-surface` (sobre un gráfico,
+Pieles: `on-dark` (sobre metraje — filete del color del suelo `bg` con `paint-order: stroke
+fill`, que pinta el trazo detrás del relleno y no engorda la letra) · `on-surface` (sobre un gráfico,
 o sobre suelo liso en `triband` — sin filete, solo sombra).
 
 ---
@@ -306,11 +325,13 @@ existen y `check` falla con `motion_selector_missing`. **Reescríbelo o bórralo
 ### Verificar SIEMPRE sobre el MP4
 
 ```bash
-while pgrep -f "hyperframes render" >/dev/null; do sleep 15; done
+npx hyperframes render public … & RENDER_PID=$!
+wait $RENDER_PID
 ```
 
-Esperar al **proceso**, no a que el archivo deje de cambiar: si ya existe un `output.mp4`
-anterior la condición se cumple al instante y acabas analizando el archivo viejo.
+Esperar al **PID concreto**, no a que el archivo deje de cambiar (si ya existe un
+`output.mp4` anterior la condición se cumple al instante y acabas analizando el archivo
+viejo) ni a `pgrep -f "hyperframes render"`, que se caza a sí mismo y no sale nunca.
 
 `npx hyperframes snapshot public --at 1.2,7.6,20.5` — lista separada por comas; repetir
 `--at` no acumula.
@@ -331,6 +352,8 @@ anterior la condición se cumple al instante y acabas analizando el archivo viej
   pantalla incluso durante un gráfico a pantalla completa.
 - Verificar el resultado sobre el MP4, extrayendo frames.
 - Dejar libre el **20 % inferior** del lienzo en REEL: ahí va la interfaz de la plataforma.
+- Declarar `palette` en cada pieza y revisar `scripts/palette-sheet.py` cuando se toque
+  `tokens.py`.
 
 **No hacer**
 - Estilizar el metraje. El color reproduce el original.
@@ -342,6 +365,8 @@ anterior la condición se cumple al instante y acabas analizando el archivo viej
   el apilado**.
 - `back.out()` en una entrada: rebota como muelle y es lenguaje de dibujo animado.
 - Dar por terminado un render mirando la fecha del archivo.
+- Escribir un color a mano en un componente: todo sale de `tokens` (lo vigila
+  `test_paletas_consumidores.py`).
 
 ---
 
@@ -350,7 +375,7 @@ anterior la condición se cumple al instante y acabas analizando el archivo viej
 | Necesitas | Lee |
 | --- | --- |
 | Todos los campos de `plan.json` | `references/plan-schema.md` |
-| Paleta, tipografía, layout, subtítulos | `references/design.md` |
+| Las dos paletas, tipografía, layout, subtítulos | `references/design.md` |
 | El layout `triband`: geometría, gates, `anchor`, cards de herramienta | `references/triband.md` |
 | Mockups, grabaciones de pantalla, IA | `references/visuals.md` |
 | Eases, punch-ins, sincronía con el habla | `references/motion.md` |

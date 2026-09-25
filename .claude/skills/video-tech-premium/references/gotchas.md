@@ -66,15 +66,17 @@ ffmpeg -v info -i output.mp4 -vf "blackdetect=d=0.1:pix_th=0.10" -f null - 2>&1 
 El encuadre se queda **hasta que el gráfico ya es opaco** (`start + fade_in`), y el
 siguiente entra cuando el gráfico **empieza** a irse (`end − fade_out`).
 
-⚠ **`pix_th=0.10` marca el propio suelo del sistema.** El fondo es `#0B0C10`, luma 12, así
-que *cualquier* frame que sea solo fondo cuenta como negro con el umbral por defecto. Para
+⚠ **`pix_th=0.10` marca el propio suelo del sistema.** En la paleta `oscuro` el fondo
+(`#161412`) está en luma ~20, así que *cualquier* frame que sea solo fondo cuenta como negro
+con el umbral por defecto. Para
 distinguir un hueco real de una transición legítima hay que bajar el umbral:
 
 ```bash
 ffmpeg -v info -i output.mp4 -vf "blackdetect=d=0.05:pix_th=0.03" -f null - 2>&1 | grep black
 ```
 
-Si a `0.03` no aparece nada, no hay negro real — solo el grafito de la casa.
+Si a `0.03` no aparece nada, no hay negro real — solo el suelo de la paleta. (En `claro` el
+suelo es crema y no salta nunca: ahí un hueco se busca por el color del suelo, no por negro.)
 
 ### 6b · La entrada del contenido va PEGADA al fundido de su contenedor
 
@@ -87,8 +89,8 @@ Corolario de la anterior, y tiene una ventana estrecha entre dos fallos:
 
 La solución no es mover la entrada del contenido, es **acortar el fundido del host**
 (`fade_in` ~0.12) y arrancar el contenido justo detrás. Ningún color de texto sobrevive un
-fundido entero: medido sobre pastilla violeta, hasta el blanco cae a 3.21:1 al 35 % de
-opacidad. El arreglo es temporal, no cromático.
+fundido entero: medido sobre una pastilla de acento, hasta el texto de mayor contraste cae
+a 3.21:1 al 35 % de opacidad. El arreglo es temporal, no cromático.
 
 ### 7 · Un trazo SVG se prepara en t=0, no al dibujarlo
 
@@ -112,27 +114,27 @@ confina su host al rect de esa banda y hace el fondo transparente. Detalle compl
 ### 8b · La banda `top` vacía no se ve mirando SOLO `band=="top"`, y un reveal
 ### clavado a una palabra puede reabrir el hueco que acaba de cerrar
 
-Dos trampas hermanas, cazadas escribiendo `check_band_top_covered` (la pieza 15,
-Mejora 7 — «la banda de arriba siempre tiene que mostrar algo»).
+Dos trampas hermanas, cazadas escribiendo `check_band_top_covered` («la banda de arriba
+siempre tiene que mostrar algo»).
 
 **La primera**: la geometría de «qué ocupa la banda `top`» tiene DOS mecanismos, no uno —
 un `kind: "mockup"` con `band: "top"` (confina el host al rect de la banda) y un
 `kind: "screen-video"` posicionado con `rect` en coordenadas de lienzo, que NUNCA declara
 `band`. Un gate que solo mira `v.get("band") == "top"` deja fuera la segunda familia
-entera: contra el `plan.json` real de la pieza 15 marcó como «vacíos» los 4-10 s completos
-de cada una de las cinco grabaciones, no solo los huecos de verdad entre ellas. Se cazó
+entera: contra un `plan.json` real marcó como «vacíos» los 4-10 s completos
+de cada grabación, no solo los huecos de verdad entre ellas. Se cazó
 verificando el gate nuevo contra el plan SIN arreglar antes de tocar nada — los huecos que
 reportaba no coincidían con la tabla medida a mano.
 
 **La segunda**: al escribir el visual que cierra el hueco de «la guía» (`tool_lineup`, las
-cinco marcas juntas), la primera versión clavaba la entrada de cada logo a una palabra del
-guion («estas», «y», «varias», «más» — 62.55-63.49 absolutos) porque parecía lo correcto
-por costumbre («todos los beats salen del transcript»). Pero el VISUAL empezaba en 61.805 y
-ninguna palabra nueva se estaba adelantando (las cinco herramientas ya se habían nombrado
-antes), así que esos 0.74 s entre el arranque del visual y la primera palabra eran un hueco
-vacío NUEVO — invisible para el gate (que solo mira si hay ALGÚN visual con ventana
+marcas ya nombradas, juntas), la primera versión clavaba la entrada de cada logo a una
+palabra del guion («estas», «y», «varias», «más») porque parecía lo correcto por costumbre
+(«todos los beats salen del transcript»). Pero el VISUAL empezaba 0.74 s antes de la
+primera de esas palabras y ninguna palabra nueva se estaba adelantando (todas las
+herramientas ya se habían nombrado antes), así que esos 0.74 s entre el arranque del
+visual y la primera palabra eran un hueco vacío NUEVO — invisible para el gate (que solo mira si hay ALGÚN visual con ventana
 `start`/`end` solapando, no si su CONTENIDO ya se ve) y solo visible barriendo el MP4:
-`t=62.0` daba `Ymax=41` en la banda `top`, el suelo grafito de siempre. La regla no es
+la banda `top` salía en la luma del suelo de la paleta. La regla no es
 «todo beat sale del transcript» sin excepción — es «nada entra antes de su palabra», y
 cuando no hay ninguna palabra que esperar (todo ya se dijo), la entrada va pegada al propio
 fundido del host (offsets de 0.06-0.20 s, como `glide-x`/`drop-in` en `tool_card`), no a
@@ -153,7 +155,7 @@ nombre no aparecen y todo lo demás valida limpio.
 
 Con un fundido de entrada/salida FIJO para el karaoke del subtítulo (por ejemplo
 0.05 s/0.08 s), una palabra corta —habla rápida, dos palabras pegadas— puede durar MENOS
-que su propio fundido: la entrada del fondo violeta de la palabra siguiente se solapa con
+que su propio fundido: la entrada del fondo de acento de la palabra siguiente se solapa con
 la salida de la anterior, y `hyperframes check` lo caza como `overlapping_gsap_tweens`. El
 arreglo no es acortar el fundido a un número más pequeño —eso solo mueve el umbral a otra
 palabra corta—, es ESCALARLO a la ventana real de cada palabra (una fracción fija de su
@@ -205,8 +207,8 @@ corta que sea la palabra.
 
 ## Audio
 
-- **El metraje de iPhone llega pegado al techo.** La grabación de la pieza 2 trae 7690
-  muestras a 0 dB *antes* de tocarla. Sumarle música y efectos satura la mezcla. Se le da
+- **El metraje de iPhone llega pegado al techo.** Puede traer miles de muestras a 0 dB
+  *antes* de tocarlo. Sumarle música y efectos satura la mezcla. Se le da
   cabecera a la voz (`voice_gain`) y se desplazan efectos y música **los mismos dB**, para
   que aparezca margen sin que cambie el balance.
 - **`volumedetect` y `silencedetect` loguean a nivel info.** Con `-v error` no imprimen
@@ -220,7 +222,7 @@ corta que sea la palabra.
 ## Grabaciones de pantalla
 
 - **Casi nunca llenan el archivo.** Si la ventana no cubría el monitor quedan barras
-  negras: la grabación de la pieza 2 tiene contenido solo en x 96..1822 de 1920. Un
+  negras: es habitual tener contenido solo en x 96..1822 de 1920. Un
   recorte que las pise mete una franja negra en mitad del mockup, y «cabe» en el archivo
   perfectamente. `screen-tour.py` lo mide con `cropdetect` y falla antes de renderizar.
 - El chrome del navegador de quien grabó (pestañas, marcadores) y el dock del sistema

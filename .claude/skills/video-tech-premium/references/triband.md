@@ -18,7 +18,7 @@ text     el subtítulo (la excepción de anclaje, ver `references/design.md`)
 speaker  el hablante, SIEMPRE visible detrás del takeover
 ```
 
-Medidas de la pieza 15 (REEL, 1080×1920):
+Medidas (REEL, 1080×1920):
 
 ```
 top      y    0– 660
@@ -67,7 +67,7 @@ no tiene un valor implícito razonable.
 ## `band` no lleva escalera de zoom
 
 Un encuadre `full` recorre la escalera 1.00 · 1.05 · 1.09 · 1.12 · 1.15. Un encuadre `band`
-no: el rect de la banda `speaker` (960 px de alto en la pieza 15, contra los 1920 del
+no: el rect de la banda `speaker` (960 px de alto, contra los 1920 del
 lienzo) ya recorta fuerte, y una escalera de zoom ENCIMA de eso dejaría la cara
 irreconocible. El reencuadre vertical dentro de la banda lo hace `object-position` con el
 `anchor` de siempre — ver la fórmula más abajo.
@@ -98,11 +98,12 @@ opaco**. Sin `band`, un visual `kind: "mockup"` recibe un host opaco a lienzo co
 metraje — pero un visual que vive en la banda `top` tiene que dejar ver la banda `speaker`
 por debajo, donde sigue el hablante.
 
-**Es el bug que más costó de la sesión.** Antes de que `band` existiera como opción de
-visual, una card de logo a lienzo completo con host opaco tapaba al hablante entero
-durante las cinco cards de logo de la pieza 15: **luma máxima 28** medida sobre el MP4 en
-la banda `speaker`, donde debía verse la camiseta blanca del presentador (**~253**
-esperado con el hablante visible). Declarar `"band": "top"` en el visual arregla el fondo;
+**Es el bug que más costó.** Antes de que `band` existiera como opción de visual, una card
+de logo a lienzo completo con host opaco tapaba al hablante entero mientras duraba: sobre
+el MP4, la banda `speaker` salía plana y del color del suelo (luma máxima 28 con el suelo
+oscuro), donde debía verse la camiseta clara del presentador (~253). ⚠ En la paleta
+`claro` ese umbral de luma no delata nada —un host opaco crema también pasa de 200—: ahí se
+mira que la banda no sea plana, o se extrae el frame. Declarar `"band": "top"` en el visual arregla el fondo;
 `mock_pad_bottom` (que solo EMPUJA el gráfico hacia arriba con relleno) no basta, porque no
 toca la opacidad del host — son dos mecanismos distintos y solo uno resuelve el tapado.
 
@@ -171,10 +172,10 @@ Dos restricciones:
 2. **El borde superior de la cara por debajo del techo de la banda `speaker`** (no se
    corta la cabeza — `check_face_top_clear`).
 
-### Ejemplo resuelto — pieza 15
+### Ejemplo resuelto
 
-`chin_frac = 0.4531`, `top_frac = 0.2812` (medidos, `assets/face-15.json`, 48/48
-muestras). Banda `speaker`: `top = 960`, `h = 960` → `1920 − h = 960`.
+`chin_frac = 0.4531`, `top_frac = 0.2812` (una medición real de `measure-face.py`, 48/48
+muestras; se mide en cada pieza, nunca se reutiliza). Banda `speaker`: `top = 960`, `h = 960` → `1920 − h = 960`.
 
 ```
 barbilla   = 960 − 960·anchor + 0.4531·1920 = 1830.0 − 960·anchor
@@ -184,7 +185,7 @@ borde_cara = 960 − 960·anchor + 0.2812·1920 = 1499.9 − 960·anchor
 Restricción 1 (`barbilla ≤ 1536`): `anchor ≥ 0.306`.
 Restricción 2 (`borde_cara ≥ 960`): `anchor ≤ 0.562`.
 
-Cualquier `anchor` en `[0.31, 0.56]` es válido. La pieza 15 usa **`anchor = 0.38`**:
+Cualquier `anchor` en `[0.31, 0.56]` es válido. Con **`anchor = 0.38`**:
 
 ```
 barbilla   = 1830.0 − 960·0.38 = 1465.2   (70.8 px de margen bajo y1536)
@@ -197,12 +198,12 @@ se llevaba la coronilla — el gate lo habría cazado.
 
 ## Cards de herramienta — los fragmentos exactos
 
-Coreografía de la pieza 15, repetida para sus cinco herramientas: card de logo
+La coreografía de un reel de herramientas, repetida para cada una: card de logo
 (`tool_card`, banda `top`) clavada a la palabra que nombra la herramienta → grabación
 dirigida (`tool_recording`) durante los 6–8 s que dura. La doctrina de cada componente
 —qué hace, por qué se despacha donde se despacha, el aspecto 3D— está en
 `references/visuals.md`; esto es lo que se escribe en `plan.json`, verificado contra
-`videos/15/plan.json` y `build_visuals`.
+`build_visuals`.
 
 **La card de logo** — un visual `kind: "mockup"` con `band: "top"`:
 
@@ -231,26 +232,28 @@ dirigida (`tool_recording`) durante los 6–8 s que dura. La doctrina de cada co
 `rect` es 16:9 sin deformar (960×540) pegado al suelo de la banda `top`: `ry` 100 + alto
 540 = 640, 20 px hasta el techo de la banda `text` (y660) — el mismo margen
 (`BAND_MOCK_MARGIN = 20`) que usa `tool_card` para alinearse al final de su banda en vez de
-centrarse, así que las cinco cards de logo, las cinco grabaciones y la card del CTA
+centrarse, así que las cards de logo, las grabaciones y la card del CTA
 comparten el mismo borde inferior y el frame se lee como una fila, no como piezas sueltas.
 
-La única variación entre las cinco es `hairline`, y solo en Manus:
+La variación habitual entre grabaciones es `hairline`:
 
 ```jsonc
 "tool_recording": {"slug": "manus", "name": "Manus", "hairline": 3}
 ```
 
-porque su grabación es la única de las cinco con fondo CLARO y necesita un marco más
-marcado para no perderse contra un fondo también claro. El componente no conoce el slug
+porque una grabación de fondo del mismo valor que el suelo de la paleta (una web clara
+en `claro`, una oscura en `oscuro`) necesita un marco más marcado para no perderse contra
+él. El componente no conoce el slug
 `"manus"`; quien escribe el plan decide el grosor por grabación.
 
 ## La banda `top` nunca se queda vacía
 
 Doctrina de 2026-09-15, a petición del usuario: **«en la parte de animaciones siempre se
-debe mostrar algo, en cualquier segundo, nunca debe estar el fondo vacío»**. Medido en la
-pieza 15 antes de esta regla: durante sus tramos `band`, la banda de arriba se quedaba en
-suelo grafito liso **15.0 s de 55.3 s (27 %)**, repartidos en siete huecos — desde 0.86 s
-(el arranque, antes de la primera card) hasta 5.98 s (un beat de guion entero sin visual).
+debe mostrar algo, en cualquier segundo, nunca debe estar el fondo vacío»**. Sin esta
+regla, un reel de cinco herramientas dejaba la banda de arriba en suelo liso **más de una
+cuarta parte** de sus tramos `band`, repartida en siete huecos — desde menos de un segundo
+(el arranque, antes de la primera card) hasta casi seis (un beat de guion entero sin
+visual).
 
 ### La tensión con «nada entra antes de su palabra», y cómo se resuelve
 
@@ -277,12 +280,12 @@ card entre. Ahí la salida es mover el `at` del encuadre para que coincida con l
 de esa primera card — el hook a plano lleno dura un poco más, no hay banda de arriba
 vacía que llenar porque todavía no hay banda.
 
-Y un hueco puede no ser un problema técnico sino un beat de guion sin visual asignado: en
-la pieza 15, «he juntado estas y varias más en una guía…» (5.98 s) no nombra ninguna
-herramienta nueva que clavar — las cinco ya se dijeron antes. Ahí la resolución no es
-sostener nada de lo anterior (la grabación de Manus ya cerró su propia cola), es un
-visual NUEVO: las cinco marcas juntas, en fila, entrando mientras él dice «estas y varias
-más» — no adelanta nada porque las cinco ya tuvieron su palabra. Ver `tool_lineup` más
+Y un hueco puede no ser un problema técnico sino un beat de guion sin visual asignado:
+«he juntado estas y varias más en una guía…» no nombra ninguna herramienta nueva que
+clavar — todas se dijeron antes. Ahí la resolución no es sostener nada de lo anterior (la
+última grabación ya cerró su propia cola), es un visual NUEVO: las marcas juntas, en fila,
+entrando mientras él dice «estas y varias más» — no adelanta nada porque todas ya tuvieron
+su palabra. Ver `tool_lineup` más
 abajo.
 
 ### `check_band_top_covered`
@@ -304,18 +307,18 @@ regla:
    `screen-video` sin que `band` tenga que ver nada. El gate lo detecta comprobando que el
    `rect` solapa verticalmente con la banda `top`.
 
-⚠ **Mirar solo `v.get("band") == "top"` deja fuera las cinco grabaciones enteras** — el
-primer intento de este gate lo hizo así, y contra el `plan.json` real de la pieza 15
+⚠ **Mirar solo `v.get("band") == "top"` deja fuera las grabaciones enteras** — el
+primer intento de este gate lo hizo así, y contra un `plan.json` real
 marcó como «vacíos» los 4-10 segundos completos de CADA grabación, no solo los huecos de
 verdad entre ellas. Se cazó verificando el gate nuevo contra el plan SIN arreglar antes de
 tocar nada: los huecos que reportaba no coincidían con la tabla medida a mano.
 
 La cuenta usa las ventanas CRUDAS `start`/`end` de cada visual, **sin** el margen de
 `fade_in`/`fade_out` que sí aplica `check_no_black`. Es a propósito: dos visuales de banda
-que se TOCAN exactamente —la card de logo y su propia grabación, ya contiguas en las
-cinco herramientas— hacen un cruce de opacidades legítimo en ese instante, no un hueco.
-Medirlo con el margen de fundido marcaría en falso esas cinco transiciones que ya
-funcionan (⁓0.5 s cada una, 2.5 s falsos en total). Tolerancia de un frame (1/FPS), igual
+que se TOCAN exactamente —la card de logo y su propia grabación, contiguas en cada
+herramienta— hacen un cruce de opacidades legítimo en ese instante, no un hueco.
+Medirlo con el margen de fundido marcaría en falso cada una de esas transiciones que ya
+funcionan (⁓0.5 s cada una). Tolerancia de un frame (1/FPS), igual
 que `check_band_speaker_clear`, para no fallar por redondeo de cuantización.
 
 ### `tool_lineup` — el beat de «la guía»
@@ -325,7 +328,7 @@ juntas en fila, construido sobre el mismo marco de logo que usa `tool_card`
 (`.tc-logoframe`: hairline `LINE_HI` + fondo `bg`) en vez de un componente nuevo desde
 cero. Se descartaron los otros dos candidatos de la librería que dibujan algo parecido:
 
-- `chip_grid` pinta **texto** en pastillas, no marcas — no sirve para «las cinco marcas».
+- `chip_grid` pinta **texto** en pastillas, no marcas — no sirve para «las marcas juntas».
 - `app_switch` sí dibuja logos, pero está diseñado para sistemas AISLADOS con un
   conector ROTO entre tarjetas — la frase de este beat es la contraria («las he
   juntado»), así que usarlo diría lo opuesto de lo que se cuenta.
@@ -345,7 +348,7 @@ cero. Se descartaron los otros dos candidatos de la librería que dibujan algo p
 
 ⚠ **`logos.mark()` devuelve `(html, ratio)` y `ratio` puede ser `None`** para una marca
 transparente (animejs, kokonutui aquí) — no hay tile que perderse contra el fondo. Y para
-las que SÍ traen un tile (Motion, 1.11:1 medido; Bklit UI, 1.18:1), el ratio que devuelve
+las que SÍ traen un tile (Motion, Bklit UI: casi negro), el ratio que devuelve
 `mark()` está medido contra `surface` (su fondo por defecto), no contra `bg` — el fondo
 real de `.tlframe`/`.tc-logoframe` — así que un número bajo no describe lo que de verdad
 se renderiza. `tool_lineup` descarta el ratio a propósito, exactamente igual que
