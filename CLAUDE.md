@@ -358,6 +358,20 @@ Pasar **siempre la duración real** de `ffprobe`: el `audio_duration` de Assembl
 redondeado al segundo y desplaza el corte de cola. **Verificar re-transcribiendo el corte**
 y comparando el número de palabras.
 
+### Piezas pedidas desde el dashboard — skill `editar-pieza`
+
+El dashboard Cubo Marketing (`Marketing/dashboard`, módulo `editor-videos`) pide piezas sin
+nadie mirando: escribe `VIDEOS ORIGINALES/<n>/pedido.json` con cada clip y su rol y lanza
+`claude -p "/editar-pieza <n> <propuesta|editar|corregir>"`. El paso 3b no se conversa: sus
+preguntas van a `videos/<n>/propuesta.json` y vuelven respondidas en `respuestas.json`.
+
+Cada clip de `cta` es una **versión** `<n>-<plataforma>`: el cuerpo seguido de ese CTA en una
+sola línea de tiempo (`scripts/versiones.py`). El EDL se escribe por partes
+(`videos/<n>/edl-cuerpo.json` + `videos/<n>/cta-<p>.json`) y `scripts/armar-version.py edl` lo
+une, así el cuerpo es idéntico en todas las versiones. Scripts: `unir-cuerpo.py`,
+`armar-version.py`, `preparar-version.sh`, `validar-propuesta.py`, `renderizar-version.py`,
+`validar-salida.py`. Todos con `.venv/bin/python`: el `python3` del sistema no trae `cv2`.
+
 ---
 
 ## 3. Sistema visual — las dos paletas de la marca
@@ -1584,6 +1598,7 @@ editor-videos/                      ← el ESTUDIO: una carpeta, muchas piezas
 │
 │   — lo que el pipeline crea al editar una pieza (fuera del repo lo pesado) —
 ├── VIDEOS ORIGINALES/<n>/          ← video.MOV · guion.md · pantalla.mov
+│   pedido.json · respuestas.json · notas-v<k>.json   ← si la pidió el dashboard
 ├── VIDEOS EDITADOS/                ← copias finales para publicar
 ├── assets/audio/<n>.flac · assets/face-<n>.json
 ├── transcripts/<n>.json · cuts/<n>.json
@@ -1595,6 +1610,9 @@ editor-videos/                      ← el ESTUDIO: una carpeta, muchas piezas
     ├── screen-tour-b.json          ← un SEGUNDO recorrido, si hace falta (ver abajo)
     ├── output.mp4                  ← ENTREGABLE
     └── public/                     ← index.html + input-video + assets copiados
+    — si la pidió el dashboard (skill editar-pieza) —
+    propuesta.json · edl-cuerpo.json · cta-<p>.json · output-<p>-v<k>.mp4
+└── videos/<n>-<p>/                 ← una versión (cuerpo + CTA de una plataforma)
 ```
 
 `VIDEOS ORIGINALES/`, `VIDEOS EDITADOS/`, `out/`, el audio intermedio y los MP4 están en

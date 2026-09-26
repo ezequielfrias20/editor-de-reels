@@ -3,6 +3,8 @@
 **La fuente de verdad es `CLAUDE.md`** (y la skill `.claude/skills/video-tech-premium/`).
 Este archivo solo resume; si algo de aquí choca con `CLAUDE.md`, manda `CLAUDE.md`.
 
+- `editar-pieza`: la misma edición sin preguntas, para piezas que pide el dashboard (ver CLAUDE.md §2).
+
 Resumen del sistema actual:
 
 - **Layout `triband`** por defecto en todo REEL (animación arriba · subtítulo en medio ·

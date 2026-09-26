@@ -12,11 +12,14 @@ N="${1:?uso: preparar-version.sh <pieza> <plataforma>}"
 P="${2:?uso: preparar-version.sh <pieza> <plataforma>}"
 V="$N-$P"
 S="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# El python del proyecto: el del sistema no trae cv2 (measure-face) ni numpy.
+PY=python3
+[ -x .venv/bin/python ] && PY=.venv/bin/python
 
-python3 "$S/armar-version.py" datos --project . --piece "$N" --plataforma "$P"
+"$PY" "$S/armar-version.py" datos --project . --piece "$N" --plataforma "$P"
 mkdir -p assets/audio out
 ffmpeg -hide_banner -v error -y -i "out/$V-fuente.mov" -vn -ac 1 -ar 16000 -c:a flac "assets/audio/$V.flac"
 "$S/rough-cut.sh" "out/$V-fuente.mov" "cuts/$V.json" "out/$V-rough.mp4"
-python3 "$S/audit-breaths.py" --project . --piece "$V"
-python3 "$S/measure-face.py" "out/$V-rough.mp4" "assets/face-$V.json"
+"$PY" "$S/audit-breaths.py" --project . --piece "$V"
+"$PY" "$S/measure-face.py" "out/$V-rough.mp4" "assets/face-$V.json"
 echo "✓ versión $V lista para el EDL"

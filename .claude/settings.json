@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python scripts/*)",
+      "Bash(python3 scripts/*)",
+      "Bash(scripts/*)",
+      "Bash(ffmpeg *)",
+      "Bash(ffprobe *)",
+      "Bash(npx hyperframes *)",
+      "Read",
+      "Glob",
+      "Grep",
+      "Skill",
+      "Write(videos/**)",
+      "Edit(videos/**)",
+      "Write(out/**)",
+      "Write(transcripts/**)",
+      "Edit(transcripts/**)",
+      "Write(cuts/**)",
+      "Edit(cuts/**)",
+      "Write(assets/**)",
+      "Write(VIDEOS EDITADOS/**)"
+    ]
+  }
+}
