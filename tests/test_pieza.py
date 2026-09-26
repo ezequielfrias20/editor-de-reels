@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 sys.path.insert(0, str(Path(__file__).parent))
-from clips import clip, duracion, necesita_ffmpeg  # noqa: E402
+from clips import clip, duracion, inicio_tono, necesita_ffmpeg  # noqa: E402
 
 from pieza import PiezaError, cargar_pedido, probe, unir  # noqa: E402
 
@@ -138,3 +138,23 @@ def test_cli_frena_un_cta_con_otra_orientacion(tmp_path, capsys):
     err = capsys.readouterr().err
     assert err.startswith("ERROR:") and "cta-tiktok.mp4" in err
     assert not (tmp_path / "out" / "8-fuente.mov").exists()
+
+
+@necesita_ffmpeg
+def test_el_cta_suena_donde_termina_el_cuerpo_aunque_su_audio_sea_mas_corto(tmp_path):
+    """El transcript del CTA se corre la duración del cuerpo: el audio del CTA tiene que
+    arrancar ahí, también si el audio del cuerpo mide menos que su video (footage real)."""
+    cuerpo = clip(tmp_path / "cuerpo.mp4", dur=2.0, audio_dur=1.7, freq=440)
+    cta = clip(tmp_path / "cta.mp4", dur=1.5, freq=660)
+    salida = tmp_path / "f.mov"
+    unir([cuerpo, cta], salida)
+    assert inicio_tono(salida, 660) == pytest.approx(probe(cuerpo).duracion, abs=0.05)
+
+
+@necesita_ffmpeg
+def test_audio_con_otra_frecuencia_o_canales_se_recodifica(tmp_path):
+    a = clip(tmp_path / "a.mp4", ar=44100, ac=1)
+    b = clip(tmp_path / "b.mp4", ar=48000, ac=2, freq=660)
+    salida = tmp_path / "f.mov"
+    assert unir([a, b], salida) == "recodificado"
+    assert duracion(salida) == pytest.approx(2.0, abs=0.15)

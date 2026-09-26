@@ -106,6 +106,10 @@ class Info:
     color_trc: str | None
     color_primaries: str | None
     color_space: str | None
+    pix_fmt: str | None = None
+    perfil: str | None = None
+    audio_sr: str | None = None
+    audio_canales: int | None = None
 
     @property
     def orientacion(self) -> str:
@@ -116,9 +120,10 @@ class Info:
 
     @property
     def firma(self) -> tuple:
-        """Lo que tiene que coincidir para concatenar con `-c copy`."""
-        return (self.codec, self.ancho, self.alto, self.fps, self.rotacion, self.audio,
-                self.color_trc)
+        """Lo que tiene que coincidir para concatenar el video con `-c copy` (y el audio sin
+        cambiar de formato a mitad de la pista: otra frecuencia o canales lo corrompen)."""
+        return (self.codec, self.ancho, self.alto, self.fps, self.rotacion, self.pix_fmt,
+                self.perfil, self.color_trc, self.audio, self.audio_sr, self.audio_canales)
 
 
 def probe(path: Path) -> Info:
@@ -140,7 +145,8 @@ def probe(path: Path) -> Info:
                 fps=v.get("r_frame_rate", "0/0"), rotacion=abs(rot) % 360,
                 duracion=float(d["format"]["duration"]), audio=a["codec_name"] if a else None,
                 color_trc=v.get("color_transfer"), color_primaries=v.get("color_primaries"),
-                color_space=v.get("color_space"))
+                color_space=v.get("color_space"), pix_fmt=v.get("pix_fmt"), perfil=v.get("profile"),
+                audio_sr=a.get("sample_rate") if a else None, audio_canales=a.get("channels") if a else None)
 
 
 # ── Unión ───────────────────────────────────────────────────────────────────────
@@ -185,8 +191,12 @@ def unir(clips: list[Path], salida: Path) -> str:
         lista = salida.with_suffix(".txt")
         lista.write_text("".join(
             "file '" + str(c.resolve()).replace("'", "'\\''") + "'\n" for c in clips))
+        # El video se copia; el audio se recodifica respetando sus tiempos. Con `-c copy` el
+        # audio de cada toma arranca donde terminó el AUDIO de la anterior (que casi nunca
+        # mide lo mismo que su video): el CTA quedaba corrido y fuera de sincro con la imagen.
         try:
-            _ffmpeg(["-f", "concat", "-safe", "0", "-i", str(lista), "-c", "copy",
+            _ffmpeg(["-f", "concat", "-safe", "0", "-i", str(lista), "-c:v", "copy",
+                     "-af", "aresample=async=1:first_pts=0", "-c:a", "aac", "-b:a", "192k",
                      "-movflags", "+faststart", str(salida)])
         finally:
             lista.unlink(missing_ok=True)

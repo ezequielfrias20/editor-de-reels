@@ -27,13 +27,23 @@ def normalizar(texto: str) -> str:
 
 
 def componentes(root: Path) -> set[str]:
+    """Lo que la banda de arriba puede mostrar, con el mismo criterio que el inventario de
+    plan-edicion: los mockups públicos que devuelven un componente (`tuple[str, str, list]`)
+    y los objetos de `objects.REGISTRY`, con su nombre de registro (`dental-chair`)."""
     nombres: set[str] = set()
-    for f in ("mockups.py", "objects.py"):
-        p = root / "scripts" / f
-        if p.exists():
-            arbol = ast.parse(p.read_text())
-            nombres |= {n.name for n in arbol.body
-                        if isinstance(n, ast.FunctionDef) and not n.name.startswith("_")}
+    m = root / "scripts" / "mockups.py"
+    if m.exists():
+        for n in ast.parse(m.read_text()).body:
+            if (isinstance(n, ast.FunctionDef) and not n.name.startswith("_") and n.returns is not None
+                    and ast.unparse(n.returns).replace(" ", "") == "tuple[str,str,list]"):
+                nombres.add(n.name)
+    o = root / "scripts" / "objects.py"
+    if o.exists():
+        for n in ast.parse(o.read_text()).body:
+            if (isinstance(n, ast.Assign) and any(getattr(t, "id", "") == "REGISTRY" for t in n.targets)
+                    and isinstance(n.value, ast.Dict)):
+                nombres |= {k.value for k in n.value.keys
+                            if isinstance(k, ast.Constant) and k.value != "motion_stage"}
     return nombres
 
 

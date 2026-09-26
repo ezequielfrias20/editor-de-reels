@@ -31,8 +31,13 @@ def proyecto(tmp_path, propuesta_extra=None, beats=None, versiones=None):
     (root / "transcripts" / "7.json").write_text(json.dumps(
         {"words": [{"text": w, "start": i * 300, "end": i * 300 + 250} for i, w in enumerate(palabras)]}))
     (root / "scripts").mkdir()
-    (root / "scripts" / "mockups.py").write_text("def tool_card(x):\n  pass\ndef _privada():\n  pass\n")
-    (root / "scripts" / "objects.py").write_text("def document(x):\n  pass\n")
+    (root / "scripts" / "mockups.py").write_text(
+        "def tool_card(x) -> tuple[str, str, list]:\n  pass\n"
+        "def _privada() -> tuple[str, str, list]:\n  pass\n"
+        "def text_px(t: str) -> float:\n  pass\n")
+    (root / "scripts" / "objects.py").write_text(
+        "def dental_chair(x):\n  pass\n"
+        "REGISTRY = {\"motion_stage\": None, \"document\": None, \"dental-chair\": dental_chair}\n")
     (root / "assets" / "logos").mkdir(parents=True)
     (root / "assets" / "logos" / "meta.json").write_text(json.dumps({"claude": {"title": "Claude"}}))
     prop = {
@@ -58,8 +63,15 @@ def test_una_propuesta_buena_no_tiene_problemas(vp, tmp_path):
     assert vp.problemas(proyecto(tmp_path), 7) == []
 
 
-def test_componentes_lee_solo_las_publicas(vp, tmp_path):
-    assert vp.componentes(proyecto(tmp_path)) == {"tool_card", "document"}
+def test_componentes_son_los_mockups_y_el_registro_de_objetos(vp, tmp_path):
+    """Los objetos se nombran como en objects.REGISTRY (con guion, como en el EDL); los
+    helpers de mockups.py (text_px…) no son componentes, ni motion_stage."""
+    assert vp.componentes(proyecto(tmp_path)) == {"tool_card", "document", "dental-chair"}
+
+
+def test_un_objeto_con_guion_existe(vp, tmp_path):
+    beat = _beat(componente={"nombre": "dental-chair", "existe": True})
+    assert vp.problemas(proyecto(tmp_path, beats=[beat]), 7) == []
 
 
 def test_normalizar(vp):

@@ -10,6 +10,15 @@ description: Edita SIN PREGUNTAR una pieza pedida desde el dashboard Cubo Market
 **Los scripts de Python se corren con `.venv/bin/python`**: el `python3` del sistema no trae
 `cv2` ni `numpy` y el pipeline falla a mitad de camino.
 
+**Los pasos largos se corren con el timeout máximo del Bash tool (`timeout: 600000`)**:
+`scripts/unir-cuerpo.py`, `scripts/preparar-version.sh` y `scripts/renderizar-version.py`
+recodifican o renderizan y pasan de los 2 minutos por defecto; si el tool los corta, no
+los relances en bucle: termina con `ERROR:`.
+
+**No generes nada con servicios pagos** (`scripts/kie.py`, `scripts/gen.py`, Higgsfield u
+otros): sin nadie mirando, lo único que sale a la red es `transcribe.py` (AssemblyAI) y
+`fetch-logos.py`. Si un beat pediría un visual generado, va como pregunta en la propuesta.
+
 **Nadie mira esta conversación.** Nunca hagas preguntas ni esperes respuesta:
 - lo que en el paso 3b sería una pregunta va a `propuesta.json → preguntas` (pasada `propuesta`);
 - si falta algo para seguir, termina con una sola línea: `ERROR: <qué pasó y cómo arreglarlo>`.

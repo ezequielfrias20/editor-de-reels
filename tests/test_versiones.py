@@ -184,3 +184,22 @@ def test_cli_plataforma_que_no_esta_en_el_pedido(tmp_path, capsys):
                                                "clips": [{"archivo": "cuerpo-1.mp4", "rol": "cuerpo", "orden": 1}]}))
     assert _cli().main(["datos", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 1
     assert "ERROR:" in capsys.readouterr().err
+
+
+@necesita_ffmpeg
+@pytest.mark.parametrize("cambio", ["transcript", "cortes"])
+def test_edl_frena_si_el_cuerpo_cambio_despues_de_preparar_la_version(tmp_path, capsys, cambio):
+    """Corregir una marca en el transcript (o recortar de nuevo) después de preparar la
+    versión la deja vieja: el subtítulo saldría sin corregir y los índices del CTA se correrían."""
+    root = _proyecto(tmp_path)
+    cli = _cli()
+    assert cli.main(["datos", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 0
+    if cambio == "transcript":
+        t = json.loads((root / "transcripts" / "7.json").read_text())
+        t["words"][1]["text"] = "Mundo"
+        (root / "transcripts" / "7.json").write_text(json.dumps(t))
+    else:
+        (root / "cuts" / "7.json").write_text(json.dumps(cortes(2.0, [(0.05, 0.9)])))
+    assert cli.main(["edl", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 1
+    err = capsys.readouterr().err
+    assert "ERROR:" in err and "preparar-version.sh 7 tiktok" in err

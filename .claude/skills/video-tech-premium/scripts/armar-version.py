@@ -59,8 +59,21 @@ def datos(root: Path, n: int, plat: str) -> str:
     return f"✓ {v}: fuente, transcript y cortes (CTA desde {offset:.3f} s)"
 
 
+def _vigente(root: Path, n: int, plat: str) -> None:
+    """La versión se armó con el cuerpo de AHORA. Si después se corrigió el transcript (una
+    marca mal oída, palabras fundidas) o se recortó de nuevo, sus archivos quedaron viejos."""
+    v = version_id(n, plat)
+    tr_c, cu_c = _leer(root / "transcripts" / f"{n}.json"), _leer(root / "cuts" / f"{n}.json")
+    tr_v, cu_v = _leer(root / "transcripts" / f"{v}.json"), _leer(root / "cuts" / f"{v}.json")
+    if (tr_v["words"][:len(tr_c["words"])] != tr_c["words"]
+            or cu_v["keeps"][:len(cu_c["keeps"])] != cu_c["keeps"]):
+        raise PiezaError(f"la versión {v} quedó vieja: cambió transcripts/{n}.json o cuts/{n}.json "
+                         f"después de prepararla. Corre scripts/preparar-version.sh {n} {plat}")
+
+
 def edl(root: Path, n: int, plat: str) -> str:
     v = version_id(n, plat)
+    _vigente(root, n, plat)
     cuerpo = _leer(root / "videos" / str(n) / "edl-cuerpo.json")
     palabras_cuerpo = len(_leer(root / "transcripts" / f"{n}.json")["words"])
     if plat == "general":
