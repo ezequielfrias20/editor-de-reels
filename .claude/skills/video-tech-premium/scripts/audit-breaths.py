@@ -43,7 +43,7 @@ MARGEN = 0.060      # aire alrededor de cada palabra: su ataque y su cola
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--project", type=Path, default=Path("."))
-    ap.add_argument("--piece", type=int)
+    ap.add_argument("--piece", help="número de pieza o id de versión (7, 7-instagram)")
     ap.add_argument("--cut", type=Path)
     ap.add_argument("--source", type=Path)
     ap.add_argument("--transcript", type=Path)

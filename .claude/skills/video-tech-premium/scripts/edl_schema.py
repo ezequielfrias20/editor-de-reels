@@ -133,7 +133,7 @@ class Override:
 class Edl:
     src: Path
     fmt: str
-    piece: int
+    piece: int | str
     style_profile: str
     wt: WordTable
     segments: tuple[Segment, ...]
@@ -675,7 +675,7 @@ def load_edl(path: Path, project_root: Path) -> Edl:
         raise EdlError(problems)
 
     return Edl(src=path, fmt=raw.get("format", "REEL").upper(),
-               piece=int(raw.get("piece", 0)),
+               piece=raw.get("piece", 0),
                style_profile=raw.get("style_profile", "motion-explainer"),
                wt=wt, segments=tuple(segments), overrides=tuple(overrides),
                voice_gain=float(raw.get("voice_gain", 0.70)),
