@@ -365,10 +365,18 @@ nadie mirando: escribe `VIDEOS ORIGINALES/<n>/pedido.json` con cada clip y su ro
 `claude -p "/editar-pieza <n> <propuesta|editar|corregir>"`. El paso 3b no se conversa: sus
 preguntas van a `videos/<n>/propuesta.json` y vuelven respondidas en `respuestas.json`.
 
-Cada clip de `cta` es una **versión** `<n>-<plataforma>`: el cuerpo seguido de ese CTA en una
-sola línea de tiempo (`scripts/versiones.py`). El EDL se escribe por partes
-(`videos/<n>/edl-cuerpo.json` + `videos/<n>/cta-<p>.json`) y `scripts/armar-version.py edl` lo
-une, así el cuerpo es idéntico en todas las versiones. Scripts: `unir-cuerpo.py`,
+**Siempre salen dos versiones, `<n>-instagram` y `<n>-tiktok`** (decisión de 2026-09-27): el
+cuerpo hasta su CTA de Instagram dicho a cámara («comenta PARALELO…», marcado en
+`videos/<n>/cta-cuerpo.json`) seguido del CTA de cada una en una sola línea de tiempo
+(`scripts/versiones.py`). Instagram usa su clip de `cta` si se subió o, si no, el CTA dicho;
+TikTok usa su clip o sale sin CTA, porque el «comenta» es de ManyChat y no sirve ahí. **La pieza va por `plan.json` a mano, no por el
+EDL**: `edl_compile._visuals()` solo emite stages a lienzo completo y no sabe poner nada en la
+banda `top`, así que un reel triband no es expresable en EDL (pieza 1, 2026-09-27). El plan se
+escribe por partes (`videos/<n>/plan-cuerpo.json`, en segundos del corte del cuerpo, +
+`videos/<n>/plan-cta-<p>.json`, ya en segundos de la versión) y `scripts/armar-version.py plan`
+lo une, así el cuerpo es idéntico en todas las versiones. `armar-version.py palabras` da los
+tiempos remapeados de cada palabra y `armar-version.py anchor` el rango de `anchor` que deja la
+cara entera en la banda `speaker`. Scripts: `unir-cuerpo.py`,
 `armar-version.py`, `preparar-version.sh`, `validar-propuesta.py`, `renderizar-version.py`,
 `validar-salida.py`. Todos con `.venv/bin/python`: el `python3` del sistema no trae `cv2`.
 

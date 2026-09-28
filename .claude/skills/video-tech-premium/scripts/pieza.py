@@ -3,8 +3,9 @@
 unión de varias tomas en una sola fuente.
 
 El dashboard escribe `VIDEOS ORIGINALES/<n>/pedido.json` con cada clip y su ROL:
-`cuerpo` (una o más tomas del hablante, en `orden`), `cta` (una por plataforma; cada una
-genera una versión), `pantalla` y `apoyo`. Ver la skill `editar-pieza`.
+`cuerpo` (una o más tomas del hablante, en `orden`), `cta` (opcional, uno por plataforma),
+`pantalla` y `apoyo`. Siempre salen dos versiones, `instagram` y `tiktok` (ver versiones.py
+para cómo cada una elige su CTA). Ver la skill `editar-pieza`.
 """
 from __future__ import annotations
 
@@ -16,6 +17,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ROLES = ("cuerpo", "cta", "pantalla", "apoyo")
+VERSIONES = ("instagram", "tiktok")
 PALETAS = ("claro", "oscuro")
 
 
@@ -46,8 +48,12 @@ class Pedido:
 
     @property
     def plataformas(self) -> list[str]:
-        """Una versión por CTA; sin CTA, una sola versión `general`."""
-        return [c.plataforma for c in self.de_rol("cta")] or ["general"]
+        """Siempre las dos, haya o no clips de CTA."""
+        return list(VERSIONES)
+
+    def cta(self, plataforma: str) -> Clip | None:
+        """El clip de CTA de esa plataforma, si se subió."""
+        return next((c for c in self.de_rol("cta") if c.plataforma == plataforma), None)
 
     def ruta(self, clip: Clip) -> Path:
         return self.carpeta / clip.archivo
@@ -70,8 +76,9 @@ def cargar_pedido(root: Path, n: int) -> Pedido:
         if rol not in ROLES:
             problemas.append(f"clip {i} ({archivo}): rol {rol!r} desconocido (van {', '.join(ROLES)})")
             continue
-        if rol == "cta" and not c.get("plataforma"):
-            problemas.append(f"clip {i} ({archivo}): un cta necesita plataforma")
+        if rol == "cta" and c.get("plataforma") not in VERSIONES:
+            problemas.append(f"clip {i} ({archivo}): un cta es de {' o '.join(VERSIONES)}, "
+                             f"no {c.get('plataforma')!r}")
         if not (d / archivo).is_file():
             problemas.append(f"clip {i}: no existe {archivo} en {d}")
         clips.append(Clip(archivo=archivo, rol=rol, orden=int(c.get("orden", i + 1)),

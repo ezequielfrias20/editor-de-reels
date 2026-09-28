@@ -3,7 +3,7 @@
 
     scripts/validar-salida.py --piece 7 --version v2
 
-Por cada versión de videos/<n>/propuesta.json: existe videos/<n>/output-<p>-v<k>.mp4,
+Por cada versión (siempre instagram y tiktok, pieza.VERSIONES): existe videos/<n>/output-<p>-v<k>.mp4,
 dura lo que dice cuts/<n>-<p>.json (final_duration, ±0,5 s) y su copia está en
 VIDEOS EDITADOS/. El dashboard lo corre al terminar la pasada.
 """
@@ -12,21 +12,15 @@ import json
 import sys
 from pathlib import Path
 
-from pieza import PiezaError, probe
+from pieza import VERSIONES, PiezaError, probe
 
 TOLERANCIA = 0.5
 
 
 def problemas(root: Path, n: int, k: int) -> list[str]:
     root = Path(root)
-    prop = root / "videos" / str(n) / "propuesta.json"
-    if not prop.exists():
-        return [f"no existe videos/{n}/propuesta.json"]
-    plats = [v["plataforma"] for v in json.loads(prop.read_text()).get("versiones", [])]
-    if not plats:
-        return ["la propuesta no declara versiones"]
     out: list[str] = []
-    for p in plats:
+    for p in VERSIONES:
         mp4 = root / "videos" / str(n) / f"output-{p}-v{k}.mp4"
         copia = root / "VIDEOS EDITADOS" / f"{n}-{p}-v{k}.mp4"
         if not mp4.exists():

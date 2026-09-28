@@ -50,3 +50,24 @@ def test_sin_nadie_mirando_no_se_genera_con_servicios_pagos():
     """El spec (§2) solo deja salir a la red a transcribe.py y fetch-logos.py."""
     txt = SKILL.read_text()
     assert "kie.py" in txt and "gen.py" in txt and "No generes" in txt
+
+
+def test_editar_va_por_el_plan_y_no_por_el_edl():
+    """El compilador del EDL no emite la banda `top` del triband (pieza 1, 2026-09-27: 29 de
+    31 beats inexpresables y sus gates en fallo por diseño). La pasada escribe el plan a mano."""
+    txt = SKILL.read_text()
+    editar = txt[txt.index("## Pasada `editar`"):txt.index("## Pasada `corregir`")]
+    assert "scripts/edl-compile.py" not in txt and "armar-version.py edl" not in txt
+    for paso in ("armar-version.py palabras", "armar-version.py anchor", "armar-version.py plan",
+                 "plan-cuerpo.json", "plan-cta-<p>.json", "tests/fixtures/videos/18/plan.json"):
+        assert paso in editar, paso
+    assert (ROOT / "tests" / "fixtures" / "videos" / "18" / "plan.json").exists()
+
+
+def test_siempre_salen_instagram_y_tiktok():
+    """Decisión de Ezequiel (2026-09-27): dos videos siempre; el CTA dicho en el cuerpo es el
+    de Instagram y TikTok lo reemplaza por su clip (o sale sin CTA)."""
+    txt = SKILL.read_text()
+    assert "general" not in txt
+    assert "cta-cuerpo.json" in txt and "desde_palabra" in txt
+    assert "preparar-version.sh <n> instagram" in txt and "preparar-version.sh\n   <n> tiktok" in txt

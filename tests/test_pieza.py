@@ -43,13 +43,24 @@ def test_pedido_ordena_por_orden_y_lista_plataformas(tmp_path):
     ])
     p = cargar_pedido(tmp_path, 7)
     assert [c.archivo for c in p.de_rol("cuerpo")] == ["cuerpo-1.mov", "cuerpo-2.mov"]
-    assert p.plataformas == ["tiktok", "instagram"]
+    assert p.plataformas == ["instagram", "tiktok"]
+    assert p.cta("tiktok").archivo == "cta-tiktok.mov"
     assert p.paleta == "claro"
 
 
-def test_sin_cta_la_unica_version_es_general(tmp_path):
+def test_siempre_salen_instagram_y_tiktok_aunque_no_haya_clips_de_cta(tmp_path):
+    """Instagram usa el CTA dicho en el cuerpo («comenta PARALELO…»); TikTok sale sin CTA."""
     pedido(tmp_path, 3, [{"archivo": "cuerpo-1.mov", "rol": "cuerpo", "orden": 1}])
-    assert cargar_pedido(tmp_path, 3).plataformas == ["general"]
+    p = cargar_pedido(tmp_path, 3)
+    assert p.plataformas == ["instagram", "tiktok"]
+    assert p.cta("instagram") is None and p.cta("tiktok") is None
+
+
+def test_un_cta_de_otra_plataforma_no_se_acepta(tmp_path):
+    pedido(tmp_path, 5, [{"archivo": "cuerpo-1.mov", "rol": "cuerpo", "orden": 1},
+                         {"archivo": "cta-youtube.mov", "rol": "cta", "plataforma": "youtube", "orden": 1}])
+    with pytest.raises(PiezaError, match="youtube"):
+        cargar_pedido(tmp_path, 5)
 
 
 def test_pedido_invalido_junta_todos_los_problemas(tmp_path):
@@ -64,7 +75,7 @@ def test_pedido_invalido_junta_todos_los_problemas(tmp_path):
     with pytest.raises(PiezaError) as e:
         cargar_pedido(tmp_path, 4)
     msg = str(e.value)
-    for trozo in ("no hay ningún clip de cuerpo", "necesita plataforma", "dos CTA para tiktok",
+    for trozo in ("no hay ningún clip de cuerpo", "no None", "dos CTA para tiktok",
                   "rol 'musica'", "no existe a.mov", "paleta 'violeta'"):
         assert trozo in msg
 

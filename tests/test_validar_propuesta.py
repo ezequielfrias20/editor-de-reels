@@ -50,7 +50,7 @@ def proyecto(tmp_path, propuesta_extra=None, beats=None, versiones=None):
             "logos": [{"slug": "claude", "estado": "disponible"}], "material": ["pantalla-1.mov"]}],
         "preguntas": [{"id": "q1", "beat": "b1", "pregunta": "¿?", "opciones": ["a", "b"],
                        "propuesta_por_defecto": "a"}],
-        "versiones": versiones if versiones is not None else [{"plataforma": "tiktok", "cta_texto": "link", "duracion": 2.0}],
+        "versiones": versiones if versiones is not None else [{"plataforma": "instagram", "cta_texto": "comenta YA", "duracion": 2.0}, {"plataforma": "tiktok", "cta_texto": "link", "duracion": 2.0}],
         "avisos": [],
         **(propuesta_extra or {}),
     }

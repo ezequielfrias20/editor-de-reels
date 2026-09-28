@@ -95,22 +95,33 @@ def test_falta_una_plataforma(rv, vs, tmp_path):
 
 @necesita_ffmpeg
 def test_duracion_fuera_de_tolerancia(rv, vs, tmp_path):
-    root = proyecto(tmp_path, plataformas=("general",))
-    rv.entregar(root, 7, "general", 1)
-    (root / "cuts" / "7-general.json").write_text(json.dumps({"final_duration": 5.0, "keeps": []}))
+    root = proyecto(tmp_path)
+    for p in ("instagram", "tiktok"):
+        rv.entregar(root, 7, p, 1)
+    (root / "cuts" / "7-tiktok.json").write_text(json.dumps({"final_duration": 5.0, "keeps": []}))
     assert any("dura" in p for p in vs.problemas(root, 7, 1))
 
 
 @necesita_ffmpeg
 def test_falta_la_copia_para_publicar(rv, vs, tmp_path):
-    root = proyecto(tmp_path, plataformas=("general",))
-    rv.entregar(root, 7, "general", 1)
-    (root / "VIDEOS EDITADOS" / "7-general-v1.mp4").unlink()
+    root = proyecto(tmp_path)
+    for p in ("instagram", "tiktok"):
+        rv.entregar(root, 7, p, 1)
+    (root / "VIDEOS EDITADOS" / "7-tiktok-v1.mp4").unlink()
     assert any("VIDEOS EDITADOS" in p for p in vs.problemas(root, 7, 1))
 
 
 @necesita_ffmpeg
 def test_cli_acepta_v2(rv, vs, tmp_path):
-    root = proyecto(tmp_path, plataformas=("general",))
-    rv.entregar(root, 7, "general", 2)
+    root = proyecto(tmp_path)
+    for p in ("instagram", "tiktok"):
+        rv.entregar(root, 7, p, 2)
     assert vs.main(["--project", str(root), "--piece", "7", "--version", "v2"]) == 0
+
+
+@necesita_ffmpeg
+def test_siempre_exige_instagram_y_tiktok_aunque_la_propuesta_sea_vieja(rv, vs, tmp_path):
+    """Una propuesta de antes de 2026-09-27 declara solo las versiones con clip de CTA."""
+    root = proyecto(tmp_path, plataformas=("tiktok",))
+    rv.entregar(root, 7, "tiktok", 1)
+    assert any("output-instagram-v1.mp4" in p for p in vs.problemas(root, 7, 1))
