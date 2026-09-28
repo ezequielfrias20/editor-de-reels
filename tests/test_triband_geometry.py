@@ -48,6 +48,14 @@ def test_el_anchor_va_a_object_position(bc):
     assert bc.shot_geometry("band", 1.0, 0.45)["objpos"] == "50% 45%"
 
 
+def test_el_anchor_no_se_redondea_a_un_porcentaje_entero(bc):
+    """`check_face_top_clear` verifica el anchor exacto. Si el CSS lo redondea (0.407 → 41%),
+    se renderiza un encuadre que nadie verificó: con una ventana válida de 0.0004 (pieza 1),
+    ese redondeo es la coronilla cortada."""
+    assert bc.shot_geometry("band", 1.0, 0.407)["objpos"] == "50% 40.7%"
+    assert bc.shot_geometry("band", 1.0, 0.4068)["objpos"] == "50% 40.68%"
+
+
 def test_la_barbilla_cae_sobre_la_banda_del_hablante(bc):
     """Con el metraje 1080x1920 en una ventana de 1080x800 la escala es 1.0.
 

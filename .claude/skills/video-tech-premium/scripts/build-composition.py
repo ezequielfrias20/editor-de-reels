@@ -177,14 +177,14 @@ def shot_geometry(kind, zoom, anchor, anchor_x=0.5):
                     width=w, height=h, objpos="50% 50%")
     if kind == "split":
         b = dict(split_panel())
-        b["objpos"] = f"50% {round(anchor * 100)}%"
+        b["objpos"] = f"50% {round(anchor * 100, 2):g}%"
         return b
     if kind == "band":
         b = dict(triband_panels()["speaker"])
-        b["objpos"] = f"50% {round(anchor * 100)}%"
+        b["objpos"] = f"50% {round(anchor * 100, 2):g}%"
         return b
     b = dict(pip_panel())
-    b["objpos"] = f"50% {round(anchor * 100)}%"
+    b["objpos"] = f"50% {round(anchor * 100, 2):g}%"
     return b
 
 
