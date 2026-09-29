@@ -45,9 +45,9 @@ def proyecto(tmp_path, propuesta_extra=None, beats=None, versiones=None):
         "paleta": "claro",
         "beats": beats if beats is not None else [{
             "id": "b1", "desde": 0.0, "hasta": 3.0, "texto": "Hoy te muestro…",
-            "ancla": "cómo instalar Claude Code", "banda_arriba": "tarjeta de Claude",
-            "componente": {"nombre": "tool_card", "existe": True},
-            "logos": [{"slug": "claude", "estado": "disponible"}], "material": ["pantalla-1.mov"]}],
+            "ancla": "cómo instalar Claude Code", "formato": "partida", "fondo": "claro",
+            "visual": "tarjeta de Claude con su logo", "logos": ["claude"],
+            "material": ["pantalla-1.mov"]}],
         "preguntas": [{"id": "q1", "beat": "b1", "pregunta": "¿?", "opciones": ["a", "b"],
                        "propuesta_por_defecto": "a"}],
         "versiones": versiones if versiones is not None else [{"plataforma": "instagram", "cta_texto": "comenta YA", "duracion": 2.0}, {"plataforma": "tiktok", "cta_texto": "link", "duracion": 2.0}],
@@ -63,43 +63,30 @@ def test_una_propuesta_buena_no_tiene_problemas(vp, tmp_path):
     assert vp.problemas(proyecto(tmp_path), 7) == []
 
 
-def test_componentes_son_los_mockups_y_el_registro_de_objetos(vp, tmp_path):
-    """Los objetos se nombran como en objects.REGISTRY (con guion, como en el EDL); los
-    helpers de mockups.py (text_px…) no son componentes, ni motion_stage."""
-    assert vp.componentes(proyecto(tmp_path)) == {"tool_card", "document", "dental-chair"}
-
-
-def test_un_objeto_con_guion_existe(vp, tmp_path):
-    beat = _beat(componente={"nombre": "dental-chair", "existe": True})
-    assert vp.problemas(proyecto(tmp_path, beats=[beat]), 7) == []
-
-
 def test_normalizar(vp):
     assert vp.normalizar("¿Cómo  INSTALAR, Claude?") == "como instalar claude"
 
 
 def _beat(**cambios):
     b = {"id": "b1", "desde": 0.0, "hasta": 3.0, "texto": "t", "ancla": "instalar Claude Code",
-         "banda_arriba": "x", "componente": {"nombre": "tool_card", "existe": True},
-         "logos": [], "material": []}
+         "formato": "partida", "fondo": "claro", "visual": "x", "logos": [], "material": []}
     return {**b, **cambios}
 
 
 @pytest.mark.parametrize("beat,trozo", [
     (_beat(ancla="esto nunca se dijo"), "no aparece en el transcript"),
-    (_beat(componente={"nombre": "holograma", "existe": True}), "holograma"),
-    (_beat(logos=[{"slug": "notion", "estado": "disponible"}]), "notion"),
+    (_beat(formato="triband"), "triband"),
+    (_beat(fondo=""), "fondo"),
+    (_beat(fondo="violeta"), "violeta"),
+    (_beat(formato="cara", fondo="claro"), "cara"),
+    (_beat(visual=" "), "visual"),
+    (_beat(logos=["notion"]), "notion"),
     (_beat(material=["grabacion-secreta.mov"]), "grabacion-secreta.mov"),
     (_beat(id=""), "sin id"),
 ])
 def test_propuestas_que_inventan(vp, tmp_path, beat, trozo):
     ps = vp.problemas(proyecto(tmp_path, beats=[beat]), 7)
     assert any(trozo in p for p in ps), ps
-
-
-def test_un_componente_nuevo_marcado_como_tal_esta_bien(vp, tmp_path):
-    beat = _beat(componente={"nombre": "holograma", "existe": False})
-    assert vp.problemas(proyecto(tmp_path, beats=[beat]), 7) == []
 
 
 def test_falta_la_version_de_una_plataforma(vp, tmp_path):
@@ -131,3 +118,14 @@ def test_cli(vp, tmp_path, capsys):
     root = proyecto(tmp_path, beats=[_beat(ancla="nunca dicho")])
     assert vp.main(["--project", str(root), "--piece", "7"]) == 1
     assert "✗ 1 problema(s)" in capsys.readouterr().out
+
+
+def test_cara_sin_fondo_ni_visual_esta_bien(vp, tmp_path):
+    beat = _beat(formato="cara", fondo="", visual="")
+    assert vp.problemas(proyecto(tmp_path, beats=[beat]), 7) == []
+
+
+def test_un_logo_que_no_se_consiguio_va_en_avisos(vp, tmp_path):
+    beat = _beat(logos=["notion"])
+    extra = {"avisos": [{"tipo": "material", "mensaje": "no conseguí el logo de notion"}]}
+    assert vp.problemas(proyecto(tmp_path, beats=[beat], propuesta_extra=extra), 7) == []

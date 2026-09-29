@@ -3,13 +3,12 @@
 
     scripts/validar-propuesta.py --project . --piece 7
 
-Lo que se comprueba es lo que no se puede inventar: que cada ancla se dijo, que un
-componente o un logo marcado como existente existe, que hay una versión por CTA del
-pedido y que el material nombrado es un clip del pedido. El criterio de edición vive en
+Lo que se comprueba es lo que no se puede inventar: que cada ancla se dijo, que cada
+beat trae formato, fondo y visual válidos, que un logo existe o está avisado, que hay una
+versión por CTA del pedido y que el material nombrado es un clip del pedido. El criterio de edición vive en
 la skill, no aquí. El dashboard lo corre al terminar la pasada.
 """
 import argparse
-import ast
 import json
 import re
 import sys
@@ -18,33 +17,15 @@ from pathlib import Path
 
 from pieza import PiezaError, cargar_pedido
 
+FORMATOS = ("cara", "partida", "grafico")
+FONDOS = ("claro", "oscuro", "comic")
+
 
 def normalizar(texto: str) -> str:
     t = unicodedata.normalize("NFD", texto.lower())
     t = "".join(ch for ch in t if unicodedata.category(ch) != "Mn")
     t = re.sub(r"[^\w\s]", " ", t)
     return re.sub(r"\s+", " ", t).strip()
-
-
-def componentes(root: Path) -> set[str]:
-    """Lo que la banda de arriba puede mostrar, con el mismo criterio que el inventario de
-    plan-edicion: los mockups públicos que devuelven un componente (`tuple[str, str, list]`)
-    y los objetos de `objects.REGISTRY`, con su nombre de registro (`dental-chair`)."""
-    nombres: set[str] = set()
-    m = root / "scripts" / "mockups.py"
-    if m.exists():
-        for n in ast.parse(m.read_text()).body:
-            if (isinstance(n, ast.FunctionDef) and not n.name.startswith("_") and n.returns is not None
-                    and ast.unparse(n.returns).replace(" ", "") == "tuple[str,str,list]"):
-                nombres.add(n.name)
-    o = root / "scripts" / "objects.py"
-    if o.exists():
-        for n in ast.parse(o.read_text()).body:
-            if (isinstance(n, ast.Assign) and any(getattr(t, "id", "") == "REGISTRY" for t in n.targets)
-                    and isinstance(n.value, ast.Dict)):
-                nombres |= {k.value for k in n.value.keys
-                            if isinstance(k, ast.Constant) and k.value != "motion_stage"}
-    return nombres
 
 
 def problemas(root: Path, n: int) -> list[str]:
@@ -67,10 +48,10 @@ def problemas(root: Path, n: int) -> list[str]:
         if tr.exists() else ""
     if not dicho:
         out.append(f"no existe transcripts/{n}.json (o está vacío)")
-    comps = componentes(root)
     meta = root / "assets" / "logos" / "meta.json"
     logos = set(json.loads(meta.read_text())) if meta.exists() else set()
     archivos = {c.archivo for c in pedido.clips}
+    avisado = normalizar(" ".join(a.get("mensaje", "") for a in prop.get("avisos", [])))
 
     if prop.get("pieza") != n:
         out.append(f"pieza {prop.get('pieza')!r} no es {n}")
@@ -91,14 +72,22 @@ def problemas(root: Path, n: int) -> list[str]:
         ancla = b.get("ancla", "")
         if not ancla or normalizar(ancla) not in dicho:
             out.append(f"{donde}: el ancla «{ancla}» no aparece en el transcript")
-        comp = b.get("componente") or {}
-        if comp.get("existe") and comp.get("nombre") not in comps:
-            out.append(f"{donde}: el componente {comp.get('nombre')!r} no existe "
-                       f"(márcalo con existe: false si hay que crearlo)")
-        for lg in b.get("logos", []):
-            if lg.get("estado") == "disponible" and lg.get("slug") not in logos:
-                out.append(f"{donde}: el logo {lg.get('slug')!r} no está en assets/logos "
-                           f"(márcalo descargar o bájalo con fetch-logos.py)")
+        formato, fondo = b.get("formato"), (b.get("fondo") or "").strip()
+        if formato not in FORMATOS:
+            out.append(f"{donde}: formato {formato!r} no es uno de {', '.join(FORMATOS)}")
+        elif formato == "cara" and fondo:
+            out.append(f"{donde}: 'fondo' no va con formato cara (la cara ocupa todo el lienzo)")
+        elif formato != "cara" and fondo not in FONDOS:
+            out.append(f"{donde}: fondo {fondo!r} no es uno de {', '.join(FONDOS)} "
+                       f"(obligatorio fuera de cara)")
+        if formato != "cara" and not (b.get("visual") or "").strip():
+            out.append(f"{donde}: falta 'visual' (qué objeto aparece y qué hace)")
+        for slug in b.get("logos", []):
+            if not isinstance(slug, str) or not slug.strip():
+                out.append(f"{donde}: los logos van como slugs de texto")
+            elif slug not in logos and normalizar(slug) not in avisado:
+                out.append(f"{donde}: el logo {slug!r} no está en assets/logos ni en avisos "
+                           f"(bájalo con fetch-logos.py o avisa que no se consiguió)")
         for m in b.get("material", []):
             if m not in archivos:
                 out.append(f"{donde}: el material {m!r} no es un clip del pedido")
