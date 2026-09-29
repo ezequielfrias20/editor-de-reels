@@ -38,6 +38,7 @@ from PIL import ImageFont
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import caption_fonts  # noqa: E402
 import caption_metrics  # noqa: E402
+import layout_formatos  # noqa: E402
 import mockups  # noqa: E402
 import objects  # noqa: E402
 import tokens as TK  # noqa: E402
@@ -260,7 +261,10 @@ def configure(project, piece):
     # Bloques declarados por el EDL (rangos de palabras). Si no vienen,
     # `build_captions` trocea como siempre: las piezas 1-9 no los traen.
     CAPTIONS = plan.get("captions") or None
-    LAYOUT = plan.get("layout") or {}
+    try:
+        LAYOUT = layout_formatos.resolver(plan.get("layout"), H)
+    except layout_formatos.LayoutError as e:
+        sys.exit(f"{plan_path}: {e}")
     SFX_TARGET_MEAN = plan.get("sfx_target_mean", -27.0)
     SFX_PEAK_CAP = plan.get("sfx_peak_cap", -12.0)
 
@@ -610,41 +614,23 @@ def check_band_top_covered(shots, dur):
     sys.exit("\n".join(msg))
 
 
-def check_triband_default():
-    """El triband es el layout por defecto de TODOS los reels del proyecto.
+def check_layout_default():
+    """Todo REEL declara su layout.
 
-    Doctrina de la sesión de 2026-09-15, a petición del usuario: hasta ahora
-    `layout` era un bloque que una pieza declaraba SI QUERÍA el triband, y la
-    mayoría de piezas REEL no lo traían — caían al full/pip/split de siempre
-    sin que nada lo señalara. Desde ahora es al revés: toda pieza REEL trae
-    un bloque `layout`, aunque sea para renunciar a él a sabiendas.
-
-    YOUTUBE queda FUERA a propósito. El triband reparte el lienzo en tres
-    bandas verticales (arriba / subtítulo / hablante); en 16:9 apaisado no
-    hay una banda de arriba que llenar sin aplastar al hablante contra un
-    borde del lienzo, así que el gate no tiene nada que exigir ahí.
-
-    La escotilla es `"layout": {"mode": "none"}`. Un gate sin salida
-    documentada es un gate que alguien acaba comentando la primera vez que
-    estorba de verdad, así que cualquier bloque `layout` no vacío lo
-    satisface — sea el de verdad (`mode: "triband"`, con sus `bands`) o la
-    renuncia explícita. El mensaje de error dice las dos salidas, no solo
-    la primera.
+    Desde la doctrina de 2026-09-29 el de por defecto es `formatos` (cara · partida ·
+    gráfico, references/formatos.md); el `triband` queda para las piezas de antes y
+    `none` es la escotilla para renunciar a sabiendas. YOUTUBE queda fuera: los dos son
+    repartos verticales y en 16:9 no hay banda de arriba que llenar. Un gate sin salida
+    documentada acaba comentado, así que el mensaje dice las dos salidas.
     """
-    if FMT != "REEL":
-        return
-    if LAYOUT:
+    if FMT != "REEL" or LAYOUT:
         return
     sys.exit(
-        "pieza REEL sin bloque `layout` en el plan: desde esta doctrina, el "
-        "triband (banda de arriba / subtítulo / hablante) es el layout por "
-        "defecto de TODOS los reels de este proyecto — ya no es un modo que "
-        "se elige aparte.\n"
-        "  declara `\"layout\": {\"mode\": \"triband\", \"bands\": {...}}` "
-        "(geometría, fórmula del `anchor` y gates en references/triband.md), "
-        "o si esta pieza concreta de verdad no lo necesita, renuncia a "
-        "sabiendas con la escotilla documentada: "
-        "`\"layout\": {\"mode\": \"none\"}`.")
+        "pieza REEL sin bloque `layout` en el plan: desde la doctrina de 2026-09-29 todo "
+        "reel va en tres formatos (cara · partida · gráfico).\n"
+        "  declara `\"layout\": {\"mode\": \"formatos\"}` (references/formatos.md), o si "
+        "esta pieza concreta de verdad no lo necesita, renuncia a sabiendas con la "
+        "escotilla documentada: `\"layout\": {\"mode\": \"none\"}`.")
 
 
 # ── capa de VISUALES ──────────────────────────────────────────────────────────
@@ -1883,7 +1869,7 @@ def build():
             if not dst.exists() or dst.stat().st_size != src.stat().st_size:
                 dst.write_bytes(src.read_bytes())
 
-    check_triband_default()
+    check_layout_default()
     shots, vid_els = build_shots(dur)
     check_no_black(shots, dur)
     check_band_speaker_clear(shots, dur)

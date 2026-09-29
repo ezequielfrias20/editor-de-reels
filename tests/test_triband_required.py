@@ -26,10 +26,11 @@ def test_reel_sin_layout_falla(bc):
     bc.FMT = "REEL"
     bc.LAYOUT = {}
     with pytest.raises(SystemExit) as ei:
-        bc.check_triband_default()
+        bc.check_layout_default()
     msg = str(ei.value)
     assert "REEL" in msg
     assert "layout" in msg
+    assert '"mode": "formatos"' in msg
 
 
 def test_el_mensaje_de_error_dice_la_escotilla(bc):
@@ -38,7 +39,7 @@ def test_el_mensaje_de_error_dice_la_escotilla(bc):
     bc.FMT = "REEL"
     bc.LAYOUT = {}
     with pytest.raises(SystemExit) as ei:
-        bc.check_triband_default()
+        bc.check_layout_default()
     assert '"mode": "none"' in str(ei.value)
 
 
@@ -46,7 +47,7 @@ def test_reel_con_layout_triband_pasa(bc):
     bc.FMT = "REEL"
     bc.LAYOUT = {"mode": "triband",
                  "bands": {"top": [0, 660], "text": [660, 960], "speaker": [960, 1920]}}
-    bc.check_triband_default()  # no debe lanzar
+    bc.check_layout_default()  # no debe lanzar
 
 
 def test_reel_con_la_escotilla_mode_none_pasa(bc):
@@ -54,7 +55,7 @@ def test_reel_con_la_escotilla_mode_none_pasa(bc):
     necesita el triband lo declara a sabiendas, no por omisión."""
     bc.FMT = "REEL"
     bc.LAYOUT = {"mode": "none"}
-    bc.check_triband_default()  # no debe lanzar
+    bc.check_layout_default()  # no debe lanzar
 
 
 def test_youtube_sin_layout_no_falla(bc):
@@ -62,7 +63,7 @@ def test_youtube_sin_layout_no_falla(bc):
     apaisado no hay banda de arriba que llenar."""
     bc.FMT = "YOUTUBE"
     bc.LAYOUT = {}
-    bc.check_triband_default()  # no debe lanzar
+    bc.check_layout_default()  # no debe lanzar
 
 
 def test_youtube_con_layout_tambien_pasa(bc):
@@ -71,4 +72,10 @@ def test_youtube_con_layout_tambien_pasa(bc):
     bc.FMT = "YOUTUBE"
     bc.LAYOUT = {"mode": "triband",
                  "bands": {"top": [0, 660], "text": [660, 960], "speaker": [960, 1920]}}
-    bc.check_triband_default()  # no debe lanzar
+    bc.check_layout_default()  # no debe lanzar
+
+
+def test_reel_con_layout_formatos_pasa(bc):
+    bc.FMT = "REEL"
+    bc.LAYOUT = {"mode": "formatos", "bands": {"top": [0, 960], "speaker": [960, 1920]}}
+    bc.check_layout_default()  # no debe lanzar
