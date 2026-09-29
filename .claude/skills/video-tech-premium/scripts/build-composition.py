@@ -468,6 +468,22 @@ def check_band_speaker_clear(shots, dur):
                     f"gráfico, no toca la opacidad del host.")
 
 
+def face_top_y(shot):
+    """El borde superior de la cara EN EL LIENZO en un encuadre `band`.
+
+    La misma cuenta que `chin_at` para `band` (el rect de la banda `speaker`, la escala de
+    `object-fit: cover` y el reparto del desborde por `anchor`), proyectando `TOP_FRAC`
+    en vez de `CHIN`. None si la medición de la cara no trae `top_frac`.
+    """
+    if TOP_FRAC is None:
+        return None
+    b = triband_panels()["speaker"]
+    scale = max(b["width"] / SRC_W, b["height"] / SRC_H)
+    drawn_h = SRC_H * scale
+    top = b["top"] - (drawn_h - b["height"]) * shot["anchor"]
+    return top + TOP_FRAC * drawn_h
+
+
 def check_face_top_clear(shots, dur):
     """La cara no puede entrar CORTADA por arriba en un encuadre `band` (Mejora 2).
 
@@ -496,11 +512,7 @@ def check_face_top_clear(shots, dur):
         return
     speaker_top = triband_panels()["speaker"]["top"]
     for shot in band_shots:
-        b = triband_panels()["speaker"]
-        scale = max(b["width"] / SRC_W, b["height"] / SRC_H)
-        drawn_h = SRC_H * scale
-        top = b["top"] - (drawn_h - b["height"]) * shot["anchor"]
-        face_top = top + TOP_FRAC * drawn_h
+        face_top = face_top_y(shot)
         if face_top < speaker_top:
             sys.exit(
                 f"encuadre `band` {shot['start']:.2f}-{shot['end']:.2f}s: con "
@@ -1500,7 +1512,25 @@ def build_captions(words, dur, shots, viz_skins):
                 skin = vskin
             if ov > 0.12 and vtop is not None:
                 tops.append(vtop)
-        if sh and sh["kind"] == "band":
+        if sh and sh["kind"] == "band" and LAYOUT.get("mode") == "formatos":
+            # Formatos (doctrina 2026-09-29): el bloque se CENTRA sobre la línea de
+            # división, mitad sobre el visual y mitad sobre el hablante. La mitad de abajo
+            # cae encima del metraje, así que lleva la piel con filete (`on-dark`). Lo que
+            # no puede es bajar hasta la cara: eso para la compilación.
+            skin = "on-dark"
+            m = caption_metrics.measure_block(disp, CAPTION_SIZE, krange, FMT, H, W,
+                                              cache_dir=WORK)
+            alto = m["n_lines"] * m["line_h"]
+            top = layout_formatos.costura(LAYOUT) - alto // 2
+            cara = face_top_y(sh)
+            if cara is not None and top + alto > cara:
+                sys.exit(
+                    f"bloque {ci} «{' '.join(u for _, u in ch)}»: {m['n_lines']} línea(s) "
+                    f"sobre la división bajan hasta y{top + alto}, encima de la cara (empieza "
+                    f"en y{cara:.0f}). Trocea el bloque más corto o baja el `anchor` del "
+                    f"encuadre {sh['start']:.2f}s para que la cara quede más abajo.")
+            n_lines = m["n_lines"]
+        elif sh and sh["kind"] == "band":
             # En triband el subtítulo no persigue la barbilla: entre el techo y
             # el suelo de su banda NO hay metraje, así que no puede tapar la
             # cara. Piel sin filete —el filete existe para sobrevivir encima
