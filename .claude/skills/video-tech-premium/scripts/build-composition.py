@@ -106,6 +106,12 @@ BAND_CAP_MARGIN = 16
 # comparten el mismo borde inferior.
 BAND_MOCK_MARGIN = 20
 
+# El primer plano de `cara` (encuadre `full`) se acerca hasta donde la fuente lo aguanta
+# sin que se note el pixelado (doctrina 2026-09-29): con 1080×1920 hasta ×1,20; con una
+# fuente 4K (lado corto ≥ 2160) hasta ×1,40, el primer plano cerrado de la referencia.
+ZOOM_MAX_1080 = 1.20
+ZOOM_MAX_4K = 1.40
+
 
 def q(t):
     """Cuantiza a frame y recorta a 4 decimales."""
@@ -522,6 +528,23 @@ def check_face_top_clear(shots, dur):
                 f"  baja el `anchor` de ese encuadre (con object-fit: cover, a "
                 f"menos anchor se ve más del techo de la fuente) y vuelve a "
                 f"medir con `measure-face.py` si hace falta, nunca a ojo.")
+
+
+def zoom_max():
+    """El acercamiento máximo de `cara` para la resolución de esta fuente."""
+    return ZOOM_MAX_4K if min(SRC_W, SRC_H) >= 2160 else ZOOM_MAX_1080
+
+
+def check_cara_zoom(shots):
+    """Ningún encuadre `full` se acerca más de lo que la fuente aguanta."""
+    tope = zoom_max()
+    for s in shots:
+        if s["kind"] == "full" and s["zoom"] > tope + 1e-9:
+            sys.exit(
+                f"encuadre `full` {s['start']:.2f}s con zoom {s['zoom']:.2f}: con una fuente "
+                f"de {SRC_W}×{SRC_H} el acercamiento llega a ×{tope:.2f} sin que se note el "
+                f"pixelado. Baja el zoom a {tope:.2f}, o graba en 4K para llegar a "
+                f"×{ZOOM_MAX_4K:.2f}.")
 
 
 def check_band_top_covered(shots, dur):
@@ -1904,6 +1927,7 @@ def build():
     check_no_black(shots, dur)
     check_band_speaker_clear(shots, dur)
     check_face_top_clear(shots, dur)
+    check_cara_zoom(shots)
     check_band_top_covered(shots, dur)
     (viz_css, viz_media, viz_back, viz_over,
      viz_anims, viz_skins, viz_assets) = build_visuals(dur)
