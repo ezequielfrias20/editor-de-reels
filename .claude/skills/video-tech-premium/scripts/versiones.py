@@ -189,10 +189,15 @@ def unir_plan(cuerpo: dict, cta: dict | None, fin_cuerpo: float) -> dict:
                              f"trocea solo el cuerpo y el CTA")
     if cta is None:
         return copy.deepcopy(cuerpo)
-    otras = [k for k in cta if k not in LISTAS_PLAN and not k.startswith("_")]
+    otras = [k for k in cta if k not in LISTAS_PLAN and k != "cta_palabra" and not k.startswith("_")]
     if otras:
-        raise ValueError(f"el plan del CTA solo lleva {', '.join(LISTAS_PLAN)}; "
+        raise ValueError(f"el plan del CTA solo lleva {', '.join(LISTAS_PLAN)} y cta_palabra; "
                          f"{', '.join(otras)} va en plan-cuerpo.json")
+    if "cta_palabra" in cta:
+        desde = float(cta["cta_palabra"].get("desde", -1))
+        if desde < fin_cuerpo - TOL:
+            raise ValueError(f"cta_palabra del CTA empieza en {desde:.3f}, antes de que acabe el "
+                             f"cuerpo ({fin_cuerpo:.3f}): va en segundos de la versión")
     for clave in LISTAS_PLAN[:-1]:
         for x in cuerpo.get(clave, []):
             ini, fin = _tiempos(clave, x)
@@ -213,6 +218,8 @@ def unir_plan(cuerpo: dict, cta: dict | None, fin_cuerpo: float) -> dict:
     for clave in LISTAS_PLAN:
         if clave in cta:
             out[clave] = out.get(clave, []) + copy.deepcopy(cta[clave])
+    if "cta_palabra" in cta:
+        out["cta_palabra"] = copy.deepcopy(cta["cta_palabra"])
     ids = [v["id"] for v in out.get("visuals", []) if "id" in v]
     repetidos = sorted({i for i in ids if ids.count(i) > 1})
     if repetidos:

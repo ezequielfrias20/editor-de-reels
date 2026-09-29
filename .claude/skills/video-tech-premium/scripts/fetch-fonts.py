@@ -33,10 +33,11 @@ FAMILIES = {
     "Inter-900":          "family=Inter:wght@900",
     "JetBrainsMono-400":  "family=JetBrains+Mono:wght@400",
     "JetBrainsMono-700":  "family=JetBrains+Mono:wght@700",
+    "Fraunces-Italic800": "family=Fraunces:ital,wght@1,800",
 }
 
 # lo que el guion necesita de verdad, en minúscula y mayúscula
-NEEDED = "áéíóúüñÁÉÍÓÚÜÑ¿¡%3408—·"
+NEEDED = "áéíóúüñÁÉÍÓÚÜÑ¿¡%3408—·“”"
 
 
 def get(url: str) -> bytes:

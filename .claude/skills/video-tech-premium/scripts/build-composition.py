@@ -88,6 +88,7 @@ SHOTS = CARDS = VISUALS = SFX = MUSIC = None
 KEYWORDS = None
 CAPTIONS = None
 LAYOUT = {}         # bloque `layout` del plan (Tarea 3); {} si el plan no trae ninguno
+CTA_PALABRA = None  # {"texto", "desde", "hasta"} del plan del CTA; None si no hay
 
 CAPTION_SIZE = CAPTION_MAXW = CAPTION_MARGIN = None
 
@@ -111,6 +112,11 @@ BAND_MOCK_MARGIN = 20
 # fuente 4K (lado corto ≥ 2160) hasta ×1,40, el primer plano cerrado de la referencia.
 ZOOM_MAX_1080 = 1.20
 ZOOM_MAX_4K = 1.40
+
+# La palabra clave del CTA (doctrina 2026-09-29): serif itálica, 1,45 veces el tamaño del
+# subtítulo, 12 px debajo de él, fija mientras dura el CTA.
+CTA_KW_RATIO = 1.45
+CTA_KW_GAP = 12
 
 
 def q(t):
@@ -220,7 +226,7 @@ def chin_at(shot):
 # ── carga ─────────────────────────────────────────────────────────────────────
 def configure(project, piece):
     global ROOT, WORK, PUB, PIECE, W, H, FMT, T, SRC_W, SRC_H, CHIN, CX, TOP_FRAC
-    global SHOTS, CARDS, VISUALS, SFX, MUSIC, KEYWORDS, CAPTIONS, LAYOUT
+    global SHOTS, CARDS, VISUALS, SFX, MUSIC, KEYWORDS, CAPTIONS, LAYOUT, CTA_PALABRA
     global CAPTION_SIZE, CAPTION_MAXW, CAPTION_MARGIN
     global SFX_TARGET_MEAN, SFX_PEAK_CAP, MUSIC_TARGET_MEAN, VOICE_GAIN
 
@@ -271,6 +277,10 @@ def configure(project, piece):
         LAYOUT = layout_formatos.resolver(plan.get("layout"), H)
     except layout_formatos.LayoutError as e:
         sys.exit(f"{plan_path}: {e}")
+    CTA_PALABRA = plan.get("cta_palabra") or None
+    if CTA_PALABRA is not None and (not str(CTA_PALABRA.get("texto", "")).strip()
+                                    or not isinstance(CTA_PALABRA.get("desde"), (int, float))):
+        sys.exit(f"{plan_path}: `cta_palabra` necesita `texto` y `desde` (segundos de la versión)")
     SFX_TARGET_MEAN = plan.get("sfx_target_mean", -27.0)
     SFX_PEAK_CAP = plan.get("sfx_peak_cap", -12.0)
 
@@ -1464,6 +1474,17 @@ def build_captions(words, dur, shots, viz_skins):
                       if is_key(up, KEYWORDS)), -1)
             key_ranges.append((i, i) if i >= 0 else None)
 
+    # La palabra del CTA va DEBAJO de los bloques que suenan en su ventana, así que esos
+    # bloques se miden con el suelo subido lo que ella ocupa: la palabra nunca cae en el
+    # 20 % que pinta la plataforma.
+    cta = None
+    if CTA_PALABRA:
+        hasta = CTA_PALABRA.get("hasta")
+        cta = (q(float(CTA_PALABRA["desde"])),
+               q(dur if hasta is None else min(float(hasta), dur)))
+    kw_alto = round(round(CAPTION_SIZE * CTA_KW_RATIO) * caption_metrics.LINE_RATIO)
+    reserva = CTA_KW_GAP + kw_alto
+    bottoms = []
     spans, anims, key_anims, rows = [], [], [], []
     for ci, ch in enumerate(chunks):
         s = q(max(0.0, ch[0][0]["start"] - 0.06))
@@ -1605,16 +1626,25 @@ def build_captions(words, dur, shots, viz_skins):
             # Se mide el texto que de verdad se pinta (`disp`: caja de frase
             # salvo la keyword), no la versión en mayúsculas: la mayúscula es
             # más ancha y habría subido el techo sin necesidad.
+            en_cta = bool(cta) and min(e, cta[1]) - max(s, cta[0]) > 0
+            suelo_cta = round(H * caption_metrics.SAFE_BOTTOM) - reserva if en_cta else None
             m = caption_metrics.measure_block(disp, CAPTION_SIZE, krange, FMT, H, W,
-                                              cache_dir=WORK)
+                                              cache_dir=WORK, floor_px=suelo_cta)
             n_lines, floor_top = m["n_lines"], m["floor_top"]
             top = min(top, floor_top)
 
+        if cta and min(e, cta[1]) - max(s, cta[0]) > 0:
+            bottoms.append(top + m["n_lines"] * m["line_h"])
         spans.append(f'<div class="cap {skin}" id="cap{ci}" data-layout-allow-overlap '
                      f'style="top:{top}px">{"".join(parts)}</div>')
         anims.append((f"#cap{ci}", s, e))
         rows.append((ci, s, e, top, " ".join(u for _, u in ch),
                      ch[key_idx][1] if key_idx >= 0 else ""))
+    if cta:
+        kw_top = (max(bottoms) if bottoms else round(H * 0.62)) + CTA_KW_GAP
+        spans.append(f'<div class="cta-kw" id="cta-kw" data-layout-allow-overlap '
+                     f'style="top:{kw_top}px">“{esc(str(CTA_PALABRA["texto"]))}”</div>')
+        anims.append(("#cta-kw", cta[0], cta[1]))
     return spans, anims, key_anims, rows
 
 
@@ -1956,6 +1986,8 @@ def build():
         f"@font-face{{font-family:'{n}';src:url('fonts/{f}.woff2') format('woff2');"
         f"font-weight:{wg};font-style:normal;font-display:block}}"
         for n, f, wg in faces)
+    ff += ("\n@font-face{font-family:'Fraunces';src:url('fonts/Fraunces-Italic800.woff2') "
+           "format('woff2');font-weight:800;font-style:italic;font-display:block}")
 
     pip = pip_panel()
     style = f"""{ff}
@@ -2054,7 +2086,12 @@ html,body{{margin:0;padding:0;width:100%;height:100%;overflow:hidden;
 .cap .w.kw{{z-index:0}}
 .cap .wbg{{position:absolute;left:-8px;right:-8px;top:-4px;bottom:-4px;
   background:{C['accent_pill']};border-radius:{RADIUS['sm']}px;z-index:-1;
-  opacity:0;pointer-events:none}}"""
+  opacity:0;pointer-events:none}}
+.cta-kw{{position:absolute;left:{CAPTION_MARGIN}px;right:{CAPTION_MARGIN}px;
+  text-align:center;opacity:0;font-family:'Fraunces',Georgia,serif;font-style:italic;
+  font-weight:800;font-size:{round(CAPTION_SIZE * CTA_KW_RATIO)}px;line-height:1.14;
+  color:{C['text']};-webkit-text-stroke:7px {C['bg']};paint-order:stroke fill;
+  text-shadow:0 4px 22px {shade_a(.8)};pointer-events:none}}"""
 
     # ── timeline ───────────────────────────────────────────────────────────────
     js = ["const tl = window.gsap.timeline({ paused: true });"]

@@ -467,3 +467,15 @@ def test_cli_anchor_sin_rango_prioriza_no_cortar_la_cara(tmp_path, capsys):
     assert _cli().main(["anchor", "--project", str(tmp_path), "--piece", "7", "--plataforma", "tiktok"]) == 0
     out = capsys.readouterr().out
     assert out.startswith("⚠") and "anchor 0.38" in out and "cerca de la cámara" in out
+
+
+def test_unir_plan_lleva_la_palabra_del_cta():
+    cta = {**PLAN_CTA, "cta_palabra": {"texto": "HOLA", "desde": 0.95, "hasta": None}}
+    p = unir_plan(PLAN_CUERPO, cta, fin_cuerpo=0.95)
+    assert p["cta_palabra"] == {"texto": "HOLA", "desde": 0.95, "hasta": None}
+
+
+def test_la_palabra_del_cta_va_en_segundos_de_la_version():
+    cta = {**PLAN_CTA, "cta_palabra": {"texto": "HOLA", "desde": 0.2}}
+    with pytest.raises(ValueError, match="cta_palabra"):
+        unir_plan(PLAN_CUERPO, cta, fin_cuerpo=0.95)
