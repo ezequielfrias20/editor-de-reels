@@ -9,9 +9,14 @@ import pytest
 
 @pytest.fixture
 def proyecto(tmp_path, fixtures_root):
-    for rel in ("transcripts/10.json", "cuts/10.json", "assets/face-10.json"):
+    for rel in ("transcripts/10.json", "cuts/10.json"):
         (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(fixtures_root / rel, tmp_path / rel)
+    # La medición de la pieza 10 es de antes de `top_frac`. Las tomas reales de Ezequiel
+    # lo traen (0.18–0.21) y con él corren los gates de la cara: se prueba con 0.20.
+    face = json.loads((fixtures_root / "assets" / "face-10.json").read_text())
+    (tmp_path / "assets").mkdir(exist_ok=True)
+    (tmp_path / "assets" / "face-10.json").write_text(json.dumps({**face, "top_frac": 0.20}))
     d = tmp_path / "videos" / "10"
     d.mkdir(parents=True)
     shutil.copy(fixtures_root / "videos" / "10" / ".inter900.ttf", d / ".inter900.ttf")

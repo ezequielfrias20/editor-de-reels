@@ -21,3 +21,10 @@ def test_la_referencia_trae_los_tres_formatos_y_la_palabra_del_cta():
     for clave in ('"kind": "band"', '"kind": "off"', '"kind": "full"', '"cta_palabra"',
                   "ZOOM_MAX_1080", "ZOOM_MAX_4K", "960"):
         assert clave in FORMATOS, clave
+
+
+def test_la_referencia_dice_que_el_subtitulo_sube_y_que_el_cta_va_en_cara():
+    assert "sube hasta quedar justo encima de la cara" in FORMATOS
+    assert "El CTA cierra en `cara`" in FORMATOS
+    skill = (ROOT / ".claude/skills/editar-pieza/SKILL.md").read_text()
+    assert "El CTA va en `cara`" in skill

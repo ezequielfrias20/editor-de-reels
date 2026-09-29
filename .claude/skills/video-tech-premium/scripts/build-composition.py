@@ -1559,20 +1559,19 @@ def build_captions(words, dur, shots, viz_skins):
         if sh and sh["kind"] == "band" and LAYOUT.get("mode") == "formatos":
             # Formatos (doctrina 2026-09-29): el bloque se CENTRA sobre la línea de
             # división, mitad sobre el visual y mitad sobre el hablante. La mitad de abajo
-            # cae encima del metraje, así que lleva la piel con filete (`on-dark`). Lo que
-            # no puede es bajar hasta la cara: eso para la compilación.
+            # cae encima del metraje, así que lleva la piel con filete (`on-dark`).
+            # Nunca sobre la cara (§13): si centrado la pisaría —las tomas de Ezequiel
+            # dejan la cara empezando justo en la costura, top_frac 0.18–0.21—, el bloque
+            # SUBE hasta quedar BAND_CAP_MARGIN por encima de ella. Frenar la compilación
+            # obligaría a bajar el `anchor` y la barbilla caería en el 20 % de la plataforma.
             skin = "on-dark"
             m = caption_metrics.measure_block(disp, CAPTION_SIZE, krange, FMT, H, W,
                                               cache_dir=WORK)
             alto = m["n_lines"] * m["line_h"]
             top = layout_formatos.costura(LAYOUT) - alto // 2
             cara = face_top_y(sh)
-            if cara is not None and top + alto > cara:
-                sys.exit(
-                    f"bloque {ci} «{' '.join(u for _, u in ch)}»: {m['n_lines']} línea(s) "
-                    f"sobre la división bajan hasta y{top + alto}, encima de la cara (empieza "
-                    f"en y{cara:.0f}). Trocea el bloque más corto o baja el `anchor` del "
-                    f"encuadre {sh['start']:.2f}s para que la cara quede más abajo.")
+            if cara is not None and top + alto > cara - BAND_CAP_MARGIN:
+                top = math.floor(cara) - BAND_CAP_MARGIN - alto
             n_lines = m["n_lines"]
         elif sh and sh["kind"] == "band":
             # En triband el subtítulo no persigue la barbilla: entre el techo y
@@ -1641,6 +1640,16 @@ def build_captions(words, dur, shots, viz_skins):
         rows.append((ci, s, e, top, " ".join(u for _, u in ch),
                      ch[key_idx][1] if key_idx >= 0 else ""))
     if cta:
+        # El CTA cierra en `cara` (encuadre full): en `partida` la palabra caería sobre la
+        # cara del hablante, debajo del subtítulo de la costura.
+        en_band = [sh for sh in shots if sh["kind"] == "band"
+                   and min(sh["end"], cta[1]) - max(sh["start"], cta[0]) > 1.0 / FPS]
+        if en_band:
+            sys.exit(
+                f"la palabra del CTA «{CTA_PALABRA['texto']}» ({cta[0]:.2f}–{cta[1]:.2f}s) "
+                f"cae sobre el encuadre `band` de {en_band[0]['start']:.2f}s: el CTA cierra en "
+                f"`cara` (encuadre `full`), porque en `partida` la palabra quedaría encima de "
+                f"la cara. Pon el CTA en `full` o mueve `cta_palabra.desde`.")
         kw_top = (max(bottoms) if bottoms else round(H * 0.62)) + CTA_KW_GAP
         spans.append(f'<div class="cta-kw" id="cta-kw" data-layout-allow-overlap '
                      f'style="top:{kw_top}px">“{esc(str(CTA_PALABRA["texto"]))}”</div>')

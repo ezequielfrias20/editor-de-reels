@@ -18,7 +18,7 @@ Doctrina de 2026-09-29, a pedido de Ezequiel: los reels se editan como los de su
 
 ## El subtítulo
 
-- **`partida`:** el bloque se centra sobre la costura, con la piel de filete (`on-dark`). Si al bajar pisaría la cara (el `top_frac` de `measure-face.py` proyectado al encuadre), la compilación para: se trocea el bloque o se baja el `anchor`.
+- **`partida`:** el bloque se centra sobre la costura, con la piel de filete (`on-dark`). Si centrado pisaría la cara (el `top_frac` de `measure-face.py` proyectado al encuadre), sube hasta quedar justo encima de la cara, 16 px por arriba. No se baja el `anchor` para evitarlo: la barbilla caería en el 20 % que pinta la plataforma. Con las tomas actuales de Ezequiel la cara empieza en la costura, así que el subtítulo queda apenas por encima de ella; grabando un poco más lejos de la cámara queda centrado como en la referencia.
 - **`cara`:** el bloque esquiva la barbilla, como siempre.
 - **`grafico`:** va donde lo ponga el visual (`cap_top`) y respeta el 20 % de abajo.
 
@@ -38,6 +38,7 @@ En `plan-cta-<p>.json`:
 "cta_palabra": {"texto": "MARCA", "desde": 41.20, "hasta": null}
 ```
 
+- **El CTA cierra en `cara`** (encuadre `full`): si la ventana de `cta_palabra` cae sobre un encuadre `band`, la compilación para, porque en `partida` la palabra quedaría encima de la cara.
 - En segundos de la versión: `hasta: null` llega al final.
 - Se dibuja en Fraunces Italic 800, 1,45 veces el tamaño del subtítulo, entre comillas curvas y 12 px debajo del bloque que suena. Queda fija mientras dura el CTA.
 - Los bloques de su ventana dejan sitio para ella por encima del 20 % de la plataforma.

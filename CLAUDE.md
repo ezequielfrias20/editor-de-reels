@@ -773,8 +773,9 @@ píxel suelto a media luma por debajo del gate es borde de letra, no tinta.
 
 En `partida` el bloque se CENTRA sobre la línea de división (y960): mitad sobre el visual,
 mitad sobre el hablante, con la piel de filete (`on-dark`) porque la mitad de abajo cae
-sobre el metraje. Nunca baja hasta la cara: si lo haría (el `top_frac` proyectado con
-`face_top_y`), la compilación para y dice que se trocee el bloque o se baje el `anchor`.
+sobre el metraje. Nunca sobre la cara: si centrado la pisaría (el `top_frac` proyectado con
+`face_top_y`), el bloque sube hasta quedar 16 px por encima de ella — no se baja el `anchor`,
+que metería la barbilla en el 20 % de la plataforma.
 En `cara` y `grafico` el subtítulo sigue las reglas de siempre.
 
 ### La palabra del CTA
@@ -782,6 +783,7 @@ En `cara` y `grafico` el subtítulo sigue las reglas de siempre.
 `cta_palabra` (en `plan-cta-<p>.json`) dibuja la palabra clave del CTA en Fraunces Italic
 800, 1,45× el tamaño del subtítulo, entre comillas curvas, 12 px debajo del bloque que
 suena, fija mientras dura el CTA. Es el único cambio de familia tipográfica de la pieza.
+El CTA cierra en `cara`: una `cta_palabra` sobre un encuadre `band` para la compilación.
 Los bloques de su ventana le dejan sitio por encima del 20 % de la plataforma.
 
 ### La excepción `triband`

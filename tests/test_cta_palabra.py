@@ -81,3 +81,13 @@ def test_la_fuente_de_la_palabra_esta_en_la_skill_y_trae_el_espanol():
     assert f.exists()
     cmap = TTFont(f).getBestCmap()
     assert all(ord(c) in cmap for c in "áéíóúñÁÉÍÓÚÑ“”")
+
+
+def test_la_palabra_del_cta_no_va_sobre_un_encuadre_band(cta):
+    """En `partida` la palabra caería sobre la cara: el CTA cierra en `cara` (encuadre full)."""
+    cta.CAPTIONS = [{"words": [0, 3]}]
+    cta.CTA_PALABRA = {"texto": "MARCA", "desde": 0.0, "hasta": 3.0}
+    band = [{"start": 0.0, "end": 10.0, "kind": "band", "zoom": 1.0, "anchor": 0.40}]
+    with pytest.raises(SystemExit) as ei:
+        cta.build_captions(_words("comenta", "marca", "y", "listo"), 10.0, band, [])
+    assert "cara" in str(ei.value) and "full" in str(ei.value)

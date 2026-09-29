@@ -127,7 +127,8 @@ componente en `references/visuals.md`.
    intensidad (§6), con ids distintos de los del cuerpo. El CTA de Instagram dicho en el
    cuerpo va aquí, en `plan-cta-instagram.json`, no en `plan-cuerpo.json`. Si el CTA dice una
    palabra clave («comenta MARCA»), agrega `"cta_palabra": {"texto": "MARCA", "desde": <s>,
-   "hasta": null}` con `desde` en la palabra, en segundos de la versión.
+   "hasta": null}` con `desde` en la palabra, en segundos de la versión. El CTA va en `cara`
+   (encuadre `full`): sobre un encuadre `band` la compilación para.
 6. Por cada versión: `.venv/bin/python scripts/armar-version.py plan --piece <n> --plataforma <p>` →
    color e `input-video.mp4` como dice §8 (con `out/<n>-<p>-rough.mp4`) →
    `.venv/bin/python scripts/build-composition.py --project . --piece <n>-<p>` →
