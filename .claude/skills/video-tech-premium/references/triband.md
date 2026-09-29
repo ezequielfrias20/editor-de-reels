@@ -3,7 +3,7 @@
 **Desde la doctrina de 2026-09-15, es el layout por defecto de TODOS los reels de este
 proyecto** — ya no un modo que una pieza elige aparte. Toda pieza REEL declara el bloque
 `layout`, aunque sea para renunciar a él a sabiendas con `"layout": {"mode": "none"}`
-(la escotilla; ver `check_triband_default` más abajo). YOUTUBE queda fuera: el triband
+(la escotilla; ver `check_layout_default` más abajo). YOUTUBE queda fuera: el triband
 reparte el lienzo en tres bandas verticales y no tiene sentido en 16:9 apaisado.
 
 Dentro de una pieza sigue conviviendo con el `full`/`split`/`pip` de siempre y se activa
@@ -116,7 +116,7 @@ Los tres viven uno al lado del otro, con la misma filosofía: el error no tiene 
 post (o, en el caso del primero, es un olvido que nadie va a ver hasta que el reel ya está
 publicado), así que paran la compilación en vez de colarse hasta el MP4.
 
-### `check_triband_default`
+### `check_layout_default`
 
 Falla si el plan es REEL y **no trae bloque `layout`**. Es el gate de la doctrina: antes
 `layout` era opt-in y una pieza sin él caía en silencio al full/pip/split de siempre; ahora

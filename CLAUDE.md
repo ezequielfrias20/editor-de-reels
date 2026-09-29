@@ -29,11 +29,11 @@ Dos formatos. **El formato lo dicta el video fuente, no se pregunta.**
 | FPS | 30 | 30 |
 | Duración típica | 30–90 s | 60 s – 3 min |
 
-**Desde la doctrina de 2026-09-15, todo REEL usa el layout `triband` por defecto** (§4) —
-no un modo que se elige pieza a pieza. YOUTUBE no lo lleva: el triband reparte el lienzo en
-tres bandas verticales y no tiene sentido en 16:9. `check_triband_default`, en
-`build-composition.py`, para la compilación de un REEL sin `layout`; la escotilla para
-renunciar a él a sabiendas en una pieza concreta es `"layout": {"mode": "none"}`.
+**Desde la doctrina de 2026-09-29, todo REEL va en tres formatos** (§4): `cara`, `partida`
+y `grafico`, con `"layout": {"mode": "formatos"}`. YOUTUBE no lo lleva: es un reparto
+vertical. `check_layout_default`, en `build-composition.py`, para la compilación de un
+REEL sin `layout`; las piezas de antes siguen compilando con su `triband`, y la escotilla
+para renunciar a sabiendas es `"layout": {"mode": "none"}`.
 
 ### Regla de detección — obligatoria antes de crear el proyecto
 
@@ -557,13 +557,25 @@ cuadro sale del encuadre si el zoom se abre desde el centro.
 atención humana»), la tesis: son los momentos en que un gráfico le roba el argumento a la
 cara, y van a plano lleno (`kind: "full"`) aunque la pieza sea triband.
 
-### El layout `triband`
+### Los tres formatos (layout `formatos`) — por defecto desde 2026-09-29
 
-**Desde la doctrina de 2026-09-15, es el layout por defecto de TODOS los reels de este
-proyecto** (§1) — ya no un modo que una pieza elige aparte. `check_triband_default`, en
-`build-composition.py`, para la compilación de cualquier pieza REEL sin bloque `layout`; no
-corre en YOUTUBE, porque el triband reparte el lienzo en tres bandas verticales y en 16:9
-no hay banda de arriba que llenar. La escotilla para renunciar a él a sabiendas en una
+Doctrina de 2026-09-29, a pedido de Ezequiel: nada de "textos y cuadros". La pieza alterna
+tres formatos con corte seco: **`cara`** (encuadre `full` con zoom), **`partida`**
+(encuadre `band`: el visual arriba en y 0–960 con `band: "top"`, Ezequiel abajo en
+y 960–1920) y **`grafico`** (encuadre `off` bajo un visual opaco a lienzo completo). El
+plan declara solo `"layout": {"mode": "formatos"}` y `layout_formatos.resolver` completa
+las dos bandas a la mitad exacta. Reparto de cerca de un tercio cada uno, cambio cada 1–3 s,
+un `grafico` no pasa de ~3 s seguidos. El acercamiento de `cara` lo limita la fuente
+(`check_cara_zoom`: ×1,20 con 1080p, ×1,40 con 4K). Todo el detalle, con un plan de
+ejemplo, en `references/formatos.md`.
+
+### El layout `triband` (piezas de antes del 2026-09-29)
+
+Fue el layout por defecto de los reels entre el 2026-09-15 y el 2026-09-29; hoy lo es
+`formatos` (arriba). `check_layout_default`, en
+`build-composition.py`, para la compilación de cualquier pieza REEL sin bloque `layout` y
+recomienda `formatos`; no corre en YOUTUBE, porque los dos son repartos verticales y en 16:9
+no hay banda de arriba que llenar. La escotilla para renunciar a un layout a sabiendas en una
 pieza REEL concreta es `"layout": {"mode": "none"}` — el gate la nombra en su mensaje de
 error, porque una salida sin documentar es una salida que nadie usa y un gate que alguien
 acaba comentando.
@@ -757,6 +769,21 @@ pared. La firma del subtítulo sobre metraje es el **filete de 7 px**: un píxel
 oscura, filete claro—; la regla no). Y se cuenta la **tinta plena**, no el antialias: un
 píxel suelto a media luma por debajo del gate es borde de letra, no tinta.
 
+### El subtítulo sobre la división (`formatos`)
+
+En `partida` el bloque se CENTRA sobre la línea de división (y960): mitad sobre el visual,
+mitad sobre el hablante, con la piel de filete (`on-dark`) porque la mitad de abajo cae
+sobre el metraje. Nunca baja hasta la cara: si lo haría (el `top_frac` proyectado con
+`face_top_y`), la compilación para y dice que se trocee el bloque o se baje el `anchor`.
+En `cara` y `grafico` el subtítulo sigue las reglas de siempre.
+
+### La palabra del CTA
+
+`cta_palabra` (en `plan-cta-<p>.json`) dibuja la palabra clave del CTA en Fraunces Italic
+800, 1,45× el tamaño del subtítulo, entre comillas curvas, 12 px debajo del bloque que
+suena, fija mientras dura el CTA. Es el único cambio de familia tipográfica de la pieza.
+Los bloques de su ventana le dejan sitio por encima del 20 % de la plataforma.
+
 ### La excepción `triband`
 
 Se llama «excepción» por el mecanismo de anclaje, no por lo rara que es: desde que el
@@ -851,6 +878,13 @@ CTA simplificado a un solo elemento.
 ---
 
 ## 7. Sistema de visuales
+
+**Mostrar, no escribir** (doctrina 2026-09-29). En pantalla solo hay texto cuando es parte
+de una interfaz —un archivo, un botón, un contador, un nombre de perfil—. `keyword_hero`,
+`step_grid` y `chip_grid` no se usan como visual principal de un momento: repiten con
+palabras lo que ya dice el subtítulo. El visual muestra la cosa y el verbo de la frase es lo
+que se mueve (las 12 ideas de la doctrina del plan de edición, `Reels/plan-edicion/
+referencias/estilo-animaciones.md` en el repo de Marketing).
 
 **La técnica varía según qué es esa cosa.** Repetir siempre la misma es lo que hace que un
 video parezca una plantilla.
@@ -1803,6 +1837,9 @@ Cada medición tiene una trampa, y todas se pagaron:
 ## 13. Reglas duras
 
 **Hacer**
+- **Declarar `"layout": {"mode": "formatos"}` en todo REEL nuevo** y armar cada momento en
+  `cara`, `partida` o `grafico` (`references/formatos.md`).
+- **Mostrar, no escribir**: el texto en pantalla solo como parte de una interfaz.
 - Correr `detect-format.sh` antes de crear el proyecto. El formato se mide.
 - Identificar el material por su guion y su transcript, no por el número de carpeta.
 - Medir la cara, no estimarla.
@@ -1861,6 +1898,8 @@ Cada medición tiene una trampa, y todas se pagaron:
   repo a propósito; lo que define la pieza no.
 
 **No hacer**
+- Usar `keyword_hero`, `step_grid` o `chip_grid` como visual principal de un momento.
+- Acercar la cara más de lo que la fuente aguanta (`check_cara_zoom`).
 - Estilizar el metraje. El color reproduce el original. El usuario lo nota.
 - Tapar la cara con subtítulos.
 - **Estirar el borde de una palabra sobre un sonido que no tiene tono.** Suena, y hasta

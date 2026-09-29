@@ -23,9 +23,10 @@ otros): sin nadie mirando, lo único que sale a la red es `transcribe.py` (Assem
 - lo que en el paso 3b sería una pregunta va a `propuesta.json → preguntas` (pasada `propuesta`);
 - si falta algo para seguir, termina con una sola línea: `ERROR: <qué pasó y cómo arreglarlo>`.
 
-**La doctrina es la del `CLAUDE.md` de este proyecto** y se aplica completa: triband en REEL
-(§4), la banda `top` nunca vacía, nada entra antes de su palabra (§7), cambio de visual cada
-1–2,5 s, logo de cada herramienta que se nombra, los gates de `build-composition.py`, sonido (§12),
+**La doctrina es la del `CLAUDE.md` de este proyecto** y se aplica completa: tres formatos en REEL
+(`cara`, `partida`, `grafico`, §4 y `references/formatos.md` de la skill video-tech-premium),
+mostrar sin escribir (§7), la banda de arriba de `partida` nunca vacía, nada entra antes de su palabra, cambio
+de formato o de visual cada 1–3 s, logo de cada herramienta que se nombra, los gates de `build-composition.py`, sonido (§12),
 color si es HDR (§8), trampas del renderer (§9). Léelo antes de escribir la propuesta o el
 plan. Esta skill solo dice el ORDEN y los ARCHIVOS de una pieza del dashboard.
 
@@ -43,8 +44,9 @@ plan. Esta skill solo dice el ORDEN y los ARCHIVOS de una pieza del dashboard.
   `scripts/armar-version.py` hace ese recorte; tú solo anotas dónde empieza el CTA dicho
   (paso 4 de la propuesta).
 - Si `prompt` es un brief de `plan-edicion` (empieza con `Video fuente:`), úsalo como en el
-  paso 3b: su paleta manda, sus anclas se cuadran con el transcript, sus "Ideas para sumar
-  al editor" NO se construyen.
+  paso 3b: sus anclas se cuadran con el transcript y cada momento trae su formato,
+  fondo y visual: se respetan. Lo que el editor no tenga todavía, se construye (o va como pregunta si
+  pediría un servicio pago).
 
 ## Pasada `propuesta`
 
@@ -80,8 +82,8 @@ plan. Esta skill solo dice el ORDEN y los ARCHIVOS de una pieza del dashboard.
   "pieza": 7, "generado": "2026-09-26T15:08:40", "formato": "REEL", "duracion_corte": 58.4,
   "paleta": "claro",
   "beats": [{ "id": "b1", "desde": 0.0, "hasta": 4.2, "texto": "…", "ancla": "frase exacta del transcript",
-              "banda_arriba": "qué se ve", "componente": { "nombre": "tool_card", "existe": true },
-              "logos": [{ "slug": "claude", "estado": "disponible" }], "material": ["pantalla-3.mov"] }],
+              "formato": "partida", "fondo": "claro", "visual": "qué objeto aparece y qué hace",
+              "logos": ["claude"], "material": ["pantalla-3.mov"] }],
   "preguntas": [{ "id": "q1", "beat": "b3", "pregunta": "…", "opciones": ["…", "…"],
                   "propuesta_por_defecto": "…" }],
   "versiones": [{ "plataforma": "instagram", "cta_texto": "Si quieres el prompt…, comenta PARALELO y te lo mando por privado.", "duracion": 58.4 },
@@ -90,17 +92,18 @@ plan. Esta skill solo dice el ORDEN y los ARCHIVOS de una pieza del dashboard.
 }
 ```
 
+Cada beat lleva `"formato"` (`cara` · `partida` · `grafico`), `"fondo"` (`claro` · `oscuro` · `comic`, no va con `cara`) y `"visual"` (vacío solo con `cara`). Mientras el fondo por escena no esté en el compilador, la pieza sale en la paleta del pedido: el `fondo` se anota igual.
+
 ## Pasada `editar`
 
 **La pieza va por `plan.json` escrito a mano (§2, paso 9), no por el EDL.** `edl-compile.py`
-solo emite stages a lienzo completo: no sabe poner un visual en la banda `top`, un stage
-suyo taparía al hablante (`check_band_speaker_clear`) y sus gates miden presentador *contra*
-stage, lo contrario del triband. Un plan triband completo de referencia:
-`tests/fixtures/videos/18/plan.json`; el fragmento de cada componente, `references/triband.md`
-y `references/visuals.md` de la skill video-tech-premium.
+solo emite stages a lienzo completo: no sabe poner un visual en la banda de arriba. El plan
+va en tres formatos; la geometría, los encuadres de cada formato y un plan de ejemplo están
+en `references/formatos.md` de la skill video-tech-premium, y el fragmento de cada
+componente en `references/visuals.md`.
 
 1. Lee `videos/<n>/propuesta.json` y `VIDEOS ORIGINALES/<n>/respuestas.json`. Las respuestas
-   mandan sobre la propuesta: `beats[].banda_arriba` reemplaza el texto del beat, y cada
+   mandan sobre la propuesta: `beats[].formato` y `beats[].visual` reemplazan los del beat, y cada
    pregunta trae su `respuesta` (si `por_defecto: true`, el usuario no la tocó).
 2. Recorridos de pantalla (paso 7) y música (paso 8) si hacen falta. La cama musical dura lo
    que la versión más larga.
@@ -114,14 +117,17 @@ y `references/visuals.md` de la skill video-tech-premium.
      todas. Si sale `⚠`, úsalo igual y cópialo al final de tu respuesta.
 4. Escribe `videos/<n>/plan-cuerpo.json`: el plan del CUERPO en segundos del corte, que son
    los mismos en todas las versiones. Lleva `format`, la `palette` del pedido, `layout`
-   triband, `voice_gain`, `music`, `keywords`, `shots` (`kind: "band"` con el `anchor` del
-   paso 3), `visuals` (cada beat con `band: "top"`), `sfx` y `cards`. Sin `captions`: el
+   `{"mode": "formatos"}`, `voice_gain`, `music`, `keywords`, `shots` (cada beat según su formato:
+   `partida` = `kind: "band"` con el `anchor` del paso 3; `cara` = `kind: "full"` con zoom;
+   `grafico` = `kind: "off"`), `visuals` (en `partida` con `band: "top"`; en `grafico` sin `band`), `sfx` y `cards`. Sin `captions`: el
    compositor trocea solo. Nada del cuerpo pasa de donde `palabras` marca el CTA.
 5. Por cada versión que tiene CTA (`palabras` marca dónde empieza; si dice «sin CTA», no se
    escribe), `videos/<n>/plan-cta-<p>.json` = `{"shots": […], "visuals": […], "sfx": […]}` en
    segundos de la VERSIÓN, desde esa marca: un solo elemento visual, como pide la curva de
    intensidad (§6), con ids distintos de los del cuerpo. El CTA de Instagram dicho en el
-   cuerpo va aquí, en `plan-cta-instagram.json`, no en `plan-cuerpo.json`.
+   cuerpo va aquí, en `plan-cta-instagram.json`, no en `plan-cuerpo.json`. Si el CTA dice una
+   palabra clave («comenta MARCA»), agrega `"cta_palabra": {"texto": "MARCA", "desde": <s>,
+   "hasta": null}` con `desde` en la palabra, en segundos de la versión.
 6. Por cada versión: `.venv/bin/python scripts/armar-version.py plan --piece <n> --plataforma <p>` →
    color e `input-video.mp4` como dice §8 (con `out/<n>-<p>-rough.mp4`) →
    `.venv/bin/python scripts/build-composition.py --project . --piece <n>-<p>` →

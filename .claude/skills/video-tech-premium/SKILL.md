@@ -164,6 +164,8 @@ pide la pieza.
 Escala de zoom: **1.00 · 1.05 · 1.09 · 1.12 · 1.15**. El 1.15 es escaso — se reserva para
 el remate del hook y para un clímax.
 
+**El layout por defecto es `formatos`** — ver `references/formatos.md`. Lo que sigue describe el `triband` de las piezas de antes.
+
 ### El layout `triband`
 
 **Desde ahora, el layout por defecto de TODOS los reels de este proyecto** — ya no un modo
@@ -174,11 +176,10 @@ ocupa el metraje en cada instante se activa **por segmento** con `kind: "band"` 
 `camera: "BAND"` en un EDL). Declarar `layout` no obliga a que todo el metraje viva en
 banda: sigue conviviendo con `full`/`split`/`pip` segmento a segmento.
 
-**Una pieza REEL sin `layout` falla la compilación** (`check_triband_default`, al lado de
-los otros dos gates de abajo): la ausencia ya no es un estilo, es un olvido. YOUTUBE queda
-fuera del gate — el triband es un reparto vertical y no tiene sentido en 16:9. La escotilla
-para renunciar a él a sabiendas en una pieza concreta es `"layout": {"mode": "none"}`; el
-mensaje de error del gate la nombra.
+**Una pieza REEL sin `layout` falla la compilación** (`check_layout_default`). Desde el
+2026-09-29 el layout por defecto es `formatos` (`"layout": {"mode": "formatos"}`: cara,
+partida y gráfico, ver `references/formatos.md`); el `triband` queda para las piezas de
+antes y la escotilla para renunciar a sabiendas es `"layout": {"mode": "none"}`.
 
 Un visual puede vivir DENTRO de una banda con `"band": "top"` — sin eso, un mockup normal
 es opaco a lienzo completo y **tapa al hablante**, aunque en el navegador no se note nada

@@ -19,12 +19,9 @@ Describe la pieza entera. Es lo único que cambia entre videos.
     "target_mean": -34.0             // dB de media; la voz está en −19.8
   },
 
-  "layout": {                         // OBLIGATORIO en REEL desde la doctrina 2026-09-15
-    "mode": "triband",
-    "bands": {"top": [0, 660], "text": [660, 960], "speaker": [960, 1920]}
-  },
-  // la escotilla, para una pieza REEL que de verdad no necesita el triband:
-  // "layout": {"mode": "none"},
+  "layout": {"mode": "formatos"},    // OBLIGATORIO en REEL: cara · partida · gráfico (references/formatos.md)
+  // piezas de antes: {"mode": "triband", "bands": {...}} · escotilla: {"mode": "none"}
+  "cta_palabra": {"texto": "MARCA", "desde": 41.2, "hasta": null},  // opcional, va en plan-cta-<p>.json
 
   "shots":   [ … ],                  // el METRAJE
   "cards":   [ … ],                  // rótulos FLOTANTES
@@ -33,16 +30,17 @@ Describe la pieza entera. Es lo único que cambia entre videos.
 }
 ```
 
-`layout` declara la geometría del layout `triband` **una sola vez** para toda la pieza —
-`references/triband.md` tiene la geometría completa, la fórmula del `anchor` y los gates
-que fallan si algo no cuadra. Un encuadre `kind: "band"` o un visual con `"band": "top"`
-sin este bloque hace fallar la compilación: no hay lienzo-completo por defecto.
+`layout` elige el reparto del lienzo **una sola vez** para toda la pieza. Desde el
+2026-09-29 es `{"mode": "formatos"}`: las dos bandas (visual 0–960, hablante 960–1920) las
+completa `layout_formatos.resolver`, y cada momento va en `cara` (`full`), `partida`
+(`band` + visual con `"band": "top"`) o `grafico` (`off` bajo un visual opaco) — todo en
+`references/formatos.md`. Las piezas de antes declaran `{"mode": "triband", "bands": …}`
+(`references/triband.md`). Un encuadre `kind: "band"` o un visual con `"band": "top"` sin
+este bloque hace fallar la compilación: no hay lienzo-completo por defecto.
 
-Desde la doctrina de 2026-09-15, **una pieza REEL sin `layout` falla la compilación**
-(`check_triband_default`): el triband es el layout por defecto de todos los reels del
-proyecto, no uno que se elige aparte. YOUTUBE no lleva esta exigencia — el triband es un
-reparto vertical. La escotilla para renunciar a sabiendas en una pieza REEL concreta es
-`"layout": {"mode": "none"}`.
+**Una pieza REEL sin `layout` falla la compilación** (`check_layout_default`), y el mensaje
+recomienda `formatos`. YOUTUBE no lleva esta exigencia. La escotilla para renunciar a
+sabiendas en una pieza REEL concreta es `"layout": {"mode": "none"}`.
 
 ### `palette` — obligatorio
 
@@ -73,7 +71,7 @@ Una entrada por encuadre. Cada una vale hasta la siguiente.
 | --- | --- |
 | `at` | desde cuándo, en la línea del corte |
 | `kind` | `full` · `split` · `pip` · `off` · `band` |
-| `zoom` | solo en `full`. Escala: 1.00 · 1.05 · 1.09 · 1.12 · 1.15 |
+| `zoom` | solo en `full`. Escala: 1.00 · 1.05 · 1.09 · 1.12 · 1.15 · 1.20; con fuente 4K también 1.30 · 1.40 (`check_cara_zoom`) |
 | `anchor` | fracción vertical del encuadre. 0.42–0.46 en `full`, 0.30 en `pip` |
 
 `off` no emite elemento: es el tramo que un visual está tapando, y mantener ahí un
