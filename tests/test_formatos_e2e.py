@@ -43,12 +43,17 @@ def compilado(bc, proyecto):
                "CX", "TOP_FRAC", "SHOTS", "CARDS", "VISUALS", "SFX", "MUSIC", "KEYWORDS",
                "CAPTIONS", "LAYOUT", "CAPTION_SIZE", "CAPTION_MAXW", "CAPTION_MARGIN",
                "CTA_PALABRA")
+    import tokens as TK
     prev = {k: getattr(bc, k, None) for k in nombres}
-    bc.configure(proyecto, "10")
-    bc.build()
-    yield (proyecto / "videos" / "10" / "public" / "index.html").read_text()
-    for k, v in prev.items():
-        setattr(bc, k, v)
+    paleta = TK.PALETTE          # configure() activa la paleta del plan para todo el proceso
+    try:
+        bc.configure(proyecto, "10")
+        bc.build()
+        yield (proyecto / "videos" / "10" / "public" / "index.html").read_text()
+    finally:
+        TK.use(paleta)
+        for k, v in prev.items():
+            setattr(bc, k, v)
 
 
 def test_la_pieza_en_tres_formatos_compila(compilado):
