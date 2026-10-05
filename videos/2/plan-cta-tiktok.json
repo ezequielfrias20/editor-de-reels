@@ -1,0 +1,27 @@
+{
+  "_": "CTA de TikTok de la pieza 2: el clip cta-tiktok.mov («Ve al link de la bio y encuentra el acceso»). Va YA en segundos de la VERSIÓN: la parte común acaba en 61.957 y la versión dura 64.548. Un solo elemento en cuadro, como pide la curva de intensidad (§6), y con ids distintos de los del cuerpo. El «comenta CEREBRO» es de ManyChat y en TikTok no sirve: por eso el cuerpo de esta versión se corta en «…y abandonas a la semana.» y empalma aquí.",
+  "_shots": "Un encuadre `band` nuevo en el empalme: el clip del CTA es OTRA toma y el cambio de elemento es el corte duro que le corresponde. El anchor es el mismo 0.3624 del cuerpo, que es el único que vale en las dos versiones (ver _anchor de plan-cuerpo.json).",
+  "shots": [
+    {"at": 61.957, "kind": "band", "anchor": 0.3624}
+  ],
+  "visuals": [
+    {
+      "id": "v-ctatt-bio",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 61.957,
+      "end": 64.548,
+      "_": "El kicker entra en 62.017 y cubre la banda desde el primer frame del CTA. LA GUÍA COMPLETA no adelanta ninguna palabra: en esta versión la frase de la guía está cortada con el CTA de Instagram, y lo que la pastilla rotula es lo que hay detrás del enlace. La palabra protagonista aterriza en 62.157, 194 ms antes de «link» (62.351) — el suelo del relevo entre dos visuales, que se lee como el corte duro de §6. No lleva fundido de salida: `end` = 64.548 = la duración de la versión, y el CTA tiene que estar encendido en el último frame (trampa 6c).",
+      "mock": ["keyword_hero", {
+        "word": "LINK EN LA BIO",
+        "kicker": "LA GUÍA COMPLETA",
+        "size": 110
+      }]
+    }
+  ],
+  "sfx": [
+    [61.957, "whoosh-short", 0.7, "corte al cierre de TikTok"],
+    [62.351, "pop", 0.75, "aterriza LINK EN LA BIO"]
+  ]
+}

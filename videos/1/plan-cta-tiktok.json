@@ -1,0 +1,28 @@
+{
+  "_": "CTA de TikTok de la pieza 1: el clip cta-tiktok.mov («Ve al link de la bio y encuentra el acceso»). Va YA en segundos de la VERSIÓN: la parte común acaba en 57.067 y la versión dura 59.658. Un solo elemento en cuadro, como pide la curva de intensidad (§6), y con ids distintos de los del cuerpo.",
+  "_v2": "En v1 este CTA venía DESPUÉS del «comenta paralelo», así que empezaba en 62.494; ahora el cuerpo de TikTok se corta en «La instrucción de dividir la tienes que dar tú.» y el clip empalma en 57.067. Todo el bloque se corrió 5.427 s. La nota del usuario es justo esa: el «comenta PARALELO» es de ManyChat y en TikTok no sirve.",
+  "_shots": "Un encuadre `band` nuevo en el empalme, con el mismo anchor que el cuerpo: el clip del CTA es OTRA toma y el cambio de elemento es el corte duro que le corresponde.",
+  "shots": [
+    {"at": 57.067, "kind": "band", "anchor": 0.3965}
+  ],
+  "visuals": [
+    {
+      "id": "v-cta-bio",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 57.067,
+      "end": 59.658,
+      "_": "El kicker entra en 57.127 y cubre la banda desde el primer frame del CTA. EL PROMPT EXACTO no adelanta ninguna palabra: en esta versión esa frase no se dice —está cortada con el CTA de Instagram— y lo que la pastilla rotula es el compositor que el espectador acaba de ver, que es lo que hay detrás del enlace. La palabra protagonista aterriza en 57.267, 194 ms antes de «link» (57.461) — el suelo del relevo entre dos visuales, que se lee como el corte duro de §6. No lleva fundido de salida: `end` = 59.658 = la duración de la versión, y el CTA tiene que estar encendido en el último frame, que es el que se congela cuando el reel vuelve a empezar (trampa 6c).",
+      "mock": ["keyword_hero", {
+        "word": "LINK EN LA BIO",
+        "kicker": "EL PROMPT EXACTO",
+        "size": 110
+      }]
+    }
+  ],
+  "sfx": [
+    [57.067, "whoosh-short", 0.7, "corte al cierre de TikTok"],
+    [57.461, "pop", 0.75, "aterriza LINK EN LA BIO"]
+  ]
+}

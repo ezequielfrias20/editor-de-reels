@@ -1,0 +1,31 @@
+{
+  "_": "CTA de TikTok de la pieza 3: el clip cta-tiktok.mov («Ve al link de la bio y encuentra el acceso»). Va YA en segundos de la VERSIÓN: la parte común acaba en 46.259 y la versión dura 48.844. Ids distintos de los del cuerpo. El «comenta marcas» es de ManyChat y en TikTok no sirve: por eso el cuerpo de esta versión se corta en «…con quitar estas marcas de agua?» y empalma aquí.",
+
+  "_elemento": "UN solo elemento, y es el repositorio: el mosaico de v-nombre otra vez, porque lo que hay detrás del enlace es exactamente eso. «Ve al link de la bio» no se dibuja —sería un rótulo repitiendo lo que el subtítulo ya dice— y en su lugar el frame contesta la pregunta que la frase deja abierta: qué vas a encontrar ahí. Es la rima visual cerrando la pieza en el objeto del que habla.",
+
+  "_shots": "Un encuadre `band` nuevo en el empalme: el clip del CTA es OTRA toma y el cambio de elemento es el corte duro que le corresponde. El anchor es el mismo 0.5274 del cuerpo, el único que vale en las dos versiones (válido en [0.5174, 0.7510] para tiktok). Sin `cta_palabra`: no hay palabra clave que escribir, el CTA es un enlace.",
+
+  "_ultimo_frame": "`end` 48.844 = la duración de la versión, así que el visual NO lleva fundido de salida: el CTA tiene que estar ENCENDIDO en el último cuadro, que es el que se congela cuando el reel vuelve a empezar (trampa 6c de §9).",
+
+  "shots": [
+    {"at": 46.259, "kind": "band", "anchor": 0.5274}
+  ],
+
+  "visuals": [
+    {
+      "id": "v-ctatt-repo", "role": "takeover", "kind": "mockup", "band": "top",
+      "start": 46.259, "end": 48.844, "fade_in": 0.0, "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El mosaico con su resplandor cubre la banda desde el primer cuadro del CTA: la marca de GitHub ya se nombró en 12.358 del cuerpo, que esta versión lleva entero, así que no adelanta nada. El nombre se escribe en «acceso» (48.006), que es la palabra que dice qué hay detrás del enlace.",
+      "mock": ["repo_card", {
+        "variant": "mosaico", "nombre": "WATERMARKS REMOVER",
+        "at": [46.259, 48.006]
+      }]
+    }
+  ],
+
+  "sfx": [
+    [46.259, "whoosh-short", 0.70, "corte al cierre de TikTok: entra el mosaico del repo"],
+    [48.006, "typing",       0.55, "el nombre del repo se escribe en su pastilla"]
+  ]
+}

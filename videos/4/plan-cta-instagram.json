@@ -1,0 +1,28 @@
+{
+  "_": "CTA de Instagram de la pieza 4: la oración dicha a cámara al final del cuerpo («Si quieres el paso a paso con el prompt para adaptar outliers con Claude, comenta viral y te lo mando por privado»). En segundos de la VERSIÓN: la parte común acaba en 64.842 y la versión dura 70.819. Ids distintos de los del cuerpo.",
+  "_reparto": "Tres tramos y un solo elemento visual, como pide la curva de §6. CARA 64.842 → 66.445 («Si quieres el paso a paso»). PARTIDA 66.445 → 68.528: el bloque del prompt entra en «prompt», una miniatura de outlier lo atraviesa en «outliers» y sale con la cara de Ezequiel en «Claude», con el mosaico encendiéndose — el método entero en un gesto. El encuadre `band` arranca en «prompt» y no en «con» para que la banda no nazca vacía. CARA 68.528 → final: corte en «comenta», y la palabra la dibuja `cta_palabra` en su instante.",
+  "_palabra": "La palabra es «viral», la que se dice en la toma (no la del título). Hay que configurar el disparador de ManyChat con VIRAL. El brief pedía además la caja de comentarios tecleando VIRAL en una esquina sobre la cara: un mockup sobre el encuadre `full` taparía el lienzo entero (no hay visual de esquina en el compilador) y la palabra ya la escribe `cta_palabra`; decirla dos veces en el mismo segundo sobra.",
+  "_ultimo_frame": "Sin visual en el tramo final: el último cuadro es la cara con VIRAL puesta (trampa 6c).",
+
+  "shots": [
+    {"at": 64.842, "kind": "full", "zoom": 1.09, "anchor": 0.44},
+    {"at": 66.445, "kind": "band", "anchor": 0.5208},
+    {"at": 68.528, "kind": "full", "zoom": 1.12, "anchor": 0.44}
+  ],
+
+  "visuals": [
+    {"id": "v-ctaig-cruce", "role": "takeover", "kind": "mockup", "band": "top",
+     "start": 66.445, "end": 68.528, "fade_in": 0.0, "fade_out": 0.0, "absolute_times": true,
+     "_": "«prompt» entra el bloque; «outliers» la miniatura del referente lo cruza; «Claude» sale con el avatar propio y el mosaico se enciende.",
+     "mock": ["reel_tarjeta", {"variant": "cruce", "at": [66.445, 67.182, 67.887]}]}
+  ],
+
+  "cta_palabra": {"texto": "VIRAL", "desde": 68.961, "hasta": null},
+
+  "sfx": [
+    [66.445, "whoosh-short", 0.5,  "entra el bloque del prompt"],
+    [67.182, "whoosh",       0.5,  "la miniatura cruza el prompt"],
+    [67.887, "chime",        0.6,  "sale con la cara propia y Claude se enciende"],
+    [68.961, "pop",          0.6,  "aterriza VIRAL"]
+  ]
+}

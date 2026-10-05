@@ -1,0 +1,92 @@
+{
+  "source_duration": 81.964558,
+  "final_duration": 67.70300000000003,
+  "removed": 14.26155799999997,
+  "cuts": [
+    {
+      "start": 0.0,
+      "end": 8.17,
+      "dur": 8.17,
+      "reason": "cabeza muerta"
+    },
+    {
+      "start": 23.639,
+      "end": 24.334,
+      "dur": 0.695,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 27.03,
+      "end": 28.147,
+      "dur": 1.117,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 46.58,
+      "end": 47.38,
+      "dur": 0.8,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 52.075,
+      "end": 52.428,
+      "dur": 0.353,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 56.993,
+      "end": 57.383,
+      "dur": 0.39,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 67.486,
+      "end": 68.06,
+      "dur": 0.574,
+      "reason": "pausa fin de oración"
+    },
+    {
+      "start": 79.802,
+      "end": 81.965,
+      "dur": 2.163,
+      "reason": "cola muerta"
+    }
+  ],
+  "keeps": [
+    {
+      "start": 8.17,
+      "end": 23.639,
+      "dur": 15.469
+    },
+    {
+      "start": 24.334,
+      "end": 27.03,
+      "dur": 2.696
+    },
+    {
+      "start": 28.147,
+      "end": 46.58,
+      "dur": 18.433
+    },
+    {
+      "start": 47.38,
+      "end": 52.075,
+      "dur": 4.695
+    },
+    {
+      "start": 52.428,
+      "end": 56.993,
+      "dur": 4.565
+    },
+    {
+      "start": 57.383,
+      "end": 67.486,
+      "dur": 10.103
+    },
+    {
+      "start": 68.06,
+      "end": 79.802,
+      "dur": 11.742
+    }
+  ]
+}

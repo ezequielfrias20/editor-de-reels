@@ -1,0 +1,489 @@
+{
+  "pieza": 2,
+  "generado": "2026-09-28T12:52:00",
+  "formato": "REEL",
+  "duracion_corte": 67.703,
+  "paleta": "claro",
+  "beats": [
+    {
+      "id": "b1",
+      "desde": 0.15,
+      "hasta": 2.085,
+      "texto": "8 pasos para tener tu segundo cerebro",
+      "ancla": "8 pasos",
+      "banda_arriba": "PLANO LLENO 1.12. Dos step_grid de cuatro casillas lado a lado, las OCHO vacías: solo el número y el hueco. El mapa de la pieza en el primer frame; el vacío es la promesa. Icono stack, stamp, SFX impact-bass-1.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b2",
+      "desde": 2.085,
+      "hasta": 4.078,
+      "texto": "andando antes del domingo",
+      "ancla": "andando antes del domingo",
+      "banda_arriba": "PLANO LLENO 1.12. Objeto calendar: la semana entra bajo la rejilla y el domingo se cerca en terracota, con el icono clock pegado al borde. La rejilla sigue vacía arriba. drop-in, SFX riser.",
+      "componente": { "nombre": "calendar", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b3",
+      "desde": 4.078,
+      "hasta": 5.946,
+      "texto": "y no necesitas saber programar",
+      "ancla": "no necesitas saber programar",
+      "banda_arriba": "PLANO LLENO 1.12. Corte duro: todo sale y queda SIN PROGRAMAR en grande, con el icono code tachado por un trazo. Un solo elemento. punch, SFX impact-bass-2.",
+      "componente": { "nombre": "keyword_hero", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b4",
+      "desde": 5.946,
+      "hasta": 8.493,
+      "texto": "Paso 1: crea una carpeta, una sola",
+      "ancla": "Paso 1: crea una carpeta",
+      "banda_arriba": "Empieza el triband, sin zoom. Vuelve la rejilla y la casilla 1 se enciende con el rótulo UNA CARPETA; las otras siete siguen vacías. Icono material, chip-in, SFX ping.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b5",
+      "desde": 8.493,
+      "hasta": 9.644,
+      "texto": "ahí va todo",
+      "ancla": "ahí va todo",
+      "banda_arriba": "SUSTITUTO (falta la grabación del Finder, ver q1): desktop_manager titulado «Papeles» — semáforo de ventana y sin barra de direcciones, que es lo que lo hace escritorio y no navegador —, con los documentos entrando a puñados y desordenados. Icono doc, box-in, SFX click.",
+      "componente": { "nombre": "desktop_manager", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b6",
+      "desde": 9.644,
+      "hasta": 10.991,
+      "texto": "Paso 2: mete tus…",
+      "ancla": "Paso 2",
+      "banda_arriba": "step_grid: casilla 2, rótulo TODO ADENTRO. Misma estructura casilla → contenido que el paso 1, a propósito. Icono stack, chip-in, SFX ping.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b7",
+      "desde": 10.991,
+      "hasta": 14.485,
+      "texto": "contratos, recibos, pólizas, facturas y notas",
+      "ancla": "contratos, recibos, pólizas, facturas y notas",
+      "banda_arriba": "chip_grid: cinco etiquetas que se amontonan, cada una clavada a SU palabra (contratos 10.991 · recibos 11.640 · pólizas 12.126 · facturas 12.613 · notas 13.213). NO caen alineadas: se pisan como en un cajón. Icono doc, chip-in, SFX pop.",
+      "componente": { "nombre": "chip_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b8",
+      "desde": 14.485,
+      "hasta": 15.669,
+      "texto": "tal como están, sin ordenar",
+      "ancla": "sin ordenar",
+      "banda_arriba": "chip_grid: el montón se desalinea un grado más y cae encima el sello SIN ORDENAR. El desorden es el mensaje. Icono knot, stamp, SFX whoosh-short.",
+      "componente": { "nombre": "chip_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b9",
+      "desde": 15.669,
+      "hasta": 16.732,
+      "texto": "Paso 3: abre…",
+      "ancla": "Paso 3",
+      "banda_arriba": "step_grid: casilla 3, rótulo ABRE CLAUDE AHÍ. Icono agent, chip-in, SFX ping. Sostiene hasta 16.732 para que el logo de Claude no entre antes de su palabra.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b10",
+      "desde": 16.732,
+      "hasta": 18.365,
+      "texto": "abre Claude en esa carpeta",
+      "ancla": "abre Claude en esa carpeta",
+      "banda_arriba": "tool_card con el logo de Claude, clavada en la palabra «Claude» (16.732), no en «abre»: el logo llega desde la derecha y el nombre cae desde arriba, dos recorridos para que se lean como dos elementos. La ruta de la carpeta va de kicker. Icono material, glide-x, SFX sparkle.",
+      "componente": { "nombre": "tool_card", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b11",
+      "desde": 18.365,
+      "hasta": 19.487,
+      "texto": "Paso 4: Pídele…",
+      "ancla": "Paso 4",
+      "banda_arriba": "step_grid: casilla 4, rótulo UN ÍNDICE. La primera rejilla queda completa — cuatro de ocho, y eso se ve. Icono check, chip-in, SFX ping.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b12",
+      "desde": 19.487,
+      "hasta": 21.154,
+      "texto": "que lea todo y te arme…",
+      "ancla": "que lea todo",
+      "banda_arriba": "SUSTITUTO (falta la grabación de Claude Code leyendo la carpeta, ver q1): claude_prompt con el pedido tecleándose línea a línea y el logo de Claude de chip en la cabecera. Icono inspect, type-word, SFX typing.",
+      "componente": { "nombre": "claude_prompt", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b13",
+      "desde": 21.154,
+      "hasta": 22.933,
+      "texto": "un índice de qué hay",
+      "ancla": "un índice de qué hay",
+      "banda_arriba": "SUSTITUTO (misma grabación que falta, ver q1): objeto spreadsheet — cabecera de archivo, fila de columnas y las filas del índice. Rejilla con separadores, no lista: es lo que distingue un índice de un montón. Icono doc, rise-in, SFX ping.",
+      "componente": { "nombre": "spreadsheet", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b14",
+      "desde": 22.933,
+      "hasta": 25.548,
+      "texto": "y de qué fecha es cada cosa",
+      "ancla": "de qué fecha es cada cosa",
+      "banda_arriba": "spreadsheet, sin cortar: se revela la COLUMNA DE FECHAS y el resto queda atenuado alrededor, que es lo que dirige la mirada. Icono clock, box-in, SFX ping.",
+      "componente": { "nombre": "spreadsheet", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b15",
+      "desde": 25.548,
+      "hasta": 27.18,
+      "texto": "Paso 5: Pídele que extraiga…",
+      "ancla": "Paso 5",
+      "banda_arriba": "step_grid: la primera rejilla se atenúa y nace la segunda (5 a 8, vacías) al lado; la 5 se enciende, rótulo TODAS LAS FECHAS. Icono stack, chip-in, SFX ping.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b16",
+      "desde": 27.18,
+      "hasta": 29.905,
+      "texto": "todas las fechas de vencimiento en una sola lista",
+      "ancla": "todas las fechas de vencimiento",
+      "banda_arriba": "Objeto appointment-timeline: una línea horizontal nace vacía y se le clavan marcas, MÁS de las que caben cómodas. El exceso es el punto. Icono clock, drop-in, SFX pop.",
+      "componente": { "nombre": "appointment-timeline", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b17",
+      "desde": 29.905,
+      "hasta": 32.966,
+      "texto": "seguros, alquileres, garantías, suscripciones",
+      "ancla": "seguros, alquileres, garantías, suscripciones",
+      "banda_arriba": "appointment-timeline: cuatro de esas marcas se rotulan, cada rótulo en su palabra y sobre su marca exacta (29.905 · 30.562 · 31.107 · 31.668). Técnica distinta al montón del beat 2 a propósito: allí se amontonaban, acá cada una tiene su lugar. Icono doc, stamp, SFX click-soft.",
+      "componente": { "nombre": "appointment-timeline", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b18",
+      "desde": 32.966,
+      "hasta": 34.473,
+      "texto": "El paso 6: Que te diga…",
+      "ancla": "El paso 6",
+      "banda_arriba": "step_grid: casilla 6, rótulo LO QUE VENCE YA. Icono gear, chip-in, SFX ping. Sostiene hasta «cuáles vencen» (ver q5): así la casilla tiene 1.51 s en vez de 0.63.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b19",
+      "desde": 34.473,
+      "hasta": 35.594,
+      "texto": "cuáles vencen",
+      "ancla": "cuáles vencen",
+      "banda_arriba": "appointment-timeline: una ventana se cierra sobre la línea y todo lo de afuera se apaga a gris; de veinte marcas quedan tres. Icono eye, box-in, SFX whoosh.",
+      "componente": { "nombre": "appointment-timeline", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b20",
+      "desde": 35.594,
+      "hasta": 36.798,
+      "texto": "en los próximos 90 días",
+      "ancla": "en los próximos 90 días",
+      "banda_arriba": "stat_grid: 90 DÍAS pasa a cifra protagonista con el reloj al lado y, debajo, las tres marcas que quedaron encendidas. Primer número grande de la pieza. Entra en la palabra «90» (35.594), no en «en»: la línea anterior sostiene el hueco. Icono clock, count-roll, SFX chime.",
+      "componente": { "nombre": "stat_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b21",
+      "desde": 36.798,
+      "hasta": 37.519,
+      "texto": "Paso 7: Guarda…",
+      "ancla": "Paso 7",
+      "banda_arriba": "step_grid: casilla 7, la ÚNICA de las ocho que entra en TERRACOTA. Se sella más fuerte que las anteriores. Icono spark, stamp, SFX impact-bass-2 — rompe a propósito la cadena de pings: el oído entiende que este paso pesa distinto antes de que se diga por qué. Solo 0.72 s: ver q3.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b22",
+      "desde": 37.519,
+      "hasta": 39.474,
+      "texto": "Guarda este pedido como una skill",
+      "ancla": "Guarda este pedido como una skill",
+      "banda_arriba": "claude_prompt: el pedido largo de los pasos 4 a 6 escrito entero, ocho líneas, con el logo de Claude de chip en la cabecera; las líneas se pliegan de abajo hacia arriba. Icono build, type-word, SFX key-press.",
+      "componente": { "nombre": "claude_prompt", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b23",
+      "desde": 39.474,
+      "hasta": 41.493,
+      "texto": "para no volver a escribirlo nunca",
+      "ancla": "no volver a escribirlo nunca",
+      "banda_arriba": "idea_fate: el bloque de ocho líneas queda tachado y en su lugar aparece una sola línea corta, /vencimientos. La diferencia de tamaño entre las dos cosas es el argumento entero. Icono repo, set-hidden, SFX whoosh.",
+      "componente": { "nombre": "idea_fate", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b24",
+      "desde": 41.493,
+      "hasta": 43.176,
+      "texto": "Paso 8: Déjalo programado…",
+      "ancla": "Paso 8",
+      "banda_arriba": "step_grid: casilla 8. La segunda rejilla se completa y por primera vez se ven las OCHO llenas a la vez, con la 7 destacando en terracota. Icono check, chip-in, SFX ping. Sostiene hasta «los lunes» (ver q4): 1.68 s en vez de 0.56, y el calendario no adelanta su palabra.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b25",
+      "desde": 43.176,
+      "hasta": 44.458,
+      "texto": "los lunes a la mañana",
+      "ancla": "los lunes a la mañana",
+      "banda_arriba": "Objeto calendar: vuelve la semana del hook, ahora con el LUNES marcado y repitiéndose hacia adelante (lunes, lunes, lunes) hasta salir de cuadro. Mismo objeto, otra cosa dicha — la rima visual del hook. Icono gear, glide-x, SFX click-soft.",
+      "componente": { "nombre": "calendar", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b26",
+      "desde": 44.458,
+      "hasta": 46.058,
+      "texto": "y te llega el resumen solo",
+      "ancla": "te llega el resumen solo",
+      "banda_arriba": "Objeto msg-card: la tarjeta de notificación con el resumen aterriza y se QUEDA QUIETA hasta el final del beat. Nadie la pidió y no se mueve nada más: ese segundo y medio es el descanso antes del clímax, y la música baja ~6 dB. Icono download, drop-in, SFX notification.",
+      "componente": { "nombre": "msg-card", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b27",
+      "desde": 46.058,
+      "hasta": 49.038,
+      "texto": "Ahora le preguntas cualquier cosa de tu vida administrativa",
+      "ancla": "le preguntas cualquier cosa de tu vida administrativa",
+      "banda_arriba": "SUSTITUTO (falta la grabación de la consulta final, ver q1): claude_prompt con el logo de Claude en la cabecera. El CAMPO vacío entra en 46.058 —es chrome, no adelanta nada— y la pregunta se teclea desde «le preguntas» (46.713). Icono pointer, type-word, SFX typing.",
+      "componente": { "nombre": "claude_prompt", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b28",
+      "desde": 49.038,
+      "hasta": 51.123,
+      "texto": "y te responde con el archivo exacto",
+      "ancla": "te responde con el archivo exacto",
+      "banda_arriba": "SUSTITUTO (misma grabación que falta, ver q1): chat_unanswered con reply — baja la burbuja de respuesta y lo que se encierra y se destaca es el NOMBRE DEL ARCHIVO citado, no la respuesta. Lo que se dirige la mirada es la fuente. Icono doc, box-in, SFX ping.",
+      "componente": { "nombre": "chat_unanswered", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b29",
+      "desde": 51.123,
+      "hasta": 52.277,
+      "texto": "cuándo vence el seguro",
+      "ancla": "cuándo vence el seguro",
+      "banda_arriba": "stat_grid, primera de la terna. Los otros dos huecos quedan visibles y VACÍOS, con borde discontinuo. Icono clock, count-roll, SFX chime. Los valores concretos están por decidir: ver q2.",
+      "componente": { "nombre": "stat_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b30",
+      "desde": 52.277,
+      "hasta": 54.33,
+      "texto": "cuánto pagaste el año pasado",
+      "ancla": "cuánto pagaste el año pasado",
+      "banda_arriba": "stat_grid, segunda: entra al lado de la primera, que sigue en cuadro. Queda un hueco. Icono check, count-roll, SFX chime (idéntico al anterior). Ver q2.",
+      "componente": { "nombre": "stat_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b31",
+      "desde": 54.33,
+      "hasta": 56.161,
+      "texto": "qué decía la cláusula 8",
+      "ancla": "qué decía la cláusula 8",
+      "banda_arriba": "stat_grid, tercera: CLÁUSULA 8 completa la terna y las tres quedan juntas un beat entero. Icono inspect, scale-pop, SFX sparkle — NO chime: la terna se cierra con otro timbre. Ver q2.",
+      "componente": { "nombre": "stat_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b32",
+      "desde": 56.161,
+      "hasta": 58.598,
+      "texto": "Lo que casi nadie hace es el paso 7",
+      "ancla": "Lo que casi nadie hace es el paso 7",
+      "banda_arriba": "PLANO LLENO 1.09 (acá la cara es el argumento; los gráficos flotan sobre él). step_grid: las dos rejillas completas vuelven y se apagan siete casillas, una por una y rápido. Queda sola la 7, en terracota, con todo el espacio alrededor. Icono spark, set-hidden, SFX whoosh.",
+      "componente": { "nombre": "step_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b33",
+      "desde": 58.598,
+      "hasta": 60.747,
+      "texto": "Sin eso repites la instrucción cada vez",
+      "ancla": "repites la instrucción cada vez",
+      "banda_arriba": "PLANO LLENO 1.09. cv_echo: el pedido largo del beat 5 tecleado tres veces seguidas, una debajo de otra, cada vez más apretado, con el signo de igual entre las copias — y el = entra el ÚLTIMO. Icono repo, type-word, SFX key-press.",
+      "componente": { "nombre": "cv_echo", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b34",
+      "desde": 60.747,
+      "hasta": 61.957,
+      "texto": "y abandonas a la semana",
+      "ancla": "y abandonas a la semana",
+      "banda_arriba": "PLANO LLENO 1.09. Objeto calendar, corte duro: vuelve la semana del hook y los días se apagan uno a uno hasta quedar vacía. La imagen que abrió la pieza, al revés. Icono clock, fade-to, SFX error — el único sonido negativo de la pieza, no se repite en ningún otro lado. Cierra el cuerpo: lo que sigue es el CTA de cada versión.",
+      "componente": { "nombre": "calendar", "existe": true },
+      "logos": [],
+      "material": []
+    }
+  ],
+  "preguntas": [
+    {
+      "id": "q1",
+      "beat": "b5",
+      "pregunta": "El brief lista tres grabaciones y dos capturas como «falta grabar o conseguir» (el Finder con la carpeta; Claude Code leyendo la carpeta y devolviendo el índice; la consulta final, que es el clímax; la skill guardada; el schedule de los lunes). Ninguna se subió: el pedido solo trae cuerpo-3.mov y cta-tiktok.mov, sin ningún clip con rol pantalla o apoyo. La regla de oro del §7 manda usar la grabación CUANDO EXISTE; como no existe, esos beats van con mockups declarados. Afecta a b5, b12, b13, b14, b27 y b28 — y el beat 6 entero, que el brief define como «el clímax, y pasa TODO sobre producto real», pasaría a ser gráfico.",
+      "opciones": [
+        "Grabar las tres tomas y subirlas como clips con rol pantalla; se rehace la propuesta con screen_panel, tool_recording y screen_overlay tal como pide el brief.",
+        "Montar esos seis beats con mockups declarados: desktop_manager (b5), claude_prompt (b12, b27), spreadsheet (b13, b14) y chat_unanswered con reply (b28)."
+      ],
+      "propuesta_por_defecto": "Montar esos seis beats con mockups declarados: desktop_manager para el Finder, claude_prompt para el pedido y para la consulta final, spreadsheet para el índice con su columna de fechas y chat_unanswered con reply para la respuesta que cita el archivo. Es lo que dice el §7 cuando la grabación no existe, y deja la pieza entregable sin esperar material."
+    },
+    {
+      "id": "q2",
+      "beat": "b29",
+      "pregunta": "La terna del clímax (b29-b31) necesita tres valores concretos y el PDF del que sale cada uno: la fecha de vencimiento del seguro, el importe del año pasado y el texto de la cláusula 8. El brief mismo los deja para «una vez estén las grabaciones», y no están. El §7 prohíbe inventar cifras que nadie dijo (es el error que documenta con stat_grid).",
+      "opciones": [
+        "Pasar los tres valores y los tres nombres de archivo, anonimizados; van en stat_grid como el brief pide, cifra grande arriba y el PDF chico debajo.",
+        "Mostrar las tres PREGUNTAS tal como se dicen, cada una clavada a su palabra, con el hueco del dato en borde discontinuo; no se inventa ninguna cifra."
+      ],
+      "propuesta_por_defecto": "Mostrar las tres preguntas tal como se dicen, cada una clavada a su palabra, con el hueco del dato dibujado en borde discontinuo — el mismo idioma que calendar usa para la hora sin paciente. No se inventa ninguna cifra y el frame sigue siendo la terna que el guion enumera."
+    },
+    {
+      "id": "q3",
+      "beat": "b21",
+      "pregunta": "La casilla 7 —el único terracota de la pieza— tiene solo 0.72 s antes de «Guarda este pedido», porque él encadena «Paso 7: Guarda…» sin pausa. El brief pide que ese sello entre «más fuerte y más lento» que los pings anteriores, que duran entre 1.1 y 1.6 s cada uno; en 0.72 s no puede ser más lento que ellos.",
+      "opciones": [
+        "Dejarlo literal: casilla 7 en 0.72 s y claude_prompt desde «Guarda» (37.519), con la ruptura de patrón sostenida por el cambio de SFX (impact-bass-2 en vez de ping).",
+        "Sostener la rejilla hasta «una skill» (38.673) para que el sello tenga 1.88 s, y arrancar claude_prompt ahí — pero entonces el claude_prompt baja a 0.80 s."
+      ],
+      "propuesta_por_defecto": "Dejarlo literal: casilla 7 en 0.72 s y claude_prompt desde «Guarda». La ruptura de patrón la carga el sonido (impact-bass-2 rompiendo la cadena de pings) y el terracota, que es lo único de ese color en toda la pieza; sostener la rejilla solo traslada el problema al claude_prompt."
+    },
+    {
+      "id": "q4",
+      "beat": "b24",
+      "pregunta": "El brief ancla el calendar en «déjalo programado los lunes a la mañana», que empieza en 42.054 con la palabra «Déjalo». Pero «Déjalo programado» todavía no nombra el lunes, y el calendario con el lunes marcado entraría 1.12 s antes de su palabra. Moverlo a «los lunes» (43.176) además le da a la casilla 8 —el frame en que se ven las ocho llenas por primera vez— 1.68 s en vez de 0.56.",
+      "opciones": [
+        "Anclar el calendar en «los lunes» (43.176) y sostener la rejilla completa hasta ahí.",
+        "Dejarlo literal en «Déjalo» (42.054) como dice el brief."
+      ],
+      "propuesta_por_defecto": "Anclar el calendar en «los lunes» (43.176). Es «nada entra antes de su palabra» del §7, y de paso deja respirar el único frame de la pieza en que se ven las ocho casillas llenas."
+    },
+    {
+      "id": "q5",
+      "beat": "b18",
+      "pregunta": "Mismo caso que q4 un beat antes: el brief ancla el cierre de ventana de la línea de tiempo en «que te diga cuáles vencen» (33.591), lo que deja la casilla 6 en 0.63 s. Anclándolo en «cuáles vencen» (34.473) la casilla tiene 1.51 s y la ventana se cierra justo sobre la palabra que la nombra.",
+      "opciones": [
+        "Anclar el cierre de ventana en «cuáles vencen» (34.473).",
+        "Dejarlo literal en «Que te diga» (33.591)."
+      ],
+      "propuesta_por_defecto": "Anclar el cierre de ventana en «cuáles vencen» (34.473): la casilla 6 pasa de 0.63 a 1.51 s y el gesto cae sobre la palabra que lo describe."
+    },
+    {
+      "id": "q6",
+      "beat": "b34",
+      "pregunta": "El brief pone tres momentos en la zona del CTA: la rejilla de ocho reencendida en «la guía con los 8 pasos», CEREBRO en la caja de comentario, y el envío con las ocho casillas vacías reapareciendo para cerrar el loop. El plan del CTA va aparte y lleva un solo elemento visual (curva de intensidad, §6) — cosa que el propio brief pide en su sección de ritmo («CTA: un solo elemento en cuadro»). Además, la trampa 6c obliga a que el último frame sea el CTA encendido, así que el destello de las casillas vacías en el envío no puede ser lo último que se ve.",
+      "opciones": [
+        "Un solo comment_ui: la caja entra en 61.957 (es chrome, no adelanta nada), CEREBRO se teclea en «comenta» (65.300) y se envía en «envío» (66.599); se pierde el recap de la rejilla y el destello del loop.",
+        "Mantener los tres momentos del brief: step_grid en «la guía», comment_ui con CEREBRO y el destello final — dos elementos en el CTA en vez de uno."
+      ],
+      "propuesta_por_defecto": "Un solo comment_ui, con la caja desde 61.957, CEREBRO en «comenta» y el envío en «envío». Es lo que pide la curva de intensidad y lo que el propio brief escribe en su sección de ritmo; el último frame queda con el CTA encendido, como exige la trampa 6c."
+    },
+    {
+      "id": "q7",
+      "beat": "b10",
+      "pregunta": "El color de marca de Claude es #D97757, un terracota muy cercano al acento de la paleta clara (#C45F38), y el brief reserva el terracota para una sola cosa en toda la pieza: la casilla 7. El chip de Claude aparece cuatro veces (b10, b12, b22, b27-b28). logos.brand_tone() ya lo oscurece hacia la tinta hasta 3:1 contra surface, lo que los separa bastante, pero no del todo.",
+      "opciones": [
+        "Dejar brand_tone como está: el logo va con el color de la marca movido lo justo para leerse.",
+        "Pintar la marca de Claude en tinta neutra para que el terracota quede exclusivo del paso 7."
+      ],
+      "propuesta_por_defecto": "Dejar brand_tone como está. Es la regla de la casa para cualquier marca de terceros y ya mueve el tono lo suficiente; repintar un logo ajeno más allá de lo que pide la legibilidad es cambiarle la identidad, y la casilla 7 se distingue igual por tamaño, sello y sonido."
+    }
+  ],
+  "versiones": [
+    {
+      "plataforma": "instagram",
+      "cta_texto": "Si quieres la guía con los 8 pasos y el texto de cada uno, comenta cerebro y te lo envío por privado.",
+      "duracion": 67.703
+    },
+    {
+      "plataforma": "tiktok",
+      "cta_texto": "Ve al link de la bio y encuentra el acceso.",
+      "duracion": 64.548
+    }
+  ],
+  "avisos": [
+    {
+      "tipo": "formato",
+      "mensaje": "armar-version.py anchor avisa en las DOS versiones: la toma está demasiado cerca de la cámara y no existe un anchor que a la vez deje la cara entera y saque la barbilla del 20 % inferior (instagram necesitaría ≥0.3800 y ≤0.3624; tiktok ≥0.3862 y ≤0.3698). El cuerpo usará el anchor común 0.3624 —el más ajustado de los dos—, que deja la cara sin cortar con la barbilla unos 17 px dentro de la zona de la interfaz de la plataforma."
+    },
+    {
+      "tipo": "alineacion",
+      "mensaje": "refine-timings marcó 9 palabras con alineación imposible en cuatro tramos (para, saber · Guarda, este · cualquier · semana., quieres, guía, envío). Los cuatro tramos se re-transcribieron sueltos: todas las palabras quedan confirmadas en su sitio dentro de ±100 ms, o sea que el pase largo las midió cortas pero no las movió. La única discrepancia con consecuencia es la cola de «semana.», que el pase aislado alarga 96 ms sobre un borde de corte; medido, ese tramo está a −41.6 dB sin tono, así que es respiración y el borde se queda donde lo dejó refine-timings. Ningún empalme."
+    },
+    {
+      "tipo": "audio",
+      "mensaje": "audit-breaths pasa en las dos versiones: cero islas sin voz fuera de un span de palabra (instagram 6 islas, tiktok 7, todas dentro de palabra). Ninguna respiración audible sobrevive al corte. Se comparó además cada end con el start siguiente en las 202 palabras: no hay ningún end desbordado."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "La carpeta VIDEOS ORIGINALES/2/ solo trae cuerpo-3.mov y cta-tiktok.mov. No hay guion.md, pero no hace falta: el transcript ES el guion y cuadra con las anclas del brief una a una. Las dos únicas diferencias de texto son «Guarda ESTE pedido» donde el brief escribe «ese», y «te lo envío por privado» donde el brief escribe «te la mando» — manda lo dicho, no el guion escrito."
+    },
+    {
+      "tipo": "formato",
+      "mensaje": "La fuente es SDR bt709, así que el tramo de color del §8 se salta: se renderiza con --sdr a secas, sin LUT. El cuerpo corta de 81.96 s a 67.70 s (se quitan 14.26 s, 17 %). El único logo de la pieza, claude, ya está vendorizado; no hizo falta fetch-logos."
+    }
+  ]
+}

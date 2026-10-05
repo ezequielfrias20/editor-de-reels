@@ -1,0 +1,1015 @@
+{
+  "format": "REEL",
+  "palette": "claro",
+  "_": "PIEZA 3 — «Claude te va a dejar marca de agua y en 24 horas alguien ya la sacó». Pedida desde el dashboard (skill editar-pieza). Este archivo es SOLO LA PARTE COMÚN: 0 → 46.259 s del corte, lo que las dos versiones comparten. Todos los tiempos están en la línea del corte y salen de `armar-version.py palabras --piece 3 --plataforma <p>`, que los trae ya remapeados y son idénticos en instagram y tiktok hasta 46.259. El CTA de cada plataforma va aparte, en plan-cta-<p>.json, ya en segundos de su versión.",
+  "_fuente": "`VIDEOS ORIGINALES/3/cuerpo-5.mov` → out/3-fuente.mov (SDR bt709, 1080x1920: no hace falta el camino del LUT de §8, se renderiza con --sdr a secas). instagram = el cuerpo entero, corte 52.210 s, 163 palabras; tiktok = cuerpo hasta la palabra 143 + cta-tiktok.mov, corte 48.844 s, 153 palabras. La parte común de las dos acaba en 46.259 s («…con quitar estas marcas de agua?»).",
+  "_eje": "EL ARCHIVO ES EL OBJETO QUE CRUZA LA PIEZA. El guion habla de algo que no se ve —un sello que Anthropic mete dentro de cada archivo— así que el trabajo del visual es hacer visible lo invisible, y el mismo archivo cambia de estado cuatro veces: lo sellan (b1), le cae encima una marca de agua de las que SÍ se ven (b13), un láser destapa lo que lleva dentro (b15) y el mismo barrido vuelve vacío (b24, el clímax). Son cuatro instancias de `archivo_marcado` con la MISMA geometría, no cuatro gráficos: es la rima visual de §7 en el eje de la pieza, y es lo que cierra el loop del reel — el último cuadro del cuerpo tiene el encuadre del primero.",
+  "_paleta": "`claro`, la que pide el pedido. Respuesta q5: el brief alternaba fondo oscuro y claro por escena y el compilador todavía no sabe cambiar de suelo por escena, así que la pieza entera va en `claro` y el contraste del brief lo hace el propio archivo cambiando de estado, no el fondo. El `fondo` de cada beat queda anotado en propuesta.json.",
+  "_formatos": "layout `formatos` (doctrina 2026-09-29). Reparto medido sobre los 26 tramos: grafico 17.858 s (38.6 %), partida 16.334 s (35.3 %), cara 12.067 s (26.1 %) — el 37/35/28 que pedía el brief. Dos tramos se salen de la ventana de 1 a 3 s a sabiendas: b1 (grafico, 2.961 s) está justo en el borde y es el HOOK, donde la curva de §6 pide lo más agresivo; y b3 (cara, 0.948 s) es un corte de puntuación entre dos cosas que se muestran — «y aplica» no tiene nada que mostrar, y estirarlo hasta 1 s obligaría a quitarle 52 ms al beat de los tres mosaicos o a empezar la fila antes de «chat», que adelantaría el guion.",
+  "_limites": "LOS LÍMITES SE MOVIERON DOS VECES, y las dos por la trampa 6b de §9 (el hueco que no cae a negro y por eso no se ve). (1) b1 llega hasta 2.961 y no hasta 2.768 como decía la propuesta: en 2.768 arrancaba el encuadre `band` de b2 y su tarjeta no podía entrar hasta «anunció» (3.057), así que la banda de arriba habría nacido con 289 ms de suelo liso que `check_band_top_covered` da por buenos —mide cobertura declarada, no luma—. Con el límite en «lo» (2.961) la tarjeta cubre la banda desde el primer cuadro y el hueco desaparece, sin adelantar nada: lo que entra es el MARCO de la tarjeta, que no nombra ninguna marca. (2) b8 arranca en 12.583 con la página del repo armándose en el offset 0, no en «repositorio» (13.274): esperar a la palabra dejaba 691 ms de stage pelado. Lo que la página NO trae es el nombre del repo, que no se dice hasta 14.366 — en su sitio va un hueco discontinuo, y el nombre se escribe en b9, que es su palabra.",
+  "_banda_top": "Los nueve visuales de `partida` cubren su banda desde el primer cuadro de su tramo, porque en todos lo primero que hay es CHROME: el marco de la tarjeta (b2), los tres marcos de logo (b4), el teclado (b7), el mosaico (b9), la tarjeta de la foto (b13), el abanico de huecos discontinuos (b16), el panel de la terminal con su prompt (b19), el panel de propiedades con sus filas (b21) y la cuadrícula de archivos con el sello ya suspendido (b26). Ninguno nombra nada que el guion no haya dicho, y por eso ninguno necesita sostener el visual anterior: la tensión entre «la banda nunca vacía» y «nada entra antes de su palabra» se resuelve aquí separando ESTRUCTURA de CONTENIDO, que es la salida que §4 documenta para el arranque de una pieza.",
+  "_mostrar_no_escribir": "Ni un rótulo, ni una pastilla de palabra suelta, ni un `keyword_hero`: `cards` va vacío. Todo el texto en pantalla es interfaz literal — un nombre de archivo, una extensión, una pastilla de resolución, la cifra de un contador, el número de estrellas de un repo, un botón CODE, un prompt de terminal, la etiqueta de un metadato y el nombre de cada herramienta debajo de su marca. La única excepción es la palabra MUESTRA de la marca de agua diagonal de b13/b15, y es interfaz literal también: es lo que un banco de imágenes escribe encima de una foto, y está para que se vea aquello que las marcas invisibles NO son.",
+  "_componentes": "Siete componentes nuevos, todos con su camino de FALLO probado (out/3-smoke.py): `archivo_marcado` (4 variantes: sellar · visible · escanear · limpio), `archivos_fila` (2: escaner · cuadricula), `abanico_archivos`, `contador_horas`, `teclado_enter`, `repo_card` (2: pagina · mosaico) e `inspector_archivo` (4: terminal · texto · props · capas). Dos componentes de la librería ganan un parámetro OPCIONAL: `tool_card` gana `at` (clava el logo y el nombre a su palabra; sin él, los offsets de siempre) y `tool_lineup` gana `sello_at`. Dos gestos nuevos en build-composition.py: `jitter` (la cifra que se frena en seco) y `rot-to` (el abanico que se cierra).",
+  "_sonido": "El motivo del brief se mantiene con UN archivo: `impact-bass-1` es el golpe de sello y no suena en ningún otro sitio — en «marca» (b1, el sello baja sobre el archivo), en «Code.» (b4, sobre los tres mosaicos a la vez, a 0.72 para que se lea como el golpe triple y más corto) y en «quitar» (b26, otra vez a 1.0). En b26 el motivo está INVERTIDO, pero en la imagen y no en el archivo: el sello se queda suspendido sin caer y lo que se mueve son los patrones levantándose. Reversar el mp3 habría metido un asset nuevo a la librería por un solo beat, y en este proyecto los argumentos van en la imagen. Los 353 ms entre «ven,» (23.649) y «van» (24.002) van SIN efecto, como pide el brief: ponerle sonido al silencio lo contradice (§12). b23 («Así tus archivos dejan de») también va muda: es la quietud antes del clímax.",
+  "_curva": "HOOK 0–4.3 s el sello cayendo sobre el archivo y quién lo anunció · DÓNDE 4.3–8.1 s los tres mosaicos y el sello triple · LA RESPUESTA 8.1–19.3 s el contador, el Enter, el repo y los tres archivos limpiándose · QUÉ SON 19.3–30.7 s la marca de agua que sí se ve, el láser y el abanico de formatos · QUÉ BORRA 30.7–39.6 s la terminal, los glifos, el EXIF y las capas · CLÍMAX 39.6–43.0 s quietud en cara y el barrido que vuelve vacío · PREGUNTA 43.0–46.3 s la cuadrícula y el sello que no cae.",
+  "layout": {
+    "mode": "formatos"
+  },
+  "keywords": [
+    "Claude",
+    "agua",
+    "Anthropic",
+    "Cowork",
+    "GitHub",
+    "repositorio",
+    "Gemini",
+    "ChatGPT",
+    "escondidas",
+    "Unicode",
+    "EXIF",
+    "incrustadas",
+    "IA",
+    "quitar"
+  ],
+  "voice_gain": 0.7,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.4,
+    "target_mean": -34.0
+  },
+  "_shots": "El `anchor` de los nueve encuadres `band` es 0.5274: `armar-version.py anchor` da válido [0.5028, 0.7500] en instagram y [0.5174, 0.7510] en tiktok, así que 0.5274 es el único valor redondo que vale en las dos (barbilla p95 en 0.5514 del alto, borde superior de la cara en 0.3750, medidos sobre los dos cortes brutos). Con él la barbilla cae en y1512, 24 px por encima del 20 % que pinta la plataforma, y el borde de la cara en y1174, 214 px por debajo del techo de la banda `speaker`. Los ocho encuadres `cara` reparten la escalera 1.05 · 1.09 · 1.12 sin llegar nunca al tope de 1.20 que `check_cara_zoom` permite con esta fuente 1080p: el 1.12 se guarda para los dos remates (b12 «Ojo con esto» y b23, la quietud antes del clímax).",
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "off"
+    },
+    {
+      "at": 2.961,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 4.342,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.44
+    },
+    {
+      "at": 5.29,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 8.069,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.44
+    },
+    {
+      "at": 9.949,
+      "kind": "off"
+    },
+    {
+      "at": 11.089,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 12.583,
+      "kind": "off"
+    },
+    {
+      "at": 14.045,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 15.328,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.44
+    },
+    {
+      "at": 16.792,
+      "kind": "off"
+    },
+    {
+      "at": 19.297,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.44
+    },
+    {
+      "at": 21.111,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 22.846,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.44
+    },
+    {
+      "at": 24.179,
+      "kind": "off"
+    },
+    {
+      "at": 26.701,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 29.397,
+      "kind": "off"
+    },
+    {
+      "at": 30.682,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.44
+    },
+    {
+      "at": 32.187,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 33.68,
+      "kind": "off"
+    },
+    {
+      "at": 35.685,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 37.226,
+      "kind": "off"
+    },
+    {
+      "at": 39.552,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.44
+    },
+    {
+      "at": 41.301,
+      "kind": "off"
+    },
+    {
+      "at": 42.953,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.44
+    },
+    {
+      "at": 44.327,
+      "kind": "band",
+      "anchor": 0.5274
+    },
+    {
+      "at": 46.259,
+      "kind": "band",
+      "anchor": 0.5274
+    }
+  ],
+  "_cards": "Vacío a propósito. En `formatos` la banda de arriba ya hace el trabajo de acompañar lo que se dice, y «mostrar, no escribir» deja sin sitio al único uso que le quedaba a un rótulo: repetir con palabras lo que el subtítulo ya dice.",
+  "cards": [],
+  "_visuals": "Todos los tramos de `grafico` entran y salen con CORTE SECO (fade 0/0): un visual opaco no puede solaparse con el encuadre `band` de antes (`check_band_speaker_clear`) ni el `off` empezar antes de que el visual tape del todo (`check_no_black`). Los de `partida` llevan el mismo 0/0 porque el corte de formato es seco por doctrina, y así el relevo entre dos visuales no paga los ~130 ms de suelo que §4 documenta.",
+  "visuals": [
+    {
+      "id": "v-sellan",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 0.0,
+      "end": 2.961,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "EL HOOK, y el encuadre con el que rima el clímax (v-limpio). El marco del archivo, su nombre y la pastilla de resolución son chrome y están en el cuadro 1: en tres segundos se ve la cosa, no una frase sobre ella. En «Claude» (0.953) el sol aterriza en la esquina; en «marca» (1.997) el sello baja y PRESIONA; en «agua» (2.575) el patrón de glifos se enciende dentro y se apaga, y la tarjeta queda idéntica a como estaba — que es exactamente lo que dice la frase.",
+      "mock": [
+        "archivo_marcado",
+        {
+          "variant": "sellar",
+          "cuerpo": "png",
+          "slug": "claude",
+          "nombre": "salida.png",
+          "meta": "1080 × 1350",
+          "at": [
+            0.953,
+            1.997,
+            2.575
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-anthropic",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 2.961,
+      "end": 4.342,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Quién lo anunció. La tarjeta (marco + marco de logo vacío) cubre la banda desde 2.961 sin nombrar nada; la marca de Anthropic entra en 3.011 y el NOMBRE en 3.459, que es cuando él lo dice. Con los offsets de cortesía de `tool_card` (.10/.18) el nombre habría aterrizado en 3.241, 218 ms antes de su palabra — por eso el componente gana `at`: «nada entra antes de su palabra» aplica al texto igual que a un logo, que es la lección del kicker de `layer_stack`.",
+      "mock": [
+        "tool_card",
+        {
+          "slug": "anthropic",
+          "name": "Anthropic",
+          "at": [
+            3.011,
+            3.459
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-superficies",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 5.29,
+      "end": 8.069,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Las tres superficies, cada una en su palabra: «chat» (5.290), «Cowork» (6.174), «Claude Code» (6.896). En «Code.» (7.218) el sello baja sobre las TRES a la vez — un sello por tesela diría tres cosas y la frase dice una. ⚠ Cowork lleva el sol de Claude y no una marca propia: comprobado sobre claude.com/product/cowork, los únicos assets con «cowork» en el nombre son capturas de producto y todos los <link rel=icon> de la página son el favicon de Claude. Es la misma regla que dice que un repositorio no tiene marca propia; lo que distingue una superficie es su PASTILLA, y las tres la llevan distinta.",
+      "mock": [
+        "tool_lineup",
+        {
+          "tools": [
+            [
+              "claude",
+              "Claude"
+            ],
+            [
+              "claude",
+              "Cowork"
+            ],
+            [
+              "claudecode",
+              "Claude Code"
+            ]
+          ],
+          "at": [
+            5.29,
+            6.174,
+            6.896
+          ],
+          "sello_at": 7.218
+        }
+      ]
+    },
+    {
+      "id": "v-horas",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 9.949,
+      "end": 11.089,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "El tramo empieza EN «24» (9.949) a propósito: así el contador no existe antes de su palabra y no hay un solo cuadro de stage pelado. Baja de 24 a 3 en 738 ms y en «horas» (10.687) se FRENA y vibra. No llega a cero, y eso es la frase: «en menos de 24 horas» dice que sobró tiempo, no que el plazo se agotara.",
+      "mock": [
+        "contador_horas",
+        {
+          "desde": 24,
+          "hasta": 3,
+          "unidad": "HORAS",
+          "at": [
+            9.949,
+            10.687
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-alguien",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 11.089,
+      "end": 12.583,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "«alguien ya subió la solución a GitHub». El teclado es chrome y cubre la banda desde 11.089; la figura entra en «alguien» (11.089), el Enter se hunde y se enciende en «subió» (11.475) y la marca de GitHub en «GitHub» (12.358). La pastilla con el 3 es la MISMA cifra que acaba de frenarse en v-horas, chiquita en una esquina: no es un dato nuevo, es lo que ata este beat al anterior. La figura va sin rasgos porque dibujarle cara a «alguien» sería inventarle una persona concreta.",
+      "mock": [
+        "teclado_enter",
+        {
+          "slug": "github",
+          "name": "GitHub",
+          "horas": "3",
+          "at": [
+            11.089,
+            11.475,
+            12.358
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-repo",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 12.583,
+      "end": 14.045,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "La página del repo, recreada: la grabación que pedía el brief no se subió y la respuesta q4 dice recrearla. Se arma de arriba abajo desde el offset 0 —esperar a «repositorio» (13.274) dejaba 691 ms de stage pelado, la trampa 6b— y las estrellas empiezan a subir justo en esa palabra. ⚠ SIN nombre y SIN dueño: el repo no se llama hasta 14.366 y un handle de usuario es un nombre que nadie dijo, así que en el sitio del título va un hueco discontinuo. El empuje de cámara lo pone `cam`.",
+      "cam": {
+        "at": 0.1,
+        "scale": 1.06,
+        "y": -18
+      },
+      "mock": [
+        "repo_card",
+        {
+          "variant": "pagina",
+          "owner": "",
+          "nombre": "",
+          "estrellas": 412,
+          "at": [
+            12.583,
+            13.274
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-nombre",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 14.045,
+      "end": 15.328,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Y AHORA el nombre. El mosaico con su resplandor cubre la banda desde 14.045 (la marca de GitHub ya se dijo en 12.358, no adelanta nada) y en «Watermarks» (14.366) el nombre se escribe letra a letra en la pastilla. Es la otra mitad del reparto de v-repo: allí entró la estructura, aquí llega el nombre.",
+      "mock": [
+        "repo_card",
+        {
+          "variant": "mosaico",
+          "nombre": "WATERMARKS REMOVER",
+          "at": [
+            14.045,
+            14.366
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-tres",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 16.792,
+      "end": 19.297,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "Tres archivos sellados en fila —las mismas tarjetas de v-sellan, en pequeño: rima visual—. El barrido entra en 16.892 y cada archivo suelta su patrón EN SU PALABRA: «Claude,» (17.177), «Gemini» (17.900), «ChatGPT.» (18.703), y con el patrón sube su marca. Ninguna marca entra antes de su palabra, que es lo que obliga a que las tres tarjetas y sus patrones estén desde el primer cuadro: lo que espera es el patrón levantándose, no el archivo.",
+      "mock": [
+        "archivos_fila",
+        {
+          "variant": "escaner",
+          "cols": 3,
+          "scan_at": 16.892,
+          "items": [
+            {
+              "ext": "PNG",
+              "slug": "claude",
+              "name": "Claude",
+              "at": 17.177
+            },
+            {
+              "ext": "JPG",
+              "slug": "googlegemini",
+              "name": "Gemini",
+              "at": 17.9
+            },
+            {
+              "ext": "SVG",
+              "slug": "openai",
+              "name": "ChatGPT",
+              "at": 18.703
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-diagonal",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 21.111,
+      "end": 22.846,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La ÚNICA marca de agua visible de la pieza, y está para que se vea lo que las otras no son. La tarjeta de la foto con su trama de semitono es chrome y entra en «no» (21.111) —un marco de foto no nombra nada—; en «marcas» (21.721) cae encima la diagonal enorme y se sacude como pegada con cinta. Respuesta q2: mockup declarado con los tokens de la paleta, no una imagen generada; esta pasada no usa servicios pagos.",
+      "mock": [
+        "archivo_marcado",
+        {
+          "variant": "visible",
+          "cuerpo": "foto",
+          "nombre": "producto.jpg",
+          "meta": "2000 × 1333",
+          "at": [
+            21.721
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-dentro",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 24.179,
+      "end": 26.701,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "LA MISMA tarjeta de v-diagonal, con su diagonal puesta desde el primer cuadro: el corte duro entre las dos instancias es lo que deja ver qué cambió. En «escondidas» (24.179) la diagonal se deshace y el archivo queda aparentemente limpio; en «dentro» (24.806) el láser lo barre y aparecen, latiendo entre los píxeles, los glifos escondidos; en «Claude.» (26.492) vuelve su sol a la esquina. Los glifos LATEN con `fade-to`, no se apagan: a opacidad 0 el frame diría que ya no están.",
+      "mock": [
+        "archivo_marcado",
+        {
+          "variant": "escanear",
+          "cuerpo": "foto",
+          "slug": "claude",
+          "nombre": "producto.jpg",
+          "meta": "2000 × 1333",
+          "diagonal": true,
+          "at": [
+            24.179,
+            24.806,
+            26.492
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-abanico-a",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 26.701,
+      "end": 29.397,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El abanico VACÍO entra completo en 26.701: cinco huecos discontinuos que dicen «esto va a ser una pila de formatos» sin nombrar ninguno — el reparto que `step_grid` resuelve para un método. Cada hueco se llena con su palabra: «HTML,» (26.990), «PDF,» (27.776), «PNG,» (28.498). Los dos que quedan pendientes son la pregunta que el beat siguiente contesta.",
+      "mock": [
+        "abanico_archivos",
+        {
+          "slots": [
+            {
+              "ext": "HTML",
+              "at": 26.99
+            },
+            {
+              "ext": "PDF",
+              "at": 27.776
+            },
+            {
+              "ext": "PNG",
+              "at": 28.498
+            },
+            {
+              "ext": "",
+              "at": null
+            },
+            {
+              "ext": "",
+              "at": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-abanico-b",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 29.397,
+      "end": 30.682,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "El mismo abanico a lienzo completo con corte seco, con los tres primeros YA puestos (`ya: true`, sin animarlos: re-animarlos diría «y entonces aparecieron otra vez») y `entra: false`, porque las cinco tarjetas vienen del cuadro anterior. Se termina de llenar en «SVG,» (29.397) y «documentos,» (29.862), y en «todo.» (30.504) la pila se cierra de golpe y todos los patrones laten a la vez con un solo tween.",
+      "mock": [
+        "abanico_archivos",
+        {
+          "entra": false,
+          "cerrar_at": 30.504,
+          "slots": [
+            {
+              "ext": "HTML",
+              "ya": true
+            },
+            {
+              "ext": "PDF",
+              "ya": true
+            },
+            {
+              "ext": "PNG",
+              "ya": true
+            },
+            {
+              "ext": "SVG",
+              "at": 29.397
+            },
+            {
+              "ext": "DOC",
+              "at": 29.862
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-terminal",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 32.187,
+      "end": 33.68,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La terminal del repo, recreada (respuesta q4). El panel y el prompt con su cursor parpadeando son chrome y cubren la banda desde 32.187; en «limpia» (32.733) se teclea el comando y en «3 cosas:» (33.118) se abren TRES RENGLONES VACÍOS, numerados y discontinuos. Vacíos a propósito: las tres cosas se nombran una por una en los tres beats siguientes, y escribirlas aquí adelantaría el guion entero. El área de trabajo va dibujada, nunca un rectángulo negro (la lección de `agent_editor`).",
+      "mock": [
+        "inspector_archivo",
+        {
+          "variant": "terminal",
+          "comando": "remover producto.jpg",
+          "renglones": 3,
+          "at": [
+            32.733,
+            33.118
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-unicode",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 33.68,
+      "end": 35.685,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "La primera de las tres. El archivo abierto con su texto es chrome desde 33.680, y los caracteres invisibles son INVISIBLES —su hueco está en el flujo para que el texto no dé un salto de layout, pero la pastilla que los hace ver se enciende en «Unicode» (34.337), todos a la vez—. Y entonces se borran uno por uno de izquierda a derecha. Que no se vean hasta que se nombran no es un truco: es la frase.",
+      "mock": [
+        "inspector_archivo",
+        {
+          "variant": "texto",
+          "glifos": 7,
+          "at": [
+            34.337
+          ],
+          "linea": "informe final del trimestre con todos los datos del cliente"
+        }
+      ]
+    },
+    {
+      "id": "v-exif",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 35.685,
+      "end": 37.226,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La segunda. El panel de propiedades con sus cinco filas es chrome y entra en «los» (35.685); en «EXIF» (36.503) se vacían DE ABAJO HACIA ARRIBA y cada una deja un hueco discontinuo, no una fila en rojo: una fila roja se lee como «este metadato tiene un problema» y lo que dice la frase es que ahí ya no hay nada (la regla de `calendar` y `chat_unanswered`).",
+      "mock": [
+        "inspector_archivo",
+        {
+          "variant": "props",
+          "at": [
+            36.503
+          ],
+          "filas": [
+            [
+              "Modelo",
+              62
+            ],
+            [
+              "Software",
+              78
+            ],
+            [
+              "Fecha",
+              44
+            ],
+            [
+              "Autor",
+              56
+            ],
+            [
+              "Perfil",
+              70
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-capas",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 37.226,
+      "end": 39.552,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "La tercera. Vista en corte del archivo por capas, chrome desde 37.226; en «incrustadas» (37.867) la última —la incrustada, la única en acento— se despega y sale de cuadro, y en «archivos.» (38.750) el mismo corte se repite en cadena en PDF, HTML y DOC. La cadena es el «en los archivos» de la frase: no es otra cosa, es la misma cosa en todos.",
+      "mock": [
+        "inspector_archivo",
+        {
+          "variant": "capas",
+          "at": [
+            37.867,
+            38.75
+          ],
+          "capas": [
+            "contenido",
+            "estilo",
+            "metadatos",
+            "incrustado"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-limpio",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 41.301,
+      "end": 42.953,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "cap_top": 1400,
+      "absolute_times": true,
+      "_": "EL CLÍMAX Y EL CIERRE DEL LOOP: el mismo archivo de v-sellan, mismo nombre, misma geometría, mismo encuadre. En «delatar» (41.301) el láser barre otra vez y NO ENCUENTRA NADA —no hay glifos, y ese vacío es el beat entero: dibujarlos tachados diría «el patrón falló» y lo que dice la frase es que ya no está—. En «IA.» (42.504) el resplandor limpio crece y llena el cuadro. El archivo no se tiñe ni se encoge: no le pasó nada malo, simplemente ya no delata (la lección de `idea_veneer`).",
+      "mock": [
+        "archivo_marcado",
+        {
+          "variant": "limpio",
+          "cuerpo": "png",
+          "slug": "claude",
+          "nombre": "salida.png",
+          "meta": "1080 × 1350",
+          "at": [
+            41.301,
+            42.504
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-cuadricula",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 44.327,
+      "end": 46.259,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Respuesta q1. El brief pedía aquí el sello gigante bajando y marcando la cuadrícula entera, pero la frase que se dijo pregunta por QUITAR las marcas: un sello que marca diría lo contrario de lo que se oye. Así que la cuadrícula y el sello están los dos desde el primer cuadro —el sello SUSPENDIDO arriba, sin llegar a caer— y en «quitar» (45.002) los ocho patrones se levantan a la vez y se deshacen. El motivo del vídeo, invertido: el sello es lo único que no se mueve.",
+      "mock": [
+        "archivos_fila",
+        {
+          "variant": "cuadricula",
+          "cols": 4,
+          "sello": true,
+          "items": [
+            {
+              "ext": "PNG",
+              "at": 45.002
+            },
+            {
+              "ext": "JPG",
+              "at": 45.002
+            },
+            {
+              "ext": "SVG",
+              "at": 45.002
+            },
+            {
+              "ext": "PDF",
+              "at": 45.002
+            },
+            {
+              "ext": "HTML",
+              "at": 45.002
+            },
+            {
+              "ext": "DOC",
+              "at": 45.002
+            },
+            {
+              "ext": "CSV",
+              "at": 45.002
+            },
+            {
+              "ext": "MD",
+              "at": 45.002
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-ctatt-repo",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 46.259,
+      "end": 48.844,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El mosaico con su resplandor cubre la banda desde el primer cuadro del CTA: la marca de GitHub ya se nombró en 12.358 del cuerpo, que esta versión lleva entero, así que no adelanta nada. El nombre se escribe en «acceso» (48.006), que es la palabra que dice qué hay detrás del enlace.",
+      "mock": [
+        "repo_card",
+        {
+          "variant": "mosaico",
+          "nombre": "WATERMARKS REMOVER",
+          "at": [
+            46.259,
+            48.006
+          ]
+        }
+      ]
+    }
+  ],
+  "_sfx": "32 efectos y cada uno señala algo que pasa en el cuadro. `impact-bass-1` es el sello y nada más lo usa (1.997 · 7.218 · 45.002). Tres huecos deliberados: los 353 ms entre «ven,» y «van escondidas», el beat b23 completo, y los 6.1 s de 18.703 a 24.806 (abajo). Los tiempos declarados son cuándo se OYE el efecto: 16 de los 19 archivos traen silencio de cabecera y `build_sfx` adelanta el `data-start` esa cantidad él solo (§12) — `whoosh-cinematic` son 1553 ms, así que el de 41.301 arranca a reproducirse dentro de la quietud de b23 pero suena en su sitio.",
+  "_sin_glitch2": "La caída de la marca de agua diagonal (21.721) va SIN efecto, y es la nota v2 de Ezequiel: «quita el sonido que se escucha muy mal que empieza en el 21s y termina en el 24s-25s». Era un `glitch-2` de 0.85, y el problema no era el nivel sino el archivo: `glitch-2.mp3` dura 3.504 s y su envolvente es una MESETA plana de −4 a −11 dB de punta a punta, sin ataque ni caída. O sea que no marcaba un instante, roncaba encima de «no hablamos de las marcas de agua de siempre, estas no se ven» de 21.72 a 25.22 — justo lo que §12 prohíbe («el efecto marca algo que pasa en imagen», no relleno). Medido con una envolvente RMS de 50 ms sobre el propio fichero. No se sustituye por otro: el sello de la casa es `impact-bass-1` y está reservado a sus tres momentos, y un cuarto golpe ahí lo gastaría. El hueco de 6.1 s que queda le sienta bien a la frase, que es la que dice que estas marcas NO se ven. ⚠ `glitch-2` no vuelve a usarse en ninguna pieza: por forma de onda no es un efecto, es una cama.",
+  "sfx": [
+    [
+      0.953,
+      "pop",
+      0.7,
+      "el sol de Claude aterriza en la esquina del archivo"
+    ],
+    [
+      1.997,
+      "impact-bass-1",
+      1.0,
+      "EL SELLO baja y presiona: el motivo del vídeo"
+    ],
+    [
+      2.575,
+      "sparkle",
+      0.75,
+      "el patrón de glifos se enciende dentro del archivo"
+    ],
+    [
+      2.961,
+      "whoosh-short",
+      0.65,
+      "corte a partida: entra la tarjeta del anuncio"
+    ],
+    [
+      3.459,
+      "pop",
+      0.72,
+      "la marca de Anthropic cae en su sitio"
+    ],
+    [
+      5.29,
+      "pop",
+      0.7,
+      "entra el mosaico del chat de Claude"
+    ],
+    [
+      6.174,
+      "pop",
+      0.74,
+      "entra el de Cowork"
+    ],
+    [
+      6.896,
+      "pop",
+      0.78,
+      "entra el de Claude Code"
+    ],
+    [
+      7.218,
+      "impact-bass-1",
+      0.72,
+      "el sello otra vez, sobre los tres a la vez"
+    ],
+    [
+      9.949,
+      "typing",
+      0.5,
+      "el contador arranca a bajar de 24"
+    ],
+    [
+      10.687,
+      "click",
+      0.8,
+      "se frena en seco y la cifra vibra"
+    ],
+    [
+      11.475,
+      "key-press",
+      0.85,
+      "le da a Enter con las dos manos"
+    ],
+    [
+      12.358,
+      "pop",
+      0.75,
+      "entra la marca de GitHub"
+    ],
+    [
+      12.583,
+      "whoosh-short",
+      0.7,
+      "corte seco: la página del repo se arma de arriba abajo"
+    ],
+    [
+      13.274,
+      "ping",
+      0.8,
+      "el contador de estrellas empieza a subir"
+    ],
+    [
+      14.045,
+      "whoosh",
+      0.65,
+      "el mosaico del repo, solo con su resplandor"
+    ],
+    [
+      14.366,
+      "typing",
+      0.55,
+      "el nombre se escribe letra a letra en la pastilla"
+    ],
+    [
+      16.892,
+      "whoosh-cinematic",
+      0.6,
+      "el barrido tipo escáner recorre los tres archivos"
+    ],
+    [
+      17.177,
+      "sparkle",
+      0.7,
+      "el patrón del archivo de Claude se levanta y se deshace"
+    ],
+    [
+      17.9,
+      "sparkle",
+      0.73,
+      "el de Gemini"
+    ],
+    [
+      18.703,
+      "sparkle",
+      0.76,
+      "el de ChatGPT"
+    ],
+    [
+      24.806,
+      "impact-bass-2",
+      0.8,
+      "el pulso bajo: el láser entra en el archivo"
+    ],
+    [
+      25.03,
+      "sparkle",
+      0.65,
+      "los glifos escondidos se encienden entre los píxeles"
+    ],
+    [
+      26.99,
+      "pop",
+      0.7,
+      "se llena el hueco de HTML"
+    ],
+    [
+      27.776,
+      "pop",
+      0.74,
+      "el de PDF"
+    ],
+    [
+      28.498,
+      "pop",
+      0.78,
+      "el de PNG"
+    ],
+    [
+      29.397,
+      "pop",
+      0.82,
+      "el de SVG"
+    ],
+    [
+      29.862,
+      "pop",
+      0.86,
+      "el de documentos"
+    ],
+    [
+      30.504,
+      "impact-bass-2",
+      0.85,
+      "la pila se cierra de golpe"
+    ],
+    [
+      32.733,
+      "typing",
+      0.6,
+      "se teclea el comando sobre el archivo"
+    ],
+    [
+      33.118,
+      "click",
+      0.7,
+      "Enter: se abren los tres renglones vacíos"
+    ],
+    [
+      34.337,
+      "glitch-1",
+      0.7,
+      "los caracteres invisibles se marcan"
+    ],
+    [
+      34.597,
+      "typing",
+      0.55,
+      "la serie de clics: se borran uno por uno"
+    ],
+    [
+      36.503,
+      "whoosh-short",
+      0.6,
+      "el panel se abre y las filas de EXIF se vacían"
+    ],
+    [
+      37.867,
+      "glitch-3",
+      0.7,
+      "la capa incrustada se despega, tipo cinta"
+    ],
+    [
+      38.75,
+      "whoosh",
+      0.6,
+      "el mismo corte se repite en cadena"
+    ],
+    [
+      41.301,
+      "whoosh-cinematic",
+      0.55,
+      "el barrido vuelve vacío: ya no hay patrón"
+    ],
+    [
+      42.504,
+      "impact-bass-2",
+      0.95,
+      "el acorde bajo que se abre: el clímax"
+    ],
+    [
+      45.002,
+      "impact-bass-1",
+      1.0,
+      "el motivo invertido: los patrones se levantan de la cuadrícula"
+    ],
+    [
+      46.259,
+      "whoosh-short",
+      0.7,
+      "corte al cierre de TikTok: entra el mosaico del repo"
+    ],
+    [
+      48.006,
+      "typing",
+      0.55,
+      "el nombre del repo se escribe en su pastilla"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "_": "CTA de Instagram de la pieza 3: la oración que se DICE a cámara al final del cuerpo («Si quieres una guía con el repositorio y todo lo que limpia, comenta marcas y te lo envío por privado»). Va YA en segundos de la VERSIÓN: la parte común acaba en 46.259 y la versión dura 52.210. Ids distintos de los del cuerpo.",
+
+  "_reparto": "Dos tramos y un solo elemento en cada uno, como pide la curva de §6. PARTIDA 46.259 → 50.229: la caja de comentarios de Instagram, vacía, con el cursor parpadeando y el ENVIAR apagado — esa caja esperando ES el beat, porque la frase que suena encima es la condición («si quieres la guía…»), no todavía la instrucción. CARA 50.229 → final: corte seco a lienzo completo justo en «marcas», y la palabra la dibuja `cta_palabra`.",
+
+  "_palabra": "La palabra clave es «marcas» en PLURAL, no «MARCA» como decía el título del pedido: es lo que se dice en la toma, y el subtítulo transcribe lo dicho, no el guion escrito (§13). Hay que configurar el disparador de ManyChat con esa misma palabra. `cta_palabra` entra en 50.229 —su palabra— y se queda hasta el final; el encuadre de ahí es `full`, que es lo que exige el gate (sobre un `band` la compilación para, porque en `partida` la palabra caería encima de la cara).",
+
+  "_sin_teclear": "La caja NO teclea nada, y es una decisión. `comment_ui` sabe hacerlo, pero aquí la palabra la pone `cta_palabra` sobre la cara, en Fraunces y en su propio instante: teclearla además dentro de la caja la diría dos veces en cuatro segundos. Por eso el componente gana `type_at: null` / `send_at: null`. Se pierde a sabiendas el ✓ COMENTARIO PUBLICADO del final.",
+
+  "_arranque": "La caja entra en 46.579 (el offset propio de `comment_ui`, 0.32 s), así que la banda de arriba pasa 320 ms en suelo liso tras el corte duro de «agua?». Es el mismo precio que ya se aceptó en la pieza 2 y por la misma razón: se lee como el respiro que separa el cuerpo del CTA, y adelantarlo exigiría mover el arranque del encuadre `band` por delante del final del cuerpo, que es justo donde se parte el plan.",
+
+  "shots": [
+    {"at": 46.259, "kind": "band", "anchor": 0.5274},
+    {"at": 50.229, "kind": "full", "zoom": 1.09, "anchor": 0.44}
+  ],
+
+  "visuals": [
+    {
+      "id": "v-ctaig-caja", "role": "takeover", "kind": "mockup", "band": "top",
+      "start": 46.259, "end": 50.229, "fade_in": 0.0, "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Un solo elemento: el campo con su placeholder «Añade un comentario…», el avatar y el ENVIAR apagado. Es chrome entero — no nombra ninguna marca ni adelanta ninguna palabra — y lo que comunica es la AUSENCIA de lo que falta por escribir, el mismo idioma de `chat_unanswered`.",
+      "mock": ["comment_ui", {
+        "word": "MARCAS", "type_at": null, "send_at": null
+      }]
+    }
+  ],
+
+  "cta_palabra": {"texto": "MARCAS", "desde": 50.229, "hasta": null},
+
+  "sfx": [
+    [46.259, "whoosh-short", 0.70, "corte al cierre de Instagram: entra la caja de comentarios"],
+    [50.229, "chime",        0.80, "aterriza MARCAS, la palabra del CTA"]
+  ]
+}

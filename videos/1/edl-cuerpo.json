@@ -1,0 +1,203 @@
+{
+  "format": "REEL",
+  "palette": "oscuro",
+  "piece": 1,
+  "style_profile": "motion-explainer",
+  "voice_gain": 0.7,
+  "layout": {
+    "mode": "triband",
+    "bands": {
+      "top": [0, 660],
+      "text": [660, 960],
+      "speaker": [960, 1920]
+    }
+  },
+  "transcript": {
+    "words": "transcripts/1.json",
+    "cuts": "cuts/1.json",
+    "fingerprint": "sha256:dcca9cb7b3ad77578ebfe07ec35a8ebdc403d9d4a01dcdff31f35e944ca46931"
+  },
+  "segments": [
+    {
+      "words": [0, 16],
+      "semanticIntent": "Le di a Claude una tarea de fin de semana entero y la terminó antes del almuerzo.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 0, "type": "CAPTION", "words": [0, 16] }],
+      "reason": "El hook es la promesa y la dice él: la cara sostiene la afirmación y la banda de arriba lleva la barra que se derrumba (b1-b3 de la propuesta)."
+    },
+    {
+      "words": [17, 30],
+      "semanticIntent": "La mayoría le escribe a Claude una cosa y espera, uno a la vez.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 17, "type": "CAPTION", "words": [17, 30] }],
+      "reason": "El problema se enuncia en cámara; arriba el chat sin respuesta y la fila india (b4-b5)."
+    },
+    {
+      "words": [31, 40],
+      "semanticIntent": "Así tardas lo mismo que a mano, pero escribiendo más.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 31, "type": "CAPTION", "words": [31, 40] }],
+      "reason": "El remate del problema, con el keyword_hero arriba (b6)."
+    },
+    {
+      "words": [41, 60],
+      "semanticIntent": "El cambio es pedirle que abra varios agentes a la vez, cada uno con su tarea y su propio contexto.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 41, "type": "CAPTION", "words": [41, 60] }],
+      "reason": "El giro del guion: el compositor y el tablero naciendo arriba (b7-b9)."
+    },
+    {
+      "words": [61, 67],
+      "semanticIntent": "Trabajan en paralelo y no en fila.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 61, "type": "CAPTION", "words": [61, 67] }],
+      "reason": "La fila del b5 vuelve tachada: el contraste necesita las dos instancias (b10)."
+    },
+    {
+      "words": [68, 85],
+      "semanticIntent": "Tarea 1: analizar 60 cuentas de mi nicho y sacar qué temas se repiten en sus mejores videos.",
+      "sceneType": "MOTION_STAGE",
+      "representationType": "QUANTITY",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [
+        { "atWord": 68, "type": "CAPTION", "words": [68, 85] },
+        {
+          "atWord": 71,
+          "type": "OBJECT_IN",
+          "instanceId": "ig",
+          "asset": "object:instagram@1",
+          "slot": "center",
+          "state": {}
+        }
+      ],
+      "reason": "Las 60 cuentas son una cantidad y el objeto instagram la dibuja: es el nivel library del Resolver (b12)."
+    },
+    {
+      "words": [86, 87],
+      "semanticIntent": "18 minutos.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 86, "type": "CAPTION", "words": [86, 87] }],
+      "reason": "La cifra entra arriba en stat_grid y la cara la entrega (b14)."
+    },
+    {
+      "words": [88, 95],
+      "semanticIntent": "Un reporte con los datos y las fuentes.",
+      "sceneType": "MOTION_STAGE",
+      "representationType": "OBJECT",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [
+        { "atWord": 88, "type": "CAPTION", "words": [88, 95] },
+        {
+          "atWord": 89,
+          "type": "OBJECT_IN",
+          "instanceId": "kb",
+          "asset": "object:knowledge-base@1",
+          "slot": "center",
+          "state": {}
+        }
+      ],
+      "reason": "Respuesta q1 del usuario: el reporte es el documento que se llena fila a fila, no una rejilla (b15)."
+    },
+    {
+      "words": [96, 108],
+      "semanticIntent": "Tarea 2: revisar mis 14 archivos de proyecto y decirme cuáles están duplicados.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 96, "type": "CAPTION", "words": [96, 108] }],
+      "reason": "El segundo bloque repite la estructura del primero: la rima se lee porque la cara no cambia (b16-b18)."
+    },
+    {
+      "words": [109, 111],
+      "semanticIntent": "Solo 6 minutos.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 109, "type": "CAPTION", "words": [109, 111] }],
+      "reason": "Segunda cifra de la terna, al lado de la primera (b19)."
+    },
+    {
+      "words": [112, 120],
+      "semanticIntent": "Encontró 3 que yo venía arrastrando de hace meses.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 112, "type": "CAPTION", "words": [112, 120] }],
+      "reason": "La terna se cierra y queda un beat entera en cuadro (b20)."
+    },
+    {
+      "words": [121, 144],
+      "semanticIntent": "Lo que más me llama la atención no es la velocidad, es que cada agente vuelve con la fuente de donde sacó el dato.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 121, "type": "CAPTION", "words": [121, 144] }],
+      "reason": "La tesis la argumenta su propia cara; arriba la quietud y luego el mapa de fuentes (b21-b23)."
+    },
+    {
+      "words": [145, 146],
+      "semanticIntent": "Puedes verificarlo.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 145, "type": "CAPTION", "words": [145, 146] }],
+      "reason": "Clímax: el gesto del clic sobre el mapa sostenido, según la respuesta q4 (b24)."
+    },
+    {
+      "words": [147, 158],
+      "semanticIntent": "Eso es lo que separa esto de pedirle un resumen y rezar.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 147, "type": "CAPTION", "words": [147, 158] }],
+      "reason": "El chat del b4 vuelve sin fuentes: corte duro contra el mapa (b25)."
+    },
+    {
+      "words": [159, 173],
+      "semanticIntent": "Ojo con una cosa, si no le dices cómo dividir el trabajo, abre uno solo.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 159, "type": "CAPTION", "words": [159, 173] }],
+      "reason": "El matiz va a cara: el tablero vaciándose arriba es el b8 al revés (b26-b27)."
+    },
+    {
+      "words": [174, 182],
+      "semanticIntent": "La instrucción de dividir la tienes que dar tú.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 174, "type": "CAPTION", "words": [174, 182] }],
+      "reason": "Vuelve el compositor del b7 con la línea que faltaba resaltada (b28)."
+    },
+    {
+      "words": [183, 199],
+      "semanticIntent": "Si quieres el prompt exacto que uso para eso, comenta paralelo y te lo mando por privado.",
+      "sceneType": "A_ROLL",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 183, "type": "CAPTION", "words": [183, 199] }],
+      "reason": "CTA del cuerpo simplificado a un solo elemento, según la curva de intensidad (b29-b31)."
+    }
+  ],
+  "planner": {
+    "plannerVersion": "0.1.0",
+    "styleProfile": "motion-explainer",
+    "promptVersion": "editar-pieza-1",
+    "generatedAt": "2026-09-27T21:10:00Z"
+  }
+}

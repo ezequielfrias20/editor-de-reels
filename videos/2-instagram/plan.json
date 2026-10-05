@@ -1,0 +1,1342 @@
+{
+  "format": "REEL",
+  "palette": "claro",
+  "_": "PIEZA 2 — «8 pasos para tener tu segundo cerebro andando antes del domingo». Pedida desde el dashboard (skill editar-pieza). Este archivo es SOLO LA PARTE COMÚN: 0 → 61.957 s del corte, lo que las dos versiones comparten. Todos los tiempos están en la línea del corte y salen de `armar-version.py palabras --piece 2 --plataforma <p>`, que ya los trae remapeados y son idénticos en instagram y tiktok hasta 61.957. El CTA de cada plataforma va aparte, en plan-cta-<p>.json, ya en segundos de su versión.",
+  "_fuente": "`VIDEOS ORIGINALES/2/cuerpo-3.mov` → out/2-fuente.mov (SDR bt709, 1080x1920). instagram = el cuerpo entero, corte 67.703 s, 202 palabras; tiktok = cuerpo hasta la palabra 180 + cta-tiktok.mov, corte 64.548 s, 190 palabras. La parte común de las dos acaba en 61.957 s («…y abandonas a la semana.»).",
+  "_paleta": "`claro`, la que pide el pedido. El tema es doméstico y de fin de semana —recibos, pólizas, el domingo—, no nocturno ni de consola.",
+  "_anchor": "0.3624. `armar-version.py anchor` AVISA en las dos versiones: la toma está demasiado cerca de la cámara y no existe un anchor que a la vez deje la cara entera y saque la barbilla del 20 % inferior (instagram necesitaría ≥0.3800 y ≤0.3624; tiktok ≥0.3862 y ≤0.3698). Se prioriza no cortar la cara —que es el gate que para el render— y se usa 0.3624, el más ajustado de los dos: la barbilla queda unos 17 px dentro de la zona de la interfaz de la plataforma. `check_face_top_clear` lo verifica en las dos antes de renderizar.",
+  "_layout": "TRIBAND EN TODA LA PIEZA, un solo encuadre. El brief (y la propuesta aprobada) pedían plano lleno 1.12 en el hook y 1.09 en el cierre, con los gráficos «flotando sobre él en el tercio superior». Se montó así y se miró el frame: a esos zooms la cabeza llega hasta y275 (1.12) y y293 (1.09), o sea que ocupa la banda `top` entera, y el gráfico cae ENCIMA de la cara — «EL DOMINGO» y «EL PASO 7» atravesaban los ojos y las gafas, y el kicker de acento sobre el pelo oscuro daba 1.62:1 contra el 3:1 que pide §3 (lo cazó el check de contraste en 3.761 s, y el PNG asentado confirmó que no era el fundido de la trampa 10). No tiene arreglo dentro del plano lleno: no existe anchor que baje la cabeza por debajo de y660 a esos zooms. El §4 ya lo dice — un tramo de plano lleno es CARA PELADA, el momento en que un gráfico le robaría el argumento a la cara— y aquí los dos extremos llevan gráfico en todos sus beats, así que el que sobra es el plano lleno, no el gráfico. Es además lo que dicen las REGLAS del propio brief («Triband en toda la pieza») y el layout por defecto de todo REEL (§1).",
+  "_grid": "El hilo conductor es `step_grid`, pero de CUATRO casillas, no de ocho: la casilla mide 196 px y la rejilla es de dos columnas, así que ocho casillas suman 844 px y la banda `top` mide 660. Se resuelve con dos rejillas SUCESIVAS (pasos 1–4 hasta 25.548, pasos 5–8 desde ahí), no lado a lado. El `grid-fill` de N casillas que pedía el brief está en su sección «Ideas para sumar al editor», que no se construye. Las dos van con `numbers: false` y el número DENTRO del texto de la casilla («05 TODAS LAS FECHAS»): con `numbers: true` la segunda rejilla numeraría 01–04 los pasos 5 a 8, y una casilla que dice 01 mientras él dice «paso 5» contradice el audio. El precio es que la casilla PENDIENTE queda sin número: el hook abre con cuatro huecos discontinuos y el kicker 8 PASOS, no con ocho casillas numeradas.",
+  "_objetos": "Ningún objeto de `objects.py` (calendar, appointment-timeline, msg-card, spreadsheet) se puede usar aquí: viven en un `motion_stage` a lienzo completo y se posicionan con `tokens.SLOTS`, que son coordenadas del LIENZO (center = 540,960) — dentro de un host de 660 px caen fuera, y el stage a lienzo completo taparía al hablante. Es la misma limitación que documentó la pieza 1 con `knowledge-base`. Los seis beats que el brief resolvía con objetos van con mockups que sí caben en la banda, anotado en cada uno.",
+  "_banda_top": "Los 33 visuales se tocan `end`→`start` sin un solo hueco de 0.150 a 61.957, y cada plan-cta-<p>.json arranca exactamente en 61.957: `check_band_top_covered` pasa por construcción en el tramo `band` (5.946 → 56.161). Donde un beat no nombraba nada nuevo se SOSTIENE el visual anterior, nunca se adelanta el siguiente: el compositor de Claude aguanta «un índice de qué hay» hasta que la palabra «índice» lo llena (21.266), y la rejilla completa aguanta «Déjalo programado» hasta «los lunes» (43.176, respuesta q4).",
+  "_curva": "HOOK 0–5.9 s tres golpes en plano lleno: el mapa vacío, el domingo y la objeción derribada · MÉTODO 5.9–25.5 s pasos 1 a 4, rejilla → contenido, rejilla → contenido · EXTRACCIÓN 25.5–36.8 s pasos 5 y 6, la lista larga y los 90 días · SKILL 36.8–43.2 s el paso 7 en terracota, el pedido largo y la línea corta · QUIETUD 43.2–46.1 s los lunes y el resumen que llega solo, sin un solo efecto entre 44.9 y 46.1 · CLÍMAX 46.1–56.2 s la consulta, el archivo citado y la terna de tres respuestas · OPINIÓN 56.2–62.0 s el paso 7, la repetición y el abandono, cada vez con menos en cuadro · CTA desde 62.0 en plan-cta-<p>.json.",
+  "_valores": "Respuesta q2 del usuario: van los tres valores de la terna y sus tres archivos, anonimizados. El usuario eligió esa opción pero no adjuntó los valores, así que se inventan como marcadores claramente genéricos (12/03 · $1.240 · § 8, sobre poliza-auto.pdf · recibos-2025.pdf · contrato-alq.pdf) y se repiten coherentes en el índice de 23.045. Queda avisado en la respuesta de entrega: si el usuario quiere otros, se cambian en este archivo sin tocar nada más. Las cifras son cortas a propósito: `.sval` va a 88 px y con tres celdas cada una tiene 277 px útiles.",
+  "layout": {
+    "mode": "triband",
+    "bands": {
+      "top": [
+        0,
+        660
+      ],
+      "text": [
+        660,
+        960
+      ],
+      "speaker": [
+        960,
+        1920
+      ]
+    }
+  },
+  "keywords": [
+    "pasos",
+    "domingo",
+    "programar",
+    "carpeta",
+    "Claude",
+    "índice",
+    "fechas",
+    "vencimiento",
+    "skill",
+    "lunes",
+    "resumen",
+    "archivo"
+  ],
+  "voice_gain": 0.7,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.4,
+    "target_mean": -34.0
+  },
+  "_shots": "Uno solo, `band` desde 0.0 con el anchor que vale en las dos versiones (ver _layout y _anchor). Todos los cortes de la pieza son cortes de VISUAL, no de cámara. `band` no lleva escalera de zoom a propósito: el rect de la banda ya recorta a 960 px de alto y una escalera encima dejaría la cara irreconocible. El encuadre del CTA de TikTok lo añade plan-cta-tiktok.json en el empalme, porque ahí sí hay otra toma; en Instagram el CTA es la misma toma que sigue y no se corta.",
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "band",
+      "anchor": 0.3624
+    }
+  ],
+  "cards": [],
+  "_cards": "Cero rótulos. En triband la banda de arriba ya hace el trabajo de acompañar lo que se dice y un rótulo encima competiría con ella (§4).",
+  "visuals": [
+    {
+      "id": "v-mapa",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 0.0,
+      "end": 2.814,
+      "_": "El mapa de la pieza en el primer frame, y el vacío ES la promesa. Cuatro casillas discontinuas, ninguna llena. Arranca en 0.0 y no en su palabra (0.150) porque el encuadre `band` empieza ahí y `check_band_top_covered` mide desde el primer frame; no adelanta nada, porque lo que entra es ESTRUCTURA —cuatro huecos numerados que no nombran ninguno de los ocho pasos— y el kicker 8 PASOS cae en 0.100, 50 ms antes de que él diga «8». Es la salida que §4 documenta para el arranque de una pieza: entra el marco con la primera palabra y el contenido espera la suya. Sostiene hasta 2.814 porque «para tener tu segundo cerebro» no nombra nada nuevo que clavar.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "at": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "kicker": "8 PASOS",
+          "numbers": false
+        }
+      ]
+    },
+    {
+      "id": "v-domingo",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 2.814,
+      "end": 4.078,
+      "_": "SUSTITUTO del objeto `calendar` que pedía el brief (ver _objetos). Palabra protagonista: el kicker ANTES DE entra en 2.874 con «antes» (2.814) y EL DOMINGO aterriza en 3.014, 190 ms antes de «domingo» (3.203) — dentro de la misma frase y por debajo del suelo del relevo. Una palabra protagonista y no una celda de `stat_grid`: el kicker cubre la banda desde 2.874, mientras que una celda con su `at` en «domingo» dejaría 389 ms de suelo desnudo que el gate daría por buenos (mide cobertura declarada, no luma).",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "EL DOMINGO",
+          "kicker": "ANTES DE",
+          "size": 132
+        }
+      ]
+    },
+    {
+      "id": "v-sinprog",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 4.078,
+      "end": 5.946,
+      "_": "Corte duro y un solo elemento: la objeción se derriba dentro del propio hook. Sin kicker, otro tamaño y otro ritmo que el anterior, para que dos palabras protagonistas seguidas no se lean como el mismo frame repetido.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "SIN PROGRAMAR",
+          "size": 118
+        }
+      ]
+    },
+    {
+      "id": "v-grid-1",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 5.946,
+      "end": 8.493,
+      "absolute_times": true,
+      "_": "Empieza el triband y vuelve la rejilla, ahora rotulada PASOS 1 — 4. La estructura entra con «Paso 1» (5.946) y la casilla se llena en «carpeta» (7.180), no en el número: el nombre espera a su palabra.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "01 UNA CARPETA",
+            "",
+            "",
+            ""
+          ],
+          "at": [
+            7.18,
+            null,
+            null,
+            null
+          ],
+          "kicker": "PASOS 1 — 4",
+          "numbers": false
+        }
+      ]
+    },
+    {
+      "id": "v-todo-ahi",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 8.493,
+      "end": 9.644,
+      "absolute_times": true,
+      "_": "SUSTITUTO de la grabación del Finder que el brief daba por grabar y que no se subió (respuesta q1). `desktop_manager` —que era la opción por defecto de la pregunta— no sirve: sus filas llevan el botón INSTALAR/INSTALADO hardcodeado y aquí diría «instalar contratos». La cadena de dos pasos dice exactamente la frase: TODO va a UNA CARPETA. «ahí» en 8.493, «todo» en 8.802.",
+      "mock": [
+        "flow_steps",
+        {
+          "steps": [
+            "TODO",
+            "UNA CARPETA"
+          ],
+          "at": [
+            8.493,
+            8.802
+          ],
+          "icons_": [
+            "stack",
+            "doc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-grid-2",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 9.644,
+      "end": 10.991,
+      "absolute_times": true,
+      "_": "La MISMA rejilla con corte duro: la casilla 1 ya está puesta y la 2 se llena en «2:» (9.969). Misma estructura casilla → contenido que el paso 1, a propósito: es la rima que deja leer los seis pasos siguientes sin explicarlos.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "01 UNA CARPETA",
+            "02 TODO ADENTRO",
+            "",
+            ""
+          ],
+          "at": [
+            9.644,
+            9.969,
+            null,
+            null
+          ],
+          "kicker": "PASOS 1 — 4",
+          "numbers": false
+        }
+      ]
+    },
+    {
+      "id": "v-papeles",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 10.991,
+      "end": 14.485,
+      "absolute_times": true,
+      "_": "Cinco etiquetas que se amontonan, cada una clavada a SU palabra: contratos 10.991 · recibos 11.640 · pólizas 12.126 · facturas 12.613 · notas 13.213. Sin kicker y sin iconos: lo que comunica no es cada chip suelto sino el montón que queda, y el envoltorio de `chip_grid` los reparte en filas que se pisan como en un cajón.",
+      "mock": [
+        "chip_grid",
+        {
+          "chips": [
+            "CONTRATOS",
+            "RECIBOS",
+            "PÓLIZAS",
+            "FACTURAS",
+            "NOTAS"
+          ],
+          "at": [
+            10.991,
+            11.64,
+            12.126,
+            12.613,
+            13.213
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-sin-ordenar",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 14.485,
+      "end": 15.669,
+      "absolute_times": true,
+      "_": "El MISMO montón con corte duro, y encima el rótulo SIN ORDENAR en «sin» (14.485). Va de kicker NEUTRO y no de `alert` rojo: el guion dice que está BIEN que estén sin ordenar —«tal como están»— y un sello rojo diría que eso es un problema, justo al revés.",
+      "mock": [
+        "chip_grid",
+        {
+          "chips": [
+            "CONTRATOS",
+            "RECIBOS",
+            "PÓLIZAS",
+            "FACTURAS",
+            "NOTAS"
+          ],
+          "at": [
+            14.485,
+            14.485,
+            14.485,
+            14.485,
+            14.485
+          ],
+          "kicker": "SIN ORDENAR"
+        }
+      ]
+    },
+    {
+      "id": "v-grid-3",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 15.669,
+      "end": 16.732,
+      "absolute_times": true,
+      "_": "Casilla 3 en «3:» (16.078). El rótulo es ÁBRELO AHÍ y NO «ABRE CLAUDE AHÍ» como proponía el brief: la marca se dice en 16.732 y escribirla en la casilla la metería en pantalla 654 ms antes de su palabra. La card de Claude entra justo después, en su palabra exacta.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "01 UNA CARPETA",
+            "02 TODO ADENTRO",
+            "03 ÁBRELO AHÍ",
+            ""
+          ],
+          "at": [
+            15.669,
+            15.669,
+            16.078,
+            null
+          ],
+          "kicker": "PASOS 1 — 4",
+          "numbers": false
+        }
+      ]
+    },
+    {
+      "id": "v-claude",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 16.732,
+      "end": 18.365,
+      "_": "La única marca de la pieza, con su logo vendorizado, clavada en la palabra «Claude» (16.732) y no en «abre»: el logo viaja en horizontal y el nombre cae desde arriba, dos recorridos para que se lean como dos elementos. Respuesta q7: el logo va con `brand_tone`, el color de la marca movido lo justo para leerse.",
+      "mock": [
+        "tool_card",
+        {
+          "slug": "claude",
+          "name": "Claude",
+          "kicker": "EN ESA CARPETA"
+        }
+      ]
+    },
+    {
+      "id": "v-grid-4",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 18.365,
+      "end": 19.487,
+      "absolute_times": true,
+      "_": "Casilla 4 en «4:» (18.606). La primera rejilla queda COMPLETA y eso se ve: cuatro de ocho, y el kicker lo dice.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "01 UNA CARPETA",
+            "02 TODO ADENTRO",
+            "03 ÁBRELO AHÍ",
+            "04 UN ÍNDICE"
+          ],
+          "at": [
+            18.365,
+            18.365,
+            18.365,
+            18.606
+          ],
+          "kicker": "PASOS 1 — 4",
+          "numbers": false
+        }
+      ]
+    },
+    {
+      "id": "v-prompt-indice",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 19.487,
+      "end": 23.045,
+      "absolute_times": true,
+      "_": "SUSTITUTO de la grabación de Claude Code leyendo la carpeta, que no se subió (respuesta q1). El compositor entra VACÍO en 19.487 —panel, cabecera con el logo de Claude, barra y placeholder son chrome y no adelantan nada— y se teclea en DOS tiempos, cada línea en su palabra: «lea» (19.664) y «índice» (21.266). Ese segundo tecleo es lo que cubre «un índice de qué hay» sin adelantar la palabra «índice», que es justo el choque que el §4 resuelve sosteniendo el visual anterior.",
+      "mock": [
+        "claude_prompt",
+        {
+          "lines": [
+            "lee todo lo que hay en esta carpeta",
+            "y arma un índice con sus fechas"
+          ],
+          "at": [
+            19.664,
+            21.266
+          ],
+          "rect": [
+            60,
+            100,
+            960,
+            540
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-indice",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 23.045,
+      "end": 25.548,
+      "absolute_times": true,
+      "_": "SUSTITUTO del objeto `spreadsheet` (ver _objetos). Arranca en «fecha» (23.045), que es la palabra de su PRIMER elemento y no la del beat: un `start` en 21.154 habría dejado la banda en suelo hasta que entrara la primera celda, y `check_band_top_covered` lo daría por bueno porque mide cobertura declarada, no luma. Las otras dos celdas caen en «cada» (23.895) y «cosa» (24.215). Sin acento: el terracota se guarda para la casilla 7.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "12/03",
+              "SEGURO AUTO"
+            ],
+            [
+              "01/04",
+              "ALQUILER"
+            ],
+            [
+              "20/05",
+              "GARANTÍA TV"
+            ]
+          ],
+          "at": [
+            23.045,
+            23.895,
+            24.215
+          ],
+          "accent": -1
+        }
+      ]
+    },
+    {
+      "id": "v-grid-5",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 25.548,
+      "end": 27.18,
+      "absolute_times": true,
+      "_": "Nace la SEGUNDA rejilla, pasos 5 a 8, con las cuatro casillas vacías y la 5 llenándose en «5:» (25.770). No va al lado de la primera —no caben 844 px en una banda de 660— sino en su lugar, con el kicker diciendo qué cuatro son.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "05 TODAS LAS FECHAS",
+            "",
+            "",
+            ""
+          ],
+          "at": [
+            25.77,
+            null,
+            null,
+            null
+          ],
+          "kicker": "PASOS 5 — 8",
+          "numbers": false
+        }
+      ]
+    },
+    {
+      "id": "v-lista-larga",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 27.18,
+      "end": 29.905,
+      "absolute_times": true,
+      "_": "SUSTITUTO del objeto `appointment-timeline` (ver _objetos). El roster hace lo que pedía el brief: MÁS marcas de las que caben cómodas, y el exceso es el punto. Entra en «todas» (27.180) con el contador rodando. El segundo tiempo del `at` es el apagado, y aquí se pone en el propio final del visual para que no ocurra: el que apaga es la instancia de 34.473.",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "roster",
+          "total": 24,
+          "lit": 3,
+          "label": "VENCIMIENTOS",
+          "at": [
+            27.18,
+            29.905
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-tipos",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 29.905,
+      "end": 32.966,
+      "absolute_times": true,
+      "_": "Los cuatro que él enumera, cada uno en su palabra exacta: seguros 29.905 · alquileres 30.562 · garantías 31.107 · suscripciones 31.668. Lleva ICONOS y kicker, al revés que el montón de 10.991: es la misma familia de componente diciendo lo contrario —ahí se amontonaban sin nombre, acá cada uno entra rotulado y en su sitio.",
+      "mock": [
+        "chip_grid",
+        {
+          "chips": [
+            "SEGUROS",
+            "ALQUILERES",
+            "GARANTÍAS",
+            "SUSCRIPCIONES"
+          ],
+          "at": [
+            29.905,
+            30.562,
+            31.107,
+            31.668
+          ],
+          "kicker": "EN UNA SOLA LISTA",
+          "icons_": [
+            "doc",
+            "repo",
+            "check",
+            "clock"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-grid-6",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 32.966,
+      "end": 34.473,
+      "absolute_times": true,
+      "_": "Casilla 6 en «6:» (33.351). Respuesta q5: la rejilla SOSTIENE hasta «cuáles vencen» (34.473) en vez de soltar el cierre de ventana en «Que te diga» (33.591) — la casilla pasa de 0.63 a 1.51 s y el gesto de la ventana cae sobre la palabra que lo describe.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "05 TODAS LAS FECHAS",
+            "06 LO QUE VENCE YA",
+            "",
+            ""
+          ],
+          "at": [
+            32.966,
+            33.351,
+            null,
+            null
+          ],
+          "kicker": "PASOS 5 — 8",
+          "numbers": false
+        }
+      ]
+    },
+    {
+      "id": "v-lista-filtrada",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 34.473,
+      "end": 35.594,
+      "absolute_times": true,
+      "_": "El MISMO tablero con corte duro y, 227 ms después de entrar, los que no vencen BAJAN de intensidad: de 24 quedan 3 encendidos. No se apagan del todo —siguen existiendo, solo no son los que vencen ya— que es la lección del roster de la pieza 1.",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "roster",
+          "total": 24,
+          "lit": 3,
+          "label": "VENCIMIENTOS",
+          "at": [
+            34.473,
+            34.7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-90-dias",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 35.594,
+      "end": 36.798,
+      "absolute_times": true,
+      "_": "Primer número grande de la pieza, sellado en «90» (35.594) y no en «en»: la lista filtrada sostiene el hueco anterior. Una sola celda, así que ocupa los 980 px y la cifra respira. Sin acento, otra vez: el terracota es del paso 7.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "90 DÍAS",
+              "LO QUE VENCE YA"
+            ]
+          ],
+          "at": [
+            35.594
+          ],
+          "accent": -1
+        }
+      ]
+    },
+    {
+      "id": "v-grid-7",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 36.798,
+      "end": 37.519,
+      "absolute_times": true,
+      "_": "EL FRAME DE LA PIEZA. La casilla 7 entra en «7:» (37.118) y es la ÚNICA de las ocho en terracota: `hot: 2` le da el borde de acento y el relleno degradado `accent_pill`, que no lleva ninguna otra casilla ni ningún otro gráfico de la pieza. Respuesta q3: se deja literal, 0.72 s, y la ruptura de patrón la carga el SONIDO —impact-bass-2 rompiendo la cadena de pings— en vez de robarle tiempo al pedido que viene detrás. El rótulo es 07 GUÁRDALO y no «GUÁRDALO COMO SKILL»: «skill» se dice en 38.673.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "05 TODAS LAS FECHAS",
+            "06 LO QUE VENCE YA",
+            "07 GUÁRDALO",
+            ""
+          ],
+          "at": [
+            36.798,
+            36.798,
+            37.118,
+            null
+          ],
+          "kicker": "PASOS 5 — 8",
+          "numbers": false,
+          "hot": 2
+        }
+      ]
+    },
+    {
+      "id": "v-skill",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 37.519,
+      "end": 39.474,
+      "absolute_times": true,
+      "_": "El pedido largo de los pasos 4 a 6 escrito entero, línea a línea, con el logo de Claude de chip en la cabecera. Cuatro líneas y no ocho como pedía el brief: el panel mide 540 px de alto y en 1.96 s ocho tecleos serían un parpadeo. Lo que tiene que quedar es el TAMAÑO del bloque, para que la línea corta de 39.474 lo contradiga.",
+      "mock": [
+        "claude_prompt",
+        {
+          "lines": [
+            "lee los documentos de esta carpeta",
+            "extrae todas las fechas de vencimiento",
+            "dime cuáles vencen en 90 días",
+            "y guárdalo como una skill"
+          ],
+          "at": [
+            37.519,
+            37.92,
+            38.32,
+            38.673
+          ],
+          "rect": [
+            60,
+            100,
+            960,
+            540
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-slash",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 39.474,
+      "end": 41.493,
+      "_": "Corte duro del bloque de cuatro líneas a UNA línea corta. La diferencia de tamaño entre las dos cosas es el argumento entero, y el corte es lo que deja verla — la misma mecánica con la que `idea_fate` contrasta dos estados. El brief pedía que el bloque se tachara; sin un componente que pliegue N líneas en una (está en sus «Ideas para sumar al editor», que no se construyen) el corte duro es la forma que sí existe.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "/vencimientos",
+          "kicker": "UNA SOLA LÍNEA",
+          "size": 110
+        }
+      ]
+    },
+    {
+      "id": "v-grid-8",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 41.493,
+      "end": 43.176,
+      "absolute_times": true,
+      "_": "Casilla 8 en «8:» (41.750): la segunda rejilla se completa, con la 7 destacando en terracota. Respuesta q4: SOSTIENE hasta «los lunes» (43.176) en vez de soltar el calendario en «Déjalo» (42.054) — el calendario con el lunes marcado entraría 1.12 s antes de su palabra, y de paso este frame (la rejilla llena) pasa de 0.56 a 1.68 s.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "05 TODAS LAS FECHAS",
+            "06 LO QUE VENCE YA",
+            "07 GUÁRDALO",
+            "08 PROGRÁMALO"
+          ],
+          "at": [
+            41.493,
+            41.493,
+            41.493,
+            41.75
+          ],
+          "kicker": "PASOS 5 — 8",
+          "numbers": false,
+          "hot": 2
+        }
+      ]
+    },
+    {
+      "id": "v-lunes",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 43.176,
+      "end": 44.458,
+      "absolute_times": true,
+      "_": "SUSTITUTO del objeto `calendar` (ver _objetos). Lo que el brief quería de él era el lunes repitiéndose hacia adelante, y eso son tres pastillas idénticas cayendo en cascada desde «lunes» (43.176). Mismo componente que el montón de papeles y la lista de tipos, otra cosa dicha.",
+      "mock": [
+        "chip_grid",
+        {
+          "chips": [
+            "LUNES",
+            "LUNES",
+            "LUNES"
+          ],
+          "at": [
+            43.176,
+            43.4,
+            43.62
+          ],
+          "kicker": "CADA SEMANA",
+          "icons_": [
+            "clock",
+            "clock",
+            "clock"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-resumen",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 44.458,
+      "end": 46.058,
+      "absolute_times": true,
+      "_": "SUSTITUTO del objeto `msg-card` (ver _objetos). `chat_unanswered`, que era el otro candidato, no cabe: su panel mide 880 px y la banda 660. La cadena de dos pasos aterriza en «y» (44.458) y «resumen» (44.891) y a partir de ahí NO SE MUEVE NADA, ni en imagen ni en sonido, hasta 46.058: es el descanso antes del clímax. El brief pedía además bajar la música 6 dB en este tramo; no está soportado, así que la quietud se hace sin efectos, como en la pieza 1.",
+      "mock": [
+        "flow_steps",
+        {
+          "steps": [
+            "SE EJECUTA SOLO",
+            "TE LLEGA EL RESUMEN"
+          ],
+          "at": [
+            44.458,
+            44.891
+          ],
+          "icons_": [
+            "gear",
+            "download"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-consulta",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 46.058,
+      "end": 49.038,
+      "absolute_times": true,
+      "_": "SUSTITUTO de la grabación de la consulta final, que el brief define como «el clímax, y pasa TODO sobre producto real» y que no se subió (respuesta q1). Vuelve el MISMO compositor de 19.487 —la rima visual— con el campo VACÍO desde 46.058, que es chrome y no adelanta nada, y la pregunta tecleándose desde «le preguntas» (46.713).",
+      "mock": [
+        "claude_prompt",
+        {
+          "lines": [
+            "¿cuándo vence el seguro del auto?"
+          ],
+          "at": [
+            46.713
+          ],
+          "rect": [
+            60,
+            100,
+            960,
+            540
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-fuente",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 49.038,
+      "end": 51.123,
+      "_": "Lo que se dirige la mirada no es la respuesta, es la FUENTE: la palabra protagonista es el nombre del archivo citado, no el dato. `chat_unanswered` con `reply`, que era la opción de la respuesta q1 para este beat, no cabe en la banda (panel de 880 px), y el archivo es lo único que el beat tiene que dejar leído.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "poliza-auto.pdf",
+          "kicker": "EL ARCHIVO EXACTO",
+          "size": 76
+        }
+      ]
+    },
+    {
+      "id": "v-terna-1",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 51.123,
+      "end": 52.277,
+      "absolute_times": true,
+      "_": "Primera de la terna, sellada en «cuándo» (51.123): la cifra grande y debajo el PDF del que salió. Una sola celda; las otras dos llegan cuando se digan, como la terna de la pieza 1.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "12/03",
+              "poliza-auto.pdf"
+            ]
+          ],
+          "at": [
+            51.123
+          ],
+          "accent": -1
+        }
+      ]
+    },
+    {
+      "id": "v-terna-2",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 52.277,
+      "end": 54.33,
+      "absolute_times": true,
+      "_": "La primera vuelve con la segunda y el importe entra en «pagaste» (52.967). Queda un hueco, que es lo que hace esperar la tercera.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "12/03",
+              "poliza-auto.pdf"
+            ],
+            [
+              "$1.240",
+              "recibos-2025.pdf"
+            ]
+          ],
+          "at": [
+            52.277,
+            52.967
+          ],
+          "accent": -1
+        }
+      ]
+    },
+    {
+      "id": "v-terna-3",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 54.33,
+      "end": 56.161,
+      "absolute_times": true,
+      "_": "La terna se cierra en «cláusula» (55.051) y las tres quedan juntas un beat entero. El cierre suena con `sparkle` y no con el `chime` de las dos anteriores: el timbre distinto es lo que dice que la serie terminó.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "12/03",
+              "poliza-auto.pdf"
+            ],
+            [
+              "$1.240",
+              "recibos-2025.pdf"
+            ],
+            [
+              "§ 8",
+              "contrato-alq.pdf"
+            ]
+          ],
+          "at": [
+            54.33,
+            54.33,
+            55.051
+          ],
+          "accent": -1
+        }
+      ]
+    },
+    {
+      "id": "v-paso-7",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 56.161,
+      "end": 58.598,
+      "_": "El brief pedía las ocho casillas apagándose una a una hasta dejar la 7 sola; `step_grid` no sabe apagar casillas. La palabra protagonista dice lo mismo y además es lo que pide la curva de intensidad para el cierre: un solo elemento, cada vez menos cosas en cuadro. La casilla 7 ya tuvo sus dos frames en terracota (37.118 y 41.493); aquí lo que hace falta es nombrarla.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "EL PASO 7",
+          "kicker": "LO QUE CASI NADIE HACE",
+          "size": 132
+        }
+      ]
+    },
+    {
+      "id": "v-repite",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 58.598,
+      "end": 60.747,
+      "absolute_times": true,
+      "_": "El mismo pedido, dos veces, con las MISMAS barras y solo la semana cambiada — y el `=` entrando el ÚLTIMO, en «instrucción» (59.063): puesto desde el primer frame contaría el final antes del principio. Es exactamente lo que dice la frase: sin la skill, lo que repites es idéntico.",
+      "mock": [
+        "cv_echo",
+        {
+          "left": {
+            "title": "el mismo pedido",
+            "sub": "lunes",
+            "tag": "vez 01",
+            "rows": [
+              {
+                "w": 92
+              },
+              {
+                "w": 76
+              },
+              {
+                "w": 88
+              },
+              {
+                "w": 61
+              }
+            ]
+          },
+          "right": {
+            "title": "el mismo pedido",
+            "sub": "lunes siguiente",
+            "tag": "vez 02",
+            "tag_tone": "hot",
+            "rows": [
+              {
+                "w": 92
+              },
+              {
+                "w": 76
+              },
+              {
+                "w": 88
+              },
+              {
+                "w": 61
+              }
+            ]
+          },
+          "seal": "lo vuelves a escribir entero",
+          "at": [
+            58.598,
+            58.9,
+            59.063
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-abandona",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 60.747,
+      "end": 61.957,
+      "_": "Corte duro y el único momento negativo de la pieza, con el único `error` de toda la banda sonora. Cierra la parte común: lo que sigue es el CTA de cada versión.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "ABANDONAS",
+          "kicker": "A LA SEMANA",
+          "size": 132
+        }
+      ]
+    },
+    {
+      "id": "v-ctaig-comenta",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 61.957,
+      "end": null,
+      "absolute_times": true,
+      "_": "La caja de comentario entra en 62.277 (el offset propio del componente, 0.32 s) con su placeholder: 320 ms de suelo tras el corte duro de «ABANDONAS», que se leen como el respiro que separa el cuerpo del CTA. Se teclea CEREBRO desde «comenta» (65.300) y la palabra termina de escribirse justo sobre «cerebro» (65.701); el envío cae en «envío» (66.599) y el sello ✓ COMENTARIO PUBLICADO 220 ms después.",
+      "mock": [
+        "comment_ui",
+        {
+          "word": "CEREBRO",
+          "type_at": 65.3,
+          "send_at": 66.599
+        }
+      ]
+    }
+  ],
+  "_sfx": "44 efectos en la parte común. Ninguno es relleno: cada uno marca algo que entra, sale o cambia en la banda de arriba, y los tiempos son los MISMOS del transcript que mueven la imagen. Dos decisiones del brief se respetan al pie: los `ping` de las casillas van TODOS al mismo peso —es una cadena y el espectador la aprende— y por eso el paso 7 suena con `impact-bass-2`; y los dos `chime` de la terna son idénticos mientras el tercer cierre es `sparkle`. El tramo 44.891–46.058 va deliberadamente EN SILENCIO: es la quietud antes del clímax. `error` suena una sola vez en toda la pieza, en 60.747. Los volúmenes son pesos relativos: la ganancia real la CALCULA el generador desde la media y el pico de cada archivo, y `build_sfx` adelanta cada `data-start` la cabecera de silencio de su fichero.",
+  "sfx": [
+    [
+      0.15,
+      "impact-bass-1",
+      0.85,
+      "abre la pieza: el mapa de ocho pasos, vacío"
+    ],
+    [
+      2.814,
+      "riser",
+      0.6,
+      "corte al domingo"
+    ],
+    [
+      4.078,
+      "impact-bass-2",
+      0.85,
+      "SIN PROGRAMAR: se derriba la objeción dentro del hook"
+    ],
+    [
+      5.946,
+      "whoosh-short",
+      0.72,
+      "empieza el triband y vuelve la rejilla"
+    ],
+    [
+      7.18,
+      "ping",
+      0.8,
+      "se llena la casilla 1"
+    ],
+    [
+      8.493,
+      "whoosh-short",
+      0.68,
+      "corte a todo → una carpeta"
+    ],
+    [
+      8.802,
+      "click",
+      0.7,
+      "cae UNA CARPETA"
+    ],
+    [
+      9.644,
+      "whoosh-short",
+      0.68,
+      "corte a la rejilla"
+    ],
+    [
+      9.969,
+      "ping",
+      0.8,
+      "se llena la casilla 2"
+    ],
+    [
+      10.991,
+      "pop",
+      0.7,
+      "chip CONTRATOS"
+    ],
+    [
+      11.64,
+      "pop",
+      0.7,
+      "chip RECIBOS"
+    ],
+    [
+      12.126,
+      "pop",
+      0.7,
+      "chip PÓLIZAS"
+    ],
+    [
+      12.613,
+      "pop",
+      0.7,
+      "chip FACTURAS"
+    ],
+    [
+      13.213,
+      "pop",
+      0.7,
+      "chip NOTAS"
+    ],
+    [
+      14.485,
+      "whoosh-short",
+      0.7,
+      "corte al montón rotulado SIN ORDENAR"
+    ],
+    [
+      15.669,
+      "whoosh-short",
+      0.68,
+      "corte a la rejilla"
+    ],
+    [
+      16.078,
+      "ping",
+      0.8,
+      "se llena la casilla 3"
+    ],
+    [
+      16.732,
+      "sparkle",
+      0.6,
+      "entra la card de Claude, en su palabra"
+    ],
+    [
+      18.365,
+      "whoosh-short",
+      0.68,
+      "corte a la rejilla"
+    ],
+    [
+      18.606,
+      "ping",
+      0.8,
+      "se llena la casilla 4: la primera rejilla queda completa"
+    ],
+    [
+      19.487,
+      "whoosh",
+      0.72,
+      "corte al compositor vacío"
+    ],
+    [
+      19.664,
+      "typing",
+      0.6,
+      "se teclea «lee todo lo que hay en esta carpeta»"
+    ],
+    [
+      21.266,
+      "key-press",
+      0.6,
+      "segunda línea: «y arma un índice con sus fechas»"
+    ],
+    [
+      23.045,
+      "pop",
+      0.7,
+      "primera fila del índice"
+    ],
+    [
+      23.895,
+      "pop",
+      0.68,
+      "segunda fila"
+    ],
+    [
+      24.215,
+      "pop",
+      0.68,
+      "tercera fila"
+    ],
+    [
+      25.548,
+      "whoosh-short",
+      0.72,
+      "nace la segunda rejilla, pasos 5 a 8"
+    ],
+    [
+      25.77,
+      "ping",
+      0.8,
+      "se llena la casilla 5"
+    ],
+    [
+      27.18,
+      "whoosh-short",
+      0.68,
+      "corte a la lista larga"
+    ],
+    [
+      27.24,
+      "pop",
+      0.62,
+      "arranca el contador de vencimientos"
+    ],
+    [
+      29.905,
+      "whoosh-short",
+      0.68,
+      "corte a los cuatro tipos"
+    ],
+    [
+      30.562,
+      "click-soft",
+      0.7,
+      "chip ALQUILERES"
+    ],
+    [
+      31.107,
+      "click-soft",
+      0.7,
+      "chip GARANTÍAS"
+    ],
+    [
+      31.668,
+      "click-soft",
+      0.7,
+      "chip SUSCRIPCIONES"
+    ],
+    [
+      32.966,
+      "whoosh-short",
+      0.68,
+      "corte a la rejilla"
+    ],
+    [
+      33.351,
+      "ping",
+      0.8,
+      "se llena la casilla 6"
+    ],
+    [
+      34.473,
+      "whoosh",
+      0.7,
+      "se cierra la ventana sobre la lista"
+    ],
+    [
+      34.7,
+      "click-soft",
+      0.58,
+      "se apagan los que no vencen ya"
+    ],
+    [
+      35.594,
+      "chime",
+      0.75,
+      "90 DÍAS"
+    ],
+    [
+      37.118,
+      "impact-bass-2",
+      0.85,
+      "la casilla 7, en terracota: rompe a propósito la cadena de pings"
+    ],
+    [
+      37.519,
+      "key-press",
+      0.6,
+      "se escribe el pedido largo"
+    ],
+    [
+      38.32,
+      "typing",
+      0.55,
+      "sigue el pedido largo"
+    ],
+    [
+      39.474,
+      "whoosh",
+      0.72,
+      "corte duro: el bloque entero cae a una sola línea"
+    ],
+    [
+      41.75,
+      "ping",
+      0.8,
+      "se llena la casilla 8: las dos rejillas completas"
+    ],
+    [
+      43.176,
+      "click-soft",
+      0.7,
+      "los lunes, repitiéndose"
+    ],
+    [
+      44.458,
+      "notification",
+      0.7,
+      "el resumen llega solo"
+    ],
+    [
+      46.058,
+      "whoosh",
+      0.72,
+      "corte a la consulta: rompe la quietud"
+    ],
+    [
+      46.713,
+      "typing",
+      0.6,
+      "se teclea la pregunta"
+    ],
+    [
+      49.038,
+      "ping",
+      0.8,
+      "el archivo exacto del que sale el dato"
+    ],
+    [
+      51.123,
+      "chime",
+      0.75,
+      "primera respuesta de la terna"
+    ],
+    [
+      52.277,
+      "chime",
+      0.75,
+      "segunda respuesta: el mismo timbre, a propósito"
+    ],
+    [
+      54.33,
+      "sparkle",
+      0.7,
+      "la terna se cierra con otro timbre"
+    ],
+    [
+      56.161,
+      "whoosh-short",
+      0.7,
+      "vuelve el plano lleno: el paso 7"
+    ],
+    [
+      58.598,
+      "key-press",
+      0.6,
+      "se reescribe el mismo pedido"
+    ],
+    [
+      59.063,
+      "glitch-1",
+      0.55,
+      "el signo de igual: son idénticos"
+    ],
+    [
+      60.747,
+      "error",
+      0.5,
+      "abandonas — el único sonido negativo de la pieza"
+    ],
+    [
+      61.957,
+      "whoosh-short",
+      0.7,
+      "corte al cierre de Instagram"
+    ],
+    [
+      65.3,
+      "typing",
+      0.6,
+      "se teclea CEREBRO"
+    ],
+    [
+      66.821,
+      "chime",
+      0.75,
+      "comentario publicado"
+    ]
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "format": "REEL",
+  "palette": "oscuro",
+  "piece": 1,
+  "style_profile": "motion-explainer",
+  "transcript": {
+    "words": "transcripts/1.json",
+    "cuts": "cuts/1.json",
+    "fingerprint": "sha256:dcca9cb7b3ad77578ebfe07ec35a8ebdc403d9d4a01dcdff31f35e944ca46931"
+  },
+  "voice_gain": 0.7,
+  "segments": [
+    {
+      "words": [
+        0,
+        16
+      ],
+      "semanticIntent": "Le di a Claude una tarea de fin de semana entero y la terminó antes del almuerzo.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 0,
+          "type": "CAPTION",
+          "words": [
+            0,
+            16
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        17,
+        30
+      ],
+      "semanticIntent": "La mayoría le escribe a Claude una cosa y espera, uno a la vez.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 17,
+          "type": "CAPTION",
+          "words": [
+            17,
+            30
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        31,
+        40
+      ],
+      "semanticIntent": "Así tardas lo mismo que a mano, pero escribiendo más.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 31,
+          "type": "CAPTION",
+          "words": [
+            31,
+            40
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        41,
+        60
+      ],
+      "semanticIntent": "El cambio es pedirle que abra varios agentes a la vez, cada uno con su tarea y su propio contexto.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 41,
+          "type": "CAPTION",
+          "words": [
+            41,
+            60
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        61,
+        67
+      ],
+      "semanticIntent": "Trabajan en paralelo y no en fila.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 61,
+          "type": "CAPTION",
+          "words": [
+            61,
+            67
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        68,
+        85
+      ],
+      "semanticIntent": "Tarea 1: analizar 60 cuentas de mi nicho y sacar qué temas se repiten en sus mejores videos.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 68,
+          "type": "CAPTION",
+          "words": [
+            68,
+            85
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        86,
+        87
+      ],
+      "semanticIntent": "18 minutos.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 86,
+          "type": "CAPTION",
+          "words": [
+            86,
+            87
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        88,
+        95
+      ],
+      "semanticIntent": "Un reporte con los datos y las fuentes.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 88,
+          "type": "CAPTION",
+          "words": [
+            88,
+            95
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        96,
+        108
+      ],
+      "semanticIntent": "Tarea 2: revisar mis 14 archivos de proyecto y decirme cuáles están duplicados.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 96,
+          "type": "CAPTION",
+          "words": [
+            96,
+            108
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        109,
+        111
+      ],
+      "semanticIntent": "Solo 6 minutos.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 109,
+          "type": "CAPTION",
+          "words": [
+            109,
+            111
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        112,
+        120
+      ],
+      "semanticIntent": "Encontró 3 que yo venía arrastrando de hace meses.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 112,
+          "type": "CAPTION",
+          "words": [
+            112,
+            120
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        121,
+        144
+      ],
+      "semanticIntent": "Lo que más me llama la atención no es la velocidad, es que cada agente vuelve con la fuente de donde sacó el dato.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 121,
+          "type": "CAPTION",
+          "words": [
+            121,
+            144
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        145,
+        146
+      ],
+      "semanticIntent": "Puedes verificarlo.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 145,
+          "type": "CAPTION",
+          "words": [
+            145,
+            146
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        147,
+        158
+      ],
+      "semanticIntent": "Eso es lo que separa esto de pedirle un resumen y rezar.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 147,
+          "type": "CAPTION",
+          "words": [
+            147,
+            158
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        159,
+        173
+      ],
+      "semanticIntent": "Ojo con una cosa, si no le dices cómo dividir el trabajo, abre uno solo.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 159,
+          "type": "CAPTION",
+          "words": [
+            159,
+            173
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        174,
+        182
+      ],
+      "semanticIntent": "La instrucción de dividir la tienes que dar tú.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 174,
+          "type": "CAPTION",
+          "words": [
+            174,
+            182
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    },
+    {
+      "words": [
+        183,
+        199
+      ],
+      "semanticIntent": "Si quieres el prompt exacto que uso para eso, comenta paralelo y te lo mando por privado.",
+      "sceneType": "A_ROLL",
+      "camera": "MEDIUM",
+      "transitionIn": "CUT",
+      "events": [
+        {
+          "atWord": 183,
+          "type": "CAPTION",
+          "words": [
+            183,
+            199
+          ]
+        }
+      ],
+      "reason": "borrador sin revisar — decidir sceneType, objetos y cámara"
+    }
+  ],
+  "planner": {
+    "plannerVersion": "0.1.0",
+    "styleProfile": "motion-explainer",
+    "promptVersion": "draft",
+    "generatedAt": "2026-09-27T20:34:03Z"
+  }
+}

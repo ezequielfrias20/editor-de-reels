@@ -1,0 +1,47 @@
+{
+  "_": "CTA de Instagram de la pieza 1: la oración que se DICE a cámara al final del cuerpo («Si quieres el prompt exacto que uso para eso, comenta paralelo y te lo mando por privado»). Va YA en segundos de la VERSIÓN: la parte común acaba en 57.067 y la versión dura 62.494. Ids distintos de los del cuerpo.",
+  "_shots": "Ninguno. En Instagram el CTA es la MISMA toma que sigue: el corte en 57.067 solo existe porque ahí se parte el plan, y meter un encuadre nuevo pondría un corte duro donde el metraje no lo tiene. El encuadre `band` del cuerpo cubre hasta el final. (En TikTok sí hay uno: ahí el CTA es otro clip.)",
+  "_curva": "Dos momentos, uno cada vez con menos cosas en cuadro (§6): la OFERTA —qué te llevas— y el GESTO —qué tienes que hacer—, que se queda con un solo elemento. El clímax de la pieza ya pasó en «VERIFICABLE» (45.7); esto baja.",
+  "visuals": [
+    {
+      "id": "v-ctaig-oferta",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 57.067,
+      "end": 59.869,
+      "absolute_times": true,
+      "_": "La ESTRUCTURA entra con el beat y el CONTENIDO espera su palabra: las dos casillas discontinuas cubren la banda desde 57.127 —«Si» se dice en 57.290, así que llegan 163 ms antes, el suelo del relevo entre dos visuales, que se lee como el corte duro de §6— y cada nombre se sella en la suya, «EL PROMPT EXACTO» en «prompt» (57.774) y «EL QUE YO USO» en «uso» (58.757). Dos componentes descartados sobre el frame, no sobre el JSON: `keyword_hero` lleva offsets fijos y habría puesto la frase entera medio segundo antes de decirse; `chip_grid` no tiene esqueleto —solo el kicker mono— y dejaba la banda en suelo desnudo 0.7 s, que `check_band_top_covered` da por buena porque mide cobertura declarada y no luma. Sin numerar: no son pasos de un método, son las dos mitades de lo que se ofrece.",
+      "mock": ["step_grid", {
+        "slots": ["EL PROMPT EXACTO", "EL QUE YO USO"],
+        "at": [57.774, 58.757],
+        "kicker": "SI QUIERES",
+        "numbers": false
+      }]
+    },
+    {
+      "id": "v-ctaig-comenta",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 59.869,
+      "end": 62.494,
+      "absolute_times": true,
+      "_": "El mismo cierre que llevaba v1 dentro del cuerpo, ahora donde le toca: un solo elemento en cuadro, la palabra dentro de la caja de comentario. La pastilla COMENTA LA PALABRA entra en 59.899 y la cabecera PARALELO en 60.009, con «comenta» sonando desde 59.869: nada se adelanta. Se teclea en «paralelo» (60.272) y se envía en «y te lo mando» (61.078). `end` = 62.494 = la duración de la versión, así que no lleva fundido de salida: el CTA tiene que estar ENCENDIDO en el último frame, que es el que se congela cuando el reel vuelve a empezar (trampa 6c).",
+      "mock": ["comment_ui", {
+        "word": "PARALELO",
+        "headline": "PARALELO",
+        "type_at": 60.272,
+        "send_at": 61.078
+      }]
+    }
+  ],
+  "sfx": [
+    [57.067, "whoosh-short", 0.7, "corte al cierre de Instagram"],
+    [57.774, "click-soft", 0.7, "se llena EL PROMPT EXACTO"],
+    [58.757, "click-soft", 0.68, "se llena EL QUE YO USO"],
+    [59.869, "whoosh-short", 0.7, "corte al comentario"],
+    [60.272, "typing", 0.6, "se teclea PARALELO"],
+    [61.298, "chime", 0.75, "comentario publicado"]
+  ]
+}

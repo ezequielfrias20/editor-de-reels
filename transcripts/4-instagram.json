@@ -1,0 +1,1741 @@
+{
+  "id": "4cd95a2d-862e-43c8-9de5-d73ca3a0ef7a",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/a3fa7808f9010eda76d4bd256b5e51954f88952d83ee26645b3bad3b0b107e76/8869d1b4-615f-468e-bd76-74f3d6b6624a",
+  "text": "Publico 30 Reels al mes sin diseñador ni editor y solo hago una cosa. Arrancas por aquí, busco 5 referentes grandes en tu nicho. En cada cuenta ordena los Reels de más a menor vista. Los de arriba son los outliers, los que superaron el promedio de esa cuenta. Guárdalos y en cada uno pregúntate qué problema concreto resuelve. Lo importante es llevar ese problema a tu nicho. De cada outlier te llevas una idea mínima para tu propio mensaje. Y no, esto no se hace a mano, lo hace Claude. Tomas cada video ganador y se lo pasas a Claude para que te dé la transcripción. Con esos textos listos, le das un prompt y Claude lo ajusta a tu caso. El prompt te lo dejo en pantalla para que lo pauses y lo copies, o te lo mando, te digo cómo al final. Con Claude pasas a ser tu propio experto en marketing. Toma cada idea ganadora y la ajustas a tu mensaje. Haz la cuenta: 5 vídeos de referentes son más de 25 vídeos, con cada uno su estructura de guión exacta. Copias y pegas y replicas la lógica que ya le funcionó a tus referentes, y de esos 25 te garantizo que por lo menos uno se vuelve viral. Si quieres el paso a paso con el prompt para adaptar outliers con Claude, comenta viral y te lo mando por privado.",
+  "words": [
+    {
+      "text": "Publico",
+      "start": 1059,
+      "end": 1540,
+      "confidence": 0.875634,
+      "speaker": null
+    },
+    {
+      "text": "30",
+      "start": 1540,
+      "end": 1893,
+      "confidence": 0.99991965,
+      "speaker": null
+    },
+    {
+      "text": "Reels",
+      "start": 1893,
+      "end": 2198,
+      "confidence": 0.91370463,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 2198,
+      "end": 2246,
+      "confidence": 0.9997639,
+      "speaker": null
+    },
+    {
+      "text": "mes",
+      "start": 2262,
+      "end": 2471,
+      "confidence": 0.9999962,
+      "speaker": null
+    },
+    {
+      "text": "sin",
+      "start": 2503,
+      "end": 2744,
+      "confidence": 0.9983949,
+      "speaker": null
+    },
+    {
+      "text": "diseñador",
+      "start": 2744,
+      "end": 3305,
+      "confidence": 0.99934894,
+      "speaker": null
+    },
+    {
+      "text": "ni",
+      "start": 3305,
+      "end": 3385,
+      "confidence": 0.9999864,
+      "speaker": null
+    },
+    {
+      "text": "editor",
+      "start": 3401,
+      "end": 3722,
+      "confidence": 0.9999963,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 3963,
+      "end": 3979,
+      "confidence": 0.9028312,
+      "speaker": null
+    },
+    {
+      "text": "solo",
+      "start": 3979,
+      "end": 4444,
+      "confidence": 0.9999448,
+      "speaker": null
+    },
+    {
+      "text": "hago",
+      "start": 4444,
+      "end": 4589,
+      "confidence": 0.9999906,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 4749,
+      "end": 4990,
+      "confidence": 0.99984133,
+      "speaker": null
+    },
+    {
+      "text": "cosa.",
+      "start": 4990,
+      "end": 5199,
+      "confidence": 0.9709661,
+      "speaker": null
+    },
+    {
+      "text": "Arrancas",
+      "start": 5648,
+      "end": 6033,
+      "confidence": 0.9993355,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 6033,
+      "end": 6129,
+      "confidence": 0.9999831,
+      "speaker": null
+    },
+    {
+      "text": "aquí,",
+      "start": 6129,
+      "end": 6322,
+      "confidence": 0.96890235,
+      "speaker": null
+    },
+    {
+      "text": "busco",
+      "start": 6675,
+      "end": 6916,
+      "confidence": 0.9982939,
+      "speaker": null
+    },
+    {
+      "text": "5",
+      "start": 6916,
+      "end": 7189,
+      "confidence": 0.99998426,
+      "speaker": null
+    },
+    {
+      "text": "referentes",
+      "start": 7189,
+      "end": 7718,
+      "confidence": 0.99997765,
+      "speaker": null
+    },
+    {
+      "text": "grandes",
+      "start": 7718,
+      "end": 7975,
+      "confidence": 0.999944,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 7975,
+      "end": 8087,
+      "confidence": 0.9998368,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 8119,
+      "end": 8280,
+      "confidence": 0.9999721,
+      "speaker": null
+    },
+    {
+      "text": "nicho.",
+      "start": 8280,
+      "end": 8569,
+      "confidence": 0.9995808,
+      "speaker": null
+    },
+    {
+      "text": "En",
+      "start": 8697,
+      "end": 8841,
+      "confidence": 0.9999652,
+      "speaker": null
+    },
+    {
+      "text": "cada",
+      "start": 8841,
+      "end": 9082,
+      "confidence": 0.9999926,
+      "speaker": null
+    },
+    {
+      "text": "cuenta",
+      "start": 9082,
+      "end": 9580,
+      "confidence": 0.9999912,
+      "speaker": null
+    },
+    {
+      "text": "ordena",
+      "start": 9580,
+      "end": 9884,
+      "confidence": 0.9953295,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 9884,
+      "end": 10029,
+      "confidence": 0.999954,
+      "speaker": null
+    },
+    {
+      "text": "Reels",
+      "start": 10045,
+      "end": 10221,
+      "confidence": 0.99996877,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 10526,
+      "end": 10607,
+      "confidence": 0.99990857,
+      "speaker": null
+    },
+    {
+      "text": "más",
+      "start": 10607,
+      "end": 10863,
+      "confidence": 0.9997595,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 10863,
+      "end": 10927,
+      "confidence": 0.99999535,
+      "speaker": null
+    },
+    {
+      "text": "menor",
+      "start": 10927,
+      "end": 11248,
+      "confidence": 0.99966025,
+      "speaker": null
+    },
+    {
+      "text": "vista.",
+      "start": 11248,
+      "end": 11537,
+      "confidence": 0.9946058,
+      "speaker": null
+    },
+    {
+      "text": "Los",
+      "start": 11890,
+      "end": 11971,
+      "confidence": 0.99994755,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 11971,
+      "end": 12067,
+      "confidence": 0.9999943,
+      "speaker": null
+    },
+    {
+      "text": "arriba",
+      "start": 12067,
+      "end": 12324,
+      "confidence": 0.9999976,
+      "speaker": null
+    },
+    {
+      "text": "son",
+      "start": 12324,
+      "end": 12452,
+      "confidence": 0.9999881,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 12452,
+      "end": 12628,
+      "confidence": 0.99996054,
+      "speaker": null
+    },
+    {
+      "text": "outliers,",
+      "start": 12628,
+      "end": 12981,
+      "confidence": 0.9911875,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 13094,
+      "end": 13254,
+      "confidence": 0.999706,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 13254,
+      "end": 13415,
+      "confidence": 0.9999186,
+      "speaker": null
+    },
+    {
+      "text": "superaron",
+      "start": 13415,
+      "end": 13912,
+      "confidence": 0.99998134,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 13912,
+      "end": 14008,
+      "confidence": 0.99992824,
+      "speaker": null
+    },
+    {
+      "text": "promedio",
+      "start": 14057,
+      "end": 14538,
+      "confidence": 0.999999,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 14538,
+      "end": 14634,
+      "confidence": 0.99985707,
+      "speaker": null
+    },
+    {
+      "text": "esa",
+      "start": 14634,
+      "end": 14939,
+      "confidence": 0.9996393,
+      "speaker": null
+    },
+    {
+      "text": "cuenta.",
+      "start": 14939,
+      "end": 15180,
+      "confidence": 0.9999399,
+      "speaker": null
+    },
+    {
+      "text": "Guárdalos",
+      "start": 16223,
+      "end": 16961,
+      "confidence": 0.99926054,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 17122,
+      "end": 17202,
+      "confidence": 0.9992244,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 17202,
+      "end": 17426,
+      "confidence": 0.999964,
+      "speaker": null
+    },
+    {
+      "text": "cada",
+      "start": 17426,
+      "end": 17828,
+      "confidence": 0.9999988,
+      "speaker": null
+    },
+    {
+      "text": "uno",
+      "start": 17828,
+      "end": 17988,
+      "confidence": 0.9999732,
+      "speaker": null
+    },
+    {
+      "text": "pregúntate",
+      "start": 17988,
+      "end": 18630,
+      "confidence": 0.99998605,
+      "speaker": null
+    },
+    {
+      "text": "qué",
+      "start": 18630,
+      "end": 18790,
+      "confidence": 0.9968502,
+      "speaker": null
+    },
+    {
+      "text": "problema",
+      "start": 18790,
+      "end": 19192,
+      "confidence": 0.9999914,
+      "speaker": null
+    },
+    {
+      "text": "concreto",
+      "start": 19192,
+      "end": 19705,
+      "confidence": 0.9998822,
+      "speaker": null
+    },
+    {
+      "text": "resuelve.",
+      "start": 19705,
+      "end": 20122,
+      "confidence": 0.99959236,
+      "speaker": null
+    },
+    {
+      "text": "Lo",
+      "start": 20475,
+      "end": 20588,
+      "confidence": 0.999941,
+      "speaker": null
+    },
+    {
+      "text": "importante",
+      "start": 20588,
+      "end": 21021,
+      "confidence": 0.9999865,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 21021,
+      "end": 21085,
+      "confidence": 0.9999924,
+      "speaker": null
+    },
+    {
+      "text": "llevar",
+      "start": 21117,
+      "end": 21342,
+      "confidence": 0.99996555,
+      "speaker": null
+    },
+    {
+      "text": "ese",
+      "start": 21342,
+      "end": 21518,
+      "confidence": 0.9998673,
+      "speaker": null
+    },
+    {
+      "text": "problema",
+      "start": 21518,
+      "end": 22016,
+      "confidence": 0.99999607,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 22016,
+      "end": 22080,
+      "confidence": 0.999984,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 22080,
+      "end": 22241,
+      "confidence": 0.99999154,
+      "speaker": null
+    },
+    {
+      "text": "nicho.",
+      "start": 22241,
+      "end": 22513,
+      "confidence": 0.9999874,
+      "speaker": null
+    },
+    {
+      "text": "De",
+      "start": 22882,
+      "end": 22915,
+      "confidence": 0.99993587,
+      "speaker": null
+    },
+    {
+      "text": "cada",
+      "start": 22995,
+      "end": 23316,
+      "confidence": 0.9999937,
+      "speaker": null
+    },
+    {
+      "text": "outlier",
+      "start": 23316,
+      "end": 23669,
+      "confidence": 0.99998784,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 23845,
+      "end": 24006,
+      "confidence": 0.99993634,
+      "speaker": null
+    },
+    {
+      "text": "llevas",
+      "start": 24006,
+      "end": 24423,
+      "confidence": 0.9999845,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 24423,
+      "end": 24583,
+      "confidence": 0.9999639,
+      "speaker": null
+    },
+    {
+      "text": "idea",
+      "start": 24583,
+      "end": 25049,
+      "confidence": 0.9999809,
+      "speaker": null
+    },
+    {
+      "text": "mínima",
+      "start": 25209,
+      "end": 25691,
+      "confidence": 0.9999609,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 25931,
+      "end": 26172,
+      "confidence": 0.9999603,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 26172,
+      "end": 26381,
+      "confidence": 0.99997675,
+      "speaker": null
+    },
+    {
+      "text": "propio",
+      "start": 26413,
+      "end": 26814,
+      "confidence": 0.9999194,
+      "speaker": null
+    },
+    {
+      "text": "mensaje.",
+      "start": 26814,
+      "end": 27183,
+      "confidence": 0.9997605,
+      "speaker": null
+    },
+    {
+      "text": "Y",
+      "start": 28073,
+      "end": 28177,
+      "confidence": 0.9762915,
+      "speaker": null
+    },
+    {
+      "text": "no,",
+      "start": 28177,
+      "end": 28387,
+      "confidence": 0.9998556,
+      "speaker": null
+    },
+    {
+      "text": "esto",
+      "start": 28754,
+      "end": 28979,
+      "confidence": 0.99991596,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 28979,
+      "end": 29059,
+      "confidence": 0.99996734,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 29123,
+      "end": 29315,
+      "confidence": 0.9999658,
+      "speaker": null
+    },
+    {
+      "text": "hace",
+      "start": 29315,
+      "end": 29492,
+      "confidence": 0.9999881,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 29492,
+      "end": 29508,
+      "confidence": 0.99997747,
+      "speaker": null
+    },
+    {
+      "text": "mano,",
+      "start": 29508,
+      "end": 29828,
+      "confidence": 0.9998549,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 29860,
+      "end": 29957,
+      "confidence": 0.9998405,
+      "speaker": null
+    },
+    {
+      "text": "hace",
+      "start": 30037,
+      "end": 30341,
+      "confidence": 0.9999311,
+      "speaker": null
+    },
+    {
+      "text": "Claude.",
+      "start": 30341,
+      "end": 30550,
+      "confidence": 0.9999119,
+      "speaker": null
+    },
+    {
+      "text": "Tomas",
+      "start": 30902,
+      "end": 31159,
+      "confidence": 0.9986745,
+      "speaker": null
+    },
+    {
+      "text": "cada",
+      "start": 31223,
+      "end": 31464,
+      "confidence": 0.99999046,
+      "speaker": null
+    },
+    {
+      "text": "video",
+      "start": 31464,
+      "end": 31752,
+      "confidence": 0.5639762,
+      "speaker": null
+    },
+    {
+      "text": "ganador",
+      "start": 31784,
+      "end": 32169,
+      "confidence": 0.9999955,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 32281,
+      "end": 32345,
+      "confidence": 0.99989617,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 32345,
+      "end": 32490,
+      "confidence": 0.99987364,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 32490,
+      "end": 32666,
+      "confidence": 0.99943227,
+      "speaker": null
+    },
+    {
+      "text": "pasas",
+      "start": 32666,
+      "end": 33003,
+      "confidence": 0.9999797,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 33003,
+      "end": 33147,
+      "confidence": 0.9998779,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 33147,
+      "end": 33387,
+      "confidence": 0.9999987,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 33387,
+      "end": 33628,
+      "confidence": 0.99993527,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 33628,
+      "end": 33788,
+      "confidence": 0.99999356,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 33788,
+      "end": 33900,
+      "confidence": 0.99998486,
+      "speaker": null
+    },
+    {
+      "text": "dé",
+      "start": 33900,
+      "end": 34109,
+      "confidence": 0.99984527,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 34109,
+      "end": 34269,
+      "confidence": 0.99994063,
+      "speaker": null
+    },
+    {
+      "text": "transcripción.",
+      "start": 34349,
+      "end": 35038,
+      "confidence": 0.9999757,
+      "speaker": null
+    },
+    {
+      "text": "Con",
+      "start": 35391,
+      "end": 35648,
+      "confidence": 0.99991035,
+      "speaker": null
+    },
+    {
+      "text": "esos",
+      "start": 35648,
+      "end": 35856,
+      "confidence": 0.9984291,
+      "speaker": null
+    },
+    {
+      "text": "textos",
+      "start": 35872,
+      "end": 36193,
+      "confidence": 0.9999854,
+      "speaker": null
+    },
+    {
+      "text": "listos,",
+      "start": 36193,
+      "end": 36642,
+      "confidence": 0.92043084,
+      "speaker": null
+    },
+    {
+      "text": "le",
+      "start": 36994,
+      "end": 37107,
+      "confidence": 0.999984,
+      "speaker": null
+    },
+    {
+      "text": "das",
+      "start": 37107,
+      "end": 37251,
+      "confidence": 0.9999609,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 37251,
+      "end": 37395,
+      "confidence": 0.99987984,
+      "speaker": null
+    },
+    {
+      "text": "prompt",
+      "start": 37395,
+      "end": 37972,
+      "confidence": 0.9999578,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 37972,
+      "end": 38116,
+      "confidence": 0.9995371,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 38116,
+      "end": 38485,
+      "confidence": 0.9999944,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 38517,
+      "end": 38613,
+      "confidence": 0.9997248,
+      "speaker": null
+    },
+    {
+      "text": "ajusta",
+      "start": 38613,
+      "end": 39078,
+      "confidence": 0.99995947,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 39335,
+      "end": 39399,
+      "confidence": 0.9999008,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 39399,
+      "end": 39559,
+      "confidence": 0.9999609,
+      "speaker": null
+    },
+    {
+      "text": "caso.",
+      "start": 39559,
+      "end": 39788,
+      "confidence": 0.99996716,
+      "speaker": null
+    },
+    {
+      "text": "El",
+      "start": 40708,
+      "end": 40842,
+      "confidence": 0.9994535,
+      "speaker": null
+    },
+    {
+      "text": "prompt",
+      "start": 40842,
+      "end": 41275,
+      "confidence": 0.9999962,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 41483,
+      "end": 41563,
+      "confidence": 0.99963045,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 41563,
+      "end": 41643,
+      "confidence": 0.99998975,
+      "speaker": null
+    },
+    {
+      "text": "dejo",
+      "start": 41643,
+      "end": 41820,
+      "confidence": 0.99998695,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 41820,
+      "end": 41964,
+      "confidence": 0.99990165,
+      "speaker": null
+    },
+    {
+      "text": "pantalla",
+      "start": 41964,
+      "end": 42365,
+      "confidence": 0.9999653,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 42365,
+      "end": 42541,
+      "confidence": 0.99992263,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 42541,
+      "end": 42685,
+      "confidence": 0.9999871,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 42685,
+      "end": 42766,
+      "confidence": 0.99973255,
+      "speaker": null
+    },
+    {
+      "text": "pauses",
+      "start": 42766,
+      "end": 43182,
+      "confidence": 0.99907935,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 43182,
+      "end": 43246,
+      "confidence": 0.9999033,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 43246,
+      "end": 43327,
+      "confidence": 0.99994767,
+      "speaker": null
+    },
+    {
+      "text": "copies,",
+      "start": 43407,
+      "end": 43840,
+      "confidence": 0.9980908,
+      "speaker": null
+    },
+    {
+      "text": "o",
+      "start": 44064,
+      "end": 44128,
+      "confidence": 0.99985194,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 44128,
+      "end": 44289,
+      "confidence": 0.9999678,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 44289,
+      "end": 44369,
+      "confidence": 0.99996614,
+      "speaker": null
+    },
+    {
+      "text": "mando,",
+      "start": 44369,
+      "end": 44737,
+      "confidence": 0.9878813,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 44769,
+      "end": 44882,
+      "confidence": 0.9998447,
+      "speaker": null
+    },
+    {
+      "text": "digo",
+      "start": 44882,
+      "end": 45090,
+      "confidence": 0.9999857,
+      "speaker": null
+    },
+    {
+      "text": "cómo",
+      "start": 45170,
+      "end": 45347,
+      "confidence": 0.9998957,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 45347,
+      "end": 45491,
+      "confidence": 0.9988771,
+      "speaker": null
+    },
+    {
+      "text": "final.",
+      "start": 45491,
+      "end": 45809,
+      "confidence": 0.99994093,
+      "speaker": null
+    },
+    {
+      "text": "Con",
+      "start": 46292,
+      "end": 46581,
+      "confidence": 0.9988405,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 47124,
+      "end": 47495,
+      "confidence": 0.50317276,
+      "speaker": null
+    },
+    {
+      "text": "pasas",
+      "start": 47575,
+      "end": 47880,
+      "confidence": 0.9376759,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 47880,
+      "end": 47896,
+      "confidence": 0.99938357,
+      "speaker": null
+    },
+    {
+      "text": "ser",
+      "start": 47896,
+      "end": 48120,
+      "confidence": 0.99968255,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 48136,
+      "end": 48296,
+      "confidence": 0.9999734,
+      "speaker": null
+    },
+    {
+      "text": "propio",
+      "start": 48296,
+      "end": 48521,
+      "confidence": 0.99997675,
+      "speaker": null
+    },
+    {
+      "text": "experto",
+      "start": 48521,
+      "end": 48761,
+      "confidence": 0.9999981,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 48761,
+      "end": 48825,
+      "confidence": 0.9999287,
+      "speaker": null
+    },
+    {
+      "text": "marketing.",
+      "start": 48857,
+      "end": 49467,
+      "confidence": 0.99458426,
+      "speaker": null
+    },
+    {
+      "text": "Toma",
+      "start": 49739,
+      "end": 50140,
+      "confidence": 0.9845897,
+      "speaker": null
+    },
+    {
+      "text": "cada",
+      "start": 50140,
+      "end": 50380,
+      "confidence": 0.99997294,
+      "speaker": null
+    },
+    {
+      "text": "idea",
+      "start": 50396,
+      "end": 50653,
+      "confidence": 0.9999907,
+      "speaker": null
+    },
+    {
+      "text": "ganadora",
+      "start": 50653,
+      "end": 51182,
+      "confidence": 0.9999945,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 51278,
+      "end": 51342,
+      "confidence": 0.99996185,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 51342,
+      "end": 51438,
+      "confidence": 0.9996753,
+      "speaker": null
+    },
+    {
+      "text": "ajustas",
+      "start": 51438,
+      "end": 52240,
+      "confidence": 0.9883226,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 52240,
+      "end": 52304,
+      "confidence": 0.9999443,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 52304,
+      "end": 52464,
+      "confidence": 0.9999392,
+      "speaker": null
+    },
+    {
+      "text": "mensaje.",
+      "start": 52464,
+      "end": 52833,
+      "confidence": 0.9994034,
+      "speaker": null
+    },
+    {
+      "text": "Haz",
+      "start": 54564,
+      "end": 54708,
+      "confidence": 0.999509,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 54708,
+      "end": 54756,
+      "confidence": 0.99992824,
+      "speaker": null
+    },
+    {
+      "text": "cuenta:",
+      "start": 54868,
+      "end": 55157,
+      "confidence": 0.7134559,
+      "speaker": null
+    },
+    {
+      "text": "5",
+      "start": 55349,
+      "end": 55670,
+      "confidence": 0.99999166,
+      "speaker": null
+    },
+    {
+      "text": "vídeos",
+      "start": 55670,
+      "end": 55910,
+      "confidence": 0.9028186,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 55910,
+      "end": 56070,
+      "confidence": 0.9999267,
+      "speaker": null
+    },
+    {
+      "text": "referentes",
+      "start": 56070,
+      "end": 56968,
+      "confidence": 0.9997807,
+      "speaker": null
+    },
+    {
+      "text": "son",
+      "start": 57112,
+      "end": 57272,
+      "confidence": 0.99982977,
+      "speaker": null
+    },
+    {
+      "text": "más",
+      "start": 57272,
+      "end": 57384,
+      "confidence": 0.999997,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 57384,
+      "end": 57513,
+      "confidence": 0.9999981,
+      "speaker": null
+    },
+    {
+      "text": "25",
+      "start": 57513,
+      "end": 58234,
+      "confidence": 0.9999865,
+      "speaker": null
+    },
+    {
+      "text": "vídeos,",
+      "start": 58234,
+      "end": 58602,
+      "confidence": 0.80327106,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 58715,
+      "end": 58875,
+      "confidence": 0.9998504,
+      "speaker": null
+    },
+    {
+      "text": "cada",
+      "start": 58875,
+      "end": 59131,
+      "confidence": 0.9999987,
+      "speaker": null
+    },
+    {
+      "text": "uno",
+      "start": 59131,
+      "end": 59275,
+      "confidence": 0.9999881,
+      "speaker": null
+    },
+    {
+      "text": "su",
+      "start": 59275,
+      "end": 59372,
+      "confidence": 0.9999099,
+      "speaker": null
+    },
+    {
+      "text": "estructura",
+      "start": 59372,
+      "end": 59916,
+      "confidence": 0.9999971,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 59916,
+      "end": 59997,
+      "confidence": 0.9994623,
+      "speaker": null
+    },
+    {
+      "text": "guión",
+      "start": 60077,
+      "end": 60333,
+      "confidence": 0.9872736,
+      "speaker": null
+    },
+    {
+      "text": "exacta.",
+      "start": 60333,
+      "end": 60670,
+      "confidence": 0.99324125,
+      "speaker": null
+    },
+    {
+      "text": "Copias",
+      "start": 61118,
+      "end": 61455,
+      "confidence": 0.999529,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 61455,
+      "end": 61599,
+      "confidence": 0.9994623,
+      "speaker": null
+    },
+    {
+      "text": "pegas",
+      "start": 61599,
+      "end": 62016,
+      "confidence": 0.99546623,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 62016,
+      "end": 62080,
+      "confidence": 0.999456,
+      "speaker": null
+    },
+    {
+      "text": "replicas",
+      "start": 62080,
+      "end": 62641,
+      "confidence": 0.99405766,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 62641,
+      "end": 62801,
+      "confidence": 0.99998665,
+      "speaker": null
+    },
+    {
+      "text": "lógica",
+      "start": 62801,
+      "end": 63202,
+      "confidence": 0.9999992,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 63202,
+      "end": 63362,
+      "confidence": 0.9999968,
+      "speaker": null
+    },
+    {
+      "text": "ya",
+      "start": 63362,
+      "end": 63506,
+      "confidence": 0.9999949,
+      "speaker": null
+    },
+    {
+      "text": "le",
+      "start": 63506,
+      "end": 63602,
+      "confidence": 0.92403555,
+      "speaker": null
+    },
+    {
+      "text": "funcionó",
+      "start": 63602,
+      "end": 64179,
+      "confidence": 0.9999941,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 64179,
+      "end": 64243,
+      "confidence": 0.99999547,
+      "speaker": null
+    },
+    {
+      "text": "tus",
+      "start": 64243,
+      "end": 64404,
+      "confidence": 0.93427616,
+      "speaker": null
+    },
+    {
+      "text": "referentes,",
+      "start": 64404,
+      "end": 64732,
+      "confidence": 0.9124322,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 65381,
+      "end": 65477,
+      "confidence": 0.9999937,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 65477,
+      "end": 65541,
+      "confidence": 0.9999876,
+      "speaker": null
+    },
+    {
+      "text": "esos",
+      "start": 65541,
+      "end": 65766,
+      "confidence": 0.9999324,
+      "speaker": null
+    },
+    {
+      "text": "25",
+      "start": 65766,
+      "end": 66407,
+      "confidence": 0.9999931,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 66647,
+      "end": 66727,
+      "confidence": 0.99964,
+      "speaker": null
+    },
+    {
+      "text": "garantizo",
+      "start": 66727,
+      "end": 67160,
+      "confidence": 0.99999803,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 67160,
+      "end": 67240,
+      "confidence": 0.9999975,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 67288,
+      "end": 67432,
+      "confidence": 0.9999927,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 67448,
+      "end": 67528,
+      "confidence": 0.99999666,
+      "speaker": null
+    },
+    {
+      "text": "menos",
+      "start": 67609,
+      "end": 68025,
+      "confidence": 0.999998,
+      "speaker": null
+    },
+    {
+      "text": "uno",
+      "start": 68186,
+      "end": 68410,
+      "confidence": 0.9985545,
+      "speaker": null
+    },
+    {
+      "text": "se",
+      "start": 68410,
+      "end": 68490,
+      "confidence": 0.9999882,
+      "speaker": null
+    },
+    {
+      "text": "vuelve",
+      "start": 68490,
+      "end": 68810,
+      "confidence": 0.9999883,
+      "speaker": null
+    },
+    {
+      "text": "viral.",
+      "start": 68810,
+      "end": 69227,
+      "confidence": 0.99998456,
+      "speaker": null
+    },
+    {
+      "text": "Si",
+      "start": 70613,
+      "end": 70734,
+      "confidence": 0.9994104,
+      "speaker": null
+    },
+    {
+      "text": "quieres",
+      "start": 70734,
+      "end": 70990,
+      "confidence": 0.99999,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 70990,
+      "end": 71038,
+      "confidence": 0.9999933,
+      "speaker": null
+    },
+    {
+      "text": "paso",
+      "start": 71134,
+      "end": 71359,
+      "confidence": 0.9999987,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 71359,
+      "end": 71375,
+      "confidence": 0.99999917,
+      "speaker": null
+    },
+    {
+      "text": "paso",
+      "start": 71455,
+      "end": 71615,
+      "confidence": 0.9999987,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 71695,
+      "end": 71871,
+      "confidence": 0.9998841,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 71871,
+      "end": 72000,
+      "confidence": 0.9999682,
+      "speaker": null
+    },
+    {
+      "text": "prompt",
+      "start": 72016,
+      "end": 72256,
+      "confidence": 0.9999436,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 72256,
+      "end": 72464,
+      "confidence": 0.9999745,
+      "speaker": null
+    },
+    {
+      "text": "adaptar",
+      "start": 72464,
+      "end": 72753,
+      "confidence": 0.99696153,
+      "speaker": null
+    },
+    {
+      "text": "outliers",
+      "start": 72753,
+      "end": 73298,
+      "confidence": 0.44557565,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 73298,
+      "end": 73458,
+      "confidence": 0.9990777,
+      "speaker": null
+    },
+    {
+      "text": "Claude,",
+      "start": 73458,
+      "end": 73746,
+      "confidence": 0.9998624,
+      "speaker": null
+    },
+    {
+      "text": "comenta",
+      "start": 74099,
+      "end": 74499,
+      "confidence": 0.9999875,
+      "speaker": null
+    },
+    {
+      "text": "viral",
+      "start": 74532,
+      "end": 74948,
+      "confidence": 0.9995579,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 74996,
+      "end": 75060,
+      "confidence": 0.9999298,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 75060,
+      "end": 75141,
+      "confidence": 0.99999285,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 75141,
+      "end": 75221,
+      "confidence": 0.9999949,
+      "speaker": null
+    },
+    {
+      "text": "mando",
+      "start": 75221,
+      "end": 75541,
+      "confidence": 0.9999842,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 75541,
+      "end": 75621,
+      "confidence": 0.99998474,
+      "speaker": null
+    },
+    {
+      "text": "privado.",
+      "start": 75621,
+      "end": 75990,
+      "confidence": 0.9999509,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.9873844,
+  "audio_duration": 79,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

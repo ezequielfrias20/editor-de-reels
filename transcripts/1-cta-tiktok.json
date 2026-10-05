@@ -1,0 +1,166 @@
+{
+  "id": "c1e11702-1a37-4b5c-bc94-e3b0a8f6c84b",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/d9ce372e10e649931b5e28bdbc619ce9d41436988bed8d075d6b534e154a9b4a/f4dde1de-e16b-4de6-bdc8-d5b629e2011b",
+  "text": "Ve al link de la bio y encuentra el acceso.",
+  "words": [
+    {
+      "text": "Ve",
+      "start": 1585,
+      "end": 1780,
+      "confidence": 0.9891018,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 1780,
+      "end": 1829,
+      "confidence": 0.99878246,
+      "speaker": null
+    },
+    {
+      "text": "link",
+      "start": 1829,
+      "end": 1991,
+      "confidence": 0.9999627,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 2039,
+      "end": 2120,
+      "confidence": 0.9992792,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 2120,
+      "end": 2234,
+      "confidence": 0.99986136,
+      "speaker": null
+    },
+    {
+      "text": "bio",
+      "start": 2234,
+      "end": 2525,
+      "confidence": 0.9995295,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 2703,
+      "end": 2784,
+      "confidence": 0.9994962,
+      "speaker": null
+    },
+    {
+      "text": "encuentra",
+      "start": 2784,
+      "end": 3140,
+      "confidence": 0.99631774,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 3140,
+      "end": 3189,
+      "confidence": 0.99991727,
+      "speaker": null
+    },
+    {
+      "text": "acceso.",
+      "start": 3189,
+      "end": 3626,
+      "confidence": 0.99869114,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.99809396,
+  "audio_duration": 6,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

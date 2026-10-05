@@ -1,0 +1,28 @@
+{
+  "_": "CTA de Instagram de la pieza 2: la oración que se DICE a cámara al final del cuerpo («Si quieres la guía con los 8 pasos y el texto de cada uno, comenta cerebro y te lo envío por privado»). Va YA en segundos de la VERSIÓN: la parte común acaba en 61.957 y la versión dura 67.703. Ids distintos de los del cuerpo.",
+  "_shots": "Ninguno. En Instagram el CTA es la MISMA toma que sigue: el corte en 61.957 solo existe porque ahí se parte el plan, y meter un encuadre nuevo pondría un corte duro donde el metraje no lo tiene. El encuadre de plano lleno 1.09 del cuerpo cubre hasta el final, que es lo correcto: en el cierre la cara es el argumento y el CTA es un solo elemento flotando sobre ella.",
+  "_q6": "Respuesta q6 del usuario: UN solo `comment_ui`, no los tres momentos del brief. La caja entra en 61.957 —es chrome: campo vacío con su placeholder, no adelanta ninguna palabra—, CEREBRO se TECLEA en «comenta» (65.300) y se envía en «envío» (66.599). Se pierden a sabiendas el recap de la rejilla de ocho y el destello de las casillas vacías del loop. Va SIN `headline` justamente por eso: la cabecera de 190 px de `comment_ui` entra con un offset fijo de 0.14 s, así que con ella la palabra CEREBRO estaría en pantalla desde 62.097 — 3.6 s antes de decirse. Tecleada en el campo cae exactamente en su palabra, que es lo que la respuesta pide.",
+  "_ultimo_frame": "`end: null` = la duración de la versión, así que el visual NO lleva fundido de salida: el CTA tiene que estar ENCENDIDO en el último frame, que es el que se congela cuando el reel vuelve a empezar (trampa 6c).",
+  "visuals": [
+    {
+      "id": "v-ctaig-comenta",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 61.957,
+      "end": null,
+      "absolute_times": true,
+      "_": "La caja de comentario entra en 62.277 (el offset propio del componente, 0.32 s) con su placeholder: 320 ms de suelo tras el corte duro de «ABANDONAS», que se leen como el respiro que separa el cuerpo del CTA. Se teclea CEREBRO desde «comenta» (65.300) y la palabra termina de escribirse justo sobre «cerebro» (65.701); el envío cae en «envío» (66.599) y el sello ✓ COMENTARIO PUBLICADO 220 ms después.",
+      "mock": ["comment_ui", {
+        "word": "CEREBRO",
+        "type_at": 65.3,
+        "send_at": 66.599
+      }]
+    }
+  ],
+  "sfx": [
+    [61.957, "whoosh-short", 0.7, "corte al cierre de Instagram"],
+    [65.3, "typing", 0.6, "se teclea CEREBRO"],
+    [66.821, "chime", 0.75, "comentario publicado"]
+  ]
+}

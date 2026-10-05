@@ -1,0 +1,549 @@
+{
+  "pieza": 4,
+  "generado": "2026-10-02T11:05:00",
+  "formato": "REEL",
+  "duracion_corte": 70.819,
+  "paleta": "oscuro",
+  "beats": [
+    {
+      "id": "b1",
+      "desde": 0.0,
+      "hasta": 1.594,
+      "texto": "Publico 30 Reels al mes",
+      "ancla": "Publico 30 Reels al mes",
+      "formato": "partida",
+      "fondo": "oscuro",
+      "visual": "Cabecera de perfil de Instagram (avatar redondo, pastilla de @usuario) y debajo la grilla de Reels llenándose sola. En «30» (0.631) el contador de publicaciones salta de 0 a 30 y la grilla se llena al mismo ritmo; en «mes» (1.353) se dibuja alrededor el recuadro de un mes de calendario y la grilla entera cabe dentro. Componente nuevo: ig_profile_grid.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b2",
+      "desde": 1.594,
+      "hasta": 3.054,
+      "texto": "sin diseñador ni editor",
+      "ancla": "sin diseñador ni editor",
+      "formato": "grafico",
+      "fondo": "comic",
+      "visual": "Sobre trama de semitono, dos monigotes: uno con tableta de diseño, otro con línea de tiempo de edición. En «diseñador» (1.835) se desinfla y desaparece el de la tableta; en «editor» (2.492) se va el de la línea de tiempo y el lienzo queda vacío. Componente nuevo: stick_deflate.",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b3",
+      "desde": 3.054,
+      "hasta": 4.739,
+      "texto": "y solo hago una cosa.",
+      "ancla": "y solo hago una cosa",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b4",
+      "desde": 4.739,
+      "hasta": 5.766,
+      "texto": "Arrancas por aquí,",
+      "ancla": "Arrancas por aquí",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b5",
+      "desde": 5.766,
+      "hasta": 7.788,
+      "texto": "busco 5 referentes grandes en tu nicho.",
+      "ancla": "busco 5 referentes grandes en tu nicho",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "Barra de búsqueda de Instagram escribiéndose sola y debajo cinco tarjetas de perfil cayendo en fila (avatar redondo, @usuario, contador de seguidores). En «5» (6.007) caen las cinco una detrás de otra; en «nicho» (7.371) el contador de seguidores de cada una corre hasta su cifra. Componente nuevo: ig_search_results. Ver q3: no hay capturas de los cinco referentes reales.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b6",
+      "desde": 7.788,
+      "hasta": 9.617,
+      "texto": "En cada cuenta ordena los Reels",
+      "ancla": "En cada cuenta ordena los Reels",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "Un perfil de Instagram a lienzo completo. En «cuenta» (8.173) se arma la cabecera; en «ordena» (8.671) se abre el menú de orden con foco de luz encima; en «Reels» (9.136) se elige «Más vistos» y las miniaturas saltan de lugar. Componente nuevo: ig_sort_menu sobre ig_profile_grid.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b7",
+      "desde": 9.617,
+      "hasta": 10.981,
+      "texto": "de más a menor vista.",
+      "ancla": "de más a menor vista",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "La grilla ya ordenada arriba: en «vista» (10.339) se encienden los contadores de reproducciones de cada miniatura y los números quedan en escalera, de mayor a menor. Reutiliza ig_profile_grid con el contador por celda.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b8",
+      "desde": 10.981,
+      "hasta": 12.185,
+      "texto": "Los de arriba son los outliers,",
+      "ancla": "Los de arriba son los outliers",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "La grilla se convierte en barras con una línea punteada en el promedio de la cuenta. En «arriba» (11.158) la primera fila se despega y sube; en «outliers» (11.719) las tres primeras barras atraviesan el promedio y se van fuera de cuadro, encendidas. Componente nuevo: outlier_bars (rima con la grilla de b7, mismas celdas).",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b9",
+      "desde": 12.185,
+      "hasta": 14.671,
+      "texto": "los que superaron el promedio de esa cuenta.",
+      "ancla": "los que superaron el promedio de esa cuenta",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b10",
+      "desde": 14.671,
+      "hasta": 16.436,
+      "texto": "Guárdalos y en cada uno",
+      "ancla": "Guárdalos y en cada uno",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "Un reel abierto en Instagram arriba. En «Guárdalos» (14.671) el ícono de guardar se rellena de golpe y la miniatura cae dentro de una colección llamada «Outliers»; en «cada» (15.874) se apilan detrás otras cuatro. Componente nuevo: ig_save_collection.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b11",
+      "desde": 16.436,
+      "hasta": 18.57,
+      "texto": "pregúntate qué problema concreto resuelve.",
+      "ancla": "pregúntate qué problema concreto resuelve",
+      "formato": "grafico",
+      "fondo": "comic",
+      "visual": "Un monigote mira la miniatura con tres signos de pregunta flotando. En «problema» (17.238) la miniatura se abre como una caja y cae un nudo enredado que rebota; en «resuelve» (18.153) el monigote lo agarra y lo levanta. Componente nuevo: stick_question + el nudo (knot), que es el objeto que viaja a b13.",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b12",
+      "desde": 18.57,
+      "hasta": 19.565,
+      "texto": "Lo importante es",
+      "ancla": "Lo importante es",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b13",
+      "desde": 19.565,
+      "hasta": 21.33,
+      "texto": "llevar ese problema a tu nicho.",
+      "ancla": "llevar ese problema a tu nicho",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "El nudo de b11 viaja por una flecha curva desde el avatar del referente hasta el avatar de la cuenta propia. En «llevar» (19.565) se despega y arranca; en «nicho» (20.689) aterriza en el avatar propio, cambia de color y se acomoda solo. Componente nuevo: knot_transfer.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b14",
+      "desde": 21.33,
+      "hasta": 23.657,
+      "texto": "De cada outlier te llevas una idea",
+      "ancla": "De cada outlier te llevas una idea",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "Cinco miniaturas en columna a la izquierda. En «outlier» (21.764) la primera se abre por la mitad; en «idea» (23.031) sale una nota adhesiva que cruza el lienzo y se pega a la derecha, y las demás la siguen hasta formar un taco. Componente nuevo: idea_notes. Recortado a 2.33 s para que ningún gráfico pase de ~3 s: la palabra «mínima» vuelve a cara en b15.",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b15",
+      "desde": 23.657,
+      "hasta": 26.031,
+      "texto": "mínima para tu propio mensaje.",
+      "ancla": "mínima para tu propio mensaje",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b16",
+      "desde": 26.031,
+      "hasta": 27.818,
+      "texto": "Y no, esto no se hace a mano,",
+      "ancla": "Y no, esto no se hace a mano",
+      "formato": "partida",
+      "fondo": "comic",
+      "visual": "Arriba, un monigote con un cuaderno copia a mano frente a una pila de videos que no baja. En «mano» (27.466) la pila crece de golpe y le tapa la cabeza. Componente nuevo: stick_copying (reutiliza el monigote de b2/b11).",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b17",
+      "desde": 27.818,
+      "hasta": 28.86,
+      "texto": "lo hace Claude.",
+      "ancla": "lo hace Claude",
+      "formato": "partida",
+      "fondo": "oscuro",
+      "visual": "La pila se evapora y en su lugar se dibuja el mosaico de Claude con su pastilla de nombre debajo y un resplandor detrás. En «Claude» (28.299) el mosaico se enciende y la pila se evapora. Sirve tool_card con el logo de claude.",
+      "logos": ["claude"],
+      "material": []
+    },
+    {
+      "id": "b18",
+      "desde": 28.86,
+      "hasta": 30.239,
+      "texto": "Tomas cada video ganador",
+      "ancla": "Tomas cada video ganador",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "La caja de chat de Claude vacía; el cursor arrastra dentro tres miniaturas de reel, cada una con su contador de reproducciones en la esquina. En «video» (29.422) cae la primera; en «ganador» (29.742) caen las otras dos y los tres contadores se encienden. Reutiliza claude_prompt con el campo de adjuntos (attachment) y la miniatura de reel.",
+      "logos": ["claude", "instagram"],
+      "material": []
+    },
+    {
+      "id": "b19",
+      "desde": 30.239,
+      "hasta": 31.345,
+      "texto": "y se lo pasas a Claude",
+      "ancla": "y se lo pasas a Claude",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "La misma caja de chat arriba, con foco de luz sobre el campo. En «pasas» (30.624) el archivo entra y aparece su miniatura adjunta; en «Claude» (31.105) el botón de enviar se enciende y se pulsa. El brief pedía la grabación real: no hay clip de pantalla en el pedido, se recrea con claude_prompt (ver avisos).",
+      "logos": ["claude"],
+      "material": []
+    },
+    {
+      "id": "b20",
+      "desde": 31.345,
+      "hasta": 33.349,
+      "texto": "para que te dé la transcripción.",
+      "ancla": "para que te dé la transcripción",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "Una línea de luz escanea la miniatura de arriba abajo y, debajo, los renglones de la transcripción se escriben detrás de la línea. En «dé» (31.858) la línea arranca a escanear; en «transcripción» (32.307) los renglones se llenan. Componente nuevo: scan_transcript.",
+      "logos": ["claude"],
+      "material": []
+    },
+    {
+      "id": "b21",
+      "desde": 33.349,
+      "hasta": 35.93,
+      "texto": "Con esos textos listos, le das un prompt",
+      "ancla": "Con esos textos listos, le das un prompt",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "Arriba, la transcripción se encoge hasta ser una tarjeta y desde arriba baja un bloque de prompt que encaja encima como una pieza. En «textos» (33.830) la transcripción se encoge; en «prompt» (35.353) el bloque baja y encaja con un clic. Componente nuevo: prompt_snap.",
+      "logos": ["claude"],
+      "material": []
+    },
+    {
+      "id": "b22",
+      "desde": 35.93,
+      "hasta": 38.146,
+      "texto": "y Claude lo ajusta a tu caso.",
+      "ancla": "y Claude lo ajusta a tu caso",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b23",
+      "desde": 38.146,
+      "hasta": 39.803,
+      "texto": "El prompt te lo dejo en pantalla",
+      "ancla": "El prompt te lo dejo en pantalla",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "El bloque del prompt a lienzo completo, en monoespaciada grande sobre el suelo oscuro, desplegándose renglón por renglón hasta llenar el cuadro. En «prompt» (38.280) arranca a desplegarse; en «pantalla» (39.402) termina y queda quieto. Es el único texto largo del video: acá el texto ES la cosa que se muestra. Componente nuevo: prompt_sheet. Ver q1: falta el texto exacto.",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b24",
+      "desde": 39.803,
+      "hasta": 41.502,
+      "texto": "para que lo pauses y lo copies,",
+      "ancla": "para que lo pauses y lo copies",
+      "formato": "partida",
+      "fondo": "oscuro",
+      "visual": "El prompt queda arriba, quieto. En «pauses» (40.204) la barra de progreso del reel se frena en seco; en «copies» (40.845) un cursor barre el bloque entero y el texto queda resaltado. Reutiliza prompt_sheet + la barra de progreso de Instagram.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b25",
+      "desde": 41.502,
+      "hasta": 43.73,
+      "texto": "o te lo mando, te digo cómo al final.",
+      "ancla": "o te lo mando, te digo cómo al final",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b26",
+      "desde": 43.73,
+      "hasta": 45.281,
+      "texto": "Con Claude pasas a ser",
+      "ancla": "Con Claude pasas a ser",
+      "formato": "partida",
+      "fondo": "oscuro",
+      "visual": "Arriba, la tarjeta del prompt se desliza dentro del mosaico de Claude, que se enciende de adentro hacia afuera. En «Claude» (44.269) la tarjeta entra y el mosaico se enciende.",
+      "logos": ["claude"],
+      "material": []
+    },
+    {
+      "id": "b27",
+      "desde": 45.281,
+      "hasta": 46.884,
+      "texto": "tu propio experto en marketing.",
+      "ancla": "tu propio experto en marketing",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "Un tablero de estrategia con miniaturas de reels clavadas con chinches y el mosaico de Claude al costado, encendido, señalando una con el puntero. En «experto» (45.666) entra el tablero vacío con el mosaico al lado; en «marketing» (46.002) se clavan las miniaturas y el puntero señala una. Componente nuevo: strategy_board. Ver q2: el brief pedía la mascota de Claude, que no existe en la librería.",
+      "logos": ["claude"],
+      "material": []
+    },
+    {
+      "id": "b28",
+      "desde": 46.884,
+      "hasta": 48.423,
+      "texto": "Toma cada idea ganadora",
+      "ancla": "Toma cada idea ganadora",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "Arriba, una tarjeta de reel del referente entra por la izquierda con su avatar y su contador de reproducciones. En «idea» (47.541) entra; en «ganadora» (47.798) se frena en el centro y su contador se enciende. Componente nuevo: reel_card (la miniatura que cruza toda la pieza).",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b29",
+      "desde": 48.423,
+      "hasta": 49.978,
+      "texto": "y la ajustas a tu mensaje.",
+      "ancla": "y la ajustas a tu mensaje",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "La MISMA tarjeta de b28 gira sobre su eje y vuelve con la piel cambiada: el avatar de la cuenta propia, los colores propios y el contador en cero. En «ajustas» (48.583) gira; en «mensaje» (49.609) vuelve de frente con el avatar propio y el contador en cero. Rima visual: dos estados de la misma instancia, con corte duro entre ellos.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b30",
+      "desde": 49.978,
+      "hasta": 51.163,
+      "texto": "Haz la cuenta:",
+      "ancla": "Haz la cuenta",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b31",
+      "desde": 51.163,
+      "hasta": 52.926,
+      "texto": "5 vídeos de referentes",
+      "ancla": "5 vídeos de referentes",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "Cinco avatares de perfil en fila arriba; de cada uno caen cinco miniaturas en cascada y abajo un contador va sumando. En «5» (51.163) empiezan a caer; en «vídeos» (51.484) el contador arranca a sumar; en «referentes» (51.884) el quinto avatar suelta su tanda y la fila queda completa. Componente nuevo: reel_cascade.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b32",
+      "desde": 52.926,
+      "hasta": 54.529,
+      "texto": "son más de 25 vídeos,",
+      "ancla": "son más de 25 vídeos",
+      "formato": "partida",
+      "fondo": "oscuro",
+      "visual": "Arriba, el contador se frena en 25 y la cifra crece hasta ocupar el ancho; detrás, las miniaturas se acomodan en una grilla de perfil de Instagram, de tres en tres. En «25» (53.327) el contador se frena y la cifra crece; en «vídeos» (54.048) las miniaturas se acomodan en la grilla.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b33",
+      "desde": 54.529,
+      "hasta": 56.932,
+      "texto": "con cada uno su estructura de guión exacta.",
+      "ancla": "con cada uno su estructura de guión exacta",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "Una miniatura se da vuelta y del otro lado está su esqueleto de guion: tres bloques apilados con una regla al costado. En «estructura» (55.186) se da vuelta y aparecen los bloques vacíos; en «guión» (55.891) se llenan de renglones de arriba abajo; en «exacta» (56.147) la regla marca el alto de cada bloque. Componente nuevo: script_skeleton.",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b34",
+      "desde": 56.932,
+      "hasta": 59.016,
+      "texto": "Copias y pegas y replicas la lógica",
+      "ancla": "Copias y pegas y replicas la lógica",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "Arriba, el esqueleto se despega de su miniatura como una calcomanía y queda flotando. En «pegas» (57.413) se despega y flota; en «replicas» (57.894) cae sobre una grilla de 24 tarjetas en blanco y se llenan todas a la vez. Reutiliza script_skeleton sobre la grilla.",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b35",
+      "desde": 59.016,
+      "hasta": 60.796,
+      "texto": "que ya le funcionó a tus referentes,",
+      "ancla": "que ya le funcionó a tus referentes",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b36",
+      "desde": 60.796,
+      "hasta": 62.062,
+      "texto": "y de esos 25",
+      "ancla": "y de esos 25",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "La grilla de 25 miniaturas respirando despacio, todas con su contador de reproducciones chiquito y parejo. En «25» (61.181) la grilla se enciende y los contadores arrancan parejos. Es la quietud antes del clímax: medio segundo de casi silencio, sin efecto.",
+      "logos": ["instagram"],
+      "material": []
+    },
+    {
+      "id": "b37",
+      "desde": 62.062,
+      "hasta": 64.842,
+      "texto": "te garantizo que por lo menos uno se vuelve viral.",
+      "ancla": "te garantizo que por lo menos uno se vuelve viral",
+      "formato": "partida",
+      "fondo": "oscuro",
+      "visual": "CLÍMAX. Arriba, una sola miniatura se despega de la grilla y crece hasta ocupar el espacio. En «uno» (63.601) se despega y crece; en «viral» (64.225) su contador se dispara y estallan alrededor los íconos de me gusta, comentario y compartir de Instagram. Mismo encuadre de miniatura que la grilla del primer cuadro: el final rima con el arranque.",
+      "logos": ["instagram"],
+      "material": []
+    }
+  ],
+  "preguntas": [
+    {
+      "id": "q1",
+      "beat": "b23",
+      "pregunta": "El beat 23 muestra EL PROMPT a lienzo completo — es el entregable del video y el único texto largo que la doctrina permite. No viene en el pedido ni hay captura. ¿Cuál es el texto exacto?",
+      "opciones": [
+        "Pego el prompt exacto que uso (lo pasas en respuestas.json y lo maqueto tal cual)",
+        "Lo escribo yo a partir del guion: pegar la transcripción del outlier y pedir la adaptación al nicho de IA práctica, conservando la estructura del guion original",
+        "No se muestra el texto: el bloque sale desenfocado/ilegible y el prompt solo se entrega por DM"
+      ],
+      "propuesta_por_defecto": "Lo escribo yo: un prompt de 6–8 renglones en monoespaciada que pega la transcripción del outlier y pide reescribir el guion para el nicho de IA práctica conservando gancho, estructura y remate. Si luego pasas el tuyo, se cambia el texto sin tocar la animación."
+    },
+    {
+      "id": "q2",
+      "beat": "b27",
+      "pregunta": "El brief pide «la mascota de Claude con auriculares de estratega». No existe en la librería y dibujarle una mascota a Anthropic sería inventarle una identidad que no tiene (la misma regla que impide darle logo propio a un repositorio). ¿Cómo se resuelve?",
+      "opciones": [
+        "Tablero de estrategia con miniaturas clavadas y el mosaico de Claude al costado, sin mascota",
+        "Un monigote de los de los beats comic (b2/b11/b16) con el mosaico de Claude en el pecho, para que el personaje sea del video y no de la marca",
+        "Generar la ilustración con un servicio de imagen (no se hace sin que lo pidas: es un servicio pago)"
+      ],
+      "propuesta_por_defecto": "Tablero de estrategia con las miniaturas clavadas con chinches y el mosaico de Claude al costado señalando una con el puntero. Mismo gesto del brief, sin inventar mascota."
+    },
+    {
+      "id": "q3",
+      "beat": "b5",
+      "pregunta": "El beat 5 pide cinco tarjetas de perfil REALES (avatar, @usuario y seguidores). No hay captura ni grabación en el pedido, y poner @ y cifras inventadas sobre cuentas públicas sería atribuirles datos falsos. ¿Qué se dibuja?",
+      "opciones": [
+        "Me pasas los cinco @usuario y sus seguidores y los maqueto tal cual",
+        "Cinco tarjetas con avatar genérico, @usuario anonimizado y contadores con cifras redondas",
+        "Sin @usuario: solo avatares y los contadores de seguidores corriendo"
+      ],
+      "propuesta_por_defecto": "Cinco tarjetas con avatar genérico, @usuario anonimizado y el contador de seguidores corriendo hasta una cifra redonda. El beat comunica «cinco cuentas grandes del nicho», que es lo que dice la frase; los nombres no son el argumento."
+    },
+    {
+      "id": "q4",
+      "beat": "b2",
+      "pregunta": "Tres beats (b2, b11, b16) piden fondo «comic» con monigotes y trama de semitono. El compilador todavía no soporta fondo por escena, así que la pieza sale entera en la paleta del pedido (oscuro) y el cambio de fondo se nota solo por el visual. ¿Se construyen igual los monigotes?",
+      "opciones": [
+        "Sí: monigotes de línea y trama de semitono dentro de la paleta oscuro, el corte de patrón se lee por el dibujo",
+        "Sí, y además se añade un panel claro a lienzo completo en esos beats para simular el cambio de fondo",
+        "No: esos tres beats se resuelven con objetos del sistema (sin personajes) y se pierde el recurso comic"
+      ],
+      "propuesta_por_defecto": "Monigotes de línea con trama de semitono dentro de la paleta oscuro. El corte de patrón que pide el brief («el salto de oscuro a comic») lo da el dibujo, no el color del suelo."
+    }
+  ],
+  "versiones": [
+    {
+      "plataforma": "instagram",
+      "cta_texto": "Si quieres el paso a paso con el prompt para adaptar outliers con Claude, comenta viral y te lo mando por privado.",
+      "duracion": 70.819
+    },
+    {
+      "plataforma": "tiktok",
+      "cta_texto": "Ve al link de la bio y encuentra el acceso.",
+      "duracion": 67.427
+    }
+  ],
+  "avisos": [
+    {
+      "tipo": "alineacion",
+      "mensaje": "refine-timings avisó de 11 palabras con ritmo silábico imposible (hago, aquí, cuenta, Claude ×2, propio, experto, vídeos, referentes, quieres, paso). Se re-transcribieron sueltos los siete tramos y los once son FALSOS POSITIVOS: los tiempos coinciden dentro de 30–90 ms. El único borde donde el pase suelto discrepaba de verdad era el arranque de «Si» del CTA (70.349 suelto vs 70.613 largo); lo arbitró el audio y gana el largo: lo que hay en 70.34–70.54 es una respiración (pico −46 dB, armonicidad 0.13–0.26), no la «S». No se tocó ningún tiempo."
+    },
+    {
+      "tipo": "audio",
+      "mensaje": "audit-breaths pasa en las dos versiones: 0 islas sin voz fuera de un span de palabra. Corte del cuerpo 70.82 s desde 79.05 s de fuente (−10%)."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "El pedido no trae NINGÚN clip de pantalla. Las tres grabaciones que pedía el brief (perfil propio en Reels 4 s, búsqueda + cinco perfiles 6 s, Claude con un reel adjunto 5 s) no existen, así que los beats b1, b5, b6, b18 y b19 se recrean con mockups, que es la salida que el propio brief indica. Si subes las grabaciones antes de la pasada `editar`, mandan ellas (regla de oro de b-roll semántico)."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "Logos: claude ya estaba vendorizado; instagram se bajó de Simple Icons v16 (#FF0069) con los mismos gates que fetch-logos.py (viewBox 24×24, un solo path, hex del catálogo, SVG saneado). Va por un script aparte porque en una pasada automática los Edit sobre scripts/ se deniegan; conviene añadir «instagram» a KNOWN en fetch-logos.py a mano."
+    },
+    {
+      "tipo": "formato",
+      "mensaje": "El transcript dice algunas frases distintas del brief; se respeta lo DICHO, no el guion escrito: «busco» (no «busca») 5 referentes · «de más a menor vista» (no «menos vistos») · «Con esos textos listos» (no «ese texto listo») · «Con Claude pasas a ser» (no «Con él, Claude pasa a ser») · «y la ajustas» (no «la ajusta») · «5 vídeos de referentes» (no «de cada referente») · «que ya le funcionó» (no «les funcionó»). Las anclas de cada beat ya están cuadradas con las palabras reales."
+    },
+    {
+      "tipo": "formato",
+      "mensaje": "Dos límites movidos respecto del brief, los dos por doctrina y los dos sin adelantar ninguna palabra: b14 (gráfico) termina en «idea» (23.657) en vez de arrastrar «mínima», para que ningún tramo de gráfico pase de ~3 s — pasa de 3.05 a 2.33 s y «mínima» abre la cara de b15; y b12 y b30 (caras de «Lo importante es» y «Haz la cuenta») arrancan al cerrar la palabra anterior en vez de en la suya, porque medían 0.64 y 0.79 s, por debajo de la banda de 1–3 s."
+    },
+    {
+      "tipo": "formato",
+      "mensaje": "Reparto medido sobre el corte real: cara 15.98 s (24.6%) · partida 26.28 s (40.5%) · gráfico 22.58 s (34.8%). El brief apuntaba a 26/42/33; la diferencia es cuánto duró cada frase, no un cambio de asignación — los 37 beats conservan el formato que les dio el brief."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "Catorce componentes nuevos por construir en la pasada `editar`: ig_profile_grid, ig_search_results, ig_sort_menu, ig_save_collection, outlier_bars, stick_deflate / stick_question / stick_copying (el mismo monigote en tres estados), knot_transfer, idea_notes, scan_transcript, prompt_snap, prompt_sheet, strategy_board, reel_card, reel_cascade, script_skeleton. Se reutilizan tool_card (mosaico de Claude) y claude_prompt (la caja de chat con adjunto). La miniatura de reel (reel_card) es el objeto que cruza la pieza entera y cambia de estado, como pide el brief."
+    },
+    {
+      "tipo": "audio",
+      "mensaje": "El motivo sonoro del contador (el brief pide ticks que aceleran y frenan, solo en el 30 del arranque, los contadores de b7, el 25 de b32 y desbordados en el clímax) se sirve con `ping` encadenado; el resto del diseño mapea a la librería de 19 efectos sin huecos. `glitch-2` queda fuera a propósito: es una meseta plana de 3.5 s que ronca. La cama se sintetiza con make-music-bed.py a la duración de la versión más larga (70.82 s)."
+    }
+  ]
+}

@@ -1,0 +1,1042 @@
+{
+  "format": "REEL",
+  "palette": "oscuro",
+  "_": "PIEZA 1 — «Le di una tarea de fin de semana a Claude y la terminó antes del almuerzo». Pedida desde el dashboard (skill editar-pieza). Este archivo es SOLO LA PARTE COMÚN: 0 → 57.067 s del corte, lo que las dos versiones comparten. Todos los tiempos están en la línea del corte y salen de `armar-version.py palabras --piece 1 --plataforma <p>`, que ya los trae remapeados y son idénticos en instagram y tiktok hasta 57.067. El CTA de cada plataforma va aparte, en plan-cta-<p>.json, ya en segundos de su versión.",
+  "_v2": "v2 (nota del usuario: «Instagram con el CTA del video; TikTok sin esa frase y con mi clip de TikTok al final»). La pieza se editó antes de que las dos versiones fueran fijas: el «Si quieres el prompt exacto…, comenta paralelo» iba dentro del cuerpo y salía TAMBIÉN en TikTok, delante del clip de la bio. Ahora `videos/1/cta-cuerpo.json` lo marca en la palabra 183 y el cuerpo termina en «La instrucción de dividir la tienes que dar tú.» (57.067 s). El cuerpo perdió `v-comenta` y tres efectos, `v-prompt-2` se cierra en 57.067 y el anchor bajó a 0.3965, que es el único que vale en las dos versiones.",
+  "_fuente": "`VIDEOS ORIGINALES/1/cuerpo-1.mov` → out/1-fuente.mov (68.96 s, SDR bt709, 1080x1920, rot 0). instagram = el cuerpo entero, corte 62.494 s, 200 palabras; tiktok = cuerpo hasta la palabra 183 + cta-tiktok.mov, corte 59.658 s, 193 palabras. La parte común de las dos acaba en 57.067 s.",
+  "_paleta": "`oscuro`, la que pide el pedido: todo el material real de este guion es terminal y tablero de agentes, y sobre suelo casi negro el acento terracota es el único color fuerte de la banda de arriba.",
+  "_layout": "Triband en toda la pieza y SIN escalera de zoom (respuesta q10 del usuario): un encuadre `band` ya recorta a 960 px de alto y una escalera encima dejaría la cara irreconocible. La intensidad la llevan la banda de arriba y el ritmo de cambios. Un solo encuadre para el cuerpo: todos los cortes de la pieza son cortes de VISUAL, no de cámara.",
+  "_anchor": "0.3965. Cada versión se mide sobre SU corte y las dos ventanas no son la misma: instagram [0.3736, 0.4010] (barbilla 48.7 %, borde de la cara 20.1 %) y tiktok [0.3920, 0.4124] (49.6 % y 20.6 %, porque el clip del CTA está grabado un poco más lejos). 0.3965 es el centro de la intersección [0.3920, 0.4010] y deja 4.5 milésimas de margen a cada lado; el 0.407 de v1 se salía de la ventana de instagram. `check_face_top_clear` lo verifica en las dos antes de renderizar.",
+  "_banda_top": "Los 23 visuales de la parte común se tocan `end`→`start` sin un solo hueco de 0.0 a 57.067, y cada plan-cta-<p>.json arranca exactamente en 57.067: `check_band_top_covered` pasa por construcción en las dos versiones. Donde un beat no nombraba nada nuevo se SOSTIENE el visual anterior (nunca se adelanta el siguiente): la barra derrumbada aguanta «La mayoría» (4.978–5.627), las tres cifras aguantan la quietud de 38.854–41.768, VERIFICABLE aguanta «Eso es lo que separa esto de pedirle un» y el compositor aguanta hasta el final del cuerpo.",
+  "_curva": "HOOK 0–5.6 s la card de Claude, la barra al borde y el corte duro al muñón · PROBLEMA 5.6–11.4 s escribir una cosa y esperar · CAMBIO 11.4–19.8 s el prompt, el tablero llenándose y paralelo contra fila · TAREAS 19.8–35.4 s dos bloques de idéntica estructura (TAREA n · rejilla · cifra) · QUIETUD 35.4–41.8 s las tres cifras quietas, sin un solo efecto · CLÍMAX 41.8–48.6 s las fuentes dibujadas y VERIFICABLE · AVISO 48.6–57.1 s el resumen sin fuentes, el agente solo y la instrucción que falta · CTA 57.1–fin, en plan-cta-<p>.json.",
+  "layout": {
+    "mode": "triband",
+    "bands": {
+      "top": [
+        0,
+        660
+      ],
+      "text": [
+        660,
+        960
+      ],
+      "speaker": [
+        960,
+        1920
+      ]
+    }
+  },
+  "keywords": [
+    "Claude",
+    "tarea",
+    "agentes",
+    "paralelo",
+    "contexto",
+    "fuente",
+    "verificarlo",
+    "duplicados",
+    "PARALELO",
+    "bio"
+  ],
+  "voice_gain": 0.7,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.4,
+    "target_mean": -34.0
+  },
+  "_shots": "Uno solo, `band` desde 0.0 con el anchor que vale en las dos versiones. El encuadre del CTA de TikTok lo añade plan-cta-tiktok.json en el empalme, porque ahí sí hay otra toma; en Instagram el CTA es la misma toma que sigue y no se corta.",
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "band",
+      "anchor": 0.3965
+    },
+    {
+      "at": 57.067,
+      "kind": "band",
+      "anchor": 0.3965
+    }
+  ],
+  "cards": [],
+  "_cards": "Cero rótulos. En triband la banda de arriba ya hace el trabajo de acompañar lo que se dice y un rótulo encima competiría con ella (§4).",
+  "visuals": [
+    {
+      "id": "v-claude",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 0.0,
+      "end": 0.815,
+      "_": "La marca que se nombra en la primera frase, con su logo vendorizado (§7). El marco de la card está desde el frame 0 —es la estructura que cubre la banda— y el logo entra a los 0.10 s; «Claude» se dice en 0.474. Es el único visual de la pieza cuyo contenido se adelanta a su palabra, y no tiene arreglo: el encuadre `band` empieza en 0.0 y el componente lleva sus offsets dentro.",
+      "mock": [
+        "tool_card",
+        {
+          "slug": "claude",
+          "name": "Claude Code"
+        }
+      ]
+    },
+    {
+      "id": "v-bar-full",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 0.815,
+      "end": 3.734,
+      "absolute_times": true,
+      "_": "El raíl discontinuo entra sin nombre en 0.815 («una»): es la estructura, y rotularlo ahí leería «fin de semana» dos segundos antes de oírlo. La fila se rotula en «fin» (1.448) y la barra crece hasta el borde en «entero» (2.194).",
+      "mock": [
+        "tradeoff_bars",
+        {
+          "rows": [
+            {
+              "icon": "clock",
+              "name": "FIN DE SEMANA",
+              "from": 0,
+              "to": 940,
+              "shrink": true
+            }
+          ],
+          "at": [
+            0.815,
+            1.448,
+            2.194
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-bar-stub",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 3.734,
+      "end": 5.627,
+      "absolute_times": true,
+      "_": "LA MISMA barra en su segundo estado, con corte duro en «antes» (3.734): la rima visual: dos instancias del mismo componente y lo único que cambia es cuánto queda. El 92 % vacío es el gráfico. La pastilla ANTES DEL ALMUERZO se sella en «almuerzo» (4.221) y va en verde porque es el resultado, no un aviso. Sostiene hasta 5.627, que es donde entra el visual siguiente: «La mayoría» no nombra nada nuevo que clavar.",
+      "mock": [
+        "tradeoff_bars",
+        {
+          "rows": [
+            {
+              "icon": "check",
+              "name": "LA MISMA TAREA",
+              "from": 940,
+              "to": 86,
+              "shrink": true,
+              "tag": "ANTES DEL ALMUERZO"
+            }
+          ],
+          "at": [
+            3.734,
+            3.734,
+            3.78,
+            4.221
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-espera",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 5.627,
+      "end": 7.611,
+      "absolute_times": true,
+      "_": "La cadena de dos pasos que describe el guion, cada uno en su palabra: «escribe» (5.627) y «espera» (6.960). `tone: fail` para que SOLO el último lleve marca y sea ✕: un ✓ verde junto a «ESPERAS» se leería justo al revés de lo que significa, y teñir los dos convertiría el precio en un error de sistema.",
+      "mock": [
+        "flow_steps",
+        {
+          "steps": [
+            "LE ESCRIBES UNA COSA",
+            "ESPERAS"
+          ],
+          "at": [
+            5.627,
+            6.96
+          ],
+          "tone": "fail",
+          "icons_": [
+            "doc",
+            "clock"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-uno-a-la-vez",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 7.611,
+      "end": 8.424,
+      "absolute_times": true,
+      "_": "Cuatro casillas y solo una llena: los tres huecos discontinuos son el idioma de la ausencia, y son exactamente la frase. La estructura entra con el beat y el relleno en «a la vez» (7.750).",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "EN MARCHA",
+            "",
+            "",
+            ""
+          ],
+          "at": [
+            7.75,
+            null,
+            null,
+            null
+          ],
+          "kicker": "UNO A LA VEZ",
+          "hot": 0
+        }
+      ]
+    },
+    {
+      "id": "v-lo-mismo",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 8.424,
+      "end": 11.359,
+      "absolute_times": true,
+      "_": "Dos etiquetas que se amontonan, cada una en su palabra: «lo mismo» (8.977) y «escribiendo» (10.180). `chip_grid` y no `stat_grid`: no hay ninguna cifra que dar, lo que se enuncia es qué se acumula. El kicker entra en 8.464, con «Así tardas», y es lo que cubre la banda desde el primer frame del beat.",
+      "mock": [
+        "chip_grid",
+        {
+          "chips": [
+            "LO MISMO DE TIEMPO",
+            "MÁS COSAS QUE ESCRIBIR"
+          ],
+          "at": [
+            8.977,
+            10.18
+          ],
+          "kicker": "ASÍ TARDAS"
+        }
+      ]
+    },
+    {
+      "id": "v-prompt-1",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 11.359,
+      "end": 14.616,
+      "absolute_times": true,
+      "_": "El compositor entra VACÍO en «El cambio es pedirle» (11.359) —panel, cabecera con el logo de Claude, barra y placeholder son chrome, no adelantan nada— y la línea se teclea en «abra» (12.932), que es cuando el guion la dice. Es el mismo reparto estructura/contenido que pide §4 para el arranque.",
+      "mock": [
+        "claude_prompt",
+        {
+          "lines": [
+            "abre varios agentes a la vez"
+          ],
+          "at": [
+            12.932
+          ],
+          "rect": [
+            60,
+            100,
+            960,
+            540
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-swarm-fanout",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 14.616,
+      "end": 17.612,
+      "absolute_times": true,
+      "_": "El tablero de agentes, primer estado. El marco del hub y los doce huecos discontinuos entran con «cada» (14.616) como estructura; el logo de Claude se sella en 14.720, el kicker UNO POR TAREA espera a «tarea» (15.507) y las bajantes y las teselas se llenan en «y su propio contexto» (16.171). Los doce entran escalonados 62 ms: es UN gesto, no doce decisiones.",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "fanout",
+          "slug": "claude",
+          "kicker": "UNO POR TAREA",
+          "at": [
+            14.616,
+            15.507,
+            14.72,
+            16.171
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-paralelo",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 17.612,
+      "end": 19.761,
+      "absolute_times": true,
+      "_": "El orden de entrada es el del GUION, no el de la lógica: primero lo que se afirma —el nudo EL MISMO TRABAJO en «en paralelo» (18.033) y los tres carriles dibujados en 18.179— y solo después lo que se niega: la tarjeta EN FILA aparece en «en fila» (19.231) y se tacha en 19.361. Hasta entonces su sitio es un hueco discontinuo, que es lo que cubre la banda desde 17.612.",
+      "mock": [
+        "split_problem",
+        {
+          "hire": "EN FILA, UNA A UNA",
+          "problem": "EL MISMO TRABAJO",
+          "specialists": [
+            [
+              "agent",
+              "AGENTE 01"
+            ],
+            [
+              "agent",
+              "AGENTE 02"
+            ],
+            [
+              "agent",
+              "AGENTE 03"
+            ]
+          ],
+          "at": [
+            17.612,
+            19.231,
+            19.361,
+            18.033,
+            18.179
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-tarea-1",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 19.761,
+      "end": 20.668,
+      "_": "Corte duro y una palabra protagonista. Vuelve idéntico en «Tarea 2» (29.522): los dos bloques de este tramo tienen la MISMA estructura —rótulo · rejilla · cifra— y esa rima es lo que deja leer el segundo sin explicarlo.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "TAREA 1",
+          "size": 140
+        }
+      ]
+    },
+    {
+      "id": "v-cuentas",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 20.668,
+      "end": 25.254,
+      "absolute_times": true,
+      "_": "Las 60 cuentas: el contador rueda desde «analizar» (20.668) y llega a 60 justo cuando se dice (21.059–21.546). En «repiten» (23.578) las que no comparten tema BAJAN de intensidad a 0.26 —no se apagan: siguen existiendo, solo no son las que se repiten— y quedan tres encendidas. Dos gestos para dos frases, con el mismo tablero.",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "roster",
+          "total": 60,
+          "lit": 3,
+          "label": "ANALIZADAS",
+          "at": [
+            20.668,
+            23.578
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-18min",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 25.254,
+      "end": 26.494,
+      "absolute_times": true,
+      "_": "Primera cifra de la terna, sellada en «18» (25.254). Una sola celda: las otras dos llegan cuando se digan.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "18 MIN",
+              "TAREA 1"
+            ]
+          ],
+          "at": [
+            25.254
+          ],
+          "accent": 0
+        }
+      ]
+    },
+    {
+      "id": "v-reporte",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 26.494,
+      "end": 29.522,
+      "absolute_times": true,
+      "_": "El reporte, con sus dos casillas naciendo VACÍAS en «Un reporte» (26.494) y llenándose cada una en su palabra: «los datos» (27.784) y «las fuentes» (28.682). La grabación real del reporte que pedía el brief no está en VIDEOS ORIGINALES/1/ y el objeto que eligió el usuario (knowledge-base) vive en un motion stage a lienzo completo, que en triband taparía al hablante: esta es la forma que sí cabe en la banda y que además clava cada mitad a su palabra.",
+      "mock": [
+        "step_grid",
+        {
+          "slots": [
+            "LOS DATOS",
+            "LAS FUENTES"
+          ],
+          "at": [
+            27.784,
+            28.682
+          ],
+          "kicker": "UN REPORTE"
+        }
+      ]
+    },
+    {
+      "id": "v-tarea-2",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 29.522,
+      "end": 30.403,
+      "_": "El mismo rótulo que abrió la tarea 1, en el mismo sitio y con el mismo gesto. Y el mismo `ping` debajo, a propósito.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "TAREA 2",
+          "size": 140
+        }
+      ]
+    },
+    {
+      "id": "v-archivos",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 30.403,
+      "end": 32.942,
+      "absolute_times": true,
+      "_": "El MISMO tablero de la tarea 1 con otro número: 14 archivos contados desde «revisar» (30.403), y en «y decirme» (32.460) se apagan todos menos tres. La rima con v-cuentas es la que deja leer el segundo bloque sin explicarlo, y los tres que quedan encendidos son los que la cifra de 35.915 nombra.",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "roster",
+          "total": 14,
+          "lit": 3,
+          "label": "REVISADOS",
+          "at": [
+            30.403,
+            32.46
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-duplicado",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 32.942,
+      "end": 34.228,
+      "absolute_times": true,
+      "_": "Dos fichas de archivo con las MISMAS barras y solo la ruta cambiada (respuesta q3: reusar cv_echo en vez de construir el dupe_pair que inventaba el brief). El `=` entra el ÚLTIMO, en «duplicados» (33.585): puesto antes contaría el final antes del principio.",
+      "mock": [
+        "cv_echo",
+        {
+          "left": {
+            "title": "guion-reel.md",
+            "sub": "/proyecto/guiones",
+            "tag": "archivo 04",
+            "rows": [
+              {
+                "w": 92
+              },
+              {
+                "w": 76
+              },
+              {
+                "w": 88
+              },
+              {
+                "w": 61
+              }
+            ]
+          },
+          "right": {
+            "title": "guion-reel.md",
+            "sub": "/proyecto/borradores",
+            "tag": "archivo 11",
+            "tag_tone": "hot",
+            "rows": [
+              {
+                "w": 92
+              },
+              {
+                "w": 76
+              },
+              {
+                "w": 88
+              },
+              {
+                "w": 61
+              }
+            ]
+          },
+          "seal": "el mismo archivo, dos veces",
+          "at": [
+            32.942,
+            33.1,
+            33.585
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-6min",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 34.228,
+      "end": 35.369,
+      "absolute_times": true,
+      "_": "Segunda cifra: los 18 MIN vuelven con ella y el acento pasa a la nueva. Queda un hueco.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "18 MIN",
+              "TAREA 1"
+            ],
+            [
+              "6 MIN",
+              "TAREA 2"
+            ]
+          ],
+          "at": [
+            34.228,
+            34.549
+          ],
+          "accent": 1
+        }
+      ]
+    },
+    {
+      "id": "v-terna",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 35.369,
+      "end": 41.768,
+      "absolute_times": true,
+      "_": "La terna completa: el «3» se sella en su palabra (35.915) y a partir de ahí NO SE MUEVE NADA hasta 41.768, ni en imagen ni en sonido. Son los 5.9 s de quietud antes del clímax, y son la respuesta q6 del usuario: la quietud se hace sin tocar la música —ningún efecto en el tramo y ninguna animación en la banda— en vez de con un ducking que hoy no está soportado. Los 3.4 s finales cubren «Lo que más me llama la atención, no es la velocidad» sosteniendo justo el argumento que esa frase descarta: se ve lo que se está dejando de lado.",
+      "mock": [
+        "stat_grid",
+        {
+          "items": [
+            [
+              "18 MIN",
+              "TAREA 1"
+            ],
+            [
+              "6 MIN",
+              "TAREA 2"
+            ],
+            [
+              "3",
+              "DUPLICADOS"
+            ]
+          ],
+          "at": [
+            35.369,
+            35.369,
+            35.915
+          ],
+          "accent": 2
+        }
+      ]
+    },
+    {
+      "id": "v-fuentes",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 41.768,
+      "end": 45.698,
+      "absolute_times": true,
+      "_": "Los cuatro agentes entran en «cada agente vuelve» (41.768–42.400) como teselas MUDAS: el guion no nombra ninguna fuente todavía, así que ponerle marca a cada una sería inventar guion. En «fuente» (43.637) baja la capa con el logo de Claude y las cuatro bajantes se DIBUJAN una a una (43.857–44.067), que es lo que afirma que el dato alcanza su origen; un fundido solo diría que las líneas existen. Es la forma que cabe en la banda: `connection_map`, que era lo que pedía la respuesta q7, mide 860 px de alto y en una banda de 660 perdería el hub y los dos nodos de arriba.",
+      "mock": [
+        "layer_stack",
+        {
+          "apps": [
+            {
+              "name": "AGENTE 01"
+            },
+            {
+              "name": "AGENTE 02"
+            },
+            {
+              "name": "AGENTE 03"
+            },
+            {
+              "name": "AGENTE 04"
+            }
+          ],
+          "at": [
+            41.768,
+            42.0,
+            42.2,
+            42.4
+          ],
+          "layer_slug": "claude",
+          "layer_name": "LA FUENTE",
+          "layer_at": 43.637
+        }
+      ]
+    },
+    {
+      "id": "v-verificable",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 45.698,
+      "end": 48.612,
+      "_": "El clímax. El brief lo quería sobre producto real —el cursor haciendo clic en un enlace de fuente sobre la grabación del reporte— y esa grabación no está en VIDEOS ORIGINALES/1/; el overlay de cursor y caja delimitadora solo lo monta `build-composition` sobre un `screen-video`, así que sin metraje no hay dónde ponerlo. Queda la tercera opción de q4: la palabra protagonista, con corte duro desde el mapa de fuentes. Sostiene hasta «pedirle un» (48.612), que es donde entra el contraste.",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "VERIFICABLE",
+          "kicker": "PUEDES",
+          "size": 118
+        }
+      ]
+    },
+    {
+      "id": "v-rezar",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 48.612,
+      "end": 52.051,
+      "absolute_times": true,
+      "_": "La MISMA cadena de dos pasos del minuto 5.6, con las otras dos palabras: «PIDES UN RESUMEN» (48.612) y «REZAS» (49.226), otra vez con el ✕ solo en el último. Dos instancias del mismo componente con un corte duro entre ellas es como se lee un contraste — y aquí además cierra el arco: lo que se hacía al principio es lo que ahora se descarta. Sostiene «Ojo con una cosa» (49.826–51.615), que no nombra nada nuevo.",
+      "mock": [
+        "flow_steps",
+        {
+          "steps": [
+            "PIDES UN RESUMEN",
+            "REZAS"
+          ],
+          "at": [
+            48.612,
+            49.226
+          ],
+          "tone": "fail",
+          "icons_": [
+            "doc",
+            "eye"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-solo",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 52.051,
+      "end": 54.936,
+      "absolute_times": true,
+      "_": "El tablero al revés. Las cuatro filas de trabajo caen mientras se enuncia la condición —«si» (52.051), «dices» (52.454), «dividir» (52.969), «el trabajo» (53.501)— y el agente ÚNICO aterriza encima en «abre» (54.082). Las filas van sin etiqueta a propósito: lo que el frame tiene que decir aquí no es qué trabajos son, es cuántos caen sobre uno solo.",
+      "mock": [
+        "agent_swarm",
+        {
+          "variant": "solo",
+          "kicker": "SIN INSTRUCCIÓN",
+          "label": "UN SOLO AGENTE",
+          "tasks": [
+            [
+              "doc",
+              ""
+            ],
+            [
+              "repo",
+              ""
+            ],
+            [
+              "people",
+              ""
+            ],
+            [
+              "stack",
+              ""
+            ]
+          ],
+          "at": [
+            54.082,
+            52.051,
+            52.454,
+            52.969,
+            53.501
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-prompt-2",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 54.936,
+      "end": 57.067,
+      "absolute_times": true,
+      "_": "Vuelve el MISMO compositor del minuto 11.4 y se teclea la línea que faltaba, en «dividir» (55.549). Cierra la parte común en 57.067 —el último visual que las dos versiones comparten— y a partir de ahí cada plataforma sigue con el suyo. En v1 sostenía además «Si quieres el prompt exacto que uso para eso» (respuesta q8); ese tramo ahora vive en plan-cta-instagram.json, que es donde se dice, y en TikTok ni existe.",
+      "mock": [
+        "claude_prompt",
+        {
+          "lines": [
+            "divide el trabajo en 4 agentes"
+          ],
+          "at": [
+            55.549
+          ],
+          "rect": [
+            60,
+            100,
+            960,
+            540
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v-cta-bio",
+      "role": "takeover",
+      "kind": "mockup",
+      "band": "top",
+      "start": 57.067,
+      "end": 59.658,
+      "_": "El kicker entra en 57.127 y cubre la banda desde el primer frame del CTA. EL PROMPT EXACTO no adelanta ninguna palabra: en esta versión esa frase no se dice —está cortada con el CTA de Instagram— y lo que la pastilla rotula es el compositor que el espectador acaba de ver, que es lo que hay detrás del enlace. La palabra protagonista aterriza en 57.267, 194 ms antes de «link» (57.461) — el suelo del relevo entre dos visuales, que se lee como el corte duro de §6. No lleva fundido de salida: `end` = 59.658 = la duración de la versión, y el CTA tiene que estar encendido en el último frame, que es el que se congela cuando el reel vuelve a empezar (trampa 6c).",
+      "mock": [
+        "keyword_hero",
+        {
+          "word": "LINK EN LA BIO",
+          "kicker": "EL PROMPT EXACTO",
+          "size": 110
+        }
+      ]
+    }
+  ],
+  "_sfx": "50 efectos en la parte común. Ninguno es relleno: cada uno marca algo que entra, sale o cambia en la banda de arriba, y los tiempos son los MISMOS del transcript que mueven la imagen. El tramo 35.915–41.768 va deliberadamente EN SILENCIO de efectos: es la quietud antes del clímax (respuesta q6). `error` suena una sola vez en toda la pieza, en 48.612, que es el único momento negativo del guion. Los tres efectos del comentario (59.869, 60.272, 61.298) se fueron con él a plan-cta-instagram.json. Los volúmenes son pesos relativos: la ganancia real la CALCULA el generador desde la media y el pico de cada archivo, y `build_sfx` adelanta cada `data-start` la cabecera de silencio de su fichero.",
+  "sfx": [
+    [
+      0.0,
+      "whoosh-short",
+      0.8,
+      "abre la pieza y entra la card de Claude"
+    ],
+    [
+      0.815,
+      "whoosh-short",
+      0.68,
+      "corte al raíl de la barra"
+    ],
+    [
+      2.194,
+      "riser",
+      0.6,
+      "la barra crece hasta el borde en «entero»"
+    ],
+    [
+      3.734,
+      "whoosh",
+      0.7,
+      "corte duro al segundo estado de la barra"
+    ],
+    [
+      3.78,
+      "impact-bass-1",
+      0.85,
+      "el derrumbe: queda el muñón"
+    ],
+    [
+      4.221,
+      "pop",
+      0.7,
+      "la pastilla ANTES DEL ALMUERZO"
+    ],
+    [
+      5.627,
+      "whoosh-short",
+      0.7,
+      "corte a la cadena de dos pasos"
+    ],
+    [
+      6.96,
+      "glitch-3",
+      0.5,
+      "ESPERAS, con su ✕"
+    ],
+    [
+      7.611,
+      "whoosh-short",
+      0.7,
+      "corte a las cuatro casillas"
+    ],
+    [
+      7.75,
+      "click-soft",
+      0.72,
+      "se llena la única casilla en marcha"
+    ],
+    [
+      8.424,
+      "whoosh-short",
+      0.68,
+      "corte a las etiquetas"
+    ],
+    [
+      8.977,
+      "pop",
+      0.7,
+      "chip LO MISMO DE TIEMPO"
+    ],
+    [
+      10.18,
+      "pop",
+      0.7,
+      "chip MÁS COSAS QUE ESCRIBIR"
+    ],
+    [
+      11.359,
+      "whoosh",
+      0.72,
+      "corte al compositor vacío"
+    ],
+    [
+      12.932,
+      "typing",
+      0.6,
+      "se teclea «abre varios agentes a la vez»"
+    ],
+    [
+      14.616,
+      "whoosh-short",
+      0.72,
+      "corte al tablero de agentes"
+    ],
+    [
+      14.72,
+      "pop",
+      0.7,
+      "el logo de Claude cae en el hub"
+    ],
+    [
+      16.171,
+      "click-soft",
+      0.65,
+      "se dibujan las bajantes"
+    ],
+    [
+      16.351,
+      "sparkle",
+      0.6,
+      "las doce teselas llenan la rejilla"
+    ],
+    [
+      17.612,
+      "whoosh",
+      0.72,
+      "corte a paralelo contra fila"
+    ],
+    [
+      18.179,
+      "click-soft",
+      0.7,
+      "se dibujan los tres carriles"
+    ],
+    [
+      19.361,
+      "glitch-1",
+      0.55,
+      "se tacha EN FILA, UNA A UNA"
+    ],
+    [
+      19.761,
+      "ping",
+      0.8,
+      "TAREA 1"
+    ],
+    [
+      20.668,
+      "whoosh-short",
+      0.7,
+      "corte a la rejilla de cuentas"
+    ],
+    [
+      20.728,
+      "pop",
+      0.62,
+      "arranca el contador hacia 60"
+    ],
+    [
+      23.578,
+      "click-soft",
+      0.58,
+      "bajan de intensidad las que no repiten"
+    ],
+    [
+      25.254,
+      "chime",
+      0.75,
+      "18 MIN"
+    ],
+    [
+      26.494,
+      "whoosh-short",
+      0.7,
+      "corte al reporte"
+    ],
+    [
+      27.784,
+      "click-soft",
+      0.7,
+      "se llena LOS DATOS"
+    ],
+    [
+      28.682,
+      "click-soft",
+      0.7,
+      "se llena LAS FUENTES"
+    ],
+    [
+      29.522,
+      "ping",
+      0.8,
+      "TAREA 2 — el mismo que abrió la tarea 1, a propósito"
+    ],
+    [
+      30.403,
+      "whoosh-short",
+      0.7,
+      "corte a los 14 archivos"
+    ],
+    [
+      30.463,
+      "pop",
+      0.62,
+      "arranca el contador hacia 14"
+    ],
+    [
+      32.46,
+      "click-soft",
+      0.58,
+      "se apagan los que no están duplicados"
+    ],
+    [
+      32.942,
+      "whoosh",
+      0.7,
+      "corte al par de archivos idénticos"
+    ],
+    [
+      33.585,
+      "glitch-1",
+      0.6,
+      "el sello: el mismo archivo, dos veces"
+    ],
+    [
+      34.228,
+      "chime",
+      0.75,
+      "6 MIN"
+    ],
+    [
+      35.915,
+      "sparkle",
+      0.7,
+      "la terna se completa con el 3"
+    ],
+    [
+      41.768,
+      "whoosh-short",
+      0.7,
+      "rompe la quietud: corte al mapa de fuentes"
+    ],
+    [
+      43.637,
+      "pop",
+      0.75,
+      "baja la capa LA FUENTE"
+    ],
+    [
+      43.857,
+      "ping",
+      0.55,
+      "se dibuja la primera bajante"
+    ],
+    [
+      43.997,
+      "ping",
+      0.55,
+      "se dibuja la tercera"
+    ],
+    [
+      45.698,
+      "impact-bass-1",
+      0.85,
+      "VERIFICABLE — el clímax"
+    ],
+    [
+      48.612,
+      "error",
+      0.5,
+      "corte duro a pedir un resumen y rezar"
+    ],
+    [
+      49.226,
+      "glitch-3",
+      0.5,
+      "REZAS, con su ✕"
+    ],
+    [
+      52.051,
+      "whoosh",
+      0.7,
+      "corte al tablero que se vacía"
+    ],
+    [
+      54.082,
+      "impact-bass-2",
+      0.75,
+      "queda un solo agente"
+    ],
+    [
+      54.936,
+      "whoosh-short",
+      0.7,
+      "corte al compositor"
+    ],
+    [
+      55.549,
+      "key-press",
+      0.6,
+      "se teclea la instrucción que faltaba"
+    ],
+    [
+      57.067,
+      "whoosh-short",
+      0.7,
+      "corte al cierre de TikTok"
+    ],
+    [
+      57.461,
+      "pop",
+      0.75,
+      "aterriza LINK EN LA BIO"
+    ]
+  ]
+}

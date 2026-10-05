@@ -1,0 +1,23 @@
+{
+  "_": "CTA de TikTok de la pieza 4: el clip cta-tiktok.mov («Ve al link de la bio y encuentra el acceso»). En segundos de la VERSIÓN: la parte común acaba en 64.842 y la versión dura 67.427. El «comenta viral» es de ManyChat y no sirve en TikTok: el cuerpo de esta versión se corta en «…se vuelve viral.» y empalma aquí.",
+  "_elemento": "UN solo elemento, y es lo que hay detrás del enlace: el método en un gesto, el mismo `reel_tarjeta` en `cruce` del CTA de Instagram. «Ve al link de la bio» no se dibuja (sería un rótulo repitiendo el subtítulo). El bloque del prompt está desde el primer cuadro (el prompt ya se mostró en el cuerpo), la miniatura lo cruza en «bio» y sale con la cara propia en «acceso». Claude ya se nombró en el cuerpo, así que su mosaico no adelanta nada.",
+  "_shots": "Un encuadre `band` nuevo en el empalme: es otra toma. Mismo anchor 0.5208 del cuerpo. Sin `cta_palabra`: no hay palabra clave, el CTA es un enlace.",
+  "_ultimo_frame": "`end` 67.427 = la duración de la versión: sin fundido de salida, el visual queda encendido en el último cuadro (trampa 6c).",
+
+  "shots": [
+    {"at": 64.842, "kind": "band", "anchor": 0.5208}
+  ],
+
+  "visuals": [
+    {"id": "v-cttt-cruce", "role": "takeover", "kind": "mockup", "band": "top",
+     "start": 64.842, "end": 67.427, "fade_in": 0.0, "fade_out": 0.0, "absolute_times": true,
+     "_": "El bloque del prompt en el centro desde el empalme; en «bio» la miniatura lo cruza; en «acceso» sale con la cara propia y Claude se enciende.",
+     "mock": ["reel_tarjeta", {"variant": "cruce", "at": [64.842, 65.681, 66.589]}]}
+  ],
+
+  "sfx": [
+    [64.842, "whoosh-short", 0.6, "corte al cierre de TikTok: entra el bloque del prompt"],
+    [65.681, "whoosh",       0.5, "la miniatura cruza el prompt"],
+    [66.589, "chime",        0.6, "sale con la cara propia: eso es lo que hay en el enlace"]
+  ]
+}

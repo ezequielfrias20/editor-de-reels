@@ -1,0 +1,166 @@
+{
+  "id": "cd5ffbfc-3b25-4143-957c-de4aa0fe672e",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/69c38499e6d19e700ce14a19d8f495d061c6f5c4bdae4f93a2244f09ab1fa8a1/4e5392e6-f73a-4f85-a902-5dc422f48063",
+  "text": "Ve al link de la bio y encuentra el acceso.",
+  "words": [
+    {
+      "text": "Ve",
+      "start": 2247,
+      "end": 2384,
+      "confidence": 0.9215406,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 2384,
+      "end": 2498,
+      "confidence": 0.99964285,
+      "speaker": null
+    },
+    {
+      "text": "link",
+      "start": 2500,
+      "end": 2670,
+      "confidence": 0.9999714,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 2692,
+      "end": 2774,
+      "confidence": 0.9997279,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 2774,
+      "end": 2936,
+      "confidence": 0.9999461,
+      "speaker": null
+    },
+    {
+      "text": "bio",
+      "start": 2936,
+      "end": 3179,
+      "confidence": 0.9996705,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 3341,
+      "end": 3358,
+      "confidence": 0.9995721,
+      "speaker": null
+    },
+    {
+      "text": "encuentra",
+      "start": 3358,
+      "end": 3747,
+      "confidence": 0.99796283,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 3763,
+      "end": 3844,
+      "confidence": 0.99997354,
+      "speaker": null
+    },
+    {
+      "text": "acceso.",
+      "start": 3844,
+      "end": 4282,
+      "confidence": 0.9993947,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.9917402,
+  "audio_duration": 6,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

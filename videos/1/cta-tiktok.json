@@ -1,0 +1,13 @@
+{
+  "segments": [
+    {
+      "words": [0, 9],
+      "semanticIntent": "Ve al link de la bio y encuentra el acceso.",
+      "sceneType": "CTA",
+      "camera": "BAND",
+      "transitionIn": "CUT",
+      "events": [{ "atWord": 0, "type": "CAPTION", "words": [0, 9] }],
+      "reason": "El CTA de TikTok es una sola acción y va con un solo elemento en cuadro, como pide la curva de intensidad."
+    }
+  ]
+}

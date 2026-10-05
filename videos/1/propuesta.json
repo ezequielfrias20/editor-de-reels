@@ -1,0 +1,512 @@
+{
+  "pieza": 1,
+  "generado": "2026-09-27T16:34:00",
+  "formato": "REEL",
+  "duracion_corte": 62.494,
+  "paleta": "oscuro",
+  "beats": [
+    {
+      "id": "b1",
+      "desde": 0.15,
+      "hasta": 0.815,
+      "texto": "Le di a Claude",
+      "ancla": "Le di a Claude",
+      "banda_arriba": "tool_card con el logo de Claude vendorizado, ícono agent. Entra con stamp. SFX impact-bass-1.",
+      "componente": { "nombre": "tool_card", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b2",
+      "desde": 0.815,
+      "hasta": 3.734,
+      "texto": "una tarea de fin de semana entero y la terminó",
+      "ancla": "una tarea de fin de semana entero",
+      "banda_arriba": "tradeoff_bars estado 1: una sola barra que crece hasta el borde del cuadro, rotulada FIN DE SEMANA, con el ícono clock pegado a la derecha. grow-x. SFX riser. Sostiene hasta «antes».",
+      "componente": { "nombre": "tradeoff_bars", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b3",
+      "desde": 3.734,
+      "hasta": 4.778,
+      "texto": "antes del almuerzo.",
+      "ancla": "antes del almuerzo",
+      "banda_arriba": "tradeoff_bars estado 2, corte duro sin transición: la misma barra se derrumba a un muñón de ~8% rotulado «antes del almuerzo»; el 92% vacío es el gráfico. Ícono check. punch. SFX impact-bass-2.",
+      "componente": { "nombre": "tradeoff_bars", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b4",
+      "desde": 4.978,
+      "hasta": 7.611,
+      "texto": "La mayoría le escribe a Claude una cosa y espera,",
+      "ancla": "La mayoría le escribe a Claude una cosa y espera",
+      "banda_arriba": "chat_unanswered con el logo de Claude como chip en la cabecera. El cursor de 'escribiendo' late dos veces y se apaga. send-on. SFX pop.",
+      "componente": { "nombre": "chat_unanswered", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b5",
+      "desde": 7.611,
+      "hasta": 8.424,
+      "texto": "uno a la vez.",
+      "ancla": "uno a la vez",
+      "banda_arriba": "flow_steps: cuatro tareas en fila india unidas por flechas, solo la primera activa y las otras tres en gris. Íconos clock y stack. slide-in. SFX click-soft.",
+      "componente": { "nombre": "flow_steps", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b6",
+      "desde": 8.424,
+      "hasta": 11.159,
+      "texto": "Así tardas lo mismo que a mano, pero escribiendo más.",
+      "ancla": "tardas lo mismo que a mano, pero escribiendo más",
+      "banda_arriba": "keyword_hero: «lo mismo, escribiendo más» tecleado en grande; debajo, chico, el reloj de la fila sigue en el mismo número. Ícono doc. type-word. SFX key-press. Sostiene hasta el final del tramo.",
+      "componente": { "nombre": "keyword_hero", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b7",
+      "desde": 11.359,
+      "hasta": 12.932,
+      "texto": "El cambio es pedirle",
+      "ancla": "El cambio es pedirle",
+      "banda_arriba": "claude_prompt: el compositor escribe línea a línea «abrí 4 agentes en paralelo, uno por tarea». Logo de Claude como chip, ícono code. type-word. SFX typing.",
+      "componente": { "nombre": "claude_prompt", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b8",
+      "desde": 12.932,
+      "hasta": 14.616,
+      "texto": "que abra varios agentes a la vez,",
+      "ancla": "abra varios agentes a la vez",
+      "banda_arriba": "agent_swarm variante fanout: cuatro tarjetas de agente nacen vacías y entran JUNTAS, no una tras otra. Ícono agent. SFX whoosh-short.",
+      "componente": { "nombre": "agent_swarm", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b9",
+      "desde": 14.616,
+      "hasta": 17.612,
+      "texto": "cada uno con su tarea y su propio contexto.",
+      "ancla": "cada uno con su tarea y su propio contexto",
+      "banda_arriba": "agent_swarm estado 2: cada tarjeta se rotula y le aparece su propio medidor de contexto, lleno hasta distinta altura. Íconos stack y gear. chip-in. SFX click-soft.",
+      "componente": { "nombre": "agent_swarm", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b10",
+      "desde": 17.612,
+      "hasta": 19.561,
+      "texto": "Trabajan en paralelo y no en fila.",
+      "ancla": "Trabajan en paralelo y no en fila",
+      "banda_arriba": "split_problem: arriba vuelve la fila india del b5 y se tacha con un trazo que se dibuja; debajo, el trabajo repartido en cuatro carriles simultáneos. Ícono knot. draw. SFX whoosh.",
+      "componente": { "nombre": "split_problem", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b11",
+      "desde": 19.761,
+      "hasta": 20.668,
+      "texto": "Tarea 1:",
+      "ancla": "Tarea 1",
+      "banda_arriba": "hud: pastilla mono «TAREA 1» arriba a la izquierda; el tablero de agent_swarm se atenúa detrás y solo el carril 1 queda encendido. Ícono agent. chip-in. SFX ping.",
+      "componente": { "nombre": "hud", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b12",
+      "desde": 20.668,
+      "hasta": 22.538,
+      "texto": "analizar 60 cuentas de mi nicho",
+      "ancla": "analizar 60 cuentas de mi nicho",
+      "banda_arriba": "objeto instagram: grilla de perfiles que se llena con un contador que rueda hasta 60, handles difuminados salvo tres o cuatro. Ícono people. SFX pop.",
+      "componente": { "nombre": "instagram", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b13",
+      "desde": 22.538,
+      "hasta": 25.254,
+      "texto": "y sacar qué temas se repiten en sus mejores videos.",
+      "ancla": "qué temas se repiten en sus mejores videos",
+      "banda_arriba": "chip_grid: etiquetas de tema amontonándose sobre la grilla y al final todas se apagan menos una. Íconos contenido y film. chip-in. SFX click-soft.",
+      "componente": { "nombre": "chip_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b14",
+      "desde": 25.254,
+      "hasta": 26.494,
+      "texto": "18 minutos.",
+      "ancla": "18 minutos",
+      "banda_arriba": "stat_grid, primera cifra: 18 MIN protagonista con el reloj al lado; los otros dos huecos de la terna quedan visibles y vacíos. Ícono clock. SFX chime.",
+      "componente": { "nombre": "stat_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b15",
+      "desde": 26.494,
+      "hasta": 29.322,
+      "texto": "Un reporte con los datos y las fuentes.",
+      "ancla": "Un reporte con los datos y las fuentes",
+      "banda_arriba": "SIN LA GRABACIÓN PEDIDA. Por defecto: objeto spreadsheet como el reporte — rejilla con columnas y separadores que se llena, y la última columna se enciende como los enlaces de fuente. Íconos doc y check. rise-in. SFX whoosh-short. Ver q1.",
+      "componente": { "nombre": "spreadsheet", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b16",
+      "desde": 29.522,
+      "hasta": 30.403,
+      "texto": "Tarea 2:",
+      "ancla": "Tarea 2",
+      "banda_arriba": "hud: corte duro, la pastilla pasa a «TAREA 2» y en el tablero se apaga el carril 1 y se enciende el 2. Ícono agent. chip-in. SFX ping (el mismo que abrió la tarea 1, a propósito).",
+      "componente": { "nombre": "hud", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b17",
+      "desde": 30.403,
+      "hasta": 32.942,
+      "texto": "revisar mis 14 archivos de proyecto y decirme",
+      "ancla": "revisar mis 14 archivos de proyecto",
+      "banda_arriba": "SIN LA GRABACIÓN DE TERMINAL PEDIDA. Por defecto: desktop_manager con las 14 filas de archivo y el cursor bajando, sin chrome de navegador. Ícono repo. box-in. SFX key-press. Ver q2.",
+      "componente": { "nombre": "desktop_manager", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b18",
+      "desde": 32.942,
+      "hasta": 34.228,
+      "texto": "cuáles están duplicados.",
+      "ancla": "cuáles están duplicados",
+      "banda_arriba": "El brief pide dupe_pair, que NO existe. Por defecto: cv_echo, que ya hace ese mecanismo — dos tarjetas de archivo con las MISMAS barras y solo la ruta cambiada, y el sello DUPLICADO cayendo al final. Ícono doc. stamp. SFX glitch-1. Ver q3.",
+      "componente": { "nombre": "cv_echo", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b19",
+      "desde": 34.228,
+      "hasta": 35.369,
+      "texto": "Solo 6 minutos.",
+      "ancla": "Solo 6 minutos",
+      "banda_arriba": "stat_grid, segunda cifra: 6 MIN entra al lado de los 18 MIN, que siguen en cuadro. Queda un hueco. Ícono clock. SFX chime.",
+      "componente": { "nombre": "stat_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b20",
+      "desde": 35.369,
+      "hasta": 38.654,
+      "texto": "Encontró 3 que yo venía arrastrando de hace meses.",
+      "ancla": "Encontró 3 que yo venía arrastrando de hace meses",
+      "banda_arriba": "stat_grid, tercera cifra: «3 duplicados» completa la terna y las tres quedan juntas un beat entero. Ícono check. SFX sparkle.",
+      "componente": { "nombre": "stat_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b21",
+      "desde": 38.854,
+      "hasta": 40.061,
+      "texto": "Lo que más me llama la atención",
+      "ancla": "Lo que más me llama la atención",
+      "banda_arriba": "agent_swarm estado 3: los cuatro carriles terminados, en verde, QUIETOS. Sin que se mueva nada: es la quietud antes del clímax. Ícono check. fade-to. Sin SFX. Ver q6 por el −6 dB de música.",
+      "componente": { "nombre": "agent_swarm", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b22",
+      "desde": 40.061,
+      "hasta": 41.511,
+      "texto": "no es la velocidad,",
+      "ancla": "no es la velocidad",
+      "banda_arriba": "stat_grid: las tres cifras vuelven un instante y se apagan a gris una por una. Se descarta el argumento de la velocidad en imagen. Ícono clock. set-hidden. SFX whoosh-short.",
+      "componente": { "nombre": "stat_grid", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b23",
+      "desde": 41.511,
+      "hasta": 45.376,
+      "texto": "es que cada agente vuelve con la fuente de donde sacó el dato.",
+      "ancla": "cada agente vuelve con la fuente de donde sacó el dato",
+      "banda_arriba": "connection_map: núcleo «reporte» en el centro y una línea que se DIBUJA hasta cada fuente, una por una, cuatro en total, cada una terminando en la miniatura del post citado. Íconos repo y doc. draw. SFX ping por línea. Ver q7 (connection_map está dibujado para 7 nodos).",
+      "componente": { "nombre": "connection_map", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b24",
+      "desde": 45.376,
+      "hasta": 48.114,
+      "texto": "Puedes verificarlo. Eso es lo que separa esto de",
+      "ancla": "Puedes verificarlo",
+      "banda_arriba": "CLÍMAX, SIN LA GRABACIÓN PEDIDA. Por defecto: screen_overlay sobre el connection_map sostenido — el cursor entra, hace clic en el nodo de fuente y la caja delimitadora encierra el dato citado. Íconos eye e inspect. SFX click. Sostiene hasta «pedirle». Ver q4.",
+      "componente": { "nombre": "screen_overlay", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b25",
+      "desde": 48.114,
+      "hasta": 49.826,
+      "texto": "pedirle un resumen y rezar.",
+      "ancla": "pedirle un resumen y rezar",
+      "banda_arriba": "chat_unanswered, corte duro contra el mapa de fuentes: el mismo chat del b4, ahora con un resumen entero y ni un link, y el hueco vacío donde irían las fuentes. Logo de Claude. Ícono doc. punch. SFX error (el único sonido negativo de la pieza).",
+      "componente": { "nombre": "chat_unanswered", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b26",
+      "desde": 49.826,
+      "hasta": 52.051,
+      "texto": "Ojo con una cosa,",
+      "ancla": "Ojo con una cosa",
+      "banda_arriba": "hud: la pastilla pasa a «OJO» en terracota y el tablero de atrás baja a media luz. Ícono eye. SFX notification.",
+      "componente": { "nombre": "hud", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b27",
+      "desde": 52.051,
+      "hasta": 54.936,
+      "texto": "si no le dices cómo dividir el trabajo, abre uno solo.",
+      "ancla": "si no le dices cómo dividir el trabajo, abre uno solo",
+      "banda_arriba": "agent_swarm estado 4 (solo): de los cuatro carriles, tres se vacían y se van, y queda uno solo trabajando en el centro con todo el espacio alrededor. Es el b8 al revés. Ícono agent. set-hidden. SFX whoosh.",
+      "componente": { "nombre": "agent_swarm", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b28",
+      "desde": 54.936,
+      "hasta": 57.29,
+      "texto": "La instrucción de dividir la tienes que dar tú.",
+      "ancla": "La instrucción de dividir la tienes que dar tú",
+      "banda_arriba": "claude_prompt: vuelve el compositor del b7 y se teclea la línea que faltaba; «dividí el trabajo en 4 agentes» queda resaltado en terracota y el resto en gris. Logo de Claude. Ícono code. type-word. SFX key-press.",
+      "componente": { "nombre": "claude_prompt", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b29",
+      "desde": 57.29,
+      "hasta": 59.869,
+      "texto": "Si quieres el prompt exacto que uso para eso,",
+      "ancla": "Si quieres el prompt exacto que uso para eso",
+      "banda_arriba": "Beat que el brief no cubría y que no nombra nada nuevo: sostiene el claude_prompt del b28 atenuado, con la línea resaltada quieta. Sin SFX. Ver q8.",
+      "componente": { "nombre": "claude_prompt", "existe": true },
+      "logos": [{ "slug": "claude", "estado": "disponible" }],
+      "material": []
+    },
+    {
+      "id": "b30",
+      "desde": 59.869,
+      "hasta": 61.014,
+      "texto": "comenta paralelo",
+      "ancla": "comenta paralelo",
+      "banda_arriba": "comment_ui: todo sale de cuadro y queda UN solo elemento, la palabra PARALELO en grande dentro de la caja de comentario. Ícono megaphone. SFX pop.",
+      "componente": { "nombre": "comment_ui", "existe": true },
+      "logos": [],
+      "material": []
+    },
+    {
+      "id": "b31",
+      "desde": 61.014,
+      "hasta": 62.494,
+      "texto": "y te lo mando por privado.",
+      "ancla": "y te lo mando por privado",
+      "banda_arriba": "comment_ui: el comentario se envía y, en el frame en que se suelta, reaparece por un instante la barra derrumbada del hook — el último cuadro empalma con el primero. Ícono pointer. send-on. SFX whoosh-short.",
+      "componente": { "nombre": "comment_ui", "existe": true },
+      "logos": [],
+      "material": []
+    }
+  ],
+  "preguntas": [
+    {
+      "id": "q1",
+      "beat": "b15",
+      "pregunta": "El brief pedía una grabación de 8–10 s del reporte de las 60 cuentas (scroll por la tabla hasta los links de fuente). No está en VIDEOS ORIGINALES/1/. ¿Qué ocupa la banda de arriba en «Un reporte con los datos y las fuentes»?",
+      "opciones": [
+        "Objeto spreadsheet: rejilla con columnas y separadores que se llena, última columna encendida como los enlaces de fuente (sin grabación, se monta ya)",
+        "Grabo el reporte y lo subo a VIDEOS ORIGINALES/1/ para montarlo con tool_recording + screen-tour (la regla de oro: si la grabación existe, ella manda)",
+        "Objeto knowledge-base: el documento que se llena fila a fila"
+      ],
+      "propuesta_por_defecto": "Objeto spreadsheet: rejilla con columnas y separadores que se llena, última columna encendida como los enlaces de fuente"
+    },
+    {
+      "id": "q2",
+      "beat": "b17",
+      "pregunta": "El brief pedía 5–6 s de terminal con el árbol de los 14 archivos y el cursor bajando. No está. ¿Qué ocupa la banda de arriba en «revisar mis 14 archivos de proyecto»?",
+      "opciones": [
+        "desktop_manager con las 14 filas y el cursor bajando, sin chrome de navegador (se monta ya)",
+        "Grabo la terminal y la subo a VIDEOS ORIGINALES/1/ para montarla con screen_panel + screen-tour",
+        "step_grid con las 14 filas numeradas"
+      ],
+      "propuesta_por_defecto": "desktop_manager con las 14 filas y el cursor bajando, sin chrome de navegador"
+    },
+    {
+      "id": "q3",
+      "beat": "b18",
+      "pregunta": "El brief inventa un componente nuevo, dupe_pair (dos tarjetas de archivo que se acercan hasta calzar y el sello DUPLICADO encima, tres veces). No existe en la librería, y tampoco está la captura de las dos tarjetas duplicadas. ¿Lo construyo o reuso?",
+      "opciones": [
+        "Reusar cv_echo, que ya hace ese mecanismo: dos documentos con las MISMAS barras, solo la ruta cambiada, y el sello al final",
+        "Construir dupe_pair nuevo tal como lo describe el brief, con la repetición acelerando tres veces",
+        "idea_fate: la misma ruta en dos estados con corte duro entre ellas"
+      ],
+      "propuesta_por_defecto": "Reusar cv_echo, que ya hace ese mecanismo: dos documentos con las MISMAS barras, solo la ruta cambiada, y el sello al final"
+    },
+    {
+      "id": "q4",
+      "beat": "b24",
+      "pregunta": "«Puedes verificarlo» es el clímax de la pieza y el brief lo quiere sobre PRODUCTO REAL: el cursor haciendo clic en un link de fuente sobre la grabación del reporte. Esa grabación no está. ¿Cómo se resuelve el clímax?",
+      "opciones": [
+        "screen_overlay (cursor + caja delimitadora) sobre el connection_map sostenido: se conserva el gesto del clic, pero sobre un gráfico y no sobre producto real",
+        "Grabo el clic en un link de fuente (en la MISMA toma que el scroll de q1) y el clímax pasa sobre producto real, como pide el brief",
+        "keyword_hero «VERIFICABLE» a pantalla llena"
+      ],
+      "propuesta_por_defecto": "screen_overlay (cursor + caja delimitadora) sobre el connection_map sostenido: se conserva el gesto del clic, pero sobre un gráfico y no sobre producto real"
+    },
+    {
+      "id": "q5",
+      "beat": "b30",
+      "pregunta": "Hay DOS cierres seguidos y se contradicen: el cuerpo termina con «comenta paralelo y te lo mando por privado» y el clip cta-tiktok.mov dice «Ve al link de la bio y encuentra el acceso». En la versión de TikTok se oirían los dos, uno detrás de otro.",
+      "opciones": [
+        "Dejar los dos: primero comentar PARALELO y después el link de la bio como segunda vía (la versión queda en 65.1 s)",
+        "Cortar el cierre del cuerpo («Si quieres el prompt exacto… por privado», b29–b31) y quedarse solo con el CTA de TikTok",
+        "Quedarse con el cierre del cuerpo y descartar el clip cta-tiktok.mov"
+      ],
+      "propuesta_por_defecto": "Dejar los dos: primero comentar PARALELO y después el link de la bio como segunda vía (la versión queda en 65.1 s)"
+    },
+    {
+      "id": "q6",
+      "beat": "b21",
+      "pregunta": "El brief pide bajar la música ~6 dB en los dos segundos quietos del b21. La cama musical tiene un solo nivel global: bajarla por tramo no está soportado hoy.",
+      "opciones": [
+        "La quietud se hace sin música ducking: ningún SFX en el tramo y ningún movimiento en la banda de arriba (como ya pide el propio brief)",
+        "Generar la cama con un hueco de silencio real de ~1.5 s por marca de tiempo (está en «Ideas para sumar», habría que construirlo)",
+        "Dejar la música igual y sostener la quietud solo en imagen"
+      ],
+      "propuesta_por_defecto": "La quietud se hace sin música ducking: ningún SFX en el tramo y ningún movimiento en la banda de arriba"
+    },
+    {
+      "id": "q7",
+      "beat": "b23",
+      "pregunta": "connection_map está dibujado para 7 módulos. Con las 4 fuentes del brief, las líneas salen todas del hub hacia arriba y parte del tablero queda vacío.",
+      "opciones": [
+        "Usarlo igual con 4 nodos, repartidos para que ocupen el ancho: es el gráfico que el brief pide y el que dice «una línea hasta cada fuente»",
+        "chip_grid con las 4 fuentes, que llena mejor la banda pero pierde el dibujo de la línea",
+        "Subir a 6–7 fuentes citadas para que el tablero se llene"
+      ],
+      "propuesta_por_defecto": "Usarlo igual con 4 nodos, repartidos para que ocupen el ancho: es el gráfico que el brief pide"
+    },
+    {
+      "id": "q8",
+      "beat": "b29",
+      "pregunta": "El brief no cubría la frase «Si quieres el prompt exacto que uso para eso» (2,6 s). No nombra nada nuevo, así que la banda de arriba no puede estrenar visual sin adelantar el guion.",
+      "opciones": [
+        "Sostener el claude_prompt del b28 atenuado, con la línea resaltada quieta",
+        "Entrar ya con la caja de comment_ui vacía, y que la palabra PARALELO espere su propia palabra",
+        "Un keyword_hero «EL PROMPT EXACTO»"
+      ],
+      "propuesta_por_defecto": "Sostener el claude_prompt del b28 atenuado, con la línea resaltada quieta"
+    },
+    {
+      "id": "q9",
+      "beat": "b14",
+      "pregunta": "El brief pide confirmar las cifras si los tiempos reales de los agentes no fueron 18 y 6 minutos. El transcript dice 18 minutos, 6 minutos y 3 duplicados; no hay captura de los cronómetros para cruzarlo.",
+      "opciones": [
+        "Son correctas: 18 MIN · 6 MIN · 3 DUPLICADOS",
+        "Corregir las cifras (indicar cuáles)"
+      ],
+      "propuesta_por_defecto": "Son correctas: 18 MIN · 6 MIN · 3 DUPLICADOS"
+    },
+    {
+      "id": "q10",
+      "beat": "b1",
+      "pregunta": "El brief asigna una escalera de cámara por beat (1.12 · 1.00 · 1.05 · 1.09 · 1.15 · 1.00) y a la vez pide triband en TODA la pieza. Un encuadre BAND no lleva escalera de zoom: el rect de la banda ya recorta fuerte y una escalera encima dejaría la cara irreconocible.",
+      "opciones": [
+        "Triband en toda la pieza y sin escalera de zoom: la intensidad la lleva la banda de arriba y el ritmo de cambios",
+        "Sacar el hook (b1–b3) y el clímax (b24) a plano lleno con su zoom del brief, y triband en el resto",
+        "Sacar solo el clímax (b24) a plano lleno con 1.15"
+      ],
+      "propuesta_por_defecto": "Triband en toda la pieza y sin escalera de zoom: la intensidad la lleva la banda de arriba y el ritmo de cambios"
+    }
+  ],
+  "_versiones": "Corregido en v2. La pieza se propuso antes de que las dos versiones fueran fijas, así que aquí solo figuraba tiktok y el «comenta paralelo» viajaba dentro del cuerpo. `videos/1/cta-cuerpo.json` lo marca en la palabra 183 y la parte común de las dos versiones acaba en 57.067 s del corte. `duracion` es la de la VERSIÓN entera, no la del CTA.",
+  "versiones": [
+    {
+      "plataforma": "instagram",
+      "cta_texto": "Si quieres el prompt exacto que uso para eso, comenta paralelo y te lo mando por privado.",
+      "duracion": 62.494
+    },
+    {
+      "plataforma": "tiktok",
+      "cta_texto": "Ve al link de la bio y encuentra el acceso.",
+      "duracion": 59.658
+    }
+  ],
+  "avisos": [
+    {
+      "tipo": "formato",
+      "mensaje": "REEL 1080×1920 medido sobre out/1-fuente.mov (ratio 0.5625, rot 0°). Fuente SDR bt709: no hace falta el LUT de §8."
+    },
+    {
+      "tipo": "alineacion",
+      "mensaje": "refine-timings marcó 5 palabras con ritmo silábico imposible (Claude 0.58, pero 10.78, propio 18.42, fila 21.17, tienes 61.41). Re-transcritos sueltos los cuatro tramos: los cinco son FALSOS POSITIVOS, habla rápida real. Los bordes coinciden dentro de 2–104 ms y ninguna cola se alarga sobre un borde de corte."
+    },
+    {
+      "tipo": "audio",
+      "mensaje": "Una isla de aire de boca en 43.93–44.12 s de la fuente, entre «meses.» y «Lo». plan-cuts --audio colocó ahí el corte (43.27–43.99) y audit-breaths da cero respiraciones sobre out/1-tiktok-rough.mp4: paso 4b ✓."
+    },
+    {
+      "tipo": "audio",
+      "mensaje": "El corte deja el cuerpo en 62.49 s (se quitan 6.47 s, 9 %) y la versión de TikTok en 65.09 s. El brief apuntaba a 62 s de reel; con el CTA de TikTok encima son 3 s más."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "Ninguna de las 6 grabaciones/capturas que el brief marca como «falta grabar o conseguir» está en VIDEOS ORIGINALES/1/: la carpeta solo trae cuerpo-1.mov y cta-tiktok.mov. Afecta a b15, b17, b18 y b24 (q1–q4). Las de agent_swarm, los cronómetros y los 60 perfiles no bloquean: los resuelven el mockup agent_swarm, stat_grid y el objeto instagram."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "Inventario verificado contra el árbol de trabajo: existen los 17 componentes citados (tool_card, tradeoff_bars, chat_unanswered, flow_steps, keyword_hero, claude_prompt, agent_swarm, split_problem, hud, chip_grid, stat_grid, tool_recording, screen_panel, screen_overlay, connection_map, comment_ui y el objeto instagram), los 17 íconos, los 15 SFX y el logo de Claude vendorizado. El único que falta es dupe_pair (q3). No hubo que bajar ningún logo."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "El brief cambia de palabra en cuatro anclas y todas cuadran por sentido con lo dicho: «qué tema se repite» → «qué temas se repiten»; «Trabajan en paralelo, no en fila» → «…y no en fila»; «6 minutos» → «Solo 6 minutos»; «Encontró tres … hace meses» → «Encontró 3 … de hace meses». Los subtítulos transcriben lo DICHO."
+    },
+    {
+      "tipo": "formato",
+      "mensaje": "measure-face sobre el corte: barbilla p95 en y966 (50.3 %), borde superior p5 en y391 (20.4 %), centroide x 56.4 %. El borde superior queda por encima del rango típico (26–31 %), así que el anchor del triband se calcula con la fórmula de references/triband.md y check_face_top_clear lo verifica antes de renderizar."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "La sección «Ideas para sumar al editor» del brief (tick de agente, lane-fill, split-collapse, cama con hueco de silencio, halo de verificación) NO se construye en esta pieza: queda listada como no soportada, salvo el hueco de silencio, que aparece como opción en q6."
+    }
+  ]
+}

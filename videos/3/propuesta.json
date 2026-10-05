@@ -1,0 +1,477 @@
+{
+  "pieza": 3,
+  "generado": "2026-10-01T16:40:00",
+  "formato": "REEL",
+  "duracion_corte": 52.21,
+  "paleta": "claro",
+  "beats": [
+    {
+      "id": "b1",
+      "desde": 0.0,
+      "hasta": 2.768,
+      "texto": "Todo lo que hagas con Claude va a llevar una marca de agua,",
+      "ancla": "Todo lo que hagas con Claude va a llevar una marca de agua",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "archivo_sellado (NUEVO): la tarjeta de un PNG recién generado, sola en el lienzo. El marco, el nombre de archivo y la pastilla de resolución son CHROME y están desde el primer cuadro (la trampa del arranque de §4: nada que sostener delante). En «Claude» (0.953) el sol de Claude aterriza en la esquina de la tarjeta. En «marca» (1.997) un sello invisible baja y presiona. En «agua» (2.575) el patrón de glifos se enciende DENTRO del archivo y se apaga; la tarjeta queda idéntica a como estaba. Es el motivo del video y el encuadre con el que rima el clímax (b23).",
+      "logos": ["claude"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b2",
+      "desde": 2.768,
+      "hasta": 3.893,
+      "texto": "lo anunció Anthropic,",
+      "ancla": "lo anunció Anthropic",
+      "formato": "partida",
+      "fondo": "oscuro",
+      "visual": "La tarjeta del anuncio. La banda de arriba SOSTIENE el archivo sellado de b1 hasta 3.057 (§4: el saliente cubre, el entrante espera su palabra). En «anunció» (3.057) se arma el marco de la tarjeta del anuncio y después su título. En «Anthropic» (3.459) entra la marca de Anthropic con su pastilla de nombre debajo, dibujada de un trazo y encendida.",
+      "logos": ["anthropic"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b3",
+      "desde": 3.893,
+      "hasta": 5.29,
+      "texto": "y aplica",
+      "ancla": "y aplica al chat de siempre",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b4",
+      "desde": 5.29,
+      "hasta": 8.069,
+      "texto": "al chat de siempre, a Cowork y a Claude Code.",
+      "ancla": "al chat de siempre, a Cowork y a Claude Code",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "Tres mosaicos de app entran uno por uno en fila, cada uno con su pastilla de nombre debajo. En «chat» (5.290) el mosaico del chat de Claude; en «Cowork» (6.174) el de Cowork; en «Claude Code» (6.896) el de Claude Code. En «Code.» (7.218) el mismo sello baja sobre los tres a la vez, triple y más corto que el de b1.",
+      "logos": ["claude", "cowork", "claude-code"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b5",
+      "desde": 8.069,
+      "hasta": 9.949,
+      "texto": "No duró ni un día,",
+      "ancla": "No duró ni un día",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b6",
+      "desde": 9.949,
+      "hasta": 11.089,
+      "texto": "en menos de 24 horas",
+      "ancla": "en menos de 24 horas",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "contador_horas (NUEVO): un contador de horas gigante. En «24» (9.949) aparece la cifra y arranca a bajar de 24 a 0 en un segundo; en «horas» (10.687) se frena sola antes de llegar al final y la última cifra vibra. Usa el mecanismo `count` de los objetos (§7): se tuenea un número puro y el onUpdate reescribe el texto. El tramo empieza EN «24» a propósito, para que el contador no exista antes de su palabra.",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b7",
+      "desde": 11.089,
+      "hasta": 12.583,
+      "texto": "alguien ya subió la solución a GitHub",
+      "ancla": "alguien ya subió la solución a GitHub",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "En «alguien» (11.089) entra de un salto una figura frente a un teclado y se sienta; el contador frenado de b6 queda chiquito en una esquina de la banda. En «subió» (11.475) la figura le da a Enter con las dos manos. En «GitHub» (12.358) entra la marca de GitHub arriba.",
+      "logos": ["github"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b8",
+      "desde": 12.583,
+      "hasta": 14.045,
+      "texto": "en un repositorio",
+      "ancla": "en un repositorio y se llama",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "repo_card (NUEVO, recreada: la grabación de la página del repo no se subió). En «repositorio» (13.274) la tarjeta del repo se arma de arriba abajo —cabecera con el dueño, el título, el contador de estrellas y el botón Code— y el contador de estrellas empieza a subir con el mecanismo `count`. Foco de luz y empuje de cámara sobre el nombre. Nada de rótulos: el único texto es el de la propia interfaz (§7).",
+      "logos": ["github"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b9",
+      "desde": 14.045,
+      "hasta": 15.328,
+      "texto": "y se llama Watermarks Remover.",
+      "ancla": "se llama Watermarks Remover",
+      "formato": "partida",
+      "fondo": "oscuro",
+      "visual": "El mosaico del repo solo sobre fondo oscuro, con un resplandor detrás, en la banda de arriba. La banda la cubre el mosaico desde 14.045 (es la misma marca de GitHub que ya se nombró en b7, no adelanta nada). En «Watermarks» (14.366) el nombre se escribe letra a letra en la pastilla de debajo.",
+      "logos": ["github"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b10",
+      "desde": 15.328,
+      "hasta": 16.792,
+      "texto": "Borra las marcas de",
+      "ancla": "Borra las marcas de agua",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b11",
+      "desde": 16.792,
+      "hasta": 19.297,
+      "texto": "agua de Claude, de Gemini y de ChatGPT.",
+      "ancla": "de Claude, de Gemini y de ChatGPT",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "Tres archivos sellados en fila (las mismas tarjetas de b1: rima visual). Una pasada del repo los recorre de arriba abajo, tipo escáner, y de cada uno sale volando su patrón de glifos, que se deshace en el aire y deja el archivo limpio. En «Claude,» (17.177) el primero suelta su patrón y la marca de Claude queda en su esquina; en «Gemini» (17.900) el segundo, con la suya; en «ChatGPT.» (18.703) el tercero. Cada marca entra con su palabra, ninguna antes.",
+      "logos": ["claude", "gemini", "chatgpt"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b12",
+      "desde": 19.297,
+      "hasta": 21.111,
+      "texto": "Ojo con esto,",
+      "ancla": "Ojo con esto",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b13",
+      "desde": 21.111,
+      "hasta": 22.846,
+      "texto": "no hablamos de las marcas de agua de siempre,",
+      "ancla": "no hablamos de las marcas de agua de siempre",
+      "formato": "partida",
+      "fondo": "comic",
+      "visual": "Arriba, la tarjeta de una foto de producto con trama de semitono detrás. La tarjeta entra en 21.111 con «no» (es chrome: un marco de foto, no nombra nada). En «marcas» (21.721) cae encima una marca de agua diagonal enorme, de las de banco de imágenes, que tapa la foto y se sacude como pegada con cinta. Es la ÚNICA marca de agua visible de la pieza, y está para que se vea lo que las otras no son.",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b14",
+      "desde": 22.846,
+      "hasta": 24.179,
+      "texto": "estas no se ven,",
+      "ancla": "estas no se ven",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b15",
+      "desde": 24.179,
+      "hasta": 26.701,
+      "texto": "van escondidas dentro de cada archivo que sale de Claude.",
+      "ancla": "van escondidas dentro de cada archivo que sale de Claude",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "En «escondidas» (24.179) la marca diagonal de b13 se deshace y queda el archivo pelado, aparentemente limpio. En «dentro» (24.806) un láser lo barre y aparecen, latiendo entre los píxeles, los glifos escondidos. En «Claude.» (26.492) el sol de Claude vuelve a su esquina. Los 353 ms de pausa entre «ven,» (23.649) y «van» (24.002) van SIN efecto: es el medio segundo de silencio que pide el brief antes de este beat, y ponerle sonido al silencio lo contradice (§12).",
+      "logos": ["claude"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b16",
+      "desde": 26.701,
+      "hasta": 29.397,
+      "texto": "HTML, PDF, PNG,",
+      "ancla": "HTML, PDF, PNG",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "Tarjetas de archivo que se abanican en la banda de arriba, cada una con su extensión en la etiqueta y el mismo patrón latiendo adentro. El abanico vacío (los huecos discontinuos, sin etiqueta) es chrome y entra en 26.701; cada tarjeta se llena con su palabra: «HTML,» (26.990), «PDF,» (27.776), «PNG,» (28.498). Mismo idioma que `step_grid` usa para el hueco que espera su nombre (§7).",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b17",
+      "desde": 29.397,
+      "hasta": 30.682,
+      "texto": "SVG, documentos, todo.",
+      "ancla": "SVG, documentos, todo",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "El abanico pasa a lienzo completo con corte seco y se termina de llenar: «SVG,» (29.397) la cuarta tarjeta, «documentos,» (29.862) la de documento. En «todo.» (30.504) la pila se cierra de golpe y todas las tarjetas laten al mismo tiempo. Cinco pops, cada uno un semitono más arriba, y un golpe seco al cerrar.",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b18",
+      "desde": 30.682,
+      "hasta": 32.187,
+      "texto": "La buena noticia: el",
+      "ancla": "La buena noticia",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b19",
+      "desde": 32.187,
+      "hasta": 33.68,
+      "texto": "repositorio limpia 3 cosas:",
+      "ancla": "el repositorio limpia 3 cosas",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "terminal (NUEVO, recreada: la grabación de la terminal no se subió). En «repositorio» (32.187) la terminal aparece en la banda de arriba con el prompt parpadeando. En «limpia» (32.733) se teclea el comando sobre el archivo. En «3 cosas:» (33.118) se abren tres renglones VACÍOS, uno por cada cosa que va a borrar —el hueco numerado que espera, no una lista ya escrita—. El área de trabajo va dibujada (marco discontinuo), nunca un rectángulo negro (la lección de `agent_editor`, §7).",
+      "logos": ["github"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b20",
+      "desde": 33.68,
+      "hasta": 35.685,
+      "texto": "los caracteres Unicode invisibles,",
+      "ancla": "los caracteres Unicode invisibles",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "El archivo abierto a lienzo completo con los glifos escondidos marcados entre las letras. En «Unicode» (34.337) los glifos se marcan y empiezan a borrarse uno por uno de izquierda a derecha, y el texto se cierra sobre el hueco. Usa el mecanismo del tachado de `rewrite_line` (trazo preparado en t=0, §9 trampa 7) y mide el texto con `mockups.text_px()`, no contando letras. Serie de clics muy cortos, uno por glifo.",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b21",
+      "desde": 35.685,
+      "hasta": 37.226,
+      "texto": "los metadatos EXIF",
+      "ancla": "los metadatos EXIF",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "El panel de propiedades del archivo en la banda de arriba. El marco y las filas vacías son chrome y entran en 35.685 con «los». En «EXIF» (36.503) el panel se abre y sus filas se vacían de abajo hacia arriba hasta quedar en blanco. El hueco que queda se dibuja como HUECO, no como fila en rojo: lo que comunica es la AUSENCIA (la regla de `calendar` y `chat_unanswered`, §7). Un roce corto por cada fila.",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b22",
+      "desde": 37.226,
+      "hasta": 39.552,
+      "texto": "y las propiedades incrustadas en los archivos.",
+      "ancla": "las propiedades incrustadas en los archivos",
+      "formato": "grafico",
+      "fondo": "claro",
+      "visual": "Vista en corte del archivo por capas, con `layer_stack` (ya existe). En «incrustadas» (37.867) la última capa, la incrustada, se despega y sale de cuadro; las bajantes se dibujan con `draw`, no con un fundido. En «archivos.» (38.750) el mismo corte se repite en cadena en las tarjetas de PDF, HTML y documento de b16/b17. Despegue tipo cinta que se arranca.",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b23",
+      "desde": 39.552,
+      "hasta": 41.301,
+      "texto": "Así tus archivos dejan de",
+      "ancla": "Así tus archivos dejan de delatar",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b24",
+      "desde": 41.301,
+      "hasta": 42.953,
+      "texto": "delatar que los hizo una IA.",
+      "ancla": "delatar que los hizo una IA",
+      "formato": "grafico",
+      "fondo": "oscuro",
+      "visual": "EL CLÍMAX, y el cierre del loop: el MISMO PNG de b1, en el mismo encuadre, solo sobre fondo oscuro. En «delatar» (41.301) el láser lo barre otra vez y no encuentra nada: el patrón ya no está. En «IA.» (42.504) el resplandor limpio crece y llena el cuadro. El archivo no se tiñe ni se encoge: no le pasó nada malo, simplemente ya no delata (la lección de `idea_veneer`, §7). Barrido que vuelve vacío y un acorde bajo que se abre.",
+      "logos": ["claude"],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b25",
+      "desde": 42.953,
+      "hasta": 44.327,
+      "texto": "¿Y tú qué opinas?",
+      "ancla": "Y tú qué opinas",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b26",
+      "desde": 44.327,
+      "hasta": 46.032,
+      "texto": "¿Estás de acuerdo con quitar estas marcas de agua?",
+      "ancla": "Estás de acuerdo con quitar estas marcas de agua",
+      "formato": "partida",
+      "fondo": "comic",
+      "visual": "Ver q1: el brief pedía acá el sello gigante marcando una cuadrícula entera, pero la frase que se dijo pregunta por QUITAR las marcas, no por ponerlas. Propuesta por defecto: arriba, la cuadrícula de archivos de todos los tipos de b16/b17, ya limpia, con trama de semitono detrás; el sello queda suspendido ARRIBA del cuadro sin llegar a caer. En «quitar» (45.002) los patrones se levantan de toda la cuadrícula a la vez y se deshacen. El sonido es el golpe de sello de b1 AL REVÉS y al doble de cuerpo: el motivo invertido, porque acá se quita.",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b27",
+      "desde": 46.259,
+      "hasta": 49.796,
+      "texto": "[CTA instagram] Si quieres una guía con el repositorio y todo lo que limpia,",
+      "ancla": "Si quieres una guía con el repositorio y todo lo que limpia",
+      "formato": "partida",
+      "fondo": "claro",
+      "visual": "Solo en la versión instagram. Arriba, la caja de comentarios de Instagram vacía, con el cursor parpadeando y el botón de publicar apagado (`comment_ui`, ya existe). Entra en «Si» (46.487) desde abajo, con el cursor ya parpadeando. Un solo elemento, como pide la curva de intensidad (§6). El tramo `band` arranca en 46.487, no en 46.259, para que la banda no nazca vacía (§4).",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    },
+    {
+      "id": "b28",
+      "desde": 49.796,
+      "hasta": 52.21,
+      "texto": "[CTA instagram] comenta marcas y te lo envío por privado.",
+      "ancla": "comenta marcas y te lo envío por privado",
+      "formato": "cara",
+      "fondo": "",
+      "visual": "",
+      "logos": [],
+      "material": ["cuerpo-5.mov"]
+    }
+  ],
+  "preguntas": [
+    {
+      "id": "q1",
+      "beat": "b26",
+      "pregunta": "El brief pedía para este beat el sello gigante bajando sobre una cuadrícula de archivos y marcándolos todos («que le pongan marca de agua a todo lo que hace la IA»). Lo que se dijo en la toma es lo contrario: «¿Estás de acuerdo con quitar estas marcas de agua?». El sello que MARCA contradice la frase. ¿Cómo se resuelve?",
+      "opciones": [
+        "La cuadrícula ya limpia y el sello suspendido arriba sin caer; en «quitar» los patrones se levantan de toda la cuadrícula a la vez y se deshacen. El golpe de sello suena AL REVÉS y al doble de cuerpo: el motivo invertido.",
+        "El sello gigante igual, tal como el brief: baja y marca la cuadrícula entera. Contradice la frase pero cierra el motivo del sello como estaba pensado.",
+        "Sin cuadrícula: la pieza cierra en `cara` desde «¿Y tú qué opinas?» hasta el CTA, y la pregunta al público se sostiene sola.",
+        "La balanza: la cuadrícula marcada a un lado y limpia al otro, para dibujar la pregunta en vez de contestarla."
+      ],
+      "propuesta_por_defecto": "La cuadrícula ya limpia y el sello suspendido arriba sin caer; en «quitar» los patrones se levantan de toda la cuadrícula a la vez y se deshacen. El golpe de sello suena AL REVÉS y al doble de cuerpo: el motivo invertido."
+    },
+    {
+      "id": "q2",
+      "beat": "b13",
+      "pregunta": "El brief pedía para la marca de agua visible una IMAGEN GENERADA (una foto de producto cruzada por una marca diagonal de banco de imágenes). Generarla es un servicio pago y esta pasada no sale a la red para eso. ¿Con qué se monta?",
+      "opciones": [
+        "Mockup declarado: una tarjeta de foto de producto dibujada con los tokens de la paleta, con la marca diagonal y la trama de semitono encima. Sin coste y queda dentro del sistema visual.",
+        "Generar la imagen con Kie AI en la pasada `editar` (tiene coste y hay que autorizarlo).",
+        "Subir una foto de producto propia a VIDEOS ORIGINALES/3/ y cruzarla con la marca diagonal dibujada encima."
+      ],
+      "propuesta_por_defecto": "Mockup declarado: una tarjeta de foto de producto dibujada con los tokens de la paleta, con la marca diagonal y la trama de semitono encima. Sin coste y queda dentro del sistema visual."
+    },
+    {
+      "id": "q3",
+      "beat": "b2",
+      "pregunta": "Faltan cinco logos de marcas que se nombran: anthropic, cowork, claude-code, gemini y chatgpt. Ninguno está vendorizado y `fetch-logos.py` solo baja slugs ya verificados a mano (su tabla KNOWN), así que sin nadie mirando no se pueden conseguir ni abrir para comprobar que son la marca correcta — y el slug `gemini` de Simple Icons es la casa de cambio, no el modelo de Google. ¿Cómo se pintan esos cinco beats?",
+      "opciones": [
+        "Vendorizarlos antes de la pasada `editar`: agregar anthropic, googlegemini y openai a la tabla KNOWN de fetch-logos.py y cowork + claude-code a VENDOR desde el sitio oficial, abriendo cada SVG para confirmar que es la marca.",
+        "Solo pastilla de nombre, sin marca, en los cinco beats. Rompe la regla de la casa de que cada marca nombrada lleva su logo.",
+        "Reusar el sol de Claude para cowork y claude-code (son superficies de Claude) y dejar anthropic, gemini y chatgpt con pastilla de nombre hasta que se vendoricen."
+      ],
+      "propuesta_por_defecto": "Vendorizarlos antes de la pasada `editar`: agregar anthropic, googlegemini y openai a la tabla KNOWN de fetch-logos.py y cowork + claude-code a VENDOR desde el sitio oficial, abriendo cada SVG para confirmar que es la marca."
+    },
+    {
+      "id": "q4",
+      "beat": "b8",
+      "pregunta": "El brief pedía dos grabaciones que no se subieron: la página del repo en GitHub (6 s) y la terminal corriendo el remover (8 s). El propio brief da la salida: recrear la tarjeta y la terminal. ¿Se recrean o se esperan las grabaciones?",
+      "opciones": [
+        "Recrear las dos como mockups declarados (b8/b9 la tarjeta del repo, b19 la terminal), como dice el brief. La pieza sale completa en esta vuelta.",
+        "Subir las dos grabaciones a VIDEOS ORIGINALES/3/ y rehacer la propuesta: la regla de oro de §7 dice que si la grabación real existe, ella manda.",
+        "Recrear la tarjeta del repo y esperar solo la grabación de la terminal, que es la que de verdad demuestra el producto."
+      ],
+      "propuesta_por_defecto": "Recrear las dos como mockups declarados (b8/b9 la tarjeta del repo, b19 la terminal), como dice el brief. La pieza sale completa en esta vuelta."
+    },
+    {
+      "id": "q5",
+      "beat": "b1",
+      "pregunta": "El brief alterna fondo oscuro y claro por escena («el fondo pasa de oscuro a claro en el chat normal»), pero el pedido trae paleta `claro` y el compilador todavía no sabe cambiar de fondo por escena: la pieza entera sale en una sola paleta. El `fondo` de cada beat queda anotado igual. ¿Qué se hace?",
+      "opciones": [
+        "Toda la pieza en `claro`, la paleta del pedido, y el contraste oscuro/claro del brief se resuelve con el tema semántico del stage (`primary`/`problem`) en vez de con el fondo.",
+        "Toda la pieza en `oscuro`: siete de los beats con visual piden fondo oscuro y es donde el sello invisible y el láser se leen mejor.",
+        "Esperar a que el compilador soporte fondo por escena y montar la pieza después."
+      ],
+      "propuesta_por_defecto": "Toda la pieza en `claro`, la paleta del pedido, y el contraste oscuro/claro del brief se resuelve con el tema semántico del stage (`primary`/`problem`) en vez de con el fondo."
+    }
+  ],
+  "versiones": [
+    {
+      "plataforma": "instagram",
+      "cta_texto": "Si quieres una guía con el repositorio y todo lo que limpia, comenta marcas y te lo envío por privado.",
+      "duracion": 52.21
+    },
+    {
+      "plataforma": "tiktok",
+      "cta_texto": "Ve al link de la bio y encuentra el acceso.",
+      "duracion": 48.844
+    }
+  ],
+  "avisos": [
+    {
+      "tipo": "formato",
+      "mensaje": "El brief se escribió para otro guion: la toma dice las mismas ideas en el mismo orden pero con otras palabras, y en dos sitios cambia el sentido. (1) El brief abría con «Anthropic acaba de anunciar» y después la marca de agua; la toma lo dice al revés («Todo lo que hagas con Claude va a llevar una marca de agua, lo anunció Anthropic»), así que el hook pasa a ser el sello cayendo sobre el archivo (b1) y la tarjeta del anuncio queda en b2 — que además cumple mejor el «en tres segundos se ve la cosa» del propio brief. (2) El beat 24 del brief («que le pongan marca de agua a todo lo que hace la IA») no existe: la toma pregunta «¿Estás de acuerdo con quitar estas marcas de agua?», que es lo contrario. Va como q1."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "Faltan los cinco logos de marcas que se nombran en la pieza: anthropic (b2), cowork y claude-code (b4), gemini y chatgpt (b11). En assets/logos solo están claude y github. `fetch-logos.py` rechaza los cinco porque su tabla KNOWN solo acepta slugs verificados a mano, y bajarlos a ciegas choca con la regla dura de no vendorizar un logo sin abrirlo —el slug `gemini` de Simple Icons es la casa de cambio, no el modelo de Google—. Ver q3."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "No se subieron las dos grabaciones del brief: la página del repo Watermarks Remover en GitHub y la terminal corriendo el remover. El brief ya da la salida (recrear la tarjeta y la terminal) y así están propuestos b8/b9 y b19. Ver q4."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "El brief pedía una imagen generada (foto de producto con marca de agua diagonal) para b13. Generarla cuesta y esta pasada no usa servicios pagos: va como mockup declarado. Ver q2."
+    },
+    {
+      "tipo": "alineacion",
+      "mensaje": "La palabra 138 del transcript venía como «quitar» en 96 ms (31,2 síl/s, imposible para dos sílabas). La re-transcripción suelta de ese tramo oía «que» en 48 ms, pero la envolvente a 10 ms muestra DOS cierres plosivos profundos —47,39-47,45 s a −38 dB y 47,52-47,60 s a −44,6 dB—, que son la /k/ y la /t/ de «quitar» y no caben en «que». Se conserva el texto del pase largo y se re-sientan los bordes del grupo «con quitar estas marcas de agua?» (palabras 137-142) sobre los núcleos medidos. De paso la cola de «agua?» pasa de 48,391 a 48,430 s, que es donde empieza el silencio real: ese borde es justo el que corta `plan-cuts` antes del CTA."
+    },
+    {
+      "tipo": "alineacion",
+      "mensaje": "La palabra 0 «Todo» venía en 160 ms (12,5 síl/s). La re-transcripción suelta la daba desde 0,032 s, pero la envolvente muestra suelo de ruido (−52 a −69 dB) hasta 0,33 y el ataque en 0,340: el pase largo tenía razón en el arranque (0,337) y la suelta estiraba la palabra sobre silencio. Lo que sí estaba corto era el final: los núcleos medidos dan «Todo» 0,337-0,555 y «lo» 0,555-0,600."
+    },
+    {
+      "tipo": "alineacion",
+      "mensaje": "Los otros 12 avisos de alineación imposible se comprobaron uno por uno contra la re-transcripción suelta de su tramo y son habla rápida real, no desfase: 12 «agua,» (la suelta da 196 ms frente a 193), 38 «alguien» y 40 «subió» (coinciden en 48 y 37 ms), 57 «agua» y 59 «Claude,» (misma duración, 70 ms antes), 74 «agua» (grupo desplazado 110 ms en la suelta, pero dentro de habla continua y sin ningún borde de corte en juego), 90 «Claude.» (la suelta la da aún más corta: el pase largo es el conservador y su cola protege el corte de «HTML»), 98 «buena», 136 «acuerdo» (medido: 250 ms reales, 12 síl/s), 139 «estas» (150 ms medidos sobre sus núcleos), 146 «guía», 151 «todo», 160 «envío» y 162 «privado.»."
+    },
+    {
+      "tipo": "audio",
+      "mensaje": "El transcript oía «Cloud Code» donde se dice «Claude Code» (palabra 26). Se corrigió el TEXTO —no el audio— para que el subtítulo escriba bien la marca, como pide §2. «Cowork» (confianza 0,76) y «Watermarks» (0,79) se dejaron como vienen: son los nombres correctos. Nada más se tocó: «3 cosas» se queda en cifra y «una IA» en sigla, que es lo que se dijo."
+    },
+    {
+      "tipo": "audio",
+      "mensaje": "Auditoría de respiraciones (paso 4b) en verde en las dos versiones: 0 islas sin voz fuera de un span de palabra, con el umbral de la fuente (−45 dB). El cuerpo pierde 5,68 s en 4 cortes (10%) y el clip de CTA de TikTok 3,42 s (57%, casi todo cabeza y cola muertas)."
+    },
+    {
+      "tipo": "audio",
+      "mensaje": "El motivo de sonido del brief se mantiene: el golpe de sello suena en «marca» de b1, triple y más corto en «Claude Code» (b4) y al doble de cuerpo e INVERTIDO en «quitar» (b26, ver q1); nada más lo usa. Los 353 ms entre «ven,» y «van escondidas» van sin efecto, como pide el brief. Hay que recordar que 16 de los 19 efectos traen silencio de cabecera y lo compensa `build_sfx` solo (§12): el plan declara cuándo se OYE el efecto."
+    },
+    {
+      "tipo": "formato",
+      "mensaje": "Fuente SDR bt709 1080x1920: no hace falta el camino del LUT de §8, se renderiza con --sdr a secas. El zoom de `cara` queda topado en ×1,20 por `check_cara_zoom` (fuente 1080p, no 4K), así que el primer plano cerrado de la referencia (×1,4) no se puede alcanzar en esta toma."
+    },
+    {
+      "tipo": "formato",
+      "mensaje": "Reparto del cuerpo: cara 12,51 s (27,2%), partida 15,86 s (34,4%), grafico 17,69 s (38,4%) — el 28/35/37 que pedía el brief. Ningún tramo de grafico pasa de 2,77 s y ningún tramo baja de 1,13 s, así que el cambio cae siempre en la ventana de 1 a 3 s. El `anchor` de los encuadres `band` del cuerpo es 0,5274: es el único valor que vale en las dos versiones (instagram admite [0,5028, 0,7500] y tiktok [0,5174, 0,7510]). Barbilla p95 en 55% del alto y borde superior de la cara en 37,5%, medidos sobre los dos cortes brutos."
+    },
+    {
+      "tipo": "formato",
+      "mensaje": "El CTA de TikTok no sale como beat porque su frase está en transcripts/3-cta-tiktok.json, no en el transcript del cuerpo: los beats de arriba son todos del cuerpo. Su tratamiento: clip de 2,59 s (46,259-48,844 s de la versión), `cara` a lienzo completo con UN solo elemento, como pide la curva de intensidad (§6) — una pastilla de perfil con el enlace que entra en «link» (46,662 s) y se queda. Sin `cta_palabra`: el «comenta» es de ManyChat y no sirve en TikTok. Los beats b27 y b28 son al revés, solo de la versión instagram: su frase SÍ se dice en el cuerpo (palabras 143-162) y por eso valida, pero van en plan-cta-instagram.json, no en plan-cuerpo.json."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "La palabra clave del CTA de Instagram es «marcas» en plural, no «MARCA» como decía el título del pedido: es lo que se dice en la toma y el subtítulo transcribe lo dicho, no el guion escrito (§13). `cta_palabra` va con «MARCAS» desde 50,229 s de la versión. Hay que configurar el disparador de ManyChat con esa misma palabra."
+    },
+    {
+      "tipo": "material",
+      "mensaje": "Componentes que hay que construir en la pasada `editar` (no existen en la librería): `archivo_sellado` (la tarjeta de archivo con el patrón de glifos dentro, que se enciende, se escanea y se vacía — la usan b1, b11, b15, b24 y b26, y es la que sostiene la rima del loop), el sello que baja, `contador_horas` (b6), `repo_card` con contador de estrellas (b8/b9), el abanico de tarjetas de archivo (b16/b17), la `terminal` con renglones vacíos (b19), el panel de propiedades EXIF (b21) y el borrado de glifos Unicode sobre el texto (b20). Se reutilizan `layer_stack` (b22) y `comment_ui` (b27). Cada componente nuevo necesita probar su camino de FALLO y mirarse en el frame, no solo compilar."
+    }
+  ]
+}
