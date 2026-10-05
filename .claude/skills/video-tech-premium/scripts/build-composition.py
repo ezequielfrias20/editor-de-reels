@@ -40,6 +40,7 @@ import caption_fonts  # noqa: E402
 import caption_metrics  # noqa: E402
 import layout_formatos  # noqa: E402
 import mockups  # noqa: E402
+import mockups_reels  # noqa: E402
 import objects  # noqa: E402
 import tokens as TK  # noqa: E402
 from tokens import C, FILL, FONT, MONO, RADIUS, TRACK, TYPE, grid, vignette  # noqa: E402
@@ -836,6 +837,22 @@ def build_visuals(dur):
                   "teclado_enter": mockups.teclado_enter,
                   "repo_card": mockups.repo_card,
                   "inspector_archivo": mockups.inspector_archivo,
+                  "ig_perfil": mockups_reels.ig_perfil,
+                  "ig_barras": mockups_reels.ig_barras,
+                  "ig_busqueda": mockups_reels.ig_busqueda,
+                  "ig_guardar": mockups_reels.ig_guardar,
+                  "monigote": mockups_reels.monigote,
+                  "nudo_viaje": mockups_reels.nudo_viaje,
+                  "ideas_notas": mockups_reels.ideas_notas,
+                  "claude_chat": mockups_reels.claude_chat,
+                  "escaneo": mockups_reels.escaneo,
+                  "prompt_encaje": mockups_reels.prompt_encaje,
+                  "prompt_hoja": mockups_reels.prompt_hoja,
+                  "tablero": mockups_reels.tablero,
+                  "reel_tarjeta": mockups_reels.reel_tarjeta,
+                  "reel_cascada": mockups_reels.reel_cascada,
+                  "ig_grilla": mockups_reels.ig_grilla,
+                  "guion_esqueleto": mockups_reels.guion_esqueleto,
                   "motion_stage": objects.motion_stage}[which]
             body_css, body_html_, body_anims = fn(vid, **kw)
         elif v["kind"] == "image":
@@ -1850,11 +1867,21 @@ def emit_anim(a) -> str:
         n_from, n_to, prefix = a[4], a[5], a[6]
         cv = f"_cv{next(_ANIM_NONCE)}"
         js.append(f'const {cv} = {{ v: {n_from} }};')
-        js.append(f'tl.to({cv}, {{ v: {n_to}, duration: {d}, '
-                  f'ease: "power2.out", onUpdate: function() {{ '
-                  f'const e = document.querySelector({sel!r}); '
-                  f'if (e) e.textContent = {json.dumps(prefix)} + '
-                  f'Math.round({cv}.v); }} }}, {t:.4f});')
+        if len(a) < 8:
+            # Retrocompatibilidad estricta: esta rama es byte por byte la
+            # emisión anterior a la pieza 4.
+            js.append(f'tl.to({cv}, {{ v: {n_to}, duration: {d}, '
+                      f'ease: "power2.out", onUpdate: function() {{ '
+                      f'const e = document.querySelector({sel!r}); '
+                      f'if (e) e.textContent = {json.dumps(prefix)} + '
+                      f'Math.round({cv}.v); }} }}, {t:.4f});')
+        else:
+            suffix = a[7]
+            js.append(f'tl.to({cv}, {{ v: {n_to}, duration: {d}, '
+                      f'ease: "power2.out", onUpdate: function() {{ '
+                      f'const e = document.querySelector({sel!r}); '
+                      f'if (e) e.textContent = {json.dumps(prefix)} + '
+                      f'Math.round({cv}.v) + {json.dumps(suffix)}; }} }}, {t:.4f});')
     elif kind in ("cursor-enter", "cursor-to"):
         x, y = a[4], a[5]
         if kind == "cursor-enter":
@@ -1953,6 +1980,18 @@ def emit_anim(a) -> str:
         # baraja de verdad.
         js.append(f'tl.to(\'{sel}\', {{ rotation: {a[4]}, duration: {d}, '
                   f'ease: "power3.out", overwrite: "auto" }}, {t:.4f});')
+    elif kind == "flip-out":
+        js.append(f'tl.to(\'{sel}\', {{ scaleX: 0, duration: {d}, '
+                  f'ease: "power2.in", overwrite: "auto" }}, {t:.4f});')
+    elif kind == "flip-in":
+        # `immediateRender: false`: el `from` (scaleX 0) de un fromTo se pinta
+        # al MONTAR el timeline, así que sin esto el elemento nace plegado y
+        # se queda invisible hasta el giro — el `flip-out` previo pliega algo
+        # que ya estaba en cero (pieza 4: la tarjeta de b29 y la miniatura de
+        # b33 desaparecían el beat entero hasta su palabra).
+        js.append(f'tl.fromTo(\'{sel}\', {{ scaleX: 0 }}, '
+                  f'{{ scaleX: 1, duration: {d}, ease: "power2.out", '
+                  f'overwrite: "auto", immediateRender: false }}, {t:.4f});')
     elif kind == "cam-kb":
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: {a[4]} }}, '
                   f'{{ scale: {a[5]}, duration: {d}, ease: "none" }}, {t:.4f});')

@@ -40,6 +40,29 @@ def test_el_recorrido_es_pequeno(bc):
     assert GLIDE_X <= 80 and abs(DROP_Y) <= 30
 
 
+def test_flip_out_pliega_en_x_con_la_curva_del_contrato(bc):
+    js = bc.emit_anim(("flip-out", "#card", 1.25, .22)).replace(" ", "")
+    assert "tl.to('#card'" in js
+    assert "scaleX:0" in js and 'ease:"power2.in"' in js
+    assert 'overwrite:"auto"' in js
+
+
+def test_flip_in_despliega_en_x_con_la_curva_del_contrato(bc):
+    js = bc.emit_anim(("flip-in", "#card", 1.50, .28)).replace(" ", "")
+    assert "tl.fromTo('#card',{scaleX:0},{scaleX:1" in js
+    assert 'ease:"power2.out"' in js and 'overwrite:"auto"' in js
+    # Un fromTo pinta su `from` al montarse: sin esto la tarjeta nace plegada
+    # (scaleX 0) y el lienzo se queda vacío hasta el giro (pieza 4, b29).
+    assert "immediateRender:false" in js
+
+
+def test_count_roll_acepta_sufijo_sin_cambiar_el_contrato_viejo(bc):
+    old = bc.emit_anim(("count-roll", "#n", 1.0, .5, 0, 10, "#"))
+    new = bc.emit_anim(("count-roll", "#n", 1.0, .5, 0, 10, "#", " K"))
+    assert 'Math.round(' in old and '" K"' not in old
+    assert '+ " K"' in new
+
+
 # ── regresión: el nonce de `emit_anim` no puede volver a `len(js)` ───────────
 #
 # Esto no es de glide-x/drop-in — es del refactor de la Tarea 7 que los hizo
