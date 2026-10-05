@@ -365,11 +365,18 @@ nadie mirando: escribe `VIDEOS ORIGINALES/<n>/pedido.json` con cada clip y su ro
 `claude -p "/editar-pieza <n> <propuesta|editar|corregir>"`. El paso 3b no se conversa: sus
 preguntas van a `videos/<n>/propuesta.json` y vuelven respondidas en `respuestas.json`.
 
-**Siempre salen dos versiones, `<n>-instagram` y `<n>-tiktok`** (decisión de 2026-09-27): el
+**Salen dos versiones, `<n>-instagram` y `<n>-tiktok`** (decisión de 2026-09-27), **pero
+TikTok solo si se subió su clip de CTA** (regla de Ezequiel, 2026-10-05: sin clip no se hace
+la versión de TikTok, `Pedido.plataformas`): el
 cuerpo hasta su CTA de Instagram dicho a cámara («comenta PARALELO…», marcado en
 `videos/<n>/cta-cuerpo.json`) seguido del CTA de cada una en una sola línea de tiempo
 (`scripts/versiones.py`). Instagram usa su clip de `cta` si se subió o, si no, el CTA dicho;
-TikTok usa su clip o sale sin CTA, porque el «comenta» es de ManyChat y no sirve ahí. **La pieza va por `plan.json` a mano, no por el
+TikTok usa su clip, porque el «comenta» es de ManyChat y no sirve ahí.
+**El corte cae en la palabra «comenta», no al principio de la oración** (regla de Ezequiel,
+2026-10-05): en «Si quieres el paso a paso…, comenta viral y te lo mando por privado», la
+promesa «Si quieres el paso a paso…,» es parte común de las dos versiones y en TikTok el clip
+del link entra justo donde se iba a decir «comenta». `leer_cta_cuerpo` rechaza un
+`desde_palabra` que no caiga en «comenta». **La pieza va por `plan.json` a mano, no por el
 EDL**: `edl_compile._visuals()` solo emite stages a lienzo completo y no sabe poner nada en la
 banda `top`, así que un reel triband no es expresable en EDL (pieza 1, 2026-09-27). El plan se
 escribe por partes (`videos/<n>/plan-cuerpo.json`, en segundos del corte del cuerpo, +

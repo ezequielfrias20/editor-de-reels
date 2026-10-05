@@ -30,8 +30,16 @@ def vs():
     return _mod("validar_salida", "validar-salida.py")
 
 
-def proyecto(tmp_path, plataformas=("instagram", "tiktok"), dur=2.0):
+def proyecto(tmp_path, plataformas=("instagram", "tiktok"), dur=2.0, clip_tiktok=True):
     root = tmp_path
+    o = root / "VIDEOS ORIGINALES" / "7"
+    o.mkdir(parents=True)
+    clips = [{"archivo": "cuerpo-1.mov", "rol": "cuerpo", "orden": 1}]
+    if clip_tiktok:
+        clips.append({"archivo": "cta-tiktok.mov", "rol": "cta", "plataforma": "tiktok", "orden": 1})
+    for c in clips:
+        (o / c["archivo"]).write_bytes(b"x")
+    (o / "pedido.json").write_text(json.dumps({"pieza": 7, "paleta": "claro", "clips": clips}))
     (root / "videos" / "7").mkdir(parents=True)
     (root / "videos" / "7" / "propuesta.json").write_text(json.dumps(
         {"pieza": 7, "versiones": [{"plataforma": p} for p in plataformas]}))
@@ -125,3 +133,11 @@ def test_siempre_exige_instagram_y_tiktok_aunque_la_propuesta_sea_vieja(rv, vs, 
     root = proyecto(tmp_path, plataformas=("tiktok",))
     rv.entregar(root, 7, "tiktok", 1)
     assert any("output-instagram-v1.mp4" in p for p in vs.problemas(root, 7, 1))
+
+
+@necesita_ffmpeg
+def test_sin_clip_de_tiktok_solo_exige_instagram(rv, vs, tmp_path):
+    """Regla de Ezequiel (2026-10-05): sin clip de CTA de TikTok la pieza entrega solo Instagram."""
+    root = proyecto(tmp_path, plataformas=("instagram",), clip_tiktok=False)
+    rv.entregar(root, 7, "instagram", 1)
+    assert vs.problemas(root, 7, 1) == []

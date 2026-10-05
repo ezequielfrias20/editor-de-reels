@@ -48,11 +48,12 @@ def test_pedido_ordena_por_orden_y_lista_plataformas(tmp_path):
     assert p.paleta == "claro"
 
 
-def test_siempre_salen_instagram_y_tiktok_aunque_no_haya_clips_de_cta(tmp_path):
-    """Instagram usa el CTA dicho en el cuerpo («comenta PARALELO…»); TikTok sale sin CTA."""
+def test_sin_clip_de_cta_de_tiktok_solo_sale_instagram(tmp_path):
+    """Instagram usa el CTA dicho en el cuerpo («comenta PARALELO…»); sin clip de TikTok no se
+    hace esa versión (regla de Ezequiel, 2026-10-05)."""
     pedido(tmp_path, 3, [{"archivo": "cuerpo-1.mov", "rol": "cuerpo", "orden": 1}])
     p = cargar_pedido(tmp_path, 3)
-    assert p.plataformas == ["instagram", "tiktok"]
+    assert p.plataformas == ["instagram"]
     assert p.cta("instagram") is None and p.cta("tiktok") is None
 
 

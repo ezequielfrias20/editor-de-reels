@@ -70,7 +70,7 @@ def test_leer_cta_cuerpo():
 
 @pytest.mark.parametrize("dato,esperado", [
     ({"desde_palabra": 2, "texto": "comenta ahora"}, "«Comenta YA.»"),     # no es lo que se dijo
-    ({"desde_palabra": 1, "texto": "mundo. comenta ya"}, "«Hola»"),        # a mitad de frase
+    ({"desde_palabra": 1, "texto": "mundo. comenta ya"}, "«mundo.»"),      # no empieza en «comenta»
     ({"desde_palabra": 0, "texto": "hola mundo comenta ya"}, "palabra 0"),
     ({"desde_palabra": 9, "texto": "x"}, "palabra 9"),
     ({"texto": "comenta ya"}, "desde_palabra"),
@@ -80,14 +80,15 @@ def test_leer_cta_cuerpo_rechaza_lo_que_no_es_la_cola_del_cuerpo(dato, esperado)
         leer_cta_cuerpo(dato, CON_CTA["words"])
 
 
-def test_leer_cta_cuerpo_no_deja_el_cuerpo_a_mitad_de_frase():
-    """Pieza 1: «…que uso para eso, comenta paralelo…» — el CTA empieza en «Si quieres», no en
-    «comenta»; si no, TikTok terminaría colgado en «para eso,»."""
+def test_leer_cta_cuerpo_corta_en_comenta_y_la_promesa_queda_en_el_cuerpo():
+    """Regla de Ezequiel (2026-10-05), pieza 4: «Si quieres el paso a paso…, comenta viral…».
+    El corte va en «comenta»: «Si quieres eso,» es común y en TikTok el clip del link entra
+    justo ahí. Cortar al principio de la oración se rechaza."""
     w = tr(("Dalo", 0, 300), ("tú.", 300, 600), ("Si", 700, 800), ("quieres", 800, 900), ("eso,", 900, 1000),
            ("comenta", 1100, 1300), ("YA.", 1300, 1500))["words"]
-    with pytest.raises(ValueError, match="«eso,»"):
-        leer_cta_cuerpo({"desde_palabra": 5, "texto": "comenta YA."}, w)
-    assert leer_cta_cuerpo({"desde_palabra": 2, "texto": "Si quieres eso, comenta YA."}, w) == 2
+    assert leer_cta_cuerpo({"desde_palabra": 5, "texto": "comenta YA."}, w) == 5
+    with pytest.raises(ValueError, match="«Si»"):
+        leer_cta_cuerpo({"desde_palabra": 2, "texto": "Si quieres eso, comenta YA."}, w)
 
 
 def test_version_id():
@@ -225,12 +226,12 @@ def test_cli_edl_escribe_la_version_y_compila_su_schema(tmp_path):
 
 
 @necesita_ffmpeg
-def test_cli_tiktok_sin_clip_es_el_cuerpo_solo(tmp_path):
-    root = _proyecto(tmp_path, con_cta=False)
-    cli = _cli()
-    assert cli.main(["datos", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 0
-    assert cli.main(["edl", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 0
-    assert len(load_edl(root / "videos" / "7-tiktok" / "edl.json", root).segments) == 1
+def test_cli_sin_clip_de_tiktok_no_hay_version_tiktok(tmp_path, capsys):
+    """Regla de Ezequiel (2026-10-05): sin clip de CTA de TikTok solo sale Instagram. La
+    versión de TikTok se corta en «comenta» y sin clip quedaría colgada en «Si quieres…,»."""
+    root = _proyecto(tmp_path, con_cta=False, dice_cta=True)
+    assert _cli().main(["datos", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 1
+    assert "no hay versión tiktok: salen instagram" in capsys.readouterr().err
 
 
 def _v(root, v, que):
@@ -258,16 +259,15 @@ def test_cli_instagram_sin_clip_usa_el_cta_dicho_en_el_cuerpo(tmp_path, capsys):
 
 
 @necesita_ffmpeg
-def test_cli_tiktok_sin_clip_corta_el_cta_de_instagram_y_no_lleva_plan_de_cta(tmp_path, capsys):
-    root = _proyecto(tmp_path, con_cta=False, dice_cta=True)
+def test_cli_instagram_sin_cta_dicho_ni_clip_no_lleva_plan_de_cta(tmp_path, capsys):
+    root = _proyecto(tmp_path, con_cta=False, dice_cta=False)
     cli = _cli()
-    assert cli.main(["datos", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 0
-    assert [w["text"] for w in _v(root, "7-tiktok", "transcripts")["words"]] == ["Hola", "mundo."]
-    cuerpo = {**PLAN_CUERPO, "visuals": [{**PLAN_CUERPO["visuals"][0], "end": 1.05}]}
-    (root / "videos" / "7" / "plan-cuerpo.json").write_text(json.dumps(cuerpo))
-    assert cli.main(["plan", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 0
-    (root / "videos" / "7" / "plan-cta-tiktok.json").write_text(json.dumps(PLAN_CTA))
-    assert cli.main(["plan", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 1
+    assert cli.main(["datos", "--project", str(root), "--piece", "7", "--plataforma", "instagram"]) == 0
+    assert [w["text"] for w in _v(root, "7-instagram", "transcripts")["words"]] == ["Hola", "mundo"]
+    (root / "videos" / "7" / "plan-cuerpo.json").write_text(json.dumps(PLAN_CUERPO))
+    assert cli.main(["plan", "--project", str(root), "--piece", "7", "--plataforma", "instagram"]) == 0
+    (root / "videos" / "7" / "plan-cta-instagram.json").write_text(json.dumps(PLAN_CTA))
+    assert cli.main(["plan", "--project", str(root), "--piece", "7", "--plataforma", "instagram"]) == 1
     assert "no tiene CTA" in capsys.readouterr().err
 
 
@@ -283,7 +283,7 @@ def test_cli_sin_cta_cuerpo_lo_pide(tmp_path, capsys):
     for sub, data in (("transcripts", CUERPO), ("cuts", cortes(2.0, [(0.05, 1.0)]))):
         (root / sub).mkdir()
         (root / sub / "7.json").write_text(json.dumps(data))
-    assert _cli().main(["datos", "--project", str(root), "--piece", "7", "--plataforma", "tiktok"]) == 1
+    assert _cli().main(["datos", "--project", str(root), "--piece", "7", "--plataforma", "instagram"]) == 1
     assert "cta-cuerpo.json" in capsys.readouterr().err
 
 

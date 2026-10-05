@@ -3,13 +3,15 @@
 línea de tiempo. Su id es `<n>-<plataforma>` (`7-instagram`) y se comporta como una pieza
 más: `transcripts/7-instagram.json`, `cuts/7-instagram.json`, `videos/7-instagram/`.
 
-Siempre salen dos, `instagram` y `tiktok` (decisión de Ezequiel, 2026-09-27). El cuerpo
-suele cerrar con el CTA de Instagram dicho a cámara («comenta PARALELO y te lo mando por
-privado»); `videos/<n>/cta-cuerpo.json` anota en qué palabra empieza. Cada versión toma el
+Salen `instagram` siempre y `tiktok` solo si se subió su clip de CTA (decisiones de Ezequiel,
+2026-09-27 y 2026-10-05; `Pedido.plataformas`). El cuerpo
+suele cerrar con el CTA de Instagram dicho a cámara («Si quieres el prompt, comenta PARALELO
+y te lo mando por privado»); `videos/<n>/cta-cuerpo.json` anota en qué palabra empieza, y
+esa palabra es «comenta» (2026-10-05): la promesa de delante es común. Cada versión toma el
 cuerpo HASTA esa palabra (la parte común) y le suma su CTA:
 
     instagram   el clip de CTA de Instagram si se subió; si no, el que se dijo en el cuerpo
-    tiktok      el clip de CTA de TikTok si se subió; si no, nada (el «comenta…» no sirve ahí)
+    tiktok      el clip de CTA de TikTok; sin clip no hay versión (el «comenta…» no sirve ahí)
 
 La parte común va PRIMERO, así que sus índices de palabra y sus segundos son los mismos en
 todas las versiones y su EDL o su plan se reusa tal cual. El EDL del CTA
@@ -73,7 +75,13 @@ def normalizar(texto: str) -> str:
 def leer_cta_cuerpo(dato: dict, palabras: list[dict]) -> int | None:
     """`{"desde_palabra": k, "texto": "…"}` → k, o None si el cuerpo no dice CTA. El texto
     tiene que ser EXACTAMENTE la cola del cuerpo desde k: un CTA que no llega al final dejaría
-    su resto pegado delante del CTA de TikTok."""
+    su resto pegado delante del CTA de TikTok.
+
+    **k es la palabra «comenta»**, no el principio de la oración (regla de Ezequiel,
+    2026-10-05). Lo que va delante («Si quieres el paso a paso con el prompt…,») es la
+    promesa y sirve en las dos plataformas: queda en la parte común, y en TikTok el clip de
+    CTA («ve al link de la bio») entra justo donde se iba a decir «comenta PALABRA». Lo que se
+    cambia por plataforma es solo la instrucción de ManyChat."""
     if "desde_palabra" not in dato:
         raise ValueError('falta "desde_palabra" (null si el cuerpo no dice CTA)')
     k = dato["desde_palabra"]
@@ -82,10 +90,10 @@ def leer_cta_cuerpo(dato: dict, palabras: list[dict]) -> int | None:
     if not isinstance(k, int) or not 0 < k < len(palabras):
         raise ValueError(f"palabra {k} fuera del cuerpo: el CTA empieza entre la 1 y la "
                          f"{len(palabras) - 1}")
-    antes = palabras[k - 1]["text"].strip()
-    if not antes.endswith((".", "?", "!", "…")):
-        raise ValueError(f"el cuerpo quedaría cortado a mitad de frase, en «{antes}»: el CTA "
-                         f"empieza al principio de su oración («Si quieres …, comenta …»)")
+    primera = normalizar(palabras[k]["text"])
+    if not primera.startswith("coment"):
+        raise ValueError(f"el CTA empieza en «{palabras[k]['text']}»: se corta en la palabra "
+                         f"«comenta» (lo de antes, «Si quieres …», es parte común)")
     cola = " ".join(w["text"] for w in palabras[k:])
     if normalizar(cola) != normalizar(dato.get("texto", "")):
         raise ValueError(f"desde la palabra {k} el cuerpo dice «{cola}», no "

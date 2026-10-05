@@ -4,8 +4,8 @@ unión de varias tomas en una sola fuente.
 
 El dashboard escribe `VIDEOS ORIGINALES/<n>/pedido.json` con cada clip y su ROL:
 `cuerpo` (una o más tomas del hablante, en `orden`), `cta` (opcional, uno por plataforma),
-`pantalla` y `apoyo`. Siempre salen dos versiones, `instagram` y `tiktok` (ver versiones.py
-para cómo cada una elige su CTA). Ver la skill `editar-pieza`.
+`pantalla` y `apoyo`. Sale la versión `instagram` siempre y la de `tiktok` solo si se subió su
+clip de CTA (ver versiones.py para cómo cada una elige su CTA). Ver la skill `editar-pieza`.
 """
 from __future__ import annotations
 
@@ -48,8 +48,11 @@ class Pedido:
 
     @property
     def plataformas(self) -> list[str]:
-        """Siempre las dos, haya o no clips de CTA."""
-        return list(VERSIONES)
+        """Instagram siempre (si no hay clip, usa el CTA dicho en el cuerpo); TikTok SOLO si se
+        subió su clip de CTA. Regla de Ezequiel (2026-10-05): sin ese clip la versión de TikTok
+        terminaría colgada en la promesa («Si quieres…,»), porque se corta en «comenta»; así que
+        no se hace."""
+        return [p for p in VERSIONES if p == "instagram" or self.cta(p) is not None]
 
     def cta(self, plataforma: str) -> Clip | None:
         """El clip de CTA de esa plataforma, si se subió."""

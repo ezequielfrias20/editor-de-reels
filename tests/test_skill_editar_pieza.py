@@ -71,10 +71,12 @@ def test_la_skill_trabaja_en_tres_formatos():
     for f in ("cara", "partida", "grafico"):
         assert f in txt
 
-def test_siempre_salen_instagram_y_tiktok():
-    """Decisión de Ezequiel (2026-09-27): dos videos siempre; el CTA dicho en el cuerpo es el
-    de Instagram y TikTok lo reemplaza por su clip (o sale sin CTA)."""
+def test_instagram_siempre_y_tiktok_solo_con_su_clip():
+    """Decisiones de Ezequiel (2026-09-27 y 2026-10-05): el CTA dicho en el cuerpo es el de
+    Instagram; TikTok lo reemplaza por su clip desde «comenta», y sin clip no hay TikTok."""
     txt = SKILL.read_text()
     assert "general" not in txt
     assert "cta-cuerpo.json" in txt and "desde_palabra" in txt
-    assert "preparar-version.sh <n> instagram" in txt and "preparar-version.sh\n   <n> tiktok" in txt
+    assert "preparar-version.sh <n> instagram" in txt and "preparar-version.sh <n> tiktok" in txt
+    assert "SOLO si el pedido trae el clip `cta` de\n  tiktok" in txt
+    assert "El corte va en la palabra «comenta»" in txt

@@ -35,12 +35,16 @@ plan. Esta skill solo dice el ORDEN y los ARCHIVOS de una pieza del dashboard.
 - `VIDEOS ORIGINALES/<n>/pedido.json`: título, `origen`, `prompt` (puede estar vacío),
   `paleta` y los clips con su rol (`cuerpo` en `orden`, `cta` con `plataforma`, `pantalla`,
   `apoyo`). Lo escribe el dashboard; no lo toques.
-- **Siempre salen dos versiones**, `<n>-instagram` y `<n>-tiktok`, haya o no clips de `cta`.
-  El cuerpo suele cerrar con el CTA de Instagram dicho a cámara («comenta PARALELO y te lo
-  mando por privado»). Cada versión toma el cuerpo HASTA ese CTA y le suma el suyo:
+- **Sale `<n>-instagram` siempre y `<n>-tiktok` SOLO si el pedido trae el clip `cta` de
+  tiktok** (regla de Ezequiel, 2026-10-05). Sin ese clip no se hace la versión de TikTok:
+  ni se prepara, ni se planea, ni se renderiza. Las versiones que salen las da
+  `Pedido.plataformas` (`scripts/pieza.py`).
+  El cuerpo suele cerrar con el CTA de Instagram dicho a cámara («Si quieres el prompt,
+  comenta PARALELO y te lo mando por privado»). Cada versión toma el cuerpo HASTA la palabra
+  «comenta» (la promesa «Si quieres…» es común) y le suma el suyo:
   - **instagram**: el clip `cta` de instagram si se subió; si no, el CTA que se dijo en el cuerpo.
-  - **tiktok**: el clip `cta` de tiktok si se subió; si no, ningún CTA (el «comenta…» es de
-    ManyChat, solo Instagram).
+  - **tiktok**: el clip `cta` de tiktok (el «comenta…» es de ManyChat, solo Instagram). Sin
+    clip, no hay versión de TikTok.
   `scripts/armar-version.py` hace ese recorte; tú solo anotas dónde empieza el CTA dicho
   (paso 4 de la propuesta).
 - Si `prompt` es un brief de `plan-edicion` (empieza con `Video fuente:`), úsalo como en el
@@ -57,25 +61,29 @@ plan. Esta skill solo dice el ORDEN y los ARCHIVOS de una pieza del dashboard.
    Revisa los avisos de `refine-timings` como dice §2 (re-transcribir un tramo si hace falta).
 4. Escribe `videos/<n>/cta-cuerpo.json`: dónde empieza el CTA de Instagram que se dice al
    final del cuerpo, con el índice de palabra de `transcripts/<n>.json` y el texto EXACTO desde
-   ahí hasta el final. El CTA es la ORACIÓN entera que lleva al «comenta», no solo el
-   «comenta»: `{"desde_palabra": 183, "texto": "Si quieres el prompt exacto que uso para eso,
-   comenta paralelo y te lo mando por privado."}`. Lo que queda antes es el final de TikTok:
-   tiene que cerrar una frase. Si el brief trae la palabra clave, búscala. Si el cuerpo no dice
-   CTA: `{"desde_palabra": null}`.
+   ahí hasta el final. **El corte va en la palabra «comenta»**, no al principio de la oración
+   (regla de Ezequiel, 2026-10-05): en «Si quieres el prompt exacto que uso para eso, comenta
+   paralelo y te lo mando por privado.» es `{"desde_palabra": 190, "texto": "comenta paralelo
+   y te lo mando por privado."}`. La promesa de delante («Si quieres el prompt exacto que uso
+   para eso,») es PARTE COMÚN: sale en las dos versiones, y en TikTok el clip de CTA («ve al
+   link de la bio») entra justo donde se iba a decir «comenta». `armar-version.py` rechaza un
+   `desde_palabra` que no caiga en «comenta». Si el brief trae la palabra clave, búscala. Si el
+   cuerpo no dice CTA: `{"desde_palabra": null}`.
 5. Cada clip `cta` del pedido, lo mismo que el paso 3 con el id `<n>-cta-<plataforma>` y el
    clip como fuente: `assets/audio/<n>-cta-<p>.flac`, `transcripts/<n>-cta-<p>.json`,
    `cuts/<n>-cta-<p>.json`.
-6. Las dos versiones: `scripts/preparar-version.sh <n> instagram` y `scripts/preparar-version.sh
-   <n> tiktok`. Si la auditoría de respiraciones falla, arregla los cortes como dice §2 (paso
+6. Cada versión que sale: `scripts/preparar-version.sh <n> instagram` y, si hay clip de TikTok,
+   `scripts/preparar-version.sh <n> tiktok`. Si la auditoría de respiraciones falla, arregla los cortes como dice §2 (paso
    4b) y vuelve a correrlo. Si no se puede arreglar, termina con `ERROR:`.
 7. Logos: cada herramienta que se nombra lleva su logo. Los que falten, con
    `.venv/bin/python scripts/fetch-logos.py`. Si uno no se consigue, va a `avisos`.
 8. Escribe `videos/<n>/propuesta.json` (formato abajo). Los beats y sus tiempos son del
    **cuerpo**, en la línea del corte (remapeados). Lo que no cuadra va a `preguntas`, con
    `opciones` y una `propuesta_por_defecto` que se pueda ejecutar sin preguntar. `versiones`
-   lleva las dos, cada una con el texto del CTA que le toca (`""` si tiktok sale sin CTA).
+   lleva las versiones que salen, cada una con el texto del CTA que le toca (sin clip de
+   TikTok, solo `instagram`).
 9. `.venv/bin/python scripts/validar-propuesta.py --piece <n>`. Corrige SOLO lo reportado y repite hasta ✓.
-10. Respuesta final: `Propuesta <n>: <N> beats · <P> preguntas · versiones instagram, tiktok`.
+10. Respuesta final: `Propuesta <n>: <N> beats · <P> preguntas · versiones <las que salen>`.
 
 ```json
 {
@@ -86,7 +94,7 @@ plan. Esta skill solo dice el ORDEN y los ARCHIVOS de una pieza del dashboard.
               "logos": ["claude"], "material": ["pantalla-3.mov"] }],
   "preguntas": [{ "id": "q1", "beat": "b3", "pregunta": "…", "opciones": ["…", "…"],
                   "propuesta_por_defecto": "…" }],
-  "versiones": [{ "plataforma": "instagram", "cta_texto": "Si quieres el prompt…, comenta PARALELO y te lo mando por privado.", "duracion": 58.4 },
+  "versiones": [{ "plataforma": "instagram", "cta_texto": "comenta PARALELO y te lo mando por privado.", "duracion": 58.4 },
                 { "plataforma": "tiktok", "cta_texto": "Ve al link de mi perfil", "duracion": 57.9 }],
   "avisos": [{ "tipo": "audio | alineacion | material | formato", "mensaje": "…" }]
 }
@@ -107,7 +115,7 @@ componente en `references/visuals.md`.
    pregunta trae su `respuesta` (si `por_defecto: true`, el usuario no la tocó).
 2. Recorridos de pantalla (paso 7) y música (paso 8) si hacen falta. La cama musical dura lo
    que la versión más larga.
-3. Por cada versión (`instagram` y `tiktok`):
+3. Por cada versión que sale (`instagram` y, si hay clip, `tiktok`):
    - `.venv/bin/python scripts/armar-version.py palabras --piece <n> --plataforma <p>`: cada
      palabra con sus tiempos YA en la línea del corte (los que usa `build-composition.py`) y
      dónde arranca el CTA. Todo tiempo del plan sale de aquí; los de `transcripts/` están en la
@@ -120,12 +128,14 @@ componente en `references/visuals.md`.
    `{"mode": "formatos"}`, `voice_gain`, `music`, `keywords`, `shots` (cada beat según su formato:
    `partida` = `kind: "band"` con el `anchor` del paso 3; `cara` = `kind: "full"` con zoom;
    `grafico` = `kind: "off"`), `visuals` (en `partida` con `band: "top"`; en `grafico` sin `band`), `sfx` y `cards`. Sin `captions`: el
-   compositor trocea solo. Nada del cuerpo pasa de donde `palabras` marca el CTA.
+   compositor trocea solo. Nada del cuerpo pasa de donde `palabras` marca el CTA. La promesa
+   del CTA («Si quieres el prompt…,») es el último tramo del CUERPO: va aquí, sale igual en
+   las dos versiones, y en TikTok la sigue directo el clip del link.
 5. Por cada versión que tiene CTA (`palabras` marca dónde empieza; si dice «sin CTA», no se
    escribe), `videos/<n>/plan-cta-<p>.json` = `{"shots": […], "visuals": […], "sfx": […]}` en
    segundos de la VERSIÓN, desde esa marca: un solo elemento visual, como pide la curva de
    intensidad (§6), con ids distintos de los del cuerpo. El CTA de Instagram dicho en el
-   cuerpo va aquí, en `plan-cta-instagram.json`, no en `plan-cuerpo.json`. Si el CTA dice una
+   cuerpo, desde «comenta», va aquí, en `plan-cta-instagram.json`, no en `plan-cuerpo.json`. Si el CTA dice una
    palabra clave («comenta MARCA»), agrega `"cta_palabra": {"texto": "MARCA", "desde": <s>,
    "hasta": null}` con `desde` en la palabra, en segundos de la versión. El CTA va en `cara`
    (encuadre `full`): sobre un encuadre `band` la compilación para.
@@ -143,14 +153,14 @@ componente en `references/visuals.md`.
 1. Lee el `VIDEOS ORIGINALES/<n>/notas-v<k>.json` de `k` más alto: `{"desde": "v<k-1>", "notas": "…"}`.
 2. **Una pieza de antes de las dos versiones fijas** (le falta `videos/<n>/cta-cuerpo.json` o
    `assets/face-<n>-instagram.json`): escribe `cta-cuerpo.json` (paso 4 de la propuesta), corre
-   `preparar-version.sh` de las DOS versiones y, en `videos/<n>/propuesta.json`, deja
-   `versiones` con las dos. Si el cuerpo decía el CTA de Instagram, lo que el plan tenía desde
+   `preparar-version.sh` de las versiones que salen y, en `videos/<n>/propuesta.json`, deja
+   `versiones` con esas. Si el cuerpo decía el CTA de Instagram, lo que el plan tenía desde
    ahí sale de `plan-cuerpo.json` y va a `plan-cta-instagram.json`; si tiktok no tiene clip,
-   borra `plan-cta-tiktok.json`. `armar-version.py palabras` y `anchor` (paso 3 de `editar`)
+   no hay versión de TikTok: borra `plan-cta-tiktok.json`. `armar-version.py palabras` y `anchor` (paso 3 de `editar`)
    dan los tiempos y el encuadre de la versión nueva.
 3. Ajusta `plan-cuerpo.json` y/o `plan-cta-<p>.json`. No re-transcribas ni re-cortes salvo que la nota
    lo pida; si lo pide, vuelve a correr `preparar-version.sh` de las versiones afectadas.
-4. Repite el paso 6 de `editar` para las DOS versiones con `--version <k>`, y valida con
+4. Repite el paso 6 de `editar` para cada versión que sale con `--version <k>`, y valida con
    `.venv/bin/python scripts/validar-salida.py --piece <n> --version v<k>`.
 5. Si una nota choca con una regla dura del CLAUDE.md (§13), aplica el resto y agrega al final
    de tu respuesta `No apliqué: <nota> — <regla>`.
