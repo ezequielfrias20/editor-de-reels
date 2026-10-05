@@ -87,5 +87,35 @@
     "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/github.svg",
     "simple_icons_version": "16",
     "_": "La pieza 20 no tiene marca propia que ensenar: MoneyPrinterTurbo es un REPO, no un producto con logo. La marca honesta de un repo es la de GitHub, que es donde vive."
+  },
+  "anthropic": {
+    "title": "Anthropic",
+    "hex": "191919",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/anthropic.svg",
+    "simple_icons_version": "16"
+  },
+  "claudecode": {
+    "title": "Claude Code",
+    "hex": "D97757",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/claudecode.svg",
+    "simple_icons_version": "16"
+  },
+  "googlegemini": {
+    "title": "Google Gemini",
+    "hex": "8E75B2",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/googlegemini.svg",
+    "simple_icons_version": "16"
+  },
+  "openai": {
+    "title": "OpenAI",
+    "hex": "412991",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@15/icons/openai.svg",
+    "simple_icons_version": "15"
+  },
+  "instagram": {
+    "title": "Instagram",
+    "hex": "FF0069",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/instagram.svg",
+    "simple_icons_version": "16"
   }
 }

@@ -106,6 +106,19 @@ BAND_CAP_MARGIN = 16
 # 20px hasta y660): las cards de logo, las grabaciones y la card del CTA
 # comparten el mismo borde inferior.
 BAND_MOCK_MARGIN = 20
+# En `formatos` el subtitulo se CENTRA sobre la costura (y960), asi que su mitad
+# de arriba cae DENTRO de la banda del visual — que es lo contrario de `triband`,
+# donde el subtitulo tenia una banda propia y el visual podia bajar hasta 20 px
+# de su suelo. Con el margen de `triband` un mockup de la banda de arriba acaba
+# en y940 y el bloque de subtitulo mas alto que el troceo puede producir (tres
+# lineas de 92 px, techo en y822) se le monta encima: 118 px de texto sobre
+# grafico. El margen de aqui deja el contenido acabando en y800, 22 px por
+# encima de ese techo, y se calcula en vez de escribirse a mano:
+#   H//2 - 3*linea_de_caption/2 - aire
+# El 3 es el peor caso REAL del troceo, no un numero redondo: `CAPTION_MAXW*1.9`
+# presupuesta dos lineas y la tercera es la que `caption_metrics` documenta como
+# posible (el bloque que se envolvia a tres cuando la division daba dos).
+BAND_FORMATOS_MARGIN = 160
 
 # El primer plano de `cara` (encuadre `full`) se acerca hasta donde la fuente lo aguanta
 # sin que se note el pixelado (doctrina 2026-09-29): con 1080×1920 hasta ×1,20; con una
@@ -743,6 +756,18 @@ def build_visuals(dur):
                 # `rewrite_line` lleva su tiempo DENTRO de cada fragmento, así
                 # que el bucle de claves planas no lo alcanza. Se escribe en la
                 # línea del corte como todo lo demás y aquí baja a offsets.
+                # Pieza 3. `archivos_fila` y `abanico_archivos` llevan
+                # el tiempo DENTRO de cada archivo de la lista, igual que
+                # `parts` en `rewrite_line`: un archivo sabe cuando suelta SU
+                # patron, y sacarlo a una lista paralela de tiempos obligaria a
+                # contar posiciones a mano. Sin este remapeo llegarian al
+                # componente en la linea del corte y se sumarian dos veces, la
+                # trampa que documenta `motion_stage`.
+                for key in ("items", "slots"):
+                    if key in kw and kw[key] and isinstance(kw[key][0], dict):
+                        kw[key] = [d if d.get("at") is None
+                                   else dict(d, at=q(d["at"] - s))
+                                   for d in kw[key]]
                 if "parts" in kw:
                     kw["parts"] = [dict(pt, at=q(pt["at"] - s))
                                    for pt in kw["parts"]]
@@ -766,8 +791,11 @@ def build_visuals(dur):
                 # dos veces (la misma trampa que documenta `motion_stage`).
                 for key in ("alert_at", "type_at", "send_at", "connector_at",
                             "layer_at", "attach_at", "gap_at", "missing_at",
-                            "strike_at", "after_at"):
-                    if key in kw:
+                            "strike_at", "after_at",
+                            # pieza 3
+                            "scan_at", "cerrar_at", "nombre_at",
+                            "sello_at", "kicker_at"):
+                    if kw.get(key) is not None:
                         kw[key] = q(kw[key] - s)
             fn = {"app_switch": mockups.app_switch,
                   "connection_map": mockups.connection_map,
@@ -801,6 +829,13 @@ def build_visuals(dur):
                   "money_button": mockups.money_button,
                   "video_output": mockups.video_output,
                   "tradeoff_bars": mockups.tradeoff_bars,
+                  "archivo_marcado": mockups.archivo_marcado,
+                  "archivos_fila": mockups.archivos_fila,
+                  "abanico_archivos": mockups.abanico_archivos,
+                  "contador_horas": mockups.contador_horas,
+                  "teclado_enter": mockups.teclado_enter,
+                  "repo_card": mockups.repo_card,
+                  "inspector_archivo": mockups.inspector_archivo,
                   "motion_stage": objects.motion_stage}[which]
             body_css, body_html_, body_anims = fn(vid, **kw)
         elif v["kind"] == "image":
@@ -916,8 +951,16 @@ def build_visuals(dur):
             # lienzo completo, un caso distinto. Cambiar `align-items` es más
             # directo y no puede afectar a ningún visual viejo: `band` es
             # exclusivo del triband (pieza 15 en adelante).
+            # El margen depende del LAYOUT, no del componente: en `formatos` el
+            # subtitulo se come la mitad de arriba de la costura y el visual
+            # tiene que dejarle sitio. Ponerlo aqui y no en cada mockup es lo
+            # que evita que los diez componentes de una pieza lleven cada uno su
+            # `lift` y que el once lo olvide.
+            margen = (BAND_FORMATOS_MARGIN
+                      if LAYOUT.get("mode") == "formatos" and band == "top"
+                      else BAND_MOCK_MARGIN)
             css.append(f'\n.viz[data-viz-id="{vid}"] .vizcam'
-                       f'{{align-items:flex-end;padding-bottom:{BAND_MOCK_MARGIN}px}}')
+                       f'{{align-items:flex-end;padding-bottom:{margen}px}}')
         inner = (f'<div class="vizbg"></div>'
                  f'<div class="{camcls}" id="{vid}-cam">{body_html_}</div>'
                  f'{veil}{hud_html}')
@@ -1887,6 +1930,29 @@ def emit_anim(a) -> str:
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1 }}, '
                   f'{{ scale: 1.12, duration: {d*.4:.4f}, yoyo: true, repeat: 1, '
                   f'ease: "power2.out" }}, {t:.4f});')
+    elif kind == "jitter":
+        # Algo que se FRENA EN SECO y vibra. Nace del contador de horas de la
+        # pieza 3: la cifra es lo unico en cuadro y un frenazo sin vibracion se
+        # lee como un corte de montaje, no como algo que se detuvo. Es la
+        # segunda mitad de `alert-hit` sin su entrada —aqui el elemento ya esta
+        # puesto y acaba de terminar su `count-roll`, asi que volver a hacerle
+        # un `fromTo` de opacidad lo apagaria y lo encenderia— y lleva su `set`
+        # de kill duro, porque un seek puede aterrizar a mitad del yoyo y dejar
+        # la cifra descuadrada para siempre.
+        js.append(f'tl.to(\'{sel}\', {{ x: 6, duration: .048, yoyo: true, '
+                  f'repeat: 5, ease: "power1.inOut" }}, {t:.4f});')
+        js.append(f'tl.set(\'{sel}\', {{ x: 0 }}, {q(t + d):.4f});')
+    elif kind == "rot-to":
+        # Un abanico que se CIERRA. Es el unico sitio del sistema donde se
+        # anima `rotation`, y va sobre un `<div>`, no sobre un `<g>` de SVG: el
+        # aviso de `hands-sweep` es especifico de SVG, donde el pivote que
+        # reporta el navegador se va a "0px 0px" en cuanto GSAP toca la
+        # propiedad. En un div el `transform-origin` del CSS se respeta, y el
+        # componente lo declara (`.abtilt`, 50% 92%) para que las tarjetas
+        # giren desde su BASE y no desde el centro, que es como se cierra una
+        # baraja de verdad.
+        js.append(f'tl.to(\'{sel}\', {{ rotation: {a[4]}, duration: {d}, '
+                  f'ease: "power3.out", overwrite: "auto" }}, {t:.4f});')
     elif kind == "cam-kb":
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: {a[4]} }}, '
                   f'{{ scale: {a[5]}, duration: {d}, ease: "none" }}, {t:.4f});')

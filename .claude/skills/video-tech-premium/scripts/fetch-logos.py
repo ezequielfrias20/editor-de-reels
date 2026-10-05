@@ -20,7 +20,40 @@ KNOWN = {
     # no el wordmark. Se prefiere a `anthropic` (también presente) porque lo
     # que el guion nombra es el producto, no la empresa.
     "claude": ("Claude", "D97757", "16"),
+    # Pieza 3. Las cuatro marcas que nombra el guion y que SÍ están en el
+    # catálogo. Los hex no se escribieron de memoria: salen de
+    # `data/simple-icons.json` de la propia versión que se descarga, que es la
+    # única fuente que no envejece con la siguiente marca nueva.
+    #
+    # Aquí la EMPRESA sí es lo que se nombra («lo anunció Anthropic»), al
+    # contrario que en la pieza 16: `anthropic` entra ADEMÁS de `claude`, no en
+    # su lugar.
+    "anthropic": ("Anthropic", "191919", "16"),
+    "claudecode": ("Claude Code", "D97757", "16"),
+    # ⚠ `gemini` a secas en Simple Icons es la CASA DE CAMBIO, no el modelo de
+    # Google: el slug del modelo es `googlegemini`. Es justo el caso que la
+    # regla dura persigue — un slug que responde 200 y es otra marca.
+    "googlegemini": ("Google Gemini", "8E75B2", "16"),
+    # OpenAI pidió salir del catálogo y v16 ya no la trae (`openai` → 404; el
+    # único resto es `openaigym`, el toolkit de RL, que es la marca
+    # equivocada). Se pincha la última versión que la tiene verificada —el
+    # mismo trato que `microsoftexcel` con 12.4.0— en vez de inventarle una.
+    # El título queda «OpenAI» porque la marca ES la de OpenAI: ChatGPT no
+    # tiene glifo propio, igual que Cowork. La PASTILLA del nombre, que la pone
+    # quien pinta el mockup, es la que dice «ChatGPT».
+    "openai": ("OpenAI", "412991", "15"),
 }
+
+# Marcas SIN logotipo propio, cuya marca honesta es la de otra. No se
+# vendorizan: dibujarle una identidad a algo que no la tiene es lo mismo que
+# inventarle un logotipo a un repositorio, cuya marca es la de GitHub.
+#
+# `cowork` → `claude`. Comprobado sobre claude.com/product/cowork: los únicos
+# assets con «cowork» en el nombre son capturas de producto (.webp) y todos los
+# <link rel="icon"> de la página son el favicon de Claude. Cowork es una
+# superficie de Claude; lo que la distingue es la PASTILLA del nombre, no un
+# logotipo que no existe.
+SIN_MARCA_PROPIA = {"cowork": "claude"}
 
 # Las cinco marcas de la pieza 15. NINGUNA está en Simple Icons v16
 # (animejs, anime, motion, manus, kokonut, bklit → 404), así que se vendorizan

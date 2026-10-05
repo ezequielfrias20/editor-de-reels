@@ -602,7 +602,8 @@ def keyword_hero(cid: str, word: str, kicker: str = "",
 
 
 # ── banda de arriba del triband: card de logo y card de grabación ────────────
-def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, str, list]:
+def tool_card(cid: str, slug: str, name: str, kicker: str = "",
+              at: list | None = None) -> tuple[str, str, list]:
     """La card de marca, clavada a la palabra que nombra la herramienta.
 
     La CARD entra por OPACIDAD (la resuelve quien la hospeda, igual que el
@@ -659,9 +660,17 @@ def tool_card(cid: str, slug: str, name: str, kicker: str = "") -> tuple[str, st
             + (f'<span class="tc-kick">{esc(kicker)}</span>' if kicker else "")
             + f'<span class="tc-word">{esc(name)}</span>'
             + "</div></div></div></div>")
+    # `at` clava el logo y el nombre a SU palabra en vez de a los offsets de
+    # cortesia. Lo trajo la pieza 3, cuyo beat nombra la empresa 400 ms despues
+    # de abrir el beat («lo ANUNCIO Anthropic»): con los offsets fijos el nombre
+    # aterrizaba 222 ms antes de decirse, y «nada entra antes de su palabra»
+    # aplica al texto igual que a un logo — es la leccion del kicker de
+    # `layer_stack`, que se colo hasta un snapshot. Sin `at`, los offsets de
+    # siempre (congelados en tests/test_tool_card.py).
+    t_logo, t_name = (at if at else (.10, .18))
     anims = [
-        ("glide-x", f'#{cid}-logo', .10, .45),
-        ("drop-in", f'#{cid}-name', .18, .42),
+        ("glide-x", f'#{cid}-logo', t_logo, .45),
+        ("drop-in", f'#{cid}-name', t_name, .42),
     ]
     return css, html, anims
 
@@ -1037,7 +1046,8 @@ def claude_prompt(cid: str, lines: list[str], at: list[float],
 
 
 def tool_lineup(cid: str, tools: list[tuple[str, str]], at: list[float],
-                kicker: str = "", kicker_at: float = 0.0) -> tuple[str, str, list]:
+                kicker: str = "", kicker_at: float = 0.0,
+                sello_at: float | None = None) -> tuple[str, str, list]:
     """El beat de «la guía»: las herramientas ya nombradas, juntas en fila.
 
     Distinto de `tool_card`: aquella clava UNA marca a SU palabra, una a la
@@ -1079,21 +1089,42 @@ def tool_lineup(cid: str, tools: list[tuple[str, str]], at: list[float],
   color:{C['accent_hi']};background:{FILL['accent']};border-radius:{RADIUS['pill']}px;
   padding:10px 24px;opacity:0}}
 {p} .tlrow{{display:flex;gap:22px;align-items:flex-start}}
+{p} .tlstage{{position:relative}}
 {p} .tlcell{{display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0}}
 {p} .tlframe{{width:104px;height:104px;border-radius:{RADIUS['md']}px;
   background:{C['bg']};border:1px solid {TK.LINE_HI};display:flex;
   align-items:center;justify-content:center;overflow:hidden}}
 {p} .tlname{{font-family:{MONO};font-weight:700;font-size:17px;letter-spacing:.05em;
   color:{C['text2']};text-transform:uppercase;white-space:nowrap}}"""
+    # `sello_at` (pieza 3) baja el SELLO sobre la fila entera: el beat dice que
+    # la marca de agua aplica a las tres superficies a la vez, y un sello por
+    # tesela diria tres cosas en vez de una. Sin el parametro, el marcado y los
+    # anims son exactamente los de siempre (congelados en su test): el sello no
+    # existe en el DOM.
+    sello_html = ""
+    if sello_at is not None:
+        css += _sello_css(p, size=300, top=-230)
+        sello_html = _sello(f"{cid}-sel")
     html = (f'<div class="tlwrap">'
             + (f'<div class="tlkick" id="{cid}-tk">{esc(kicker)}</div>' if kicker else "")
-            + f'<div class="tlrow">{"".join(tiles)}</div></div>')
+            + (f'<div class="tlstage"><div class="tlrow">{"".join(tiles)}</div>'
+               f'{sello_html}</div>' if sello_html
+               else f'<div class="tlrow">{"".join(tiles)}</div>')
+            + '</div>')
     anims = []
     if kicker:
         anims.append(("chip-in", f"#{cid}-tk", kicker_at, .30))
     for i in range(len(tools)):
         anims.append(("chip-in", f"#{cid}-t{i}",
                       at[i] if i < len(at) else .20 + i * .22, .30))
+    if sello_at is not None:
+        # Baja, presiona y se va. Mas CORTO que el de `archivo_marcado` a
+        # proposito: el brief pide el golpe «triple y mas corto» que el del
+        # arranque, porque aqui marca tres superficies y no un archivo.
+        anims += [("drop-in", f"#{cid}-sel", sello_at, .16),
+                  ("cam-push", f"#{cid}-sel-i", round(sello_at + .16, 4),
+                   .18, .92, 160),
+                  ("badge-out", f"#{cid}-sel", round(sello_at + .36, 4), .16)]
     return css, html, anims
 
 
@@ -1355,8 +1386,9 @@ def chat_unanswered(cid: str, contact: str, message: str, kicker: str = "",
                       tick_at + .5 if reply_at is None else reply_at, .44))
     return css, html, anims
 # ── CTA: la interacción que se pide, simulada ─────────────────────────────────
-def comment_ui(cid: str, word: str, type_at: float = 0.6,
-               send_at: float = 1.5, headline: str = "") -> tuple[str, str, list]:
+def comment_ui(cid: str, word: str, type_at: float | None = 0.6,
+               send_at: float | None = 1.5,
+               headline: str = "") -> tuple[str, str, list]:
     """Simula el comentario que el CTA pide: la palabra en grande, la caja, el
     tecleo y el envío. Pedir «comenta ERP» y ENSEÑARLO convierte la instrucción
     en un gesto que el espectador ya ha visto hacer una vez.
@@ -1413,12 +1445,20 @@ def comment_ui(cid: str, word: str, type_at: float = 0.6,
     if headline:
         anims += [("chip-in", f"#{cid}-say", .03, .22),
                   ("punch", f"#{cid}-head", .14, .44)]
-    anims += [
-        ("chip-in", f"#{cid}-box", .32, .30),
-        ("type-word", f"#{cid}-field", type_at, .70, esc(word)),
-        ("send-on", f"#{cid}-send", send_at, .26),
-        ("stamp", f"#{cid}-posted", send_at + .22, .38),
-    ]
+    anims.append(("chip-in", f"#{cid}-box", .32, .30))
+    # ⚠ `type_at`/`send_at` en None dejan la caja ESPERANDO, con su placeholder y
+    # el ENVIAR apagado, y nada se teclea. Lo pide el layout `formatos` (pieza
+    # 3): ahí la palabra del CTA la dibuja `cta_palabra` sobre la cara, en
+    # Fraunces y en su propia palabra, así que teclearla además dentro de la
+    # caja la diría DOS veces — y la caja vacía es el beat, porque la frase que
+    # suena encima es la condición («si quieres la guía…»), no todavía la
+    # instrucción. Con los valores por defecto se comporta como siempre, que es
+    # lo que fija su test.
+    if type_at is not None:
+        anims.append(("type-word", f"#{cid}-field", type_at, .70, esc(word)))
+    if send_at is not None:
+        anims += [("send-on", f"#{cid}-send", send_at, .26),
+                  ("stamp", f"#{cid}-posted", send_at + .22, .38)]
     return css, html, anims
 
 
@@ -3462,4 +3502,891 @@ def tradeoff_bars(cid: str, rows: list[dict], at: list[float],
             f'<div class="tbrows">{"".join(filas)}</div></div></div>')
     if kicker:
         anims.append(("chip-in", f"#{cid}-k", at[0], .28))
+    return css, html, anims
+
+
+# ── pieza 3: la marca de agua invisible ───────────────────────────────────────
+# El guion de la pieza 3 habla de algo que NO SE VE —un sello que Anthropic mete
+# dentro de cada archivo— así que el trabajo del visual es hacer visible lo
+# invisible, y el ARCHIVO es el objeto que cruza la pieza entera cambiando de
+# estado: lo sellan, le cae encima una marca de agua de las que sí se ven, un
+# láser destapa lo que lleva dentro y al final el mismo barrido vuelve vacío.
+# Son CUATRO INSTANCIAS DEL MISMO COMPONENTE con el mismo encuadre, no cuatro
+# gráficos: es la rima visual de §7 llevada al eje de la pieza, y es lo que
+# cierra el loop del reel — el último cuadro tiene la geometría del primero.
+
+# Las formas del patrón de glifos: lo que el sello deja DENTRO del archivo. No
+# es texto, son marcas; por eso no se lee ninguna palabra y no compite con el
+# subtítulo (§7, mostrar no escribir).
+_GLIFO_FORMAS = ("M0 5h12", "M0 2h7M0 8h5", "M2 0v10", "M0 0h8v10",
+                 "M0 5h4M8 5h4", "M0 0l12 10", "M0 10h12", "M3 2v6M9 2v6")
+
+
+def _glifos(iid: str, filas: int = 4, por_fila: int = 9,
+            visible: bool = False) -> str:
+    """La rejilla de glifos escondidos dentro de un archivo.
+
+    Va en `currentColor` como los interrogantes de `spreadsheet`, así que la
+    tiñe quien la hospeda en vez de traerse un color propio que habría que
+    volver a justificar en cada uso. Las formas se reparten de forma
+    DETERMINISTA (`(f * 5 + i * 3) % 8`, el mismo recurso que `spreadsheet` usa
+    para sus barras): un golden file no puede depender de un `random`, y el
+    glifo concreto no es el argumento — que sean muchos y no se lean, lo es.
+    """
+    marcas = []
+    for f in range(filas):
+        for i in range(por_fila):
+            d = _GLIFO_FORMAS[(f * 5 + i * 3) % len(_GLIFO_FORMAS)]
+            marcas.append('<svg class="glfm" viewBox="0 0 12 10" aria-hidden="true">'
+                          f'<path d="{d}" fill="none" stroke="currentColor" '
+                          'stroke-width="2.2" stroke-linecap="round"/></svg>')
+    return (f'<div class="glgrid" id="{iid}" style="opacity:{1 if visible else 0}" '
+            f'data-layout-allow-occlusion>{"".join(marcas)}</div>')
+
+
+def _glifos_css(p: str, por_fila: int = 9, marca: int = 34) -> str:
+    return f"""
+{p} .glgrid{{position:absolute;inset:10% 8%;display:grid;
+  grid-template-columns:repeat({por_fila},1fr);align-content:space-between;
+  justify-items:center;color:{C['accent_hi']};z-index:3}}
+{p} .glfm{{width:{marca}px;height:{round(marca * .82)}px;display:block}}"""
+
+
+def _sello(iid: str, visible: bool = False) -> str:
+    """El SELLO: el motivo del video. Un disco con el patrón grabado, que baja y
+    presiona. Entra por el wrapper (opacidad) y el recorrido lo hace su HIJO —
+    nunca el mismo elemento, porque dos tweens sobre la misma `y` se pelean y
+    `hyperframes check` lo canta como `overlapping_gsap_tweens` (§9, trampa 8).
+    """
+    anillos = "".join(
+        f'<circle cx="60" cy="60" r="{r}" fill="none" stroke="currentColor" '
+        f'stroke-width="{w}" opacity="{o}"/>'
+        for r, w, o in ((54, 4, 1), (44, 2, .55)))
+    return (f'<div class="selw" id="{iid}" style="opacity:{1 if visible else 0}">'
+            f'<div class="seli" id="{iid}-i">'
+            '<svg viewBox="0 0 120 120" aria-hidden="true">'
+            f'{anillos}'
+            '<path d="M60 22v10M60 88v10M22 60h10M88 60h10" stroke="currentColor" '
+            'stroke-width="4" stroke-linecap="round" fill="none"/>'
+            '<path d="M38 52h44M38 62h30M38 72h38" stroke="currentColor" '
+            'stroke-width="5" stroke-linecap="round" fill="none"/>'
+            '</svg></div></div>')
+
+
+def _sello_css(p: str, size: int = 150, top: int = 0) -> str:
+    return f"""
+{p} .selw{{position:absolute;left:50%;top:{top}px;margin-left:-{size // 2}px;
+  width:{size}px;height:{size}px;z-index:6;color:{C['accent']};
+  filter:drop-shadow(0 14px 28px rgba(0,0,0,.35))}}
+{p} .seli,{p} .seli svg{{width:100%;height:100%;display:block}}"""
+
+
+_AM_VARIANTES = ("sellar", "visible", "escanear", "limpio")
+_AM_CUERPOS = ("png", "foto")
+AM_CANVAS_H = 500
+
+
+def archivo_marcado(cid: str, variant: str, at: list,
+                    nombre: str = "salida.png", meta: str = "1080 × 1350",
+                    slug: str = "", cuerpo: str = "png",
+                    diagonal: bool = False, lift: int = 0) -> tuple[str, str, list]:
+    """El archivo y lo que lleva dentro, en sus cuatro estados.
+
+    MISMA GEOMETRÍA en las cuatro variantes, y eso no es ahorro: es lo único que
+    hace que el espectador lea «el mismo archivo» en vez de cuatro gráficos. El
+    marco, el nombre de archivo y la pastilla de resolución son CHROME y están
+    desde el primer cuadro — así la banda nunca nace vacía (§4) sin adelantar
+    nada del guion, porque un marco no nombra ninguna marca.
+
+    | variante   | `at`                       | qué pasa |
+    | ---------- | -------------------------- | --- |
+    | `sellar`   | [logo, sello, glifos]      | el sello baja, presiona, y el patrón se enciende y se apaga |
+    | `visible`  | [marca]                    | la marca de agua diagonal cae encima y se sacude |
+    | `escanear` | [marca_fuera, laser, logo] | la diagonal se deshace, el láser barre y los glifos laten |
+    | `limpio`   | [laser, resplandor]        | el láser barre y NO encuentra nada |
+
+    ⚠ **En `limpio` no hay glifos, y ESE es el beat.** Dibujarlos apagados o
+    tachados diría «el patrón falló»; lo que dice la frase es que ya no está. Y
+    el archivo no se tiñe ni se encoge al quedar limpio: no le pasó nada malo,
+    simplemente ya no delata (la lección de `idea_veneer`).
+
+    ⚠ **Una variante mal escrita en el plan FALLA**, no cae a un `else` que
+    renderice una tarjeta vacía en silencio: es el modo de error que
+    `video_pipeline` pagó con su `if/else` sin gate.
+
+    `cuerpo` es lo que se ve DENTRO del lienzo: `png` (una imagen generada,
+    formas blandas) o `foto` (una foto de producto con trama de semitono, para
+    el único beat que habla de las marcas de agua que sí se ven).
+    """
+    if variant not in _AM_VARIANTES:
+        raise ValueError(f"archivo_marcado: variante {variant!r} no existe; "
+                         f"son {', '.join(_AM_VARIANTES)}")
+    if cuerpo not in _AM_CUERPOS:
+        raise ValueError(f"archivo_marcado: cuerpo {cuerpo!r} no existe; "
+                         f"son {', '.join(_AM_CUERPOS)}")
+    p = f'.viz[data-viz-id="{cid}"]'
+    W_CARD, H_CANVAS = 780, AM_CANVAS_H
+
+    if cuerpo == "foto":
+        arte = ('<div class="amtrama"></div>'
+                '<svg class="amprod" viewBox="0 0 220 260" aria-hidden="true">'
+                f'<rect x="58" y="70" width="104" height="170" rx="18" '
+                f'fill="{C["surface2"]}" stroke="{TK.LINE_HI}" stroke-width="3"/>'
+                f'<rect x="80" y="40" width="60" height="38" rx="12" '
+                f'fill="{C["surface3"]}" stroke="{TK.LINE_HI}" stroke-width="3"/>'
+                f'<path d="M78 120h64M78 150h44" stroke="{C["text3"]}" '
+                'stroke-width="7" stroke-linecap="round" fill="none"/></svg>')
+    else:
+        arte = ('<svg class="ampng" viewBox="0 0 320 220" aria-hidden="true">'
+                f'<circle cx="104" cy="92" r="58" fill="{accent_a(.22)}"/>'
+                f'<rect x="150" y="54" width="130" height="92" rx="26" '
+                f'fill="{ink_a(.10)}"/>'
+                f'<path d="M34 186h252" stroke="{C["text3"]}" stroke-width="8" '
+                'stroke-linecap="round" fill="none"/></svg>')
+
+    logo_html = ""
+    if slug:
+        marca, _r = logos.mark(slug, 54, uid=f"{cid}-am")
+        logo_html = f'<div class="amlogo" id="{cid}-logo">{marca}</div>'
+
+    diag = ""
+    if variant in ("visible", "escanear"):
+        bandas = "".join("<span>MUESTRA</span>" for _ in range(3))
+        diag = (f'<div class="amdiag" id="{cid}-diag" '
+                f'style="opacity:{1 if diagonal else 0}" '
+                f'data-layout-allow-overlap>{bandas}</div>')
+    laser = ""
+    if variant in ("escanear", "limpio"):
+        laser = (f'<div class="amlasw" id="{cid}-las">'
+                 f'<div class="amlasb" id="{cid}-lasb"></div></div>')
+    glow = ""
+    if variant == "limpio":
+        glow = (f'<div class="amgloww" id="{cid}-glow">'
+                f'<div class="amglowi" id="{cid}-glowi"></div></div>')
+    glifos = _glifos(f"{cid}-gl") if variant in ("sellar", "escanear") else ""
+    sello = _sello(f"{cid}-sel") if variant == "sellar" else ""
+
+    css = f"""
+{p} .amwrap{{display:flex;flex-direction:column;align-items:center;
+  padding-bottom:{lift}px}}
+{p} .amstage{{position:relative;width:{W_CARD}px}}
+{p} .amcard{{background:{C['surface']};border:1px solid {TK.LINE};
+  border-radius:{RADIUS['lg']}px;box-shadow:{TK.SHADOW};padding:20px}}
+{p} .amhead{{display:flex;align-items:center;gap:14px;height:52px;padding:0 6px}}
+{p} .amdot{{width:14px;height:14px;border-radius:50%;background:{C['accent']};
+  flex:0 0 auto}}
+{p} .amname{{font-family:{MONO};font-weight:700;font-size:26px;
+  letter-spacing:.02em;color:{C['text']}}}
+{p} .ammeta{{margin-left:auto;font-family:{MONO};font-weight:700;font-size:19px;
+  letter-spacing:.08em;color:{C['text2']};background:{C['surface2']};
+  border:1px solid {TK.LINE};border-radius:{RADIUS['pill']}px;padding:7px 18px}}
+{p} .amcanvas{{position:relative;height:{H_CANVAS}px;margin-top:10px;
+  border-radius:{RADIUS['md']}px;background:{C['bg']};
+  border:1px solid {TK.LINE_HI};overflow:hidden;
+  display:flex;align-items:center;justify-content:center}}
+{p} .ampng{{width:420px;height:290px;display:block;position:relative;z-index:2}}
+{p} .amprod{{width:250px;height:296px;display:block;position:relative;z-index:2}}
+{p} .amtrama{{position:absolute;inset:0;z-index:1;
+  background-image:radial-gradient({ink_a(.16)} 2.4px, transparent 2.6px);
+  background-size:14px 14px}}
+{p} .amlogo{{position:absolute;right:20px;bottom:18px;z-index:5;opacity:0;
+  width:78px;height:78px;border-radius:{RADIUS['md']}px;background:{C['surface']};
+  border:1px solid {TK.LINE_HI};display:flex;align-items:center;
+  justify-content:center}}
+{p} .amdiag{{position:absolute;left:-14%;top:0;width:128%;height:100%;z-index:4;
+  display:flex;flex-direction:column;justify-content:space-around;
+  align-items:center;transform:rotate(-26deg)}}
+{p} .amdiag span{{font-family:{FONT};font-weight:900;font-size:72px;
+  letter-spacing:.06em;color:{ink_a(.34)};white-space:nowrap}}
+{p} .amlasw{{position:absolute;left:0;top:-30px;width:100%;height:14px;
+  z-index:7;opacity:0}}
+{p} .amlasb{{width:100%;height:14px;background:{C['accent']};
+  box-shadow:{TK.GLOW};border-radius:{RADIUS['pill']}px}}
+{p} .amgloww{{position:absolute;left:50%;top:50%;width:300px;height:300px;
+  margin:-150px 0 0 -150px;z-index:2;opacity:0}}
+{p} .amglowi{{width:100%;height:100%;border-radius:50%;
+  background:radial-gradient(circle,{accent_a(.42)} 0%,{accent_a(.14)} 48%,
+  transparent 72%)}}"""
+    css += _glifos_css(p)
+    if sello:
+        css += _sello_css(p, top=140)
+
+    html = (f'<div class="amwrap"><div class="amstage">'
+            f'<div class="amcard" id="{cid}-card">'
+            f'<div class="amhead"><span class="amdot"></span>'
+            f'<span class="amname">{esc(nombre)}</span>'
+            f'<span class="ammeta">{esc(meta)}</span></div>'
+            f'<div class="amcanvas">{arte}{glifos}{diag}{glow}{logo_html}'
+            f'{laser}</div></div>{sello}</div></div>')
+
+    anims: list = []
+    if variant == "sellar":
+        t_logo, t_sel, t_gl = at
+        anims += [("chip-in", f"#{cid}-logo", t_logo, .28),
+                  ("drop-in", f"#{cid}-sel", t_sel, .20),
+                  # El sello BAJA y PRESIONA. El recorrido va en el HIJO para no
+                  # pelearse con la `y` de la entrada (§9, trampa 8).
+                  ("cam-push", f"#{cid}-sel-i", round(t_sel + .22, 4), .22, .90, 190),
+                  ("badge-out", f"#{cid}-sel", round(t_sel + .48, 4), .18),
+                  ("chip-in", f"#{cid}-gl", t_gl, .22),
+                  ("badge-out", f"#{cid}-gl", round(t_gl + .34, 4), .26)]
+    elif variant == "visible":
+        anims += [("alert-hit", f"#{cid}-diag", at[0], .55)]
+    elif variant == "escanear":
+        t_out, t_las, t_logo = at
+        anims += [("badge-out", f"#{cid}-diag", t_out, .30),
+                  ("chip-in", f"#{cid}-las", t_las, .10),
+                  ("cam-push", f"#{cid}-lasb", t_las, .58, 1.0, H_CANVAS + 44),
+                  ("badge-out", f"#{cid}-las", round(t_las + .58, 4), .16),
+                  ("chip-in", f"#{cid}-gl", round(t_las + .22, 4), .24),
+                  # LATEN: el patrón respira sin apagarse. `fade-to`, no
+                  # `badge-out` — a opacidad 0 el frame diría que ya no está.
+                  ("fade-to", f"#{cid}-gl", round(t_las + .74, 4), .30, 0.46),
+                  ("fade-to", f"#{cid}-gl", round(t_las + 1.06, 4), .30, 0.95)]
+        if t_logo is not None:
+            anims.append(("chip-in", f"#{cid}-logo", t_logo, .26))
+    else:
+        t_las, t_glow = at
+        anims += [("chip-in", f"#{cid}-las", t_las, .10),
+                  ("cam-push", f"#{cid}-lasb", t_las, .58, 1.0, H_CANVAS + 44),
+                  ("badge-out", f"#{cid}-las", round(t_las + .58, 4), .16),
+                  ("chip-in", f"#{cid}-glow", t_glow, .30),
+                  ("cam-push", f"#{cid}-glowi", t_glow, .80, 3.2, 0)]
+    return css, html, anims
+
+
+_AF_VARIANTES = ("escaner", "cuadricula")
+
+
+def archivos_fila(cid: str, items: list, variant: str = "escaner",
+                  cols: int = 3, scan_at: float | None = None,
+                  sello: bool = False, lift: int = 0) -> tuple[str, str, list]:
+    """Varios archivos sellados, y lo que les pasa al patrón de dentro.
+
+    Es `archivo_marcado` llevado a una enumeración, igual que `agent_swarm` es
+    `idea_fate` llevado a una. Los archivos y sus patrones están desde el primer
+    cuadro —no nombran ninguna marca, así que no adelantan el guion— y lo que
+    espera su palabra es el PATRÓN LEVANTÁNDOSE y, si lo hay, la marca de cada
+    uno.
+
+    | variante     | para qué |
+    | ------------ | --- |
+    | `escaner`    | tres archivos en fila, un barrido los recorre y cada uno suelta su patrón en SU palabra, con su marca |
+    | `cuadricula` | la cuadrícula entera y el sello SUSPENDIDO arriba sin caer; los patrones se levantan todos a la vez |
+
+    ⚠ **En `cuadricula` el sello no baja, y es el argumento.** El beat pregunta
+    si estás de acuerdo con QUITAR las marcas: un sello cayendo diría lo
+    contrario de la frase. Queda arriba, quieto, y lo que se mueve es el patrón
+    saliendo — el motivo del vídeo al revés.
+
+    `items` es una lista de dicts `{"ext": "PNG", "slug": "claude",
+    "name": "Claude", "at": 0.385}`. `slug` es opcional; `at` es cuándo ese
+    archivo suelta su patrón, en offsets del visual.
+    """
+    if variant not in _AF_VARIANTES:
+        raise ValueError(f"archivos_fila: variante {variant!r} no existe; "
+                         f"son {', '.join(_AF_VARIANTES)}")
+    p = f'.viz[data-viz-id="{cid}"]'
+    ancho = (BOARD_W - (cols - 1) * 22) // cols
+    alto_gl = 150 if variant == "escaner" else 112
+
+    celdas = []
+    for i, it in enumerate(items):
+        marca_html = ""
+        if it.get("slug"):
+            m, _r = logos.mark(it["slug"], 44, uid=f"{cid}-af{i}")
+            marca_html = (f'<div class="afmk" id="{cid}-m{i}">{m}'
+                          f'<span class="afmkn">{esc(it.get("name", ""))}</span>'
+                          f'</div>')
+        celdas.append(
+            f'<div class="afcell" id="{cid}-c{i}">'
+            f'<div class="afext">{esc(it["ext"])}</div>'
+            f'<div class="afbody">'
+            f'<div class="afglw" id="{cid}-g{i}">'
+            f'<div class="afgli" id="{cid}-gi{i}">'
+            + _glifos(f"{cid}-gl{i}", filas=3, por_fila=4, visible=True)
+            + f'</div></div></div>{marca_html}</div>')
+
+    sello_html = _sello(f"{cid}-sel", visible=True) if sello else ""
+    css = f"""
+{p} .afwrap{{display:flex;flex-direction:column;align-items:center;gap:26px;
+  width:{BOARD_W}px;padding-bottom:{lift}px}}
+{p} .afstage{{position:relative;width:100%;height:{170 if sello else 0}px}}
+{p} .afgrid{{display:grid;grid-template-columns:repeat({cols},1fr);gap:22px;
+  width:100%}}
+{p} .afcell{{position:relative;background:{C['surface']};
+  border:1px solid {TK.LINE};border-radius:{RADIUS['md']}px;
+  box-shadow:{TK.SHADOW};padding:16px}}
+{p} .afext{{font-family:{MONO};font-weight:700;font-size:20px;
+  letter-spacing:.12em;color:{C['text2']}}}
+{p} .afbody{{position:relative;height:{alto_gl}px;margin-top:12px;
+  border-radius:{RADIUS['sm']}px;background:{C['bg']};
+  border:1px solid {TK.LINE_HI};overflow:hidden}}
+{p} .afglw{{position:absolute;inset:0}}
+{p} .afgli{{position:absolute;inset:0}}
+{p} .afmk{{display:flex;align-items:center;gap:12px;margin-top:14px;opacity:0}}
+{p} .afmkn{{font-family:{MONO};font-weight:700;font-size:17px;
+  letter-spacing:.06em;color:{C['text2']};text-transform:uppercase;
+  white-space:nowrap}}
+{p} .afscanw{{position:absolute;left:0;top:-24px;width:100%;height:12px;
+  z-index:8;opacity:0}}
+{p} .afscanb{{width:100%;height:12px;background:{C['accent']};
+  box-shadow:{TK.GLOW};border-radius:{RADIUS['pill']}px}}
+{p} .afrow{{position:relative;width:100%}}"""
+    css += _glifos_css(p, por_fila=4, marca=24)
+    if sello_html:
+        css += _sello_css(p, top=10)
+
+    scan = (f'<div class="afscanw" id="{cid}-scan">'
+            f'<div class="afscanb" id="{cid}-scanb"></div></div>'
+            ) if scan_at is not None else ""
+    html = (f'<div class="afwrap">'
+            + (f'<div class="afstage">{sello_html}</div>' if sello_html else "")
+            + f'<div class="afrow"><div class="afgrid">{"".join(celdas)}</div>'
+            f'{scan}</div></div>')
+
+    anims: list = []
+    if scan_at is not None:
+        filas = -(-len(items) // cols)
+        recorrido = filas * (alto_gl + 110) + 60
+        anims += [("chip-in", f"#{cid}-scan", scan_at, .10),
+                  ("cam-push", f"#{cid}-scanb", scan_at, .62, 1.0, recorrido),
+                  ("badge-out", f"#{cid}-scan", round(scan_at + .62, 4), .16)]
+    for i, it in enumerate(items):
+        t = it.get("at")
+        if t is None:
+            continue
+        # El patrón se LEVANTA y se deshace: la opacidad en el wrapper y el
+        # recorrido en el hijo, para que ningún elemento reciba dos tweens
+        # sobre la misma propiedad.
+        anims.append(("badge-out", f"#{cid}-g{i}", t, .34))
+        anims.append(("cam-push", f"#{cid}-gi{i}", t, .34, 1.08, -70))
+        if it.get("slug"):
+            anims.append(("chip-in", f"#{cid}-m{i}", t, .28))
+    return css, html, anims
+
+
+def abanico_archivos(cid: str, slots: list, cerrar_at: float | None = None,
+                     entra: bool = True, lift: int = 0) -> tuple[str, str, list]:
+    """Las tarjetas de archivo que se abanican, cada extensión en su palabra.
+
+    El abanico VACÍO —los huecos discontinuos, sin etiqueta— es chrome y entra
+    completo: la estructura dice «esto va a ser una pila de formatos» sin
+    nombrar ninguno, el mismo reparto que `step_grid` resuelve para un método.
+    Cada hueco se llena con su palabra.
+
+    `slots` es una lista de dicts `{"ext": "HTML", "at": 0.289}`. `at` en `None`
+    deja el hueco pendiente; `"ya": True` da la tarjeta por puesta desde el
+    primer cuadro SIN animarla — que es lo que hace falta en la segunda
+    instancia de una enumeración que viene de antes: re-animarla diría «y
+    entonces apareció otra vez».
+
+    `cerrar_at` cierra la pila de golpe (todas las tarjetas a 0°) y hace latir
+    todos los patrones a la vez.
+    """
+    p = f'.viz[data-viz-id="{cid}"]'
+    n = len(slots)
+    paso = 9
+    cartas = []
+    for i, s in enumerate(slots):
+        ang = round((i - (n - 1) / 2) * paso, 2)
+        puesta = s.get("ya") or s.get("at") is not None
+        relleno = (f'<span class="abfill" id="{cid}-f{i}"'
+                   f'{" style=\"opacity:1\"" if s.get("ya") else ""}></span>'
+                   ) if puesta else ""
+        # El `.abtxt` se emite SIEMPRE, vacío en la tarjeta pendiente, para que
+        # llena y vacía midan lo mismo y el abanico no dé un salto de layout.
+        # ⚠ Vacío de verdad: el nombre a opacidad 0 metería la extensión en el
+        # DOM antes de decirse, y «nada entra antes de su palabra» es sobre el
+        # DOM (la lección de `step_grid`).
+        txt = esc(s["ext"]) if puesta else ""
+        op = ' style="opacity:1"' if s.get("ya") else ""
+        gl = (_glifos(f"{cid}-gl{i}", filas=3, por_fila=3, visible=True)
+              if puesta else "")
+        cartas.append(
+            f'<div class="abcard" id="{cid}-c{i}"'
+            f'{"" if entra else " style=\"opacity:1\""}>'
+            f'<div class="abtilt" id="{cid}-t{i}" style="transform:rotate({ang}deg)">'
+            f'{relleno}'
+            f'<span class="abext" id="{cid}-x{i}"{op}>{txt}</span>'
+            f'<span class="abwin" id="{cid}-w{i}"{op}>{gl}</span>'
+            f'<span class="abdash" id="{cid}-d{i}"></span>'
+            f'</div></div>')
+    css = f"""
+{p} .abwrap{{position:relative;width:{BOARD_W}px;height:430px;
+  padding-bottom:{lift}px}}
+{p} .abrow{{position:absolute;left:0;top:0;width:100%;height:360px;
+  display:flex;align-items:flex-start;justify-content:center;gap:-20px}}
+{p} .abcard{{width:168px;height:330px;margin:0 -8px;opacity:0}}
+{p} .abtilt{{position:relative;width:100%;height:100%;transform-origin:50% 92%;
+  border-radius:{RADIUS['md']}px;border:2px dashed {C['text3']};
+  padding:18px;box-sizing:border-box}}
+{p} .abfill{{position:absolute;inset:-2px;border-radius:{RADIUS['md']}px;
+  background:{C['surface']};border:1px solid {TK.LINE_HI};
+  box-shadow:{TK.SHADOW};opacity:0;z-index:0}}
+{p} .abext{{position:relative;z-index:2;display:block;font-family:{MONO};
+  font-weight:700;font-size:24px;letter-spacing:.10em;color:{C['text']};
+  opacity:0}}
+{p} .abwin{{position:absolute;z-index:2;left:18px;right:18px;top:72px;
+  bottom:18px;border-radius:{RADIUS['sm']}px;background:{C['bg']};
+  border:1px solid {TK.LINE_HI};overflow:hidden;display:block;opacity:0}}
+{p} .abdash{{position:absolute;z-index:1;left:18px;top:34px;width:58%;
+  height:12px;border-radius:{RADIUS['pill']}px;border:2px dashed {C['text3']}}}"""
+    css += _glifos_css(p, por_fila=3, marca=22)
+    html = (f'<div class="abwrap"><div class="abrow">{"".join(cartas)}</div></div>')
+
+    anims: list = []
+    # El abanico entra como UNA cosa: las entradas escalonadas de 80 ms son un
+    # gesto, no una decision editorial por tarjeta (la coreografia interna de
+    # §7). ⚠ `entra=False` NO las anima y las deja puestas desde el primer
+    # cuadro: es lo que hace falta en la SEGUNDA instancia de una enumeracion
+    # que viene del beat anterior — re-animarlas diria «y entonces aparecieron
+    # otra vez», que es la trampa que `abanico` comparte con `step_grid` y su
+    # parametro `hot`.
+    if entra:
+        for i in range(n):
+            anims.append(("chip-in", f"#{cid}-c{i}", .05 + i * .08, .30))
+    for i, s in enumerate(slots):
+        t = s.get("at")
+        if t is None:
+            continue
+        anims += [("chip-in", f"#{cid}-f{i}", t, .28),
+                  ("badge-out", f"#{cid}-d{i}", t, .16),
+                  ("punch", f"#{cid}-x{i}", t, .34),
+                  ("chip-in", f"#{cid}-w{i}", t, .28)]
+    if cerrar_at is not None:
+        for i in range(n):
+            anims.append(("rot-to", f"#{cid}-t{i}", cerrar_at, .26, 0))
+        # Todas laten a la vez: un solo tween sobre el selector que casa con
+        # todos los patrones, no una decisión por tarjeta.
+        anims += [("fade-to", ".glgrid", round(cerrar_at + .20, 4), .22, 0.40),
+                  ("fade-to", ".glgrid", round(cerrar_at + .44, 4), .22, 1.0)]
+    return css, html, anims
+
+
+def contador_horas(cid: str, desde: int, hasta: int, at: list,
+                   unidad: str = "HORAS", lift: int = 0) -> tuple[str, str, list]:
+    """El contador gigante que corre y se FRENA SOLO antes del final.
+
+    `at` son dos tiempos: cuándo aparece y arranca a bajar, y cuándo se frena.
+    Usa el mecanismo `count` de los objetos (§7): se tuenea un número PURO y el
+    `onUpdate` reescribe el texto, que es lo único determinista bajo un seek.
+
+    ⚠ **No llega a cero**, y eso es lo que dice la frase: «en menos de 24
+    horas». Un contador que aterriza en 0 contaría que el plazo se agotó; uno
+    que se frena a mitad cuenta que sobró tiempo. La cifra frenada VIBRA — un
+    gesto, no un adorno: es la única cosa en cuadro y tiene que leerse como algo
+    que se detuvo en seco.
+    """
+    p = f'.viz[data-viz-id="{cid}"]'
+    css = f"""
+{p} .chwrap{{display:flex;flex-direction:column;align-items:center;gap:18px;
+  padding-bottom:{lift}px}}
+{p} .chnum{{font-family:{MONO};font-weight:700;font-size:300px;line-height:.9;
+  letter-spacing:-.04em;color:{C['accent_hi']};opacity:0}}
+{p} .chlab{{font-family:{MONO};font-weight:700;font-size:30px;
+  letter-spacing:.26em;color:{C['text2']};text-transform:uppercase;opacity:0}}"""
+    html = (f'<div class="chwrap">'
+            f'<div class="chnum" id="{cid}-num">{desde}</div>'
+            f'<div class="chlab" id="{cid}-lab">{esc(unidad)}</div></div>')
+    t0, t1 = at
+    anims = [("stamp", f"#{cid}-num", t0, .22),
+             ("chip-in", f"#{cid}-lab", t0, .24),
+             ("count-roll", f"#{cid}-num", t0, round(max(.2, t1 - t0), 4),
+              desde, hasta, ""),
+             ("jitter", f"#{cid}-num", t1, .34)]
+    return css, html, anims
+
+
+def teclado_enter(cid: str, at: list, slug: str = "github",
+                  name: str = "GitHub", horas: str = "",
+                  lift: int = 0) -> tuple[str, str, list]:
+    """Alguien delante de un teclado que le da a Enter.
+
+    El beat es «alguien ya subió la solución», y lo que lo cuenta es el GESTO:
+    la tecla ancha que se hunde y se enciende. La figura va abstracta —cabeza y
+    hombros, sin cara— porque dibujarle rasgos a «alguien» sería inventarle una
+    persona concreta; a este tamaño (170 px de alto, no un icono de 24) se
+    reconoce sin ellos.
+
+    `horas` pinta la cifra del contador anterior como pastilla en una esquina:
+    es la MISMA cifra que acaba de frenarse, chiquita, y lo que ata este beat al
+    de antes. Vacía, no se emite.
+
+    `at` son tres tiempos: la figura, el Enter y la marca.
+    """
+    p = f'.viz[data-viz-id="{cid}"]'
+    marca, _r = logos.mark(slug, 48, uid=f"{cid}-te")
+    teclas = "".join(
+        f'<span class="tekey" style="width:{w}px"></span>'
+        for w in (74, 74, 74, 74, 74, 74))
+    chip = (f'<div class="tehoras" id="{cid}-h">{esc(horas)}</div>'
+            if horas else "")
+    css = f"""
+{p} .tewrap{{position:relative;display:flex;flex-direction:column;
+  align-items:center;gap:24px;width:{BOARD_W}px;padding-bottom:{lift}px}}
+{p} .tefig{{opacity:0}}
+{p} .tefig svg{{width:230px;height:170px;display:block}}
+{p} .tekb{{position:relative;width:640px;background:{C['surface']};
+  border:1px solid {TK.LINE};border-radius:{RADIUS['md']}px;
+  box-shadow:{TK.SHADOW};padding:22px 26px;display:flex;flex-direction:column;
+  gap:14px;align-items:center}}
+{p} .terow{{display:flex;gap:14px}}
+{p} .tekey{{height:48px;border-radius:{RADIUS['sm']}px;background:{C['surface2']};
+  border:1px solid {TK.LINE_HI};display:block}}
+{p} .teent{{position:relative;width:360px;height:58px;
+  border-radius:{RADIUS['sm']}px;border:1px solid {TK.LINE_HI};
+  background:{C['surface2']};display:flex;align-items:center;
+  justify-content:center}}
+{p} .teentf{{position:absolute;inset:0;border-radius:{RADIUS['sm']}px;
+  background:{C['accent_pill']};opacity:0;z-index:0}}
+{p} .teentl{{position:relative;z-index:1;font-family:{MONO};font-weight:700;
+  font-size:22px;letter-spacing:.18em;color:{C['text']}}}
+{p} .temk{{position:absolute;right:0;top:0;display:flex;align-items:center;
+  gap:12px;background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['pill']}px;padding:10px 20px 10px 14px;opacity:0;
+  box-shadow:{TK.SHADOW}}}
+{p} .temkn{{font-family:{MONO};font-weight:700;font-size:19px;
+  letter-spacing:.06em;color:{C['text2']};text-transform:uppercase}}
+{p} .tehoras{{position:absolute;left:0;top:4px;font-family:{MONO};
+  font-weight:700;font-size:40px;letter-spacing:.02em;color:{C['accent_hi']};
+  background:{FILL['accent']};border-radius:{RADIUS['pill']}px;
+  padding:8px 22px}}"""
+    figura = ('<svg viewBox="0 0 230 170" aria-hidden="true">'
+              f'<circle cx="115" cy="48" r="38" fill="none" '
+              f'stroke="{C["text2"]}" stroke-width="7"/>'
+              f'<path d="M34 164c0-44 36-70 81-70s81 26 81 70" fill="none" '
+              f'stroke="{C["text2"]}" stroke-width="7" stroke-linecap="round"/>'
+              '</svg>')
+    html = (f'<div class="tewrap">{chip}'
+            f'<div class="temk" id="{cid}-mk">{marca}'
+            f'<span class="temkn">{esc(name)}</span></div>'
+            f'<div class="tefig" id="{cid}-fig">{figura}</div>'
+            f'<div class="tekb"><div class="terow">{teclas}</div>'
+            f'<div class="teent" id="{cid}-ent">'
+            f'<span class="teentf" id="{cid}-entf"></span>'
+            f'<span class="teentl">ENTER</span></div></div></div>')
+    t_fig, t_ent, t_mk = at
+    anims = [("chip-in", f"#{cid}-fig", t_fig, .30),
+             ("chip-in", f"#{cid}-entf", t_ent, .16),
+             ("cam-push", f"#{cid}-ent", t_ent, .14, .985, 7),
+             ("chip-in", f"#{cid}-mk", t_mk, .28)]
+    return css, html, anims
+
+
+_RC_VARIANTES = ("pagina", "mosaico")
+
+
+def repo_card(cid: str, variant: str, at: list, owner: str = "",
+              nombre: str = "", estrellas: int = 0,
+              lift: int = 0) -> tuple[str, str, list]:
+    """El repositorio: su página y su mosaico.
+
+    ⚠ **Un repositorio no tiene marca propia**, así que la marca que lleva es la
+    de GitHub, que es donde vive — inventarle un logotipo sería dibujar una
+    identidad que no existe.
+
+    | variante  | `at`              | qué es |
+    | --------- | ----------------- | --- |
+    | `pagina`  | [armar, estrellas]| la tarjeta del repo armándose de arriba abajo, con el contador de estrellas subiendo |
+    | `mosaico` | [mosaico, nombre] | el mosaico solo con resplandor detrás y el nombre escribiéndose en su pastilla |
+
+    El contador de estrellas usa `count-roll`, el mismo mecanismo que las agujas
+    del reloj: número puro tueneado y texto reescrito en el `onUpdate`.
+    """
+    if variant not in _RC_VARIANTES:
+        raise ValueError(f"repo_card: variante {variant!r} no existe; "
+                         f"son {', '.join(_RC_VARIANTES)}")
+    p = f'.viz[data-viz-id="{cid}"]'
+    marca, _r = logos.mark("github", 56 if variant == "pagina" else 104,
+                           uid=f"{cid}-rc")
+    base = f"""
+{p} .rcwrap{{position:relative;display:flex;flex-direction:column;
+  align-items:center;gap:22px;padding-bottom:{lift}px}}"""
+    if variant == "pagina":
+        css = base + f"""
+{p} .rccard{{width:860px;background:{C['surface']};border:1px solid {TK.LINE};
+  border-radius:{RADIUS['lg']}px;box-shadow:{TK.SHADOW};overflow:hidden}}
+{p} .rchead{{display:flex;align-items:center;gap:16px;padding:22px 28px;
+  border-bottom:1px solid {TK.LINE};background:{C['surface2']};opacity:0}}
+{p} .rcown{{font-family:{MONO};font-weight:700;font-size:22px;
+  letter-spacing:.06em;color:{C['text2']}}}
+{p} .rcbody{{padding:30px 28px 28px}}
+{p} .rctitle{{font-family:{FONT};font-weight:900;font-size:62px;line-height:1.02;
+  letter-spacing:-.03em;color:{C['text']};opacity:0}}
+{p} .rchueco{{height:64px;width:62%;border-radius:{RADIUS['pill']}px;
+  border:2px dashed {C['text3']};opacity:0}}
+{p} .rcmeta{{display:flex;align-items:center;gap:18px;margin-top:26px}}
+{p} .rcstar{{display:flex;align-items:center;gap:12px;opacity:0;
+  background:{C['surface2']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['pill']}px;padding:10px 22px}}
+{p} .rcstar svg{{width:28px;height:28px;display:block}}
+{p} .rcnum{{font-family:{MONO};font-weight:700;font-size:30px;
+  letter-spacing:.02em;color:{C['text']}}}
+{p} .rccode{{margin-left:auto;font-family:{MONO};font-weight:700;font-size:22px;
+  letter-spacing:.10em;color:{TK.INK_ON_FILL['success']};background:{C['go']};
+  border-radius:{RADIUS['sm']}px;padding:14px 30px;opacity:0}}
+{p} .rcrows{{margin-top:28px;display:flex;flex-direction:column;gap:14px;
+  opacity:0}}
+{p} .rcrow{{height:18px;border-radius:{RADIUS['pill']}px;
+  background:{TK.rgba(C['text2'], .30)}}}"""
+        filas = "".join(
+            f'<span class="rcrow" style="width:{w}%"></span>'
+            for w in (88, 64, 76))
+        estrella = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
+                    f'<path fill="{C["warn"]}" d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 '
+                    '6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>')
+        titulo = (f'<div class="rctitle" id="{cid}-ti">{esc(nombre)}</div>'
+                  if nombre else
+                  f'<div class="rchueco" id="{cid}-ti"></div>')
+        html = (f'<div class="rcwrap"><div class="rccard">'
+                f'<div class="rchead" id="{cid}-hd">{marca}'
+                + (f'<span class="rcown">{esc(owner)}</span>' if owner else "")
+                + f'</div>'
+                f'<div class="rcbody">'
+                f'{titulo}'
+                f'<div class="rcmeta">'
+                f'<span class="rcstar" id="{cid}-st">{estrella}'
+                f'<span class="rcnum" id="{cid}-num">0</span></span>'
+                f'<span class="rccode" id="{cid}-cd">CODE</span></div>'
+                f'<div class="rcrows" id="{cid}-rw">{filas}</div>'
+                f'</div></div></div>')
+        t_arm, t_est = at
+        anims = [("slide-in", f"#{cid}-hd", t_arm, .26),
+                 ("punch", f"#{cid}-ti", round(t_arm + .09, 4), .34),
+                 ("chip-in", f"#{cid}-st", round(t_arm + .18, 4), .26),
+                 ("chip-in", f"#{cid}-cd", round(t_arm + .27, 4), .26),
+                 ("chip-in", f"#{cid}-rw", round(t_arm + .36, 4), .30),
+                 ("count-roll", f"#{cid}-num", t_est, .95, 0, estrellas, "")]
+        return css, html, anims
+
+    css = base + f"""
+{p} .rcstage{{position:relative;display:flex;flex-direction:column;
+  align-items:center;gap:20px}}
+{p} .rcglow{{position:absolute;left:50%;top:-40px;width:340px;height:340px;
+  margin-left:-170px;border-radius:50%;z-index:0;
+  background:radial-gradient(circle,{accent_a(.34)} 0%,{accent_a(.10)} 50%,
+  transparent 72%)}}
+{p} .rctile{{position:relative;z-index:1;width:196px;height:196px;
+  border-radius:{RADIUS['lg']}px;background:{C['surface']};
+  border:1px solid {TK.LINE_HI};box-shadow:{TK.SHADOW};display:flex;
+  align-items:center;justify-content:center;opacity:0}}
+{p} .rcpill{{position:relative;z-index:1;min-width:300px;min-height:62px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:{MONO};font-weight:700;font-size:30px;letter-spacing:.06em;
+  color:{C['text']};background:{C['surface']};border:1px solid {TK.LINE_HI};
+  border-radius:{RADIUS['pill']}px;padding:12px 32px;opacity:0;
+  box-shadow:{TK.SHADOW}}}"""
+    html = (f'<div class="rcwrap"><div class="rcstage">'
+            f'<div class="rcglow"></div>'
+            f'<div class="rctile" id="{cid}-tl">{marca}</div>'
+            f'<div class="rcpill" id="{cid}-pl"><span id="{cid}-nm"></span>'
+            f'</div></div></div>')
+    t_tile, t_nombre = at
+    anims = [("chip-in", f"#{cid}-tl", t_tile, .30),
+             ("chip-in", f"#{cid}-pl", round(t_tile + .10, 4), .28),
+             ("type-word", f"#{cid}-nm", t_nombre, .62, nombre),
+             ("caret-off", f"#{cid}-nm", round(t_nombre + .70, 4), .01, nombre)]
+    return css, html, anims
+
+
+_IA_VARIANTES = ("terminal", "texto", "props", "capas")
+
+
+def inspector_archivo(cid: str, variant: str, at: list, comando: str = "",
+                      renglones: int = 3, linea: str = "", glifos: int = 7,
+                      filas: list | None = None, capas: list | None = None,
+                      lift: int = 0) -> tuple[str, str, list]:
+    """Lo que el repositorio abre y borra, en sus cuatro caras.
+
+    Las cuatro variantes son el MISMO panel enmarcado mirando cuatro sitios
+    distintos del mismo archivo, que es lo que enumera el guion: el comando que
+    lo limpia, los caracteres invisibles entre las letras, los metadatos y las
+    propiedades incrustadas. Un componente por cara habría dado cuatro gráficos
+    sueltos; con el marco compartido se lee «el mismo archivo por dentro».
+
+    | variante   | `at`                | qué pasa |
+    | ---------- | ------------------- | --- |
+    | `terminal` | [comando, renglones]| se teclea el comando y se abren N renglones VACÍOS |
+    | `texto`    | [borrar]            | los glifos entre las letras se borran uno por uno de izquierda a derecha |
+    | `props`    | [vaciar]            | las filas de metadatos se vacían de ABAJO hacia arriba |
+    | `capas`    | [despegar, cadena]  | la última capa se despega y sale, y el corte se repite en cadena |
+
+    ⚠ **Los renglones que se abren van VACÍOS y como hueco discontinuo**, no
+    como tres líneas ya escritas: el beat dice «limpia 3 cosas» y las tres se
+    nombran DESPUÉS, una por una. Escribirlas aquí adelantaría el guion entero.
+
+    ⚠ **Lo que se vacía deja un HUECO, no una fila en rojo.** Una fila roja se
+    lee como «este metadato tiene un problema»; un hueco se lee como «aquí ya no
+    hay nada», que es la frase (la regla de `calendar` y `chat_unanswered`).
+
+    ⚠ **El área de trabajo nunca es un rectángulo negro.** Va dibujada —marco
+    discontinuo, suelo de la paleta— como enseñó `agent_editor`: un área opaca y
+    vacía durante segundos se lee como un panel roto.
+    """
+    if variant not in _IA_VARIANTES:
+        raise ValueError(f"inspector_archivo: variante {variant!r} no existe; "
+                         f"son {', '.join(_IA_VARIANTES)}")
+    p = f'.viz[data-viz-id="{cid}"]'
+    marco = f"""
+{p} .iawrap{{display:flex;flex-direction:column;align-items:center;
+  width:{BOARD_W}px;padding-bottom:{lift}px}}
+{p} .iapanel{{width:100%;background:{C['surface']};border:1px solid {TK.LINE};
+  border-radius:{RADIUS['lg']}px;box-shadow:{TK.SHADOW};overflow:hidden}}
+{p} .iahead{{display:flex;align-items:center;gap:14px;padding:18px 26px;
+  border-bottom:1px solid {TK.LINE};background:{C['surface2']}}}
+{p} .iatag{{font-family:{MONO};font-weight:700;font-size:20px;
+  letter-spacing:.12em;color:{C['text2']};text-transform:uppercase}}
+{p} .iadot{{width:12px;height:12px;border-radius:50%;background:{C['accent']}}}
+{p} .iabody{{padding:26px}}"""
+
+    if variant == "terminal":
+        css = marco + f"""
+{p} .iaprompt{{display:flex;align-items:baseline;gap:12px;font-family:{MONO};
+  font-weight:700;font-size:28px;color:{C['text']};min-height:44px}}
+{p} .iasign{{color:{C['accent_hi']}}}
+{p} .iarows{{margin-top:22px;display:flex;flex-direction:column;gap:14px}}
+{p} .iarow{{position:relative;height:56px;border-radius:{RADIUS['sm']}px;
+  border:2px dashed {C['text3']};display:flex;align-items:center;
+  padding:0 20px;gap:16px;opacity:0}}
+{p} .iarn{{font-family:{MONO};font-weight:700;font-size:22px;
+  letter-spacing:.10em;color:{C['text3']}}}"""
+        rows = "".join(
+            f'<div class="iarow" id="{cid}-r{i}">'
+            f'<span class="iarn">{i + 1:02d}</span></div>'
+            for i in range(renglones))
+        html = (f'<div class="iawrap"><div class="iapanel">'
+                f'<div class="iahead"><span class="iadot"></span>'
+                f'<span class="iatag">terminal</span></div>'
+                f'<div class="iabody"><div class="iaprompt">'
+                f'<span class="iasign">$</span>'
+                f'<span id="{cid}-cmd"><span class="ccaret"></span></span>'
+                f'</div><div class="iarows">{rows}</div></div></div></div>')
+        t_cmd, t_rows = at
+        anims = [("type-word", f"#{cid}-cmd", t_cmd, .50, comando)]
+        for i in range(renglones):
+            anims.append(("chip-in", f"#{cid}-r{i}", round(t_rows + i * .10, 4), .28))
+        return css, html, anims
+
+    if variant == "texto":
+        css = marco + f"""
+{p} .iatxt{{font-family:{MONO};font-weight:700;font-size:40px;line-height:1.7;
+  color:{C['text']};display:flex;flex-wrap:wrap;align-items:center;gap:0}}
+{p} .iach{{display:inline-block}}
+{p} .iagl{{display:inline-block;position:relative;width:26px;height:40px;
+  vertical-align:middle;margin:0 1px}}
+{p} .iagli{{opacity:0;position:absolute;inset:4px 2px;border-radius:5px;
+  background:{C['accent_pill']};border:1px solid {accent_a(.75)};
+  display:flex;align-items:center;justify-content:center}}
+{p} .iagli svg{{width:16px;height:14px;display:block;color:{C['accent_hi']}}}"""
+        trozos, g = [], 0
+        for ch in linea:
+            trozos.append(f'<span class="iach">{esc(ch)}</span>')
+            if ch == " " and g < glifos:
+                d = _GLIFO_FORMAS[(g * 3) % len(_GLIFO_FORMAS)]
+                trozos.append(
+                    f'<span class="iagl" id="{cid}-g{g}">'
+                    f'<span class="iagli"><svg viewBox="0 0 12 10" '
+                    f'aria-hidden="true"><path d="{d}" fill="none" '
+                    'stroke="currentColor" stroke-width="2.2" '
+                    'stroke-linecap="round"/></svg></span></span>')
+                g += 1
+        html = (f'<div class="iawrap"><div class="iapanel">'
+                f'<div class="iahead"><span class="iadot"></span>'
+                f'<span class="iatag">contenido</span></div>'
+                f'<div class="iabody"><div class="iatxt">{"".join(trozos)}'
+                f'</div></div></div></div>')
+        # ⚠ Los caracteres invisibles son INVISIBLES hasta que se nombran, y eso
+        # no es un truco: es la frase. El hueco que ocupan esta en el flujo
+        # desde el primer cuadro —si no, el texto daria un salto de layout al
+        # marcarlos— pero la pastilla que los hace ver se enciende en
+        # «Unicode», toda a la vez y con UN solo tween sobre el selector que
+        # casa con todas (la leccion de los 143 agentes del roster).
+        # Y entonces se borran uno por uno de IZQUIERDA A DERECHA: el
+        # escalonado de 80 ms es el gesto que pide el beat, no `g` decisiones.
+        anims = [("chip-in", ".iagli", at[0], .20)]
+        anims += [("badge-out", f"#{cid}-g{i}", round(at[0] + .26 + i * .08, 4), .14)
+                  for i in range(g)]
+        return css, html, anims
+
+    if variant == "props":
+        filas = filas or []
+        css = marco + f"""
+{p} .iaprops{{display:flex;flex-direction:column;gap:12px}}
+{p} .iapr{{position:relative;display:flex;align-items:center;gap:20px;
+  height:58px;border-radius:{RADIUS['sm']}px;
+  border:2px dashed {C['text3']};padding:0 20px}}
+{p} .iaplab{{position:relative;z-index:2;font-family:{MONO};font-weight:700;
+  font-size:21px;letter-spacing:.10em;color:{C['text2']};width:260px;
+  text-transform:uppercase}}
+{p} .iapvw{{position:relative;z-index:2;flex:1}}
+{p} .iapv{{height:16px;border-radius:{RADIUS['pill']}px;
+  background:{TK.rgba(C['text2'], .34)}}}
+{p} .iapf{{position:absolute;inset:-2px;border-radius:{RADIUS['sm']}px;
+  background:{C['surface2']};border:1px solid {TK.LINE_HI};z-index:1}}"""
+        rows = "".join(
+            f'<div class="iapr"><span class="iapf" id="{cid}-pf{i}"></span>'
+            f'<span class="iaplab" id="{cid}-pl{i}">{esc(lab)}</span>'
+            f'<span class="iapvw" id="{cid}-pv{i}">'
+            f'<span class="iapv" style="width:{w}%"></span></span></div>'
+            for i, (lab, w) in enumerate(filas))
+        html = (f'<div class="iawrap"><div class="iapanel">'
+                f'<div class="iahead"><span class="iadot"></span>'
+                f'<span class="iatag">propiedades</span></div>'
+                f'<div class="iabody"><div class="iaprops">{rows}</div>'
+                f'</div></div></div>')
+        n = len(filas)
+        anims = []
+        # DE ABAJO HACIA ARRIBA: la última fila es la primera en vaciarse.
+        for k, i in enumerate(reversed(range(n))):
+            t = round(at[0] + k * .12, 4)
+            anims += [("badge-out", f"#{cid}-pv{i}", t, .16),
+                      ("badge-out", f"#{cid}-pl{i}", t, .16),
+                      ("badge-out", f"#{cid}-pf{i}", t, .18)]
+        return css, html, anims
+
+    capas = capas or []
+    css = marco + f"""
+{p} .iacut{{display:flex;flex-direction:column;align-items:center;gap:10px}}
+{p} .iacap{{width:560px;height:66px;border-radius:{RADIUS['sm']}px;
+  background:{C['surface2']};border:1px solid {TK.LINE_HI};display:flex;
+  align-items:center;padding:0 24px}}
+{p} .iacapn{{font-family:{MONO};font-weight:700;font-size:21px;
+  letter-spacing:.10em;color:{C['text2']};text-transform:uppercase}}
+{p} .iacap.hot{{background:{C['accent_pill']};border-color:{accent_a(.70)}}}
+{p} .iacap.hot .iacapn{{color:{C['text']}}}
+{p} .iacadena{{display:flex;gap:20px;margin-top:30px;justify-content:center}}
+{p} .iamini{{position:relative;width:188px;height:150px;
+  border-radius:{RADIUS['md']}px;background:{C['surface2']};
+  border:1px solid {TK.LINE_HI};padding:14px;display:flex;
+  flex-direction:column;justify-content:flex-end;gap:8px;overflow:hidden}}
+{p} .iaminx{{font-family:{MONO};font-weight:700;font-size:19px;
+  letter-spacing:.10em;color:{C['text2']}}}
+{p} .iaminl{{height:20px;border-radius:{RADIUS['sm']}px;
+  background:{C['accent_pill']};border:1px solid {accent_a(.70)}}}"""
+    pila = "".join(
+        f'<div class="iacapw" id="{cid}-k{i}">'
+        f'<div class="iacap{" hot" if i == len(capas) - 1 else ""}" '
+        f'id="{cid}-ki{i}"><span class="iacapn"'
+        f'{" data-layout-allow-overlap" if i == len(capas) - 1 else ""}'
+        f'>{esc(lab)}</span></div></div>'
+        for i, lab in enumerate(capas))
+    minis = "".join(
+        f'<div class="iamini"><div class="iaminw" id="{cid}-n{i}">'
+        f'<div class="iaminl" id="{cid}-ni{i}"></div></div>'
+        f'<span class="iaminx">{esc(x)}</span></div>'
+        for i, x in enumerate(("PDF", "HTML", "DOC")))
+    html = (f'<div class="iawrap"><div class="iapanel">'
+            f'<div class="iahead"><span class="iadot"></span>'
+            f'<span class="iatag">corte del archivo</span></div>'
+            f'<div class="iabody"><div class="iacut">{pila}</div>'
+            f'<div class="iacadena">{minis}</div></div></div></div>')
+    t_des, t_cad = at
+    ult = len(capas) - 1
+    anims = [("cam-push", f"#{cid}-ki{ult}", t_des, .55, 1.0, -430),
+             ("badge-out", f"#{cid}-k{ult}", round(t_des + .34, 4), .24)]
+    for i in range(3):
+        t = round(t_cad + i * .12, 4)
+        anims += [("cam-push", f"#{cid}-ni{i}", t, .40, 1.0, -170),
+                  ("badge-out", f"#{cid}-n{i}", round(t + .20, 4), .20)]
     return css, html, anims
