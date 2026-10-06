@@ -117,5 +117,29 @@
     "hex": "FF0069",
     "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/instagram.svg",
     "simple_icons_version": "16"
+  },
+  "omniroute": {
+    "title": "OmniRoute",
+    "source": "https://raw.githubusercontent.com/diegosouzapw/OmniRoute/HEAD/public/favicon.svg",
+    "downloaded": "2026-10-06",
+    "format": "svg",
+    "tile": "#E54D5E",
+    "_": "Pieza 5. favicon oficial del repo; trae un linearGradient con id fijo → mark(uid=…) obligatorio."
+  },
+  "headroom": {
+    "title": "Headroom",
+    "source": "https://headroomlabs.ai/favicon.svg",
+    "downloaded": "2026-10-06",
+    "format": "svg",
+    "tile": "#0A0E1A",
+    "_": "Pieza 5. favicon de la web oficial (los corchetes verdes del README)."
+  },
+  "claudemem": {
+    "title": "Claude Mem",
+    "source": "https://raw.githubusercontent.com/thedotmack/claude-mem/HEAD/docs/public/claude-mem-logomark.webp",
+    "downloaded": "2026-10-06",
+    "format": "png",
+    "tile": null,
+    "_": "Pieza 5. logomark oficial del repo (webp → png cuadrado 512, transparente)."
   }
 }
