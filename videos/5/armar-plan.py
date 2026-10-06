@@ -321,6 +321,21 @@ cta = {
 }
 (PIEZA / "plan-cta-instagram.json").write_text(json.dumps(cta, ensure_ascii=False, indent=1))
 
+# ── CTA de TikTok (el clip de la pieza 4: «Ve al link de la bio y encuentra el acceso.») ──
+cta_tt = {
+    "_": "CTA de TikTok: el clip cta-tiktok.mov de la pieza 4 (pedido de Ezequiel, 2026-10-06), «Ve al link de "
+         f"la bio y encuentra el acceso.». En segundos de la VERSIÓN, desde {CTA}: el cuerpo se corta en «comenta» y "
+         "la promesa «Si quieres la lista de los 5 plugins, el link de cada uno,» queda como parte común.",
+    "_cara": "Cierra en cara, como Instagram: es otra toma (encuadre nuevo en el empalme) y no hay palabra clave "
+             "que dibujar; «link de la bio» no se rotula (repetiría el subtítulo). La lista con los links ya se "
+             "vio justo antes, en la parte común. Sin visual: el último cuadro es la cara (trampa 6c).",
+    "shots": [{"at": CTA, "kind": "full", "zoom": 1.09, "anchor": ANCHOR_FULL}],
+    "visuals": [],
+    "sfx": [],
+}
+(PIEZA / "plan-cta-tiktok.json").write_text(json.dumps(cta_tt, ensure_ascii=False, indent=1))
+print("✓ plan-cta-tiktok.json · cara desde", CTA)
+
 # ── reparto ───────────────────────────────────────────────────────────────────
 rep = {"cara": 0.0, "partida": 0.0, "grafico": 0.0}
 nom = {"full": "cara", "band": "partida", "off": "grafico"}
