@@ -111,7 +111,7 @@ def _icon(name: str, px: int) -> str:
     if name in ("search", "grid"):
         return _glifo(name, px)
     aliases = {"file": "doc", "browser": "desktop", "database": "stack",
-               "key": "code", "skill": "gear", "chain": "knot"}
+               "skill": "gear", "chain": "link"}
     return icons.icon(aliases.get(name, name), px)
 
 
@@ -165,7 +165,8 @@ def terminal_barrera(cid: str, at: list, lienzo: bool = False) -> tuple[str, str
     p, _, max_h = _host(cid, lienzo)
     css = _plugin_css(p) + _halftone(p) + f"""
 {p} .tb-wrap{{position:relative;width:940px;height:{max_h}px;display:flex;align-items:center;justify-content:center}}
-{p} .tb-clip{{position:relative;width:420px;height:300px}}
+{p} .tb-clip{{position:relative;width:420px;height:300px;zoom:1.5}}
+{p} .tb-wrap .tb-barrier{{left:40px;width:860px;top:{round(max_h / 2) - 10}px}}
 {p} .tb-static{{position:absolute;inset:0 auto auto 0;width:420px;height:44px;overflow:hidden;
   border-radius:{RADIUS['lg']}px;z-index:3}}
 {p} .tb-open{{position:absolute;inset:0;transform-origin:50% 0;opacity:0}}
@@ -223,7 +224,7 @@ def zocalo(cid: str, variant: str, at: list, lienzo: bool = False,
                                    or not 0 <= puestos <= 4):
         raise ValueError("zocalo enciende: puestos debe estar entre 0 y 4")
     p, _, max_h = _host(cid, lienzo)
-    scale = 1.25 if lienzo else 1
+    scale = 1.06 if lienzo else 1
     css = _plugin_css(p) + f"""
 {p} .zp-wrap{{position:relative;width:980px;height:{max_h}px;display:flex;align-items:center;justify-content:center}}
 {p} .zp-scale{{position:relative;width:980px;height:700px;transform:scale({scale});transform-origin:50% 50%}}
@@ -286,6 +287,7 @@ def zocalo(cid: str, variant: str, at: list, lienzo: bool = False,
                       ("chip-in", f"#{cid}-listname{i}", round(cinco + i * .04, 4), .22)]
         anims += [("badge-out", f"#{cid}-center", cinco, .25)]
         anims += [("badge-out", f"#{cid}-holepath{i}", cinco, .20) for i in range(5)]
+        anims += [("badge-out", f"#{cid}-halo{i}", cinco, .20) for i in range(5)]
         for i in range(5):
             t = round(link + i * .08, 4)
             anims += [("caret-off", f"#{cid}-linktext{i}", t, .01, "link"),
@@ -410,7 +412,7 @@ def contador_tokens(cid: str, at: list, lienzo: bool = True) -> tuple[str, str, 
         bottom = 40 + (i // 10) * 58 + (i * 17) % 34
         coins.append(f'<span class="ct-coin" id="{cid}-coin{i}" style="left:{left}px;bottom:{bottom}px">T</span>')
     css = _plugin_css(p) + f"""
-{p} .ct-wrap{{position:relative;width:960px;height:{min(max_h, 1120)}px;display:flex;align-items:center;justify-content:center;overflow:hidden}}
+{p} .ct-wrap{{position:relative;width:960px;height:{min(max_h, 1120)}px;display:flex;align-items:flex-start;justify-content:center;padding-top:300px;box-sizing:border-box;overflow:hidden}}
 {p} .ct-mountain{{position:absolute;inset:0;z-index:1}} {p} .ct-coin{{position:absolute;width:52px;height:52px;
   display:flex;align-items:center;justify-content:center;border-radius:50%;background:{C['surface2']};border:1px solid {TK.LINE_HI};
   color:{C['text2']};font-family:{MONO};font-size:22px;font-weight:700;opacity:0}}
@@ -420,14 +422,15 @@ def contador_tokens(cid: str, at: list, lienzo: bool = True) -> tuple[str, str, 
 """
     html = (f'<div class="ct-wrap"><div class="ct-mountain">{"".join(coins)}</div>'
             f'<div class="ct-number" id="{cid}-number">{_contador(f"{cid}-count", 0)}'
-            f'<span class="ct-accent" id="{cid}-accent"></span></div></div>')
+            f'<span class="ct-accent" id="{cid}-accent" data-layout-allow-overlap></span></div></div>')
     sixteen, millions, tokens = at
     final = "1.600.000.000"
     anims: list = [("count-roll", f"#{cid}-count", sixteen, 1.20, 0, 1600000000, ""),
                    ("caret-off", f"#{cid}-count", round(sixteen + 1.20, 4), .01, final),
-                   ("cam-push", f"#{cid}-number", millions, .42, 1.6, 0),
+                   ("cam-push", f"#{cid}-number", millions, .42, 1.28, 0),
                    ("caret-off", f"#{cid}-accent", millions, .01, final),
-                   ("chip-in", f"#{cid}-accent", millions, .24)]
+                   ("chip-in", f"#{cid}-accent", millions, .24),
+                   ("fade-to", f"#{cid}-count", round(millions + .20, 4), .06, 0)]
     anims += [("drop-in", f"#{cid}-coin{i}", round(tokens + i * .012, 4), .24)
               for i in range(40)]
     return css, html, anims
@@ -678,13 +681,9 @@ def servidor_mcp(cid: str, variant: str, at: list,
 {p} .sm-tree{{position:absolute;left:220px;bottom:20px;width:500px;padding:20px 30px;background:{C['surface']};border:1px solid {TK.LINE};border-radius:{RADIUS['md']}px;{'opacity:0;' if variant == 'conectar' else ''}}}
 {p} .sm-tree .ae-row{{height:52px;display:flex;align-items:center;gap:12px;color:{C['text3']};font-family:{MONO};font-size:18px}}
 {p} .sm-rowhalo{{position:absolute;left:20px;right:20px;height:46px;border-radius:{RADIUS['sm']}px;background:{accent_a(.22)};opacity:0}}
-{p} .sm-dot{{position:absolute;width:10px;height:10px;border-radius:50%;background:{C['accent']};box-shadow:{TK.GLOW}}}
 """
-    dots = "" if variant == "conectar" else "".join(
-        f'<i class="sm-dot" id="{cid}-dot{i}-{j}" style="left:{170 + i * 290}px;top:{450 + j * 12}px"></i>'
-        for i in range(3) for j in range(3))
     html = (f'<div class="sm-wrap"><span class="sm-outline"></span><svg class="sm-lines" viewBox="0 0 940 {max_h}">'
-            f'{paths}{finals}</svg>{_server(f"{cid}-server")}{services}{dots}'
+            f'{paths}{finals}</svg>{_server(f"{cid}-server")}{services}'
             f'<div class="sm-tree" id="{cid}-treepanel">{halos}{tree_rows}</div></div>')
     anims: list = []
     if variant == "conectar":
@@ -701,10 +700,6 @@ def servidor_mcp(cid: str, variant: str, at: list,
         for i in range(3):
             anims += [("draw", f"#{cid}-final{i}", round(project + i * .06, 4), .36),
                       ("chip-in", f"#{cid}-rowhalo{i}", round(project + .18 + i * .06, 4), .22)]
-        for i in range(3):
-            for j in range(3):
-                anims.append(("cursor-to", f"#{cid}-dot{i}-{j}", round(j * .22, 4), .40,
-                              120 - i * 18, 120 + j * 35))
     return css, html, anims
 
 

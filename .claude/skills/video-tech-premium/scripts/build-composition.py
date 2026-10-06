@@ -1435,6 +1435,34 @@ def is_key(word_up, extra):
     return any(w == k.upper() for k in extra)
 
 
+def split_at_shot_kind(chunks, shots):
+    """Parte un bloque donde cambia el TIPO de encuadre (cara · partida · grafico).
+
+    La altura de un bloque se resuelve una sola vez, con el encuadre de su punto medio,
+    así que un bloque que cruza de `band` a `off` (o de `full` a `band`) se queda con la
+    altura de uno de los dos durante todo el bloque. En la pieza 5 «EL MEDIO ENTRE TÚ»
+    cruzaba de `partida` a `grafico` y en el tramo de `partida` se sentaba ENCIMA de la
+    cara, a la altura del gráfico. Cada palabra va con el encuadre de su `start`.
+    """
+    if not shots:
+        return chunks
+
+    def kind(t):
+        sh = shot_at(shots, t)
+        return sh.get("kind") if sh else None
+
+    out = []
+    for ch in chunks:
+        cur = [ch[0]]
+        for item in ch[1:]:
+            if kind(item[0]["start"]) != kind(cur[-1][0]["start"]):
+                out.append(cur)
+                cur = []
+            cur.append(item)
+        out.append(cur)
+    return out
+
+
 def build_captions(words, dur, shots, viz_skins):
     """Bloques de 2–6 palabras. Karaoke en TODA la pieza (Mejora 4).
 
@@ -1543,7 +1571,7 @@ def build_captions(words, dur, shots, viz_skins):
                 merged[-1] = prev + ch
             else:
                 merged.append(ch)
-        chunks = merged
+        chunks = split_at_shot_kind(merged, shots)
         # una sola keyword por bloque: la primera que califique
         for ch in chunks:
             i = next((i for i, (_, up) in enumerate(ch)

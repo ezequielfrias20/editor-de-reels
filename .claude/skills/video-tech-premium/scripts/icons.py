@@ -44,6 +44,11 @@ STROKE = 1.8
 # El cuerpo de cada icono: solo la geometría, sin el `<svg>` que la envuelve.
 # El orden es el de la pieza 19, que es donde se estrenaron.
 _PATHS: dict[str, str] = {
+    # pieza 5: la llave de API (aro + paletón) y la cadena del link.
+    "key": ('<circle cx="7.5" cy="12" r="4"/><path d="M11.5 12h9"/>'
+            '<path d="M17.5 12v3.2"/><path d="M20.5 12v2.4"/>'),
+    "link": ('<path d="M10.2 13.8a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.1 1.1"/>'
+             '<path d="M13.8 10.2a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.1-1.1"/>'),
     # ── especialidades (los cinco chips del guion) ───────────────────────────
     # frontend: las llaves del código y una barra de cursor.
     "code": ('<path d="M9 7 4.5 12 9 17"/><path d="m15 7 4.5 5-4.5 5"/>'

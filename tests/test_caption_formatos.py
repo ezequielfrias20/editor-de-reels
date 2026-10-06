@@ -76,3 +76,19 @@ def test_face_top_y(formatos):
     assert formatos.face_top_y(SHOT[0]) == pytest.approx(576 + 0.30 * 1920)
     formatos.TOP_FRAC = None
     assert formatos.face_top_y(SHOT[0]) is None
+
+
+def test_un_bloque_no_cruza_un_cambio_de_formato(formatos, monkeypatch):
+    monkeypatch.setattr(formatos, "KEYWORDS", [])
+    """Pieza 5: «EL MEDIO ENTRE TÚ» cruzaba de partida a grafico y en la partida se
+    sentaba sobre la cara con la altura del gráfico. El troceo parte el bloque en el cambio."""
+    shots = [{"start": 0.0, "end": 0.75, "kind": "band", "zoom": 1.0, "anchor": 0.40},
+             {"start": 0.75, "end": 10.0, "kind": "off"}]
+    _, _, _, rows = formatos.build_captions(_words("el", "medio", "entre", "tú"), 10.0, shots, [])
+    assert len(rows) == 2, rows
+
+
+def test_sin_cambio_de_formato_el_bloque_sigue_entero(formatos, monkeypatch):
+    monkeypatch.setattr(formatos, "KEYWORDS", [])
+    _, _, _, rows = formatos.build_captions(_words("el", "medio", "entre", "tú"), 10.0, SHOT, [])
+    assert len(rows) == 1
