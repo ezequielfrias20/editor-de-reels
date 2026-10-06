@@ -40,6 +40,7 @@ import caption_fonts  # noqa: E402
 import caption_metrics  # noqa: E402
 import layout_formatos  # noqa: E402
 import mockups  # noqa: E402
+import mockups_plugins  # noqa: E402
 import mockups_reels  # noqa: E402
 import objects  # noqa: E402
 import tokens as TK  # noqa: E402
@@ -853,6 +854,21 @@ def build_visuals(dur):
                   "reel_cascada": mockups_reels.reel_cascada,
                   "ig_grilla": mockups_reels.ig_grilla,
                   "guion_esqueleto": mockups_reels.guion_esqueleto,
+                  "terminal_barrera": mockups_plugins.terminal_barrera,
+                  "zocalo": mockups_plugins.zocalo,
+                  "anillo_proveedores": mockups_plugins.anillo_proveedores,
+                  "costo_llaves": mockups_plugins.costo_llaves,
+                  "piedras_modelo": mockups_plugins.piedras_modelo,
+                  "contador_tokens": mockups_plugins.contador_tokens,
+                  "dos_terminales": mockups_plugins.dos_terminales,
+                  "cable_headroom": mockups_plugins.cable_headroom,
+                  "prensa": mockups_plugins.prensa,
+                  "dos_salidas": mockups_plugins.dos_salidas,
+                  "sello_oficial": mockups_plugins.sello_oficial,
+                  "arbol_escaneo": mockups_plugins.arbol_escaneo,
+                  "servidor_mcp": mockups_plugins.servidor_mcp,
+                  "mascota_cuaderno": mockups_plugins.mascota_cuaderno,
+                  "reloj_fondo": mockups_plugins.reloj_fondo,
                   "motion_stage": objects.motion_stage}[which]
             body_css, body_html_, body_anims = fn(vid, **kw)
         elif v["kind"] == "image":
@@ -1992,6 +2008,17 @@ def emit_anim(a) -> str:
         js.append(f'tl.fromTo(\'{sel}\', {{ scaleX: 0 }}, '
                   f'{{ scaleX: 1, duration: {d}, ease: "power2.out", '
                   f'overwrite: "auto", immediateRender: false }}, {t:.4f});')
+    elif kind == "blur-to":
+        # Se aplica sobre un wrapper que ya está visible. Un fromTo pintaría
+        # el estado inicial al montar el timeline y adelantaría el efecto.
+        js.append(f'tl.to(\'{sel}\', {{ filter: "blur({a[4]}px)", duration: {d}, '
+                  f'ease: "power2.inOut", overwrite: "auto" }}, {t:.4f});')
+    elif kind == "scale-y-to":
+        js.append(f'tl.to(\'{sel}\', {{ scaleY: {a[4]}, duration: {d}, '
+                  f'ease: "power2.inOut", overwrite: "auto" }}, {t:.4f});')
+    elif kind == "color-to":
+        js.append(f'tl.to(\'{sel}\', {{ color: "{a[4]}", duration: {d}, '
+                  f'ease: "power2.inOut", overwrite: "auto" }}, {t:.4f});')
     elif kind == "cam-kb":
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: {a[4]} }}, '
                   f'{{ scale: {a[5]}, duration: {d}, ease: "none" }}, {t:.4f});')

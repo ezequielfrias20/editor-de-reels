@@ -56,6 +56,31 @@ def test_flip_in_despliega_en_x_con_la_curva_del_contrato(bc):
     assert "immediateRender:false" in js
 
 
+def test_blur_to_manda_la_fila_al_fondo_sin_fromto(bc):
+    js = bc.emit_anim(("blur-to", "#skills", 2.25, .40, 6)).replace(" ", "")
+    assert "tl.to('#skills'" in js
+    assert 'filter:"blur(6px)"' in js
+    assert 'ease:"power2.inOut"' in js
+    assert 'overwrite:"auto"' in js
+    assert "fromTo" not in js
+
+
+def test_scale_y_to_aplasta_solo_en_vertical(bc):
+    js = bc.emit_anim(("scale-y-to", "#contexto", 1.0, .38, .34)).replace(" ", "")
+    assert "tl.to('#contexto'" in js
+    assert "scaleY:0.34" in js
+    assert "scaleX" not in js and "scale:" not in js
+    assert 'overwrite:"auto"' in js
+
+
+def test_color_to_enciende_la_tinta_sin_fromto(bc):
+    js = bc.emit_anim(("color-to", "#fila", 1.0, .18, "#ABCDEF")).replace(" ", "")
+    assert "tl.to('#fila'" in js
+    assert 'color:"#ABCDEF"' in js
+    assert 'overwrite:"auto"' in js
+    assert "fromTo" not in js
+
+
 def test_count_roll_acepta_sufijo_sin_cambiar_el_contrato_viejo(bc):
     old = bc.emit_anim(("count-roll", "#n", 1.0, .5, 0, 10, "#"))
     new = bc.emit_anim(("count-roll", "#n", 1.0, .5, 0, 10, "#", " K"))
