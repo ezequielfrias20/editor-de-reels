@@ -42,6 +42,12 @@ KNOWN = {
     # tiene glifo propio, igual que Cowork. La PASTILLA del nombre, que la pone
     # quien pinta el mockup, es la que dice «ChatGPT».
     "openai": ("OpenAI", "412991", "15"),
+    # Pieza 9 (DaVinci Resolve + MCP). Hex de `_data/simple-icons.json` de cada
+    # versión. Adobe Premiere Pro salió del catálogo en v14 (404 en 14–16): se
+    # pincha 13, la última que la tiene, como `openai` con 15.
+    "davinciresolve": ("DaVinci Resolve", "233A51", "16"),
+    "modelcontextprotocol": ("Model Context Protocol", "000000", "16"),
+    "adobepremierepro": ("Adobe Premiere Pro", "9999FF", "13"),
 }
 
 # Marcas SIN logotipo propio, cuya marca honesta es la de otra. No se

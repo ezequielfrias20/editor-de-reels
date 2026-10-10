@@ -81,6 +81,59 @@ def test_color_to_enciende_la_tinta_sin_fromto(bc):
     assert "fromTo" not in js
 
 
+def test_wipe_down_revela_con_clip_path_sin_reflow_ni_estado_adelantado(bc):
+    js = bc.emit_anim(("wipe-down", "#resultado", 1.25, .70)).replace(" ", "")
+    assert "tl.to('#resultado'" in js
+    assert 'clipPath:"inset(000%0)"' in js
+    assert 'ease:"power2.inOut"' in js
+    assert 'overwrite:"auto"' in js
+    assert "height" not in js and "fromTo" not in js
+
+
+def test_send_chatgpt_activa_fondo_y_flecha_desde_tokens(bc):
+    import tokens
+
+    brand = tokens.BRANDS["chatgpt"]
+    js = bc.emit_anim(("chatgpt-send-on", "#send", .4, .16)).replace(" ", "")
+    assert f'backgroundColor:"{brand["send_bg"]}"' in js
+    assert f'color:"{brand["send_fg"]}"' in js
+    assert 'overwrite:"auto"' in js
+
+
+def test_send_chatgpt_vuelve_al_estado_vacio_desde_tokens(bc):
+    import tokens
+
+    brand = tokens.BRANDS["chatgpt"]
+    js = bc.emit_anim(("chatgpt-send-off", "#send", 1.1, .12)).replace(" ", "")
+    assert f'backgroundColor:"{brand["send_off"]}"' in js
+    assert f'color:"{brand["send_fg"]}"' in js
+    assert 'overwrite:"auto"' in js
+
+
+def test_settle_y_aplica_la_separacion_al_empezar_sin_adelantar_el_from(bc):
+    js = bc.emit_anim(("settle-y", "#strip", .2, .45, -40)).replace(" ", "")
+    assert "tl.fromTo('#strip',{y:-40},{y:0" in js
+    assert 'ease:"power2.out"' in js
+    assert 'overwrite:"auto"' in js
+    assert "immediateRender:false" in js
+
+
+def test_click_no_adelanta_el_anillo_que_ya_nace_oculto(bc):
+    js = bc.emit_anim(("click", "#boton", .8, .24, "#anillo")).replace(" ", "")
+    ring = next(line for line in js.splitlines() if "#anillo" in line)
+    assert "fromTo" in ring
+    assert "immediateRender:false" in ring
+
+
+def test_html_on_inserta_markup_solo_en_el_instante_de_la_palabra(bc):
+    js = bc.emit_anim(("html-on", "#logo-slot", .8, .01,
+                       '<svg id="marca"></svg>'))
+    assert "tl.set('#logo-slot'" in js
+    assert 'innerHTML: "<svg id=\\"marca\\"></svg>"' in js
+    assert ", 0.8000);" in js
+    assert "fromTo" not in js
+
+
 def test_count_roll_acepta_sufijo_sin_cambiar_el_contrato_viejo(bc):
     old = bc.emit_anim(("count-roll", "#n", 1.0, .5, 0, 10, "#"))
     new = bc.emit_anim(("count-roll", "#n", 1.0, .5, 0, 10, "#", " K"))

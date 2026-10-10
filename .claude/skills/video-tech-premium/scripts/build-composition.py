@@ -40,6 +40,9 @@ import caption_fonts  # noqa: E402
 import caption_metrics  # noqa: E402
 import layout_formatos  # noqa: E402
 import mockups  # noqa: E402
+import mockups_chatgpt  # noqa: E402
+import mockups_codex  # noqa: E402
+import mockups_davinci  # noqa: E402
 import mockups_plugins  # noqa: E402
 import mockups_reels  # noqa: E402
 import objects  # noqa: E402
@@ -712,6 +715,17 @@ def build_visuals(dur):
         track = TRK_BACKDROP if v["role"] == "backdrop" else TRK_TAKEOVER
         skins.append((s, e, v.get("skin", "on-dark"), v.get("cap_top")))
 
+        # Assets auxiliares de un mockup (imágenes referenciadas desde su
+        # HTML, no media raíz). Las rutas son relativas a assets/ y entran al
+        # mismo conjunto que `image`/`screen-video`, para que build() las
+        # copie a public/ con su jerarquía. El gate vive aquí —antes de
+        # despachar el componente— para fallar con el nombre declarado y no
+        # entregar una imagen rota al navegador.
+        for rel in v.get("assets", []):
+            if not isinstance(rel, str) or not (ROOT / "assets" / rel).is_file():
+                sys.exit(f"visual «{vid}»: asset declarado no existe: {rel}")
+            assets.add(rel)
+
         # `band` confina el HOST de este visual a una banda del triband en vez
         # de dárselo el lienzo entero. Convive con `role`, no lo sustituye:
         # `role` sigue decidiendo la PISTA (`backdrop`/`takeover`, línea de
@@ -854,6 +868,36 @@ def build_visuals(dur):
                   "reel_cascada": mockups_reels.reel_cascada,
                   "ig_grilla": mockups_reels.ig_grilla,
                   "guion_esqueleto": mockups_reels.guion_esqueleto,
+                  "chatgpt_chat": mockups_chatgpt.chatgpt_chat,
+                  "imagen_resultado": mockups_chatgpt.imagen_resultado,
+                  "parpadeo_estados": mockups_chatgpt.parpadeo_estados,
+                  "lista_codigos": mockups_chatgpt.lista_codigos,
+                  "cc_gancho": mockups_codex.cc_gancho,
+                  "plan_medidor": mockups_codex.plan_medidor,
+                  "cuenta_chatgpt": mockups_codex.cuenta_chatgpt,
+                  "instalacion": mockups_codex.instalacion,
+                  "error_trabado": mockups_codex.error_trabado,
+                  "revision_diff": mockups_codex.revision_diff,
+                  "bloque_cuestiona": mockups_codex.bloque_cuestiona,
+                  "claude_md": mockups_codex.claude_md,
+                  "marcador_fallas": mockups_codex.marcador_fallas,
+                  "dv_gancho": mockups_davinci.dv_gancho,
+                  "dv_precio": mockups_davinci.dv_precio,
+                  "dv_balanza": mockups_davinci.dv_balanza,
+                  "dv_linea": mockups_davinci.dv_linea,
+                  "dv_enchufe": mockups_davinci.dv_enchufe,
+                  "dv_pedido": mockups_davinci.dv_pedido,
+                  "dv_color": mockups_davinci.dv_color,
+                  "dv_graficos": mockups_davinci.dv_graficos,
+                  "dv_multicam": mockups_davinci.dv_multicam,
+                  "dv_sonido": mockups_davinci.dv_sonido,
+                  "dv_musica": mockups_davinci.dv_musica,
+                  "dv_pozo": mockups_davinci.dv_pozo,
+                  "dv_genera": mockups_davinci.dv_genera,
+                  "dv_encastra": mockups_davinci.dv_encastra,
+                  "dv_higgsfield": mockups_davinci.dv_higgsfield,
+                  "dv_editor": mockups_davinci.dv_editor,
+                  "dv_guia": mockups_davinci.dv_guia,
                   "terminal_barrera": mockups_plugins.terminal_barrera,
                   "zocalo": mockups_plugins.zocalo,
                   "anillo_proveedores": mockups_plugins.anillo_proveedores,
@@ -1957,7 +2001,8 @@ def emit_anim(a) -> str:
         js.append(f'tl.to(\'{sel}\', {{ scale: 1, duration: 0.15, '
                   f'ease: "power2.out", overwrite: "auto" }}, {t + .08:.4f});')
         js.append(f'tl.fromTo(\'{ring}\', {{ opacity: .8, scale: .30 }}, '
-                  f'{{ opacity: 0, scale: 1.6, duration: {d}, ease: "power2.out" }}, {t:.4f});')
+                  f'{{ opacity: 0, scale: 1.6, duration: {d}, ease: "power2.out", '
+                  f'immediateRender: false }}, {t:.4f});')
     elif kind == "focus-app":
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1, borderColor: "{TK.LINE}" }}, '
                   f'{{ scale: 1.04, borderColor: "{TK.rgba(C["alert"], .6)}", '
@@ -2006,6 +2051,12 @@ def emit_anim(a) -> str:
         # seek que `type-word`: un `set` por instante, sin `onUpdate`).
         js.append(f'tl.set(\'{sel}\', {{ innerHTML: '
                   f'{json.dumps(esc(a[4]))} }}, {t:.4f});')
+    elif kind == "html-on":
+        # Logos y otros fragmentos de interfaz que no pueden existir en el
+        # DOM antes de que se nombren. El destino (un slot vacío) sí es
+        # chrome y vive desde t=0; el markup se inyecta exactamente en `t`.
+        js.append(f'tl.set(\'{sel}\', {{ innerHTML: {json.dumps(a[4])} }}, '
+                  f'{t:.4f});')
     elif kind == "send-on":
         js.append(f'tl.set(\'{sel}\', {{ color: "{C["go"]}" }}, {t:.4f});')
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: 1 }}, '
@@ -2057,6 +2108,30 @@ def emit_anim(a) -> str:
     elif kind == "color-to":
         js.append(f'tl.to(\'{sel}\', {{ color: "{a[4]}", duration: {d}, '
                   f'ease: "power2.inOut", overwrite: "auto" }}, {t:.4f});')
+    elif kind == "wipe-down":
+        # La capa nítida ya nace recortada en CSS. Animar clip-path mantiene
+        # la geometría estable (height provocaría reflow) y, al ser `to`, no
+        # aplica un estado `from` al montar el timeline.
+        js.append(f'tl.to(\'{sel}\', {{ clipPath: "inset(0 0 0% 0)", '
+                  f'duration: {d}, ease: "power2.inOut", overwrite: "auto" }}, '
+                  f'{t:.4f});')
+    elif kind == "chatgpt-send-on":
+        brand = TK.BRANDS["chatgpt"]
+        js.append(f'tl.to(\'{sel}\', {{ backgroundColor: "{brand["send_bg"]}", '
+                  f'color: "{brand["send_fg"]}", duration: {d}, '
+                  f'ease: "power2.out", overwrite: "auto" }}, {t:.4f});')
+    elif kind == "chatgpt-send-off":
+        brand = TK.BRANDS["chatgpt"]
+        js.append(f'tl.to(\'{sel}\', {{ backgroundColor: "{brand["send_off"]}", '
+                  f'color: "{brand["send_fg"]}", duration: {d}, '
+                  f'ease: "power2.inOut", overwrite: "auto" }}, {t:.4f});')
+    elif kind == "settle-y":
+        # El estado separado empieza cuando arranca el gesto, no al autorar el
+        # timeline. `immediateRender:false` evita que el `from` adelante el
+        # desplazamiento sobre un elemento que ya tiene estado declarado.
+        js.append(f'tl.fromTo(\'{sel}\', {{ y: {a[4]} }}, '
+                  f'{{ y: 0, duration: {d}, ease: "power2.out", '
+                  f'overwrite: "auto", immediateRender: false }}, {t:.4f});')
     elif kind == "cam-kb":
         js.append(f'tl.fromTo(\'{sel}\', {{ scale: {a[4]} }}, '
                   f'{{ scale: {a[5]}, duration: {d}, ease: "none" }}, {t:.4f});')

@@ -141,5 +141,30 @@
     "format": "png",
     "tile": null,
     "_": "Pieza 5. logomark oficial del repo (webp → png cuadrado 512, transparente)."
+  },
+  "davinciresolve": {
+    "title": "DaVinci Resolve",
+    "hex": "233A51",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/davinciresolve.svg",
+    "simple_icons_version": "16"
+  },
+  "modelcontextprotocol": {
+    "title": "Model Context Protocol",
+    "hex": "000000",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@16/icons/modelcontextprotocol.svg",
+    "simple_icons_version": "16"
+  },
+  "adobepremierepro": {
+    "title": "Adobe Premiere Pro",
+    "hex": "9999FF",
+    "source": "https://cdn.jsdelivr.net/npm/simple-icons@13/icons/adobepremierepro.svg",
+    "simple_icons_version": "13"
+  },
+  "higgsfield": {
+    "title": "Higgsfield",
+    "source": "https://higgsfield.ai (svg.hf-logo__glyph del encabezado, sobre la placa lima de https://higgsfield.ai/icon.png)",
+    "downloaded": "2026-10-10",
+    "format": "svg",
+    "tile": "#D1FE17"
   }
 }

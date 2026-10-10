@@ -41,8 +41,51 @@ PALETTES_BASE = {
 }
 PALETTES = tuple(sorted(PALETTES_BASE))
 
-# Marcas de terceros (logos), tonos reales: no dependen de la paleta.
-BRANDS = {"excel": "#21A366", "whatsapp": "#25D366"}
+# Marcas de terceros e interfaces literales: no dependen de la paleta.
+BRANDS = {
+    "excel": "#21A366",
+    "whatsapp": "#25D366",
+    "chatgpt": {
+        "bg": "#212121",
+        "surface": "#303030",
+        "line": "#3a3a3a",
+        "text": "#ececec",
+        "text2": "#afafaf",
+        "send_bg": "#ececec",
+        "send_fg": "#0d0d0d",
+        "send_off": "#676767",
+    },
+    "claudecode": {
+        "bg": "#1A1918",
+        "surface": "#262422",
+        "line": "#3A3734",
+        "text": "#EDEAE5",
+        "text2": "#9C978F",
+        "accent": "#D97757",
+        "ok": "#6BC07F",
+        "err": "#E5675A",
+    },
+    "davinci": {
+        "bg": "#1B1B1E",
+        "panel": "#25252A",
+        "panel2": "#2F2F35",
+        "line": "#3B3B42",
+        "text": "#D6D6DA",
+        "text2": "#8B8B93",
+        "video": "#3F72AF",
+        "video2": "#7A5AA8",
+        "audio": "#3E8A5E",
+        "music": "#2F7D8C",
+        "playhead": "#E5484D",
+        "tc": "#F2A93B",
+        "ok": "#5FBF7A",
+    },
+    "macos": {
+        "close": "#FF5F57",
+        "minimize": "#FFBD2E",
+        "maximize": "#28C840",
+    },
+}
 
 # ── elevación ─────────────────────────────────────────────────────────────────
 # Sombras por paleta. La clara es la del dashboard (--shadow); la oscura, la de
@@ -97,7 +140,11 @@ def _derive(name: str) -> dict:
     b = PALETTES_BASE[name]
     dark = luminance(b["bg"]) < 0.2
     c = dict(b)
-    c.update(BRANDS)
+    # Las marcas escalares siguen disponibles como ``C[slug]`` por
+    # compatibilidad. Las interfaces con varios tonos (ChatGPT) se consumen
+    # desde ``BRANDS`` y no son colores de la paleta activa.
+    c.update({slug: value for slug, value in BRANDS.items()
+              if isinstance(value, str)})
     c["bg2"] = mix(b["bg"], b["surface"], .5)                       # centro del viñeteado
     c["bg_edge"] = mix(b["bg"], "#000000", .30 if dark else .06)    # borde del viñeteado
     c["surface3"] = mix(b["surface2"], b["text"], .06)              # bordes internos de UI
@@ -110,6 +157,19 @@ def _derive(name: str) -> dict:
     # rótulos): el acento empujado hacia el suelo hasta que `text` se lea.
     c["accent_pill"] = _until(b["accent"], b["bg"], b["text"], 4.5)
     return c
+
+
+def paleta(nombre: str) -> dict:
+    """Devuelve una paleta derivada independiente sin activar ``nombre``.
+
+    Los componentes con un suelo de escena fijo (por ejemplo, una terminal
+    oscura dentro de una pieza clara) necesitan leer los tokens de esa escena
+    sin mutar el diccionario global ``C`` que ya consumen los demás visuales.
+    """
+    if nombre not in PALETTES_BASE:
+        raise ValueError(
+            f"paleta '{nombre}' no existe; las que hay son: {', '.join(PALETTES)}")
+    return dict(_derive(nombre))
 
 
 C: dict = {}
