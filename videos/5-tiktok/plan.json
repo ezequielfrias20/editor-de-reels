@@ -1,0 +1,1344 @@
+{
+  "_": "Pieza 5 — «No uses Claude Code hasta instalar estos 5 plugins». Plan del CUERPO en segundos del corte (0 → 63.035, donde arranca el CTA dicho a cámara en «comenta»). Lo escribe videos/5/armar-plan.py.",
+  "_brief": "Brief de plan-edicion (Reels/plan-edicion/planes/2026-09-29-5.md) respetado beat a beat. Pedido de Ezequiel (2026-10-06): además, capturas REALES de cada plugin (sus grabaciones de pantalla) en la banda de arriba, donde la página dice lo mismo que se está diciendo; contador en +200 (lo que dice), no 358.",
+  "_eje": "El zócalo de cinco huecos cruza el video: vacío en el gancho, cada plugin enciende su hueco con el MISMO gesto (neón + pastilla), y en el CTA se desarma en la lista con los links (loop).",
+  "_fuente": "cuerpo.MOV 1080×1920 SDR bt709: sin LUT; cara topa en ×1,20.",
+  "_mascota": "Sprites pixelados generados con Higgsfield (assets/mascota), regla de Ezequiel: lo generado, con Higgsfield.",
+  "_fondos": "La propuesta anota claro/oscuro/comic por beat; el compilador aún no cambia el suelo por escena, así que la pieza va entera en `oscuro` y el comic lo da la trama de semitono.",
+  "format": "REEL",
+  "palette": "oscuro",
+  "layout": {
+    "mode": "formatos"
+  },
+  "voice_gain": 0.7,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.4,
+    "target_mean": -34.0
+  },
+  "keywords": [
+    "Claude",
+    "5",
+    "plugins",
+    "OmniRoute",
+    "200",
+    "gratis",
+    "1600",
+    "Mem",
+    "memoria",
+    "Headroom",
+    "comprime",
+    "tokens",
+    "Setup",
+    "Anthropic",
+    "hooks",
+    "skills",
+    "MCP",
+    "Task",
+    "Observer",
+    "estilo",
+    "plano",
+    "link"
+  ],
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 2.203,
+      "kind": "off"
+    },
+    {
+      "at": 5.247,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 6.353,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 8.276,
+      "kind": "off"
+    },
+    {
+      "at": 9.478,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 11.112,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.46
+    },
+    {
+      "at": 13.243,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.46
+    },
+    {
+      "at": 14.525,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 16.624,
+      "kind": "off"
+    },
+    {
+      "at": 18.771,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 20.004,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 21.306,
+      "kind": "off"
+    },
+    {
+      "at": 23.117,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 25.877,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.46
+    },
+    {
+      "at": 27.747,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 29.196,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 30.345,
+      "kind": "off"
+    },
+    {
+      "at": 31.786,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 33.598,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.46
+    },
+    {
+      "at": 35.055,
+      "kind": "off"
+    },
+    {
+      "at": 36.236,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 37.608,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 39.839,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 41.222,
+      "kind": "off"
+    },
+    {
+      "at": 42.607,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 45.103,
+      "kind": "off"
+    },
+    {
+      "at": 46.382,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 48.687,
+      "kind": "full",
+      "zoom": 1.05,
+      "anchor": 0.46
+    },
+    {
+      "at": 50.741,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 52.745,
+      "kind": "off"
+    },
+    {
+      "at": 54.634,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 56.322,
+      "kind": "off"
+    },
+    {
+      "at": 58.412,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.46
+    },
+    {
+      "at": 60.046,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.46
+    },
+    {
+      "at": 61.122,
+      "kind": "band",
+      "anchor": 0.7496
+    },
+    {
+      "at": 63.035,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.46
+    }
+  ],
+  "cards": [],
+  "visuals": [
+    {
+      "id": "v-b1-barrera",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 0.0,
+      "end": 2.203,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "GANCHO en comic: la terminal de Claude Code (barra de título desde el primer cuadro) se abre en «abrir» y en «Code» baja la barrera a rayas y la congela.",
+      "mock": [
+        "terminal_barrera",
+        {
+          "at": [
+            0.921,
+            1.866
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b2-zocalo",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 2.203,
+      "end": 5.247,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El zócalo de cinco huecos alrededor de la terminal: se dibuja en «instala», caen cinco mosaicos en blanco en «5» y en «plugins» se encienden y la barrera se levanta.",
+      "mock": [
+        "zocalo",
+        {
+          "variant": "instala",
+          "at": [
+            2.203,
+            3.228,
+            3.549
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b3-omni",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 5.247,
+      "end": 6.353,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Hueco 1 se ilumina en «1»; en «OmniRoute» su contorno se dibuja con neón y cae la pastilla. Mismo gesto en los cinco plugins.",
+      "mock": [
+        "zocalo",
+        {
+          "variant": "enciende",
+          "puestos": 0,
+          "at": [
+            5.247,
+            5.568
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b4-cap-omni",
+      "role": "takeover",
+      "kind": "screen-video",
+      "band": "top",
+      "start": 6.353,
+      "end": 8.276,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "src": "capturas-5/omni-proveedores.mp4",
+      "rect": [
+        20,
+        41,
+        1040,
+        758
+      ],
+      "tool_recording": {
+        "slug": "omniroute",
+        "name": "OmniRoute",
+        "hairline": 2
+      },
+      "boxes": [
+        [
+          7.715,
+          8.276,
+          20,
+          251,
+          1048,
+          437
+        ]
+      ],
+      "_": "CAPTURA REAL (pedido de Ezequiel): el panel de proveedores de OmniRoute; en «con más de» la caja marca los Free Tier Providers."
+    },
+    {
+      "id": "v-b5-anillo",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 8.276,
+      "end": 9.478,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Claude Code en el centro y el anillo de proveedores (logos del propio repo de OmniRoute) que se completa en «200» con el contador a +200; en «proveedores» viajan partículas al centro.",
+      "mock": [
+        "anillo_proveedores",
+        {
+          "at": [
+            8.276,
+            8.917
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b6-llaves",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 9.478,
+      "end": 11.112,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Tres fichas con su costo: cae a $0 en «gratis», giran y son llaves de API en «API», detrás se encienden los modelos en «IA».",
+      "mock": [
+        "costo_llaves",
+        {
+          "at": [
+            9.478,
+            10.134,
+            10.615
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b8-piedras",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 14.525,
+      "end": 16.624,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La mascota (Higgsfield) salta de un modelo apagado al siguiente, que se enciende; la fila sigue fuera de cuadro.",
+      "mock": [
+        "piedras_modelo",
+        {
+          "at": [
+            14.525,
+            15.326,
+            16.127
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b9-tokens",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 16.624,
+      "end": 18.771,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "CLÍMAX: el contador corre a 1.600.000.000, crece hasta el ancho en «millones» y detrás se apila la montaña de fichas en «tokens».",
+      "mock": [
+        "contador_tokens",
+        {
+          "at": [
+            16.88,
+            17.649,
+            18.13
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b10-cap-tokens",
+      "role": "takeover",
+      "kind": "screen-video",
+      "band": "top",
+      "start": 18.771,
+      "end": 20.004,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "src": "capturas-5/omni-tokens.mp4",
+      "rect": [
+        20,
+        208,
+        1040,
+        424
+      ],
+      "tool_recording": {
+        "slug": "omniroute",
+        "name": "OmniRoute",
+        "hairline": 2
+      },
+      "boxes": [],
+      "_": "CAPTURA REAL: «~1.62B FREE TOKENS / MONTH» del README de OmniRoute, en «gratis al mes»."
+    },
+    {
+      "id": "v-b11-mem",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 20.004,
+      "end": 21.306,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Hueco 2 + neón de Claude Mem. Mismo gesto que OmniRoute.",
+      "mock": [
+        "zocalo",
+        {
+          "variant": "enciende",
+          "puestos": 1,
+          "at": [
+            20.004,
+            20.505
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b12-terminales",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 21.306,
+      "end": 23.117,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Dos terminales: el hilo de luz sale de la llena, la sesión se cierra y el hilo entra en la vacía y la llena.",
+      "mock": [
+        "dos_terminales",
+        {
+          "at": [
+            21.306,
+            21.979,
+            22.588
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b13-cap-mem",
+      "role": "takeover",
+      "kind": "screen-video",
+      "band": "top",
+      "start": 23.117,
+      "end": 25.877,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "src": "capturas-5/mem-sesiones.mp4",
+      "rect": [
+        20,
+        205,
+        1040,
+        430
+      ],
+      "tool_recording": {
+        "slug": "claudemem",
+        "name": "Claude Mem",
+        "hairline": 2
+      },
+      "boxes": [
+        [
+          24.13,
+          25.877,
+          54,
+          367,
+          983,
+          109
+        ]
+      ],
+      "_": "CAPTURA REAL: el README de Claude Mem; en «proyectos» la caja marca «preserves context across sessions… continuity of knowledge about projects»."
+    },
+    {
+      "id": "v-b15-headroom",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 27.747,
+      "end": 29.196,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Hueco 3 + neón de Headroom.",
+      "mock": [
+        "zocalo",
+        {
+          "variant": "enciende",
+          "puestos": 2,
+          "at": [
+            27.747,
+            28.323
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b16-cable",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 29.196,
+      "end": 30.345,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El mosaico de Headroom baja en «pone» y se clava en el medio del cable en «medio».",
+      "mock": [
+        "cable_headroom",
+        {
+          "variant": "clavar",
+          "at": [
+            29.358,
+            29.844
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b17-chat",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 30.345,
+      "end": 31.786,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La misma escena a lienzo: el chat a la izquierda en «tú», el modelo a la derecha en «modelo».",
+      "mock": [
+        "cable_headroom",
+        {
+          "variant": "chat",
+          "at": [
+            30.734,
+            31.219
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b18-prensa",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 31.786,
+      "end": 33.598,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "COMIC: la prensa aplasta el bloque de contexto en «comprime», los bordes se recortan en «corta» y caen en «sobra».",
+      "mock": [
+        "prensa",
+        {
+          "at": [
+            31.786,
+            32.595,
+            33.161
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b20-salidas",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 35.055,
+      "end": 36.236,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Dos salidas idénticas con su check en «Mismo»; en «resultado» la pila de la derecha se desmorona.",
+      "mock": [
+        "dos_salidas",
+        {
+          "at": [
+            35.055,
+            35.427
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b21-cap-head",
+      "role": "takeover",
+      "kind": "screen-video",
+      "band": "top",
+      "start": 36.236,
+      "end": 37.608,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "src": "capturas-5/head-tokens.mp4",
+      "rect": [
+        20,
+        175,
+        1040,
+        490
+      ],
+      "tool_recording": {
+        "slug": "headroom",
+        "name": "Headroom",
+        "hairline": 2
+      },
+      "boxes": [
+        [
+          36.511,
+          37.608,
+          17,
+          454,
+          867,
+          155
+        ]
+      ],
+      "_": "CAPTURA REAL: la barra de Headroom 55.957 → 24.340 tokens; en «menos» la caja marca la barra y «57% fewer input tokens»."
+    },
+    {
+      "id": "v-b22-setup",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 37.608,
+      "end": 39.839,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Hueco 4 + neón de Claude Code Setup.",
+      "mock": [
+        "zocalo",
+        {
+          "variant": "enciende",
+          "puestos": 3,
+          "at": [
+            37.608,
+            38.654
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b23-oficial",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 39.839,
+      "end": 41.222,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Insignia de verificado estampada en «oficial»; el logo de Anthropic con resplandor en «Anthropic».",
+      "mock": [
+        "sello_oficial",
+        {
+          "at": [
+            39.949,
+            40.513
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b24-arbol",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 41.222,
+      "end": 42.607,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El árbol de un proyecto; la línea de luz lo barre desde «revisa» y los archivos se encienden en «código».",
+      "mock": [
+        "arbol_escaneo",
+        {
+          "at": [
+            41.222,
+            42.188
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b25-cap-setup",
+      "role": "takeover",
+      "kind": "screen-video",
+      "band": "top",
+      "start": 42.607,
+      "end": 45.103,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "src": "capturas-5/setup-lista.mp4",
+      "rect": [
+        20,
+        157,
+        1040,
+        526
+      ],
+      "tool_recording": {
+        "slug": "claudecode",
+        "name": "Claude Code Setup",
+        "hairline": 2
+      },
+      "boxes": [
+        [
+          43.251,
+          43.879,
+          69,
+          482,
+          876,
+          55
+        ],
+        [
+          43.879,
+          44.362,
+          66,
+          437,
+          717,
+          53
+        ],
+        [
+          44.362,
+          45.103,
+          63,
+          527,
+          902,
+          55
+        ]
+      ],
+      "_": "CAPTURA REAL: el README de Claude Code Setup; la caja salta a Hooks, Skills y Subagents en su palabra."
+    },
+    {
+      "id": "v-b26-mcp",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 45.103,
+      "end": 46.382,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El servidor se dibuja en «servidores» y en «MCP» salen tres líneas a tres servicios.",
+      "mock": [
+        "servidor_mcp",
+        {
+          "variant": "conectar",
+          "at": [
+            45.409,
+            45.892
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b26b-mcp",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 46.382,
+      "end": 48.687,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La misma escena en partida: las líneas aterrizan en el árbol del proyecto en «proyecto».",
+      "mock": [
+        "servidor_mcp",
+        {
+          "variant": "aterrizar",
+          "at": [
+            47.772
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b28-task",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 50.741,
+      "end": 52.745,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Hueco 5: el zócalo queda completo; neón de Task Observer (marca GitHub: es una skill de un repo).",
+      "mock": [
+        "zocalo",
+        {
+          "variant": "enciende",
+          "puestos": 4,
+          "at": [
+            50.808,
+            51.419
+          ]
+        }
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b29-cuaderno",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 52.745,
+      "end": 54.634,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La mascota asoma con el cuaderno en «Mira», el cursor repite la rutina en «trabaja» y los trazos forman una firma en «estilo».",
+      "mock": [
+        "mascota_cuaderno",
+        {
+          "at": [
+            52.745,
+            53.267,
+            54.184
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b30-cap-task",
+      "role": "takeover",
+      "kind": "screen-video",
+      "band": "top",
+      "start": 54.634,
+      "end": 56.322,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "src": "capturas-5/task-titulo.mp4",
+      "rect": [
+        20,
+        295,
+        1040,
+        250
+      ],
+      "tool_recording": {
+        "slug": "github",
+        "name": "Task Observer",
+        "hairline": 2
+      },
+      "boxes": [
+        [
+          55.068,
+          56.322,
+          25,
+          500,
+          997,
+          44
+        ]
+      ],
+      "_": "CAPTURA REAL: el SKILL.md de Task Observer; en «mejora» la caja marca «the meta-skill that builds and improves all your skills»."
+    },
+    {
+      "id": "v-b31-reloj",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 56.322,
+      "end": 58.412,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El reloj gira y las barras suben solas en «tiempo»; en «plano» la fila se va al fondo y delante queda la terminal.",
+      "mock": [
+        "reloj_fondo",
+        {
+          "at": [
+            56.644,
+            58.01
+          ],
+          "lienzo": true
+        }
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b34-lista",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 61.122,
+      "end": 63.035,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "LOOP: el zócalo se desarma en una lista con los cinco plugins en «5» y a cada fila se le engancha su link en «link».",
+      "mock": [
+        "zocalo",
+        {
+          "variant": "lista",
+          "at": [
+            61.122,
+            62.006
+          ]
+        }
+      ],
+      "band": "top"
+    }
+  ],
+  "sfx": [
+    [
+      0.921,
+      "whoosh-short",
+      0.45,
+      "la terminal arranca a abrirse"
+    ],
+    [
+      1.866,
+      "impact-bass-2",
+      0.55,
+      "la barrera baja de golpe y la congela"
+    ],
+    [
+      3.228,
+      "click-soft",
+      0.55,
+      "encastre del mosaico 1"
+    ],
+    [
+      3.318,
+      "click-soft",
+      0.55,
+      "encastre del mosaico 2"
+    ],
+    [
+      3.408,
+      "click-soft",
+      0.55,
+      "encastre del mosaico 3"
+    ],
+    [
+      3.498,
+      "click-soft",
+      0.55,
+      "encastre del mosaico 4"
+    ],
+    [
+      3.588,
+      "click-soft",
+      0.55,
+      "encastre del mosaico 5"
+    ],
+    [
+      3.549,
+      "chime",
+      0.5,
+      "los cinco huecos se encienden juntos"
+    ],
+    [
+      5.568,
+      "sparkle",
+      0.5,
+      "trazo de neón del logo (motivo de la lista)"
+    ],
+    [
+      7.715,
+      "click-soft",
+      0.5,
+      "la caja marca los proveedores gratis"
+    ],
+    [
+      8.276,
+      "ping",
+      0.42,
+      "tick 1 del contador, acelera y frena en 200"
+    ],
+    [
+      8.366,
+      "ping",
+      0.42,
+      "tick 2 del contador, acelera y frena en 200"
+    ],
+    [
+      8.446,
+      "ping",
+      0.42,
+      "tick 3 del contador, acelera y frena en 200"
+    ],
+    [
+      8.516,
+      "ping",
+      0.42,
+      "tick 4 del contador, acelera y frena en 200"
+    ],
+    [
+      8.576,
+      "ping",
+      0.42,
+      "tick 5 del contador, acelera y frena en 200"
+    ],
+    [
+      8.626,
+      "ping",
+      0.42,
+      "tick 6 del contador, acelera y frena en 200"
+    ],
+    [
+      8.666,
+      "ping",
+      0.42,
+      "tick 7 del contador, acelera y frena en 200"
+    ],
+    [
+      8.696,
+      "ping",
+      0.42,
+      "tick 8 del contador, acelera y frena en 200"
+    ],
+    [
+      9.478,
+      "click",
+      0.45,
+      "el costo cae a cero"
+    ],
+    [
+      10.134,
+      "whoosh-short",
+      0.45,
+      "las fichas se dan vuelta"
+    ],
+    [
+      14.525,
+      "whoosh-short",
+      0.5,
+      "salto de la mascota"
+    ],
+    [
+      15.326,
+      "pop",
+      0.55,
+      "aterriza y el mosaico se enciende"
+    ],
+    [
+      16.624,
+      "riser",
+      0.35,
+      "sube hacia el clímax"
+    ],
+    [
+      16.88,
+      "ping",
+      0.4,
+      "tick desbordado 1"
+    ],
+    [
+      16.99,
+      "ping",
+      0.4,
+      "tick desbordado 2"
+    ],
+    [
+      17.1,
+      "ping",
+      0.4,
+      "tick desbordado 3"
+    ],
+    [
+      17.21,
+      "ping",
+      0.4,
+      "tick desbordado 4"
+    ],
+    [
+      17.32,
+      "ping",
+      0.4,
+      "tick desbordado 5"
+    ],
+    [
+      17.43,
+      "ping",
+      0.4,
+      "tick desbordado 6"
+    ],
+    [
+      17.54,
+      "ping",
+      0.4,
+      "tick desbordado 7"
+    ],
+    [
+      17.65,
+      "ping",
+      0.4,
+      "tick desbordado 8"
+    ],
+    [
+      17.76,
+      "ping",
+      0.4,
+      "tick desbordado 9"
+    ],
+    [
+      17.87,
+      "ping",
+      0.4,
+      "tick desbordado 10"
+    ],
+    [
+      17.649,
+      "impact-bass-1",
+      0.6,
+      "la cifra aterriza a todo el ancho"
+    ],
+    [
+      20.505,
+      "sparkle",
+      0.5,
+      "trazo de neón del logo (motivo de la lista)"
+    ],
+    [
+      21.979,
+      "click",
+      0.5,
+      "la sesión se cierra en seco"
+    ],
+    [
+      22.588,
+      "whoosh",
+      0.4,
+      "el hilo entra en la sesión nueva (medio segundo de nada antes)"
+    ],
+    [
+      24.13,
+      "click-soft",
+      0.5,
+      "la caja marca el párrafo"
+    ],
+    [
+      28.323,
+      "sparkle",
+      0.5,
+      "trazo de neón del logo (motivo de la lista)"
+    ],
+    [
+      29.844,
+      "impact-bass-2",
+      0.45,
+      "encastre en el cable"
+    ],
+    [
+      30.734,
+      "pop",
+      0.45,
+      "aparece el chat"
+    ],
+    [
+      31.219,
+      "pop",
+      0.45,
+      "aparece el modelo y el cable se cierra"
+    ],
+    [
+      31.786,
+      "impact-bass-1",
+      0.45,
+      "la prensa baja"
+    ],
+    [
+      32.595,
+      "click",
+      0.5,
+      "tijeretazo"
+    ],
+    [
+      33.161,
+      "whoosh-short",
+      0.4,
+      "los recortes caen"
+    ],
+    [
+      35.055,
+      "chime",
+      0.45,
+      "dos checks a la vez"
+    ],
+    [
+      36.511,
+      "click-soft",
+      0.5,
+      "la caja marca la barra"
+    ],
+    [
+      38.654,
+      "sparkle",
+      0.5,
+      "trazo de neón del logo (motivo de la lista)"
+    ],
+    [
+      39.949,
+      "impact-bass-2",
+      0.4,
+      "el sello se estampa"
+    ],
+    [
+      40.513,
+      "sparkle",
+      0.35,
+      "resplandor de Anthropic"
+    ],
+    [
+      41.222,
+      "whoosh-cinematic",
+      0.3,
+      "barrido de escáner"
+    ],
+    [
+      43.251,
+      "click-soft",
+      0.5,
+      "la caja salta a la categoría 1"
+    ],
+    [
+      43.879,
+      "click-soft",
+      0.5,
+      "la caja salta a la categoría 2"
+    ],
+    [
+      44.362,
+      "click-soft",
+      0.5,
+      "la caja salta a la categoría 3"
+    ],
+    [
+      45.892,
+      "click",
+      0.45,
+      "las conexiones enganchan"
+    ],
+    [
+      47.772,
+      "click-soft",
+      0.5,
+      "aterrizan y encajan"
+    ],
+    [
+      51.419,
+      "sparkle",
+      0.6,
+      "el mismo trazo de neón, cierra la lista"
+    ],
+    [
+      53.267,
+      "typing",
+      0.35,
+      "garabateo siguiendo al cursor"
+    ],
+    [
+      55.068,
+      "click-soft",
+      0.5,
+      "la caja marca la frase"
+    ],
+    [
+      56.644,
+      "ping",
+      0.3,
+      "tictac que se aleja"
+    ],
+    [
+      62.006,
+      "click-soft",
+      0.45,
+      "engancha el link 1"
+    ],
+    [
+      62.086,
+      "click-soft",
+      0.45,
+      "engancha el link 2"
+    ],
+    [
+      62.166,
+      "click-soft",
+      0.45,
+      "engancha el link 3"
+    ],
+    [
+      62.246,
+      "click-soft",
+      0.45,
+      "engancha el link 4"
+    ],
+    [
+      62.326,
+      "click-soft",
+      0.45,
+      "engancha el link 5"
+    ]
+  ]
+}
