@@ -39,3 +39,11 @@ videos/*/review-snapshots/
 
 # datos de prueba: el audio de la pieza 14 lo necesitan voicing y plan-cuts
 !tests/fixtures/assets/audio/*.flac
+
+# render: lo arma build-composition.py desde el plan (se regenera entero)
+videos/*/public/
+videos/*/snapshots/
+videos/*/storyboard.json
+videos/*/.inter*.ttf
+# caché de tipografías que mide el texto de los mockups
+.claude/skills/video-tech-premium/assets/.inter*.ttf
