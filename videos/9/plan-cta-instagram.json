@@ -1,0 +1,26 @@
+{
+ "_": "CTA de Instagram dicho a cámara: «comenta montaje y te lo mando por privado». En segundos de la VERSIÓN, desde 53.168. Cierra en cara (el último cuadro es la cara con MONTAJE puesta).",
+ "_palabra": "La palabra es MONTAJE. Configurar el disparador de ManyChat con MONTAJE. La caja de comentarios del brief no se dibuja: el CTA va en cara, mismo criterio que las piezas 4–8.",
+ "shots": [
+  {
+   "at": 53.168,
+   "kind": "full",
+   "zoom": 1.09,
+   "anchor": 0.46
+  }
+ ],
+ "visuals": [],
+ "cta_palabra": {
+  "texto": "MONTAJE",
+  "desde": 53.829,
+  "hasta": null
+ },
+ "sfx": [
+  [
+   53.829,
+   "pop",
+   0.4,
+   "aterriza MONTAJE"
+  ]
+ ]
+}

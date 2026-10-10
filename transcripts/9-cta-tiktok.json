@@ -1,0 +1,166 @@
+{
+  "id": "f2a35b01-af7f-42af-8490-a8c5dfafc312",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/542f6c73af6a39fcbd21990eff732d78cb27196e9a2e4cde0ebae193682e9671/6982e1b1-bf40-4a37-93d4-1d4487ec8c9d",
+  "text": "Ve al link de la bio y encuentra el acceso.",
+  "words": [
+    {
+      "text": "Ve",
+      "start": 587,
+      "end": 783,
+      "confidence": 0.9892757,
+      "speaker": null
+    },
+    {
+      "text": "al",
+      "start": 783,
+      "end": 832,
+      "confidence": 0.99978787,
+      "speaker": null
+    },
+    {
+      "text": "link",
+      "start": 832,
+      "end": 1011,
+      "confidence": 0.9999677,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 1077,
+      "end": 1191,
+      "confidence": 0.99971217,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 1191,
+      "end": 1321,
+      "confidence": 0.99994373,
+      "speaker": null
+    },
+    {
+      "text": "bio",
+      "start": 1321,
+      "end": 1615,
+      "confidence": 0.9994198,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 1909,
+      "end": 1990,
+      "confidence": 0.99958676,
+      "speaker": null
+    },
+    {
+      "text": "encuentra",
+      "start": 1990,
+      "end": 2562,
+      "confidence": 0.9991732,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 2562,
+      "end": 2611,
+      "confidence": 0.99995184,
+      "speaker": null
+    },
+    {
+      "text": "acceso.",
+      "start": 2643,
+      "end": 3002,
+      "confidence": 0.99931985,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.9986139,
+  "audio_duration": 5,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}

@@ -1,0 +1,1019 @@
+{
+  "_": "Pieza 9 — «DaVinci Resolve abrió su MCP: Claude te edita los videos». Plan del CUERPO en segundos del corte (0 → 53.168, donde arranca el CTA dicho a cámara en «comenta»). Lo escribe videos/9/armar-plan.py.",
+  "_brief": "Brief de plan-edicion (Reels/plan-edicion/planes/2026-10-09-1009.md) respetado en estructura, formatos y anclas. Ezequiel (2026-10-10): DaVinci recreado y animado, miniaturas de su propio video, cangrejo y plano generados con Higgsfield, pedidos legibles solo en el clímax.",
+  "_cara": "Los momentos `cara` del brief con un visual «en una esquina» van a cara pelada: el formato cara no lleva visual encima. Tres momentos cambian de formato para que el hilo se vea: «Le pides lo que necesites» (la primera burbuja) y «lo deja puesto en la línea de tiempo» (el pozo que se cierra) van en partida; «¿Te falta un plano entre dos escenas?» es un solo tramo partida (0,66 s no da para dos formatos y dejaría 4 s de gráfico seguido).",
+  "_fondos": "El compilador pinta el suelo `claro`; cada componente pinta su escena `oscuro` o `comic`.",
+  "_musica": "El brief pide que la música se desarme y se corte (beat 2 y el pozo): el compilador solo hace fundidos de entrada y salida, así que la cama sigue debajo.",
+  "_fuente": "cuerpo.MOV 1080×1920 SDR: sin LUT. El audio arrancaba 93 ms tarde: out/9-fuente.mov lo rellena desde 0 (aresample first_pts=0).",
+  "format": "REEL",
+  "palette": "claro",
+  "layout": {
+    "mode": "formatos"
+  },
+  "voice_gain": 0.7,
+  "sfx_target_mean": -29.0,
+  "music": {
+    "src": "assets/music/bed-tech.mp3",
+    "fade_in": 1.0,
+    "fade_out": 2.4,
+    "target_mean": -34.0
+  },
+  "keywords": [
+    "MCP",
+    "oficial",
+    "gratis",
+    "igual",
+    "subtítulos",
+    "4",
+    "producción",
+    "Codex",
+    "hablándole",
+    "color",
+    "movimiento",
+    "multicámara",
+    "sonido",
+    "montaje",
+    "plano",
+    "genera",
+    "Higgsfield",
+    "editor",
+    "exactos"
+  ],
+  "shots": [
+    {
+      "at": 0.0,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 2.303,
+      "kind": "off"
+    },
+    {
+      "at": 4.723,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 6.469,
+      "kind": "off"
+    },
+    {
+      "at": 9.274,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.46
+    },
+    {
+      "at": 10.395,
+      "kind": "full",
+      "zoom": 1.15,
+      "anchor": 0.46
+    },
+    {
+      "at": 13.071,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 15.108,
+      "kind": "off"
+    },
+    {
+      "at": 16.566,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 19.245,
+      "kind": "off"
+    },
+    {
+      "at": 21.854,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.46
+    },
+    {
+      "at": 24.674,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 26.291,
+      "kind": "off"
+    },
+    {
+      "at": 27.342,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 29.364,
+      "kind": "off"
+    },
+    {
+      "at": 30.981,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 32.436,
+      "kind": "off"
+    },
+    {
+      "at": 34.892,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 36.513,
+      "kind": "full",
+      "zoom": 1.12,
+      "anchor": 0.46
+    },
+    {
+      "at": 37.587,
+      "kind": "off"
+    },
+    {
+      "at": 38.807,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 41.068,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.46
+    },
+    {
+      "at": 42.85,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 46.244,
+      "kind": "full",
+      "zoom": 1.15,
+      "anchor": 0.46
+    },
+    {
+      "at": 47.713,
+      "kind": "off"
+    },
+    {
+      "at": 49.311,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 51.183,
+      "kind": "band",
+      "anchor": 0.5172
+    },
+    {
+      "at": 53.168,
+      "kind": "full",
+      "zoom": 1.09,
+      "anchor": 0.46
+    }
+  ],
+  "cards": [],
+  "visuals": [
+    {
+      "id": "v-b1-abre",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 0.0,
+      "end": 2.303,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "GANCHO: la ventana de DaVinci ya corriendo en el primer cuadro (cabezal y medidores); el nombre en «DaVinci», el mosaico con su pastilla en «Resolve».",
+      "mock": [
+        "dv_gancho",
+        {
+          "variant": "abre",
+          "at": [
+            0.15,
+            0.652
+          ],
+          "fondo": "oscuro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b2-mcp",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 2.303,
+      "end": 4.723,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El costado se abre con un zócalo en «servidor»; el conector del MCP se dibuja en neón y encastra en «MCP»; el sello de verificado en «oficial».",
+      "mock": [
+        "dv_gancho",
+        {
+          "variant": "mcp",
+          "at": [
+            2.415,
+            3.12,
+            3.761
+          ],
+          "fondo": "oscuro",
+          "lienzo": true
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b3-precio",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 4.723,
+      "end": 6.469,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La ventana se encoge al mosaico en «editor»; cuelga la etiqueta y el precio rueda a 0 en «gratis».",
+      "mock": [
+        "dv_precio",
+        {
+          "at": [
+            5.524,
+            5.908
+          ],
+          "fondo": "claro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b4-balanza",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 6.469,
+      "end": 9.274,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "DaVinci cae a un plato en «pelea»; el travesaño busca nivel en «igual»; Premiere cae al otro en «Premiere»; frena en seco horizontal en «Pro».",
+      "mock": [
+        "dv_balanza",
+        {
+          "at": [
+            6.469,
+            6.966,
+            8.392,
+            8.793
+          ],
+          "fondo": "claro",
+          "lienzo": true
+        }
+      ],
+      "assets": [],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b6-subtitulos",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 13.071,
+      "end": 15.108,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Las pistas se apagan hasta quedar una flaca y cae la tira de subtítulos en «ponerle»; sus palabras se llenan en «subtítulos».",
+      "mock": [
+        "dv_linea",
+        {
+          "variant": "subtitulos",
+          "at": [
+            14.147,
+            14.467
+          ],
+          "fondo": "comic",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b7-tijeras",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 15.108,
+      "end": 16.566,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Primer tijeretazo en «cortar»; tres más y el contador a 4 en «4»; queda el muñón en «veces».",
+      "mock": [
+        "dv_linea",
+        {
+          "variant": "tijeras",
+          "at": [
+            15.108,
+            15.589,
+            15.909
+          ],
+          "fondo": "comic",
+          "lienzo": true
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b8-produccion",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 16.566,
+      "end": 19.245,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El muñón se estira a línea de tiempo entera en «edición»; las pistas se apilan en «nivel»; ruedas, osciloscopio y nodos se encienden en «producción».",
+      "mock": [
+        "dv_linea",
+        {
+          "variant": "produccion",
+          "at": [
+            17.047,
+            17.672,
+            18.153
+          ],
+          "fondo": "oscuro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg",
+        "imagenes-9/toma-12.jpg",
+        "imagenes-9/toma-22.jpg",
+        "imagenes-9/toma-38.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b9-enchufe",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 19.245,
+      "end": 21.854,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Del conector brotan dos cables en «enchufas»; uno enchufa en Claude Code y el otro en Codex.",
+      "mock": [
+        "dv_enchufe",
+        {
+          "at": [
+            19.451,
+            20.236,
+            21.438
+          ],
+          "fondo": "claro",
+          "lienzo": true
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b11-pedido",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 24.674,
+      "end": 26.291,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La onda de voz se vuelve la burbuja del pedido, borrosa, en «pides»; cuatro burbujas vacías detrás en «necesites».",
+      "mock": [
+        "dv_pedido",
+        {
+          "at": [
+            24.836,
+            25.337
+          ],
+          "fondo": "claro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b12-color",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 26.291,
+      "end": 27.342,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La página Color: el cangrejo gira las ruedas en «corrige»; la línea barre el clip gris y deja el color en «color».",
+      "mock": [
+        "dv_color",
+        {
+          "at": [
+            26.453,
+            26.857
+          ],
+          "fondo": "claro",
+          "lienzo": true
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-12.jpg",
+        "personajes-9/cangrejo-rueda.png"
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b13-graficos",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 27.342,
+      "end": 29.364,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Pista nueva en «arme»; la forma se arma en «gráficos»; rombos, curva y movimiento en «movimiento».",
+      "mock": [
+        "dv_graficos",
+        {
+          "at": [
+            27.52,
+            27.779,
+            28.361
+          ],
+          "fondo": "claro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-22.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b14-multicam",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 29.364,
+      "end": 30.981,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Rejilla de cuatro ángulos en «corte»; el marco salta 4 veces y clava cortes en «multicámara».",
+      "mock": [
+        "dv_multicam",
+        {
+          "at": [
+            29.606,
+            30.172
+          ],
+          "fondo": "claro",
+          "lienzo": true
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg",
+        "imagenes-9/toma-12.jpg",
+        "imagenes-9/toma-22.jpg",
+        "imagenes-9/toma-38.jpg"
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b15-sonido",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 30.981,
+      "end": 32.436,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "Pista de audio nueva en «meta»; caen tres bloques en «efectos»; dibujan su onda en «sonido».",
+      "mock": [
+        "dv_sonido",
+        {
+          "at": [
+            31.013,
+            31.32,
+            31.789
+          ],
+          "fondo": "claro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg",
+        "imagenes-9/toma-12.jpg",
+        "imagenes-9/toma-22.jpg",
+        "imagenes-9/toma-38.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b16-musica",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 32.436,
+      "end": 34.892,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La música se estira en «calce»; marcadores de compás en «música»; los picos caen en los cortes y la línea late en «montaje».",
+      "mock": [
+        "dv_musica",
+        {
+          "at": [
+            32.679,
+            33.406,
+            33.997
+          ],
+          "fondo": "oscuro",
+          "lienzo": true
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b17-pozo",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 34.892,
+      "end": 36.513,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El clip salta fuera en «falta»; parpadea el cuadro vacío en «plano»; los vecinos se separan en «dos»; el cabezal tropieza y queda trabado en «escenas».",
+      "mock": [
+        "dv_pozo",
+        {
+          "at": [
+            34.984,
+            35.293,
+            35.781,
+            35.96
+          ],
+          "fondo": "comic",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg",
+        "imagenes-9/toma-12.jpg",
+        "imagenes-9/toma-38.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b19-genera",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 37.587,
+      "end": 38.807,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El cangrejo se asoma al cuadro vacío en «Claude»; lo pinta y el plano resuelve del ruido en «genera».",
+      "mock": [
+        "dv_genera",
+        {
+          "at": [
+            37.733,
+            38.172
+          ],
+          "fondo": "oscuro",
+          "lienzo": true
+        }
+      ],
+      "assets": [
+        "imagenes-9/plano.jpg",
+        "personajes-9/cangrejo-asoma.png",
+        "personajes-9/cangrejo-pinta.png"
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b20-encastra",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 38.807,
+      "end": 41.068,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El plano baja al pozo en «deja»; encastra y los vecinos se cierran en «puesto»; el cabezal cruza libre en «tiempo».",
+      "mock": [
+        "dv_encastra",
+        {
+          "at": [
+            39.034,
+            39.441,
+            40.425
+          ],
+          "fondo": "claro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg",
+        "imagenes-9/plano.jpg",
+        "imagenes-9/toma-38.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b22-higgsfield",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 42.85,
+      "end": 46.244,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El tercer cable se enchufa en «algo»; el mosaico se enciende en «genere»; viajan las imágenes en «imágenes»; el logo se estampa en «Higgsfield».",
+      "mock": [
+        "dv_higgsfield",
+        {
+          "at": [
+            43.013,
+            43.486,
+            44.235,
+            45.457
+          ],
+          "fondo": "oscuro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg",
+        "imagenes-9/plano.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b24-editor",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 47.713,
+      "end": 49.311,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "El cangrejo arrastra el cabezal y las pistas se completan en «hace»; la cámara entra al panel en «dentro»; el mosaico de DaVinci se enciende en «editor».",
+      "mock": [
+        "dv_editor",
+        {
+          "at": [
+            48.036,
+            48.342,
+            48.794
+          ],
+          "fondo": "claro",
+          "lienzo": true
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg",
+        "imagenes-9/toma-12.jpg",
+        "imagenes-9/toma-22.jpg",
+        "imagenes-9/toma-38.jpg",
+        "imagenes-9/plano.jpg",
+        "personajes-9/cangrejo-arrastra.png"
+      ],
+      "cap_top": 1400
+    },
+    {
+      "id": "v-b25-guia",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 49.311,
+      "end": 51.183,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "La hoja de guía se despliega en «guía»; el conector del MCP encastra en el primer renglón en «conectarlo».",
+      "mock": [
+        "dv_guia",
+        {
+          "variant": "despliega",
+          "at": [
+            49.956,
+            50.44
+          ],
+          "fondo": "claro",
+          "lienzo": false
+        }
+      ],
+      "assets": [
+        "imagenes-9/toma-2.jpg"
+      ],
+      "band": "top"
+    },
+    {
+      "id": "v-b26-pedidos",
+      "role": "takeover",
+      "kind": "mockup",
+      "start": 51.183,
+      "end": 53.168,
+      "fade_in": 0.0,
+      "fade_out": 0.0,
+      "absolute_times": true,
+      "_": "CLÍMAX: las seis burbujas borrosas se apilan en «pedidos», la onda las recorre y entran en foco una por una en «exactos»; se juntan con la guía en «hago». Única vez que se leen.",
+      "mock": [
+        "dv_guia",
+        {
+          "variant": "pedidos",
+          "at": [
+            51.409,
+            51.828,
+            52.797
+          ],
+          "fondo": "claro",
+          "lienzo": false
+        }
+      ],
+      "assets": [],
+      "band": "top"
+    }
+  ],
+  "sfx": [
+    [
+      0.652,
+      "pop",
+      0.3,
+      "se posa el mosaico de DaVinci"
+    ],
+    [
+      2.415,
+      "whoosh-short",
+      0.25,
+      "el zócalo se desliza"
+    ],
+    [
+      3.47,
+      "click-soft",
+      0.45,
+      "ENCASTRE (hilo): el conector queda puesto"
+    ],
+    [
+      6.608,
+      "chime",
+      0.3,
+      "toca el cero"
+    ],
+    [
+      8.793,
+      "click-soft",
+      0.4,
+      "el empate se fija"
+    ],
+    [
+      15.108,
+      "click-soft",
+      0.28,
+      "tijeretazo 1"
+    ],
+    [
+      15.589,
+      "click-soft",
+      0.28,
+      "tijeretazo 2"
+    ],
+    [
+      15.769,
+      "click-soft",
+      0.28,
+      "tijeretazo 3"
+    ],
+    [
+      15.949,
+      "click-soft",
+      0.28,
+      "tijeretazo 4"
+    ],
+    [
+      17.047,
+      "whoosh",
+      0.25,
+      "el muñón se estira"
+    ],
+    [
+      18.153,
+      "sparkle",
+      0.3,
+      "el panel entero se enciende"
+    ],
+    [
+      20.236,
+      "click-soft",
+      0.4,
+      "enchufe Claude Code"
+    ],
+    [
+      21.438,
+      "click-soft",
+      0.4,
+      "enchufe Codex"
+    ],
+    [
+      24.836,
+      "pop",
+      0.3,
+      "la burbuja del pedido"
+    ],
+    [
+      26.857,
+      "whoosh",
+      0.25,
+      "el barrido de color"
+    ],
+    [
+      28.361,
+      "pop",
+      0.2,
+      "fotogramas clave 1–2"
+    ],
+    [
+      28.601,
+      "pop",
+      0.2,
+      "fotogramas clave 3–4"
+    ],
+    [
+      30.172,
+      "click-soft",
+      0.22,
+      "salto de ángulo 1"
+    ],
+    [
+      30.392,
+      "click-soft",
+      0.22,
+      "salto de ángulo 2"
+    ],
+    [
+      30.612,
+      "click-soft",
+      0.22,
+      "salto de ángulo 3"
+    ],
+    [
+      30.832,
+      "click-soft",
+      0.22,
+      "salto de ángulo 4"
+    ],
+    [
+      31.789,
+      "whoosh-short",
+      0.3,
+      "efecto 1"
+    ],
+    [
+      31.949,
+      "pop",
+      0.3,
+      "efecto 2"
+    ],
+    [
+      32.109,
+      "sparkle",
+      0.3,
+      "efecto 3"
+    ],
+    [
+      33.997,
+      "chime",
+      0.3,
+      "calza: la línea late"
+    ],
+    [
+      34.984,
+      "whoosh-short",
+      0.25,
+      "el clip salta"
+    ],
+    [
+      35.96,
+      "click-soft",
+      0.25,
+      "el cabezal tropieza en el pozo"
+    ],
+    [
+      39.172,
+      "sparkle",
+      0.3,
+      "el plano queda nítido"
+    ],
+    [
+      39.441,
+      "click-soft",
+      0.4,
+      "encastre del plano"
+    ],
+    [
+      40.425,
+      "whoosh",
+      0.22,
+      "el cabezal corre libre"
+    ],
+    [
+      43.013,
+      "click-soft",
+      0.35,
+      "el tercer cable hace clic"
+    ],
+    [
+      45.457,
+      "sparkle",
+      0.3,
+      "el logo se estampa con resplandor"
+    ],
+    [
+      48.794,
+      "sparkle",
+      0.28,
+      "todo puesto"
+    ],
+    [
+      49.956,
+      "whoosh",
+      0.22,
+      "despliegue de acordeón"
+    ],
+    [
+      50.69,
+      "click-soft",
+      0.45,
+      "ENCASTRE (hilo): el mismo conector del gancho"
+    ],
+    [
+      51.828,
+      "whoosh",
+      0.22,
+      "la onda que recorre"
+    ],
+    [
+      51.978,
+      "click-soft",
+      0.2,
+      "enfoque 1–2"
+    ],
+    [
+      52.298,
+      "click-soft",
+      0.2,
+      "enfoque 3–4"
+    ],
+    [
+      52.618,
+      "click-soft",
+      0.2,
+      "enfoque 5–6"
+    ],
+    [
+      53.829,
+      "pop",
+      0.4,
+      "aterriza MONTAJE"
+    ]
+  ],
+  "cta_palabra": {
+    "texto": "MONTAJE",
+    "desde": 53.829,
+    "hasta": null
+  }
+}

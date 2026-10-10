@@ -1,0 +1,1223 @@
+{
+  "id": "2c8ea2a1-43d0-4851-8afc-a03333eaa957",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/12dbfa26c3005a8675504a45d3cc8c6ebfd344f8c63c06fa6021e1ed1cceea00/846c3b05-3124-4339-9a5b-3db2831cf7be",
+  "text": "DaVinci Resolve acaba de sacar su servidor MCP oficial. Y sí, es el editor gratis que pelea de igual a igual con Premiere Pro. Traducido: Claude ya puede editarte los vídeos. Y no hablamos de ponerle subtítulos y cortar 4 veces, hablamos de edición de nivel de producción. Lo enchufas a Claude Code o a Codex y maneja la línea de tiempo hablándole. Le pides lo que necesites, que corrige el color, que arme gráficos en movimiento, que corte en multicámara, que meta efectos de sonido o que calce la música con el montaje. ¿Te falta un plano entre dos escenas? Se lo pides y Claude lo genera y lo deja puesto en la línea de tiempo, siempre que lo tengas conectado a algo que genere imágenes como Higgsfield. Tú decides qué quieres y él lo hace dentro del editor. Si quieres la guía para conectarlo y los pedidos exactos que le hago, comenta montaje y te lo mando por privado.",
+  "words": [
+    {
+      "text": "DaVinci",
+      "start": 1308,
+      "end": 1810,
+      "confidence": 0.9994335,
+      "speaker": null
+    },
+    {
+      "text": "Resolve",
+      "start": 1810,
+      "end": 2547,
+      "confidence": 0.99998987,
+      "speaker": null
+    },
+    {
+      "text": "acaba",
+      "start": 2595,
+      "end": 2980,
+      "confidence": 0.9999615,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 2980,
+      "end": 3092,
+      "confidence": 0.99999046,
+      "speaker": null
+    },
+    {
+      "text": "sacar",
+      "start": 3092,
+      "end": 3445,
+      "confidence": 0.9999643,
+      "speaker": null
+    },
+    {
+      "text": "su",
+      "start": 3461,
+      "end": 3573,
+      "confidence": 0.99983096,
+      "speaker": null
+    },
+    {
+      "text": "servidor",
+      "start": 3573,
+      "end": 4230,
+      "confidence": 0.99969935,
+      "speaker": null
+    },
+    {
+      "text": "MCP",
+      "start": 4278,
+      "end": 4823,
+      "confidence": 0.9966626,
+      "speaker": null
+    },
+    {
+      "text": "oficial.",
+      "start": 4919,
+      "end": 5432,
+      "confidence": 0.802639,
+      "speaker": null
+    },
+    {
+      "text": "Y",
+      "start": 5881,
+      "end": 5945,
+      "confidence": 0.99959403,
+      "speaker": null
+    },
+    {
+      "text": "sí,",
+      "start": 5945,
+      "end": 6105,
+      "confidence": 0.9998348,
+      "speaker": null
+    },
+    {
+      "text": "es",
+      "start": 6522,
+      "end": 6602,
+      "confidence": 0.9989778,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 6602,
+      "end": 6682,
+      "confidence": 0.9999,
+      "speaker": null
+    },
+    {
+      "text": "editor",
+      "start": 6682,
+      "end": 7066,
+      "confidence": 0.99999464,
+      "speaker": null
+    },
+    {
+      "text": "gratis",
+      "start": 7066,
+      "end": 7467,
+      "confidence": 0.9997447,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 7467,
+      "end": 7627,
+      "confidence": 0.99989736,
+      "speaker": null
+    },
+    {
+      "text": "pelea",
+      "start": 7627,
+      "end": 7948,
+      "confidence": 0.9999637,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 7980,
+      "end": 8108,
+      "confidence": 0.9999366,
+      "speaker": null
+    },
+    {
+      "text": "igual",
+      "start": 8124,
+      "end": 8444,
+      "confidence": 0.9999912,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 8444,
+      "end": 8460,
+      "confidence": 0.9999889,
+      "speaker": null
+    },
+    {
+      "text": "igual",
+      "start": 8460,
+      "end": 8893,
+      "confidence": 0.99999917,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 9150,
+      "end": 9326,
+      "confidence": 0.99975675,
+      "speaker": null
+    },
+    {
+      "text": "Premiere",
+      "start": 9550,
+      "end": 9919,
+      "confidence": 0.9995153,
+      "speaker": null
+    },
+    {
+      "text": "Pro.",
+      "start": 9951,
+      "end": 10079,
+      "confidence": 0.9998687,
+      "speaker": null
+    },
+    {
+      "text": "Traducido:",
+      "start": 10432,
+      "end": 11153,
+      "confidence": 0.8686466,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 11553,
+      "end": 11954,
+      "confidence": 0.4701801,
+      "speaker": null
+    },
+    {
+      "text": "ya",
+      "start": 11954,
+      "end": 12114,
+      "confidence": 0.99919754,
+      "speaker": null
+    },
+    {
+      "text": "puede",
+      "start": 12114,
+      "end": 12354,
+      "confidence": 0.9995807,
+      "speaker": null
+    },
+    {
+      "text": "editarte",
+      "start": 12451,
+      "end": 13076,
+      "confidence": 0.99996,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 13076,
+      "end": 13236,
+      "confidence": 0.9997842,
+      "speaker": null
+    },
+    {
+      "text": "vídeos.",
+      "start": 13236,
+      "end": 13829,
+      "confidence": 0.7601021,
+      "speaker": null
+    },
+    {
+      "text": "Y",
+      "start": 14644,
+      "end": 14758,
+      "confidence": 0.99986076,
+      "speaker": null
+    },
+    {
+      "text": "no",
+      "start": 14758,
+      "end": 14918,
+      "confidence": 0.99995255,
+      "speaker": null
+    },
+    {
+      "text": "hablamos",
+      "start": 15255,
+      "end": 15559,
+      "confidence": 0.9990203,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 15559,
+      "end": 15720,
+      "confidence": 0.9999932,
+      "speaker": null
+    },
+    {
+      "text": "ponerle",
+      "start": 15720,
+      "end": 16008,
+      "confidence": 0.99983025,
+      "speaker": null
+    },
+    {
+      "text": "subtítulos",
+      "start": 16040,
+      "end": 16617,
+      "confidence": 0.99185085,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 16617,
+      "end": 16681,
+      "confidence": 0.99974376,
+      "speaker": null
+    },
+    {
+      "text": "cortar",
+      "start": 16681,
+      "end": 17066,
+      "confidence": 0.9997648,
+      "speaker": null
+    },
+    {
+      "text": "4",
+      "start": 17162,
+      "end": 17482,
+      "confidence": 0.99995863,
+      "speaker": null
+    },
+    {
+      "text": "veces,",
+      "start": 17482,
+      "end": 17755,
+      "confidence": 0.99862117,
+      "speaker": null
+    },
+    {
+      "text": "hablamos",
+      "start": 18139,
+      "end": 18476,
+      "confidence": 0.9999774,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 18476,
+      "end": 18604,
+      "confidence": 0.9999962,
+      "speaker": null
+    },
+    {
+      "text": "edición",
+      "start": 18620,
+      "end": 19165,
+      "confidence": 0.9999896,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 19165,
+      "end": 19245,
+      "confidence": 0.99893993,
+      "speaker": null
+    },
+    {
+      "text": "nivel",
+      "start": 19245,
+      "end": 19550,
+      "confidence": 0.99994814,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 19566,
+      "end": 19678,
+      "confidence": 0.9999796,
+      "speaker": null
+    },
+    {
+      "text": "producción.",
+      "start": 19726,
+      "end": 20255,
+      "confidence": 0.9999223,
+      "speaker": null
+    },
+    {
+      "text": "Lo",
+      "start": 20818,
+      "end": 21024,
+      "confidence": 0.9998387,
+      "speaker": null
+    },
+    {
+      "text": "enchufas",
+      "start": 21024,
+      "end": 21665,
+      "confidence": 0.99997216,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 21665,
+      "end": 21809,
+      "confidence": 0.998531,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 21809,
+      "end": 22129,
+      "confidence": 0.9738568,
+      "speaker": null
+    },
+    {
+      "text": "Code",
+      "start": 22129,
+      "end": 22738,
+      "confidence": 0.9913953,
+      "speaker": null
+    },
+    {
+      "text": "o",
+      "start": 22787,
+      "end": 22819,
+      "confidence": 0.99816704,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 22867,
+      "end": 23011,
+      "confidence": 0.9997719,
+      "speaker": null
+    },
+    {
+      "text": "Codex",
+      "start": 23011,
+      "end": 23363,
+      "confidence": 0.96654147,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 23427,
+      "end": 23492,
+      "confidence": 0.9997328,
+      "speaker": null
+    },
+    {
+      "text": "maneja",
+      "start": 23492,
+      "end": 23972,
+      "confidence": 0.99631035,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 23972,
+      "end": 24133,
+      "confidence": 0.9999168,
+      "speaker": null
+    },
+    {
+      "text": "línea",
+      "start": 24133,
+      "end": 24405,
+      "confidence": 0.9999949,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 24405,
+      "end": 24645,
+      "confidence": 0.9996953,
+      "speaker": null
+    },
+    {
+      "text": "tiempo",
+      "start": 24693,
+      "end": 25094,
+      "confidence": 0.9999858,
+      "speaker": null
+    },
+    {
+      "text": "hablándole.",
+      "start": 25350,
+      "end": 25847,
+      "confidence": 0.9995544,
+      "speaker": null
+    },
+    {
+      "text": "Le",
+      "start": 27200,
+      "end": 27362,
+      "confidence": 0.98938876,
+      "speaker": null
+    },
+    {
+      "text": "pides",
+      "start": 27362,
+      "end": 27620,
+      "confidence": 0.99969476,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 27620,
+      "end": 27766,
+      "confidence": 0.99995244,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 27766,
+      "end": 27863,
+      "confidence": 0.9999962,
+      "speaker": null
+    },
+    {
+      "text": "necesites,",
+      "start": 27863,
+      "end": 28607,
+      "confidence": 0.827465,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 28817,
+      "end": 28979,
+      "confidence": 0.9998946,
+      "speaker": null
+    },
+    {
+      "text": "corrige",
+      "start": 28979,
+      "end": 29318,
+      "confidence": 0.89302385,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 29318,
+      "end": 29383,
+      "confidence": 0.9999418,
+      "speaker": null
+    },
+    {
+      "text": "color,",
+      "start": 29383,
+      "end": 29836,
+      "confidence": 0.9999696,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 29868,
+      "end": 30046,
+      "confidence": 0.99994636,
+      "speaker": null
+    },
+    {
+      "text": "arme",
+      "start": 30046,
+      "end": 30305,
+      "confidence": 0.999925,
+      "speaker": null
+    },
+    {
+      "text": "gráficos",
+      "start": 30305,
+      "end": 30855,
+      "confidence": 0.999978,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 30855,
+      "end": 30887,
+      "confidence": 0.9997644,
+      "speaker": null
+    },
+    {
+      "text": "movimiento,",
+      "start": 30887,
+      "end": 31647,
+      "confidence": 0.9999691,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 31890,
+      "end": 32132,
+      "confidence": 0.9999639,
+      "speaker": null
+    },
+    {
+      "text": "corte",
+      "start": 32132,
+      "end": 32553,
+      "confidence": 0.99992836,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 32553,
+      "end": 32650,
+      "confidence": 0.9988722,
+      "speaker": null
+    },
+    {
+      "text": "multicámara,",
+      "start": 32698,
+      "end": 33393,
+      "confidence": 0.9999391,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 33507,
+      "end": 33539,
+      "confidence": 0.9999634,
+      "speaker": null
+    },
+    {
+      "text": "meta",
+      "start": 33539,
+      "end": 33830,
+      "confidence": 0.9816348,
+      "speaker": null
+    },
+    {
+      "text": "efectos",
+      "start": 33846,
+      "end": 34234,
+      "confidence": 0.999993,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 34234,
+      "end": 34315,
+      "confidence": 0.99999297,
+      "speaker": null
+    },
+    {
+      "text": "sonido",
+      "start": 34315,
+      "end": 34719,
+      "confidence": 0.9999972,
+      "speaker": null
+    },
+    {
+      "text": "o",
+      "start": 34816,
+      "end": 34849,
+      "confidence": 0.887397,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 34962,
+      "end": 35172,
+      "confidence": 0.9999919,
+      "speaker": null
+    },
+    {
+      "text": "calce",
+      "start": 35205,
+      "end": 35771,
+      "confidence": 0.9997212,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 35771,
+      "end": 35819,
+      "confidence": 0.9999596,
+      "speaker": null
+    },
+    {
+      "text": "música",
+      "start": 35932,
+      "end": 36257,
+      "confidence": 0.99999595,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 36257,
+      "end": 36452,
+      "confidence": 0.99996877,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 36452,
+      "end": 36505,
+      "confidence": 0.99998975,
+      "speaker": null
+    },
+    {
+      "text": "montaje.",
+      "start": 36523,
+      "end": 37018,
+      "confidence": 0.9999507,
+      "speaker": null
+    },
+    {
+      "text": "¿Te",
+      "start": 39060,
+      "end": 39152,
+      "confidence": 0.88721263,
+      "speaker": null
+    },
+    {
+      "text": "falta",
+      "start": 39152,
+      "end": 39396,
+      "confidence": 0.9999225,
+      "speaker": null
+    },
+    {
+      "text": "un",
+      "start": 39396,
+      "end": 39461,
+      "confidence": 0.99998844,
+      "speaker": null
+    },
+    {
+      "text": "plano",
+      "start": 39461,
+      "end": 39721,
+      "confidence": 0.9999982,
+      "speaker": null
+    },
+    {
+      "text": "entre",
+      "start": 39721,
+      "end": 39949,
+      "confidence": 0.99997175,
+      "speaker": null
+    },
+    {
+      "text": "dos",
+      "start": 39949,
+      "end": 40128,
+      "confidence": 0.8550871,
+      "speaker": null
+    },
+    {
+      "text": "escenas?",
+      "start": 40128,
+      "end": 40486,
+      "confidence": 0.99999374,
+      "speaker": null
+    },
+    {
+      "text": "Se",
+      "start": 40681,
+      "end": 40925,
+      "confidence": 0.9996357,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 40925,
+      "end": 41088,
+      "confidence": 0.9999765,
+      "speaker": null
+    },
+    {
+      "text": "pides",
+      "start": 41088,
+      "end": 41543,
+      "confidence": 0.9999952,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 41755,
+      "end": 41901,
+      "confidence": 0.9984994,
+      "speaker": null
+    },
+    {
+      "text": "Claude",
+      "start": 41901,
+      "end": 42226,
+      "confidence": 0.854167,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 42226,
+      "end": 42340,
+      "confidence": 0.9997197,
+      "speaker": null
+    },
+    {
+      "text": "genera",
+      "start": 42340,
+      "end": 42796,
+      "confidence": 0.99999225,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 42975,
+      "end": 43040,
+      "confidence": 0.9994504,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 43040,
+      "end": 43202,
+      "confidence": 0.999895,
+      "speaker": null
+    },
+    {
+      "text": "deja",
+      "start": 43202,
+      "end": 43609,
+      "confidence": 0.99998295,
+      "speaker": null
+    },
+    {
+      "text": "puesto",
+      "start": 43609,
+      "end": 43886,
+      "confidence": 0.9999795,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 43886,
+      "end": 43951,
+      "confidence": 0.9999908,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 44016,
+      "end": 44097,
+      "confidence": 0.99995816,
+      "speaker": null
+    },
+    {
+      "text": "línea",
+      "start": 44097,
+      "end": 44455,
+      "confidence": 0.999985,
+      "speaker": null
+    },
+    {
+      "text": "de",
+      "start": 44455,
+      "end": 44593,
+      "confidence": 0.99990964,
+      "speaker": null
+    },
+    {
+      "text": "tiempo,",
+      "start": 44593,
+      "end": 45008,
+      "confidence": 0.9963329,
+      "speaker": null
+    },
+    {
+      "text": "siempre",
+      "start": 45236,
+      "end": 45699,
+      "confidence": 0.99999404,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 45699,
+      "end": 45780,
+      "confidence": 0.99960035,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 45780,
+      "end": 45943,
+      "confidence": 0.99989223,
+      "speaker": null
+    },
+    {
+      "text": "tengas",
+      "start": 45943,
+      "end": 46269,
+      "confidence": 0.99998087,
+      "speaker": null
+    },
+    {
+      "text": "conectado",
+      "start": 46269,
+      "end": 47018,
+      "confidence": 0.9999911,
+      "speaker": null
+    },
+    {
+      "text": "a",
+      "start": 47018,
+      "end": 47083,
+      "confidence": 0.9999795,
+      "speaker": null
+    },
+    {
+      "text": "algo",
+      "start": 47181,
+      "end": 47409,
+      "confidence": 0.99995947,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 47491,
+      "end": 47572,
+      "confidence": 0.99998355,
+      "speaker": null
+    },
+    {
+      "text": "genere",
+      "start": 47654,
+      "end": 48093,
+      "confidence": 0.9999514,
+      "speaker": null
+    },
+    {
+      "text": "imágenes",
+      "start": 48403,
+      "end": 49038,
+      "confidence": 0.9999926,
+      "speaker": null
+    },
+    {
+      "text": "como",
+      "start": 49038,
+      "end": 49364,
+      "confidence": 0.99438804,
+      "speaker": null
+    },
+    {
+      "text": "Higgsfield.",
+      "start": 49625,
+      "end": 50012,
+      "confidence": 0.823908,
+      "speaker": null
+    },
+    {
+      "text": "Tú",
+      "start": 51908,
+      "end": 51989,
+      "confidence": 0.990011,
+      "speaker": null
+    },
+    {
+      "text": "decides",
+      "start": 51989,
+      "end": 52473,
+      "confidence": 0.99997616,
+      "speaker": null
+    },
+    {
+      "text": "qué",
+      "start": 52473,
+      "end": 52554,
+      "confidence": 0.9998596,
+      "speaker": null
+    },
+    {
+      "text": "quieres",
+      "start": 52635,
+      "end": 53167,
+      "confidence": 0.9999244,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 53377,
+      "end": 53458,
+      "confidence": 0.99851316,
+      "speaker": null
+    },
+    {
+      "text": "él",
+      "start": 53458,
+      "end": 53555,
+      "confidence": 0.9998356,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 53603,
+      "end": 53700,
+      "confidence": 0.9999156,
+      "speaker": null
+    },
+    {
+      "text": "hace",
+      "start": 53700,
+      "end": 54006,
+      "confidence": 0.9999784,
+      "speaker": null
+    },
+    {
+      "text": "dentro",
+      "start": 54006,
+      "end": 54361,
+      "confidence": 0.99980754,
+      "speaker": null
+    },
+    {
+      "text": "del",
+      "start": 54361,
+      "end": 54458,
+      "confidence": 0.9999397,
+      "speaker": null
+    },
+    {
+      "text": "editor.",
+      "start": 54458,
+      "end": 54862,
+      "confidence": 0.99966043,
+      "speaker": null
+    },
+    {
+      "text": "Si",
+      "start": 54975,
+      "end": 55136,
+      "confidence": 0.9992888,
+      "speaker": null
+    },
+    {
+      "text": "quieres",
+      "start": 55136,
+      "end": 55459,
+      "confidence": 0.9998913,
+      "speaker": null
+    },
+    {
+      "text": "la",
+      "start": 55459,
+      "end": 55620,
+      "confidence": 0.9997297,
+      "speaker": null
+    },
+    {
+      "text": "guía",
+      "start": 55620,
+      "end": 55862,
+      "confidence": 0.9999838,
+      "speaker": null
+    },
+    {
+      "text": "para",
+      "start": 55862,
+      "end": 56104,
+      "confidence": 0.99970967,
+      "speaker": null
+    },
+    {
+      "text": "conectarlo",
+      "start": 56104,
+      "end": 56750,
+      "confidence": 0.9960378,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 56847,
+      "end": 56911,
+      "confidence": 0.9996761,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 56911,
+      "end": 57073,
+      "confidence": 0.99987805,
+      "speaker": null
+    },
+    {
+      "text": "pedidos",
+      "start": 57073,
+      "end": 57492,
+      "confidence": 0.99997973,
+      "speaker": null
+    },
+    {
+      "text": "exactos",
+      "start": 57492,
+      "end": 58122,
+      "confidence": 0.9999906,
+      "speaker": null
+    },
+    {
+      "text": "que",
+      "start": 58122,
+      "end": 58283,
+      "confidence": 0.9997943,
+      "speaker": null
+    },
+    {
+      "text": "le",
+      "start": 58283,
+      "end": 58461,
+      "confidence": 0.9998772,
+      "speaker": null
+    },
+    {
+      "text": "hago,",
+      "start": 58461,
+      "end": 58654,
+      "confidence": 0.9999515,
+      "speaker": null
+    },
+    {
+      "text": "comenta",
+      "start": 59009,
+      "end": 59493,
+      "confidence": 0.99995214,
+      "speaker": null
+    },
+    {
+      "text": "montaje",
+      "start": 59493,
+      "end": 60058,
+      "confidence": 0.99958396,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 60317,
+      "end": 60381,
+      "confidence": 0.9991574,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 60381,
+      "end": 60462,
+      "confidence": 0.9999305,
+      "speaker": null
+    },
+    {
+      "text": "lo",
+      "start": 60462,
+      "end": 60575,
+      "confidence": 0.99933666,
+      "speaker": null
+    },
+    {
+      "text": "mando",
+      "start": 60575,
+      "end": 60752,
+      "confidence": 0.9999011,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 60865,
+      "end": 61027,
+      "confidence": 0.999861,
+      "speaker": null
+    },
+    {
+      "text": "privado.",
+      "start": 61027,
+      "end": 62237,
+      "confidence": 0.9997776,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.98612016,
+  "audio_duration": 65,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}
