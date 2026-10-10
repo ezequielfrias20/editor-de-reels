@@ -26,7 +26,7 @@ otros): sin nadie mirando, lo único que sale a la red es `transcribe.py` (Assem
 **La doctrina es la del `CLAUDE.md` de este proyecto** y se aplica completa: tres formatos en REEL
 (`cara`, `partida`, `grafico`, §4 y `references/formatos.md` de la skill video-tech-premium),
 mostrar sin escribir (§7), la banda de arriba de `partida` nunca vacía, nada entra antes de su palabra, cambio
-de formato o de visual cada 1–3 s, logo de cada herramienta que se nombra, los gates de `build-composition.py`, sonido (§12),
+de formato o de visual cada 1–3 s, logo de cada herramienta que se nombra, los gates de `build-composition.py`, sonido (§12: sin `glitch`, efectos blandos y pocos, voz limpia),
 color si es HDR (§8), trampas del renderer (§9). Léelo antes de escribir la propuesta o el
 plan. Esta skill solo dice el ORDEN y los ARCHIVOS de una pieza del dashboard.
 
@@ -140,7 +140,8 @@ componente en `references/visuals.md`.
    "hasta": null}` con `desde` en la palabra, en segundos de la versión. El CTA va en `cara`
    (encuadre `full`): sobre un encuadre `band` la compilación para.
 6. Por cada versión: `.venv/bin/python scripts/armar-version.py plan --piece <n> --plataforma <p>` →
-   color e `input-video.mp4` como dice §8 (con `out/<n>-<p>-rough.mp4`) →
+   `.venv/bin/python scripts/input-video.py --piece <n> --plataforma <p>` (voz limpia, §12; con
+   `--lut` si la fuente es HDR, §8) →
    `.venv/bin/python scripts/build-composition.py --project . --piece <n>-<p>` →
    `.venv/bin/python scripts/renderizar-version.py --piece <n> --plataforma <p> --version 1`.
    Si un gate falla, corrige `plan-cuerpo.json` o `plan-cta-<p>.json` y repite desde

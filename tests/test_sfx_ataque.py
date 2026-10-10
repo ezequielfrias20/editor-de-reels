@@ -106,3 +106,17 @@ def test_ningun_efecto_de_la_18_queda_con_start_negativo(fixtures_root, project_
     for s in re.findall(r'<audio[^>]*class="clip"[^>]*data-start="(-?[\d.]+)"',
                         idx.read_text()):
         assert float(s) >= 0.0
+
+
+@pytest.mark.parametrize("name", ["glitch-1", "glitch-2", "glitch-3"])
+def test_los_efectos_glitch_estan_vetados(bc, monkeypatch, tmp_path, name):
+    """Ezequiel (2026-10-10, pieza 9): el `glitch` le suena feo y no va en ninguna pieza.
+
+    El veto es de la compilación, no de la memoria de quien escribe el plan: un plan que
+    lo pida para con el nombre del efecto.
+    """
+    monkeypatch.setattr(bc, "SFX", [(1.0, name, .3, "motor trabado")], raising=False)
+    monkeypatch.setattr(bc, "PIECE", "prueba", raising=False)
+    monkeypatch.setattr(bc, "PUB", tmp_path, raising=False)
+    with pytest.raises(SystemExit, match=name):
+        bc.build_sfx(10.0)

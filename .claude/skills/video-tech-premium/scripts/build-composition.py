@@ -1042,6 +1042,11 @@ def _measure(path, cache={}):
 # tiempos por ruido de medición.
 SFX_LEAD_MIN = 0.030
 
+# Efectos VETADOS por Ezequiel (2026-10-10, pieza 9): el `glitch-2` como «motor trabado»
+# le sonó feo y pidió no volver a usarlo en ninguna pieza. Se veta la familia entera: los
+# tres son el mismo ruido digital destemplado. Un plan que los pida no compila.
+SFX_VETADOS = {"glitch-1", "glitch-2", "glitch-3"}
+
 
 def _lead_in(path, cache={}):
     """Cuánto SILENCIO trae un efecto antes de sonar de verdad.
@@ -1101,6 +1106,11 @@ def build_sfx(dur):
 
     els, lanes = [], []
     compensados, tarde = 0, []
+    vetados = sorted({name for _, name, _, _ in SFX if name in SFX_VETADOS})
+    if vetados:
+        sys.exit(f"{PIECE}: efectos vetados en el plan: {', '.join(vetados)} "
+                 "(Ezequiel no quiere el ruido digital `glitch` en ninguna pieza; "
+                 "§12 del CLAUDE.md)")
     for start, name, trim, why in sorted(SFX):
         src = src_dir / f"{name}.mp3"
         if not src.exists():

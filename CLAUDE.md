@@ -1722,6 +1722,29 @@ Tres capas y una jerarquía que no se negocia: **la voz manda siempre**.
 voz  pista 10   ·   música  pista 11   ·   efectos  pista 12+
 ```
 
+### Efectos vetados y paleta blanda (Ezequiel, 2026-10-10)
+
+⚠ **Los `glitch-1`, `glitch-2` y `glitch-3` están VETADOS en todas las piezas.** En la pieza 9
+el `glitch-2` como «motor trabado» (dos veces, 3,5 s cada una) le sonó feo. `build_sfx` para
+la compilación si un plan los pide (`SFX_VETADOS`). Un «cabezal que se traba» se marca con
+un `click-soft` o con silencio.
+
+Y la mezcla tiene que sonar **agradable y armoniosa, no dura**: efectos cortos y blandos
+(`pop`, `click-soft`, `whoosh`, `whoosh-short`, `sparkle`, `chime`) a `sfx_target_mean`
+−29; nada de golpes graves (`impact-bass-*`) como relleno, ni de efectos largos que suenan
+enteros por debajo de la voz (`riser` 10 s, `whoosh-cinematic` 5,5 s), ni `typing`. Pocos:
+la pieza 9 pasó de 62 efectos en 57 s a 39, y aun así es la cota alta.
+
+### La voz se limpia — `input-video.py`
+
+La voz del iPhone llega comprimida (~4 LU de rango), tocando 0 dBFS y con la presencia de
+3–4 kHz adelante: a Ezequiel le sonó «muy dura» (pieza 9). **El `input-video.mp4` de cada
+versión se arma SIEMPRE con `scripts/input-video.py --piece <n> --plataforma <p>`** (con
+`--lut` si la fuente es HDR, §8), que aplica: `highpass` 75 Hz, `afftdn` leve, `deesser`,
+−3 dB en 3,2 kHz, +1,5 dB en 190 Hz, −1,5 dB sobre 9 kHz, ganancia medida a −17 LUFS (el
+nivel que trae, así el balance de §12 no cambia) y `alimiter` a −1,5 dBFS. No comprime más:
+la toma ya viene aplastada. Imprime LUFS, LRA y pico antes y después.
+
 ### El efecto marca algo que pasa en imagen
 
 No hay relleno ambiental. Si no puedes señalar en el frame qué marca ese efecto, sobra.
