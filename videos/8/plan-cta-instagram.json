@@ -1,0 +1,26 @@
+{
+ "_": "CTA de Instagram dicho a cámara: «comenta plugin y te lo mando por privado». En segundos de la VERSIÓN, desde 62.087. Cierra en cara (trampa 6c: el último cuadro es la cara con PLUGIN puesta).",
+ "_palabra": "La palabra es PLUGIN. Configurar el disparador de ManyChat con PLUGIN. La caja de comentarios del brief no se dibuja: el CTA va en cara, mismo criterio que las piezas 4–6.",
+ "shots": [
+  {
+   "at": 62.087,
+   "kind": "full",
+   "zoom": 1.09,
+   "anchor": 0.46
+  }
+ ],
+ "visuals": [],
+ "cta_palabra": {
+  "texto": "PLUGIN",
+  "desde": 63.004,
+  "hasta": null
+ },
+ "sfx": [
+  [
+   63.004,
+   "pop",
+   0.6,
+   "aterriza PLUGIN"
+  ]
+ ]
+}

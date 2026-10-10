@@ -1,0 +1,26 @@
+{
+  "source_duration": 4.89576,
+  "final_duration": 2.965,
+  "removed": 1.9307600000000003,
+  "cuts": [
+    {
+      "start": 0.0,
+      "end": 0.437,
+      "dur": 0.437,
+      "reason": "cabeza muerta"
+    },
+    {
+      "start": 3.402,
+      "end": 4.896,
+      "dur": 1.494,
+      "reason": "cola muerta"
+    }
+  ],
+  "keeps": [
+    {
+      "start": 0.437,
+      "end": 3.402,
+      "dur": 2.965
+    }
+  ]
+}

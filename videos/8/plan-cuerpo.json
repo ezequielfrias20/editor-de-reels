@@ -1,0 +1,1327 @@
+{
+ "_": "Pieza 8 — «Codex dentro de Claude Code: Claude decide y Codex lo hace». Plan del CUERPO en segundos del corte (0 → 62.087, donde arranca el CTA dicho a cámara en «comenta»). Lo escribe videos/8/armar-plan.py.",
+ "_brief": "Brief de plan-edicion (Reels/plan-edicion/planes/2026-10-08-1001.md) respetado en estructura, formatos y anclas. Ezequiel (2026-10-09): personajes de Higgsfield (assets/personajes-8/), interfaces recreadas, comandos legibles solo en el clímax.",
+ "_cara": "Los momentos `cara` del brief con un visual «en una esquina» van a cara pelada: el formato cara no lleva visual encima (references/formatos.md), mismo criterio que las piezas 4–6.",
+ "_fondos": "El compilador pinta el suelo `claro`; cada componente pinta su escena `oscuro` o `comic` con su propio suelo (spec 2026-10-09-pieza-8-componentes).",
+ "_musica": "El brief pide cortes de música (en «Se acabó» y de «No hay tercer intento» a «Así de simple»): el compilador solo hace fundidos de entrada y salida, así que la cama sigue debajo.",
+ "_fuente": "cuerpo.MOV 1080×1920 SDR: sin LUT. El audio arrancaba 83 ms tarde: out/8-fuente.mov lo rellena desde 0 (aresample first_pts=0).",
+ "format": "REEL",
+ "palette": "claro",
+ "layout": {
+  "mode": "formatos"
+ },
+ "voice_gain": 0.7,
+ "music": {
+  "src": "assets/music/bed-tech.mp3",
+  "fade_in": 1.0,
+  "fade_out": 2.4,
+  "target_mean": -34.0
+ },
+ "keywords": [
+  "piensa",
+  "ejecuta",
+  "plan",
+  "gratis",
+  "minuto",
+  "comandos",
+  "catálogo",
+  "plugin",
+  "nuevos",
+  "consume",
+  "causa",
+  "nada",
+  "solución",
+  "CLAUDE.md",
+  "construye",
+  "2",
+  "tercer",
+  "exactos"
+ ],
+ "shots": [
+  {
+   "at": 0.0,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 1.127,
+   "kind": "off"
+  },
+  {
+   "at": 2.608,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 4.057,
+   "kind": "off"
+  },
+  {
+   "at": 5.075,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 6.443,
+   "kind": "off"
+  },
+  {
+   "at": 7.649,
+   "kind": "full",
+   "zoom": 1.12,
+   "anchor": 0.46
+  },
+  {
+   "at": 8.838,
+   "kind": "off"
+  },
+  {
+   "at": 11.186,
+   "kind": "full",
+   "zoom": 1.09,
+   "anchor": 0.46
+  },
+  {
+   "at": 12.888,
+   "kind": "full",
+   "zoom": 1.15,
+   "anchor": 0.46
+  },
+  {
+   "at": 14.868,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 17.177,
+   "kind": "off"
+  },
+  {
+   "at": 19.944,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 21.528,
+   "kind": "off"
+  },
+  {
+   "at": 23.502,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 25.692,
+   "kind": "off"
+  },
+  {
+   "at": 27.019,
+   "kind": "full",
+   "zoom": 1.09,
+   "anchor": 0.46
+  },
+  {
+   "at": 29.988,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 32.156,
+   "kind": "off"
+  },
+  {
+   "at": 34.444,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 37.454,
+   "kind": "off"
+  },
+  {
+   "at": 39.38,
+   "kind": "full",
+   "zoom": 1.09,
+   "anchor": 0.46
+  },
+  {
+   "at": 41.096,
+   "kind": "full",
+   "zoom": 1.15,
+   "anchor": 0.46
+  },
+  {
+   "at": 43.668,
+   "kind": "off"
+  },
+  {
+   "at": 46.939,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 48.544,
+   "kind": "off"
+  },
+  {
+   "at": 49.443,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 50.712,
+   "kind": "off"
+  },
+  {
+   "at": 52.176,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 53.77,
+   "kind": "full",
+   "zoom": 1.15,
+   "anchor": 0.46
+  },
+  {
+   "at": 55.184,
+   "kind": "full",
+   "zoom": 1.09,
+   "anchor": 0.46
+  },
+  {
+   "at": 56.622,
+   "kind": "band",
+   "anchor": 0.515
+  },
+  {
+   "at": 59.182,
+   "kind": "off"
+  }
+ ],
+ "cards": [],
+ "visuals": [
+  {
+   "id": "v-b1-piensa",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 0.0,
+   "end": 1.127,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "GANCHO: la ventana de Claude Code ya encendida en el primer cuadro; en «Claude» se asoma el cangrejo, en «piensa» se infla el globo con el tablero de plan.",
+   "mock": [
+    "cc_gancho",
+    {
+     "variant": "piensa",
+     "at": [
+      0.15,
+      0.557
+     ],
+     "fondo": "oscuro"
+    }
+   ],
+   "assets": [
+    "personajes-8/cangrejo-piensa.png"
+   ],
+   "band": "top"
+  },
+  {
+   "id": "v-b2-ejecuta",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 1.127,
+   "end": 2.608,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El tablero cae al piso de la ventana; en «Codex» entra el obrero con su caja; en «ejecuta» dos martillazos y el tablero queda bloque.",
+   "mock": [
+    "cc_gancho",
+    {
+     "variant": "ejecuta",
+     "at": [
+      1.127,
+      1.632,
+      1.952
+     ],
+     "fondo": "oscuro",
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/cangrejo-piensa.png",
+    "personajes-8/obrero-caja-herramientas.png",
+    "personajes-8/obrero-martillo.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b3-fusion",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 2.608,
+   "end": 4.057,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "Los dos mosaicos entran de cada borde en «dos», se fusionan en «viven» y bajan a la barra en «dentro».",
+   "mock": [
+    "cc_gancho",
+    {
+     "variant": "fusion",
+     "at": [
+      2.999,
+      3.243,
+      3.568
+     ],
+     "fondo": "oscuro"
+    }
+   ],
+   "assets": [],
+   "band": "top"
+  },
+  {
+   "id": "v-b4-casa",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 4.057,
+   "end": 5.075,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "La ventana se abre a lienzo y el mosaico se posa en la barra de plugins; en «Claude Code» se enciende y los dos personajes se acomodan, uno por renglón.",
+   "mock": [
+    "cc_gancho",
+    {
+     "variant": "casa",
+     "at": [
+      4.057,
+      4.22
+     ],
+     "fondo": "oscuro",
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/cangrejo-saluda.png",
+    "personajes-8/obrero-caja-herramientas.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b5-medidor",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 5.075,
+   "end": 6.443,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El medidor del plan se vacía en «sin»; la tarjeta del plan en «plan»; el cangrejo encogido y el logo en «Claude».",
+   "mock": [
+    "plan_medidor",
+    {
+     "variant": "vacia",
+     "at": [
+      5.382,
+      5.623,
+      6.025
+     ],
+     "fondo": "comic"
+    }
+   ],
+   "assets": [
+    "personajes-8/cangrejo-encogido.png"
+   ],
+   "band": "top"
+  },
+  {
+   "id": "v-b6-calendario",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 6.443,
+   "end": 7.649,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "Las hojas del calendario pasan y frenan en el 15; el medidor toca el cero con polvo.",
+   "mock": [
+    "plan_medidor",
+    {
+     "variant": "calendario",
+     "at": [
+      6.829,
+      7.102
+     ],
+     "fondo": "comic",
+     "lienzo": true
+    }
+   ],
+   "assets": [],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b8-enchufe",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 8.838,
+   "end": 11.186,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El obrero vuelve con el cable colgando; se estira en «trabaja»; se enchufa en la tarjeta en «cuenta»; el logo y la luz por el cable en «ChatGPT».",
+   "mock": [
+    "cuenta_chatgpt",
+    {
+     "variant": "enchufe",
+     "at": [
+      8.838,
+      9.16,
+      9.883,
+      10.366
+     ],
+     "fondo": "claro",
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/obrero-camina.png",
+    "personajes-8/obrero-caja-herramientas.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b11-comandos",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 14.868,
+   "end": 17.177,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "La ventana con su logo en «Claude»; cuatro renglones vacíos y el 0/4 en «4»; el primer comando entra borroso en «comandos».",
+   "mock": [
+    "instalacion",
+    {
+     "variant": "comandos",
+     "hechos": 0,
+     "at": [
+      14.868,
+      15.999,
+      16.403
+     ]
+    }
+   ],
+   "assets": [],
+   "band": "top"
+  },
+  {
+   "id": "v-b12-catalogo",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 17.177,
+   "end": 19.944,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "La estantería se despliega en «suma», se llena en «catálogo», el logo de OpenAI y el 1/4 en «OpenAI».",
+   "mock": [
+    "instalacion",
+    {
+     "variant": "catalogo",
+     "hechos": 0,
+     "at": [
+      17.484,
+      17.856,
+      19.099
+     ],
+     "lienzo": true
+    }
+   ],
+   "assets": [],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b13-plugin",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 19.944,
+   "end": 21.528,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El mosaico fusionado vuela de la estantería a la barra en «instala» y encaja en «plugin»: 2/4.",
+   "mock": [
+    "instalacion",
+    {
+     "variant": "plugin",
+     "hechos": 1,
+     "at": [
+      20.229,
+      20.69
+     ]
+    }
+   ],
+   "assets": [],
+   "band": "top"
+  },
+  {
+   "id": "v-b14-recarga",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 21.528,
+   "end": 23.502,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El menú de comandos gira como rodillo; tres renglones nuevos en «comandos»; resaltados y 3/4 en «nuevos».",
+   "mock": [
+    "instalacion",
+    {
+     "variant": "recarga",
+     "hechos": 2,
+     "at": [
+      21.841,
+      22.581,
+      23.041
+     ],
+     "lienzo": true
+    }
+   ],
+   "assets": [],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b15-chequeo",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 23.502,
+   "end": 25.692,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "Baja la lista de verificación en «chequea»; tildes en «todo»; el último queda girando en «bien».",
+   "mock": [
+    "instalacion",
+    {
+     "variant": "chequeo",
+     "hechos": 3,
+     "at": [
+      24.344,
+      25.066,
+      25.499
+     ]
+    }
+   ],
+   "assets": [],
+   "band": "top"
+  },
+  {
+   "id": "v-b16-conectada",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 25.692,
+   "end": 27.019,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "Vira a oscuro: el ítem pendiente se tilda en «tu»; la tarjeta sube con «Conectado» y el 4/4 en «ChatGPT».",
+   "mock": [
+    "cuenta_chatgpt",
+    {
+     "variant": "conectada",
+     "at": [
+      25.869,
+      26.029
+     ],
+     "fondo": "oscuro",
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/obrero-caja-herramientas.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b18-traba",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 29.988,
+   "end": 32.156,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El comando borroso en «comando»; la tarjeta de error baja en «errores»; se encaja en la barra y la traba en «trabajados».",
+   "mock": [
+    "error_trabado",
+    {
+     "variant": "traba",
+     "at": [
+      30.133,
+      30.791,
+      31.176
+     ],
+     "fondo": "comic"
+    }
+   ],
+   "assets": [],
+   "band": "top"
+  },
+  {
+   "id": "v-b19-lampara",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 32.156,
+   "end": 34.444,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "A oscuras, el obrero barre la traza con la linterna; una línea en rojo en «causa»; en «arregla» golpea, la tarjeta se da vuelta a verde y la barra se suelta.",
+   "mock": [
+    "error_trabado",
+    {
+     "variant": "lampara",
+     "at": [
+      32.316,
+      32.942,
+      33.681
+     ],
+     "fondo": "oscuro",
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/obrero-linterna.png",
+    "personajes-8/obrero-martillo.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b20-revisa",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 34.444,
+   "end": 37.454,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "La lupa recorre el panel en «revisa»; verdes, rojos y notas en «cambios»; candado en «modificar»; el contador clavado en 0 en «nada».",
+   "mock": [
+    "revision_diff",
+    {
+     "variant": "revisa",
+     "at": [
+      34.788,
+      35.35,
+      35.832,
+      36.715
+     ]
+    }
+   ],
+   "assets": [],
+   "band": "top"
+  },
+  {
+   "id": "v-b21-cuestiona",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 37.454,
+   "end": 39.38,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El obrero rodea el bloque con signos de pregunta en «cuestiona»; lo golpea y se abre por la junta en «solución».",
+   "mock": [
+    "bloque_cuestiona",
+    {
+     "at": [
+      37.999,
+      38.641
+     ],
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/obrero-camina.png",
+    "personajes-8/obrero-martillo.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b24-claude",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 43.668,
+   "end": 46.939,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El archivo a lienzo, el cangrejo en su renglón: plan en «planea», sello en «decide», lupa en «controla», la caja que sube en «vuelve».",
+   "mock": [
+    "claude_md",
+    {
+     "variant": "claude",
+     "at": [
+      43.668,
+      44.21,
+      44.772,
+      45.494,
+      46.297
+     ],
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/cangrejo-saluda.png",
+    "personajes-8/cangrejo-piensa.png",
+    "personajes-8/cangrejo-sello.png",
+    "personajes-8/cangrejo-lupa.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b25-codex",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 46.939,
+   "end": 48.544,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "Se enciende el segundo renglón en «Codex»; el obrero apila bloques en «construye».",
+   "mock": [
+    "claude_md",
+    {
+     "variant": "codex",
+     "at": [
+      46.939,
+      47.421
+     ]
+    }
+   ],
+   "assets": [
+    "personajes-8/cangrejo-saluda.png",
+    "personajes-8/obrero-martillo.png"
+   ],
+   "band": "top"
+  },
+  {
+   "id": "v-b26-grandes",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 48.544,
+   "end": 49.443,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El obrero carga la pila al hombro mientras la cinta de cambios baja; el contador sube a 148 en «cambios».",
+   "mock": [
+    "revision_diff",
+    {
+     "variant": "grandes",
+     "at": [
+      48.544,
+      49.026
+     ],
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/obrero-carga.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b27-destraba",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 49.443,
+   "end": 50.712,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "LA MISMA barra trabada del b18: el obrero tira de la tarjeta en «destraba» y la barra corre.",
+   "mock": [
+    "error_trabado",
+    {
+     "variant": "destraba",
+     "at": [
+      49.508,
+      50.166
+     ],
+     "fondo": "comic"
+    }
+   ],
+   "assets": [
+    "personajes-8/obrero-tira.png",
+    "personajes-8/obrero-caja-herramientas.png"
+   ],
+   "band": "top"
+  },
+  {
+   "id": "v-b28-fallas",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 50.712,
+   "end": 52.176,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "Derrumbe y cruz 1 en «falla»; el mismo derrumbe y cruz 2 en «2»; laten juntas en «veces».",
+   "mock": [
+    "marcador_fallas",
+    {
+     "at": [
+      51.194,
+      51.597,
+      51.758
+     ],
+     "lienzo": true
+    }
+   ],
+   "assets": [
+    "personajes-8/obrero-martillo.png"
+   ],
+   "cap_top": 1400
+  },
+  {
+   "id": "v-b29-vuelve",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 52.176,
+   "end": 53.77,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "La tarjeta de tarea se despega en «trabajo», sube en arco en «vuelve» y aterriza en el cangrejo en «Claude».",
+   "mock": [
+    "claude_md",
+    {
+     "variant": "vuelve",
+     "at": [
+      52.321,
+      52.675,
+      53.126
+     ]
+    }
+   ],
+   "assets": [
+    "personajes-8/cangrejo-lupa.png",
+    "personajes-8/cangrejo-caja.png",
+    "personajes-8/obrero-caja-herramientas.png"
+   ],
+   "band": "top"
+  },
+  {
+   "id": "v-b32-enfoque",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 56.622,
+   "end": 59.182,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "CLÍMAX: vuelven los cuatro comandos borrosos en «paso», la onda los recorre en «comandos» y entran en foco uno por uno en «exactos». Única vez que se leen.",
+   "mock": [
+    "instalacion",
+    {
+     "variant": "enfoque",
+     "hechos": 0,
+     "at": [
+      56.807,
+      57.773,
+      58.191
+     ]
+    }
+   ],
+   "assets": [],
+   "band": "top"
+  },
+  {
+   "id": "v-b33-reparto",
+   "role": "takeover",
+   "kind": "mockup",
+   "start": 59.182,
+   "end": 62.087,
+   "fade_in": 0.0,
+   "fade_out": 0.0,
+   "absolute_times": true,
+   "_": "El reparto se condensa en un bloque con botón de copiar en «reparto»; se copia y cae en un archivo vacío en «pegar»; la pestaña se nombra en «CLAUDE.md».",
+   "mock": [
+    "claude_md",
+    {
+     "variant": "reparto",
+     "at": [
+      59.415,
+      60.59,
+      61.153
+     ],
+     "lienzo": true
+    }
+   ],
+   "assets": [],
+   "cap_top": 1400
+  }
+ ],
+ "sfx": [
+  [
+   0.15,
+   "click-soft",
+   0.35,
+   "el cangrejo se asoma"
+  ],
+  [
+   0.557,
+   "pop",
+   0.25,
+   "trazo 1 del plan en el globo"
+  ],
+  [
+   0.677,
+   "pop",
+   0.25,
+   "trazo 2 del plan en el globo"
+  ],
+  [
+   0.797,
+   "pop",
+   0.25,
+   "trazo 3 del plan en el globo"
+  ],
+  [
+   1.127,
+   "whoosh-short",
+   0.35,
+   "entra el obrero"
+  ],
+  [
+   1.632,
+   "impact-bass-1",
+   0.5,
+   "martillazo 1"
+  ],
+  [
+   1.952,
+   "impact-bass-1",
+   0.5,
+   "martillazo 2: el bloque encastra"
+  ],
+  [
+   2.999,
+   "pop",
+   0.4,
+   "mosaico Claude"
+  ],
+  [
+   3.099,
+   "pop",
+   0.4,
+   "mosaico Codex"
+  ],
+  [
+   3.243,
+   "impact-bass-2",
+   0.5,
+   "ENCASTRE (hilo): los dos se vuelven uno"
+  ],
+  [
+   4.057,
+   "whoosh",
+   0.35,
+   "la ventana se abre"
+  ],
+  [
+   4.22,
+   "sparkle",
+   0.4,
+   "el mosaico queda encendido"
+  ],
+  [
+   5.382,
+   "riser",
+   0.25,
+   "el aire que se escapa (la barra que se vacía)"
+  ],
+  [
+   6.025,
+   "error",
+   0.3,
+   "el cangrejo se encoge"
+  ],
+  [
+   6.829,
+   "whoosh-short",
+   0.35,
+   "hojas que pasan"
+  ],
+  [
+   7.102,
+   "impact-bass-2",
+   0.45,
+   "frena en seco y el medidor llega a cero"
+  ],
+  [
+   9.883,
+   "click",
+   0.5,
+   "el cable se enchufa"
+  ],
+  [
+   10.366,
+   "ping",
+   0.4,
+   "la cuenta queda conectada y corre la luz"
+  ],
+  [
+   15.999,
+   "click-soft",
+   0.3,
+   "renglón 1"
+  ],
+  [
+   16.099,
+   "click-soft",
+   0.3,
+   "renglón 2"
+  ],
+  [
+   16.199,
+   "click-soft",
+   0.3,
+   "renglón 3"
+  ],
+  [
+   16.299,
+   "click-soft",
+   0.3,
+   "renglón 4"
+  ],
+  [
+   16.403,
+   "whoosh-short",
+   0.3,
+   "el comando entra barrido"
+  ],
+  [
+   17.484,
+   "whoosh",
+   0.3,
+   "la estantería se abre como acordeón"
+  ],
+  [
+   17.856,
+   "pop",
+   0.22,
+   "mosaicos 1–2"
+  ],
+  [
+   17.996,
+   "pop",
+   0.22,
+   "mosaicos 3–4"
+  ],
+  [
+   18.136,
+   "pop",
+   0.22,
+   "mosaicos 5–6"
+  ],
+  [
+   18.276,
+   "pop",
+   0.22,
+   "mosaicos 7–8"
+  ],
+  [
+   19.099,
+   "chime",
+   0.45,
+   "1/4"
+  ],
+  [
+   20.229,
+   "whoosh-short",
+   0.4,
+   "el mosaico vuela"
+  ],
+  [
+   20.69,
+   "impact-bass-2",
+   0.5,
+   "ENCASTRE (hilo): el plugin queda puesto"
+  ],
+  [
+   21.841,
+   "whoosh",
+   0.3,
+   "el rodillo gira"
+  ],
+  [
+   22.581,
+   "pop",
+   0.3,
+   "comando nuevo 1"
+  ],
+  [
+   22.701,
+   "pop",
+   0.3,
+   "comando nuevo 2"
+  ],
+  [
+   22.821,
+   "pop",
+   0.3,
+   "comando nuevo 3"
+  ],
+  [
+   23.041,
+   "chime",
+   0.45,
+   "3/4"
+  ],
+  [
+   24.344,
+   "ping",
+   0.2,
+   "tilde 1, sube de tono"
+  ],
+  [
+   25.066,
+   "ping",
+   0.25,
+   "tilde 2, sube de tono"
+  ],
+  [
+   25.316,
+   "ping",
+   0.30000000000000004,
+   "tilde 3, sube de tono"
+  ],
+  [
+   26.029,
+   "whoosh-cinematic",
+   0.35,
+   "resplandor de la cuenta conectada"
+  ],
+  [
+   26.029,
+   "chime",
+   0.5,
+   "4/4"
+  ],
+  [
+   30.791,
+   "error",
+   0.35,
+   "la tarjeta de error"
+  ],
+  [
+   31.176,
+   "glitch-2",
+   0.4,
+   "MOTOR (hilo): la barra trabada"
+  ],
+  [
+   32.316,
+   "whoosh-cinematic",
+   0.3,
+   "el haz recorre la traza"
+  ],
+  [
+   32.942,
+   "ping",
+   0.45,
+   "la línea culpable"
+  ],
+  [
+   33.681,
+   "impact-bass-1",
+   0.45,
+   "el golpe y la barra que se suelta"
+  ],
+  [
+   35.35,
+   "pop",
+   0.25,
+   "nota 1"
+  ],
+  [
+   35.6,
+   "pop",
+   0.25,
+   "nota 2"
+  ],
+  [
+   35.85,
+   "pop",
+   0.25,
+   "nota 3"
+  ],
+  [
+   35.832,
+   "key-press",
+   0.5,
+   "el candado cierra"
+  ],
+  [
+   37.999,
+   "pop",
+   0.3,
+   "signo de pregunta 1"
+  ],
+  [
+   38.199,
+   "pop",
+   0.3,
+   "signo de pregunta 2"
+  ],
+  [
+   38.399,
+   "pop",
+   0.3,
+   "signo de pregunta 3"
+  ],
+  [
+   38.641,
+   "glitch-1",
+   0.4,
+   "la junta que cede"
+  ],
+  [
+   44.21,
+   "pop",
+   0.3,
+   "el tablero de plan"
+  ],
+  [
+   44.772,
+   "impact-bass-2",
+   0.4,
+   "el sello"
+  ],
+  [
+   45.494,
+   "whoosh-short",
+   0.3,
+   "la lupa"
+  ],
+  [
+   46.297,
+   "whoosh",
+   0.3,
+   "la caja que sube"
+  ],
+  [
+   47.421,
+   "click",
+   0.3,
+   "bloque 1"
+  ],
+  [
+   47.601,
+   "click",
+   0.3,
+   "bloque 2"
+  ],
+  [
+   47.781,
+   "click",
+   0.3,
+   "bloque 3"
+  ],
+  [
+   47.961,
+   "click",
+   0.3,
+   "bloque 4"
+  ],
+  [
+   49.026,
+   "typing",
+   0.35,
+   "el contador que repiquetea"
+  ],
+  [
+   49.443,
+   "glitch-2",
+   0.35,
+   "MOTOR (hilo): el mismo motor trabado"
+  ],
+  [
+   49.508,
+   "whoosh-short",
+   0.45,
+   "el tirón: se suelta"
+  ],
+  [
+   51.194,
+   "impact-bass-1",
+   0.45,
+   "DERRUMBE (hilo) 1"
+  ],
+  [
+   51.597,
+   "impact-bass-1",
+   0.45,
+   "DERRUMBE (hilo) 2, idéntico"
+  ],
+  [
+   52.675,
+   "whoosh",
+   0.35,
+   "la tarea sube"
+  ],
+  [
+   53.126,
+   "pop",
+   0.45,
+   "llega a Claude"
+  ],
+  [
+   57.773,
+   "whoosh-cinematic",
+   0.3,
+   "la onda que recorre"
+  ],
+  [
+   58.191,
+   "click-soft",
+   0.45,
+   "enfoque 1"
+  ],
+  [
+   58.411,
+   "click-soft",
+   0.45,
+   "enfoque 2"
+  ],
+  [
+   58.631,
+   "click-soft",
+   0.45,
+   "enfoque 3"
+  ],
+  [
+   58.851,
+   "click-soft",
+   0.45,
+   "enfoque 4"
+  ],
+  [
+   60.59,
+   "click",
+   0.5,
+   "copiar"
+  ],
+  [
+   60.89,
+   "pop",
+   0.4,
+   "la copia cae en su lugar"
+  ]
+ ]
+}
