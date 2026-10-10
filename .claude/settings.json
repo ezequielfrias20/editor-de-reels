@@ -2,6 +2,7 @@
   "permissions": {
     "allow": [
       "Bash(.venv/bin/python scripts/*)",
+      "Bash(.venv/bin/python *)",
       "Bash(python3 scripts/*)",
       "Bash(scripts/*)",
       "Bash(ffmpeg *)",
@@ -19,7 +20,11 @@
       "Write(cuts/**)",
       "Edit(cuts/**)",
       "Write(assets/**)",
-      "Write(VIDEOS EDITADOS/**)"
+      "Write(VIDEOS EDITADOS/**)",
+      "Write(scripts/**)",
+      "Edit(scripts/**)",
+      "Write(.claude/skills/video-tech-premium/scripts/**)",
+      "Edit(.claude/skills/video-tech-premium/scripts/**)"
     ]
   }
 }
