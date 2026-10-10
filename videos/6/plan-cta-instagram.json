@@ -1,0 +1,26 @@
+{
+ "_": "CTA de Instagram dicho a cámara: «comenta códigos y te los mando por privado». En segundos de la VERSIÓN, desde 17.298. Cierra en cara (trampa 6c: el último cuadro es la cara con CÓDIGOS puesta).",
+ "_palabra": "La palabra es CÓDIGOS (la que se dice). Configurar el disparador de ManyChat con CÓDIGOS. La caja de comentarios del brief no se dibuja: mismo criterio que las piezas 4 y 5.",
+ "shots": [
+  {
+   "at": 17.298,
+   "kind": "full",
+   "zoom": 1.09,
+   "anchor": 0.46
+  }
+ ],
+ "visuals": [],
+ "cta_palabra": {
+  "texto": "CÓDIGOS",
+  "desde": 17.996,
+  "hasta": null
+ },
+ "sfx": [
+  [
+   17.996,
+   "pop",
+   0.6,
+   "aterriza CÓDIGOS"
+  ]
+ ]
+}

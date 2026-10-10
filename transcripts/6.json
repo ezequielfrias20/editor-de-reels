@@ -1,0 +1,446 @@
+{
+  "id": "6415c1f7-0042-4b4b-9c1f-31551af23055",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "es",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/4d7c2c053d7c2e45f8aa90ce8f56c176d9159237095faa4d18e7b999e16cfce4/1ce83eb9-a282-4104-8e04-af84b441b80e",
+  "text": "Estos códigos ocultos cambian tu imagen por completo. Mira, pones este y sale este, cambias el código, te devuelve este otro, y con este así queda. Uno más, este código, este resultado. Si quieres todos los códigos ocultos en una sola lista, comenta códigos y te los mando por privado.",
+  "words": [
+    {
+      "text": "Estos",
+      "start": 2200,
+      "end": 2653,
+      "confidence": 0.9969177,
+      "speaker": null
+    },
+    {
+      "text": "códigos",
+      "start": 2685,
+      "end": 3102,
+      "confidence": 0.99995667,
+      "speaker": null
+    },
+    {
+      "text": "ocultos",
+      "start": 3102,
+      "end": 3727,
+      "confidence": 0.99999505,
+      "speaker": null
+    },
+    {
+      "text": "cambian",
+      "start": 3727,
+      "end": 4096,
+      "confidence": 0.99998283,
+      "speaker": null
+    },
+    {
+      "text": "tu",
+      "start": 4208,
+      "end": 4241,
+      "confidence": 0.9998666,
+      "speaker": null
+    },
+    {
+      "text": "imagen",
+      "start": 4241,
+      "end": 4593,
+      "confidence": 0.9999516,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 4609,
+      "end": 4834,
+      "confidence": 0.99993837,
+      "speaker": null
+    },
+    {
+      "text": "completo.",
+      "start": 4850,
+      "end": 5248,
+      "confidence": 0.99989456,
+      "speaker": null
+    },
+    {
+      "text": "Mira,",
+      "start": 5862,
+      "end": 6100,
+      "confidence": 0.999735,
+      "speaker": null
+    },
+    {
+      "text": "pones",
+      "start": 6533,
+      "end": 6870,
+      "confidence": 0.9999506,
+      "speaker": null
+    },
+    {
+      "text": "este",
+      "start": 6950,
+      "end": 7367,
+      "confidence": 0.99960786,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 7511,
+      "end": 7575,
+      "confidence": 0.9990275,
+      "speaker": null
+    },
+    {
+      "text": "sale",
+      "start": 7575,
+      "end": 7976,
+      "confidence": 0.9998099,
+      "speaker": null
+    },
+    {
+      "text": "este,",
+      "start": 8072,
+      "end": 8345,
+      "confidence": 0.97363544,
+      "speaker": null
+    },
+    {
+      "text": "cambias",
+      "start": 8858,
+      "end": 9355,
+      "confidence": 0.9975734,
+      "speaker": null
+    },
+    {
+      "text": "el",
+      "start": 9355,
+      "end": 9579,
+      "confidence": 0.9998486,
+      "speaker": null
+    },
+    {
+      "text": "código,",
+      "start": 9579,
+      "end": 10028,
+      "confidence": 0.997702,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 10301,
+      "end": 10461,
+      "confidence": 0.99990296,
+      "speaker": null
+    },
+    {
+      "text": "devuelve",
+      "start": 10461,
+      "end": 10846,
+      "confidence": 0.9998995,
+      "speaker": null
+    },
+    {
+      "text": "este",
+      "start": 10846,
+      "end": 11054,
+      "confidence": 0.9999372,
+      "speaker": null
+    },
+    {
+      "text": "otro,",
+      "start": 11054,
+      "end": 11391,
+      "confidence": 0.9997458,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 11599,
+      "end": 11663,
+      "confidence": 0.9999083,
+      "speaker": null
+    },
+    {
+      "text": "con",
+      "start": 11663,
+      "end": 11920,
+      "confidence": 0.9999008,
+      "speaker": null
+    },
+    {
+      "text": "este",
+      "start": 11920,
+      "end": 12337,
+      "confidence": 0.99989414,
+      "speaker": null
+    },
+    {
+      "text": "así",
+      "start": 12481,
+      "end": 12866,
+      "confidence": 0.9975132,
+      "speaker": null
+    },
+    {
+      "text": "queda.",
+      "start": 12866,
+      "end": 13154,
+      "confidence": 0.9978321,
+      "speaker": null
+    },
+    {
+      "text": "Uno",
+      "start": 13974,
+      "end": 14293,
+      "confidence": 0.99943775,
+      "speaker": null
+    },
+    {
+      "text": "más,",
+      "start": 14293,
+      "end": 14661,
+      "confidence": 0.9995081,
+      "speaker": null
+    },
+    {
+      "text": "este",
+      "start": 14886,
+      "end": 15190,
+      "confidence": 0.99982554,
+      "speaker": null
+    },
+    {
+      "text": "código,",
+      "start": 15190,
+      "end": 15559,
+      "confidence": 0.99974567,
+      "speaker": null
+    },
+    {
+      "text": "este",
+      "start": 16008,
+      "end": 16265,
+      "confidence": 0.99978405,
+      "speaker": null
+    },
+    {
+      "text": "resultado.",
+      "start": 16265,
+      "end": 16832,
+      "confidence": 0.99974555,
+      "speaker": null
+    },
+    {
+      "text": "Si",
+      "start": 17786,
+      "end": 17916,
+      "confidence": 0.99987686,
+      "speaker": null
+    },
+    {
+      "text": "quieres",
+      "start": 17948,
+      "end": 18172,
+      "confidence": 0.99997604,
+      "speaker": null
+    },
+    {
+      "text": "todos",
+      "start": 18237,
+      "end": 18477,
+      "confidence": 0.99998164,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 18477,
+      "end": 18637,
+      "confidence": 0.9999291,
+      "speaker": null
+    },
+    {
+      "text": "códigos",
+      "start": 18637,
+      "end": 18974,
+      "confidence": 0.99999243,
+      "speaker": null
+    },
+    {
+      "text": "ocultos",
+      "start": 18974,
+      "end": 19615,
+      "confidence": 0.9999897,
+      "speaker": null
+    },
+    {
+      "text": "en",
+      "start": 19615,
+      "end": 19776,
+      "confidence": 0.9999566,
+      "speaker": null
+    },
+    {
+      "text": "una",
+      "start": 19776,
+      "end": 19920,
+      "confidence": 0.99998796,
+      "speaker": null
+    },
+    {
+      "text": "sola",
+      "start": 19920,
+      "end": 20192,
+      "confidence": 0.9999713,
+      "speaker": null
+    },
+    {
+      "text": "lista,",
+      "start": 20192,
+      "end": 20529,
+      "confidence": 0.99997246,
+      "speaker": null
+    },
+    {
+      "text": "comenta",
+      "start": 20641,
+      "end": 21202,
+      "confidence": 0.9999088,
+      "speaker": null
+    },
+    {
+      "text": "códigos",
+      "start": 21283,
+      "end": 21940,
+      "confidence": 0.99978054,
+      "speaker": null
+    },
+    {
+      "text": "y",
+      "start": 22180,
+      "end": 22245,
+      "confidence": 0.9997807,
+      "speaker": null
+    },
+    {
+      "text": "te",
+      "start": 22245,
+      "end": 22357,
+      "confidence": 0.9999713,
+      "speaker": null
+    },
+    {
+      "text": "los",
+      "start": 22357,
+      "end": 22485,
+      "confidence": 0.9986873,
+      "speaker": null
+    },
+    {
+      "text": "mando",
+      "start": 22485,
+      "end": 22886,
+      "confidence": 0.9999365,
+      "speaker": null
+    },
+    {
+      "text": "por",
+      "start": 22886,
+      "end": 23046,
+      "confidence": 0.9999287,
+      "speaker": null
+    },
+    {
+      "text": "privado.",
+      "start": 23046,
+      "end": 23435,
+      "confidence": 0.9997762,
+      "speaker": null
+    }
+  ],
+  "utterances": null,
+  "confidence": 0.99906754,
+  "audio_duration": 26,
+  "punctuate": true,
+  "format_text": true,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "redact_static_entities": null,
+  "speaker_labels": false,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": false,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": null,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-3-5-pro",
+    "universal-2"
+  ],
+  "speech_model_used": "universal-3-5-pro",
+  "metadata": {
+    "domain_used": null,
+    "warnings": [
+      {
+        "message": "`disfluencies` was not applied because it is only supported for English audio. The specified or detected language was 'es'."
+      }
+    ]
+  },
+  "temperature": null,
+  "remove_audio_tags": "all",
+  "chapters": null,
+  "disfluencies": true,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1936176,
+  "token_id": 1966981
+}
